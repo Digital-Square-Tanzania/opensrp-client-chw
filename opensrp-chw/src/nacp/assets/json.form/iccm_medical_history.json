@@ -48,7 +48,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Treatment History",
+    "title": "Medical History",
     "fields": [
       {
         "key": "is_the_client_pregnant",
@@ -244,6 +244,51 @@
             "ex-rules": {
               "rules-file": "iccm_medical_history_calculation.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_conducting_mrdt",
+        "type": "toaster_notes",
+        "text": "<b>The client is a malaria suspect</b><br>Conduct mRDT",
+        "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:is_malaria_suspect": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_diarrhea",
+        "type": "toaster_notes",
+        "text": "Diagnose the Client for <b>Diarrhea</b>",
+        "openmrs_entity_id": "prompt_for_diagnosing_diarrhea",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:is_diarrhea_suspect": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_pneumonia",
+        "type": "toaster_notes",
+        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia.",
+        "openmrs_entity_id": "prompt_for_diagnosing_pneumonia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:is_pneumonia_suspect": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
           }
         }
       },

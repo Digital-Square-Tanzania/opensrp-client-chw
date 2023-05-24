@@ -23,7 +23,7 @@ actions:
 name: step3_other_reasons_for_not_providing_anti_pyretic
 description: other_reasons_for_not_providing_anti_pyretic relevance
 priority: 1
-condition: "step3_reasons_for_not_providing_anti_pyretic == 'others'"
+condition: "step3_dispensed_anti_pyretic == 'no' && step3_reasons_for_not_providing_anti_pyretic == 'others'"
 actions:
   - "isRelevant = true"
 ---
@@ -44,7 +44,7 @@ actions:
 name: step3_other_reasons_for_not_providing_artesunate
 description: other_reasons_for_not_providing_artesunate relevance
 priority: 1
-condition: "step3_reasons_for_not_providing_artesunate == 'others'"
+condition: "step3_administered_artesunate == 'no' && step3_reasons_for_not_providing_artesunate == 'others'"
 actions:
   - "isRelevant = true"
 ---

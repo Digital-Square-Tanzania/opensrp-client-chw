@@ -84,6 +84,18 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 }
             }
 
+            if (Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) > 5) {
+                JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
+                if (promptForDiagnosingDiarrhea != null) {
+                    promptForDiagnosingDiarrhea.put(TYPE, "hidden");
+                }
+
+                JSONObject promptForDiagnosingPneumonia = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_pneumonia");
+                if (promptForDiagnosingPneumonia != null) {
+                    promptForDiagnosingPneumonia.put(TYPE, "hidden");
+                }
+            }
+
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -136,6 +148,23 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             refreshPhysicalExamination(context, isMalariaSuspect.equalsIgnoreCase("true"));
         }
 
+        String malariaActionTitle = context.getString(R.string.iccm_malaria);
+        if (isMalariaSuspect.equalsIgnoreCase("true")) {
+            try {
+                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
+                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                if (!actionList.containsKey(malariaActionTitle))
+                    actionList.put(malariaActionTitle, action);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        } else {
+            //Removing the malaria actions  the client is not a malaria suspect.
+            if (actionList.containsKey(context.getString(R.string.iccm_malaria))) {
+                actionList.remove(context.getString(R.string.iccm_malaria));
+            }
+        }
+
         isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
         if (isDiarrheaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6) {
             try {
@@ -155,7 +184,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         if (isPneumoniaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6) {
             try {
                 String title = context.getString(R.string.iccm_pneumonia);
-                IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, baseEntityId, isEdit);
+                IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, baseEntityId, false, isEdit);
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
                 actionList.put(title, action);
             } catch (Exception e) {

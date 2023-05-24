@@ -10,6 +10,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
@@ -26,12 +27,14 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     private String pneumoniaSigns;
 
     private boolean isEdit;
+    private boolean hasHighRespiratoryRate;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    public IccmPneumoniaActionHelper(Context context, String baseEntityId, boolean isEdit) {
+    public IccmPneumoniaActionHelper(Context context, String baseEntityId, boolean hasHighRespiratoryRate, boolean isEdit) {
         this.context = context;
         this.baseEntityId = baseEntityId;
+        this.hasHighRespiratoryRate = hasHighRespiratoryRate;
         this.isEdit = isEdit;
     }
 
@@ -44,6 +47,13 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
+
+            if (hasHighRespiratoryRate) {
+                JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
+                JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
+                JSONArray options = pneumoniaSignsField.getJSONArray("options");
+                options.remove(options.length() - 1);
+            }
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();

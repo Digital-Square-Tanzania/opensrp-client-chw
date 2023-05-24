@@ -108,7 +108,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
 
     private void evaluatePneumonia() throws BaseIccmVisitAction.ValidationException {
         String title = context.getString(R.string.iccm_pneumonia);
-        IccmPneumoniaActionHelper actionHelper = new IccmPneumoniaActionHelper(context, memberObject.getBaseEntityId(), isEdit);
+        IccmPneumoniaActionHelper actionHelper = new IccmPneumoniaActionHelper(context, memberObject.getBaseEntityId(), true,isEdit);
         BaseIccmVisitAction action = getBuilder(title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
 
         actionList.put(title, action);

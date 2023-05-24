@@ -101,12 +101,13 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             Timber.e(e);
         }
 
+        String malariaActionTitle = context.getString(R.string.iccm_malaria);
         if (isMalariaSuspect.equalsIgnoreCase("true")) {
             try {
-                String title = context.getString(R.string.iccm_malaria);
                 IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
-                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
-                actionList.put(title, action);
+                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                if (!actionList.containsKey(malariaActionTitle))
+                    actionList.put(malariaActionTitle, action);
             } catch (Exception e) {
                 Timber.e(e);
             }
