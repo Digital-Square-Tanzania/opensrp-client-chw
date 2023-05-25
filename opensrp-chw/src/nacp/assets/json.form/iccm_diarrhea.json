@@ -109,7 +109,7 @@
       {
         "key": "prompt_for_diarrhea_with_no_dehydration",
         "type": "toaster_notes",
-        "text": "<b>Provide Treatment</b><br>The child has Diarrhea with no dehydration.<br>Treat with either ORS, Zinc or Zinc ORS Co-pack.",
+        "text": "<b>Provide Treatment</b><br>The child has Diarrhea with no dehydration.<br>Treat with either ORS and Zinc or Zinc ORS Co-pack.",
         "openmrs_entity_id": "prompt_for_diarrhea_with_no_dehydration",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
