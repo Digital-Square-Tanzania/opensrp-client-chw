@@ -184,7 +184,7 @@
       {
         "key": "weight",
         "type": "edit_text",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "weight",
         "openmrs_entity_parent": "",
         "edit_type": "number",
@@ -197,7 +197,7 @@
       {
         "key": "height",
         "type": "edit_text",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "height",
         "openmrs_entity_parent": "",
         "edit_type": "number",
