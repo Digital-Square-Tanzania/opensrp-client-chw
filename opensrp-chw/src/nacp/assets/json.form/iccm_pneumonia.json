@@ -159,10 +159,14 @@
         "openmrs_entity_id": "number_of_amoxicillin_tablets_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "edit_type": "number",
+        "edit_type": "edit_text",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number of tablets dispensed"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Tablets dispensed should not exceed 10"
         },
         "relevance": {
           "rules-engine": {

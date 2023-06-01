@@ -255,10 +255,14 @@
         "openmrs_entity_id": "number_of_ors_sachets_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "edit_type": "number",
+        "edit_type": "edit_text",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number of ORS sachets dispensed"
+        },
+        "v_max": {
+          "value": "3",
+          "err": "Tablets sachets should not exceed 3"
         },
         "relevance": {
           "rules-engine": {
@@ -275,10 +279,14 @@
         "openmrs_entity_id": "number_of_zinc_tablets_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "edit_type": "number",
+        "edit_type": "edit_text",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number of Zinc tablets dispensed"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Tablets dispensed should not exceed 10"
         },
         "relevance": {
           "step1:diarrhea_medication_dispensed": {
@@ -299,10 +307,14 @@
         "openmrs_entity_id": "number_of_zinc_ors_co_packs_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "edit_type": "number",
+        "edit_type": "edit_text",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number of Zinc ORS  co-pack dispensed"
+        },
+        "v_max": {
+          "value": "8",
+          "err": "Co-packs dispensed should not exceed 8"
         },
         "relevance": {
           "rules-engine": {

@@ -51,6 +51,15 @@
     "title": "Malaria",
     "fields": [
       {
+        "key": "prompt",
+        "type": "toaster_notes",
+        "text": "Prepare the client for mRDT, perform the test and interpret the obtained results as per SOP.",
+        "openmrs_entity_id": "prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info"
+      },
+      {
         "key": "interpretation_for_mrdt",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -206,6 +215,146 @@
         }
       },
       {
+        "key": "number_of_alu_tablets_that_should_be_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_alu_tablets_that_should_be_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_alu_to_dispense",
+        "type": "toaster_notes",
+        "text": "Dispense {tablets} tablets to the client with weight of {weight} kgs",
+        "openmrs_entity_id": "prompt_number_of_alu_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+
+
+      {
+        "key": "dispensed_alu_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dispensed_alu_tablets",
+        "label": "Has the ALU tablets been dispensed to the client?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_dispensing_alu_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_dispensing_alu_tablets",
+        "label": "Reasons for not dispensing ALU?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_dispensing_alu",
+        "type": "edit_text",
+        "hint": "Please specify the other reason(s)",
+        "openmrs_entity_id": "other_reasons_for_not_dispensing_alu",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_alu_tablets_dispensed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_alu_tablets_dispensed",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "dispensed_alu_category",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -241,56 +390,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alu_4_x_6"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select the ALU category"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_malaria_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "number_of_alu_tablets_dispensed",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_alu_tablets_dispensed",
-        "label": "Select Number of tablets dispensed",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "6",
-            "text": "6",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "6"
-          },
-          {
-            "key": "12",
-            "text": "12",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "12"
-          },
-          {
-            "key": "18",
-            "text": "18",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "18"
-          },
-          {
-            "key": "24",
-            "text": "24",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "24"
           }
         ],
         "v_required": {
