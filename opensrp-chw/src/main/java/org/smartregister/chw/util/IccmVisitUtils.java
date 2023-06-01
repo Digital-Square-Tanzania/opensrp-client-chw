@@ -97,20 +97,27 @@ public class IccmVisitUtils extends VisitUtils {
                 JSONArray obs = jsonObject.getJSONArray("obs");
                 HashMap<String, Boolean> completionObject = new HashMap<>();
                 completionObject.put("isMedicalHistoryDone", computeCompletionStatusForAction(obs, "medical_history_completion_status"));
-                completionObject.put("isPhysicalExaminationComplete", computeCompletionStatusForAction(obs, "physical_examination_completion_status"));
 
-                String isMalariaSuspect = getFieldValue(obs, "is_malaria_suspect_after_physical_examination");
-                if (isMalariaSuspect.equalsIgnoreCase("true")) {
-                    completionObject.put("isMalariadDiagnosisComplete", computeCompletionStatusForAction(obs, "malaria_completion_status"));
-                }
-                String isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
+                String clientPastMalariaTreatmentHistory = getFieldValue(obs, "client_past_malaria_treatment_history");
 
-                if (isDiarrheaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 6) {
-                    completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
-                }
+                if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || clientPastMalariaTreatmentHistory.equalsIgnoreCase("no")) {
+                    completionObject.put("isPhysicalExaminationComplete", computeCompletionStatusForAction(obs, "physical_examination_completion_status"));
+                    String isMalariaSuspect = getFieldValue(obs, "is_malaria_suspect_after_physical_examination");
+                    if (isMalariaSuspect.equalsIgnoreCase("true")) {
+                        completionObject.put("isMalariadDiagnosisComplete", computeCompletionStatusForAction(obs, "malaria_completion_status"));
+                    }
 
-                if (Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 6) {
-                    completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
+                    if (Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
+                        String isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
+                        if (isDiarrheaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
+                            completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
+                        }
+                        String isPneumoniaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_pneumonia_suspect");
+
+                        if (isPneumoniaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
+                            completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
+                        }
+                    }
                 }
 
 
