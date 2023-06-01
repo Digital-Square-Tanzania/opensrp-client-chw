@@ -1,4 +1,11 @@
 ---
+name: step1_client_testing_history_at_affiliated_health_facility_or_iccm_post
+description: client_testing_history_at_affiliated_health_facility_or_iccm_post relevance
+priority: 1
+condition: "step1_client_testing_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
 name: step2_prompt_for_respiratory_rate
 description: prompt_for_respiratory_rate relevance
 priority: 1

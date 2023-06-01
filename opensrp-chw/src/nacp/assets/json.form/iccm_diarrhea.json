@@ -255,6 +255,11 @@
         "openmrs_entity_id": "number_of_ors_sachets_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of ORS sachets dispensed"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -270,6 +275,11 @@
         "openmrs_entity_id": "number_of_zinc_tablets_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of Zinc tablets dispensed"
+        },
         "relevance": {
           "step1:diarrhea_medication_dispensed": {
             "ex-checkbox": [
@@ -289,6 +299,11 @@
         "openmrs_entity_id": "number_of_zinc_ors_co_packs_dispensed",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of Zinc ORS  co-pack dispensed"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

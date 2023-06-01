@@ -79,6 +79,42 @@
           "value": "true",
           "err": "Please select an answer"
         }
+      },
+      {
+        "key": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "label": "Has the client received any services at the affiliated health facility or at this iCCM post?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -163,6 +199,10 @@
         "v_max": {
           "value": "100",
           "err": "The respiratory rate must be equal or less than 100 (Breaths per minute)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the clients respiratory rate"
         }
       },
       {
@@ -189,9 +229,17 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "Weight (Kg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the client's weight"
+        },
         "v_max": {
           "value": "300",
           "err": "The weight must be equal or less than 300 (KG)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the clients weight"
         }
       },
       {
@@ -202,6 +250,10 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "Height (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the client's weight"
+        },
         "v_max": {
           "value": "200",
           "err": "The height must be equal or less than 200 (CM)"
