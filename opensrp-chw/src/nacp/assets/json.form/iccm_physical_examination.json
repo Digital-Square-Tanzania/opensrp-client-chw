@@ -89,10 +89,62 @@
         }
       },
       {
+        "key": "client_past_malaria_treatment_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_past_malaria_treatment_history",
+        "label": "Has the client previously tested Positive for Malaria and received treatment in the past 14 days?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "prompt_for_conducting_mrdt",
         "type": "toaster_notes",
         "text": "<b>The client is a malaria suspect</b><br>Conduct mRDT",
         "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "The client should be referred to the health facility for further management.",
+        "openmrs_entity_id": "prompt_for_providing_referral",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
         "toaster_type": "problem",

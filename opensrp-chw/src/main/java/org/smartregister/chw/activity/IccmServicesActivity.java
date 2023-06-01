@@ -68,12 +68,17 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
         if (map.containsKey(getString(R.string.iccm_physical_examination))) {
             actionList.put(getString(R.string.iccm_physical_examination), map.get(getString(R.string.iccm_physical_examination)));
         }
-        if (map.containsKey(getString(R.string.iccm_malaria))) {
-            actionList.put(getString(R.string.iccm_malaria), map.get(getString(R.string.iccm_malaria)));
-        }
 
         if (map.containsKey(getString(R.string.iccm_pneumonia))) {
             actionList.put(getString(R.string.iccm_pneumonia), map.get(getString(R.string.iccm_pneumonia)));
+        }
+
+        if (map.containsKey(getString(R.string.iccm_diarrhea))) {
+            actionList.put(getString(R.string.iccm_diarrhea), map.get(getString(R.string.iccm_diarrhea)));
+        }
+
+        if (map.containsKey(getString(R.string.iccm_malaria))) {
+            actionList.put(getString(R.string.iccm_malaria), map.get(getString(R.string.iccm_malaria)));
         }
 
         //====================End of Necessary evil ====================================

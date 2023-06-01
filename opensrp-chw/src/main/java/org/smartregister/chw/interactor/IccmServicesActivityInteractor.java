@@ -74,12 +74,12 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
             }
 
             try {
-                evaluatePhysicalExamination(callBack);
+//                evaluatePhysicalExamination(callBack);
                 evaluateMedicalHistory(callBack);
-                int age = getAgeFromDate(IccmDao.getMember(memberObject.getBaseEntityId()).getAge());
-                if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
-                    evaluatePneumonia();
-                }
+//                int age = getAgeFromDate(IccmDao.getMember(memberObject.getBaseEntityId()).getAge());
+//                if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
+//                    evaluatePneumonia();
+//                }
 
             } catch (BaseIccmVisitAction.ValidationException e) {
                 Timber.e(e);

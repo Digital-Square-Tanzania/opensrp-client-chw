@@ -88,6 +88,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
     public String postProcess(String jsonPayload) {
         JSONObject jsonObject = null;
         String isMalariaSuspect = "false";
+        String clientPastMalariaTreatmentHistory = "";
         try {
             jsonObject = new JSONObject(jsonPayload);
             JSONArray fields = org.smartregister.family.util.JsonFormUtils.fields(jsonObject);
@@ -97,12 +98,13 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             physicalExaminationCompletionStatus.put(JsonFormConstants.VALUE, IccmVisitUtils.getActionStatus(checkObject));
 
             isMalariaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_malaria_suspect_after_physical_examination");
+            clientPastMalariaTreatmentHistory = CoreJsonFormUtils.getValue(jsonObject, "client_past_malaria_treatment_history");
         } catch (JSONException e) {
             Timber.e(e);
         }
 
         String malariaActionTitle = context.getString(R.string.iccm_malaria);
-        if (isMalariaSuspect.equalsIgnoreCase("true")) {
+        if (isMalariaSuspect.equalsIgnoreCase("true") && (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes"))) {
             try {
                 IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
@@ -118,7 +120,13 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             }
         }
 
-        //Calling the callback method to preload the actions in the actionns list.
+        if ((!StringUtils.isBlank(clientPastMalariaTreatmentHistory) && clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes"))) {
+            actionList.remove(context.getString(R.string.iccm_malaria));
+            actionList.remove(context.getString(R.string.iccm_diarrhea));
+            actionList.remove(context.getString(R.string.iccm_pneumonia));
+        }
+
+        //Calling the callback method to preload the actions in the actions list.
         new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
 
         if (jsonObject != null) {
