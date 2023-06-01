@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT;
-import static org.smartregister.util.Utils.getAgeFromDate;
 
 import android.content.Context;
 
@@ -10,8 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.IccmMedicalHistoryActionHelper;
-import org.smartregister.chw.actionhelper.IccmPhysicalExaminationActionHelper;
-import org.smartregister.chw.actionhelper.IccmPneumoniaActionHelper;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -74,13 +71,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
             }
 
             try {
-//                evaluatePhysicalExamination(callBack);
                 evaluateMedicalHistory(callBack);
-//                int age = getAgeFromDate(IccmDao.getMember(memberObject.getBaseEntityId()).getAge());
-//                if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
-//                    evaluatePneumonia();
-//                }
-
             } catch (BaseIccmVisitAction.ValidationException e) {
                 Timber.e(e);
             }
@@ -98,21 +89,6 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
         actionList.put(title, action);
     }
 
-    private void evaluatePhysicalExamination(BaseIccmVisitContract.InteractorCallBack callBack) throws BaseIccmVisitAction.ValidationException {
-        String title = context.getString(R.string.iccm_physical_examination);
-        IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, memberObject.getBaseEntityId(), actionList, details, callBack, isEdit);
-        BaseIccmVisitAction action = getBuilder(title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
-
-        actionList.put(title, action);
-    }
-
-    private void evaluatePneumonia() throws BaseIccmVisitAction.ValidationException {
-        String title = context.getString(R.string.iccm_pneumonia);
-        IccmPneumoniaActionHelper actionHelper = new IccmPneumoniaActionHelper(context, memberObject.getBaseEntityId(), true,isEdit);
-        BaseIccmVisitAction action = getBuilder(title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
-
-        actionList.put(title, action);
-    }
 
     private BaseIccmVisitAction.Builder getBuilder(String title) {
         return new BaseIccmVisitAction.Builder(context, title);
