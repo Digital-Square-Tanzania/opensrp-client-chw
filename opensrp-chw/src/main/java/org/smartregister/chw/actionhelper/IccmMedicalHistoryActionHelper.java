@@ -190,22 +190,21 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             }
 
             isPneumoniaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_pneumonia_suspect");
-            if (isPneumoniaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6) {
+            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
+            int age = getAgeFromDate(memberObject.getAge());
+            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) ||
+                    (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6)) {
                 try {
                     String title = context.getString(R.string.iccm_pneumonia);
-                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, baseEntityId, false, isEdit);
+                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, baseEntityId, isEdit);
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
                     actionList.put(title, action);
                 } catch (Exception e) {
                     Timber.e(e);
                 }
             } else {
-                IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
-                int age = getAgeFromDate(IccmDao.getMember(memberObject.getBaseEntityId()).getAge());
-                if (memberObject.getRespiratoryRate() == null || ((age >= 1 || memberObject.getRespiratoryRate() < 50) && (age < 1 || age >= 6 || memberObject.getRespiratoryRate() < 40))) {
-                    //Removing the pneumonia actions  the client is not a pneumonia suspect.
-                    actionList.remove(context.getString(R.string.iccm_pneumonia));
-                }
+                //Removing the pneumonia actions  the client is not a pneumonia suspect.
+                actionList.remove(context.getString(R.string.iccm_pneumonia));
             }
 
         } else {

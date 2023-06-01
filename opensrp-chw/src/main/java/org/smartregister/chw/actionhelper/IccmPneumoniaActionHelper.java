@@ -1,5 +1,7 @@
 package org.smartregister.chw.actionhelper;
 
+import static org.smartregister.util.Utils.getAgeFromDate;
+
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
@@ -27,14 +31,12 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     private String pneumoniaSigns;
 
     private boolean isEdit;
-    private boolean hasHighRespiratoryRate;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    public IccmPneumoniaActionHelper(Context context, String baseEntityId, boolean hasHighRespiratoryRate, boolean isEdit) {
+    public IccmPneumoniaActionHelper(Context context, String baseEntityId,  boolean isEdit) {
         this.context = context;
         this.baseEntityId = baseEntityId;
-        this.hasHighRespiratoryRate = hasHighRespiratoryRate;
         this.isEdit = isEdit;
     }
 
@@ -48,12 +50,15 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
-            if (hasHighRespiratoryRate) {
+            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
+            int age = getAgeFromDate(memberObject.getAge());
+            if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
                 JSONArray options = pneumoniaSignsField.getJSONArray("options");
                 options.remove(options.length() - 1);
             }
+
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();

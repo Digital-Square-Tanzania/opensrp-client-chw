@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
@@ -44,6 +46,9 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
+            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
+            jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
+
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
