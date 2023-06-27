@@ -106,6 +106,21 @@
         }
       },
       {
+        "key": "prompt_for_llin",
+        "type": "toaster_notes",
+        "text": "Counsel the mother on the importance of children sleeping under LLIN",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:llin_2days_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
         "key": "llin_condition_1m5yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

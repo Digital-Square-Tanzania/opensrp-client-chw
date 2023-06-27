@@ -1,509 +1,598 @@
 {
-    "count": "1",
-    "encounter_type": "Self Testing Kits Issue",
-    "entity_id": "",
-    "metadata": {
-        "start": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "start",
-            "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "end": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "end",
-            "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "deviceid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "deviceid",
-            "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "subscriberid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "subscriberid",
-            "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "simserial": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "simserial",
-            "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "phonenumber": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "phonenumber",
-            "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "encounter_location": ""
+  "count": "1",
+  "encounter_type": "Self Testing Kits Issue",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "global": {},
-    "step1": {
-        "title": "Ugawaji wa Vitepe vya Jipime",
-        "fields": [
-            {
-                "key": "pre_test_counselling_and_instructions",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "pre_test_counselling_and_instructions",
-                "label": "Je mteja amepata elimu na ushauri kabla ya kupima",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "self_test_kit_given",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_kit_given",
-                "label": "Je mteja alipewa kitendanishi cha jipime",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "kit_code",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "kit_code",
-                "type": "edit_text",
-                "hint": "Msimbo wa kitepe",
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "client_testing_approach",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_testing_approach",
-                "label": "Njia za upimaji wa mteja ",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "assisted_testing_on_site",
-                        "text": "Kwa Usaidizi ktk eneo la upimaji",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "assisted_testing_on_site"
-                    },
-                    {
-                        "key": "assisted_testing_off_site",
-                        "text": "Kwa Usaidizi nje ya eneo la upimaji",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "assisted_testing_off_site"
-                    },
-                    {
-                        "key": "unassisted_testing_on_site",
-                        "text": "Bila Usaidizi ndani ya eneo la upimaji",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "unassisted_testing_on_site"
-                    },
-                    {
-                        "key": "unassisted_testing_off_site",
-                        "text": "Bila Usaidizi nje ya eneo la upimaji",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "unassisted_testing_off_site"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "extra_kits_required",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "extra_kits_required",
-                "label": "Je mteja anahitaji vitepe vya ziada",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "extra_kits_issued_for",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "extra_kits_issued_for",
-                "type": "check_box",
-                "combine_checkbox_option_values": "true",
-                "label": "vitepe vya ziada vilitoloea kwajili ya",
-                "label_text_style": "normal",
-                "text_color": "#C0C0C0",
-                "options": [
-                    {
-                        "key": "peer_friend",
-                        "text": "Rafiki rika",
-                        "value": false,
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "peer_friend"
-                    },
-                    {
-                        "key": "sexual_partner",
-                        "text": "Mshirika wa kingono",
-                        "value": false,
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "sexual_partner"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "step1:extra_kits_required": {
-                        "type": "string",
-                        "ex": "equalTo(., \"yes\")"
-                    }
-                }
-            },
-            {
-                "key": "peer_friend_kit_code",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "peer_friend_kit_code",
-                "type": "edit_text",
-                "hint": "namba ya kitepe cha rafiki rika",
-                "relevance": {
-                    "step1:extra_kits_issued_for": {
-                        "ex-checkbox": [
-                            {
-                                "or": [
-                                    "peer_friend"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            },
-            {
-                "key": "sexual_partner_kit_code",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sexual_partner_kit_code",
-                "type": "edit_text",
-                "hint": "Namba ya kitepe cha mshirika wa kingono",
-                "relevance": {
-                    "step1:extra_kits_issued_for": {
-                        "ex-checkbox": [
-                            {
-                                "or": [
-                                    "sexual_partner"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            },
-            {
-                "key": "kits_batch_number",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "kit_batch_number",
-                "type": "edit_text",
-                "hint": "Kits Batch Namba",
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali jaza batch namba"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "kits_expiry_date",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "kits_expiry_date",
-                "type": "date_picker",
-                "hint": "Expiry Date",
-                "expanded": false,
-                "min_date": "today",
-                "v_required": {
-                    "value": true,
-                    "err": "Please select the Expiry date"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "condoms_given",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "condoms_given",
-                "label": "Je mteja alipewa kondom",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                }
-            },
-            {
-                "key": "type_of_issued_condoms",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "type_of_issued_condoms",
-                "type": "check_box",
-                "combine_checkbox_option_values": "true",
-                "label": "chagua aina ya kondom zilizotolewa",
-                "label_text_style": "normal",
-                "text_color": "#C0C0C0",
-                "options": [
-                    {
-                        "key": "male_condoms",
-                        "text": "kondom za kiume",
-                        "value": false,
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "male_condoms"
-                    },
-                    {
-                        "key": "female_condoms",
-                        "text": "kondom za kike",
-                        "value": false,
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "female_condoms"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu "
-                },
-                "relevance": {
-                    "step1:condoms_given": {
-                        "type": "string",
-                        "ex": "equalTo(., \"yes\")"
-                    }
-                }
-            },
-            {
-                "key": "number_of_male_condoms_issued",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "number_of_male_condoms_issued",
-                "type": "edit_text",
-                "hint": "Idadi ya kondom za kiume zilizotolewa",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza namba sahihi"
-                },
-                "v_min": {
-                    "value": "1",
-                    "err": "idadi ni lazima iwe sawa sawa au kubwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza namba"
-                },
-                "relevance": {
-                    "step1:type_of_issued_condoms": {
-                        "ex-checkbox": [
-                            {
-                                "or": [
-                                    "male_condoms"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            },
-            {
-                "key": "number_of_female_condoms_issued",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "number_of_female_condoms_issued",
-                "type": "edit_text",
-                "hint": "Idadi aa kondom za kike zilizotolewa",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza namba sahihi"
-                },
-                "v_min": {
-                    "value": "1",
-                    "err": "idadi ni lazima iwe sawa sawa au kubwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza namba"
-                },
-                "relevance": {
-                    "step1:type_of_issued_condoms": {
-                        "ex-checkbox": [
-                            {
-                                "or": [
-                                    "female_condoms"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            },
-            {
-                "key": "sms_notification_service",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sms_notification_service",
-                "label": "Je mteja amekubali kuingia kwenye huduma za SMS",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu"
-                }
-            },
-            {
-                "key": "collection_date",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "collection_date",
-                "type": "hidden",
-                "calculation": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_issue_kits_calculation.yml"
-                        }
-                    }
-                }
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Ugawaji wa Vitepe vya Jipime",
+    "fields": [
+      {
+        "key": "pre_test_counselling_and_instructions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pre_test_counselling_and_instructions",
+        "label": "Je mteja amepata elimu na ushauri kabla ya kupima",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
             }
-        ]
-    }
+          }
+        }
+      },
+      {
+        "key": "self_test_kit_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "self_test_kit_given",
+        "label": "Je mteja alipewa kitendanishi cha jipime",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kit_code",
+        "type": "edit_text",
+        "hint": "Msimbo wa kitepe",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_kit_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_kit_batch_number",
+        "type": "edit_text",
+        "hint": "Namba ya kundi (Batch number) ya kitepe cha mteja",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_kit_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_kit_expiry_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya mwisho wa matumizi ya kitepe cha mteja",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_testing_approach",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_approach",
+        "label": "Njia za upimaji wa mteja ",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "assisted_testing_on_site",
+            "text": "Kwa Usaidizi ktk eneo la upimaji",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_on_site"
+          },
+          {
+            "key": "assisted_testing_off_site",
+            "text": "Kwa Usaidizi nje ya eneo la upimaji",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_off_site"
+          },
+          {
+            "key": "unassisted_testing_on_site",
+            "text": "Bila Usaidizi ndani ya eneo la upimaji",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_on_site"
+          },
+          {
+            "key": "unassisted_testing_off_site",
+            "text": "Bila Usaidizi nje ya eneo la upimaji",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_off_site"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "extra_kits_required",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "extra_kits_required",
+        "label": "Je mteja anahitaji vitepe vya ziada",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        }
+      },
+      {
+        "key": "extra_kits_issued_for",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "extra_kits_issued_for",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "vitepe vya ziada vilitoloea kwajili ya",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "peer_friend",
+            "text": "Rafiki rika",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "peer_friend"
+          },
+          {
+            "key": "sexual_partner",
+            "text": "Mshirika wa kingono",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_partner"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "step1:extra_kits_required": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "peer_friend_kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_code",
+        "type": "edit_text",
+        "hint": "namba ya kitepe cha rafiki rika",
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "peer_friend_kit_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_batch_number",
+        "type": "edit_text",
+        "hint": "Namba ya kundi (Batch number) ya kitepe cha rafiki rika",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "peer_friend_kit_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_expiry_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya mwisho wa matumizi ya kitepe cha rafiki rika",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sexual_partner_kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_partner_kit_code",
+        "type": "edit_text",
+        "hint": "Namba ya kitepe cha mshirika wa kingono",
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sexual_partner_kit_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_partner_kit_batch_number",
+        "type": "edit_text",
+        "hint": "Namba ya kundi (Batch number) ya kitepe cha mshirika wa ngono",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sexual_partner_kit_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_partner_kit_expiry_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya mwisho wa matumizi ya kitepe cha mshirika wa ngono",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "condoms_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condoms_given",
+        "label": "Je mteja alipewa kondom",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        }
+      },
+      {
+        "key": "type_of_issued_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_issued_condoms",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "chagua aina ya kondom zilizotolewa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male_condoms",
+            "text": "kondom za kiume",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "kondom za kike",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "step1:condoms_given": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi ya kondom za kiume zilizotolewa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "idadi ni lazima iwe sawa sawa au kubwa kuliko 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi aa kondom za kike zilizotolewa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "idadi ni lazima iwe sawa sawa au kubwa kuliko 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sms_notification_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sms_notification_service",
+        "label": "Je mteja amekubali kuingia kwenye huduma za SMS",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "collection_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "collection_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
 }

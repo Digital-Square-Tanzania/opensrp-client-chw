@@ -472,12 +472,12 @@
               "err": "Tafadhali ingiza uzito"
             },
             "v_min": {
-              "value": "1.5",
-              "err": "Uzito lazima uwe sawasawa au zaidi ya 1.5 (KG)"
+              "value": "0.5",
+              "err": "Uzito lazima uwe sawasawa au zaidi ya 0.5 (KG)"
             },
             "v_max": {
-              "value": "6",
-              "err": "Uzito lazima uwe sawasawa au chini ya 6 (KG)"
+              "value": "7",
+              "err": "Uzito lazima uwe sawasawa au chini ya 7 (KG)"
             },
             "v_required": {
               "value": true,

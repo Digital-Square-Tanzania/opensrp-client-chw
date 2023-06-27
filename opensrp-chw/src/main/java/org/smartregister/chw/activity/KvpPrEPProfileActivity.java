@@ -28,9 +28,13 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -51,6 +55,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     protected void onResumption() {
         super.onResumption();
         setupViews();
+        refreshMedicalHistory(true);
     }
 
     @Override
@@ -86,8 +91,58 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         }
         super.setupViews();
         textViewId.setVisibility(View.GONE);
+        if (ChwKvpDao.wereSelfTestingKitsDistributed(memberObject.getBaseEntityId())) {
+            if (HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId())) {
+                boolean shouldIssueHivSelfTestingKits = false;
+                String lastSelfTestingFollowupDateString = HivstDao.clientLastFollowup(memberObject.getBaseEntityId());
+                if (lastSelfTestingFollowupDateString == null) {
+                    shouldIssueHivSelfTestingKits = true;
+                } else {
+                    try {
+                        Date lastSelfTestingFollowupDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(lastSelfTestingFollowupDateString);
+                        Visit lastVisit = getVisit(org.smartregister.chw.util.Constants.Events.KVP_PREP_FOLLOWUP_VISIT);
+                        if (truncateTimeFromDate(lastSelfTestingFollowupDate).before(truncateTimeFromDate(lastVisit.getDate()))) {
+                            shouldIssueHivSelfTestingKits = true;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+
+                if (shouldIssueHivSelfTestingKits) {
+                    textViewRecordKvp.setVisibility(View.GONE);
+                    visitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setText(R.string.issue_selft_testing_kits);
+                    textViewVisitDone.setText(getContext().getString(R.string.pending_hivst_followup));
+                    textViewVisitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setOnClickListener(view -> HivstProfileActivity.startProfile(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId(), true));
+                    imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+                } else {
+                    textViewRecordKvp.setVisibility(View.VISIBLE);
+                    visitDone.setVisibility(View.GONE);
+                    textViewVisitDone.setVisibility(View.GONE);
+                }
+            } else {
+                textViewRecordKvp.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText(R.string.register_client);
+                textViewVisitDone.setText(getContext().getString(R.string.pending_hivst_registration));
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setOnClickListener(v -> startHivstRegistration());
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            }
+        }
     }
 
+    private Date truncateTimeFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {

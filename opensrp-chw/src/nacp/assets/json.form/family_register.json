@@ -375,13 +375,7 @@
             "text_size": "18px",
             "value": "false"
           }
-        ],
-        "relevance": {
-          "step2:dob": {
-            "type": "string",
-            "ex": "equalTo(.,\"\")"
-          }
-        }
+        ]
       },
       {
         "key": "age",

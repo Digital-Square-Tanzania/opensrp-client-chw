@@ -6,10 +6,17 @@ condition: "step1_self_test_kit_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_extra_kits_required
-description: extra_kits_required relevance
+name: step1_client_kit_batch_number
+description: client_kit_batch_number relevance
 priority: 1
-condition: "global_known_positive || step1_self_test_kit_given.contains('yes')"
+condition: "step1_self_test_kit_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_client_kit_expiry_date
+description: client_kit_expiry_date relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---

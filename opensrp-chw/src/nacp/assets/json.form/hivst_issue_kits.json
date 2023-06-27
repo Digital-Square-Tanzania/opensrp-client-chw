@@ -133,6 +133,46 @@
         }
       },
       {
+        "key": "client_kit_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_kit_batch_number",
+        "type": "edit_text",
+        "hint": "Client's Kit Batch Number",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_kit_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_kit_expiry_date",
+        "type": "date_picker",
+        "hint": "Client's Kit Expiry Date",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "client_testing_approach",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -209,13 +249,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hivst_issue_kits_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -275,6 +308,54 @@
         }
       },
       {
+        "key": "peer_friend_kit_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_batch_number",
+        "type": "edit_text",
+        "hint": "Peer Friend's Kit Batch Number",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "peer_friend_kit_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_expiry_date",
+        "type": "date_picker",
+        "hint": "Peer Friend's Kit Expiry Date",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "sexual_partner_kit_code",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -294,31 +375,35 @@
         }
       },
       {
-        "key": "kits_batch_number",
+        "key": "sexual_partner_kit_batch_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "kit_batch_number",
+        "openmrs_entity_id": "sexual_partner_kit_batch_number",
         "type": "edit_text",
-        "hint": "HIVST Kits Batch Number",
+        "hint": "Sexual Partner's Kit Batch Number",
         "v_required": {
           "value": true,
           "err": "Please fill the batch number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hivst_issue_kits_relevance.yml"
-            }
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
           }
         }
       },
       {
-        "key": "kits_expiry_date",
+        "key": "sexual_partner_kit_expiry_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "kits_expiry_date",
+        "openmrs_entity_id": "sexual_partner_kit_expiry_date",
         "type": "date_picker",
-        "hint": "HIVST Kits Expiry Date",
+        "hint": "Sexual Partner's Kit Expiry Date",
         "expanded": false,
         "min_date": "today",
         "v_required": {
@@ -326,10 +411,14 @@
           "err": "Please select the Expiry date"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hivst_issue_kits_relevance.yml"
-            }
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
           }
         }
       },

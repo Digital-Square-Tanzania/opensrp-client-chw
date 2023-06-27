@@ -3,21 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="16dp">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/title"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/textview_edit"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:layout_centerVertical="true"
             android:paddingBottom="10dp"
             android:text="@string/mother_champion_visit_title"
             android:textColor="@color/medical_text_inner"
@@ -26,21 +23,19 @@
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_edit"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/record_btn_anc_selector"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:padding="8dp"
             android:text="@string/hiv_visit_edit"
-            android:background="@drawable/record_btn_anc_selector"
-            android:textColor="@color/anc_member_profile_bg"
             android:textAllCaps="true"
-            android:visibility="gone"/>
-
+            android:visibility="gone"
+            android:textColor="@color/anc_member_profile_bg" />
     </RelativeLayout>
 
     <org.smartregister.view.customcontrols.CustomFontTextView

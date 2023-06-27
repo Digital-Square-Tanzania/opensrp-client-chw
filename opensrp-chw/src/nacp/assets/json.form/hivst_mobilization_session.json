@@ -114,7 +114,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "female_condoms_issued",
         "type": "edit_text",
-        "hint": "Female condoms issued",
+        "hint": "Female condoms issued (Pieces)",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid number"
@@ -134,7 +134,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "male_condoms_issued",
         "type": "edit_text",
-        "hint": "Male condoms issued",
+        "hint": "Male condoms issued (Pieces)",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid number"

@@ -106,6 +106,21 @@
         }
       },
       {
+        "key": "prompt_for_llin",
+        "type": "toaster_notes",
+        "text": "Counsel the client on the importance of sleeping under LLIN",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:llin_2days": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
         "key": "llin_condition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -191,7 +191,21 @@ actions:
 name: "prompt_for_health_challenges_visibility"
 description: "prompt_for_health_challenges visibility"
 priority: 1
-condition: "health_problem['fever'] != null || health_problem['jaundice'] != null || health_problem['headache'] != null || health_problem['coughing'] != null || health_problem['altered_mental_status'] != null || health_problem['convulsion'] != null || health_problem['loss_of_consciousness'] != null"
+condition: "
+            health_problem['general_body_malaise'] != null ||
+            health_problem['chest_pain'] != null ||
+            health_problem['skin_infection'] != null ||
+            health_problem['loss_of_appetite'] != null ||
+            health_problem['malnutrition'] != null ||
+            health_problem['drugs_side_effects'] != null ||
+            health_problem['other_health_problems'] != null ||
+            health_problem['fever'] != null ||
+            health_problem['jaundice'] != null ||
+            health_problem['headache'] != null ||
+            health_problem['coughing'] != null ||
+            health_problem['altered_mental_status'] != null ||
+            health_problem['convulsion'] != null ||
+            health_problem['loss_of_consciousness'] != null"
 actions:
   - "prompt_for_health_challenges_visibility =  true"
 

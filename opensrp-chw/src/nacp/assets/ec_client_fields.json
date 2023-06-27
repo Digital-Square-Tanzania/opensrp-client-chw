@@ -5214,6 +5214,14 @@
           }
         },
         {
+          "column_name": "kits_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kits_distributed"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

@@ -171,6 +171,22 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
                     view.findViewById(R.id.title).setVisibility(View.GONE);
                     TextView tvTypeOfService = view.findViewById(R.id.type_of_service);
                     LinearLayout visitDetailsLayout = view.findViewById(R.id.visit_details_layout);
+                    TextView tvEdit = view.findViewById(R.id.textview_edit);
+
+                    // Updating visibility of EDIT button if the visit is the last visit
+                    if ((x == visits.size() - 1))
+                        tvEdit.setVisibility(View.VISIBLE);
+                    else
+                        tvEdit.setVisibility(View.GONE);
+
+                    tvEdit.setOnClickListener(view1 -> {
+                        Visit visit = visits.get(0);
+
+                        if (visit.getBaseEntityId() != null) {
+                            ((Activity) context).finish();
+                            KvpPrEPVisitActivity.startKvpPrEPVisitActivity((Activity) context, visit.getBaseEntityId(), true);
+                        }
+                    });
 
                     String visitType;
 

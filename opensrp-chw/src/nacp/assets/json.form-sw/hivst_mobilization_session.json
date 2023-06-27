@@ -114,7 +114,7 @@
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "female_condoms_issued",
                 "type": "edit_text",
-                "hint": "Idadi ya kondom za kike zilizotolewa",
+                "hint": "Idadi ya kondom za kike zilizotolewa (Vipande)",
                 "v_numeric": {
                     "value": "true",
                     "err": "Tafadhali ingiza numbari sahihi"
@@ -134,7 +134,7 @@
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "male_condoms_issued",
                 "type": "edit_text",
-                "hint": "Idadi ya kondom za kiume zilizotolewa",
+                "hint": "Idadi ya kondom za kiume zilizotolewa (Vipande)",
                 "v_numeric": {
                     "value": "true",
                     "err": "Tafadhali ingiza numbari sahihi"

@@ -23,7 +23,7 @@ allprojects {
 
             name = "GitHubPackages"
 
-            url = uri("https://maven.pkg.github.com/SoftmedTanzania/opensrp-client-chw-core")
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-core")
             credentials {
                 username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
                 password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
@@ -31,16 +31,6 @@ allprojects {
 
         }
 
-        maven {
-
-            name = "GitHubPackages"
-
-            url = uri("https://maven.pkg.github.com/SoftmedTanzania/opensrp-client-chw-ld")
-            credentials {
-                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
-                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
-            }
-        }
         mavenLocal()
     }
 }

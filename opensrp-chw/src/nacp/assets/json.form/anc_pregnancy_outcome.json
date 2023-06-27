@@ -472,12 +472,12 @@
               "err": "Please enter the weight"
             },
             "v_min": {
-              "value": "0",
-              "err": "The weight must be equal or greater than 0 (KG)"
+              "value": "0.5",
+              "err": "The weight must be equal or greater than 0.5 (KG)"
             },
             "v_max": {
-              "value": "30",
-              "err": "The weight must be equal or less than 30 (KG)"
+              "value": "7",
+              "err": "The weight must be equal or less than 7 (KG)"
             },
             "v_required": {
               "value": true,

@@ -26,13 +26,6 @@ public class KvpPrEPSbccServicesActionHelper implements BaseKvpVisitAction.KvpVi
 
     @Override
     public String getPreProcessed() {
-        try {
-            JSONObject jsonObject = new JSONObject(jsonPayload);
-            return jsonObject.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         return null;
     }
 

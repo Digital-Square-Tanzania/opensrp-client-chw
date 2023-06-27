@@ -7,6 +7,6 @@ public class HivstRegisterFragment extends CoreHivstRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-        HivstProfileActivity.startProfile(requireActivity(), baseEntityId);
+        HivstProfileActivity.startProfile(requireActivity(), baseEntityId, false);
     }
 }

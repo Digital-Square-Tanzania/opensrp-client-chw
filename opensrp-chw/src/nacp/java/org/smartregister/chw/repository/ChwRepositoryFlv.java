@@ -328,7 +328,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion19(SQLiteDatabase db) {
         try {
             RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
-            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" + " ADD COLUMN primary_caregiver_name VARCHAR;\n";
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" +
+                    " ADD COLUMN primary_caregiver_name VARCHAR;\n";
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion19");
@@ -412,6 +413,14 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion26(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN kits_distributed TEXT NULL;");
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion26");
+        }
+
         // setup reporting
         ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
         String iccmClientReportIndicatorConfigFile = "config/iccm-monthly-report.yml";

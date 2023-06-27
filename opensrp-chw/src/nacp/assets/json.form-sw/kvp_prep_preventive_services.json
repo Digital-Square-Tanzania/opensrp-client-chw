@@ -301,6 +301,10 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza idadi iliyotolewa"
+        },
+        "v_max": {
+          "value": "5.0",
+          "err": "Idadi inatakiwa isizidi 5"
         }
       },
       {

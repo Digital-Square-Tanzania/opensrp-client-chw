@@ -521,4 +521,6 @@
     <string name="last_restock_date">Last restock date on: %s</string>
     <string name="restock_history">Restock History</string>
 
+    <string name="last_appointment_date">Last Appointment date</string>
+
 </resources>

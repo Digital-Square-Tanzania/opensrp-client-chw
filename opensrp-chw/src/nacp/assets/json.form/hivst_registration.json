@@ -203,6 +203,25 @@
         }
       },
       {
+        "key": "other_group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_group",
+        "type": "edit_text",
+        "hint": "Other Group",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other group"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "known_positive_during_reg",
         "type": "hidden",
         "openmrs_entity": "concept",
