@@ -69,7 +69,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(5, op7);
                 }
                 if (ChwApplication.getApplicationFlavor().hasICCM()) {
-                    navigationOptions.add(5, op20);
+                    navigationOptions.add(7, op20);
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
