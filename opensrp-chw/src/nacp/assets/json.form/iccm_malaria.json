@@ -251,8 +251,6 @@
           }
         }
       },
-
-
       {
         "key": "dispensed_alu_tablets",
         "openmrs_entity_parent": "",

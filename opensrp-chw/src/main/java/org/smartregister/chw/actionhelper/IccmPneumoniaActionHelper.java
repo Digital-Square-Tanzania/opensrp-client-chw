@@ -34,7 +34,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    public IccmPneumoniaActionHelper(Context context, String baseEntityId,  boolean isEdit) {
+    public IccmPneumoniaActionHelper(Context context, String baseEntityId, boolean isEdit) {
         this.context = context;
         this.baseEntityId = baseEntityId;
         this.isEdit = isEdit;
@@ -51,6 +51,8 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
             IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
+            jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
+
             int age = getAgeFromDate(memberObject.getAge());
             if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);

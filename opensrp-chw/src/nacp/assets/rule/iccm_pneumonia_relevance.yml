@@ -1,4 +1,11 @@
 ---
+name: step1_prompt_number_of_number_of_amoxicillin_tablets_to_dispense
+description: prompt_number_of_number_of_amoxicillin_tablets_to_dispense relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_amoxicillin_dispensed
 description: amoxicillin_dispensed relevance
 priority: 1
