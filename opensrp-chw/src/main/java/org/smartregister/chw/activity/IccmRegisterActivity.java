@@ -62,6 +62,12 @@ public class IccmRegisterActivity extends CoreMalariaRegisterActivity {
             String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = org.smartregister.chw.util.Utils.getAgeFromDate(dobString);
             jsonForm.getJSONObject("global").put("age", age);
+
+            if (age >= 5) {
+                JSONArray fields = jsonForm.getJSONObject("step2").getJSONArray(FIELDS);
+                JSONObject respiratoryRate = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "respiratory_rate");
+                respiratoryRate.remove("v_required");
+            }
             startActivityForResult(FormUtils.getStartFormActivity(jsonForm, this.getString(org.smartregister.chw.core.R.string.iccm_enrollment), this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);

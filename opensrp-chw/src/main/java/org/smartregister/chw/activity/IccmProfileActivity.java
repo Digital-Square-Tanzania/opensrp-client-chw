@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,13 +37,17 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
+import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
+import org.smartregister.chw.dataloader.AncMemberDataLoader;
+import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.kvp.util.TimeUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -58,6 +63,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
@@ -218,7 +224,13 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                 onBackPressed();
                 return true;
             case R.id.action_registration:
-                startFormForEdit(R.string.registration_info, Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
+                if (UpdateDetailsUtil.isIndependentClient(memberObject.getBaseEntityId())) {
+                    startFormForEdit(org.smartregister.chw.core.R.string.registration_info,
+                            CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
+                } else {
+                    startFormForEdit(org.smartregister.chw.core.R.string.edit_member_form_title,
+                            CoreConstants.JSON_FORM.getFamilyMemberRegister());
+                }
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(IccmProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
@@ -272,26 +284,6 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
     @Override
     public void togglePrimaryCaregiver(boolean b) {
         //implement
-    }
-
-    @Override
-    public void startFormForEdit(Integer title_resource, String formName) {
-
-        JSONObject form = null;
-        CommonPersonObjectClient client = org.smartregister.chw.core.utils.Utils.clientForEdit(memberObject.getBaseEntityId());
-
-        if (formName.equals(Constants.JSON_FORM.getFamilyMemberRegister())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString((title_resource != null) ? getResources().getString(title_resource) : null, Constants.JSON_FORM.getFamilyMemberRegister(), this, client, Utils.metadata().familyMemberRegister.updateEventType, memberObject.getLastName(), false);
-        } else if (formName.equals(Constants.JSON_FORM.getAncRegistration())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(memberObject.getBaseEntityId(), this, formName, Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
-        }
-
-        try {
-            assert form != null;
-            startFormActivity(form);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
     }
 
     @Override
@@ -491,5 +483,39 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
             }
         });
         processVisitLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public void startFormForEdit(Integer title_resource, String formName) {
+        try {
+            JSONObject form = null;
+            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
+            String titleString = title_resource != null ? getResources().getString(title_resource) : null;
+
+            if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
+
+                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
+
+                form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
+            } else if (formName.equals(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm())) {
+                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
+
+                form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
+            }
+
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }
