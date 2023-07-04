@@ -32,6 +32,7 @@ import timber.log.Timber;
 public class IccmReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected ConstraintLayout iccmClientsReport;
     protected ConstraintLayout dispensingSummary;
+    protected ConstraintLayout malariaReport;
     protected AppBarLayout appBarLayout;
     Menu menu;
     private String reportPeriod = ReportUtils.getDefaultReportPeriod();
@@ -46,9 +47,11 @@ public class IccmReportsActivity extends SecuredActivity implements View.OnClick
     public void setupViews() {
         iccmClientsReport = findViewById(R.id.iccm_client_report);
         dispensingSummary = findViewById(R.id.iccm_dispensing_summary);
+        malariaReport = findViewById(R.id.iccm_malaria_report);
 
         iccmClientsReport.setOnClickListener(this);
         dispensingSummary.setOnClickListener(this);
+        malariaReport.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -102,6 +105,9 @@ public class IccmReportsActivity extends SecuredActivity implements View.OnClick
                 break;
             case R.id.iccm_dispensing_summary:
                 IccmReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.ICCM_DISPENSING_SUMMARY_PATH, R.string.iccm_dispensing_summary, reportPeriod);
+                break;
+            case R.id.iccm_malaria_report:
+                IccmReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.MALARIA_MONTHLY_REPORT_PATH, R.string.iccm_malaria_report, reportPeriod);
                 break;
             default:
                 Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();

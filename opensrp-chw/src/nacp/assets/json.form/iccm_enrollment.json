@@ -385,7 +385,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_providing_anti_pyretic",
-        "label": "Reasons for not administering Anti-pyretic?*",
+        "label": "Reasons for not administering Anti-pyretic?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

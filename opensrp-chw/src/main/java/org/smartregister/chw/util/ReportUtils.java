@@ -20,6 +20,7 @@ import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
+import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
 import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 
 import java.text.ParseException;
@@ -197,6 +198,16 @@ public class ReportUtils {
             try {
                 return iccmDispensingSummaryReportObject.getIndicatorDataAsGson(iccmDispensingSummaryReportObject.getIndicatorData());
             } catch (Exception e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeMalariaTestsReports(Date startDate) {
+            MalariaTestReportObject malariaTestReportObject = new MalariaTestReportObject(startDate);
+            try {
+                return malariaTestReportObject.getIndicatorDataAsGson(malariaTestReportObject.getIndicatorData());
+            } catch (JSONException e) {
                 Timber.e(e);
             }
             return "";

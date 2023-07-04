@@ -28,7 +28,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+1 months') > date('now'))
                         AND (efm.gender = 'Male')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -40,7 +40,32 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                        AND (date(efm.dob, '+1 months') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+      
+  - key: "iccm-3-less-than-1-month-ME"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
+                        AND (date(efm.dob, '+1 months') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-3-less-than-1-month-KE"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
                         AND (date(efm.dob, '+1 months') > date('now'))
                         AND (efm.gender = 'Female')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -66,6 +91,31 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
                       WHERE mrdt_results = 'Positive'
+                        AND (date(efm.dob, '+1 months') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-4-negative-less-than-1-month-ME"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
+                        AND (date(efm.dob, '+1 months') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-4-negative-less-than-1-month-KE"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
                         AND (date(efm.dob, '+1 months') > date('now'))
                         AND (efm.gender = 'Female')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -157,7 +207,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+1 months') <= date('now'))
                         AND (date(efm.dob, '+1 years') > date('now'))
                         AND (efm.gender = 'Male')
@@ -170,7 +220,36 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                        AND (date(efm.dob, '+1 months') <= date('now'))
+                        AND (date(efm.dob, '+1 years') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+    
+  - key: "iccm-3-less-than-1-year-ME"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
+                        AND (date(efm.dob, '+1 months') <= date('now'))
+                        AND (date(efm.dob, '+1 years') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-3-less-than-1-year-KE"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
                         AND (date(efm.dob, '+1 months') <= date('now'))
                         AND (date(efm.dob, '+1 years') > date('now'))
                         AND (efm.gender = 'Female')
@@ -198,6 +277,33 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
                       WHERE mrdt_results = 'Positive'
+                        AND (date(efm.dob, '+1 months') <= date('now'))
+                        AND (date(efm.dob, '+1 years') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-4-negative-less-than-1-year-ME"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
+                        AND (date(efm.dob, '+1 months') <= date('now'))
+                        AND (date(efm.dob, '+1 years') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-4-negative-less-than-1-year-KE"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
                         AND (date(efm.dob, '+1 months') <= date('now'))
                         AND (date(efm.dob, '+1 years') > date('now'))
                         AND (efm.gender = 'Female')
@@ -295,7 +401,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+1 years') <= date('now'))
                         AND (date(efm.dob, '+5 years') > date('now'))
                         AND (efm.gender = 'Male')
@@ -308,7 +414,34 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                        AND (date(efm.dob, '+1 years') <= date('now'))
+                        AND (date(efm.dob, '+5 years') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-3-between-1-to-5-years-ME"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
+                        AND (date(efm.dob, '+1 years') <= date('now'))
+                        AND (date(efm.dob, '+5 years') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-3-between-1-to-5-years-KE"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
                         AND (date(efm.dob, '+1 years') <= date('now'))
                         AND (date(efm.dob, '+5 years') > date('now'))
                         AND (efm.gender = 'Female')
@@ -336,6 +469,33 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
                       WHERE mrdt_results = 'Positive'
+                        AND (date(efm.dob, '+1 years') <= date('now'))
+                        AND (date(efm.dob, '+5 years') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-4-negative-between-1-to-5-years-ME"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
+                        AND (date(efm.dob, '+1 years') <= date('now'))
+                        AND (date(efm.dob, '+5 years') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-4-negative-between-1-to-5-years-KE"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
                         AND (date(efm.dob, '+1 years') <= date('now'))
                         AND (date(efm.dob, '+5 years') > date('now'))
                         AND (efm.gender = 'Female')
@@ -431,7 +591,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+5 years') <= date('now'))
                         AND (date(efm.dob, '+60 years') > date('now'))
                         AND (efm.gender = 'Male')
@@ -444,7 +604,34 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
+                        AND (date(efm.dob, '+60 years') > date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-3-between-5-to-60-years-ME"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
+                        AND (date(efm.dob, '+60 years') > date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-3-between-5-to-60-years-KE"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
                         AND (date(efm.dob, '+5 years') <= date('now'))
                         AND (date(efm.dob, '+60 years') > date('now'))
                         AND (efm.gender = 'Female')
@@ -566,7 +753,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+60 years') <= date('now'))
                         AND (efm.gender = 'Male')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -578,7 +765,32 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
-                      WHERE client_testing_history = 'yes'
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                        AND (date(efm.dob, '+60 years') <= date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+  - key: "iccm-3-60-and-above-years-ME"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
+                        AND (date(efm.dob, '+60 years') <= date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-3-60-and-above-years-KE"
+    description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'yes'
                         AND (date(efm.dob, '+60 years') <= date('now'))
                         AND (efm.gender = 'Female')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -655,6 +867,57 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
                       WHERE diarrhea_signs LIKE '%none%'
                         AND (date(efm.dob, '+60 years') <= date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+      
+
+  - key: "iccm-4-5-and-above-years-ME"
+    description: "Malaria mRDT positive"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Positive'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-4-5-and-above-years-KE"
+    description: "Malaria mRDT positive"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Positive'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
+                        AND (efm.gender = 'Female')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+
+  - key: "iccm-4-negative-5-and-above-years-ME"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
+                        AND (efm.gender = 'Male')
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-4-negative-5-and-above-years-KE"
+    description: "Malaria mRDT negative"
+    indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.base_entity_id
+                      WHERE mrdt_results = 'Negative'
+                        AND (date(efm.dob, '+5 years') <= date('now'))
                         AND (efm.gender = 'Female')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                             date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||

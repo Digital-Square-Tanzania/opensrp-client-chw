@@ -1176,6 +1176,14 @@
           }
         },
         {
+          "column_name": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_testing_history_at_affiliated_health_facility_or_iccm_post"
+          }
+        },
+        {
           "column_name": "temperature",
           "type": "Event",
           "json_mapping": {

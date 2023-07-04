@@ -57,6 +57,9 @@ public class ChwWebAppInterface {
                 case Constants.ReportConstants.ICCMReportKeys.DISPENSING_SUMMARY:
                     ReportUtils.setPrintJobName("ICCM_dispensing_summary_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
                     return ReportUtils.ICCMReports.computeDispensingSummaryReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.ICCMReportKeys.MALARIA_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("ICCM_malaria_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.ICCMReports.computeMalariaTestsReports(ReportUtils.getReportDate());
                 default:
                     return "";
             }

@@ -186,6 +186,8 @@ public class Constants extends CoreConstants {
         public interface ICCMReportKeys {
             String CLIENTS_MONTHLY_REPORT = "iccm-clients-monthly-report";
             String DISPENSING_SUMMARY = "iccm-dispensing-summary";
+
+            String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
         }
 
         public interface ReportPaths {
@@ -195,6 +197,7 @@ public class Constants extends CoreConstants {
             String CONDOM_DISTRIBUTION_RECEIVING_REPORT_PATH = "condom-distribution-receiving-report";
             String ICCM_CLIENTS_REPORT_PATH = "iccm_reports/iccm-clients-monthly-report";
             String ICCM_DISPENSING_SUMMARY_PATH = "iccm_reports/iccm-dispensing-summary";
+            String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
         }
     }
 }
