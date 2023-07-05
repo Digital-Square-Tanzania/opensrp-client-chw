@@ -45,7 +45,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_iccm_enrollment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_iccm_enrollment\n" +
-            "    WHERE datetime('NOW') <= datetime(ec_iccm_enrollment.last_interacted_with/1000, 'unixepoch', 'localtime','+1 days')\n" +
+            "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "    AND ec_iccm_enrollment.is_closed = 0  \n" +
             "    UNION ALL\n" +
             "    SELECT ec_family_planning.base_entity_id AS base_entity_id\n" +
@@ -147,7 +147,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_iccm_enrollment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_iccm_enrollment\n" +
-            "    WHERE datetime('NOW') <= datetime(ec_iccm_enrollment.last_interacted_with/1000, 'unixepoch', 'localtime','+1 days')\n" +
+            "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "    AND ec_iccm_enrollment.is_closed = 0  \n" +
             "    UNION ALL\n" +
             "    SELECT ec_family_planning.base_entity_id AS base_entity_id\n" +
@@ -355,7 +355,7 @@ public interface ChwQueryConstant {
             "         inner join ec_iccm_enrollment\n" +
             "                    on ec_family_member.base_entity_id = ec_iccm_enrollment.base_entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
-            "  AND datetime('NOW') <= datetime(ec_iccm_enrollment.last_interacted_with/1000, 'unixepoch', 'localtime','+1 days')\n" +
+            "  AND date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "  AND ec_iccm_enrollment.is_closed = 0 \n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +

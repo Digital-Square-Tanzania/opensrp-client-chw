@@ -11,7 +11,7 @@ public class IccmRegisterFragmentPresenter extends CoreMalariaRegisterFragmentPr
     }
 
     public String getMainCondition() {
-        return " ec_family_member.date_removed is null AND datetime('NOW') <= datetime(ec_iccm_enrollment.last_interacted_with/1000, 'unixepoch', 'localtime','+1 days') AND ec_iccm_enrollment.is_closed = 0";
+        return " ec_family_member.date_removed is null AND date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')) AND ec_iccm_enrollment.is_closed = 0";
     }
 
     @Override

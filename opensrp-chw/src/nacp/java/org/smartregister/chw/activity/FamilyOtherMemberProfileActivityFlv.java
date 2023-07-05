@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
+import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
+
 import android.app.Activity;
 import android.view.Menu;
 import android.widget.Toast;
@@ -14,9 +17,6 @@ import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
-import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
-
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
     @Override
@@ -29,7 +29,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
                     break;
                 case R.id.refer_to_facility_layout:
                     if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                        launchClientReferralActivity(activity, getCommonReferralTypes(activity,baseEntityId), baseEntityId);
+                        launchClientReferralActivity(activity, getCommonReferralTypes(activity, baseEntityId), baseEntityId);
                     } else {
                         Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
                     }
@@ -47,7 +47,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public void updateMaleFpMenuItems(String baseEntityId, Menu menu) {
-      //  UtilsFlv.updateFpMenuItems(baseEntityId, menu);
+        //  UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
-      //  UtilsFlv.updateTbMenuItems(baseEntityId, menu);
+        //  UtilsFlv.updateTbMenuItems(baseEntityId, menu);
     }
 
     @Override
     public void updateFpMenuItems(String baseEntityId, Menu menu) {
-       // UtilsFlv.updateFpMenuItems(baseEntityId, menu);
+        // UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
@@ -79,10 +79,5 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         return Utils.isMemberOfReproductiveAge(commonPersonObject, 10, 49);
 
-    }
-
-    @Override
-    public boolean hasANC() {
-        return true;
     }
 }

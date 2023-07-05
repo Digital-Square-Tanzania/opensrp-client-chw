@@ -67,6 +67,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -450,8 +451,20 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
             }
         } else {
             Date updatedAtDate = new Date(visit.getDate().getTime());
-            int daysDiff = TimeUtils.getElapsedDays(updatedAtDate);
-            if (daysDiff <= 1) {
+            //            int daysDiff = TimeUtils.getElapsedDays(updatedAtDate);
+
+            Calendar today = Calendar.getInstance();
+            Calendar updatedAt = Calendar.getInstance();
+            updatedAt.setTime(updatedAtDate);
+
+            // Compare the date parts of the two Calendar instances
+            boolean isToday = today.get(Calendar.YEAR) == updatedAt.get(Calendar.YEAR) &&
+                    today.get(Calendar.MONTH) == updatedAt.get(Calendar.MONTH) &&
+                    today.get(Calendar.DAY_OF_MONTH) == updatedAt.get(Calendar.DAY_OF_MONTH);
+
+
+
+            if (isToday) {
                 hideView();
             }
             textViewVisitDoneEdit.setVisibility(View.GONE);

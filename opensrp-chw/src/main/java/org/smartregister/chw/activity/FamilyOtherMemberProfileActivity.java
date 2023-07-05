@@ -58,13 +58,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         // Check if woman is already registered
-        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+        if (ChwApplication.getApplicationFlavor().hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
-        if (flavor.hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+        if (ChwApplication.getApplicationFlavor().hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         } else {
@@ -341,7 +341,5 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
-
-        boolean hasANC();
     }
 }

@@ -60,9 +60,4 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     public void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
 //        TODO implement if wcaro would need tb module
     }
-
-    @Override
-    public boolean hasANC() {
-        return true;
-    }
 }
