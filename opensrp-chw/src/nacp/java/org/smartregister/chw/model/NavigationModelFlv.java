@@ -43,9 +43,13 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op19 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_AGYW, CoreConstants.DrawerMenu.AGYW, 0);
             NavigationOption op20 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, R.string.menu_iccm, CoreConstants.DrawerMenu.ICCM, 0);
 
-            if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-                String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
+
+            AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+            String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
+
+            if (teamRoleIdentifier.equals("iccm_provider")) {
+                navigationOptions.addAll(Arrays.asList(op10, op20, op8));
+            } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
                 if (teamRoleIdentifier.equals("mother_champion")) {
                     navigationOptions.addAll(Arrays.asList(op10, op13, op8));
                 } else if (teamRoleIdentifier.equals("cbhs_provider")) {
