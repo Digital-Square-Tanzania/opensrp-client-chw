@@ -9,14 +9,14 @@ actions:
 name: step2_prompt_for_respiratory_rate
 description: prompt_for_respiratory_rate relevance
 priority: 1
-condition: "(global_age < 1 && step2_respiratory_rate >= 50) || (global_age > 1 && global_age < 6 && step2_respiratory_rate >= 40)"
+condition: "(global_age < 1 && step2_respiratory_rate >= 50) || (global_age >= 1 && global_age < 6 && step2_respiratory_rate >= 40)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_dispensed_anti_pyretic
 description: household_people_for_18_and_above relevance
 priority: 1
-condition: "step2_temperature > 37.5"
+condition: "step2_temperature > 38.4"
 actions:
   - "isRelevant = true"
 ---

@@ -48,34 +48,34 @@
   },
   "global": {},
   "step1": {
-    "title": "Pneumonia",
+    "title": "Nimonia",
     "fields": [
       {
         "key": "pneumonia_signs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pneumonia_signs",
-        "label": "Does the child have any of the following signs",
+        "label": "Je mtoto ana dalili yoyote kati ya zifuatazo?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "non_sever_pneumonia",
-            "text": "The child is breathing fast and shows no danger signs, his/her chest is not retracting and there is no stridor.",
+            "text": "Mtoto anapumua haraka na hana dalili yoyote ya hatari, kifua chake hakibonyei na hana strido.",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "non_sever_pneumonia"
           },
           {
             "key": "sever_pneumonia",
-            "text": "The Child is breathing fast and showing danger signs, or chest in drawing, or stridor in a calm child.",
+            "text": "Mtoto anapumua haraka na anaonesha dalili za hatari au kifua kinabonyea au strido kwa mtoto aliyetulia",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sever_pneumonia"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Hana dalili yoyote",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
@@ -89,7 +89,7 @@
       {
         "key": "prompt_for_sever_pneumonia",
         "type": "toaster_notes",
-        "text": "The child has <b>Sever pneumonia</b>. Refer the child to the health facility Immediately",
+        "text": "Mtoto ana Nimonia kali. Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
         "openmrs_entity_id": "prompt_for_sever_pneumonia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -104,7 +104,7 @@
       {
         "key": "prompt_for_non_sever_pneumonia",
         "type": "toaster_notes",
-        "text": "The child has pneumonia. Treat with Amoxicillin DT",
+        "text": "Mtoto ana Nimonia. Mtibu kwa Amoxicillin DT",
         "openmrs_entity_id": "prompt_for_non_sever_pneumonia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -133,7 +133,7 @@
       {
         "key": "prompt_number_of_number_of_amoxicillin_tablets_to_dispense",
         "type": "toaster_notes",
-        "text": "Dispense {tablets} tablets to the client with weight of {weight} kgs",
+        "text": "Toa vidonge {tablets} kwa mtoto mwenye uzito wa Kilo {weight}",
         "openmrs_entity_id": "prompt_number_of_number_of_amoxicillin_tablets_to_dispense",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -158,20 +158,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amoxicillin_dispensed",
-        "label": "Was Amoxicillin DT dispensed?",
+        "label": "Je vidonge vya Amoxicillin DT vimetolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -179,7 +179,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select the answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -209,20 +209,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_dispensing_amoxicillin",
-        "label": "Reasons for not dispensing Amoxicillin DT?",
+        "label": "Sababu kwa nini vidonge myeyuko vya Amoxicillin DT havijatolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "stock_out",
-            "text": "Stock out",
+            "text": "Dawa zimeisha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "stock_out"
           },
           {
             "key": "others",
-            "text": "Others",
+            "text": "Nyingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others"
@@ -230,7 +230,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -243,7 +243,7 @@
       {
         "key": "other_reasons_for_not_dispensing_amoxicillin",
         "type": "edit_text",
-        "hint": "Please specify the other reason(s)",
+        "hint": "Sababu nyingine, taja",
         "openmrs_entity_id": "other_reasons_for_not_dispensing_amoxicillin",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

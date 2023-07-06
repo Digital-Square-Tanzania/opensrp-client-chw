@@ -56,7 +56,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "physical_examination",
         "type": "check_box",
-        "label": "Is the client having any of the following?",
+        "label": "Je mteja na dalili yoyote kati ya zifuatazo?",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -66,19 +66,19 @@
         "options": [
           {
             "key": "pallor",
-            "text": "Palmar or Conjuctival Pallor",
+            "text": "Weupe wa viganja au konjaktaiva",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pallor"
           },
           {
             "key": "enlarged_spleen",
-            "text": "Enlarged Spleen",
+            "text": "Bandama kuwa kubwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "enlarged_spleen"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Hana dalili yoyote",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
@@ -93,20 +93,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_past_malaria_treatment_history",
-        "label": "Has the client previously tested Positive for Malaria and received treatment in the past 14 days?",
+        "label": "Je mteja alipimwa na kukutwa malaria na kupata matibabu ndani ya siku 14 zilizopita?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -127,7 +127,7 @@
       {
         "key": "prompt_for_conducting_mrdt",
         "type": "toaster_notes",
-        "text": "<b>The client is a malaria suspect</b><br>Conduct mRDT",
+        "text": "Mteja amehisiwa kuwa na malaria. Mpime kwa kutumia mRDT",
         "openmrs_entity_id": "prompt_for_conducting_mrdt",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -143,7 +143,7 @@
       {
         "key": "prompt_for_providing_referral",
         "type": "toaster_notes",
-        "text": "The client should be referred to the health facility for further management.",
+        "text": "Mteja apewe rufaa kwenda kituo cha kutolea huduma za afya kwa huduma zaidi",
         "openmrs_entity_id": "prompt_for_providing_referral",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

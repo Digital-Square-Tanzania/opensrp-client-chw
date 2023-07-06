@@ -48,7 +48,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Treatment History",
+    "title": "Historia ya Matibabu",
     "next": "step2",
     "fields": [
       {
@@ -56,20 +56,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_testing_history",
-        "label": "Has the client received services at any health facility in Tanzania this year?",
+        "label": "Je mteja alishapata huduma za afya katika kituo chochote nchini ndani ya mwaka huu?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -77,7 +77,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         }
       },
       {
@@ -85,20 +85,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
-        "label": "Has the client received any services at the affiliated health facility or at this iCCM post?",
+        "label": "Je mteja alishapata huduma yoyote  katika kituo mama au katika kituo hiki cha huduma za iCCM?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -106,7 +106,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
@@ -119,13 +119,13 @@
     ]
   },
   "step2": {
-    "title": "Vitals",
+    "title": "Viashiria Muhimu",
     "next": "step3",
     "fields": [
       {
         "key": "temperature",
         "type": "edit_text",
-        "hint": "Temperature (\u2103)",
+        "hint": "Joto (\u2103)",
         "openmrs_entity_id": "temperature",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -135,21 +135,21 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Temperature must be equal or greater than 30"
+          "err": "Joto halitakiwi kupungua chini ya nyuzi joto 30"
         },
         "v_max": {
           "value": "50",
-          "err": "Temperature must be equal or less than 50"
+          "err": "Joto halitakiwi kuzidi nyuzi joto 50"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the clients temperature"
+          "err": "Tafadhali jaza joto la mteja"
         }
       },
       {
         "key": "prompt_for_providing_anti_pyretic",
         "type": "toaster_notes",
-        "text": "<b>The client has Fever</b><br>Anti-Pyretic should be dispensed to the client with high fever",
+        "text": "<b>Mteja ana homa.</b><br> Dawa ya kushusha homa itolewe kwa mgonjwa mwenye homa kali.",
         "openmrs_entity_id": "notify_client_has_fever",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -164,51 +164,51 @@
       {
         "key": "pulse_rate",
         "type": "edit_text",
-        "hint": "Pulse Rate (Beats per minute)",
+        "hint": "Mapigo ya moyo kwa dakika",
         "openmrs_entity_id": "pulse_rate",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the pulse rate"
+          "err": "Tafadhali jaza mapigo ya moyo kwa dakika sahihi"
         },
         "v_min": {
           "value": "0",
-          "err": "The pulse rate must be equal or greater than 0 (bpm)"
+          "err": "Mapigo ya moyo kwa dakika yanatikiwa kuwa zaidi ya 0 kwa dakika"
         },
         "v_max": {
           "value": "200",
-          "err": "The pulse rate must be equal or less than 200 (bpm)"
+          "err": "Mapigo ya moyo kwa dakika hayatakiwa kuzidi 200"
         }
       },
       {
         "key": "respiratory_rate",
         "type": "edit_text",
-        "hint": "Respiratory Rate (Breaths per minute)",
+        "hint": "Kasi ya kupumua kwa dakika",
         "openmrs_entity_id": "respiratory_rate",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the respiratory rate"
+          "err": "Tafadhali jaza kasi ya kupumua kwa dakika"
         },
         "v_min": {
           "value": "0",
-          "err": "The respiratory rate must be equal or greater than 0 (Breaths per minute)"
+          "err": "Kasi ya kupumua kwa dakika yatakiwa kuwa zaidi ya 0"
         },
         "v_max": {
           "value": "100",
-          "err": "The respiratory rate must be equal or less than 100 (Breaths per minute)"
+          "err": "Kasi ya kupumua kwa dakika  haitakiwi kuzidi  100"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the clients respiratory rate"
+          "err": "Tafadhali jaza kasi ya kupumua kwa dakika"
         }
       },
       {
         "key": "prompt_for_respiratory_rate",
         "type": "toaster_notes",
-        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia if the client has no other danger signs.",
+        "text": "<b>Mteja ana dalili za Nimonia.</b><br>Ainisha ugonjwa wa Nimonia ikiwa mgonjwa hana dalili nyingine za hatari.",
         "openmrs_entity_id": "prompt_for_respiratory_rate",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -228,18 +228,18 @@
         "openmrs_entity_id": "weight",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Weight (Kg)",
+        "hint": "Uzito (Kilo)",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the client's weight"
+          "err": "Tafadhali jaza uzito wa mteja"
         },
         "v_max": {
           "value": "300",
-          "err": "The weight must be equal or less than 300 (KG)"
+          "err": "Uzito wa mteja hautakiwi kuzidi kilo 300"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the clients weight"
+          "err": "Tafadhali jaza uzito wa mteja"
         }
       },
       {
@@ -249,20 +249,20 @@
         "openmrs_entity_id": "height",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Height (cm)",
+        "hint": "Urefu (cm)",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the client's height"
+          "err": "Tafadhali jaza urefu wa mteja"
         },
         "v_max": {
           "value": "200",
-          "err": "The height must be equal or less than 200 (CM)"
+          "err": "Urefu wa mteja hautakiwi kuzidi 200 cm"
         }
       }
     ]
   },
   "step3": {
-    "title": "Danger Signs",
+    "title": "Dalili za Hatari",
     "fields": [
       {
         "key": "danger_signs",
@@ -270,7 +270,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "danger_signs",
         "type": "check_box",
-        "label": "Danger Signs",
+        "label": "Dalili za Hatari",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -280,31 +280,31 @@
         "options": [
           {
             "key": "extreme_weakness",
-            "text": "Prostration/extreme weakness",
+            "text": "Amelegea sana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "extreme_weakness"
           },
           {
             "key": "impaired_consciousness",
-            "text": "Impaired consciousness",
+            "text": "Kupoteza fahamu",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "impaired_consciousness"
           },
           {
             "key": "change_of_behaviour",
-            "text": "Change of behaviour",
+            "text": "Kuchanganyikiwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "change_of_behaviour"
           },
           {
             "key": "convulsions",
-            "text": "Convulsions",
+            "text": "Degedege",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "convulsions"
           },
           {
             "key": "respiratory_distress",
-            "text": "Respiratory distress",
+            "text": "Kupumua kwa shida",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "respiratory_distress"
           },
@@ -322,26 +322,26 @@
           },
           {
             "key": "vomiting_everything",
-            "text": "Vomiting everything",
+            "text": "Anatapika kila kitu",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vomiting_everything"
           },
           {
             "key": "inability_to_drink_or_breastfeed",
-            "text": "Inability to drink or breastfeed",
+            "text": "Hawezi kunywa au kunyonya",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "inability_to_drink_or_breastfeed"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Hakuna dalili ya hatari",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Tafadhali chagua jibu mojawapo"
         }
       },
       {
@@ -349,20 +349,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "dispensed_anti_pyretic",
-        "label": "Was anti-pyretic dispensed to the client?",
+        "label": "Je, dawa ya kushusha homa ilitolewa kwa mteja?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -370,7 +370,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -385,27 +385,27 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_providing_anti_pyretic",
-        "label": "Reasons for not administering Anti-pyretic?",
+        "label": "Sababu ya kutompatia mteja dawa ya kushusha homa",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "can_not_tolerate_oral_medication",
-            "text": "Can not tolerate oral medication",
+            "text": "Hawezi kunywa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "can_not_tolerate_oral_medication"
           },
           {
             "key": "stock_out",
-            "text": "Stock out",
+            "text": "Dawa zimeisha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "stock_out"
           },
           {
             "key": "others",
-            "text": "Others",
+            "text": "Nyingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others"
@@ -413,7 +413,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -426,7 +426,7 @@
       {
         "key": "other_reasons_for_not_providing_anti_pyretic",
         "type": "edit_text",
-        "hint": "Please specify the other reason(s)",
+        "hint": "Sababu nyingine, taja",
         "openmrs_entity_id": "other_reasons_for_not_providing_anti_pyretic",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -443,20 +443,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "administered_artesunate",
-        "label": "Was Rectal Artesunate administered to the child?",
+        "label": "Je, mtoto alipatiwa Artesunate ya puru?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -464,7 +464,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -479,20 +479,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_providing_artesunate",
-        "label": "Reasons for not administering Rectal Artesunate?",
+        "label": "Sababu ya kutompatia Artesunate ya puru?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "stock_out",
-            "text": "Stock out",
+            "text": "Dawa zimeisha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "stock_out"
           },
           {
             "key": "others",
-            "text": "Others",
+            "text": "Nyingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others"
@@ -500,7 +500,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
@@ -513,7 +513,7 @@
       {
         "key": "other_reasons_for_not_providing_artesunate",
         "type": "edit_text",
-        "hint": "Please specify the other reason(s)",
+        "hint": "Sababu nyingine, taja;",
         "openmrs_entity_id": "other_reasons_for_not_providing_artesunate",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -528,7 +528,7 @@
       {
         "key": "prompt_for_providing_referral",
         "type": "toaster_notes",
-        "text": "Refer the client immediately to the health facility.",
+        "text": "Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
         "openmrs_entity_id": "prompt_for_providing_referral",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
