@@ -30,6 +30,7 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
+import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -76,6 +77,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
+        else
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
 
         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -113,6 +116,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } else {
             //flavor.updateTbMenuItems(baseEntityId, menu);
             //will update when the TB module is complete
+        }
+        if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(baseEntityId)) {
+            menu.findItem(R.id.action_iccm_registration).setVisible(true);
         }
         menu.findItem(R.id.action_fp_initiation).setVisible(false);
         return true;
