@@ -353,6 +353,13 @@
         "openmrs_entity_id": "medical_history_completion_status",
         "openmrs_entity_parent": "",
         "value": "pending"
+      },
+      {
+        "key": "client_base_entity_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_base_entity_id",
+        "openmrs_entity_parent": ""
       }
     ]
   }

@@ -43,7 +43,7 @@ public interface ChwQueryConstant {
             "    WHERE datetime('NOW') <= datetime(ec_malaria_confirmation.last_interacted_with/1000, 'unixepoch', 'localtime','+15 days')\n" +
             "    AND ec_malaria_confirmation.is_closed = 0 AND ec_malaria_confirmation.malaria = 1 \n" +
             "    UNION ALL\n" +
-            "    SELECT ec_iccm_enrollment.base_entity_id AS base_entity_id\n" +
+            "    SELECT ec_iccm_enrollment.entity_id AS base_entity_id\n" +
             "    FROM ec_iccm_enrollment\n" +
             "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "    AND ec_iccm_enrollment.is_closed = 0  \n" +
@@ -145,7 +145,7 @@ public interface ChwQueryConstant {
             "    WHERE datetime('NOW') <= datetime(ec_malaria_confirmation.last_interacted_with/1000, 'unixepoch', 'localtime','+15 days')\n" +
             "    AND ec_malaria_confirmation.is_closed = 0 AND ec_malaria_confirmation.malaria = 1 \n" +
             "    UNION ALL\n" +
-            "    SELECT ec_iccm_enrollment.base_entity_id AS base_entity_id\n" +
+            "    SELECT ec_iccm_enrollment.entity_id AS base_entity_id\n" +
             "    FROM ec_iccm_enrollment\n" +
             "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "    AND ec_iccm_enrollment.is_closed = 0  \n" +
@@ -353,7 +353,7 @@ public interface ChwQueryConstant {
             "FROM ec_family_member\n" +
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
             "         inner join ec_iccm_enrollment\n" +
-            "                    on ec_family_member.base_entity_id = ec_iccm_enrollment.base_entity_id\n" +
+            "                    on ec_family_member.base_entity_id = ec_iccm_enrollment.entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
             "  AND date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
             "  AND ec_iccm_enrollment.is_closed = 0 \n" +

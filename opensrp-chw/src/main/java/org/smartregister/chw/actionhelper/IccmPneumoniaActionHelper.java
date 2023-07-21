@@ -8,7 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.ld.util.AppExecutors;
+import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
@@ -18,6 +21,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +35,24 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     private String pneumoniaSigns;
 
     private boolean isEdit;
+    private String isDiarrheaSuspect;
+    private String isMalariaSuspect;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    public IccmPneumoniaActionHelper(Context context, String baseEntityId, boolean isEdit) {
+    private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+    private final BaseIccmVisitContract.InteractorCallBack callBack;
+    private final Map<String, List<VisitDetail>> details;
+
+    public IccmPneumoniaActionHelper(Context context, String baseEntityId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
         this.context = context;
         this.baseEntityId = baseEntityId;
+        this.actionList = actionList;
+        this.details = details;
         this.isEdit = isEdit;
+        this.callBack = callBack;
+        this.isDiarrheaSuspect = isDiarrheaSuspect;
+        this.isMalariaSuspect = isMalariaSuspect;
     }
 
     @Override
@@ -105,6 +120,37 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
         } catch (Exception e) {
             Timber.e(e);
         }
+
+
+        if (!pneumoniaSigns.equalsIgnoreCase("sever_pneumonia")) {
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6) {
+                try {
+                    String title = context.getString(R.string.iccm_diarrhea);
+                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, baseEntityId, actionList, details, callBack, isEdit, isMalariaSuspect);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
+                    actionList.put(title, action);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            } else if (isMalariaSuspect.equalsIgnoreCase("true")) {
+                actionList.remove(context.getString(R.string.iccm_diarrhea));
+                String malariaActionTitle = context.getString(R.string.iccm_malaria);
+                try {
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                    if (!actionList.containsKey(malariaActionTitle))
+                        actionList.put(malariaActionTitle, action);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            } else {
+                actionList.remove(context.getString(R.string.iccm_malaria));
+                actionList.remove(context.getString(R.string.iccm_diarrhea));
+            }
+        }
+
+        //Calling the callback method to preload the actions in the actions list.
+        new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
 
         if (jsonObject != null) {
             return jsonObject.toString();

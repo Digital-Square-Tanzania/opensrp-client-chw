@@ -188,7 +188,7 @@
             "field": "eventType",
             "field_value": "ICCM Services Visit",
             "creates_case": [
-              "ec_iccm_enrollment"
+              "ec_iccm_service"
             ]
           },
           {

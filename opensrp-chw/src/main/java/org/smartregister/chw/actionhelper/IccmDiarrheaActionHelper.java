@@ -6,13 +6,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.ld.util.AppExecutors;
+import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +31,20 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private boolean isEdit;
+    private String isMalariaSuspect;
 
-    public IccmDiarrheaActionHelper(Context context, String baseEntityId, boolean isEdit) {
+    private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+    private final BaseIccmVisitContract.InteractorCallBack callBack;
+    private final Map<String, List<VisitDetail>> details;
+
+    public IccmDiarrheaActionHelper(Context context, String baseEntityId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {
         this.context = context;
         this.baseEntityId = baseEntityId;
         this.isEdit = isEdit;
+        this.isMalariaSuspect = isMalariaSuspect;
+        this.actionList = actionList;
+        this.callBack = callBack;
+        this.details = details;
     }
 
     @Override
@@ -86,6 +100,25 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         } catch (Exception e) {
             Timber.e(e);
         }
+
+
+        String malariaActionTitle = context.getString(R.string.iccm_malaria);
+        if (isMalariaSuspect.equalsIgnoreCase("true")) {
+            try {
+                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
+                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                if (!actionList.containsKey(malariaActionTitle))
+                    actionList.put(malariaActionTitle, action);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        } else {
+            //Removing the malaria actions  the client is not a malaria suspect.
+            actionList.remove(context.getString(R.string.iccm_malaria));
+        }
+
+        //Calling the callback method to preload the actions in the actions list.
+        new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
 
         if (jsonObject != null) {
             return jsonObject.toString();
