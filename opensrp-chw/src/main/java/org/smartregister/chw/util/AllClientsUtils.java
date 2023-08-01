@@ -72,29 +72,34 @@ public class AllClientsUtils {
     }
 
     public static void goToAncProfile(Activity activity, CommonPersonObjectClient patient) {
-        AncMemberProfileActivity.startMe(activity,patient.getCaseId());
+        AncMemberProfileActivity.startMe(activity, patient.getCaseId());
     }
 
     public static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
         MalariaProfileActivity.startMalariaActivity(activity, patient.getCaseId());
     }
+
     public static void gotToIccmProfile(Activity activity, CommonPersonObjectClient patient) {
-        IccmProfileActivity.startMalariaActivity(activity, patient.getCaseId());
+        IccmProfileActivity.startMalariaActivity(activity, patient.getColumnmaps().get("base_entity_id"));
     }
 
     public static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {
         FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(patient.getCaseId()));
     }
+
     public static void goToHivProfile(Activity activity, CommonPersonObjectClient patient) {
         HivProfileActivity.startHivProfileActivity(activity, HivDao.getMember(patient.getCaseId()));
     }
+
     public static void goToTbProfile(Activity activity, CommonPersonObjectClient patient) {
         TbProfileActivity.startTbProfileActivity(activity, TbDao.getMember(patient.getCaseId()));
     }
-    public static void  goToAgywProfile(Activity activity, CommonPersonObjectClient client){
+
+    public static void goToAgywProfile(Activity activity, CommonPersonObjectClient client) {
         AgywProfileActivity.startProfile(activity, client.getCaseId());
     }
-    public static void  goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client){
+
+    public static void goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client) {
         KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 

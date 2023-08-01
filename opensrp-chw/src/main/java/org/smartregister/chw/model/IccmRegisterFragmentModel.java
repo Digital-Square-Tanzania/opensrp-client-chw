@@ -1,7 +1,5 @@
 package org.smartregister.chw.model;
 
-import static org.smartregister.AllConstants.ENTITY_ID;
-
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.core.model.CoreMalariaRegisterFragmentModel;
@@ -32,7 +30,8 @@ public class IccmRegisterFragmentModel extends CoreMalariaRegisterFragmentModel 
     protected String[] mainColumns(String tableName) {
         Set<String> columnList = new HashSet<>();
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
-        columnList.add(tableName + ".entity_id as " + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + ".entity_id ");
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.FIRST_NAME);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.MIDDLE_NAME);

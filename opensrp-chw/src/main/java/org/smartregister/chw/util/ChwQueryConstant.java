@@ -341,7 +341,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_name,\n" +
             "       ec_family_member.gender,\n" +
             "       ec_family_member.dob,\n" +
-            "       ec_family_member.base_entity_id,\n" +
+            "       ec_iccm_enrollment.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
             "       'iCCM'                                    AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +

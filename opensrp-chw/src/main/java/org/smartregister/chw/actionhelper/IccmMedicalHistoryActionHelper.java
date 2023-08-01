@@ -67,7 +67,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
             JSONObject clientBaseEntityId = JsonFormUtils.getFieldJSONObject(fields, "client_base_entity_id");
             if (clientBaseEntityId != null) {
-                clientBaseEntityId.put(VALUE, memberObject.getBaseEntityId());
+                clientBaseEntityId.put(VALUE, memberObject.getEntityId());
             }
 
             if (memberObject.getTemperature() > 37.5) {
@@ -76,7 +76,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             }
 
 
-            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(baseEntityId), 10, 49) && org.smartregister.chw.util.Utils.getValue(getCommonPersonObjectClient(baseEntityId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
+            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getEntityId()), 10, 49) && org.smartregister.chw.util.Utils.getValue(getCommonPersonObjectClient(baseEntityId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
             if (!isFemaleOfReproductiveAge) {
                 JSONObject isTheClientPregnant = JsonFormUtils.getFieldJSONObject(fields, "is_the_client_pregnant");
                 if (isTheClientPregnant != null) {

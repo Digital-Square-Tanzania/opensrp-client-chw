@@ -9,14 +9,12 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.interactor.IccmServicesActivityInteractor;
 import org.smartregister.chw.ld.util.Constants;
 import org.smartregister.chw.malaria.activity.BaseIccmVisitActivity;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.presenter.BaseIccmVisitPresenter;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 

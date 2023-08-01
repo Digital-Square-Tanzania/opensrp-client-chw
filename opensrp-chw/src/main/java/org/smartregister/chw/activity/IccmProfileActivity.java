@@ -46,9 +46,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
-import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
-import org.smartregister.chw.kvp.util.TimeUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
@@ -118,9 +116,9 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
     @Override
     protected void initializePresenter() {
-        showProgressBar(true);
         String baseEntityId = getIntent().getStringExtra(BASE_ENTITY_ID);
         memberObject = IccmDao.getMember(baseEntityId);
+        showProgressBar(true);
         profilePresenter = new IccmProfilePresenter(this, new CoreMalariaProfileInteractor(), memberObject);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
@@ -461,7 +459,6 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
             boolean isToday = today.get(Calendar.YEAR) == updatedAt.get(Calendar.YEAR) &&
                     today.get(Calendar.MONTH) == updatedAt.get(Calendar.MONTH) &&
                     today.get(Calendar.DAY_OF_MONTH) == updatedAt.get(Calendar.DAY_OF_MONTH);
-
 
 
             if (isToday) {
