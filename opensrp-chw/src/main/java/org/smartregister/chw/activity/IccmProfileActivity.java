@@ -50,6 +50,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
+import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.Visit;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
@@ -152,7 +153,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                     JSONObject step = steps.getJSONObject(0);
                     JSONArray referralFormFields = step.getJSONArray("fields");
 
-                    int age = getAgeFromDate(IccmDao.getMember(memberObject.getBaseEntityId()).getAge());
+                    int age = getAgeFromDate(memberObject.getAge());
                     boolean removePneumoniaAndDiarrheSigns = age > 5;
                     boolean removeRectalArtesunate = age > 6;
 
@@ -261,11 +262,12 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
-            IccmServicesActivity.startIccmServicesActivity(this, memberObject.getBaseEntityId(), false);
+            IccmServicesActivity.startIccmServicesActivity(this, memberObject.getIccmEnrollmentFormSubmissionId(), false);
         } else if (id == R.id.textview_edit || id == R.id.textview_undo) {
             Visit lastVisit = getVisit(ICCM_SERVICES_VISIT);
-            if (lastVisit != null)
-                IccmServicesActivity.startIccmServicesActivity(this, memberObject.getBaseEntityId(), true);
+            if (lastVisit != null) {
+                IccmServicesActivity.startIccmServicesActivity(this, memberObject.getIccmEnrollmentFormSubmissionId(), true);
+            }
         }
         handleNotificationRowClick(this, view, notificationListAdapter, baseEntityId);
     }
@@ -321,7 +323,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
     @Override
     public void openMedicalHistory() {
-        IccmMedicalHistoryActivity.startMe(this, IccmDao.getMember(baseEntityId));
+        IccmMedicalHistoryActivity.startMe(this, (IccmMemberObject) memberObject);
     }
 
     @Override

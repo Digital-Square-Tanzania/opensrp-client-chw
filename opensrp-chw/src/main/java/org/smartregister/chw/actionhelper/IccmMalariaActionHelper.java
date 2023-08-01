@@ -22,7 +22,6 @@ import timber.log.Timber;
 
 public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private String baseEntityId;
     private Context context;
 
     private String mrdtResults;
@@ -31,10 +30,13 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    public IccmMalariaActionHelper(Context context, String baseEntityId, boolean isEdit) {
+    private final IccmMemberObject memberObject;
+
+    public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, boolean isEdit) {
         this.context = context;
-        this.baseEntityId = baseEntityId;
         this.isEdit = isEdit;
+
+        this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
 
     @Override
@@ -46,7 +48,6 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
             jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
 
             return jsonObject.toString();

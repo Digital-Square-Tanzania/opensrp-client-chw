@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.FORM_SUBMISSION_ID;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -29,7 +31,7 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
 
     public static void startIccmServicesActivity(Activity activity, String baseEntityId, Boolean editMode) {
         Intent intent = new Intent(activity, IccmServicesActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(FORM_SUBMISSION_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
 
         activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);

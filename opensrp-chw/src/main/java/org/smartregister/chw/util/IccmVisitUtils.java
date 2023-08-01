@@ -107,7 +107,7 @@ public class IccmVisitUtils extends VisitUtils {
                         completionObject.put("isMalariadDiagnosisComplete", computeCompletionStatusForAction(obs, "malaria_completion_status"));
                     }
 
-                    if (Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
+                    if (Utils.getAgeFromDate(IccmDao.getMemberByBaseEntityId(visit.getBaseEntityId()).getAge()) < 5) {
                         String isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
                         if (isDiarrheaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
                             completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));

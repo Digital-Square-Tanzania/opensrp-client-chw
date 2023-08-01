@@ -10,6 +10,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.ld.util.AppExecutors;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
+import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
@@ -25,7 +27,6 @@ import timber.log.Timber;
 
 public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private String baseEntityId;
     private Context context;
     private String diarrheaSigns;
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
@@ -36,15 +37,16 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
     private final BaseIccmVisitContract.InteractorCallBack callBack;
     private final Map<String, List<VisitDetail>> details;
+    private final IccmMemberObject memberObject;
 
-    public IccmDiarrheaActionHelper(Context context, String baseEntityId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {
+    public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {
         this.context = context;
-        this.baseEntityId = baseEntityId;
         this.isEdit = isEdit;
         this.isMalariaSuspect = isMalariaSuspect;
         this.actionList = actionList;
         this.callBack = callBack;
         this.details = details;
+        this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
 
     @Override
@@ -105,8 +107,8 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         String malariaActionTitle = context.getString(R.string.iccm_malaria);
         if (isMalariaSuspect.equalsIgnoreCase("true")) {
             try {
-                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
-                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                 if (!actionList.containsKey(malariaActionTitle))
                     actionList.put(malariaActionTitle, action);
             } catch (Exception e) {

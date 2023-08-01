@@ -84,7 +84,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
 
     private void evaluateMedicalHistory(BaseIccmVisitContract.InteractorCallBack callBack) throws BaseIccmVisitAction.ValidationException {
         String title = context.getString(R.string.iccm_medical_history);
-        IccmMedicalHistoryActionHelper actionHelper = new IccmMedicalHistoryActionHelper(context, memberObject.getBaseEntityId(), actionList, details, callBack, isEdit);
+        IccmMedicalHistoryActionHelper actionHelper = new IccmMedicalHistoryActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit);
         BaseIccmVisitAction action = getBuilder(title).withOptional(false).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMedicalHistory()).build();
         actionList.put(title, action);
     }

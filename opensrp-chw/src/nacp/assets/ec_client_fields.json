@@ -1309,8 +1309,7 @@
           "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "client_base_entity_id"
+            "field": "baseEntityId"
           }
         },
         {

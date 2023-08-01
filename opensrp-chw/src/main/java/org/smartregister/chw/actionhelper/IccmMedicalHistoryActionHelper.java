@@ -36,17 +36,18 @@ import timber.log.Timber;
 
 public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private final String baseEntityId;
+    private final String enrollmentFormSubmissionId;
     private final Context context;
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
     private final BaseIccmVisitContract.InteractorCallBack callBack;
     private final boolean isEdit;
     private final Map<String, List<VisitDetail>> details;
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
+    private IccmMemberObject memberObject;
 
-    public IccmMedicalHistoryActionHelper(Context context, String baseEntityId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit) {
+    public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit) {
         this.context = context;
-        this.baseEntityId = baseEntityId;
+        this.enrollmentFormSubmissionId = enrollmentFormSubmissionId;
         this.actionList = actionList;
         this.isEdit = isEdit;
         this.callBack = callBack;
@@ -56,6 +57,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
         this.jsonPayload = jsonPayload;
+        this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
 
     @Override
@@ -64,10 +66,9 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             JSONObject jsonObject = new JSONObject(jsonPayload);
             JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
 
-            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
-            JSONObject clientBaseEntityId = JsonFormUtils.getFieldJSONObject(fields, "client_base_entity_id");
+            JSONObject clientBaseEntityId = JsonFormUtils.getFieldJSONObject(fields, "iccm_enrollment_form_submission_id");
             if (clientBaseEntityId != null) {
-                clientBaseEntityId.put(VALUE, memberObject.getEntityId());
+                clientBaseEntityId.put(VALUE, memberObject.getIccmEnrollmentFormSubmissionId());
             }
 
             if (memberObject.getTemperature() > 37.5) {
@@ -76,7 +77,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             }
 
 
-            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getEntityId()), 10, 49) && org.smartregister.chw.util.Utils.getValue(getCommonPersonObjectClient(baseEntityId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
+            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getBaseEntityId()), 10, 49) && org.smartregister.chw.util.Utils.getValue(getCommonPersonObjectClient(enrollmentFormSubmissionId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
             if (!isFemaleOfReproductiveAge) {
                 JSONObject isTheClientPregnant = JsonFormUtils.getFieldJSONObject(fields, "is_the_client_pregnant");
                 if (isTheClientPregnant != null) {
@@ -84,7 +85,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 }
             }
 
-            if (Utils.getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) > 5) {
+            if (Utils.getAgeFromDate(memberObject.getAge()) > 5) {
                 JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");
@@ -134,10 +135,11 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         String isDiarrheaSuspect = "false";
         String isPneumoniaSuspect = "false";
         try {
+            jsonObject = new JSONObject(jsonPayload);
+
             isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
             isPneumoniaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_pneumonia_suspect");
 
-            jsonObject = new JSONObject(jsonPayload);
             JSONArray fields = org.smartregister.family.util.JsonFormUtils.fields(jsonObject);
             JSONObject medicalHistoryCompletionStatus = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "medical_history_completion_status");
             assert medicalHistoryCompletionStatus != null;
@@ -151,8 +153,8 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
             try {
                 String title = context.getString(R.string.iccm_physical_examination);
-                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, baseEntityId, actionList, details, callBack, isEdit, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect);
-                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
+                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isEdit, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect);
+                BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
                 actionList.put(title, action);
             } catch (Exception e) {
                 Timber.e(e);

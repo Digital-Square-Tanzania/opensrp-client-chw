@@ -29,7 +29,6 @@ import timber.log.Timber;
 
 public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private String baseEntityId;
     private Context context;
 
     private String pneumoniaSigns;
@@ -43,16 +42,17 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
     private final BaseIccmVisitContract.InteractorCallBack callBack;
     private final Map<String, List<VisitDetail>> details;
+    private IccmMemberObject memberObject;
 
-    public IccmPneumoniaActionHelper(Context context, String baseEntityId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
+    public IccmPneumoniaActionHelper(Context context, String iccmEnromentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
         this.context = context;
-        this.baseEntityId = baseEntityId;
         this.actionList = actionList;
         this.details = details;
         this.isEdit = isEdit;
         this.callBack = callBack;
         this.isDiarrheaSuspect = isDiarrheaSuspect;
         this.isMalariaSuspect = isMalariaSuspect;
+        memberObject = IccmDao.getMember(iccmEnromentFormSubmissionId);
     }
 
     @Override
@@ -64,8 +64,6 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-
-            IccmMemberObject memberObject = IccmDao.getMember(baseEntityId);
             jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
 
             int age = getAgeFromDate(memberObject.getAge());
@@ -123,11 +121,11 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
 
         if (!pneumoniaSigns.equalsIgnoreCase("sever_pneumonia") && IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
-            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(IccmDao.getMember(baseEntityId).getAge()) < 6) {
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);
-                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, baseEntityId, actionList, details, callBack, isEdit, isMalariaSuspect);
-                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
+                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isMalariaSuspect);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
                     actionList.put(title, action);
                 } catch (Exception e) {
                     Timber.e(e);
@@ -136,8 +134,8 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
                 String malariaActionTitle = context.getString(R.string.iccm_malaria);
                 try {
-                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, baseEntityId, isEdit);
-                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(baseEntityId).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
                         actionList.put(malariaActionTitle, action);
                 } catch (Exception e) {
