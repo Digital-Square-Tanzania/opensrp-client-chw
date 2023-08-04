@@ -26,7 +26,7 @@ actions:
          } else if (weightValue >= 25 && weightValue < 35) {
              return 18;
          } else {
-             return 35;
+             return 24;
          }
      }"
   - "calculation = getNumberOfTablets(global_weight)"
