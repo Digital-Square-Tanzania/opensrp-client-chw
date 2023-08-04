@@ -39,10 +39,11 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
     private String isMalariaSuspectString;
     private final String isDiarrheaSuspect;
     private final String isPneumoniaSuspect;
+    private final boolean hasAnySymptom;
 
     private IccmMemberObject memberObject;
 
-    public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect) {
+    public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect, boolean hasAnySymptom) {
         this.context = context;
         this.actionList = actionList;
         this.isEdit = isEdit;
@@ -51,6 +52,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
         this.isMalariaSuspectString = isMalariaSuspect;
         this.isDiarrheaSuspect = isDiarrheaSuspect;
         this.isPneumoniaSuspect = isPneumoniaSuspect;
+        this.hasAnySymptom = hasAnySymptom;
 
         memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
@@ -65,6 +67,9 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
         try {
             JSONObject physicalExaminationActionJsonPayloadObject = new JSONObject(jsonPayload);
             physicalExaminationActionJsonPayloadObject.getJSONObject("global").put("is_malaria_suspect", isMalariaSuspectString);
+            physicalExaminationActionJsonPayloadObject.getJSONObject("global").put("is_diarrhea_suspect", isDiarrheaSuspect);
+            physicalExaminationActionJsonPayloadObject.getJSONObject("global").put("is_pneumonia_suspect", isPneumoniaSuspect);
+            physicalExaminationActionJsonPayloadObject.getJSONObject("global").put("has_any_symptom", hasAnySymptom);
             return physicalExaminationActionJsonPayloadObject.toString();
         } catch (JSONException e) {
             Timber.e(e);

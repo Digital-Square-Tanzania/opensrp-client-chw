@@ -157,12 +157,6 @@
             "openmrs_entity_id": "malaise"
           },
           {
-            "key": "body_ache",
-            "text": "Body ache",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "body_ache"
-          },
-          {
             "key": "coughing",
             "text": "Coughing",
             "openmrs_entity": "concept",
@@ -273,14 +267,7 @@
         "type": "hidden",
         "openmrs_entity_id": "is_pneumonia_suspect",
         "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_medical_history_calculation.yml"
-            }
-          }
-        }
+        "openmrs_entity_parent": ""
       },
       {
         "key": "prompt_for_conducting_mrdt",

@@ -48,7 +48,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Diarrhea",
+    "title": "Kuharisha",
     "fields": [
       {
         "key": "diarrhea_signs",
@@ -66,37 +66,37 @@
         "options": [
           {
             "key": "irritable_or_crying",
-            "text": "Irritable or crying",
+            "text": "Anahangaika au kulialia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "irritable_or_crying"
           },
           {
             "key": "sunken_eyes",
-            "text": "Sunken eyes",
+            "text": "Macho kuingia ndani",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sunken_eyes"
           },
           {
             "key": "drinks_eagerly",
-            "text": "Drinks eagerly",
+            "text": "Anakunywa kwa shauku",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "drinks_eagerly"
           },
           {
             "key": "struggles_to_drink",
-            "text": "Struggles to drink",
+            "text": "Anakunywa kwa shida",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "struggles_to_drink"
           },
           {
             "key": "skin_pinch_goes_back_slowly",
-            "text": "Skin pinch goes back slowly",
+            "text": "Ngozi ikitomaswa inarudi polepole",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_pinch_goes_back_slowly"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Hana dalili yoyote",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
@@ -129,7 +129,7 @@
       {
         "key": "prompt_for_diarrhea_with_signs_of_dehydration",
         "type": "toaster_notes",
-        "text": "Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya, na mama yake/mlezi aendelee kumpa ORS kidogo kidogo wakiwa njiani.",
+        "text": "Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
         "openmrs_entity_id": "prompt_for_diarrhea_with_signs_of_dehydration",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -147,6 +147,65 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "has_bilateral_lower_limbs_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_bilateral_lower_limbs_oedema",
+        "label": "Je miguu imevimba?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "Mama yake/mlezi aendelee kumpa ORS kidogo kidogo wakiwa njiani.",
+        "openmrs_entity_id": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:has_bilateral_lower_limbs_oedema": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
           }
         }
       },

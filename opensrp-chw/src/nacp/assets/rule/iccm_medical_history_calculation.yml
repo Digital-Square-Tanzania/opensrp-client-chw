@@ -14,10 +14,3 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = !step1_medical_history.isEmpty() && step1_medical_history.contains('diarrhea')"
----
-name: step1_is_pneumonia_suspect
-description: is_pneumonia_suspect calculation
-priority: 1
-condition: "true"
-actions:
-  - "calculation = !step1_medical_history.isEmpty() && step1_medical_history.contains('coughing')"

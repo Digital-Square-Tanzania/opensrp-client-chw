@@ -5,6 +5,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.OPTIONS;
+import static org.smartregister.util.Utils.getAgeFromDate;
 
 import android.content.Context;
 
@@ -74,6 +75,12 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             if (memberObject.getTemperature() > 37.5) {
                 JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "medical_history");
                 medicalHistory.getJSONArray(OPTIONS).getJSONObject(0).put(VALUE, true);
+            }
+
+            int age = getAgeFromDate(memberObject.getAge());
+            JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
+            if (medicalHistory != null) {
+                medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40)));
             }
 
 
@@ -153,7 +160,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
             try {
                 String title = context.getString(R.string.iccm_physical_examination);
-                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isEdit, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect);
+                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isEdit, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect, !CoreJsonFormUtils.getValue(jsonObject, "medical_history").contains("none"));
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
                 actionList.put(title, action);
             } catch (Exception e) {

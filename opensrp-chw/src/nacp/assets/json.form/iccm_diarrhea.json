@@ -129,7 +129,7 @@
       {
         "key": "prompt_for_diarrhea_with_signs_of_dehydration",
         "type": "toaster_notes",
-        "text": "Refer the client to health facility immediately, and the mother should continue administering small amounts of ORS to the child during the journey.",
+        "text": "Refer the client to health facility immediately.",
         "openmrs_entity_id": "prompt_for_diarrhea_with_signs_of_dehydration",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -147,6 +147,65 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "has_bilateral_lower_limbs_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_bilateral_lower_limbs_oedema",
+        "label": "Is the child having bilateral lower limbs Oedema?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "The mother should continue administering small amounts of ORS to the child during the journey.",
+        "openmrs_entity_id": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:has_bilateral_lower_limbs_oedema": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
           }
         }
       },

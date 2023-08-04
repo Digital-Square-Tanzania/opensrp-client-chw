@@ -152,15 +152,9 @@
           },
           {
             "key": "malaise",
-            "text": "Anashindwa kukaa/kusimama bila kusaidiwa",
+            "text": "Maumivu ya mwili",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaise"
-          },
-          {
-            "key": "body_ache",
-            "text": "Maumivuya mwili",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "body_ache"
           },
           {
             "key": "coughing",
@@ -189,7 +183,7 @@
       {
         "key": "other_medical_history",
         "type": "edit_text",
-        "hint": "PTaja dalili nyingine",
+        "hint": "Taja dalili nyingine",
         "openmrs_entity_id": "other_medical_history",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

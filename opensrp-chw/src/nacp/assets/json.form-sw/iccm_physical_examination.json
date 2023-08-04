@@ -48,7 +48,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Physical Examination",
+    "title": "Uchunguzi wa mwili",
     "fields": [
       {
         "key": "physical_examination",
@@ -66,7 +66,7 @@
         "options": [
           {
             "key": "pallor",
-            "text": "Weupe wa viganja au konjaktaiva",
+            "text": "Weupe wa viganja au konjaktiva",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pallor"
           },

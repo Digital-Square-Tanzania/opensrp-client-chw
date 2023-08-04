@@ -209,7 +209,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_dispensing_amoxicillin",
-        "label": "Sababu kwa nini vidonge myeyuko vya Amoxicillin DT havijatolewa?",
+        "label": "Sababu kwa nini vidonge vya Amoxicillin DT vya Amoxicillin DT havijatolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

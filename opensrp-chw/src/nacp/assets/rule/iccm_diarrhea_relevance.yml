@@ -9,7 +9,7 @@ actions:
 name: step1_diarrhea_medication_dispensed_for_referred_clients
 description: diarrhea_medication_dispensed_for_referred_clients relevance
 priority: 1
-condition: "!step1_diarrhea_signs.isEmpty() && !step1_diarrhea_signs.contains('none')"
+condition: "!step1_diarrhea_signs.isEmpty() && !step1_diarrhea_signs.contains('none') && step1_has_bilateral_lower_limbs_oedema == 'yes'"
 actions:
   - "isRelevant = true"
 ---

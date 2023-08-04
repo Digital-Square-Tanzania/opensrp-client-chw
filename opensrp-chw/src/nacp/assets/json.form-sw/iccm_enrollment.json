@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "ICCM Enrollment",
   "entity_id": "",
   "metadata": {
@@ -48,8 +48,31 @@
   },
   "global": {},
   "step1": {
-    "title": "Historia ya Matibabu",
+    "title": "Eneo la Kutolea Huduma",
     "next": "step2",
+    "fields": [
+      {
+        "key": "note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Tafadhali rekodi eneo unalotea huduma hii",
+        "toaster_type": "info"
+      },
+      {
+        "key": "visit_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Historia ya Matibabu",
+    "next": "step3",
     "fields": [
       {
         "key": "client_testing_history",
@@ -118,9 +141,9 @@
       }
     ]
   },
-  "step2": {
+  "step3": {
     "title": "Viashiria Muhimu",
-    "next": "step3",
+    "next": "step4",
     "fields": [
       {
         "key": "temperature",
@@ -155,7 +178,7 @@
         "openmrs_entity_parent": "",
         "toaster_type": "warning",
         "relevance": {
-          "step2:temperature": {
+          "step3:temperature": {
             "type": "numeric",
             "ex": "greaterThan(.,\"38.4\")"
           }
@@ -261,7 +284,7 @@
       }
     ]
   },
-  "step3": {
+  "step4": {
     "title": "Dalili za Hatari",
     "fields": [
       {
@@ -555,7 +578,6 @@
           }
         }
       }
-
     ]
   }
 }

@@ -97,7 +97,7 @@
       {
         "key": "prompt_for_invalid_mrdt_results",
         "type": "toaster_notes",
-        "text": "<b>Matokeo ya kipimo cha mRDT ni Invalid.</b><br>Rudia upya kumpima mteja",
+        "text": "<b>Matokeo ya kipimo cha mRDT ni batili.</b><br>Rudia upya kumpima mteja",
         "openmrs_entity_id": "prompt_for_invalid_mrdt_results",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -155,7 +155,7 @@
       {
         "key": "prompt_for_invalid_mrdt_results_two",
         "type": "toaster_notes",
-        "text": "<b>Matokeo ya kipimo cha mRDT ni Invalid.</b><br>Mpe mteja rufaa kwenda kituo cha kutolea huduma za afya",
+        "text": "<b>Matokeo ya kipimo cha mRDT ni batili.</b><br>Mpe mteja rufaa kwenda kituo cha kutolea huduma za afya",
         "openmrs_entity_id": "prompt_for_invalid_mrdt_results_two",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

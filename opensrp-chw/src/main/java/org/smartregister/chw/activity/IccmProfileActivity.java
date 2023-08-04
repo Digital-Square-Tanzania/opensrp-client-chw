@@ -146,7 +146,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                     formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getFocus());
 
 
-                    CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(baseEntityId);
+                    CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
                     boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(commonPersonObjectClient, 10, 49) && org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
 
                     JSONArray steps = formJson.getJSONArray("steps");
@@ -159,7 +159,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
                     updateProblemsAndServicesBeforeReferral(referralFormFields, removePneumoniaAndDiarrheSigns, removeRectalArtesunate, isFemaleOfReproductiveAge);
 
-                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, formJson, false);
+                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false);
                 } else {
                     startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
                 }
@@ -167,7 +167,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                 Timber.e(ex);
             }
         } else {
-            Utils.launchClientReferralActivity(this, getReferralTypeModels(), baseEntityId);
+            Utils.launchClientReferralActivity(this, getReferralTypeModels(), memberObject.getBaseEntityId());
         }
     }
 

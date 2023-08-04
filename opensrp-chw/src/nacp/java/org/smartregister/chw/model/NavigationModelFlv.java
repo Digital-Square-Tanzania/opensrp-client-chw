@@ -47,7 +47,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
             String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
 
-            if (teamRoleIdentifier.equals("iccm_provider")) {
+            if (true) {
                 navigationOptions.addAll(Arrays.asList(op10, op20, op8));
             } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
                 if (teamRoleIdentifier.equals("mother_champion")) {
