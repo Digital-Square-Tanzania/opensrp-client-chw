@@ -283,6 +283,12 @@
             "openmrs_entity_id": "ors"
           },
           {
+            "key": "zinc",
+            "text": "Zinc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc"
+          },
+          {
             "key": "zinc_ors_co_pack",
             "text": "Zinc ORS Co-pack",
             "openmrs_entity": "concept",
@@ -348,14 +354,10 @@
           "err": "Tablets dispensed should not exceed 10"
         },
         "relevance": {
-          "step1:diarrhea_medication_dispensed": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "zinc"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
           }
         }
       },
