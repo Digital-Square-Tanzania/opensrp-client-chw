@@ -123,66 +123,59 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             isMalariaSuspectString = "true";
         }
 
-        if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
-            int age = getAgeFromDate(memberObject.getAge());
-            if (age > 6) {
-                String malariaActionTitle = context.getString(R.string.iccm_malaria);
-                if (isMalariaSuspectString.equalsIgnoreCase("true")) {
-                    try {
-                        IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
-                        BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
-                        if (!actionList.containsKey(malariaActionTitle))
-                            actionList.put(malariaActionTitle, action);
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                } else {
-                    //Removing the malaria actions  the client is not a malaria suspect.
-                    actionList.remove(context.getString(R.string.iccm_malaria));
+        int age = getAgeFromDate(memberObject.getAge());
+        if (age > 6) {
+            String malariaActionTitle = context.getString(R.string.iccm_malaria);
+            if (isMalariaSuspectString.equalsIgnoreCase("true")) {
+                try {
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                    if (!actionList.containsKey(malariaActionTitle))
+                        actionList.put(malariaActionTitle, action);
+                } catch (Exception e) {
+                    Timber.e(e);
                 }
             } else {
-                if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6)) {
-                    try {
-                        String title = context.getString(R.string.iccm_pneumonia);
-                        IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isDiarrheaSuspect, isMalariaSuspectString);
-                        BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
-                        actionList.put(title, action);
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                } else if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
-                    actionList.remove(context.getString(R.string.iccm_pneumonia));
-                    try {
-                        String title = context.getString(R.string.iccm_diarrhea);
-                        IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isMalariaSuspectString);
-                        BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
-                        actionList.put(title, action);
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                } else if (isMalariaSuspectString.equalsIgnoreCase("true")) {
-                    actionList.remove(context.getString(R.string.iccm_pneumonia));
-                    actionList.remove(context.getString(R.string.iccm_diarrhea));
-
-                    String malariaActionTitle = context.getString(R.string.iccm_malaria);
-                    try {
-                        IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
-                        BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
-                        if (!actionList.containsKey(malariaActionTitle))
-                            actionList.put(malariaActionTitle, action);
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                } else {
-                    actionList.remove(context.getString(R.string.iccm_malaria));
-                    actionList.remove(context.getString(R.string.iccm_pneumonia));
-                    actionList.remove(context.getString(R.string.iccm_diarrhea));
-                }
+                //Removing the malaria actions  the client is not a malaria suspect.
+                actionList.remove(context.getString(R.string.iccm_malaria));
             }
         } else {
-            actionList.remove(context.getString(R.string.iccm_pneumonia));
-            actionList.remove(context.getString(R.string.iccm_diarrhea));
-            actionList.remove(context.getString(R.string.iccm_malaria));
+            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6)) {
+                try {
+                    String title = context.getString(R.string.iccm_pneumonia);
+                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isDiarrheaSuspect, isMalariaSuspectString);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
+                    actionList.put(title, action);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            } else if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
+                actionList.remove(context.getString(R.string.iccm_pneumonia));
+                try {
+                    String title = context.getString(R.string.iccm_diarrhea);
+                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isMalariaSuspectString);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
+                    actionList.put(title, action);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            } else if (isMalariaSuspectString.equalsIgnoreCase("true")) {
+                actionList.remove(context.getString(R.string.iccm_pneumonia));
+                actionList.remove(context.getString(R.string.iccm_diarrhea));
+                String malariaActionTitle = context.getString(R.string.iccm_malaria);
+                try {
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
+                    if (!actionList.containsKey(malariaActionTitle))
+                        actionList.put(malariaActionTitle, action);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            } else {
+                actionList.remove(context.getString(R.string.iccm_malaria));
+                actionList.remove(context.getString(R.string.iccm_pneumonia));
+                actionList.remove(context.getString(R.string.iccm_diarrhea));
+            }
         }
 
         if (!isMalariaSuspectString.equalsIgnoreCase("true")) {

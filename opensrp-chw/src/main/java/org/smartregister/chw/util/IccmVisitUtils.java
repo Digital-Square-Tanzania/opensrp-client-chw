@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.kvp.util.TimeUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -33,8 +32,8 @@ public class IccmVisitUtils extends VisitUtils {
     /**
      * To be invoked for manual processing
      *
-     * @param baseEntityID
-     * @throws Exception
+     * @param baseEntityID of the client
+     * @throws Exception that occured
      */
     public static void processVisits(String baseEntityID) throws Exception {
         processVisits(MalariaLibrary.getInstance().visitRepository(), MalariaLibrary.getInstance().visitDetailsRepository(), baseEntityID);
@@ -103,20 +102,20 @@ public class IccmVisitUtils extends VisitUtils {
                 if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || clientPastMalariaTreatmentHistory.equalsIgnoreCase("no")) {
                     completionObject.put("isPhysicalExaminationComplete", computeCompletionStatusForAction(obs, "physical_examination_completion_status"));
                     String isMalariaSuspect = getFieldValue(obs, "is_malaria_suspect_after_physical_examination");
-                    if (isMalariaSuspect.equalsIgnoreCase("true")) {
+                    if (isMalariaSuspect != null && isMalariaSuspect.equalsIgnoreCase("true")) {
                         completionObject.put("isMalariadDiagnosisComplete", computeCompletionStatusForAction(obs, "malaria_completion_status"));
                     }
+                }
 
-                    if (Utils.getAgeFromDate(IccmDao.getMemberByBaseEntityId(visit.getBaseEntityId()).getAge()) < 5) {
-                        String isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
-                        if (isDiarrheaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
-                            completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
-                        }
-                        String isPneumoniaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_pneumonia_suspect");
+                if (Utils.getAgeFromDate(IccmDao.getMemberByBaseEntityId(visit.getBaseEntityId()).getAge()) < 5) {
+                    String isDiarrheaSuspect = getFieldValue(obs, "is_diarrhea_suspect");
+                    if (isDiarrheaSuspect != null && isDiarrheaSuspect.equalsIgnoreCase("true")) {
+                        completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
+                    }
 
-                        if (isPneumoniaSuspect.equalsIgnoreCase("true") && Utils.getAgeFromDate(IccmDao.getMember(visit.getBaseEntityId()).getAge()) < 5) {
-                            completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
-                        }
+                    String isPneumoniaSuspect = getFieldValue(obs, "is_pneumonia_suspect");
+                    if (isPneumoniaSuspect != null && isPneumoniaSuspect.equalsIgnoreCase("true")) {
+                        completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
                     }
                 }
 

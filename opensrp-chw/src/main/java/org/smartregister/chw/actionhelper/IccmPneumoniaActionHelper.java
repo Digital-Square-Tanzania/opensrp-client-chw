@@ -120,7 +120,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
         }
 
 
-        if (!pneumoniaSigns.equalsIgnoreCase("sever_pneumonia") && IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
+        if (IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
             if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);

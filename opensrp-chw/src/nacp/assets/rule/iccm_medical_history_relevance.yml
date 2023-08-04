@@ -16,13 +16,13 @@ actions:
 name: step1_prompt_for_diagnosing_diarrhea
 description: prompt_for_diagnosing_diarrhea relevance
 priority: 1
-condition: "step1_is_diarrhea_suspect == 'true' && (step1_client_past_malaria_treatment_history.isEmpty() || step1_client_past_malaria_treatment_history == 'no')"
+condition: "step1_is_diarrhea_suspect == 'true'"
 actions:
   - "isRelevant = true"
 ---
 name: step1_prompt_for_diagnosing_pneumonia
 description: prompt_for_diagnosing_pneumonia relevance
 priority: 1
-condition: "step1_is_pneumonia_suspect == 'true' && (step1_client_past_malaria_treatment_history.isEmpty() || step1_client_past_malaria_treatment_history == 'no')"
+condition: "step1_is_pneumonia_suspect == 'true'"
 actions:
   - "isRelevant = true"
