@@ -372,7 +372,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "dispensed_anti_pyretic",
-        "label": "Was anti-pyretic dispensed to the client?",
+        "label": "Was anti-pyretic administered to the client?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -453,6 +453,43 @@
         "openmrs_entity_id": "other_reasons_for_not_providing_anti_pyretic",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_rectal_artesunate_suppository_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_rectal_artesunate_suppository_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_number_of_suppository_to_dispense",
+        "type": "toaster_notes",
+        "text": "Administer {suppository} suppository to the client with weight of {weight} kgs",
+        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

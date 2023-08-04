@@ -462,6 +462,43 @@
         }
       },
       {
+        "key": "number_of_rectal_artesunate_suppository_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_rectal_artesunate_suppository_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_number_of_suppository_to_dispense",
+        "type": "toaster_notes",
+        "text": "Mpatie mtoto Artesunate ya puru {suppository} mtoto wa kilo {weight}",
+        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "administered_artesunate",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

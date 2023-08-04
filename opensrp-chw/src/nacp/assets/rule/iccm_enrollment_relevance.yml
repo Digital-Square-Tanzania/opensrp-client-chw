@@ -41,6 +41,13 @@ condition: "!step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none'
 actions:
   - "isRelevant = true"
 ---
+name: step4_prompt_number_of_number_of_suppository_to_dispense
+description: prompt_number_of_number_of_suppository_to_dispense relevance
+priority: 1
+condition: "!step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none') && global_age < 6"
+actions:
+  - "isRelevant = true"
+---
 name: step4_reasons_for_not_providing_artesunate
 description: reasons_for_not_providing_artesunate relevance
 priority: 1
