@@ -80,7 +80,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             int age = getAgeFromDate(memberObject.getAge());
             JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
             if (medicalHistory != null) {
-                medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40)));
+                medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40)));
             }
 
 

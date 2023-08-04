@@ -67,7 +67,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
             jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
 
             int age = getAgeFromDate(memberObject.getAge());
-            if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 6 && memberObject.getRespiratoryRate() >= 40))) {
+            if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
                 JSONArray options = pneumoniaSignsField.getJSONArray("options");
@@ -121,7 +121,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
 
         if (!pneumoniaSigns.equalsIgnoreCase("sever_pneumonia") && IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
-            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6) {
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);
                     IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isMalariaSuspect);
