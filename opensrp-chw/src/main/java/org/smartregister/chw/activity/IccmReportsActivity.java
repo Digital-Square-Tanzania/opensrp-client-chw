@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,10 +30,15 @@ import timber.log.Timber;
 
 public class IccmReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected ConstraintLayout iccmClientsReport;
+
     protected ConstraintLayout dispensingSummary;
+
     protected ConstraintLayout malariaReport;
+
     protected AppBarLayout appBarLayout;
+
     Menu menu;
+
     private String reportPeriod = ReportUtils.getDefaultReportPeriod();
 
     @Override
@@ -67,9 +71,7 @@ public class IccmReportsActivity extends SecuredActivity implements View.OnClick
         }
         toolbar.setNavigationOnClickListener(v -> finish());
         appBarLayout = findViewById(org.smartregister.chw.core.R.id.app_bar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            appBarLayout.setOutlineProvider(null);
-        }
+        appBarLayout.setOutlineProvider(null);
     }
 
     @Override

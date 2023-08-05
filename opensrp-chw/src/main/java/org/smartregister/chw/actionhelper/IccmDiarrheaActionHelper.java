@@ -29,14 +29,19 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
     private String jsonPayload;
 
     private final Context context;
+
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private final boolean isEdit;
+
     private final String isMalariaSuspect;
 
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+
     private final BaseIccmVisitContract.InteractorCallBack callBack;
+
     private final Map<String, List<VisitDetail>> details;
+
     private final IccmMemberObject memberObject;
 
     public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {

@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.Menu;
 import android.view.View;
 
@@ -19,14 +18,18 @@ import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
-
-
     protected CustomFontTextView toolBarTextView;
+
     protected AppBarLayout appBarLayout;
+
     protected ConstraintLayout cbhsReportsLayout;
+
     protected ConstraintLayout motherChampionReportsLayout;
+
     protected ConstraintLayout condomDistributionReports;
+
     protected ConstraintLayout agywReports;
+
     protected ConstraintLayout iccmReports;
 
     @Override
@@ -92,9 +95,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         toolBarTextView.setText(R.string.reports_title);
         toolBarTextView.setOnClickListener(v -> finish());
         appBarLayout = findViewById(org.smartregister.chw.core.R.id.app_bar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            appBarLayout.setOutlineProvider(null);
-        }
+        appBarLayout.setOutlineProvider(null);
     }
 
 
