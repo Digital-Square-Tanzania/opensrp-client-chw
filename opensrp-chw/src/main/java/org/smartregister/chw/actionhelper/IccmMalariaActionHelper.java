@@ -22,20 +22,12 @@ import timber.log.Timber;
 
 public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private Context context;
-
-    private String mrdtResults;
-
-    private boolean isEdit;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private final IccmMemberObject memberObject;
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, boolean isEdit) {
-        this.context = context;
-        this.isEdit = isEdit;
-
         this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
 
@@ -63,7 +55,7 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
         try {
             checkObject.clear();
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            mrdtResults = CoreJsonFormUtils.getValue(jsonObject, "mrdt_results");
+            String mrdtResults = CoreJsonFormUtils.getValue(jsonObject, "mrdt_results");
             checkObject.put("mrdt_results", StringUtils.isNotBlank(mrdtResults));
         } catch (JSONException e) {
             e.printStackTrace();

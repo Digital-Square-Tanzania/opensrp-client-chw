@@ -27,12 +27,12 @@ import timber.log.Timber;
 
 public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private Context context;
-    private String diarrheaSigns;
+
+    private final Context context;
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    private boolean isEdit;
-    private String isMalariaSuspect;
+    private final boolean isEdit;
+    private final String isMalariaSuspect;
 
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
     private final BaseIccmVisitContract.InteractorCallBack callBack;
@@ -71,7 +71,7 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         try {
             checkObject.clear();
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            diarrheaSigns = CoreJsonFormUtils.getValue(jsonObject, "diarrhea_signs");
+            String diarrheaSigns = CoreJsonFormUtils.getValue(jsonObject, "diarrhea_signs");
             checkObject.put("diarrhea_signs", StringUtils.isNotBlank(diarrheaSigns));
         } catch (JSONException e) {
             e.printStackTrace();
