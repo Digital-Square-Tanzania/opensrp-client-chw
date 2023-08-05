@@ -69,6 +69,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -142,7 +143,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         if (getReferralTypeModels().size() == 1) {
             try {
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                    JSONObject formJson = getFormUtils().getFormJson(ICCM_REFERRAL_FORM);
+                    JSONObject formJson =  new FormUtils(IccmProfileActivity.this).getFormJson(ICCM_REFERRAL_FORM);
                     formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getFocus());
 
 

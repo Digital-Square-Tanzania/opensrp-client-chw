@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "ICCM Services Referral",
+      "title": "Rufaa za iCCM",
       "fields": [
         {
           "name": "problem",
@@ -65,12 +65,12 @@
           },
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Details of the patient's problem"
+            "text": "Sababu za rufaa"
           },
           "options": [
             {
               "name": "extreme_weakness",
-              "text": "Prostration/extreme weakness",
+              "text": "Amelegea sana",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "extreme_weakness",
@@ -79,7 +79,7 @@
             },
             {
               "name": "impaired_consciousness",
-              "text": "Impaired consciousness",
+              "text": "Kupoteza fahamu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "impaired_consciousness",
@@ -88,7 +88,7 @@
             },
             {
               "name": "change_of_behaviour",
-              "text": "Change of behaviour",
+              "text": "Kuchanganyikiwa",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "change_of_behaviour",
@@ -97,7 +97,7 @@
             },
             {
               "name": "convulsions",
-              "text": "Convulsions",
+              "text": "Degedege",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "convulsions",
@@ -106,7 +106,7 @@
             },
             {
               "name": "respiratory_distress",
-              "text": "Respiratory distress",
+              "text": "Kupumua kwa shida",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "respiratory_distress",
@@ -133,7 +133,7 @@
             },
             {
               "name": "vomiting_everything",
-              "text": "Vomiting everything",
+              "text": "Anatapika kila kitu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "vomiting_everything",
@@ -142,7 +142,7 @@
             },
             {
               "name": "inability_to_drink_or_breastfeed",
-              "text": "Inability to drink or breastfeed",
+              "text": "Hawezi kunywa au kunyonya",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "inability_to_drink_or_breastfeed",
@@ -151,7 +151,7 @@
             },
             {
               "name": "negative_mrdt_results",
-              "text": "Negative mRDT Results",
+              "text": "Majibu hasi ya kipimo cha mRDT",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "negative_mrdt_results",
@@ -160,7 +160,7 @@
             },
             {
               "name": "other_reasons",
-              "text": "Non iCCM Condition",
+              "text": "Magonjwa mengine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "other_reasons",
@@ -169,7 +169,7 @@
             },
             {
               "name": "sever_pneumonia",
-              "text": "Severe Pneumonia",
+              "text": "Nimonia Kali",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "sever_pneumonia",
@@ -178,7 +178,7 @@
             },
             {
               "name": "diarrhea_with_signs_of_dehydration",
-              "text": "Diarrhea with signs of dehydration",
+              "text": "Kuharisha wenye upungu wa maji",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "diarrhea_with_signs_of_dehydration",
@@ -187,7 +187,7 @@
             },
             {
               "name": "pregnant_client",
-              "text": "Pregnant Client",
+              "text": "Mama Mjamzito",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "pregnant_client",
@@ -195,7 +195,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify problem associated with the client",
+          "required_status": "yes:Tafadhali jaza sababu za rufaa",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -207,7 +207,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other reasons",
+            "hint": "Magonjwa mengine",
             "type": "name"
           },
           "meta_data": {
@@ -215,7 +215,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Please specify other reasons",
+          "required_status": "true:Tafadhali jaza  magonjwa mengine",
           "subjects": "problem:map"
         },
         {
@@ -227,12 +227,12 @@
           },
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Treatment given before the referral"
+            "text": "Dawa aliyopewa kabla ya rufaa."
           },
           "options": [
             {
               "name": "rectal_artesunate",
-              "text": "Rectal artesunate",
+              "text": "Artesunate ya puru",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "rectal_artesunate",
@@ -241,7 +241,7 @@
             },
             {
               "name": "anti_pyretic",
-              "text": "Anti-pyretic",
+              "text": "Dawa ya kushusha homa",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "anti_pyretic",
@@ -268,7 +268,7 @@
             },
             {
               "name": "none",
-              "text": "None",
+              "text": "Hajapewa dawa yoyote",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -288,7 +288,7 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "hint": "Non iCCM Condition"
+            "hint": "Other treatment"
           },
           "required_status": "true:Please specify other symptoms",
           "subjects": "service_before_referral:map"
@@ -302,8 +302,8 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility",
-            "searchable": "Choose referral facility"
+            "text": "Chagua Kituo cha rufaa",
+            "searchable": "Chagua Kituo cha rufaa"
           },
           "options": [],
           "required_status": "yes:Please specify referral facility"
@@ -312,7 +312,7 @@
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Chagua tarehe ya tembeleo",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"

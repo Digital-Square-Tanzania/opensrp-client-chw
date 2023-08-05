@@ -64,7 +64,7 @@ public class IccmRegisterActivity extends CoreMalariaRegisterActivity {
             jsonForm.getJSONObject("global").put("age", age);
 
             if (age >= 5) {
-                JSONArray fields = jsonForm.getJSONObject("step2").getJSONArray(FIELDS);
+                JSONArray fields = jsonForm.getJSONObject("step3").getJSONArray(FIELDS);
                 JSONObject respiratoryRate = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "respiratory_rate");
                 respiratoryRate.remove("v_required");
             }
