@@ -29,20 +29,19 @@ import timber.log.Timber;
 
 public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
-    private Context context;
 
-    private String pneumoniaSigns;
+    private final Context context;
 
-    private boolean isEdit;
-    private String isDiarrheaSuspect;
-    private String isMalariaSuspect;
+    private final boolean isEdit;
+    private final String isDiarrheaSuspect;
+    private final String isMalariaSuspect;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
     private final BaseIccmVisitContract.InteractorCallBack callBack;
     private final Map<String, List<VisitDetail>> details;
-    private IccmMemberObject memberObject;
+    private final IccmMemberObject memberObject;
 
     public IccmPneumoniaActionHelper(Context context, String iccmEnromentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
         this.context = context;
@@ -70,8 +69,11 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
             if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
-                JSONArray options = pneumoniaSignsField.getJSONArray("options");
-                options.remove(options.length() - 1);
+                JSONArray options;
+                if (pneumoniaSignsField != null) {
+                    options = pneumoniaSignsField.getJSONArray("options");
+                    options.remove(options.length() - 1);
+                }
             }
 
             return jsonObject.toString();
@@ -87,7 +89,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
         try {
             checkObject.clear();
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            pneumoniaSigns = CoreJsonFormUtils.getValue(jsonObject, "pneumonia_signs");
+            String pneumoniaSigns = CoreJsonFormUtils.getValue(jsonObject, "pneumonia_signs");
             checkObject.put("pneumonia_signs", StringUtils.isNotBlank(pneumoniaSigns));
         } catch (JSONException e) {
             e.printStackTrace();

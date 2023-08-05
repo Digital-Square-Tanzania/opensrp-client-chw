@@ -29,19 +29,28 @@ import timber.log.Timber;
 
 public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
+
     private final Context context;
+
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+
     private final BaseIccmVisitContract.InteractorCallBack callBack;
+
     private final boolean isEdit;
+
     private final Map<String, List<VisitDetail>> details;
+
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private String isMalariaSuspectString;
+
     private final String isDiarrheaSuspect;
+
     private final String isPneumoniaSuspect;
+
     private final boolean hasAnySymptom;
 
-    private IccmMemberObject memberObject;
+    private final IccmMemberObject memberObject;
 
     public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect, boolean hasAnySymptom) {
         this.context = context;

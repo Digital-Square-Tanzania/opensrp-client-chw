@@ -37,13 +37,21 @@ import timber.log.Timber;
 
 public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private String jsonPayload;
+
     private final String enrollmentFormSubmissionId;
+
     private final Context context;
+
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+
     private final BaseIccmVisitContract.InteractorCallBack callBack;
+
     private final boolean isEdit;
+
     private final Map<String, List<VisitDetail>> details;
+
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
+
     private IccmMemberObject memberObject;
 
     public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit) {
@@ -84,7 +92,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             }
 
 
-            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getBaseEntityId()), 10, 49) && org.smartregister.chw.util.Utils.getValue(getCommonPersonObjectClient(enrollmentFormSubmissionId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
+            boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getBaseEntityId()), 10, 49) && Utils.getValue(getCommonPersonObjectClient(enrollmentFormSubmissionId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
             if (!isFemaleOfReproductiveAge) {
                 JSONObject isTheClientPregnant = JsonFormUtils.getFieldJSONObject(fields, "is_the_client_pregnant");
                 if (isTheClientPregnant != null) {
@@ -92,7 +100,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 }
             }
 
-            if (Utils.getAgeFromDate(memberObject.getAge()) > 5) {
+            if (getAgeFromDate(memberObject.getAge()) > 5) {
                 JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");

@@ -2,6 +2,8 @@ package org.smartregister.chw.model;
 
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 
+import android.content.SharedPreferences;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class NavigationModelFlv implements NavigationModel.Flavor {
 
-    private static List<NavigationOption> navigationOptions = new ArrayList<>();
+    private static final List<NavigationOption> navigationOptions = new ArrayList<>();
 
     @Override
     public List<NavigationOption> getNavigationItems() {
@@ -45,9 +47,13 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
 
             AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-            String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
+            SharedPreferences preferences = allSharedPreferences.getPreferences();
+            String teamRoleIdentifier = "";
+            if (preferences != null) {
+                teamRoleIdentifier = preferences.getString(TEAM_ROLE_IDENTIFIER, "");
+            }
 
-            if (true) {
+            if (teamRoleIdentifier.equals("iccm_provider")) {
                 navigationOptions.addAll(Arrays.asList(op10, op20, op8));
             } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
                 if (teamRoleIdentifier.equals("mother_champion")) {
