@@ -460,7 +460,7 @@
     <string name="iccm_reports_subtitle">View ICCM Report</string>
     <string name="iccm_client_report">ICCM Clients Report</string>
     <string name="iccm_dispensing_summary">ICCM Dispensing Summary</string>
-    <string name="iccm_malaria_report">Malaria Test Rport</string>
+    <string name="iccm_malaria_report">Malaria Test Report</string>
     <string name="iccm_is_the_client_pregnant">Is the client Pregnant</string>
     <string name="iccm_other_medical_history">Other Medical History</string>
     <string name="iccm_interpretation_for_mrdt">Interpretation for mRDT</string>

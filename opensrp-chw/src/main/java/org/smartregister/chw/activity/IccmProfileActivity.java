@@ -76,9 +76,9 @@ import timber.log.Timber;
 public class IccmProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
     private static String baseEntityId;
-    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private FormUtils formUtils;
-    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private RelativeLayout processVisitLayout;
 
     private List<ReferralTypeModel> getReferralTypeModels() {
@@ -397,23 +397,6 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
-    }
-
-    private class UpdateVisitDueTask extends AsyncTask<Void, Void, Void> {
-        private MalariaFollowUpRule malariaFollowUpRule;
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Date malariaTestDate = MalariaDao.getMalariaTestDate(memberObject.getBaseEntityId());
-            Date followUpDate = MalariaDao.getMalariaFollowUpVisitDate(memberObject.getBaseEntityId());
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate, followUpDate);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            profilePresenter.recordMalariaButton(malariaFollowUpRule.getButtonStatus());
-        }
     }
 
     @Override
