@@ -13,7 +13,6 @@ import static org.smartregister.util.Utils.getAgeFromDate;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
@@ -40,16 +39,13 @@ import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.dao.IccmDao;
-import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.Visit;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -69,7 +65,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -143,7 +138,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         if (getReferralTypeModels().size() == 1) {
             try {
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                    JSONObject formJson =  new FormUtils(IccmProfileActivity.this).getFormJson(ICCM_REFERRAL_FORM);
+                    JSONObject formJson = new FormUtils(IccmProfileActivity.this).getFormJson(ICCM_REFERRAL_FORM);
                     formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getFocus());
 
 
@@ -263,11 +258,11 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
-            IccmServicesActivity.startIccmServicesActivity(this, memberObject.getIccmEnrollmentFormSubmissionId(), false);
+            IccmServicesActivity.startIccmServicesActivity(this, ((IccmMemberObject) memberObject).getIccmEnrollmentFormSubmissionId(), false);
         } else if (id == R.id.textview_edit || id == R.id.textview_undo) {
             Visit lastVisit = getVisit(ICCM_SERVICES_VISIT);
             if (lastVisit != null) {
-                IccmServicesActivity.startIccmServicesActivity(this, memberObject.getIccmEnrollmentFormSubmissionId(), true);
+                IccmServicesActivity.startIccmServicesActivity(this, ((IccmMemberObject) memberObject).getIccmEnrollmentFormSubmissionId(), true);
             }
         }
         handleNotificationRowClick(this, view, notificationListAdapter, baseEntityId);
