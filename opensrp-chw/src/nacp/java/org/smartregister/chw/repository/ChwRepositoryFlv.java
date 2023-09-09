@@ -430,7 +430,7 @@ public class ChwRepositoryFlv {
         }
 
         try {
-            DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList("ec_iccm_enrollment", "ec_cdp_outlet_stock_count")), ChwApplication.createCommonFtsObject());
+            DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList("ec_iccm_enrollment", "ec_iccm_service", "ec_cdp_outlet_stock_count")), ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion26");
         }
