@@ -26,17 +26,17 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasANC() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasPNC() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasChildSickForm() {
-        return false;
+        return true;
     }
 
     @Override
@@ -80,12 +80,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasHIV() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasFamilyLocationRow() {
-        return false;
+        return true;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasPmtct() {
-        return false;
+        return true;
     }
 
     @Override
@@ -124,12 +124,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasCdp() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasHIVST() {
-        return false;
+        return true;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasKvp() {
-        return false;
+        return true;
     }
 
     @Override

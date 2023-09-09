@@ -42,7 +42,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasCommunityResponders() {
-        return false;
+        return true;
     }
 
     @Override
