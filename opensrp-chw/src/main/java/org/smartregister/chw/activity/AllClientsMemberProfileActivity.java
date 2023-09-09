@@ -4,6 +4,9 @@ import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 
 import androidx.viewpager.widget.ViewPager;
@@ -328,5 +331,19 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     public CoreAllClientsMemberContract.Presenter getAllClientsMemberPresenter() {
         return allClientsMemberPresenter;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        delayInvalidateOptionsMenu();
+    }
+
+    private void delayInvalidateOptionsMenu() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(this::invalidateOptionsMenu, 2000);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

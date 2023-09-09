@@ -6,6 +6,9 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 
 import androidx.annotation.Nullable;
@@ -347,5 +350,19 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        delayInvalidateOptionsMenu();
+    }
+
+    private void delayInvalidateOptionsMenu() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(this::invalidateOptionsMenu, 2000);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

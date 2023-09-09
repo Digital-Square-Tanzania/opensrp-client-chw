@@ -75,6 +75,11 @@
           "value": "0",
           "err": "The number must be equal or greater than 0"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "The number of female clients reached must be less than or equal to 999"
+        },
         "v_required": {
           "value": true,
           "err": "Please enter the number"
@@ -94,6 +99,11 @@
         "v_min": {
           "value": "0",
           "err": "The number must be equal or greater than 0"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "The number of male clients reached must be less than or equal to 999"
         },
         "v_required": {
           "value": true,
@@ -123,6 +133,11 @@
           "value": "0",
           "err": "The number must be equal or greater than 0"
         },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "The number of condoms issued must be less than or equal to 9999"
+        },
         "v_required": {
           "value": true,
           "err": "Please enter the number"
@@ -142,6 +157,11 @@
         "v_min": {
           "value": "0",
           "err": "The number must be equal or greater than 0"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "The number of condoms issued must be less than or equal to 9999"
         },
         "v_required": {
           "value": true,

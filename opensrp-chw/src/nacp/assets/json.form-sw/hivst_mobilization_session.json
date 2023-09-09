@@ -1,196 +1,216 @@
 {
-    "count": "1",
-    "encounter_type": "HIVST Mobilization Session",
-    "entity_id": "",
-    "metadata": {
-        "start": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "start",
-            "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "end": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "end",
-            "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "deviceid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "deviceid",
-            "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "subscriberid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "subscriberid",
-            "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "simserial": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "simserial",
-            "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "phonenumber": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "phonenumber",
-            "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "encounter_location": ""
+  "count": "1",
+  "encounter_type": "HIVST Mobilization Session",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "global": {},
-    "step1": {
-        "title": "Uhamasishaji wa Vipindi vya Jipime",
-        "fields": [
-            {
-                "key": "mobilization_date",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "mobilization_date",
-                "type": "date_picker",
-                "hint": "Tarehe ya uamasishaji",
-                "expanded": false,
-                "min_date": "today-6m",
-                "max_date": "today",
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza tarehe ya uamasishaji"
-                }
-            },
-            {
-                "key": "female_clients_reached",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "female_clients_reached",
-                "type": "edit_text",
-                "hint": "Namba ya wateja wa kike waliofikiwa",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza numbari sahihi"
-                },
-                "v_min": {
-                    "value": "0",
-                    "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza nambar"
-                }
-            },
-            {
-                "key": "male_clients_reached",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "male_clients_reached",
-                "type": "edit_text",
-                "hint": "Namba ya wateja wa kiume waliofikiwa",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza numbari sahihi"
-                },
-                "v_min": {
-                    "value": "0",
-                    "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza nambar"
-                }
-            },
-            {
-                "key": "gps",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "gps",
-                "openmrs_data_type": "text",
-                "type": "gps"
-            },
-            {
-                "key": "female_condoms_issued",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "female_condoms_issued",
-                "type": "edit_text",
-                "hint": "Idadi ya kondom za kike zilizotolewa (Vipande)",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza numbari sahihi"
-                },
-                "v_min": {
-                    "value": "0",
-                    "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza nambar"
-                }
-            },
-            {
-                "key": "male_condoms_issued",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "male_condoms_issued",
-                "type": "edit_text",
-                "hint": "Idadi ya kondom za kiume zilizotolewa (Vipande)",
-                "v_numeric": {
-                    "value": "true",
-                    "err": "Tafadhali ingiza numbari sahihi"
-                },
-                "v_min": {
-                    "value": "0",
-                    "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
-                },
-                "v_required": {
-                    "value": true,
-                    "err": "Tafadhali ingiza nambar"
-                }
-            },
-            {
-                "key": "kit_used_in_demonstration",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "kit_used_in_demonstration",
-                "label": "Je kitepe kilitumika kwajili ya kufundishia",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali changuwa jibu "
-                }
-            },
-            {
-                "key": "kit_code",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "kit_code",
-                "type": "edit_text",
-                "hint": "Msimbo wa kitepe",
-                "relevance": {
-                    "step1:kit_used_in_demonstration": {
-                        "type": "string",
-                        "ex": "equalTo(., \"yes\")"
-                    }
-                }
-            }
-        ]
-    }
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Uhamasishaji wa Vipindi vya Jipime",
+    "fields": [
+      {
+        "key": "mobilization_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mobilization_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya uamasishaji",
+        "expanded": false,
+        "min_date": "today-6m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza tarehe ya uamasishaji"
+        }
+      },
+      {
+        "key": "female_clients_reached",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_clients_reached",
+        "type": "edit_text",
+        "hint": "Namba ya wateja wa kike waliofikiwa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza numbari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Idadi ya wateja wa kike waliofikiwa haitakiwi kuzidi 999"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza nambar"
+        }
+      },
+      {
+        "key": "male_clients_reached",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_clients_reached",
+        "type": "edit_text",
+        "hint": "Namba ya wateja wa kiume waliofikiwa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza numbari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Idadi ya wateja wa kiume waliofikiwa haitakiwi kuzidi 999"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza nambar"
+        }
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "gps",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "female_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi ya kondom za kike zilizotolewa (Vipande)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza numbari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Idadi ya kondomu za kike zilizotolewa haitakiwi kuzidi 9999"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza nambar"
+        }
+      },
+      {
+        "key": "male_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi ya kondom za kiume zilizotolewa (Vipande)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza numbari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Tarakimu ulioingiza inatakiwa iwe sawa au kubuwa kuliko 0"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Idadi ya kondomu za zikume zilizotolewa haitakiwi kuzidi 9999"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza nambar"
+        }
+      },
+      {
+        "key": "kit_used_in_demonstration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kit_used_in_demonstration",
+        "label": "Je kitepe kilitumika kwajili ya kufundishia",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali changuwa jibu "
+        }
+      },
+      {
+        "key": "kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kit_code",
+        "type": "edit_text",
+        "hint": "Msimbo wa kitepe",
+        "relevance": {
+          "step1:kit_used_in_demonstration": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
 }

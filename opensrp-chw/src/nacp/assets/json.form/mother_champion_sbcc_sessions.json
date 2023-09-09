@@ -109,6 +109,11 @@
           "value": "true",
           "err": "Please enter the number of participants"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "The number of participants must be less than or equal to 999"
+        },
         "v_required": {
           "value": true,
           "err": "Please enter the number of participants"

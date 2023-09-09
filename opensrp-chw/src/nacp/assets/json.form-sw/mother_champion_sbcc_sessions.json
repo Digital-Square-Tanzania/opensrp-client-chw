@@ -109,6 +109,11 @@
           "value": "true",
           "err": "Tafadhali ingiza idadi ya watu walihudhulia tukio hili"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Idadi ya watu walihudhulia haitakiwi kuzidi 999"
+        },
         "v_required": {
           "value": true,
           "err": "Tafadhali ingiza idadi ya watu walihudhulia tukio hili"

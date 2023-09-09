@@ -329,7 +329,7 @@
     <string name="pnc_counselling">Ushauri</string>
     <string name="pnc_nutrition_status">Hali ya lishe-mama</string>
     <string name="pnc_nutrition_status_baby_name">Hali ya lishe kwa mtoto ({0})</string>
-    <string name="pnc_malaria_prevention">Kinga dhidi ya malaria</string>
+    <string name="pnc_malaria_prevention">Kuzuia Malaria</string>
     <!-- PNC Home visit subtitle text -->
     <string name="pnc_danger_signs_mama">Dalili za hatari - Mama</string>
     <string name="pnc_danger_signs_baby_task">Dalili za hatari - Mtoto </string>
@@ -597,6 +597,7 @@
     <string name="kvp_friendly_services">Huduma rafiki kwa makundi maalum</string>
     <string name="sti_referral">Magonjwa ya ngono</string>
     <string name="view_visit_history">Angalia Tembeleo Lililopita</string>
+    <string name="kvp_discordant_couples">Mwenza mwenye majibu kinzani</string>
 
 
     <string name="menu_iccm">iCCM</string>
