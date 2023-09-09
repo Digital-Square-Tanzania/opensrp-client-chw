@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -73,8 +73,11 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
     private static String baseEntityId;
 
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
     private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
     private FormUtils formUtils;
+
     private RelativeLayout processVisitLayout;
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
@@ -301,7 +304,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
     @Override
     public void refreshFamilyStatus(AlertStatus status) {
-
+        //implement
     }
 
     @Override
@@ -316,6 +319,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
     @Override
     public void openFamilyDueServices() {
+        //implement
     }
 
     @Override
@@ -348,12 +352,12 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
     @Override
     public void verifyHasPhone() {
-//        TODO implement check if has phone number
+        //TODO implement check if has phone number
     }
 
     @Override
     public void notifyHasPhone(boolean b) {
-//        TODO notify if it has phone number
+        //TODO notify if it has phone number
     }
 
     private void checkPhoneNumberProvided(boolean hasPhoneNumber) {

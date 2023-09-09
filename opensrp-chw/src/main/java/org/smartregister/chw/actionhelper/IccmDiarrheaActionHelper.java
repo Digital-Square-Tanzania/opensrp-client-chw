@@ -32,8 +32,6 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
-    private final boolean isEdit;
-
     private final String isMalariaSuspect;
 
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
@@ -46,7 +44,6 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {
         this.context = context;
-        this.isEdit = isEdit;
         this.isMalariaSuspect = isMalariaSuspect;
         this.actionList = actionList;
         this.callBack = callBack;

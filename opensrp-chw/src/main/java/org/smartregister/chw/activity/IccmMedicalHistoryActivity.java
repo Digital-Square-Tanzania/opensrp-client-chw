@@ -84,6 +84,7 @@ public class IccmMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
 
     class IccmMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
         private final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+
         private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
 
         @Override

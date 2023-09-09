@@ -12,7 +12,6 @@ import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.domain.Visit;
 import org.smartregister.chw.malaria.repository.VisitDetailsRepository;
 import org.smartregister.chw.malaria.repository.VisitRepository;
-import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.malaria.util.VisitUtils;
 
 import java.util.ArrayList;
@@ -92,7 +91,7 @@ public class IccmVisitUtils extends VisitUtils {
 
     public static boolean isIccmVisitComplete(Visit visit) {
         boolean isComplete = false;
-        if (visit.getVisitType().equalsIgnoreCase(Constants.EVENT_TYPE.ICCM_SERVICES_VISIT)) {
+        if (visit.getVisitType().equalsIgnoreCase(ICCM_SERVICES_VISIT)) {
             try {
                 JSONObject jsonObject = new JSONObject(visit.getJson());
                 JSONArray obs = jsonObject.getJSONArray("obs");
