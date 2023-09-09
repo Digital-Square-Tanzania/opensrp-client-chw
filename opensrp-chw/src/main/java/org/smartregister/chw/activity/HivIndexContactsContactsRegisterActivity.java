@@ -13,16 +13,18 @@ import org.smartregister.chw.core.activity.CoreHivIndexContactsRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.HivIndexContactsRegisterFragment;
+import org.smartregister.chw.hiv.R;
 import org.smartregister.chw.hiv.fragment.BaseHivIndexContactsRegisterFragment;
+import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
 
 public class HivIndexContactsContactsRegisterActivity extends CoreHivIndexContactsRegisterActivity {
 
     public static void startHIVFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
         Intent intent = new Intent(activity, HivIndexContactsContactsRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, payloadType);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_REGISTRATION_FORM_NAME, formName);
+        intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ActivityPayload.ACTION, payloadType);
+        intent.putExtra(Constants.ActivityPayload.HIV_REGISTRATION_FORM_NAME, formName);
         activity.startActivity(intent);
     }
 
@@ -51,13 +53,13 @@ public class HivIndexContactsContactsRegisterActivity extends CoreHivIndexContac
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.hiv.R.id.action_register);
+            bottomNavigationView.getMenu().removeItem(R.id.action_register);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.hiv.R.id.action_received_referrals);
+            bottomNavigationView.getMenu().removeItem(R.id.action_received_referrals);
 
             bottomNavigationView.inflateMenu(getMenuResource());
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.hiv.R.id.action_received_referrals);
+            bottomNavigationView.getMenu().removeItem(R.id.action_received_referrals);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
         }
     }

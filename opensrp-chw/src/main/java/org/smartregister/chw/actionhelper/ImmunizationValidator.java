@@ -8,6 +8,7 @@ import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -39,10 +40,10 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             List<VaccineGroup> vaccinesGroups,
             List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines,
             String vaccineCategory,
-            List<org.smartregister.immunization.domain.Vaccine> vaccines
+            List<Vaccine> vaccines
     ) {
         vaccineSchedules = VisitVaccineUtil.getSchedule(vaccinesGroups, specialVaccines, vaccineCategory);
-        for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
+        for (Vaccine vaccine : vaccines) {
             administeredVaccines.put(vaccine.getName(), vaccine.getDate());
         }
     }

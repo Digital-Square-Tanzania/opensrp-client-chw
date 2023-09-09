@@ -31,7 +31,6 @@ public class FamilyRemoveMemberPresenterTest {
     @Mock
     private FamilyRemoveMemberInteractor interactor;
 
-    private String viewConfigurationIdentifier = "viewConfigurationIdentifier";
     private String familyBaseEntityId = "familyBaseEntityId";
     private String familyHead = "familyHead";
     private String primaryCaregiver = "primaryCaregiver";
@@ -39,6 +38,7 @@ public class FamilyRemoveMemberPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        String viewConfigurationIdentifier = "viewConfigurationIdentifier";
         presenter = new FamilyRemoveMemberPresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId, familyHead, primaryCaregiver);
         ReflectionHelpers.setField(presenter, "interactor", interactor);
     }

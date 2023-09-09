@@ -42,6 +42,7 @@ import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
+import org.smartregister.chw.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,9 +66,9 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     public void startTbFollowupActivity(Activity activity, String baseEntityID) throws JSONException {
         Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+        intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+        intent.putExtra(Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }
@@ -153,8 +154,8 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // recompute schedule
-        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getTbMemberObject().getBaseEntityId(), org.smartregister.chw.tb.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());
-        org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getTbMemberObject().getBaseEntityId(), Constants.EventType.FOLLOW_UP_VISIT, new Date());
+        Utils.startAsyncTask(new RunnableTask(runnable), null);
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
@@ -286,7 +287,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
             JSONArray fields = step.getJSONArray("fields");
 
 
-            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getTbMemberObject().getAge());
+            int age = Utils.getAgeFromDate(getTbMemberObject().getAge());
             try {
                 updateAgeAndGender(fields, age, getTbMemberObject().getGender());
             } catch (Exception e) {

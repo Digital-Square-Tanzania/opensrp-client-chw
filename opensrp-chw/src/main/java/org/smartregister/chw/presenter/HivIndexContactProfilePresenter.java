@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import org.smartregister.chw.activity.HivIndexContactProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.contract.AncMemberProfileContract;
 import org.smartregister.chw.contract.HivIndexContactProfileContract;
 import org.smartregister.chw.core.presenter.CoreHivIndexContactProfilePresenter;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
@@ -13,7 +14,7 @@ import org.smartregister.chw.util.Utils;
 import java.util.List;
 
 public class HivIndexContactProfilePresenter extends CoreHivIndexContactProfilePresenter
-        implements org.smartregister.chw.contract.AncMemberProfileContract.Presenter {
+        implements AncMemberProfileContract.Presenter {
 
     private HivIndexContactObject hivIndexContactObject;
 

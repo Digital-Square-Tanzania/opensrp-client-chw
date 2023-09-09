@@ -52,14 +52,12 @@ public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickForm
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvDetails;
-        private ImageView ivNext;
         private View parentView;
 
         private MyViewHolder(View view) {
             super(view);
             this.parentView = view;
             tvDetails = view.findViewById(R.id.tvDetails);
-            ivNext = view.findViewById(R.id.ivNext);
         }
     }
 }

@@ -40,7 +40,7 @@ public class EventDao extends AbstractDao {
             types.append("'").append(eventType).append("'");
         }
 
-        String sql = "select json from event where baseEntityId = '" + baseEntityID + "' COLLATE NOCASE and eventType in (" + types.toString() + ") COLLATE NOCASE order by updatedAt desc limit 1";
+        String sql = "select json from event where baseEntityId = '" + baseEntityID + "' COLLATE NOCASE and eventType in (" + types + ") COLLATE NOCASE order by updatedAt desc limit 1";
 
         final ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
         DataMap<Event> dataMap = c -> {

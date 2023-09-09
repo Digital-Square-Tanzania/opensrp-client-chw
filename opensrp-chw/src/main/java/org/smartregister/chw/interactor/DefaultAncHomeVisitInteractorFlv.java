@@ -32,6 +32,7 @@ import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -184,7 +185,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         TTAction helper = new TTAction(individualVaccine, context);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, individualVaccine.getRight());
 
         Map<String, List<VisitDetail>> details = null;
@@ -231,7 +232,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         IPTPAction helper = new IPTPAction(context, serviceIteration);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
         Map<String, List<VisitDetail>> details = null;

@@ -65,7 +65,7 @@ public class RequestPhoneNumberCollectionPermission extends FragmentActivity {
     }
 
     public void startLoginActivity() {
-        Intent intent = new Intent(RequestPhoneNumberCollectionPermission.this, LoginActivity.class);
+        Intent intent = new Intent(RequestPhoneNumberCollectionPermission.this, UCSLoginActivity.class);
         startActivity(intent);
         finish();
     }

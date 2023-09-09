@@ -7,6 +7,7 @@ import android.widget.TextView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.holders.ReferralViewHolder;
 import org.smartregister.chw.core.provider.BaseReferralRegisterProvider;
+import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.family.util.Utils;
@@ -28,7 +29,7 @@ public class LTFURegisterProvider extends BaseReferralRegisterProvider {
 
         TextView referredByTextView = viewHolder.itemView.findViewById(org.smartregister.chw.core.R.id.referred_by);
         LocationRepository locationRepository = new LocationRepository();
-        String locationId = Utils.getValue(pc.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
+        String locationId = Utils.getValue(pc.getColumnmaps(), DBConstants.Key.REFERRAL_HF, false);
         Location location = locationRepository.getLocationById(locationId);
         if(location != null) {
             referredByTextView.setText(context.getString(R.string.referred_by, location.getProperties().getName()));

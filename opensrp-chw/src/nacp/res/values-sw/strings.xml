@@ -478,5 +478,8 @@
 
     <string name="last_appointment_date">Tarehe ya mwisho ya Miadi</string>
 
+    <string name="environment_switch"> Badili mazingira </string>
+    <string name="switch_environment_title">Tahadhari! Unabadilisha Mazingira Ya Mfumo</string>
+    <string name="switch_environment_message">Unakaribia kubadilisha mazingira ya mfumo kutoka %s. Kitendo hiki kitaondoa taarifa zote zilizohifadhiwa katika simu hii, kabla ya kuendelea mbele tafadhali hakikisha umeoanisha/sinki taarifa zako. Je ungependa kuendelea kubadilisha mazingira ya mfumo?</string>
 
 </resources>

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
+import org.smartregister.chw.contract.AncMemberProfileContract;
 import org.smartregister.chw.contract.FamilyPlanningMemberProfileContract;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -19,7 +20,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class FamilyPlanningMemberProfilePresenter extends CoreFamilyPlanningProfilePresenter
-        implements org.smartregister.chw.contract.AncMemberProfileContract.Presenter {
+        implements AncMemberProfileContract.Presenter {
 
     private FpMemberObject fpMemberObject;
     private List<ReferralTypeModel> referralTypeModels;

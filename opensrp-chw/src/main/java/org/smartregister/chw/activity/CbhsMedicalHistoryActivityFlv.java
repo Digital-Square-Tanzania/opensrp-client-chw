@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -29,7 +30,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class CbhsMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
-    private final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+    private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
 
     @Override
     protected void processAncCard(String has_card, Context context) {

@@ -14,14 +14,12 @@ import java.util.Map;
 
 public class KvpPrEPSbccServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
-    private String jsonPayload;
     private String subTitle;
     private String services_offered;
     private BaseKvpVisitAction.ScheduleStatus scheduleStatus;
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
-        this.jsonPayload = jsonPayload;
     }
 
     @Override

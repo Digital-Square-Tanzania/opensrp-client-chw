@@ -312,7 +312,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         private Context context;
 
         private String anc_hf_visit;
-        private String anc_hf_visit_date;
         private Date visitDate;
 
 
@@ -332,7 +331,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = new JSONObject(jsonPayload);
 
                 anc_hf_visit = JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
-                anc_hf_visit_date = JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
+                String anc_hf_visit_date = JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
                 visitDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(anc_hf_visit_date);
 
             } catch (Exception e) {

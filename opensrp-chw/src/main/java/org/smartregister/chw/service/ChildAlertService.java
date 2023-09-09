@@ -7,6 +7,7 @@ import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.util.VaccinatorUtils;
 
@@ -16,10 +17,10 @@ import timber.log.Timber;
 
 public class ChildAlertService {
 
-    private static List<org.smartregister.immunization.domain.jsonmapping.Vaccine> _specialVaccines;
+    private static List<Vaccine> _specialVaccines;
     private static List<VaccineGroup> _vaccineGroups;
 
-    private static List<org.smartregister.immunization.domain.jsonmapping.Vaccine> getSpecialVaccines() {
+    private static List<Vaccine> getSpecialVaccines() {
         if (_specialVaccines == null)
             _specialVaccines = VaccinatorUtils.getSpecialVaccines(CoreChwApplication.getInstance().getApplicationContext());
 

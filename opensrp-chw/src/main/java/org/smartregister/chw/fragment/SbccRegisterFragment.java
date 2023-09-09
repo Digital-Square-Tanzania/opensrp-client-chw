@@ -21,6 +21,7 @@ import org.smartregister.chw.model.SbccSessionModel;
 import org.smartregister.chw.pmtct.fragment.BasePmtctRegisterFragment;
 import org.smartregister.chw.presenter.SbccRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.JsonFormUtils;
@@ -191,7 +192,7 @@ public class SbccRegisterFragment extends BasePmtctRegisterFragment {
             syncButton.setOnClickListener(view -> {
                 JSONObject form;
                 try {
-                    form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireActivity(), org.smartregister.chw.util.Constants.JsonForm.getMotherChampionSbccForm());
+                    form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireActivity(), Constants.JsonForm.getMotherChampionSbccForm());
                     if (form != null) {
                         String randomId = generateRandomUUIDString();
                         form.put(ENTITY_ID, randomId);

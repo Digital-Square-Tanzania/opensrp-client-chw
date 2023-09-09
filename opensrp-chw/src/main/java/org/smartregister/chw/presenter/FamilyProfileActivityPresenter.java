@@ -4,7 +4,6 @@ import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileActivityContract;
 import org.smartregister.family.presenter.BaseFamilyProfileActivityPresenter;
 import org.smartregister.family.util.Utils;
@@ -13,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPresenter {
-    private WashCheckModel washCheckModel;
 
     public FamilyProfileActivityPresenter(FamilyProfileActivityContract.View view, FamilyProfileActivityContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId);
-        washCheckModel = new WashCheckModel(familyBaseEntityId);
     }
 
     @Override

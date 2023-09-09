@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WAJA</string>
-    <string name="login_title">Ministry of Health  \n WAJA app</string>
+    <string name="login_title">WAJA App</string>
     <string name="nav_logo">Ministry of Health Community App</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
@@ -524,5 +524,9 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
+
+    <string name="environment_switch"> Switch Environment </string>
+    <string name="switch_environment_title">Alert! Switching Environment</string>
+    <string name="switch_environment_message">You are about to switch from %s environment. This procedure will wipe out all of your device data, you need to make sure everything is synced before you proceed. Do you want to switch the environment?</string>
 
 </resources>

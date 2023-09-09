@@ -131,7 +131,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    couselling_child = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "pnc_counselling");
+                    couselling_child = JsonFormUtils.getCheckBoxValue(jsonObject, "pnc_counselling");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }

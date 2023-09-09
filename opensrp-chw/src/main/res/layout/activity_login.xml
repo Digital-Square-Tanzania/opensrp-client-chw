@@ -43,6 +43,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_title"
+                android:fontFamily="@font/google_sans_medium"
                 android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
                 android:textStyle="bold"
@@ -155,6 +156,16 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/env_indicator"
+                android:fontFamily="@font/google_sans_bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="Staging"/>
+
 
         </LinearLayout>
         <!-- Bottom section -->

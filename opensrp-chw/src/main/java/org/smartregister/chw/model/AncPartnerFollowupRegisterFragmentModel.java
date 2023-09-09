@@ -4,6 +4,7 @@ import org.smartregister.chw.core.model.CoreAncRegisterFragmentModel;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
 
@@ -39,7 +40,7 @@ public class AncPartnerFollowupRegisterFragmentModel extends CoreAncRegisterFrag
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
-        columnList.add(CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP + "." + DBConstants.KEY.BASE_ENTITY_ID + " as " + org.smartregister.chw.util.Constants.PartnerRegistrationConstants.FormSubmissionId);
+        columnList.add(CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP + "." + DBConstants.KEY.BASE_ENTITY_ID + " as " + Constants.PartnerRegistrationConstants.FormSubmissionId);
         columnList.addAll(getFlavor().mainColumns(tableName));
 
         return columnList.toArray(new String[0]);

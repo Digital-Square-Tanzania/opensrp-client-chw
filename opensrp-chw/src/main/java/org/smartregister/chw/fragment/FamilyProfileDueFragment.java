@@ -171,7 +171,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_HOUSEHOLD:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
-                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         String encounterType = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
 

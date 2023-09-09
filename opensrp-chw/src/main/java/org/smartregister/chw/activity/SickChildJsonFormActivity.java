@@ -4,6 +4,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -40,8 +41,8 @@ public class SickChildJsonFormActivity extends JsonWizardFormActivity {
             rulesEngineFactory = new ChwRulesEngineFactory(this, globalValues);
             setRulesEngineFactory(rulesEngineFactory);
 
-            confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
-            confirmCloseMessage = getString(com.vijay.jsonwizard.R.string.confirm_form_close_explanation);
+            confirmCloseTitle = getString(R.string.confirm_form_close);
+            confirmCloseMessage = getString(R.string.confirm_form_close_explanation);
             localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         } catch (JSONException e) {

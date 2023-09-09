@@ -126,7 +126,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
     @Override
     public void onListItemClicked(T t, int layoutID) {
-        Timber.v("Clicked " + t.getID());
+        Timber.v("Clicked %s", t.getID());
     }
 
     @NonNull

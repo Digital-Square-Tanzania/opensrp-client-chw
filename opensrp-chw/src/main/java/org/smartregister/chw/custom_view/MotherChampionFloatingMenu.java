@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.pmtct.custom_views.BasePmtctFloatingMenu;
@@ -42,23 +43,23 @@ public class MotherChampionFloatingMenu extends BasePmtctFloatingMenu {
 
     @Override
     protected void initUi() {
-        inflate(getContext(), org.smartregister.chw.core.R.layout.view_anc_call_woma_floating_menu, this);
-        fabOpen = AnimationUtils.loadAnimation(getContext(), org.smartregister.chw.core.R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(getContext(), org.smartregister.chw.core.R.anim.fab_close);
-        rotateForward = AnimationUtils.loadAnimation(getContext(), org.smartregister.chw.core.R.anim.rotate_forward);
-        rotateBack = AnimationUtils.loadAnimation(getContext(), org.smartregister.chw.core.R.anim.rotate_back);
+        inflate(getContext(), R.layout.view_anc_call_woma_floating_menu, this);
+        fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
+        rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
+        rotateBack = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_back);
 
-        activityMain = findViewById(org.smartregister.chw.core.R.id.activity_main);
-        menuBar = findViewById(org.smartregister.chw.core.R.id.menu_bar);
+        activityMain = findViewById(R.id.activity_main);
+        menuBar = findViewById(R.id.menu_bar);
 
-        fab = findViewById(org.smartregister.chw.core.R.id.anc_fab);
+        fab = findViewById(R.id.anc_fab);
         fab.setOnClickListener(this);
 
-        callLayout = findViewById(org.smartregister.chw.core.R.id.call_layout);
+        callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);
         callLayout.setClickable(false);
 
-        referLayout = findViewById(org.smartregister.chw.core.R.id.refer_to_facility_layout);
+        referLayout = findViewById(R.id.refer_to_facility_layout);
         referLayout.setOnClickListener(this);
         referLayout.setClickable(false);
 
@@ -76,9 +77,9 @@ public class MotherChampionFloatingMenu extends BasePmtctFloatingMenu {
         }
 
         if (isFabMenuOpen) {
-            activityMain.setBackgroundResource(org.smartregister.chw.core.R.color.transparent);
+            activityMain.setBackgroundResource(R.color.transparent);
             fab.startAnimation(rotateBack);
-            fab.setImageResource(org.smartregister.chw.core.R.drawable.ic_edit_white);
+            fab.setImageResource(R.drawable.ic_edit_white);
 
             callLayout.startAnimation(fabClose);
             callLayout.setClickable(false);
@@ -87,9 +88,9 @@ public class MotherChampionFloatingMenu extends BasePmtctFloatingMenu {
             referLayout.setClickable(false);
             isFabMenuOpen = false;
         } else {
-            activityMain.setBackgroundResource(org.smartregister.chw.core.R.color.grey_tranparent_50);
+            activityMain.setBackgroundResource(R.color.grey_tranparent_50);
             fab.startAnimation(rotateForward);
-            fab.setImageResource(org.smartregister.chw.core.R.drawable.ic_input_add);
+            fab.setImageResource(R.drawable.ic_input_add);
 
             callLayout.startAnimation(fabOpen);
             callLayout.setClickable(true);

@@ -21,6 +21,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.FetchStatus;
@@ -96,10 +97,10 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     public void testSetupViews() {
         when(fragment.getActivity()).thenReturn(activity);
         when(fragment.getContext()).thenReturn(activity);
-        View view = LayoutInflater.from(activity).inflate(org.smartregister.chw.core.R.layout.fragment_base_register, null);
+        View view = LayoutInflater.from(activity).inflate(R.layout.fragment_base_register, null);
         fragment.setupViews(view);
 
-        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         assertEquals(View.VISIBLE, dueOnlyLayout.getVisibility());
     }

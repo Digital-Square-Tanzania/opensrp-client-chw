@@ -95,7 +95,7 @@ public class NativeFormsValidator extends BaseUnitTest {
             }
             Assert.assertEquals(testedForms, forms.size());
         } catch (Exception e) {
-            Assert.fail("Exception : " + e.toString());
+            Assert.fail("Exception : " + e);
         }
     }
 

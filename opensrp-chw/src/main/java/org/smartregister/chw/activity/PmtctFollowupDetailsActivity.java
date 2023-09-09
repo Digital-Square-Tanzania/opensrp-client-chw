@@ -62,7 +62,6 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
     private CustomFontTextView lastFacilityVisitDate;
     private CustomFontTextView referralType;
     private CustomFontTextView locationName;
-    private CustomFontTextView markAsDone;
     private String baseEntityId;
 
     public static void startPmtctDetailsActivity(Activity activity, String baseEntityId) {
@@ -126,7 +125,7 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
         lastFacilityVisitDate = findViewById(R.id.last_facility_visit_date);
         referralType = findViewById(R.id.referral_type);
         locationName = findViewById(R.id.location_name);
-        markAsDone = findViewById(R.id.mark_ask_done);
+        CustomFontTextView markAsDone = findViewById(R.id.mark_ask_done);
         markAsDone.setOnClickListener(this);
         obtainReferralDetails();
     }

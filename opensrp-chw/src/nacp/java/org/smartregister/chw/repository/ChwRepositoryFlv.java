@@ -160,7 +160,7 @@ public class ChwRepositoryFlv {
 
 
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3 " + e.getMessage());
+            Timber.e(e, "upgradeToVersion3 %s", e.getMessage());
         }
     }
 

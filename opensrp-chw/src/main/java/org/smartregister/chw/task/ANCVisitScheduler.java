@@ -6,6 +6,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.dao.AncDao;
@@ -36,9 +37,9 @@ public class ANCVisitScheduler extends BaseTaskExecutor {
             AncLibrary.getInstance().visitRepository().deleteVisit(visitID);
         }
 
-        Visit lastNotDoneVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+        Visit lastNotDoneVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
         if (lastNotDoneVisit != null) {
-            Visit lastNotDoneVisitUndo = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+            Visit lastNotDoneVisitUndo = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
             if (lastNotDoneVisitUndo != null
                     && lastNotDoneVisitUndo.getDate().after(lastNotDoneVisit.getDate())) {
                 lastNotDoneVisit = null;
@@ -46,7 +47,7 @@ public class ANCVisitScheduler extends BaseTaskExecutor {
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, Constants.EVENT_TYPE.ANC_HOME_VISIT);
         String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
         String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
 

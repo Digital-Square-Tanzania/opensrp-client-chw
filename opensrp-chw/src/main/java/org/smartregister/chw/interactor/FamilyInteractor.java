@@ -19,6 +19,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class FamilyInteractor extends CoreFamilyInteractor {
 
     @Override
     public ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
-        CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
+        CommonPersonObject personObject = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
         if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
 
             String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -80,11 +81,11 @@ public class FamilyInteractor extends CoreFamilyInteractor {
                 }
             }
 
-            String strDateCreated = org.smartregister.family.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
+            String strDateCreated = Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
 
             long dateCreated = 0;
             if (!TextUtils.isEmpty(strDateCreated)) {
-                dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+                dateCreated = Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
 
             final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);

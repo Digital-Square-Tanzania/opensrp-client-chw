@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -49,7 +50,7 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
     }
 
     private void setVisitButtonNoDueStatus(Button dueButton) {
-        dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.transparent_white_button);
+        dueButton.setBackgroundResource(R.drawable.transparent_white_button);
         dueButton.setOnClickListener(null);
     }
 }

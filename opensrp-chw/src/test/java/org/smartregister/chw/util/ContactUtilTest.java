@@ -30,11 +30,10 @@ public class ContactUtilTest {
     private FamilyProfileActivity activity;
     private ActivityController<FamilyProfileActivity> controller;
 
-    private Map<Integer, LocalDate> expectedResult = new LinkedHashMap<>();
-
 
     public ContactUtilTest() {
         // expectedResult.put(13, LocalDate.parse("20/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"))); today's date
+        Map<Integer, LocalDate> expectedResult = new LinkedHashMap<>();
         expectedResult.put(21, LocalDate.parse("15/08/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
         expectedResult.put(27, LocalDate.parse("26/09/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
         expectedResult.put(31, LocalDate.parse("24/10/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));

@@ -12,6 +12,7 @@ import org.smartregister.chw.model.TbRegisterFragmentModel;
 import org.smartregister.chw.presenter.TbRegisterFragmentPresenter;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tb.domain.TbMemberObject;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.Objects;
@@ -44,7 +45,7 @@ public class TbRegisterFragment extends CoreTbRegisterFragment {
     protected void openFollowUpVisit(@Nullable TbMemberObject tbMemberObject) {
         if (getActivity() != null) {
             try {
-                TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+                TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(), Constants.JSON_FORM.getTbFollowupVisit(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), Constants.JSON_FORM.getTbFollowupVisit()).toString());
             } catch (JSONException e) {
                 Timber.e(e);
             }

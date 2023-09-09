@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="options_array">
+        <item>Test</item>
+        <item>Staging</item>
+        <item>Production</item>
+        <!-- Add more options as needed -->
+    </string-array>
+
+    <string-array name="options_values">
+        <item>test</item>
+        <item>staging</item>
+        <item>production</item>
+        <!-- Add more values as needed -->
+    </string-array>
+
+    <string-array name="ucs_environment">
+        <item>Production</item>
+        <item>Staging</item>
+        <item>Development</item>
+    </string-array>
+
+    <string-array name="ucs_environment_values">
+        <item>production</item>
+        <item>staging</item>
+        <item>testing</item>
+    </string-array>
+
+    <string-array name="ucs_env_default_values">
+        <item>test</item>
+    </string-array>
+
+</resources>

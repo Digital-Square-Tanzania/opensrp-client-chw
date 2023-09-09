@@ -18,6 +18,7 @@ import org.smartregister.chw.core.activity.BaseReferralTaskViewActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.ReferralDao;
+import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -46,7 +47,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
         commonPersonObjectClient = personObjectClient;
         baseEntityId = Utils.getValue(personObjectClient.getColumnmaps(), CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, false);
-        locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
+        locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.Key.REFERRAL_HF, false);
         taskId = task.getIdentifier();
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);

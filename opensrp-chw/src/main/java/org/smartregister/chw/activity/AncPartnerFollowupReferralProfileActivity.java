@@ -91,7 +91,6 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private String referralFormSubmissionId;
-    private RelativeLayout partnerView;
 
     public static void startMe(Activity activity, String baseEntityID, String formSubmissionId) {
         Intent intent = new Intent(activity, AncPartnerFollowupReferralProfileActivity.class);
@@ -141,7 +140,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             }
         });
 
-        partnerView = findViewById(R.id.rlPartnerView);
+        RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
         AppCompatButton registerBtn = findViewById(R.id.register_partner_btn);
         if (AncPartnerDao.hasPartnerAgreeForRegistration(referralFormSubmissionId) && !AncPartnerDao.isPartnerRegistered(referralFormSubmissionId)) {
             partnerView.setVisibility(View.VISIBLE);

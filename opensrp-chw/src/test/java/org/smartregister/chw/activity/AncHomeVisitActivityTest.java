@@ -61,7 +61,7 @@ public class AncHomeVisitActivityTest extends BaseUnitTest {
         Mockito.verify(activity).startActivityForResult(intentArgumentCaptor.capture(), integerArgumentCaptor.capture());
 
 
-        Assert.assertEquals(intentArgumentCaptor.getValue().getStringExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID), baseEntityID);
+        Assert.assertEquals(intentArgumentCaptor.getValue().getStringExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID), baseEntityID);
         Assert.assertTrue(intentArgumentCaptor.getValue().getBooleanExtra(Constants.ANC_MEMBER_OBJECTS.EDIT_MODE, false));
         Assert.assertEquals(AncHomeVisitActivity.class.getName(), intentArgumentCaptor.getValue().getComponent().getClassName());
         Assert.assertEquals((int) integerArgumentCaptor.getValue(), Constants.REQUEST_CODE_HOME_VISIT);

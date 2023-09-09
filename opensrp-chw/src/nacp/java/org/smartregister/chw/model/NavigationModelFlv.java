@@ -8,6 +8,7 @@ import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +44,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op19 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_AGYW, CoreConstants.DrawerMenu.AGYW, 0);
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+                AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
                 String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
                 if (teamRoleIdentifier.equals("mother_champion")) {
                     navigationOptions.addAll(Arrays.asList(op10, op13, op8));

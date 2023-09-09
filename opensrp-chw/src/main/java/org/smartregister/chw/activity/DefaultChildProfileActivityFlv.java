@@ -21,6 +21,7 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 
 import java.text.ParseException;
@@ -62,7 +63,7 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     @Override
     public Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context) {
         Intent intent = new Intent(context, SickChildJsonFormActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
         Form form = new Form();
         form.setName(context.getString(R.string.sick_child));
         form.setActionBarBackground(R.color.family_actionbar);

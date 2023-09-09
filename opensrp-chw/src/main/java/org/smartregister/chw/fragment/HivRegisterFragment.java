@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import android.view.View;
+
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.smartregister.chw.R;
@@ -19,7 +21,7 @@ import timber.log.Timber;
 
 public class HivRegisterFragment extends CoreHivRegisterFragment {
     @Override
-    public void setupViews(android.view.View view) {
+    public void setupViews(View view) {
         super.setupViews(view);
         ((CustomFontTextView) view.findViewById(R.id.txt_title_label)).setText(getString(R.string.hiv_clients));
     }

@@ -19,6 +19,7 @@ import org.smartregister.chw.kvp.interactor.BaseKvpVisitInteractor;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 JSONArray fields = sbccServices.getJSONObject(org.smartregister.chw.util.Constants.JsonFormConstants.STEP1)
                         .getJSONArray(JsonFormConstants.FIELDS);
 
-                JSONObject sbccServicesOffered = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "sbcc_services_offered");
+                JSONObject sbccServicesOffered = JsonFormUtils.getFieldJSONObject(fields, "sbcc_services_offered");
                 JSONArray options = sbccServicesOffered.getJSONArray(OPTIONS);
 
                 JSONArray values = new JSONArray();

@@ -10,13 +10,11 @@ import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;
     private FamilyKitModel familyKitModel;
-    private String childBaseEntityId;
 
     public FamilyProfileDuePresenter(FamilyProfileDueContract.View view, FamilyProfileDueContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String childBaseEntityId) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId);
         washCheckModel = new WashCheckModel(familyBaseEntityId);
         familyKitModel = new FamilyKitModel(familyBaseEntityId);
-        this.childBaseEntityId = childBaseEntityId;
     }
 
     @Override

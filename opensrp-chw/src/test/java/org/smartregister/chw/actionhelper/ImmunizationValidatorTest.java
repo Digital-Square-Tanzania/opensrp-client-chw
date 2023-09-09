@@ -11,6 +11,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class ImmunizationValidatorTest extends BaseUnitTest {
 
     private final List<VaccineGroup> vaccinesGroups = new ArrayList<>();
     private final List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines = new ArrayList<>();
-    private final List<org.smartregister.immunization.domain.Vaccine> vaccines = new ArrayList<>();
+
+    private final List<Vaccine> vaccines = new ArrayList<>();
 
     private ImmunizationValidator validator;
 

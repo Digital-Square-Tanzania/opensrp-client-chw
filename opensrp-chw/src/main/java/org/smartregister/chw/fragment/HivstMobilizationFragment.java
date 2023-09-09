@@ -5,6 +5,7 @@ import android.view.View;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hivst.fragment.BaseHivstMobilizationRegisterFragment;
 import org.smartregister.chw.util.JsonFormUtils;
 
@@ -31,6 +32,6 @@ public class HivstMobilizationFragment extends BaseHivstMobilizationRegisterFrag
 
     @Override
     protected void startForm(JSONObject form) {
-        requireActivity().startActivityForResult(org.smartregister.chw.core.utils.FormUtils.getStartFormActivity(form, requireActivity().getString(R.string.hivst_mobilization), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        requireActivity().startActivityForResult(FormUtils.getStartFormActivity(form, requireActivity().getString(R.string.hivst_mobilization), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }

@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 
 import org.json.JSONObject;
+import org.smartregister.R;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
@@ -22,7 +23,7 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity implements 
     @Override
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 

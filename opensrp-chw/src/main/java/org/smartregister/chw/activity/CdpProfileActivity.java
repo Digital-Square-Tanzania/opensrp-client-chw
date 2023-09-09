@@ -31,6 +31,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -114,13 +115,13 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
             this.startFormForEdit(R.string.registration_info, EDIT_CDP_OUTLET);
             return true;
         } else if (itemId == R.id.action_disable_outlet) {
-            AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+            AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             disableOrEnableOutlet(allSharedPreferences, outletObject.getBaseEntityId(), Constants.EVENT_TYPE.DISABLE_CDP_OUTLET);
             onResume();
             invalidateOptionsMenu();
             return true;
         } else if (itemId == R.id.action_enable_outlet) {
-            AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+            AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             disableOrEnableOutlet(allSharedPreferences, outletObject.getBaseEntityId(), Constants.EVENT_TYPE.ENABLE_CDP_OUTLET);
             onResume();
             invalidateOptionsMenu();

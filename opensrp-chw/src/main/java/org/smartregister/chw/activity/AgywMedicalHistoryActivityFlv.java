@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -30,7 +31,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class AgywMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
-    private final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+    private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
 
     @Override

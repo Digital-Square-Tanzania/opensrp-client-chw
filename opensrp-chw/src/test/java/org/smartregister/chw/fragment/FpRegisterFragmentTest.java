@@ -29,6 +29,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.fp.contract.BaseFpRegisterFragmentContract;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -120,13 +121,13 @@ public class FpRegisterFragmentTest extends BaseUnitTest {
     public void testSetupViews() {
         when(fpRegisterFragment.getActivity()).thenReturn(activity);
         when(fpRegisterFragment.getContext()).thenReturn(activity);
-        View view = LayoutInflater.from(activity).inflate(org.smartregister.chw.core.R.layout.fragment_base_register, null);
+        View view = LayoutInflater.from(activity).inflate(R.layout.fragment_base_register, null);
         fpRegisterFragment.setupViews(view);
 
-        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         View searchBarLayout = view.findViewById(org.smartregister.R.id.search_bar_layout);
-        searchBarLayout.setBackgroundResource(org.smartregister.chw.core.R.color.customAppThemeBlue);
+        searchBarLayout.setBackgroundResource(R.color.customAppThemeBlue);
         assertEquals(View.VISIBLE, dueOnlyLayout.getVisibility());
     }
 

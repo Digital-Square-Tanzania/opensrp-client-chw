@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -82,7 +83,7 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
     }
 
     private static class KvpPrEPMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
-        private final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+        private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
 
         @Override
         protected void processAncCard(String has_card, Context context) {

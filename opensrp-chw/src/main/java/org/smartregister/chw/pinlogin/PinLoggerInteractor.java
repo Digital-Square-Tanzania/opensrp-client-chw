@@ -38,12 +38,12 @@ public class PinLoggerInteractor implements PinLoginContract.Interactor {
             try {
                 LoginJobScheduler scheduler = new LoginJobSchedulerProvider();
 
-                eventListener.onEvent("Starting DrishtiSyncScheduler " + DateTime.now().toString());
+                eventListener.onEvent("Starting DrishtiSyncScheduler " + DateTime.now());
 
                 scheduler.scheduleJobsImmediately();
                 scheduler.scheduleJobsPeriodically();
 
-                eventListener.onEvent("Started DrishtiSyncScheduler " + DateTime.now().toString());
+                eventListener.onEvent("Started DrishtiSyncScheduler " + DateTime.now());
 
                 CoreLibrary.getInstance().context().getUniqueIdRepository().releaseReservedIds();
             } catch (Exception e) {

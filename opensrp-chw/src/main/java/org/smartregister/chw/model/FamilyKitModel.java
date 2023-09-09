@@ -1,6 +1,7 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.clientandeventmodel.Event;
@@ -18,7 +19,7 @@ public class FamilyKitModel {
     public boolean saveFamilyKitEvent(String jsonString) {
         try {
             AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().context().allSharedPreferences();
-            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.FAMILY_KIT_LOG);
+            Event baseEvent = JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.FAMILY_KIT_LOG);
             baseEvent.setBaseEntityId(familyId);
 
             NCUtils.addEvent(allSharedPreferences, baseEvent);

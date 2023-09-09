@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ListContract;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.domain.VillageDose;
 
 import java.util.Map;
@@ -38,7 +39,7 @@ public class VillageDoseViewHolder extends ListableViewHolder<VillageDose> {
 
             TextView tvName = viewVillage.findViewById(R.id.tvName);
              String val = entry.getKey().toLowerCase().replace(" ", "_").trim();
-            String value = org.smartregister.chw.core.utils.Utils.getStringResourceByName(val, context).trim();
+            String value = Utils.getStringResourceByName(val, context).trim();
 
             tvName.setText(value);
 

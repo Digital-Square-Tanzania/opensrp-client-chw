@@ -8,10 +8,10 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
-        android:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="@string/cleartextTrafficPermitted"
         tools:replace="android:theme">
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.UCSLoginActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -30,6 +30,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/ChwTheme.Login" />
+
+        <activity android:name=".activity.UCSEnvironmentSwitchActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.KvpPrEPRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

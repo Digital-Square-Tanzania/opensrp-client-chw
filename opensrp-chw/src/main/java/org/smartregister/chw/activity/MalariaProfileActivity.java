@@ -188,7 +188,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.registration_info,
-                        org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
+                        Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
@@ -293,15 +293,15 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         JSONObject form = null;
         CommonPersonObjectClient client = org.smartregister.chw.core.utils.Utils.clientForEdit(memberObject.getBaseEntityId());
 
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
+        if (formName.equals(Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                     (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                    Constants.JSON_FORM.getFamilyMemberRegister(),
                     this, client,
                     Utils.metadata().familyMemberRegister.updateEventType, memberObject.getLastName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
+        } else if (formName.equals(Constants.JSON_FORM.getAncRegistration())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    memberObject.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
+                    memberObject.getBaseEntityId(), this, formName, Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
         }
 
         try {

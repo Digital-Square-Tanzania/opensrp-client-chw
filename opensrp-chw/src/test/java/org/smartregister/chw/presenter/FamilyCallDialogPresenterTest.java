@@ -22,11 +22,10 @@ public class FamilyCallDialogPresenterTest {
     @Mock
     private FamilyCallDialogInteractor mInteractor;
 
-    private String familyBaseEntityId = "adawrfvsr553";
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        String familyBaseEntityId = "adawrfvsr553";
         presenter = new FamilyCallDialogPresenter(view, familyBaseEntityId);
         ReflectionHelpers.setField(presenter, "mInteractor", mInteractor);
     }

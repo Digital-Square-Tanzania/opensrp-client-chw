@@ -28,6 +28,7 @@ import org.smartregister.chw.domain.FormDetails;
 import org.smartregister.chw.fragment.FormHistoryDialogFragment;
 import org.smartregister.chw.interactor.SickFormMedicalHistoryInteractor;
 import org.smartregister.chw.presenter.SickFormMedicalHistoryPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
@@ -145,8 +146,8 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
         formDetails.setTitle(getString(R.string.sick_visit));
         formDetails.setBaseEntityID(visit.getBaseEntityId());
         formDetails.setEventDate(visit.getDate().getTime());
-        formDetails.setEventType(org.smartregister.chw.util.Constants.EventType.SICK_CHILD);
-        formDetails.setFormName(org.smartregister.chw.util.Constants.JSON_FORM.getChildSickForm());
+        formDetails.setEventType(Constants.EventType.SICK_CHILD);
+        formDetails.setFormName(Constants.JSON_FORM.getChildSickForm());
 
         FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(formDetails);
         FragmentTransaction ft = getFragmentManager().beginTransaction();

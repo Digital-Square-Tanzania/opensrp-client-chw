@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONObject;
+import org.smartregister.R;
 import org.smartregister.chw.core.activity.BaseChwNotificationRegister;
 import org.smartregister.chw.core.presenter.BaseChwNotificationPresenter;
 import org.smartregister.chw.fragment.UpdatesRegisterFragment;
@@ -58,9 +59,9 @@ public class UpdatesRegisterActivity extends BaseChwNotificationRegister {
     @Override
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-        bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_register);
+        bottomNavigationView.getMenu().removeItem(R.id.action_register);
     }
 
     @Override

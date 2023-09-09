@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="preference_screen">
+    <PreferenceCategory
+        android:title="Switch Environment">
+
+        <Preference
+            android:key="preference"
+            android:title="Switch the App Environment"
+            android:icon="@drawable/ic_environment"
+            android:summary="Click here 7 times to get it"/>
+
+        <ListPreference
+            android:key="environment_preference"
+            android:title="Environment"
+            app:isPreferenceVisible="false"
+            android:entries="@array/ucs_environment"
+            android:entryValues="@array/ucs_environment_values"
+            android:defaultValue="@array/ucs_env_default_values"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

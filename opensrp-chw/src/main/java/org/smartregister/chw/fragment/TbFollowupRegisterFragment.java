@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -10,6 +11,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.json.JSONException;
 import org.smartregister.chw.activity.TbCommunityFollowupDetailsActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.CoreTbCommunityFollowupRegisterFragment;
 import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.model.TbCommunityFollowupFragmentModel;
@@ -40,9 +42,9 @@ public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterF
     }
 
     @Override
-    public void setupViews(android.view.View view) {
+    public void setupViews(View view) {
         super.setupViews(view);
-        view.findViewById(org.smartregister.chw.core.R.id.due_only_layout).setVisibility(GONE);
+        view.findViewById(R.id.due_only_layout).setVisibility(GONE);
     }
 
     @Override

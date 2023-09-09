@@ -148,7 +148,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
         final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        return org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
     }
 
     /*

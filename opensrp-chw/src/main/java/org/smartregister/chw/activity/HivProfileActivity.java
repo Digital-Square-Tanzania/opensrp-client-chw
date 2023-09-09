@@ -101,7 +101,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
 
     public static void startHivFollowupActivity(Activity activity, String baseEntityID) throws JSONException {
         Intent intent = new Intent(activity, BaseHivFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
         HivMemberObject hivMemberObject = HivDao.getMember(baseEntityID);
         JSONObject formJsonObject;
@@ -202,9 +202,9 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
 
         }
 
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+        intent.putExtra(Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
+        intent.putExtra(Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
     }
@@ -303,7 +303,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
     }
 
     @Override
-    public void setProfileViewDetails(@androidx.annotation.Nullable HivMemberObject hivMemberObject) {
+    public void setProfileViewDetails(@Nullable HivMemberObject hivMemberObject) {
         super.setProfileViewDetails(hivMemberObject);
 
         if (!getHivMemberObject().getClientFollowupStatus().equals("")) {
@@ -429,7 +429,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // recompute schedule
-        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getHivMemberObject().getBaseEntityId(), org.smartregister.chw.hiv.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getHivMemberObject().getBaseEntityId(), Constants.EventType.FOLLOW_UP_VISIT, new Date());
         org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
         try {
             CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());
@@ -485,7 +485,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
     }
 
     @Override
-    public void setFamilyStatus(@androidx.annotation.Nullable AlertStatus status) {
+    public void setFamilyStatus(@Nullable AlertStatus status) {
         super.setFamilyStatus(status);
         if (getHivMemberObject().getFamilyMemberEntityType().equals(Constants.FamilyMemberEntityType.EC_INDEPENDENT_CLIENT)) {
             findViewById(R.id.rlFamilyServicesDue).setVisibility(View.GONE);
@@ -660,7 +660,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
      */
     public void startHivRegistrationDetailsActivity() {
         Intent intent = new Intent(this, BaseHivFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, getHivMemberObject().getBaseEntityId());
+        intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, getHivMemberObject().getBaseEntityId());
         String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
 
         JSONObject formJsonObject = null;
@@ -705,9 +705,9 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
             Timber.e(e);
         }
 
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+        intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
+        intent.putExtra(Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         this.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }

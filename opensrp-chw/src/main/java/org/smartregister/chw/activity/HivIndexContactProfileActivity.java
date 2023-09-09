@@ -308,7 +308,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(getHivIndexContactObject().getBaseEntityId());
         final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());
-        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         HivstRegisterActivity.startHivstRegistrationActivity(this, getHivIndexContactObject().getBaseEntityId(), gender);
     }

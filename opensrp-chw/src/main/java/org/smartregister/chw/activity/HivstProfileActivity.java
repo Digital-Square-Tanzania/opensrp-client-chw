@@ -34,6 +34,7 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.util.JsonFormUtils;
 
 import timber.log.Timber;
 
@@ -90,7 +91,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public void startIssueSelfTestingKitsForm(String baseEntityId) {
         JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.HIVST_ISSUE_KITS);
         try {
-            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+            form.put(JsonFormUtils.ENTITY_ID, baseEntityId);
             JSONObject global = form.getJSONObject("global");
             boolean knownPositiveFromHIV = HivDao.isRegisteredForHiv(baseEntityId) && StringUtils.isNotBlank(HivDao.getMember(baseEntityId).getCtcNumber());
             global.put("known_positive", HivstDao.isTheClientKnownPositiveAtReg(baseEntityId) || knownPositiveFromHIV);

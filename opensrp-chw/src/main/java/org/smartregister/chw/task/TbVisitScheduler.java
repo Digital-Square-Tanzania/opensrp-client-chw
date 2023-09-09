@@ -9,6 +9,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tb.domain.TbMemberObject;
+import org.smartregister.chw.tb.util.Constants;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ public class TbVisitScheduler extends BaseTaskExecutor {
 
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
         TbMemberObject tbMemberObject = TbDao.getMember(baseEntityID);
-        Visit lastVisit = TbDao.getLatestVisit(baseEntityID, org.smartregister.chw.tb.util.Constants.EventType.FOLLOW_UP_VISIT);
+        Visit lastVisit = TbDao.getLatestVisit(baseEntityID, Constants.EventType.FOLLOW_UP_VISIT);
         Date lastVisitDate = lastVisit != null ? lastVisit.getDate() : null;
         TbFollowupRule tbFollowupRule = HomeVisitUtil.getTbVisitStatus(lastVisitDate, tbMemberObject.getTbRegistrationDate());
 

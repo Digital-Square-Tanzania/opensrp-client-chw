@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cocoahero.android.geojson.Point;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
@@ -199,7 +200,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
         double latitude = Double.parseDouble(latLong[0]);
         double longitude = Double.parseDouble(latLong[1]);
         com.cocoahero.android.geojson.Feature feature = new com.cocoahero.android.geojson.Feature();
-        feature.setGeometry(new com.cocoahero.android.geojson.Point(latitude, longitude));
+        feature.setGeometry(new Point(latitude, longitude));
         JSONObject properties = new JSONObject();
         properties.put(CoreConstants.JsonAssets.RESPONDER_NAME, communityResponderModel.getResponderName());
         properties.put(CoreConstants.JsonAssets.RESPONDER_PHONE_NUMBER, communityResponderModel.getResponderPhoneNumber());

@@ -125,7 +125,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
                 form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
             }
 
-            startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+            startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(e);
         }

@@ -43,7 +43,6 @@ import timber.log.Timber;
 
 public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor implements PncMemberProfileContract.Interactor {
     private Context context;
-    private Date lastVisitDate;
 
     public PncMemberProfileInteractor(Context context) {
         this.context = context;
@@ -145,7 +144,8 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
     }
 
     private Date getLastDateVisit(String motherBaseID) {
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(motherBaseID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(motherBaseID, Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        Date lastVisitDate;
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
             return lastVisitDate;

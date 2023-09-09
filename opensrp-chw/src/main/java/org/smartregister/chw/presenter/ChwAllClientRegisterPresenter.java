@@ -12,6 +12,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.presenter.CoreAllClientsRegisterPresenter;
 import org.smartregister.chw.interactor.ChwAllClientsRegisterInteractor;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.R;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.pojo.RegisterParams;
@@ -65,7 +66,7 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
     @Override
     public void onNoUniqueId() {
         if (getView() != null)
-            getView().displayShortToast(org.smartregister.family.R.string.no_unique_id);
+            getView().displayShortToast(R.string.no_unique_id);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
                 startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
             } catch (Exception e) {
                 Timber.e(e);
-                getView().displayToast(org.smartregister.family.R.string.error_unable_to_start_form);
+                getView().displayToast(R.string.error_unable_to_start_form);
             }
         }
     }

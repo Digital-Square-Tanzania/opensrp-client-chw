@@ -11,6 +11,7 @@ import org.smartregister.chw.dao.ChwKvpDao;
 import org.smartregister.chw.kvp.domain.VisitDetail;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.util.JsonFormUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisit
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
             JSONArray fields = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-            JSONObject visitTypeObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "visit_type");
+            JSONObject visitTypeObject = JsonFormUtils.getFieldJSONObject(fields, "visit_type");
 
             if (ChwKvpDao.hasFollowupVisits(baseEntityId)) {
                 visitTypeObject.remove("options");

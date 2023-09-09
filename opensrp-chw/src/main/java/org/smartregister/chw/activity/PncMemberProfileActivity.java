@@ -33,6 +33,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -356,7 +357,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
         if (itemId == R.id.action_hivst_registration) {
             CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
-            String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+            String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false);
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
         }
         if(itemId == R.id.action_kvp_prep_registration){
@@ -562,7 +563,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             Timber.e(e);
         }
         try {
-            org.smartregister.chw.anc.util.NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+            NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
         } catch (Exception e) {
             Timber.e(e);
         }

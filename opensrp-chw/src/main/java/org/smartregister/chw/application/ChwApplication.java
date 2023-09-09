@@ -404,9 +404,7 @@ public class ChwApplication extends CoreChwApplication {
 
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
-        preferences.savePreference(AllConstants.DRISHTI_BASE_URL,
-                BuildConfig.DEBUG ? BuildConfig.opensrp_url_debug : BuildConfig.opensrp_url
-        );
+        preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
     }
 
     public boolean hasReferrals() {

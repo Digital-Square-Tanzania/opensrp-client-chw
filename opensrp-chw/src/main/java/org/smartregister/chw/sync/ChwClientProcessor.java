@@ -99,7 +99,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
             NCUtils.processHomeVisit(eventClient);
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
-            Timber.e("Form id " + formID + ". " + e.toString());
+            Timber.e("Form id " + formID + ". " + e);
         }
     }
 

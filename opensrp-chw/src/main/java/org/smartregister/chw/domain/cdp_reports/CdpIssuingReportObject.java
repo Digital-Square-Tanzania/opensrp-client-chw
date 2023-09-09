@@ -33,7 +33,6 @@ public class CdpIssuingReportObject extends ReportObject {
             JSONObject reportJsonObject = new JSONObject();
             reportJsonObject.put("id", ++i);
 
-            Log.d("hukuuuu",""+getHfCdpStockLog);
             if (getCdpClientDetails(getHfCdpStockLog, "visit_key").equals("restocked_male_condoms")){
                 reportJsonObject.put("outlet-name", getCdpClientDetails(getHfCdpStockLog, "outlet_name"));
                 reportJsonObject.put("male-condoms-offset", getCdpClientDetails(getHfCdpStockLog, "details"));

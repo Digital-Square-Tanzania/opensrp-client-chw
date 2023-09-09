@@ -293,7 +293,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             default:
 
-                Timber.e("ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
+                Timber.e("ERROR:: Unprocessed Form Object Key %s", jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
 
                 break;
 
