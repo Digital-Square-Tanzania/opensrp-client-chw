@@ -42,7 +42,7 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     private final IccmMemberObject memberObject;
 
-    public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect) {
+    public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect) {
         this.context = context;
         this.isMalariaSuspect = isMalariaSuspect;
         this.actionList = actionList;

@@ -218,7 +218,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         actionList.remove(context.getString(R.string.iccm_pneumonia));
         try {
             String title = context.getString(R.string.iccm_diarrhea);
-            IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isMalariaSuspect);
+            IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect);
             BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
             if (!actionList.containsKey(context.getString(R.string.iccm_diarrhea)))
                 actionList.put(title, action);
