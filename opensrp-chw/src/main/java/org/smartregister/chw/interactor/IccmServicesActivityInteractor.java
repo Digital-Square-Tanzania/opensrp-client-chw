@@ -34,8 +34,6 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
 
     private static IccmMemberObject memberObject;
 
-    private static boolean isEdit = false;
-
     final LinkedHashMap<String, BaseIccmVisitAction> actionList = new LinkedHashMap<>();
 
     protected Context context;
@@ -55,7 +53,6 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
         IccmServicesActivityInteractor.memberObject = memberObject;
 
         if (view.getEditMode()) {
-            isEdit = view.getEditMode();
             Visit lastVisit = MalariaLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), ICCM_SERVICES_VISIT);
 
             if (lastVisit != null) {
@@ -85,7 +82,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
 
     private void evaluateMedicalHistory(BaseIccmVisitContract.InteractorCallBack callBack) throws BaseIccmVisitAction.ValidationException {
         String title = context.getString(R.string.iccm_medical_history);
-        IccmMedicalHistoryActionHelper actionHelper = new IccmMedicalHistoryActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit);
+        IccmMedicalHistoryActionHelper actionHelper = new IccmMedicalHistoryActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack);
         BaseIccmVisitAction action = getBuilder(title).withOptional(false).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMedicalHistory()).build();
         actionList.put(title, action);
     }

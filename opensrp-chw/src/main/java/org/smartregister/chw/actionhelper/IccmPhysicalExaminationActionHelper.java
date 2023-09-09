@@ -19,6 +19,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
+import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,8 +37,6 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
 
     private final BaseIccmVisitContract.InteractorCallBack callBack;
 
-    private final boolean isEdit;
-
     private final Map<String, List<VisitDetail>> details;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
@@ -52,10 +51,9 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
 
     private final IccmMemberObject memberObject;
 
-    public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect, boolean hasAnySymptom) {
+    public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect, boolean hasAnySymptom) {
         this.context = context;
         this.actionList = actionList;
-        this.isEdit = isEdit;
         this.callBack = callBack;
         this.details = details;
         this.isMalariaSuspectString = isMalariaSuspect;
@@ -116,9 +114,9 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
         String clientPastMalariaTreatmentHistory = "";
         try {
             jsonObject = new JSONObject(jsonPayload);
-            JSONArray fields = org.smartregister.family.util.JsonFormUtils.fields(jsonObject);
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
 
-            JSONObject physicalExaminationCompletionStatus = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "physical_examination_completion_status");
+            JSONObject physicalExaminationCompletionStatus = JsonFormUtils.getFieldJSONObject(fields, "physical_examination_completion_status");
             assert physicalExaminationCompletionStatus != null;
             physicalExaminationCompletionStatus.put(JsonFormConstants.VALUE, IccmVisitUtils.getActionStatus(checkObject));
 
@@ -152,7 +150,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6)) {
                 try {
                     String title = context.getString(R.string.iccm_pneumonia);
-                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, isDiarrheaSuspect, isMalariaSuspectString);
+                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isDiarrheaSuspect, isMalariaSuspectString);
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
                     actionList.put(title, action);
                 } catch (Exception e) {

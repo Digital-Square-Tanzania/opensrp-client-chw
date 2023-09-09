@@ -31,8 +31,6 @@ import timber.log.Timber;
 public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
     private final Context context;
 
-    private final boolean isEdit;
-
     private final String isDiarrheaSuspect;
 
     private final String isMalariaSuspect;
@@ -49,11 +47,10 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
     private String jsonPayload;
 
-    public IccmPneumoniaActionHelper(Context context, String iccmEnromentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
+    public IccmPneumoniaActionHelper(Context context, String iccmEnromentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isDiarrheaSuspect, String isMalariaSuspect) {
         this.context = context;
         this.actionList = actionList;
         this.details = details;
-        this.isEdit = isEdit;
         this.callBack = callBack;
         this.isDiarrheaSuspect = isDiarrheaSuspect;
         this.isMalariaSuspect = isMalariaSuspect;

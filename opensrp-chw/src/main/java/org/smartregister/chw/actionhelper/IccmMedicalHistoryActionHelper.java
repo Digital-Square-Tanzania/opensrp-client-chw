@@ -46,19 +46,16 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
 
     private final BaseIccmVisitContract.InteractorCallBack callBack;
 
-    private final boolean isEdit;
-
     private final Map<String, List<VisitDetail>> details;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private IccmMemberObject memberObject;
 
-    public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit) {
+    public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack) {
         this.context = context;
         this.enrollmentFormSubmissionId = enrollmentFormSubmissionId;
         this.actionList = actionList;
-        this.isEdit = isEdit;
         this.callBack = callBack;
         this.details = details;
     }
@@ -168,7 +165,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         try {
             if (!clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
                 String title = context.getString(R.string.iccm_physical_examination);
-                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isEdit, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect, !CoreJsonFormUtils.getValue(jsonObject, "medical_history").contains("none"));
+                IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect, !CoreJsonFormUtils.getValue(jsonObject, "medical_history").contains("none"));
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
                 actionList.put(title, action);
             } else {
@@ -205,7 +202,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     private void processPneumoniaAction(JSONObject jsonObject, String isMalariaSuspect) {
         try {
             String title = context.getString(R.string.iccm_pneumonia);
-            IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isEdit, CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect"), isMalariaSuspect);
+            IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect"), isMalariaSuspect);
             BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
             if (!actionList.containsKey(context.getString(R.string.iccm_pneumonia)))
                 actionList.put(title, action);
