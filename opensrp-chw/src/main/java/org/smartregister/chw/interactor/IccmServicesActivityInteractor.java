@@ -5,8 +5,6 @@ import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVI
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.IccmMedicalHistoryActionHelper;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -20,7 +18,6 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.family.util.Utils;
-import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.HashMap;
@@ -36,9 +33,13 @@ import timber.log.Timber;
 public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
 
     private static IccmMemberObject memberObject;
+
     private static boolean isEdit = false;
+
     final LinkedHashMap<String, BaseIccmVisitAction> actionList = new LinkedHashMap<>();
+
     protected Context context;
+
     Map<String, List<VisitDetail>> details = null;
 
 
@@ -125,13 +126,6 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
             }
 
             if (visitCompleted) {
-
-                AllSharedPreferences allSharedPreferences = ImmunizationLibrary.getInstance().context().allSharedPreferences();
-
-                JSONObject visitJson = new JSONObject(visit.getJson());
-                JSONArray obs = visitJson.getJSONArray("obs");
-
-
                 IccmVisitUtils.processVisits(memberObject.getBaseEntityId());
             }
         } catch (Exception e) {

@@ -27,7 +27,7 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
     private final IccmMemberObject memberObject;
 
-    public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, boolean isEdit) {
+    public IccmMalariaActionHelper(String enrollmentFormSubmissionId) {
         this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
     }
 

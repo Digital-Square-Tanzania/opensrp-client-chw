@@ -19,6 +19,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
+import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -28,20 +29,25 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper {
-    private String jsonPayload;
-
     private final Context context;
 
     private final boolean isEdit;
+
     private final String isDiarrheaSuspect;
+
     private final String isMalariaSuspect;
 
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private final LinkedHashMap<String, BaseIccmVisitAction> actionList;
+
     private final BaseIccmVisitContract.InteractorCallBack callBack;
+
     private final Map<String, List<VisitDetail>> details;
+
     private final IccmMemberObject memberObject;
+
+    private String jsonPayload;
 
     public IccmPneumoniaActionHelper(Context context, String iccmEnromentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, boolean isEdit, String isDiarrheaSuspect, String isMalariaSuspect) {
         this.context = context;
@@ -111,9 +117,9 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(jsonPayload);
-            JSONArray fields = org.smartregister.family.util.JsonFormUtils.fields(jsonObject);
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
 
-            JSONObject pneumoniaCompletionStatus = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_completion_status");
+            JSONObject pneumoniaCompletionStatus = JsonFormUtils.getFieldJSONObject(fields, "pneumonia_completion_status");
             assert pneumoniaCompletionStatus != null;
             pneumoniaCompletionStatus.put(JsonFormConstants.VALUE, IccmVisitUtils.getActionStatus(checkObject));
 
@@ -136,7 +142,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
                 String malariaActionTitle = context.getString(R.string.iccm_malaria);
                 try {
-                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(memberObject.getIccmEnrollmentFormSubmissionId());
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
                         actionList.put(malariaActionTitle, action);

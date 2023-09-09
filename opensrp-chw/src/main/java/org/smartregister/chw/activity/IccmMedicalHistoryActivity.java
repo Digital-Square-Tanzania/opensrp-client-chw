@@ -38,7 +38,9 @@ import timber.log.Timber;
 
 public class IccmMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static IccmMemberObject iccmMemberObject;
+
     private final Flavor flavor = new IccmMedicalHistoryActivityFlv();
+
     private ProgressBar progressBar;
 
     public static void startMe(Activity activity, IccmMemberObject memberObject) {

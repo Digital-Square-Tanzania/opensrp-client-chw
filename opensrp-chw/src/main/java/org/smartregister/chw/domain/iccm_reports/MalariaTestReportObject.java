@@ -5,14 +5,13 @@ import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class MalariaTestReportObject extends ReportObject {
-    private static final DecimalFormat df = new DecimalFormat();
     private final List<String> indicatorCodesWithAgeGroups = new ArrayList<>();
+
     private static final String[] INDICATOR_CODES = {
             "iccm-4-less-than-1-month",
             "iccm-4-negative-less-than-1-month",
@@ -33,7 +32,8 @@ public class MalariaTestReportObject extends ReportObject {
     };
 
     private static final String[] INDICATOR_SEX_GROUPS = {"ME", "KE", "jumla"};
-    private Date reportDate;
+
+    private final Date reportDate;
 
     public MalariaTestReportObject(Date reportDate) {
         super(reportDate);

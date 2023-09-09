@@ -71,14 +71,11 @@ import timber.log.Timber;
 public class IccmProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
     private static String baseEntityId;
-    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private FormUtils formUtils;
-    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
-    private RelativeLayout processVisitLayout;
 
-    private List<ReferralTypeModel> getReferralTypeModels() {
-        return referralTypeModels;
-    }
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private FormUtils formUtils;
+    private RelativeLayout processVisitLayout;
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
         IccmProfileActivity.baseEntityId = baseEntityId;
@@ -86,6 +83,10 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         intent.putExtra(BASE_ENTITY_ID, baseEntityId);
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
+    }
+
+    private List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
     }
 
     private FormUtils getFormUtils() throws Exception {
@@ -143,7 +144,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
 
                     CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
-                    boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(commonPersonObjectClient, 10, 49) && org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
+                    boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(commonPersonObjectClient, 10, 49) && Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
 
                     JSONArray steps = formJson.getJSONArray("steps");
                     JSONObject step = steps.getJSONObject(0);
@@ -336,7 +337,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         }
     }
 
-    private org.smartregister.chw.malaria.domain.Visit getVisit(String eventType) {
+    private Visit getVisit(String eventType) {
         return MalariaLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 
@@ -490,14 +491,14 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
             if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
-                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+                String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
 
                 form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
             } else if (formName.equals(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm())) {
-                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+                String eventName = Utils.metadata().familyMemberRegister.updateEventType;
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
 

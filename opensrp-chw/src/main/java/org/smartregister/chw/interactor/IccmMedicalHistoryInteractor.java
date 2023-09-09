@@ -12,10 +12,8 @@ import com.google.gson.Gson;
 import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
-import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.CoreBaseAncMedicalHistoryInteractor;
 import org.smartregister.chw.domain.SortableVisit;
-import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;

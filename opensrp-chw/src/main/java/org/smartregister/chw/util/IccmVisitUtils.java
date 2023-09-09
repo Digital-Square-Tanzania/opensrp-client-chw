@@ -26,7 +26,9 @@ import timber.log.Timber;
 
 public class IccmVisitUtils extends VisitUtils {
     public static String Complete = "complete";
+
     public static String Pending = "pending";
+
     public static String Ongoing = "ongoing";
 
     /**

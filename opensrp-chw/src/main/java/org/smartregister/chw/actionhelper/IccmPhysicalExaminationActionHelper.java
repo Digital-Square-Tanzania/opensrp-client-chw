@@ -137,7 +137,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             String malariaActionTitle = context.getString(R.string.iccm_malaria);
             if (isMalariaSuspectString.equalsIgnoreCase("true")) {
                 try {
-                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(memberObject.getIccmEnrollmentFormSubmissionId());
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
                         actionList.put(malariaActionTitle, action);
@@ -173,7 +173,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
                 String malariaActionTitle = context.getString(R.string.iccm_malaria);
                 try {
-                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), isEdit);
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(memberObject.getIccmEnrollmentFormSubmissionId());
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
                         actionList.put(malariaActionTitle, action);

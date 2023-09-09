@@ -5,16 +5,17 @@ import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class IccmDispensingSummaryReportObject extends ReportObject {
-    DecimalFormat df = new DecimalFormat();
     private final List<String> indicatorCodesWithAgeGroups = new ArrayList<>();
+
     private final String[] indicatorCodes = new String[]{"iccm-dispensing-1", "iccm-dispensing-2", "iccm-dispensing-3", "iccm-dispensing-4"};
+
     private final String[] indicatorAgeGroups = new String[]{"0-3", "3-8", "8-12", "12+"};
+    
     private final Date reportDate;
 
     public IccmDispensingSummaryReportObject(Date reportDate) {

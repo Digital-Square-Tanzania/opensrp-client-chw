@@ -11,13 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 public class IccmClientsReportObject extends ReportObject {
-    private static final DecimalFormat df = new DecimalFormat();
     private final List<String> indicatorCodesWithAgeGroups = new ArrayList<>();
+
     private static final String[] INDICATOR_CODES = {"iccm-1", "iccm-2", "iccm-3", "iccm-4", "iccm-5", "iccm-6"};
+
     private static final String[] INDICATOR_AGE_GROUPS = {"less-than-1-month", "less-than-1-year", "between-1-to-5-years", "between-5-to-60-years", "60-and-above-years"};
 
     private static final String[] INDICATOR_SEX_GROUPS = {"ME", "KE", "jumla"};
-    private Date reportDate;
+
+    private final Date reportDate;
 
     public IccmClientsReportObject(Date reportDate) {
         super(reportDate);
