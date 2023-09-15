@@ -1,5 +1,7 @@
 package org.smartregister.chw.model;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.pmtct.model.BasePmtctRegisterFragmentModel;
@@ -9,8 +11,6 @@ import org.smartregister.family.util.DBConstants;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import androidx.annotation.NonNull;
 
 public class MotherChampionRegisterFragmentModel extends BasePmtctRegisterFragmentModel {
     @NonNull

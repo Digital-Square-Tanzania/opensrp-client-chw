@@ -5,7 +5,6 @@ import android.view.View;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.core.fragment.CoreMalariaRegisterFragment;
-import org.smartregister.chw.core.model.CoreMalariaRegisterFragmentModel;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.view.activity.BaseRegisterActivity;

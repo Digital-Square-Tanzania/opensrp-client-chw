@@ -1,9 +1,5 @@
 package org.smartregister.chw.activity;
 
-import android.view.Menu;
-
-import org.smartregister.chw.R;
-
 public abstract class DefaultHivProfileActivityFlv implements HivProfileActivity.Flavor {
 
 //    @Override

@@ -1,9 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaFollowUpVisitForm;
+
 import android.app.Activity;
 import android.content.Intent;
-
-import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaFollowUpVisitForm;
 
 public class MalariaFollowUpVisitActivity extends MalariaRegisterActivity {
 

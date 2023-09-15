@@ -9,10 +9,10 @@ import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.FEEDBACK_FORM_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.REFERRAL_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.NEW_PARTNER_REQUEST_CODE;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.PARTNER_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.PARTNER_REGISTRATION_EVENT;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.REFERRAL_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.JsonFormUtils.METADATA;
 import static org.smartregister.family.util.JsonFormUtils.STEP2;
 import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;

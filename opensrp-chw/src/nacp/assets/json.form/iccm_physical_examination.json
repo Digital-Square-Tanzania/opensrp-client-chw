@@ -1,0 +1,183 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Physical Examination",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Physical Examination",
+    "fields": [
+      {
+        "key": "physical_examination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physical_examination",
+        "type": "check_box",
+        "label": "Is the client having any of the following?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "pallor",
+            "text": "Palmar or Conjuctival Pallor",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pallor"
+          },
+          {
+            "key": "enlarged_spleen",
+            "text": "Enlarged Spleen",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "enlarged_spleen"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "client_past_malaria_treatment_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_past_malaria_treatment_history",
+        "label": "Has the client previously tested Positive for Malaria and received treatment in the past 14 days?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_conducting_mrdt",
+        "type": "toaster_notes",
+        "text": "<b>The client is a malaria suspect</b><br>Conduct mRDT",
+        "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "The client should be referred to the health facility for further management.",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_malaria_suspect_after_physical_examination",
+        "type": "hidden",
+        "openmrs_entity_id": "is_malaria_suspect_after_physical_examination",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physical_examination_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physical_examination_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

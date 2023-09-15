@@ -1,0 +1,242 @@
+indicators:
+  # ALu 1x6
+  - key: "iccm-dispensing-1-0-3"
+    description: "ALu 1x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_1_x_6'
+                        AND (date(efm.dob, '+3 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-1-3-8"
+    description: "ALu 1x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_1_x_6'
+                        AND (date(efm.dob, '+3 years') <= date('now'))
+                        AND (date(efm.dob, '+8 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-1-8-12"
+    description: "ALu 1x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_1_x_6'
+                        AND (date(efm.dob, '+8 years') <= date('now'))
+                        AND (date(efm.dob, '+12 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-1-12+"
+    description: "ALu 1x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_1_x_6'
+                        AND (date(efm.dob, '+12 years') <= date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+    # ALu 2x6
+  - key: "iccm-dispensing-2-0-3"
+    description: "ALu 2x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_2_x_6'
+                        AND (date(efm.dob, '+3 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-2-3-8"
+    description: "ALu 2x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_2_x_6'
+                        AND (date(efm.dob, '+3 years') <= date('now'))
+                        AND (date(efm.dob, '+8 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-2-8-12"
+    description: "ALu 2x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_2_x_6'
+                        AND (date(efm.dob, '+8 years') <= date('now'))
+                        AND (date(efm.dob, '+12 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-2-12+"
+    description: "ALu 2x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_2_x_6'
+                        AND (date(efm.dob, '+12 years') <= date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+    # ALu 3x6
+  - key: "iccm-dispensing-3-0-3"
+    description: "ALu 3x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_3_x_6'
+                        AND (date(efm.dob, '+3 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-3-3-8"
+    description: "ALu 3x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_3_x_6'
+                        AND (date(efm.dob, '+3 years') <= date('now'))
+                        AND (date(efm.dob, '+8 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-3-8-12"
+    description: "ALu 3x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_3_x_6'
+                        AND (date(efm.dob, '+8 years') <= date('now'))
+                        AND (date(efm.dob, '+12 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-3-12+"
+    description: "ALu 3x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_3_x_6'
+                        AND (date(efm.dob, '+12 years') <= date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+    
+    # ALu 4x6
+  - key: "iccm-dispensing-4-0-3"
+    description: "ALu 4x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_4_x_6'
+                        AND (date(efm.dob, '+3 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-4-3-8"
+    description: "ALu 4x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_4_x_6'
+                        AND (date(efm.dob, '+3 years') <= date('now'))
+                        AND (date(efm.dob, '+8 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-4-8-12"
+    description: "ALu 4x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_4_x_6'
+                        AND (date(efm.dob, '+8 years') <= date('now'))
+                        AND (date(efm.dob, '+12 years') > date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  - key: "iccm-dispensing-4-12+"
+    description: "ALu 4x6"
+    indicatorQuery: " SELECT SUM(CAST(number_of_alu_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE dispensed_alu_category = 'alu_4_x_6'
+                        AND (date(efm.dob, '+12 years') <= date('now'))
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  
+  
+  
+    # Amoxicillin DT
+  - key: "iccm-dispensing-5-jumla"
+    description: "Amoxicillin DT"
+    indicatorQuery: " SELECT SUM(CAST(number_of_amoxicillin_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE number_of_amoxicillin_tablets_dispensed IS NOT NULL
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  
+    # ORS
+  - key: "iccm-dispensing-6-jumla"
+    description: "ORS"
+    indicatorQuery: " SELECT SUM(CAST(number_of_ors_sachets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE number_of_ors_sachets_dispensed IS NOT NULL
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  
+    # Zinc
+  - key: "iccm-dispensing-7-jumla"
+    description: "Zinc"
+    indicatorQuery: " SELECT SUM(CAST(number_of_zinc_tablets_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE number_of_zinc_tablets_dispensed IS NOT NULL
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"
+  
+    # Zinc ORS co-pack
+  - key: "iccm-dispensing-8-jumla"
+    description: "Zinc ORS co-pack"
+    indicatorQuery: " SELECT SUM(CAST(number_of_zinc_ors_co_packs_dispensed AS INTEGER)) as count FROM ec_iccm_service eie
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
+                      WHERE number_of_zinc_ors_co_packs_dispensed IS NOT NULL
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                              '-' ||
+                              substr(strftime('%Y-%m-%d', datetime(eie.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                              '-' || '01')"

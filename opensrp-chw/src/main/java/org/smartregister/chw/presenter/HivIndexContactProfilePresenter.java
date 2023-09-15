@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 
 import org.smartregister.chw.activity.HivIndexContactProfileActivity;
-import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.contract.HivIndexContactProfileContract;
 import org.smartregister.chw.core.presenter.CoreHivIndexContactProfilePresenter;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;

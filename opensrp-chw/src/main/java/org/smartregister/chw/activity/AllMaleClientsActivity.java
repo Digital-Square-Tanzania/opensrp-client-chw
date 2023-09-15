@@ -3,11 +3,11 @@ package org.smartregister.chw.activity;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.AllMaleClientsRegisterFragment;
 import org.smartregister.view.activity.SecuredActivity;
-
-import androidx.fragment.app.FragmentTransaction;
 
 public class AllMaleClientsActivity extends SecuredActivity implements View.OnClickListener {
     @Override

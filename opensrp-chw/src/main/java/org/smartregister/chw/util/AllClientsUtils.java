@@ -1,5 +1,11 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
+import static org.smartregister.util.Utils.showShortToast;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +21,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
@@ -38,12 +45,6 @@ import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
-import static org.smartregister.util.Utils.showShortToast;
 
 public class AllClientsUtils {
 
@@ -71,26 +72,34 @@ public class AllClientsUtils {
     }
 
     public static void goToAncProfile(Activity activity, CommonPersonObjectClient patient) {
-        AncMemberProfileActivity.startMe(activity,patient.getCaseId());
+        AncMemberProfileActivity.startMe(activity, patient.getCaseId());
     }
 
     public static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
         MalariaProfileActivity.startMalariaActivity(activity, patient.getCaseId());
     }
 
+    public static void gotToIccmProfile(Activity activity, CommonPersonObjectClient patient) {
+        IccmProfileActivity.startMalariaActivity(activity, patient.getColumnmaps().get("base_entity_id"));
+    }
+
     public static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {
         FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(patient.getCaseId()));
     }
+
     public static void goToHivProfile(Activity activity, CommonPersonObjectClient patient) {
         HivProfileActivity.startHivProfileActivity(activity, HivDao.getMember(patient.getCaseId()));
     }
+
     public static void goToTbProfile(Activity activity, CommonPersonObjectClient patient) {
         TbProfileActivity.startTbProfileActivity(activity, TbDao.getMember(patient.getCaseId()));
     }
-    public static void  goToAgywProfile(Activity activity, CommonPersonObjectClient client){
+
+    public static void goToAgywProfile(Activity activity, CommonPersonObjectClient client) {
         AgywProfileActivity.startProfile(activity, client.getCaseId());
     }
-    public static void  goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client){
+
+    public static void goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client) {
         KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 

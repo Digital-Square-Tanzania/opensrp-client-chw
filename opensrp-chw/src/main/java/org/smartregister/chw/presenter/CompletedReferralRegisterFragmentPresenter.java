@@ -1,5 +1,8 @@
 package org.smartregister.chw.presenter;
 
+import static org.smartregister.chw.referral.util.Constants.ReferralType;
+import static org.smartregister.chw.referral.util.Constants.Tables;
+
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChwDBConstants;
@@ -8,9 +11,6 @@ import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContr
 import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.chw.util.Constants;
-
-import static org.smartregister.chw.referral.util.Constants.ReferralType;
-import static org.smartregister.chw.referral.util.Constants.Tables;
 
 public class CompletedReferralRegisterFragmentPresenter extends BaseReferralRegisterFragmentPresenter {
 

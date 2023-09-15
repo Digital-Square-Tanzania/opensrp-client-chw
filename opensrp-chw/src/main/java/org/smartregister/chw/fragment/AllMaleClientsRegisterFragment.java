@@ -5,19 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.provider.ChwAllMaleClientsQueryProvider;
 import org.smartregister.chw.provider.ChwMaleClientRegisterProvider;
-
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.opd.configuration.OpdConfiguration;
 import org.smartregister.opd.utils.ConfigurationInstancesHelper;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 
 
 

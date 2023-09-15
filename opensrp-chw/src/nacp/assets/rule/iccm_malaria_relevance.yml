@@ -1,0 +1,70 @@
+---
+name: step1_prompt_for_mrdt_positive
+description: prompt_for_mrdt_positive relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_mrdt_negative
+description: prompt_for_mrdt_negative relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_invalid_mrdt_results
+description: prompt_for_invalid_mrdt_results relevance
+priority: 1
+condition: "!step1_interpretation_for_mrdt.isEmpty() && !step1_interpretation_for_mrdt.contains('control')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_interpretation_for_mrdt_two
+description: interpretation_for_mrdt_two relevance
+priority: 1
+condition: "!step1_interpretation_for_mrdt.isEmpty() && !step1_interpretation_for_mrdt.contains('control')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_invalid_mrdt_results_two
+description: prompt_for_invalid_mrdt_results_two relevance
+priority: 1
+condition: "!step1_interpretation_for_mrdt_two.isEmpty() && !step1_interpretation_for_mrdt_two.contains('control')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_dispensed_alu_category
+description: dispensed_alu_category relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive') && step1_dispensed_alu_tablets.contains('yes') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_number_of_alu_to_dispense
+description: prompt_number_of_alu_to_dispense relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_dispensed_alu_tablets
+description: dispensed_alu_tablets relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reasons_for_not_dispensing_alu_tablets
+description: reasons_for_not_dispensing_alu_tablets relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive') && step1_dispensed_alu_tablets.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reasons_for_not_dispensing_alu
+description: other_reasons_for_not_dispensing_alu relevance
+priority: 1
+condition: "step1_mrdt_results.contains('Positive') && step1_dispensed_alu_tablets.contains('no') && step1_reasons_for_not_dispensing_alu_tablets.contains('other')"
+actions:
+  - "isRelevant = true"

@@ -128,7 +128,7 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Area name",
+        "hint": "Kitongoji/Street",
         "v_required": {
           "value": "true",
           "err": "Please enter the area name"
@@ -494,6 +494,13 @@
         "v_regex": {
           "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
           "err": "Number must be 10 digits and must start with 06 or 07."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -811,7 +818,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilities",
         "type": "spinner",
-        "hint": "Physical disabilities",
+        "hint": "Disabilities",
         "values": [
           "Yes",
           "No"

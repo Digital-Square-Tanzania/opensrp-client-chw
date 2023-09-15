@@ -1,5 +1,8 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -27,9 +30,6 @@ import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.Utils.getClientName;
 
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
     public FamilyActivityRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {

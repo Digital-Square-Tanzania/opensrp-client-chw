@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -34,8 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
 public class SickFormMedicalHistory extends SecuredActivity implements SickFormMedicalHistoryContract.View {
 

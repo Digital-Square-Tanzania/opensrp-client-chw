@@ -1,5 +1,9 @@
 package org.smartregister.chw.presenter;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.util.Utils.getName;
+import static org.smartregister.util.Utils.getValue;
+
 import android.app.Activity;
 import android.util.Pair;
 
@@ -43,10 +47,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.util.Utils.getName;
-import static org.smartregister.util.Utils.getValue;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 

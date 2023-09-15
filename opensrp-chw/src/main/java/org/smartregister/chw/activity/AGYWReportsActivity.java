@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
+
 import android.view.View;
 import android.widget.TextView;
+
 import org.smartregister.chw.R;
 
 public class AGYWReportsActivity extends CBHSReportsActivity{

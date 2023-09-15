@@ -16,8 +16,6 @@ import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
 
-import java.util.List;
-
 public class HivRegisterActivity extends CoreHivRegisterActivity {
 
     public static void startHIVFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {

@@ -1,5 +1,7 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.util.TypedValue;
@@ -24,8 +26,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Utils.getClientName;
 
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
 

@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 
-
 import com.google.gson.reflect.TypeToken;
 
 import org.smartregister.chw.R;

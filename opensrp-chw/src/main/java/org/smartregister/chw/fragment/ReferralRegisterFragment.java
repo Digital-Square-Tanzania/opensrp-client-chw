@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -35,9 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
 import timber.log.Timber;
 
 public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
@@ -161,7 +162,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId(), null);
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(getActivity(), client.getCaseId());
     }
 
     @Override
@@ -239,7 +240,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
             String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
                     " on " + presenter().getMainTable() + ".entity_id = " +
                     Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
-                    " inner join task on task.for = ec_family_member.base_entity_id"+
+                    " inner join task on task.for = ec_family_member.base_entity_id" +
                     " where " + presenter().getMainCondition();
 
             if (StringUtils.isNotBlank(filters)) {

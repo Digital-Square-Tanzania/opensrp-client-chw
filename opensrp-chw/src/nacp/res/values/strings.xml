@@ -167,8 +167,9 @@
 
     <string name="pnc_yes">Yes</string>
     <string name="pnc_no">No</string>
-    <string name="pnc_okay">Good</string>
-    <string name="pnc_bad">Bad (Torn)</string>
+    <string name="pnc_good">Good</string>
+    <string name="pnc_fair">Fair</string>
+    <string name="pnc_poor">Poor</string>
     <string name="pnc_normal">Normal</string>
     <string name="pnc_moderate">Moderate</string>
     <string name="pnc_severe">Severe</string>

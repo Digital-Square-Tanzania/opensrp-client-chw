@@ -1150,6 +1150,250 @@
       ]
     },
     {
+      "name": "ec_iccm_enrollment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "client_testing_history",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_testing_history"
+          }
+        },
+        {
+          "column_name": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_testing_history_at_affiliated_health_facility_or_iccm_post"
+          }
+        },
+        {
+          "column_name": "temperature",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "temperature"
+          }
+        },
+        {
+          "column_name": "pulse_rate",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pulse_rate"
+          }
+        },
+        {
+          "column_name": "respiratory_rate",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "respiratory_rate"
+          }
+        },
+        {
+          "column_name": "weight",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "weight"
+          }
+        },
+        {
+          "column_name": "height",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "height"
+          }
+        },
+        {
+          "column_name": "danger_signs",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "danger_signs"
+          }
+        },
+        {
+          "column_name": "dispensed_anti_pyretic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dispensed_anti_pyretic"
+          }
+        },
+        {
+          "column_name": "reasons_for_not_providing_anti_pyretic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reasons_for_not_providing_anti_pyretic"
+          }
+        },
+        {
+          "column_name": "other_reasons_for_not_providing_anti_pyretic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_reasons_for_not_providing_anti_pyretic"
+          }
+        },
+        {
+          "column_name": "administered_artesunate",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "administered_artesunate"
+          }
+        },
+        {
+          "column_name": "reasons_for_not_providing_artesunate",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reasons_for_not_providing_artesunate"
+          }
+        },
+        {
+          "column_name": "other_reasons_for_not_providing_artesunate",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_reasons_for_not_providing_artesunate"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_iccm_service",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "mrdt_results",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mrdt_results"
+          }
+        },
+        {
+          "column_name": "dispensed_alu_category",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dispensed_alu_category"
+          }
+        },
+        {
+          "column_name": "number_of_alu_tablets_dispensed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_alu_tablets_dispensed"
+          }
+        },
+        {
+          "column_name": "pneumonia_signs",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pneumonia_signs"
+          }
+        },
+        {
+          "column_name": "number_of_amoxicillin_tablets_dispensed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_amoxicillin_tablets_dispensed"
+          }
+        },
+        {
+          "column_name": "diarrhea_signs",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diarrhea_signs"
+          }
+        },
+        {
+          "column_name": "number_of_ors_sachets_dispensed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_ors_sachets_dispensed"
+          }
+        },
+        {
+          "column_name": "number_of_zinc_tablets_dispensed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_zinc_tablets_dispensed"
+          }
+        },
+        {
+          "column_name": "number_of_zinc_ors_co_packs_dispensed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_zinc_ors_co_packs_dispensed"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_family_planning",
       "columns": [
         {

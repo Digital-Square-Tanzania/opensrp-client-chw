@@ -1,0 +1,183 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Physical Examination",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Uchunguzi wa mwili",
+    "fields": [
+      {
+        "key": "physical_examination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physical_examination",
+        "type": "check_box",
+        "label": "Je mteja na dalili yoyote kati ya zifuatazo?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "pallor",
+            "text": "Weupe wa viganja au konjaktiva",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pallor"
+          },
+          {
+            "key": "enlarged_spleen",
+            "text": "Bandama kuwa kubwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "enlarged_spleen"
+          },
+          {
+            "key": "none",
+            "text": "Hana dalili yoyote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "client_past_malaria_treatment_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_past_malaria_treatment_history",
+        "label": "Je mteja alipimwa na kukutwa malaria na kupata matibabu ndani ya siku 14 zilizopita?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_conducting_mrdt",
+        "type": "toaster_notes",
+        "text": "Mteja amehisiwa kuwa na malaria. Mpime kwa kutumia mRDT",
+        "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "Mteja apewe rufaa kwenda kituo cha kutolea huduma za afya kwa huduma zaidi",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_malaria_suspect_after_physical_examination",
+        "type": "hidden",
+        "openmrs_entity_id": "is_malaria_suspect_after_physical_examination",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_physical_examination_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physical_examination_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physical_examination_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

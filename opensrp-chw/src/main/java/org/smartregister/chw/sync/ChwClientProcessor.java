@@ -78,6 +78,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.AGYW_BEHAVIORAL_SERVICES:
                 case Constants.Events.AGYW_BIO_MEDICAL_SERVICES:
                 case Constants.Events.KVP_PREP_FOLLOWUP_VISIT:
+                case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                     if (eventClient.getEvent() == null) {
                         return;
                     }

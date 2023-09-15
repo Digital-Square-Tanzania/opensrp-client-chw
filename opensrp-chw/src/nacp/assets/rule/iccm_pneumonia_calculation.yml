@@ -1,0 +1,31 @@
+---
+name: step1_number_of_amoxicillin_tablets_that_should_be_dispensed
+description: number_of_amoxicillin_tablets_that_should_be_dispensed calculation
+priority: 1
+condition: "true"
+actions:
+  - "def getNumberOfTablets(weight) {
+         import java.util.*;
+         int weightValue = Integer.parseInt(weight);
+         if (weightValue < 10) {
+             return 10;
+         } else {
+             return 20;
+         }
+     }"
+  - "calculation = getNumberOfTablets(global_weight)"
+---
+name: step1_prompt_number_of_number_of_amoxicillin_tablets_to_dispense
+description: prompt_number_of_number_of_amoxicillin_tablets_to_dispense calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['tablets':step1_number_of_amoxicillin_tablets_that_should_be_dispensed, 'weight':global_weight]"
+---
+name: step1_number_of_amoxicillin_tablets_dispensed
+description: number_of_amoxicillin_tablets_dispensed calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_pneumonia_signs.equals('non_sever_pneumonia') && !step1_amoxicillin_dispensed.isEmpty() && step1_amoxicillin_dispensed.contains('yes') ? step1_number_of_amoxicillin_tablets_that_should_be_dispensed : '0'"
+

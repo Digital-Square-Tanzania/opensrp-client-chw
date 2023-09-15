@@ -33,6 +33,7 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
+import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -61,13 +62,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         // Check if woman is already registered
-        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+        if (ChwApplication.getApplicationFlavor().hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
-        if (flavor.hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+        if (ChwApplication.getApplicationFlavor().hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         } else {
@@ -79,6 +80,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
+        else
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
 
         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -117,6 +120,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             //flavor.updateTbMenuItems(baseEntityId, menu);
             //will update when the TB module is complete
         }
+        if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(baseEntityId)) {
+            menu.findItem(R.id.action_iccm_registration).setVisible(true);
+        }
         menu.findItem(R.id.action_fp_initiation).setVisible(false);
         return true;
     }
@@ -141,6 +147,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startMalariaRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
+    }
+
+    @Override
+    protected void startIntegratedCommunityCaseManagementEnrollment() {
+        IccmRegisterActivity.startIccmRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
     }
 
     @Override
@@ -339,8 +350,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
-
-        boolean hasANC();
     }
 
     @Override

@@ -1,0 +1,433 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Malaria",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Malaria",
+    "fields": [
+      {
+        "key": "prompt",
+        "type": "toaster_notes",
+        "text": "Muandae mteja kwa ajili ya kipimo cha haraka cha malaria (mRDT), mpime na tafsiri matokeo kulingana na muongozo (SOPs).",
+        "openmrs_entity_id": "prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info"
+      },
+      {
+        "key": "interpretation_for_mrdt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "interpretation_for_mrdt",
+        "type": "check_box",
+        "label": "Tafsiri ya matokeo ya kipimo cha haraka cha malaria (mRDT)",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "no_visible_line"
+        ],
+        "options": [
+          {
+            "key": "control",
+            "text": "Control",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "control"
+          },
+          {
+            "key": "pan",
+            "text": "Pan",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pan"
+          },
+          {
+            "key": "pf",
+            "text": "Pf",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pf"
+          },
+          {
+            "key": "no_visible_line",
+            "text": "Hakuna mstari wowote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_visible_line"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "prompt_for_invalid_mrdt_results",
+        "type": "toaster_notes",
+        "text": "<b>Matokeo ya kipimo cha mRDT ni batili.</b><br>Rudia upya kumpima mteja",
+        "openmrs_entity_id": "prompt_for_invalid_mrdt_results",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "interpretation_for_mrdt_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "interpretation_for_mrdt_two",
+        "type": "check_box",
+        "label": "Tafsiri ya matokeo ya kipimo cha haraka cha malaria (mRDT)",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "no_visible_line"
+        ],
+        "options": [
+          {
+            "key": "control",
+            "text": "Control",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "control"
+          },
+          {
+            "key": "pan",
+            "text": "Pan",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pan"
+          },
+          {
+            "key": "pf",
+            "text": "Pf",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pf"
+          },
+          {
+            "key": "no_visible_line",
+            "text": "Hakuna mstari wowote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_visible_line"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_invalid_mrdt_results_two",
+        "type": "toaster_notes",
+        "text": "<b>Matokeo ya kipimo cha mRDT ni batili.</b><br>Mpe mteja rufaa kwenda kituo cha kutolea huduma za afya",
+        "openmrs_entity_id": "prompt_for_invalid_mrdt_results_two",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mrdt_results",
+        "type": "hidden",
+        "openmrs_entity_id": "mrdt_results",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_mrdt_positive",
+        "type": "toaster_notes",
+        "text": "Mteja <b>ana</b> malaria",
+        "openmrs_entity_id": "prompt_for_mrdt_positive",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_mrdt_negative",
+        "type": "toaster_notes",
+        "text": "Mteja <b>hana</b> malaria",
+        "openmrs_entity_id": "prompt_for_mrdt_negative",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_alu_tablets_that_should_be_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_alu_tablets_that_should_be_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_alu_to_dispense",
+        "type": "toaster_notes",
+        "text": "Toa vidonge {tablets} kulinga na Uzito wa Kilo {weight} za mteja",
+        "openmrs_entity_id": "prompt_number_of_alu_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dispensed_alu_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dispensed_alu_tablets",
+        "label": "Je, vidonge vya ALU vimetolewa kwa mteja?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_dispensing_alu_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_dispensing_alu_tablets",
+        "label": "Sababu za kutompatia mteja vidonge vya ALU",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Dawa zimeisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_dispensing_alu",
+        "type": "edit_text",
+        "hint": "Sababu nyingine, taja",
+        "openmrs_entity_id": "other_reasons_for_not_dispensing_alu",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_alu_tablets_dispensed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_alu_tablets_dispensed",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dispensed_alu_category",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dispensed_alu_category",
+        "label": "Chagua aina ya ALU uliyompatia mteja",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "alu_1_x_6",
+            "text": "ALU 1 X 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alu_1_x_6"
+          },
+          {
+            "key": "alu_2_x_6",
+            "text": "ALU 2 X 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alu_2_x_6"
+          },
+          {
+            "key": "alu_3_x_6",
+            "text": "ALU 3 X 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alu_3_x_6"
+          },
+          {
+            "key": "alu_4_x_6",
+            "text": "ALU 4 X 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alu_4_x_6"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

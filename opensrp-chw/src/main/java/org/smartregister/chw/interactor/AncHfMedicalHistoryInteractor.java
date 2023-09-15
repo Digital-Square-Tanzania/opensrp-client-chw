@@ -1,5 +1,9 @@
 package org.smartregister.chw.interactor;
 
+import static org.smartregister.chw.anc.util.VisitUtils.getVisitDetailsOnly;
+import static org.smartregister.chw.anc.util.VisitUtils.getVisitGroups;
+import static org.smartregister.chw.anc.util.VisitUtils.getVisitsOnly;
+
 import android.content.Context;
 
 import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
@@ -11,10 +15,6 @@ import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.VisitUtils.getVisitDetailsOnly;
-import static org.smartregister.chw.anc.util.VisitUtils.getVisitGroups;
-import static org.smartregister.chw.anc.util.VisitUtils.getVisitsOnly;
 
 public class AncHfMedicalHistoryInteractor extends CoreBaseAncMedicalHistoryInteractor {
     @Override

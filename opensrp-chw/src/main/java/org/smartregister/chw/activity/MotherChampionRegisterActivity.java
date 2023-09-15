@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.smartregister.chw.R;
@@ -19,8 +21,6 @@ import org.smartregister.chw.listener.ChwMotherChampionBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
-import androidx.fragment.app.Fragment;
 
 public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
 

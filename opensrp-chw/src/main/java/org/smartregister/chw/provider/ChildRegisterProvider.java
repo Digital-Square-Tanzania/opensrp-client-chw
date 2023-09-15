@@ -1,5 +1,8 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
@@ -10,7 +13,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
-import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.task.ChwUpdateLastAsyncTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -20,9 +22,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.Utils.getClientName;
 
 /**
  * Created by keyman on 13/11/2018.

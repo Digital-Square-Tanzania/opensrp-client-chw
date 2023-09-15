@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
-
 import org.smartregister.chw.core.activity.CoreKvpRegisterActivity;
 import org.smartregister.chw.fragment.KvpPrEPRegisterFragment;
 import org.smartregister.chw.kvp.util.Constants;

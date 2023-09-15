@@ -1,9 +1,9 @@
 package org.smartregister.chw.presenter;
 
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME;
+
 import org.smartregister.chw.pmtct.contract.PmtctRegisterFragmentContract;
 import org.smartregister.chw.pmtct.presenter.BasePmtctRegisterFragmentPresenter;
-
-import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME;
 
 public class MotherChampionRegisterFragmentPresenter extends BasePmtctRegisterFragmentPresenter {
     public MotherChampionRegisterFragmentPresenter(PmtctRegisterFragmentContract.View view, PmtctRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {

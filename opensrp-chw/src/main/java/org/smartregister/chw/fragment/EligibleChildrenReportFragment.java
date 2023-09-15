@@ -1,5 +1,8 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
@@ -24,9 +27,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
-import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 
 public class EligibleChildrenReportFragment extends ReportResultFragment<EligibleChild> {
     public static final String TAG = "EligibleChildrenReportFragment";

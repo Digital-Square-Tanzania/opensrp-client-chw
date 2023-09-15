@@ -189,8 +189,8 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".moh"
-            versionCode 14
-            versionName "1.1.6"
+            versionCode 15
+            versionName "1.2.0"
             buildConfigField "String", 'opensrp_url', '"https://ucs.nacp.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
 //            buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
@@ -337,7 +337,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.36.16-NACP-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.37.0-NACP-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

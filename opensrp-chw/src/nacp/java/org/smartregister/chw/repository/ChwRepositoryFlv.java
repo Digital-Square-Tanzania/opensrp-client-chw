@@ -420,5 +420,19 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion26");
         }
+
+        // setup reporting
+        ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+        String iccmClientReportIndicatorConfigFile = "config/iccm-monthly-report.yml";
+        String iccmDispensingSummaryReportIndicatorConfigFile = "config/iccm-dispensing-monthly-report.yml";
+        for (String configFile : Collections.unmodifiableList(Arrays.asList(iccmClientReportIndicatorConfigFile, iccmDispensingSummaryReportIndicatorConfigFile))) {
+            reportingLibrary.readConfigFile(configFile, db);
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Arrays.asList("ec_iccm_enrollment", "ec_iccm_service", "ec_cdp_outlet_stock_count")), ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion26");
+        }
     }
 }

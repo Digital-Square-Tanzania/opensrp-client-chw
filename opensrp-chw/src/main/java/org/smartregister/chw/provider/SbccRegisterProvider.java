@@ -4,10 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
-import org.smartregister.chw.util.Constants;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.provider.HvlResultsViewProvider;
-import org.smartregister.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;

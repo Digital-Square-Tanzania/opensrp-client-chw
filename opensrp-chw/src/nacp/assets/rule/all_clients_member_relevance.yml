@@ -48,6 +48,13 @@ condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step
 actions:
   - "isRelevant = true"
 ---
+name: step2_phone_number
+description: phone_number relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10)"
+actions:
+  - "isRelevant = true"
+---
 name: step2_preg_1yr
 description: pregnance 1yr relevance
 priority: 1

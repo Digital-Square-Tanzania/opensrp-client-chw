@@ -128,7 +128,7 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Jina la eneo",
+        "hint": "Jina la Kitongoji/Mtaa",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza jina la eneo"
@@ -494,6 +494,13 @@
         "v_regex": {
           "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
           "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {

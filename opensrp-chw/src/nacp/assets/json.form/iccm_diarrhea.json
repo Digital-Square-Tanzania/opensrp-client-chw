@@ -1,0 +1,448 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Diarrhea",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Diarrhea",
+    "fields": [
+      {
+        "key": "diarrhea_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_signs",
+        "type": "check_box",
+        "label": "Is the child having any of the following signs?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "irritable_or_crying",
+            "text": "Irritable or crying",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "irritable_or_crying"
+          },
+          {
+            "key": "sunken_eyes",
+            "text": "Sunken eyes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sunken_eyes"
+          },
+          {
+            "key": "drinks_eagerly",
+            "text": "Drinks eagerly",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "drinks_eagerly"
+          },
+          {
+            "key": "struggles_to_drink",
+            "text": "Struggles to drink",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "struggles_to_drink"
+          },
+          {
+            "key": "skin_pinch_goes_back_slowly",
+            "text": "Skin pinch goes back slowly",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_pinch_goes_back_slowly"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "prompt_for_diarrhea_with_no_dehydration",
+        "type": "toaster_notes",
+        "text": "<b>Provide Treatment</b><br>The child has Diarrhea with no dehydration.<br>Treat with either ORS and Zinc or Zinc ORS Co-pack.",
+        "openmrs_entity_id": "prompt_for_diarrhea_with_no_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "Refer the client to health facility immediately.",
+        "openmrs_entity_id": "prompt_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "has_bilateral_lower_limbs_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_bilateral_lower_limbs_oedema",
+        "label": "Is the child having bilateral lower limbs Oedema?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "The mother should continue administering small amounts of ORS to the child during the journey.",
+        "openmrs_entity_id": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:has_bilateral_lower_limbs_oedema": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "diarrhea_medication_dispensed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_medication_dispensed",
+        "type": "check_box",
+        "label": "Zinc and ORS medication dispensed",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none",
+          "zinc_ors_co_pack"
+        ],
+        "options": [
+          {
+            "key": "ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ors"
+          },
+          {
+            "key": "zinc",
+            "text": "Zinc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc"
+          },
+          {
+            "key": "zinc_ors_co_pack",
+            "text": "Zinc ORS Co-pack",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc_ors_co_pack"
+          },
+          {
+            "key": "none",
+            "text": "No medication dispensed",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diarrhea_medication_dispensed_for_referred_clients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_medication_dispensed_for_referred_clients",
+        "type": "check_box",
+        "label": "ORS medication dispensed",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none",
+          "zinc_ors_co_pack"
+        ],
+        "options": [
+          {
+            "key": "ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ors"
+          },
+          {
+            "key": "zinc",
+            "text": "Zinc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc"
+          },
+          {
+            "key": "zinc_ors_co_pack",
+            "text": "Zinc ORS Co-pack",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc_ors_co_pack"
+          },
+          {
+            "key": "none",
+            "text": "No medication dispensed",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_ors_sachets_dispensed",
+        "type": "edit_text",
+        "hint": "Number of ORS sachets dispensed",
+        "openmrs_entity_id": "number_of_ors_sachets_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of ORS sachets dispensed"
+        },
+        "v_max": {
+          "value": "3",
+          "err": "Tablets sachets should not exceed 3"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_zinc_tablets_dispensed",
+        "type": "edit_text",
+        "hint": "Number of Zinc tablets dispensed",
+        "openmrs_entity_id": "number_of_zinc_tablets_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of Zinc tablets dispensed"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Tablets dispensed should not exceed 10"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_zinc_ors_co_packs_dispensed",
+        "type": "edit_text",
+        "hint": "Number of Zinc ORS  co-pack dispensed",
+        "openmrs_entity_id": "number_of_zinc_ors_co_packs_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of Zinc ORS  co-pack dispensed"
+        },
+        "v_max": {
+          "value": "8",
+          "err": "Co-packs dispensed should not exceed 8"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_dispensing_diarrhea_medication",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_dispensing_diarrhea_medication",
+        "label": "Reasons for not dispensing Zinc or ORS?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_dispensing_diarrhea_medication",
+        "type": "edit_text",
+        "hint": "Please specify the other reason(s)",
+        "openmrs_entity_id": "other_reasons_for_not_dispensing_diarrhea_medication",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "step1:reasons_for_not_dispensing_diarrhea_medication": {
+            "type": "string",
+            "ex": "equalTo(., \"others\")"
+          }
+        }
+      },
+      {
+        "key": "diarrhea_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+---
+name: step1_prompt_number_of_number_of_amoxicillin_tablets_to_dispense
+description: prompt_number_of_number_of_amoxicillin_tablets_to_dispense relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amoxicillin_dispensed
+description: amoxicillin_dispensed relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_amoxicillin_tablets_dispensed
+description: number_of_amoxicillin_tablets_dispensed relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia') && step1_amoxicillin_dispensed.equals('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reasons_for_not_dispensing_amoxicillin
+description: reasons_for_not_dispensing_amoxicillin relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia') && step1_amoxicillin_dispensed.equals('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reasons_for_not_dispensing_amoxicillin
+description: other_reasons_for_not_dispensing_amoxicillin relevance
+priority: 1
+condition: "step1_pneumonia_signs.equals('non_sever_pneumonia') && step1_amoxicillin_dispensed.equals('no') && step1_reasons_for_not_dispensing_amoxicillin.contains('others')"
+actions:
+  - "isRelevant = true"

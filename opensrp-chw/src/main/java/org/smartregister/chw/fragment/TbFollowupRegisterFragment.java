@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import static android.view.View.GONE;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,8 +22,6 @@ import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import timber.log.Timber;
-
-import static android.view.View.GONE;
 
 public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterFragment {
 

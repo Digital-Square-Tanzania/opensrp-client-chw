@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -15,8 +17,6 @@ import org.smartregister.chw.referral.model.BaseIssueReferralModel;
 import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
-
-import androidx.annotation.NonNull;
 
 public class LTFURecordFeedbackActivity extends BaseIssueReferralActivity {
 
