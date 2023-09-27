@@ -49,6 +49,9 @@
             android:name=".activity.HivstResultViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HivstMobilizationSessionDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AgywRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -97,6 +100,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MotherChampionReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherChampionSbcMobilizationSessionDetailsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

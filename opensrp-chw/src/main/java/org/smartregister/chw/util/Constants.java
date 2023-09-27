@@ -115,15 +115,27 @@ public class Constants extends CoreConstants {
 
     public static final class Events {
         public static final String UPDATE_MALARIA_CONFIGURATION = "Update Malaria Confirmation";
+
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+
         public static final String ANC_FIRST_FACILITY_VISIT = "ANC First Facility Visit";
+
         public static final String ANC_RECURRING_FACILITY_VISIT = "ANC Recurring Facility Visit";
+
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
+
+        public static final String MOTHER_CHAMPION_SBCC_SESSIONS = "Mother Champion SBCC Sessions";
+
         public static final String CBHS_FOLLOWUP = "CBHS Followup";
+
         public static final String CBHS_CLOSE_VISITS = "CBHS Close Visits";
+
         public static final String AGYW_STRUCTURAL_SERVICES = "AGYW Structural Services";
+
         public static final String AGYW_BEHAVIORAL_SERVICES = "AGYW Behavioral Services";
+
         public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
+
         public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
     }
 
