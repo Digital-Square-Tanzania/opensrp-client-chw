@@ -4,8 +4,6 @@ import static org.smartregister.chw.anc.util.VisitUtils.getVisitDetailsOnly;
 import static org.smartregister.chw.anc.util.VisitUtils.getVisitGroups;
 import static org.smartregister.chw.anc.util.VisitUtils.getVisitsOnly;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
-import static org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION;
-import static org.smartregister.chw.util.Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS;
 
 import android.content.Context;
 

@@ -6,6 +6,7 @@ import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getFormWithMeta
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.updateValues;
 import static org.smartregister.chw.util.Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS;
 import static org.smartregister.chw.util.Constants.JsonForm.getMotherChampionSbccForm;
+import static org.smartregister.chw.util.PmtctVisitUtils.deleteProcessedVisit;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.VISIT_ID;
 
 import android.app.Activity;
@@ -41,9 +42,8 @@ import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.chw.interactor.MotherChampionSbcMobilizationSessionDetailsInteractor;
-import org.smartregister.chw.sbc.util.Constants;
-import org.smartregister.chw.sbc.util.VisitUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
@@ -85,9 +85,9 @@ public class MotherChampionSbcMobilizationSessionDetailsActivity extends CoreAnc
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(R.string.sbc_back_to_all_mobilization_sessions));
+        tvTitle.setText(getString(R.string.back_to_all_mobilization_sessions));
 
-        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.sbc_mobilization_session_details));
+        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.mobilization_session_details));
     }
 
     @Override
@@ -98,7 +98,7 @@ public class MotherChampionSbcMobilizationSessionDetailsActivity extends CoreAnc
         flavor.processViewData(visits, this);
         displayLoadingState(false);
         TextView sbcVisitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        sbcVisitTitle.setText(R.string.sbc_mobilization_session);
+        sbcVisitTitle.setText(R.string.mobilization_sessions);
         return view;
     }
 
@@ -113,17 +113,17 @@ public class MotherChampionSbcMobilizationSessionDetailsActivity extends CoreAnc
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
                 String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
                 if (encounterType.equals(MOTHER_CHAMPION_SBCC_SESSIONS)) {
                     if (form.has(VISIT_ID)) {
                         String deletedVisitId = form.getString(VISIT_ID);
                         form.remove(VISIT_ID);
-                        VisitUtils.deleteProcessedVisit(deletedVisitId, baseEntityId);
+                        deleteProcessedVisit(deletedVisitId, baseEntityId);
                     }
 
-                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, CoreReferralUtils.setEntityId(jsonString, baseEntityId), Constants.TABLES.SBC_MOBILIZATION_SESSIONS);
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, CoreReferralUtils.setEntityId(jsonString, baseEntityId), null);
                     org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                     finish();
@@ -238,7 +238,7 @@ public class MotherChampionSbcMobilizationSessionDetailsActivity extends CoreAnc
                         Visit visit = visits.get(0);
 
                         if (visit.getBaseEntityId() != null) {
-                            startFormForEdit(R.string.sbc_mobilization_session, getMotherChampionSbccForm(), visit.getBaseEntityId(), visit.getVisitId(), context);
+                            startFormForEdit(R.string.mobilization_sessions, getMotherChampionSbccForm(), visit.getBaseEntityId(), visit.getVisitId(), context);
 
                         }
                     });

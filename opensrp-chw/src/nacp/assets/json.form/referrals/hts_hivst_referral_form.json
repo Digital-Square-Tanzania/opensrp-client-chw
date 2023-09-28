@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "confirmation_self_test",
-              "text": "HIV Conventional Test",
+              "text": "Self Test Confirmation",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
