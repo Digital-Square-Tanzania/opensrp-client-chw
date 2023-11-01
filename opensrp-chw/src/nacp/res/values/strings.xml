@@ -164,14 +164,21 @@
     <string name="vit_a_received_label">Vitamin A received</string>
     <string name="ifa_received_label">IFA tablets received</string>
 
+    <string name="pnc_hv_location">Visit Location</string>
+    <string name="pnc_hv_location_captured">Visit location has been captured</string>
 
     <string name="pnc_yes">Yes</string>
     <string name="pnc_no">No</string>
-    <string name="pnc_okay">Good</string>
-    <string name="pnc_bad">Bad (Torn)</string>
+    <string name="pnc_good">Good</string>
+    <string name="pnc_fair">Fair</string>
+    <string name="pnc_poor">Poor</string>
     <string name="pnc_normal">Normal</string>
     <string name="pnc_moderate">Moderate</string>
     <string name="pnc_severe">Severe</string>
+    <string name="pnc_hygiene_safety_counselling_title">Environmental Hygiene</string>
+
+    <string name="pnc_newborn_care_introduction">Essential New Born Care: Introduction ({0})</string>
+    <string name="baby_premature">Baby premature/underweight</string>
 
     <!---KVP/PrEP Strings -->
     <string name="kvp_prep_visit_type">Visit Type</string>
@@ -523,5 +530,8 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
+
+    <string name="child_problem_solving">Problem Solving</string>
+    <string name="child_problem_solving_task">Playing and Communicating challenge</string>
 
 </resources>

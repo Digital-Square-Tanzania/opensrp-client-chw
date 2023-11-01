@@ -1,0 +1,330 @@
+{
+  "form": "ICCM Services Referral",
+  "encounter_type": "ICCM Services Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "Rufaa za iCCM",
+      "fields": [
+        {
+          "name": "problem",
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem"
+          },
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Sababu za rufaa"
+          },
+          "options": [
+            {
+              "name": "extreme_weakness",
+              "text": "Amelegea sana",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "extreme_weakness",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "impaired_consciousness",
+              "text": "Kupoteza fahamu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "impaired_consciousness",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "change_of_behaviour",
+              "text": "Kuchanganyikiwa",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "change_of_behaviour",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "convulsions",
+              "text": "Degedege",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "convulsions",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "respiratory_distress",
+              "text": "Kupumua kwa shida",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "respiratory_distress",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "bleeding_tendency",
+              "text": "Bleeding tendency/DIC",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "bleeding_tendency",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "shock",
+              "text": "Shock/Circulatory collapse",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "shock",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "vomiting_everything",
+              "text": "Anatapika kila kitu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "vomiting_everything",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "inability_to_drink_or_breastfeed",
+              "text": "Hawezi kunywa au kunyonya",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "inability_to_drink_or_breastfeed",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative_mrdt_results",
+              "text": "Majibu hasi ya kipimo cha mRDT",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "negative_mrdt_results",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Magonjwa mengine",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sever_pneumonia",
+              "text": "Nimonia Kali",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "sever_pneumonia",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "diarrhea_with_signs_of_dehydration",
+              "text": "Kuharisha wenye upungu wa maji",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "diarrhea_with_signs_of_dehydration",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "pregnant_client",
+              "text": "Mama Mjamzito",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "pregnant_client",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza sababu za rufaa",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Magonjwa mengine",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
+          },
+          "required_status": "true:Tafadhali jaza  magonjwa mengine",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "service_before_referral",
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "service_before_referral"
+          },
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Dawa aliyopewa kabla ya rufaa."
+          },
+          "options": [
+            {
+              "name": "rectal_artesunate",
+              "text": "Artesunate ya puru",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "rectal_artesunate",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "anti_pyretic",
+              "text": "Dawa ya kushusha homa",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "anti_pyretic",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ors",
+              "text": "ORS",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "ors",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ors_zinc_co_pack",
+              "text": "ORS Zinc Co-pack",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "ors_zinc_co_pack",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "Hajapewa dawa yoyote",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "none",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Treatment given before referral is required"
+        },
+        {
+          "name": "service_before_referral_other",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "",
+            "openmrs_entity_id": "service_before_referral_other",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Other treatment"
+          },
+          "required_status": "true:Please specify other symptoms",
+          "subjects": "service_before_referral:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Chagua Kituo cha rufaa",
+            "searchable": "Chagua Kituo cha rufaa"
+          },
+          "options": [],
+          "required_status": "yes:Please specify referral facility"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Chagua tarehe ya tembeleo",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        }
+      ]
+    }
+  ]
+}

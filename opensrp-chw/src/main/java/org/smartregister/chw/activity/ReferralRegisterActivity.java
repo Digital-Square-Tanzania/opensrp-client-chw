@@ -1,9 +1,19 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
+import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
+import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,16 +34,7 @@ import org.smartregister.helper.BottomNavigationHelper;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
-import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
-import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
-import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ReferralRegisterActivity extends BaseReferralRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

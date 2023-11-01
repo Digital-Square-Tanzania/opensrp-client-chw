@@ -1,0 +1,169 @@
+{
+  "count": "1",
+  "encounter_type": "PNC Hygiene Observation",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kuzuia  maambukizi katika jamii",
+    "fields": [
+      {
+        "key": "environment_hygiene_note_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_note_one",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Usafi na uzuiaji wa maambukizi ni pamoja na unawaji mikono unaofaa, usafi wa mwili, utupaji salama wa pedi, kufua nguo zilizochafuliwa, kuzingatia kanuni za usafi unapomshika mtoto mchanga na utunzaji salama wa kitovu."
+      },
+      {
+        "key": "environment_hygiene_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_spacer",
+        "type": "spacer"
+      },
+      {
+        "key": "environment_hygiene_note_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_note_two",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Aidha kinyesi cha mtoto kinaweza kuwa hatari na kinaweza kusababisha magonjwa."
+      },
+      {
+        "key": "defecation_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "defecation_location",
+        "type": "edit_text",
+        "hint": "Mtoto wako anajisaidia wapi?"
+      },
+      {
+        "key": "feces_disposal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "feces_disposal",
+        "type": "edit_text",
+        "hint": "Unatupa kinyesi cha mtoto wako wapi? (Mpe mama nafasi ya kujibu)"
+      },
+      {
+        "key": "is_latrine_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_latrine_present",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je, una choo kwenye kaya yako?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "yes",
+          "No": "no"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu."
+        }
+      }
+    ,{
+        "key": "latrine_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "latrine_type",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, ni aina gani ya choo?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+
+        "options": [
+          {
+            "key": "with_4_walls",
+            "text": "Chenye kuta 4",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_4_walls"
+          },
+          {
+            "key": "with_a_door",
+            "text": "Chenye mlango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_door"
+          },
+          {
+            "key": "with_a_floor",
+            "text": "Chenye sakafu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_floor"
+          },
+          {
+            "key": "with_a_roof",
+            "text": "Kimeezekwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_roof"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_hygiene_observation_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

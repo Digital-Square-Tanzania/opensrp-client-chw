@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.JsonFormUtils.ENCOUNTER_TYPE;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
@@ -14,8 +16,6 @@ import org.smartregister.chw.rules.ChwRulesEngineFactory;
 import java.util.HashMap;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.ENCOUNTER_TYPE;
 
 public class SickChildJsonFormActivity extends JsonWizardFormActivity {
 

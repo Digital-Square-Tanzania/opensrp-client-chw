@@ -1,0 +1,311 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Malnutrition/Anemia screening",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kuchunguza Utapia Mlo na Upungufu wa Damu",
+    "fields": [
+      {
+        "key": "ask_for_booklet_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Omba kitabu cha Afya ya Mtoto/Kadi ya Kliniki",
+        "toaster_type": "info"
+      },
+      {
+        "key": "child_growth_booklet_present",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_booklet_present",
+        "openmrs_entity_parent": "",
+        "label": "Je mtoto ana kitabu ya Afya ya Mtoto?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_growth_monitoring",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_monitoring",
+        "openmrs_entity_parent": "",
+        "label": "Je ukuaji wa mtoto unafwatiliwa vizuri kwenye kitabu cha Afya ya Mtoto/Kadi ya kliniki na taarifa zimejazwa?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_growth_graph",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_graph",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Weka rangi ya safu ya grafu ambayo mtoto yuko  kama ilivyorodheshwa kwenye kitabu cha Afya ya mtoto/Kadi ya Kliniki.",
+        "values": [
+          "Nyekundu ya juu",
+          "Nyeupe",
+          "Kijani",
+          "Kijivu",
+          "Nyekundu ya chini",
+          "Kadi haipo"
+        ],
+        "keys": [
+          "Top red",
+          "White",
+          "Green",
+          "Bottom red",
+          "Card not available"
+        ],
+        "openmrs_choice_ids": {
+          "Top red": "Top red",
+          "White": "White",
+          "Green": "Green",
+          "Bottom red": "Bottom red",
+          "Card not available": "Card not available"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_growth_muac",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_muac",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Mpime MUAC na onesha kama je yupo kwenye kijani, manjano au nyekundu. Tafadhali usiguse kiganja cha mkono wa mtoto. Badala yake, mwambie mama/baba au mlezi afanye kwa niaba yako",
+        "values": [
+          "Kijani",
+          "Njano",
+          "Nyekundu"
+        ],
+        "keys": [
+          "Green",
+          "Yellow",
+          "Red"
+        ],
+        "openmrs_choice_ids": {
+          "Green": "Green",
+          "Yellow": "Yellow",
+          "Red": "Red"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_growth_muac_green",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Kama Mtoto yupo sawa, Mpongeze mlezi.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_growth_muac_yellow",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Kama mtoto yupo katika hatari ya utapia mlo\n\nMWAMBIE: Mtoto wako anahitaji uangalizi wa ziada ili kumuepusha na utapia mlo. Nitakapokuja kukutembelea tena tutajadili kuhusu lishe na kipi cha kufanya ili kupata lishe bora",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_growth_muac_red",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Kipimo cha lishe kinaonesha mtoto wako ana utapia mlo mkali. Ili kukusaidia mtoto wako kurudia katika hali yake bora ya lishe, ntakupatia rufaa na nitarudi siku chache kufuatilia rufaa.",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_touch_palm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Sasa nitaangalia wingi wa damu wa mtoto wako.\nTafadhali usiguse kiganja cha mtoto. Muombe mteja/mama kumgusa kwa niaba yako",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "palm_pallor",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "palm_pallor",
+        "openmrs_entity_parent": "",
+        "label": "Is there palm pallor?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "palm_pallor_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ili kusaidia mtoto wako apate matibabu, nitakupa rufaa kwenda kituo cha kutolea huduma za afya",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

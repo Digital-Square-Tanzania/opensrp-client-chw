@@ -1,6 +1,15 @@
 package org.smartregister.chw.model;
 
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+import static org.smartregister.chw.util.JsonFormUtils.METADATA;
+import static org.smartregister.family.util.JsonFormUtils.STEP2;
+import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+
 import android.content.Context;
+
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -16,15 +25,7 @@ import org.smartregister.opd.utils.OpdUtils;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import timber.log.Timber;
-
-import static com.vijay.jsonwizard.utils.FormUtils.fields;
-import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
-import static org.smartregister.chw.util.JsonFormUtils.METADATA;
-import static org.smartregister.family.util.JsonFormUtils.STEP2;
-import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
-import static org.smartregister.util.JsonFormUtils.STEP1;
 
 public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
 

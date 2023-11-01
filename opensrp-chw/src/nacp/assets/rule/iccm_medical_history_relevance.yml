@@ -1,0 +1,28 @@
+---
+name: step1_prompt_for_conducting_mrdt
+description: prompt_for_conducting_mrdt relevance
+priority: 1
+condition: "step1_is_malaria_suspect == 'true' && step1_client_past_malaria_treatment_history != null && step1_client_past_malaria_treatment_history == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_providing_referral
+description: prompt_for_providing_referral relevance
+priority: 1
+condition: "step1_is_malaria_suspect == 'true' && step1_client_past_malaria_treatment_history != null && step1_client_past_malaria_treatment_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_diagnosing_diarrhea
+description: prompt_for_diagnosing_diarrhea relevance
+priority: 1
+condition: "step1_is_diarrhea_suspect == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_diagnosing_pneumonia
+description: prompt_for_diagnosing_pneumonia relevance
+priority: 1
+condition: "step1_is_pneumonia_suspect == 'true'"
+actions:
+  - "isRelevant = true"

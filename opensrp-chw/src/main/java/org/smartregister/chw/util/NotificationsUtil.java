@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+
 import android.app.Activity;
 import android.util.Pair;
 import android.view.View;
@@ -12,8 +14,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.List;
-
-import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 
 public class NotificationsUtil {
 

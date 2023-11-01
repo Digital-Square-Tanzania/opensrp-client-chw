@@ -1,0 +1,7 @@
+---
+name: step1_latrine_type
+description: Type of Latrine
+priority: 1
+condition: "step1_is_latrine_present.contains('Yes')"
+actions:
+  - "isRelevant = true"

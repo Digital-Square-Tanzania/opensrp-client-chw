@@ -1,5 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.Events.MALARIA_CONFIRMATION;
+import static org.smartregister.chw.util.Constants.Events.UPDATE_MALARIA_CONFIGURATION;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,14 +76,6 @@ import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.Constants.Events.MALARIA_CONFIRMATION;
-import static org.smartregister.chw.util.Constants.Events.UPDATE_MALARIA_CONFIGURATION;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class MalariaProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 

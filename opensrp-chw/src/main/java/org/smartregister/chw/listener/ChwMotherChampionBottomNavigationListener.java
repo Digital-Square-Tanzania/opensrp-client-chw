@@ -3,21 +3,11 @@ package org.smartregister.chw.listener;
 import android.app.Activity;
 import android.view.MenuItem;
 
-import com.vijay.jsonwizard.utils.FormUtils;
+import androidx.annotation.NonNull;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MotherChampionRegisterActivity;
 import org.smartregister.chw.pmtct.listener.PmtctBottomNavigationListener;
-import org.smartregister.family.util.JsonFormUtils;
-
-import androidx.annotation.NonNull;
-import timber.log.Timber;
-
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 public class ChwMotherChampionBottomNavigationListener extends PmtctBottomNavigationListener {
 

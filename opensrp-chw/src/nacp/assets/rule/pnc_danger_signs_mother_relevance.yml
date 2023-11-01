@@ -1,0 +1,35 @@
+---
+name: step1_issue_referral_mother
+description: Toaster to issue Referral if mother doe not visit the Health Facility
+priority: 1
+condition: "step1_visited_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_discuss_mother_advice_health_facility
+description: Toaster to Discuss with Mother on Advice She got from Health Facility if she visited
+priority: 1
+condition: "step1_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_issue_referral_mother_yes
+description: Toaster to issue referral if mother does not visit the health facility
+priority: 1
+condition: "step1_mother_referral_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_issue_referral_mother
+description: Toaster for No Referral to Mother
+priority: 1
+condition: "step1_mother_referral_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_mother_referral_health_facility
+description: Check if Mother needs Referral Again Based on Discussion she has with chw
+priority: 1
+condition: "step1_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"

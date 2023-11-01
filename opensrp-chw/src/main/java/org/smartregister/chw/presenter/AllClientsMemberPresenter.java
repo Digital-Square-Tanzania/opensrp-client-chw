@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
@@ -13,8 +15,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.text.MessageFormat;
-
-import static org.smartregister.chw.util.Utils.getClientName;
 
 public class AllClientsMemberPresenter extends CoreAllClientsMemberPresenter {
     public AllClientsMemberPresenter(CoreAllClientsMemberProfileActivity allClientsMemberProfileActivity, String baseEntityId) {

@@ -1,0 +1,268 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Pneumonia",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Nimonia",
+    "fields": [
+      {
+        "key": "pneumonia_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pneumonia_signs",
+        "label": "Je mtoto ana dalili yoyote kati ya zifuatazo?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "non_sever_pneumonia",
+            "text": "Mtoto anapumua haraka na hana dalili yoyote ya hatari, kifua chake hakibonyei na hana strido.",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_sever_pneumonia"
+          },
+          {
+            "key": "sever_pneumonia",
+            "text": "Mtoto anapumua haraka na anaonesha dalili za hatari au kifua kinabonyea au strido kwa mtoto aliyetulia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sever_pneumonia"
+          },
+          {
+            "key": "none",
+            "text": "Hana dalili yoyote",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the signs"
+        }
+      },
+      {
+        "key": "prompt_for_sever_pneumonia",
+        "type": "toaster_notes",
+        "text": "Mtoto ana Nimonia kali. Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
+        "openmrs_entity_id": "prompt_for_sever_pneumonia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:pneumonia_signs": {
+            "type": "string",
+            "ex": "equalTo(., \"sever_pneumonia\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_non_sever_pneumonia",
+        "type": "toaster_notes",
+        "text": "Mtoto ana Nimonia. Mtibu kwa Amoxicillin DT",
+        "openmrs_entity_id": "prompt_for_non_sever_pneumonia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:pneumonia_signs": {
+            "type": "string",
+            "ex": "equalTo(., \"non_sever_pneumonia\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_amoxicillin_tablets_that_should_be_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_amoxicillin_tablets_that_should_be_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_number_of_amoxicillin_tablets_to_dispense",
+        "type": "toaster_notes",
+        "text": "Toa vidonge {tablets} kwa mtoto mwenye uzito wa Kilo {weight}",
+        "openmrs_entity_id": "prompt_number_of_number_of_amoxicillin_tablets_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "amoxicillin_dispensed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amoxicillin_dispensed",
+        "label": "Je vidonge vya Amoxicillin DT vimetolewa?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_amoxicillin_tablets_dispensed",
+        "hint": "Number of tablets dispensed",
+        "openmrs_entity_id": "number_of_amoxicillin_tablets_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_dispensing_amoxicillin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_dispensing_amoxicillin",
+        "label": "Sababu kwa nini vidonge vya Amoxicillin DT vya Amoxicillin DT havijatolewa?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Dawa zimeisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_dispensing_amoxicillin",
+        "type": "edit_text",
+        "hint": "Sababu nyingine, taja",
+        "openmrs_entity_id": "other_reasons_for_not_dispensing_amoxicillin",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_pneumonia_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pneumonia_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pneumonia_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

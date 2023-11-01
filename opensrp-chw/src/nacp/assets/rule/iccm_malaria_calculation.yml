@@ -1,0 +1,46 @@
+---
+name: step1_mrdt_results
+description: mrdt_results calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation =
+    (step1_interpretation_for_mrdt.contains('control') && (step1_interpretation_for_mrdt.contains('pf') || step1_interpretation_for_mrdt.contains('pan')) ||
+    step1_interpretation_for_mrdt_two.contains('control') && (step1_interpretation_for_mrdt_two.contains('pf') || step1_interpretation_for_mrdt_two.contains('pan')))  ? 'Positive'
+    : (step1_interpretation_for_mrdt.contains('control') || step1_interpretation_for_mrdt_two.contains('control')) ? 'Negative'
+    : ((!step1_interpretation_for_mrdt.isEmpty() && !step1_interpretation_for_mrdt.contains('control') && !step1_interpretation_for_mrdt_two.isEmpty() && !step1_interpretation_for_mrdt_two.contains('control')) ? 'Invalid'
+    : 'Unknown')"
+---
+name: step1_number_of_alu_tablets_that_should_be_dispensed
+description: number_of_alu_tablets_that_should_be_dispensed calculation
+priority: 1
+condition: "true"
+actions:
+  - "def getNumberOfTablets(weight) {
+         import java.util.*;
+         int weightValue = Integer.parseInt(weight);
+         if (weightValue >= 5 && weightValue < 15) {
+             return 6;
+         } else if (weightValue >= 15 && weightValue < 25) {
+             return 12;
+         } else if (weightValue >= 25 && weightValue < 35) {
+             return 18;
+         } else {
+             return 24;
+         }
+     }"
+  - "calculation = getNumberOfTablets(global_weight)"
+---
+name: step1_prompt_number_of_alu_to_dispense
+description: prompt_number_of_alu_to_dispense calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['tablets':step1_number_of_alu_tablets_that_should_be_dispensed, 'weight':global_weight]"
+---
+name: step1_number_of_alu_tablets_dispensed
+description: number_of_alu_tablets_dispensed calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_mrdt_results.contains('Positive') && !step1_dispensed_alu_tablets.isEmpty() && step1_dispensed_alu_tablets.contains('yes') ? step1_number_of_alu_tablets_that_should_be_dispensed : '0'"

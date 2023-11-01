@@ -1,0 +1,360 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Medical History",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Historia ya Ugonjwa",
+    "fields": [
+      {
+        "key": "is_the_client_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_the_client_pregnant",
+        "label": "Je mteja ni mjamzito??",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swahi hili"
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral_for_pregnant_clients",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa kwenda kituo cha kutolea huduma za Afya baada ya kupata huduma za iCCM.",
+        "openmrs_entity_id": "prompt_for_providing_referral_for_pregnant_clients",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:is_the_client_pregnant": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "medical_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medical_history",
+        "type": "check_box",
+        "label": "Je mteja ana dalili yoyote kati ya zifuatavyo?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "fever",
+            "text": "Homa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "vomiting",
+            "text": "Kutapika",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vomiting"
+          },
+          {
+            "key": "diarrhea",
+            "text": "Kuharisha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diarrhea"
+          },
+          {
+            "key": "poor_appetite",
+            "text": "Kukosa hamu ya kula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poor_appetite"
+          },
+          {
+            "key": "body_weakness",
+            "text": "Mwili kukosa nguvu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_weakness"
+          },
+          {
+            "key": "headache",
+            "text": "Kuumwa kichwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "headache"
+          },
+          {
+            "key": "joint_pain",
+            "text": "Maumivu ya viungo vya mwili",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "joint_pain"
+          },
+          {
+            "key": "malaise",
+            "text": "Maumivu ya mwili",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaise"
+          },
+          {
+            "key": "coughing",
+            "text": "Kukohoa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "coughing"
+          },
+          {
+            "key": "others",
+            "text": "Dalili nyingine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          },
+          {
+            "key": "none",
+            "text": "Hana dalili yoyote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Chagua angalau jibu moja"
+        }
+      },
+      {
+        "key": "other_medical_history",
+        "type": "edit_text",
+        "hint": "Taja dalili nyingine",
+        "openmrs_entity_id": "other_medical_history",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "step1:medical_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "is_malaria_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_malaria_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_past_malaria_treatment_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_past_malaria_treatment_history",
+        "label": "Je mteja alipimwa na kukutwa malaria na kupata matibabu ndani ya siku 14 zilizopita?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:is_malaria_suspect": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
+        }
+      },
+      {
+        "key": "is_diarrhea_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_diarrhea_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_pneumonia_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_pneumonia_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_conducting_mrdt",
+        "type": "toaster_notes",
+        "text": "Mteja amehisiwa kuwa na malaria. Mpime kwa kutumia mRDT",
+        "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "Mteja apewe rufaa kwenda kituo cha kutolea huduma za afya kwa huduma zaidi",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_diarrhea",
+        "type": "toaster_notes",
+        "text": "Ainisha kuwa mteja ana harisha",
+        "openmrs_entity_id": "prompt_for_diagnosing_diarrhea",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_pneumonia",
+        "type": "toaster_notes",
+        "text": "Mteja ana dalili za Nimonia. Ainisha kuwa mteja ana nimonia",
+        "openmrs_entity_id": "prompt_for_diagnosing_pneumonia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medical_history_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medical_history_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      },
+      {
+        "key": "iccm_enrollment_form_submission_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iccm_enrollment_form_submission_id",
+        "openmrs_entity_parent": ""
+      }
+    ]
+  }
+}

@@ -128,7 +128,7 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Jina la eneo",
+        "hint": "Jina la Kitongoji/Mtaa",
         "v_required": {
           "value": "true",
           "err": "Tafadhali weka jina la eneo au mji"

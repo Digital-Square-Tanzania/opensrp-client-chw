@@ -1,5 +1,8 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
+
 import android.view.View;
 
 import org.smartregister.chw.core.fragment.BaseChwNotificationFragment;
@@ -8,9 +11,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
-
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
 
 public class UpdatesRegisterFragment extends BaseChwNotificationFragment {
 

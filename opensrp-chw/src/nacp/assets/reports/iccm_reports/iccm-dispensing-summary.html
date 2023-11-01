@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taarifa ya Mwezi ya Dawa</title>
+    <style>
+        body {
+            padding: 5px;
+            font-size: 0.25rem;
+        }
+
+        body,
+        td,
+        th {
+            font-family: "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            width: 7%;
+            padding: 5px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            text-align: center;
+        }
+
+        .heading h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .no-data {
+            background: #ccc;
+        }
+
+        .table-title {
+            width: 30%;
+            background-color: #ccc;
+            font-weight: 500;
+        }
+
+        .underline {
+            border-bottom: 1px solid #000;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            .show-on-print {
+                display: block;
+            }
+            body {
+                font-size: 0.65rem;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body onload="onLoad()">
+<div class="show-on-print">
+    <h1>Taarifa ya Mwezi ya DAWA</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <h2>KIJIJI: <span id="reporting_facility"></span></h2>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th class="table-title">Na.</th>
+        <th class="table-title">Dawa</th>
+        <th class="table-title">Kipimo cha kugawa</th>
+        <th class="table-title">Miaka 0-3 (0-15kg)</th>
+        <th class="table-title">Miaka 3.1-8 (15.1-25kg)</th>
+        <th class="table-title">Miaka 8.1–12 (25.1-35kg)</th>
+        <th class="table-title">Miaka 12 na zaidi (35kg na zaidi)</th>
+        <th class="table-title">Jumla (a+b+c+d)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>1</th>
+        <th>ALu 1x6</th>
+        <th>Vidonge</th>
+        <td id="iccm-dispensing-1-0-3"></td>
+        <td id="iccm-dispensing-1-3-8"></td>
+        <td id="iccm-dispensing-1-8-12"></td>
+        <td id="iccm-dispensing-1-12+"></td>
+        <td id="iccm-dispensing-1-jumla"></td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <th>ALu 2x6</th>
+        <th>Vidonge</th>
+        <td id="iccm-dispensing-2-0-3"></td>
+        <td id="iccm-dispensing-2-3-8"></td>
+        <td id="iccm-dispensing-2-8-12"></td>
+        <td id="iccm-dispensing-2-12+"></td>
+        <td id="iccm-dispensing-2-jumla"></td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <th>ALu 3x6</th>
+        <th>Vidonge</th>
+        <td id="iccm-dispensing-3-0-3"></td>
+        <td id="iccm-dispensing-3-3-8"></td>
+        <td id="iccm-dispensing-3-8-12"></td>
+        <td id="iccm-dispensing-3-12+"></td>
+        <td id="iccm-dispensing-3-jumla"></td>
+    </tr>
+    <tr>
+        <th>4</th>
+        <th>ALu 4x6</th>
+        <th>Vidonge</th>
+        <td id="iccm-dispensing-4-0-3"></td>
+        <td id="iccm-dispensing-4-3-8"></td>
+        <td id="iccm-dispensing-4-8-12"></td>
+        <td id="iccm-dispensing-4-12+"></td>
+        <td id="iccm-dispensing-4-jumla"></td>
+    </tr>
+    <tr>
+        <th>5</th>
+        <th>Amoxicillin DT</th>
+        <th>Vidonge</th>
+        <td colspan="4" rowspan="4" class="table-title"></td>
+        <td id="iccm-dispensing-5-jumla"></td>
+    </tr>
+    <tr>
+        <th>6</th>
+        <th>ORS</th>
+        <th>Pakiti</th>
+        <td id="iccm-dispensing-6-jumla"></td>
+    </tr>
+    <tr>
+        <th>7</th>
+        <th>Zinc</th>
+        <th>Vidonge</th>
+        <td id="iccm-dispensing-7-jumla"></td>
+    </tr>
+    <tr>
+        <th>8</th>
+        <th>Zinc ORS co-pack</th>
+        <th>Pakiti</th>
+        <td id="iccm-dispensing-8-jumla"></td>
+    </tr>
+    </tbody>
+    <tbody>
+
+
+    </tbody>
+</table>
+</body>
+<script type="text/javascript">
+    function onLoad() {
+<!--        const facilityNameElement = document.getElementById("reporting_facility");-->
+<!--        facilityNameElement.innerHTML = Android.getReportingFacility();-->
+        const dateElement = document.getElementById("report_period");
+        dateElement.innerHTML = Android.getDataPeriod();
+        const data = JSON.parse(Android.getData("iccm-dispensing-summary"));
+        const keys = Object.keys(data.nameValuePairs)
+        keys.forEach(key => {
+            let elementKey = key
+            const element = document.getElementById(elementKey)
+            if (element !== null && element !== undefined) {
+                element.innerHTML = data.nameValuePairs[key]
+            }
+        })
+    }
+
+
+
+</script>
+
+</html>

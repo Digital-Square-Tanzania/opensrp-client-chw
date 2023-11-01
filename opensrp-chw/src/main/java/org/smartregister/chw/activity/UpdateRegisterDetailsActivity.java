@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +15,6 @@ import org.smartregister.chw.core.activity.BaseChwNotificationRegister;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.task.ChwGoToMemberProfileBasedOnRegisterTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
 
 public class UpdateRegisterDetailsActivity extends BaseChwNotificationDetailsActivity {
 

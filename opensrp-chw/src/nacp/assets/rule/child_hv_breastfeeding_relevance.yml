@@ -1,0 +1,91 @@
+---
+name: step1_breastfeed_current_yes
+description: Check if Child Growth Present to do Growth Monitoring
+priority: 1
+condition: "step1_breastfeed_current =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_breastfeed_current_no
+description: Check if Child Growth Present to do Growth Monitoring
+priority: 1
+condition: "step1_breastfeed_current =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_times_child_breastfeeds
+description: Child breastfeed frequency
+priority: 1
+condition: "step1_breastfeed_current =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_breastfeeding_position_counselling
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_breastfeed_current =='yes' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_breastfeeding_position_counselling_intro
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_breastfeed_current =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_breastfeeds_correctly_note
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_breastfeeding_position_counselling =='yes' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_breastfeeding_position_demo
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_breastfeeding_position_counselling =='no' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_suckling_well
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_breastfeed_current =='yes' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sucks_correctly_note
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_child_suckling_well =='yes' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_suckling_demo
+description: Child Suckling Demo
+priority: 1
+condition: "step1_child_suckling_well =='no' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_suckling_demo_two
+description: Child breastfeed Counselling
+priority: 1
+condition: "step1_child_suckling_well =='no' && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_times_child_breastfeeds_note
+description: Child breastfeed Counselling
+priority: 1
+condition: "(step1_times_child_breastfeeds =='chk_twice_a_day' || step1_times_child_breastfeeds =='chk_three_a_day' || step1_times_child_breastfeeds =='chk_four_a_day') && step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_food_child_feeds
+description: Other Food Child feeds
+priority: 1
+condition: "step1_visit_1_visit_8 == 'true'"
+actions:
+  - "isRelevant = true"

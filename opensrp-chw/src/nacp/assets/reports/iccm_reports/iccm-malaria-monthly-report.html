@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taarifa ya Vipimo Vya Malaria</title>
+    <style>
+        body {
+            padding: 5px;
+            font-size: 0.25rem;
+        }
+
+        body,
+        td,
+        th {
+            font-family: "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            width: 7%;
+            padding: 5px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            text-align: center;
+        }
+
+        .heading h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .no-data {
+            background: #ccc;
+        }
+
+        .table-title {
+            width: 30%;
+            background-color: #ccc;
+            font-weight: 500;
+        }
+
+        .underline {
+            border-bottom: 1px solid #000;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            .show-on-print {
+                display: block;
+            }
+            body {
+                font-size: 0.65rem;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body onload="onLoad()">
+<div class="show-on-print">
+    <h1>Taarifa ya Vipimo Vya Malaria</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th rowspan="2" colspan="2" class="table-title">Kipimo</th>
+        <th colspan="2" class="table-title">Umri Chini ya Mwezi 1</th>
+        <th colspan="2" class="table-title">Umri mwezi 1 hadi 11</th>
+        <th colspan="2" class="table-title">Umri mwaka 1 hadi miaka 4</th>
+        <th colspan="2" class="table-title">Umri miaka 5 na zaidi</th>
+        <th colspan="3" class="table-title">Jumla Kuu</th>
+    </tr>
+    <tr>
+        <th class="table-title">ME</th>
+        <th class="table-title">KE</th>
+        <th class="table-title">ME</th>
+        <th class="table-title">KE</th>
+        <th class="table-title">ME</th>
+        <th class="table-title">KE</th>
+        <th class="table-title">ME</th>
+        <th class="table-title">KE</th>
+        <th class="table-title">ME</th>
+        <th class="table-title">KE</th>
+        <th class="table-title">Jumla</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th rowspan="2">mRDT</th>
+        <th>Negative</th>
+        <td id="iccm-4-negative-less-than-1-month-ME"></td>
+        <td id="iccm-4-negative-less-than-1-month-KE"></td>
+        <td id="iccm-4-negative-less-than-1-year-ME"></td>
+        <td id="iccm-4-negative-less-than-1-year-KE"></td>
+        <td id="iccm-4-negative-between-1-to-5-years-ME"></td>
+        <td id="iccm-4-negative-between-1-to-5-years-KE"></td>
+        <td id="iccm-4-negative-5-and-above-years-ME"></td>
+        <td id="iccm-4-negative-5-and-above-years-KE"></td>
+        <td id="iccm-4-negative-ME-jumla"></td>
+        <td id="iccm-4-negative-KE-jumla"></td>
+        <td id="iccm-4-negative-jumla"></td>
+    </tr>
+    <tr>
+        <th>Positive</th>
+        <td id="iccm-4-less-than-1-month-ME"></td>
+        <td id="iccm-4-less-than-1-month-KE"></td>
+        <td id="iccm-4-less-than-1-year-ME"></td>
+        <td id="iccm-4-less-than-1-year-KE"></td>
+        <td id="iccm-4-between-1-to-5-years-ME"></td>
+        <td id="iccm-4-between-1-to-5-years-KE"></td>
+        <td id="iccm-4-5-and-above-years-ME"></td>
+        <td id="iccm-4-5-and-above-years-KE"></td>
+        <td id="iccm-4-ME-jumla"></td>
+        <td id="iccm-4-KE-jumla"></td>
+        <td id="iccm-4-jumla"></td>
+    </tr>
+    <tr>
+        <th colspan="2">Jumla ya Vipimo Vyote</th>
+        <td id="iccm-4-jumla-less-than-1-month-ME"></td>
+        <td id="iccm-4-jumla-less-than-1-month-KE"></td>
+        <td id="iccm-4-jumla-less-than-1-year-ME"></td>
+        <td id="iccm-4-jumla-less-than-1-year-KE"></td>
+        <td id="iccm-4-jumla-between-1-to-5-years-ME"></td>
+        <td id="iccm-4-jumla-between-1-to-5-years-KE"></td>
+        <td id="iccm-4-jumla-5-and-above-years-ME"></td>
+        <td id="iccm-4-jumla-5-and-above-years-KE"></td>
+        <td id="iccm-4-jumla-ME-jumla"></td>
+        <td id="iccm-4-jumla-KE-jumla"></td>
+        <td id="iccm-4-jumla-jumla"></td>
+    </tr>
+    </tbody>
+    <tbody>
+
+
+    </tbody>
+</table>
+</body>
+<script type="text/javascript">
+    function onLoad() {
+<!--        const facilityNameElement = document.getElementById("reporting_facility");-->
+<!--        facilityNameElement.innerHTML = Android.getReportingFacility();-->
+        const dateElement = document.getElementById("report_period");
+        dateElement.innerHTML = Android.getDataPeriod();
+        const data = JSON.parse(Android.getData("iccm-malaria-monthly-report"));
+        const keys = Object.keys(data.nameValuePairs)
+        keys.forEach(key => {
+            let elementKey = key
+            const element = document.getElementById(elementKey)
+            if (element !== null && element !== undefined) {
+                element.innerHTML = data.nameValuePairs[key]
+            }
+        })
+    }
+
+
+
+</script>
+
+</html>

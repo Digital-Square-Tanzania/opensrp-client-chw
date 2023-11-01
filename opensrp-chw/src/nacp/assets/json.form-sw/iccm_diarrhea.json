@@ -1,0 +1,446 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Diarrhea",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Kuharisha",
+    "fields": [
+      {
+        "key": "diarrhea_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_signs",
+        "type": "check_box",
+        "label": "Je mtoto ana dalili yoyote kati ya zifuatazao?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "irritable_or_crying",
+            "text": "Anahangaika au kulialia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "irritable_or_crying"
+          },
+          {
+            "key": "sunken_eyes",
+            "text": "Macho kuingia ndani",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sunken_eyes"
+          },
+          {
+            "key": "drinks_eagerly",
+            "text": "Anakunywa kwa shauku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "drinks_eagerly"
+          },
+          {
+            "key": "struggles_to_drink",
+            "text": "Anakunywa kwa shida",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "struggles_to_drink"
+          },
+          {
+            "key": "skin_pinch_goes_back_slowly",
+            "text": "Ngozi ikitomaswa inarudi polepole",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_pinch_goes_back_slowly"
+          },
+          {
+            "key": "none",
+            "text": "Hana dalili yoyote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Chagua angalua jibu moja"
+        }
+      },
+      {
+        "key": "prompt_for_diarrhea_with_no_dehydration",
+        "type": "toaster_notes",
+        "text": "<b>Toa matibabu.</b> Mtoto anaharisha bila upungufu wa maji na chumvichumvi mwilini. Tibu kwa ORS na madini ya Zinc au Zinc ORS Co-pack",
+        "openmrs_entity_id": "prompt_for_diarrhea_with_no_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
+        "openmrs_entity_id": "prompt_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "has_bilateral_lower_limbs_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_bilateral_lower_limbs_oedema",
+        "label": "Je miguu imevimba?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:diarrhea_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "irritable_or_crying",
+                  "sunken_eyes",
+                  "drinks_eagerly",
+                  "struggles_to_drink",
+                  "skin_pinch_goes_back_slowly"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "type": "toaster_notes",
+        "text": "Mama yake/mlezi aendelee kumpa ORS kidogo kidogo wakiwa njiani.",
+        "openmrs_entity_id": "prompt_for_dispensing_medication_for_diarrhea_with_signs_of_dehydration",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:has_bilateral_lower_limbs_oedema": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "diarrhea_medication_dispensed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_medication_dispensed",
+        "type": "check_box",
+        "label": "Dawa za Zinc na ORS zilizotolewa",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none",
+          "zinc_ors_co_pack"
+        ],
+        "options": [
+          {
+            "key": "ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ors"
+          },
+          {
+            "key": "zinc",
+            "text": "Zinc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc"
+          },
+          {
+            "key": "zinc_ors_co_pack",
+            "text": "Zinc ORS Co-pack",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc_ors_co_pack"
+          },
+          {
+            "key": "none",
+            "text": "Hajapewa dawa yoyote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diarrhea_medication_dispensed_for_referred_clients",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_medication_dispensed_for_referred_clients",
+        "type": "check_box",
+        "label": "Dawa za ORS zilizotolewa",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none",
+          "zinc_ors_co_pack"
+        ],
+        "options": [
+          {
+            "key": "ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ors"
+          },
+          {
+            "key": "zinc_ors_co_pack",
+            "text": "Zinc ORS Co-pack",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "zinc_ors_co_pack"
+          },
+          {
+            "key": "none",
+            "text": "Hajapewa dawa yoyote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_ors_sachets_dispensed",
+        "type": "edit_text",
+        "hint": "Idadi ya pakiti za ORS zilizotolewa",
+        "openmrs_entity_id": "number_of_ors_sachets_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza Pakiti za ORS zilizotolewa"
+        },
+        "v_max": {
+          "value": "3",
+          "err": "Pakiti za ORS hazitakiwi kuzidi 3"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_zinc_tablets_dispensed",
+        "type": "edit_text",
+        "hint": "Idadi ya vidonge vya Zinc vilivyotolewa",
+        "openmrs_entity_id": "number_of_zinc_tablets_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza vidonge vya Zinc vilivyotolewa"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Vidonge vya Zinc havitakiwi kuzidi 10"
+        },
+        "relevance": {
+          "step1:diarrhea_medication_dispensed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "zinc"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_zinc_ors_co_packs_dispensed",
+        "type": "edit_text",
+        "hint": "Idadi ya pakiti za Zinc ORS co-pack zilizotolewa",
+        "openmrs_entity_id": "number_of_zinc_ors_co_packs_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi ya pakiti za Zinc ORS  co-pack zilizotolewa"
+        },
+        "v_max": {
+          "value": "8",
+          "err": "idadi ya pakiti za Zinc ORS Co-pack hazitakiwi kuzidi 8"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_dispensing_diarrhea_medication",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_dispensing_diarrhea_medication",
+        "label": "Sababu kwa nini Zinc au ORS hazijatolewa",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Dawa zimeisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Sababu nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_diarrhea_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_dispensing_diarrhea_medication",
+        "type": "edit_text",
+        "hint": "Sababu nyingine, taja",
+        "openmrs_entity_id": "other_reasons_for_not_dispensing_diarrhea_medication",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "step1:reasons_for_not_dispensing_diarrhea_medication": {
+            "type": "string",
+            "ex": "equalTo(., \"others\")"
+          }
+        }
+      },
+      {
+        "key": "diarrhea_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      }
+    ]
+  }
+}

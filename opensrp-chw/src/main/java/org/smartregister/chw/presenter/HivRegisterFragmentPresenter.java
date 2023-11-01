@@ -1,7 +1,9 @@
 package org.smartregister.chw.presenter;
 
 import static org.smartregister.chw.util.Constants.TableName.CBHS_REGISTER;
+
 import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreConstants;

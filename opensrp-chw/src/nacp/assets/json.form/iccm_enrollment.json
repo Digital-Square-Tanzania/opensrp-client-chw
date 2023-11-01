@@ -1,0 +1,620 @@
+{
+  "count": "4",
+  "encounter_type": "ICCM Enrollment",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Visit Location",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please record the location where this visit is conducted",
+        "toaster_type": "info"
+      },
+      {
+        "key": "visit_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Treatment History",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "client_testing_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_history",
+        "label": "Has the client received services at any health facility in Tanzania this year?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "label": "Has the client received any services at the affiliated health facility or at this iCCM post?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Vitals",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "temperature",
+        "type": "edit_text",
+        "hint": "Temperature (\u2103)",
+        "openmrs_entity_id": "temperature",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the temperature"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Temperature must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "Temperature must be equal or less than 50"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the clients temperature"
+        }
+      },
+      {
+        "key": "prompt_for_providing_anti_pyretic",
+        "type": "toaster_notes",
+        "text": "<b>The client has Fever</b><br>Anti-Pyretic should be dispensed to the client with high fever",
+        "openmrs_entity_id": "notify_client_has_fever",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:temperature": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"38.4\")"
+          }
+        }
+      },
+      {
+        "key": "pulse_rate",
+        "type": "edit_text",
+        "hint": "Pulse Rate (Beats per minute)",
+        "openmrs_entity_id": "pulse_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the pulse rate"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The pulse rate must be equal or greater than 0 (bpm)"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "The pulse rate must be equal or less than 200 (bpm)"
+        }
+      },
+      {
+        "key": "respiratory_rate",
+        "type": "edit_text",
+        "hint": "Respiratory Rate (Breaths per minute)",
+        "openmrs_entity_id": "respiratory_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the respiratory rate"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The respiratory rate must be equal or greater than 0 (Breaths per minute)"
+        },
+        "v_max": {
+          "value": "100",
+          "err": "The respiratory rate must be equal or less than 100 (Breaths per minute)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the clients respiratory rate"
+        }
+      },
+      {
+        "key": "prompt_for_respiratory_rate",
+        "type": "toaster_notes",
+        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia if the client has no other danger signs.",
+        "openmrs_entity_id": "prompt_for_respiratory_rate",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Weight (Kg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the client's weight"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "The weight must be equal or less than 300 (KG)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the clients weight"
+        }
+      },
+      {
+        "key": "height",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Height (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the client's height"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "The height must be equal or less than 200 (CM)"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Danger Signs",
+    "fields": [
+      {
+        "key": "danger_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "danger_signs",
+        "type": "check_box",
+        "label": "Danger Signs",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "extreme_weakness",
+            "text": "Prostration/extreme weakness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "extreme_weakness"
+          },
+          {
+            "key": "impaired_consciousness",
+            "text": "Impaired consciousness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "impaired_consciousness"
+          },
+          {
+            "key": "change_of_behaviour",
+            "text": "Change of behaviour",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "change_of_behaviour"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "convulsions"
+          },
+          {
+            "key": "respiratory_distress",
+            "text": "Respiratory distress",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respiratory_distress"
+          },
+          {
+            "key": "bleeding_tendency",
+            "text": "Bleeding tendency/DIC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bleeding_tendency"
+          },
+          {
+            "key": "shock",
+            "text": "Shock/Circulatory collapse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "shock"
+          },
+          {
+            "key": "vomiting_everything",
+            "text": "Vomiting everything",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vomiting_everything"
+          },
+          {
+            "key": "inability_to_drink_or_breastfeed",
+            "text": "Inability to drink or breastfeed",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inability_to_drink_or_breastfeed"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "dispensed_anti_pyretic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dispensed_anti_pyretic",
+        "label": "Was anti-pyretic administered to the client?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_providing_anti_pyretic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_providing_anti_pyretic",
+        "label": "Reasons for not administering Anti-pyretic?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "can_not_tolerate_oral_medication",
+            "text": "Can not tolerate oral medication",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "can_not_tolerate_oral_medication"
+          },
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_providing_anti_pyretic",
+        "type": "edit_text",
+        "hint": "Please specify the other reason(s)",
+        "openmrs_entity_id": "other_reasons_for_not_providing_anti_pyretic",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_rectal_artesunate_suppository_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_rectal_artesunate_suppository_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_number_of_suppository_to_dispense",
+        "type": "toaster_notes",
+        "text": "Administer {suppository} suppository to the client with weight of {weight} kgs",
+        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "administered_artesunate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "administered_artesunate",
+        "label": "Was Rectal Artesunate administered to the child?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_providing_artesunate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_providing_artesunate",
+        "label": "Reasons for not administering Rectal Artesunate?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_providing_artesunate",
+        "type": "edit_text",
+        "hint": "Please specify the other reason(s)",
+        "openmrs_entity_id": "other_reasons_for_not_providing_artesunate",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "Refer the client immediately to the health facility.",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "should_be_referred",
+        "type": "hidden",
+        "openmrs_entity_id": "should_be_referred",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

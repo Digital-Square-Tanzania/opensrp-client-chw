@@ -308,6 +308,7 @@
     <!-- PNC Home visit subtitle text -->
     <string name="pnc_danger_signs_mama">Danger signs - Mama</string>
     <string name="pnc_danger_signs_baby_task">Danger signs - Baby</string>
+    <string name="pnc_skin_to_skin">KMC skin-to-skin counselling</string>
 
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
     <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
@@ -445,5 +446,48 @@
     <string name="agyw_reports_subtitle">View AGYW Report</string>
     <string name="view_visit_history">View visit history</string>
 
+    <string name="child_danger_signs_baby">Danger signs</string>
+    <string name="child_danger_signs_baby_task">Danger signs</string>
 
+
+
+    <string name="menu_iccm">iCCM</string>
+    <string name="iccm_medical_history">Medical History</string>
+    <string name="iccm_physical_examination">Physical Examination</string>
+    <string name="iccm_malaria">Malaria</string>
+    <string name="iccm_pneumonia">Pneumonia</string>
+    <string name="iccm_diarrhea">Diarrhea</string>
+
+    <!--    ICCM Visit History-->
+    <string name="iccm_visit">ICCM Visits</string>
+    <string name="iccm_reports_title">ICCM Reports</string>
+    <string name="iccm_reports_subtitle">View ICCM Report</string>
+    <string name="iccm_client_report">ICCM Clients Report</string>
+    <string name="iccm_dispensing_summary">ICCM Dispensing Summary</string>
+    <string name="iccm_malaria_report">Malaria Test Report</string>
+    <string name="iccm_is_the_client_pregnant">Is the client Pregnant</string>
+    <string name="iccm_other_medical_history">Other Medical History</string>
+    <string name="iccm_interpretation_for_mrdt">Interpretation for mRDT</string>
+    <string name="iccm_interpretation_for_mrdt_two">Interpretation for 2nd mRDT</string>
+    <string name="iccm_mrdt_results">mRDT Results</string>
+    <string name="iccm_dispensed_alu_category">Dispensed ALU Category</string>
+    <string name="iccm_number_of_alu_tablets_dispensed">Number of ALU tablets Dispensed</string>
+    <string name="iccm_diarrhea_signs">Diarrhea Signs</string>
+    <string name="iccm_diarrhea_medication_dispensed">Diarrhea Medication Dispensed</string>
+    <string name="iccm_diarrhea_medication_dispensed_for_referred_clients">Diarrhea Medication Dispensed for Referred Clients</string>
+    <string name="iccm_number_of_ors_sachets_dispensed">Number of ORS Sachets Dispensed</string>
+    <string name="iccm_number_of_zinc_tablets_dispensed">Number of Zinc Tablets Dispensed</string>
+    <string name="iccm_number_of_zinc_ors_co_packs_dispensed">Number of Zinc-ORS Co-packs Dispensed</string>
+    <string name="iccm_reasons_for_not_dispensing_diarrhea_medication">Reasons for not dispensing Diarrhea Medication</string>
+    <string name="iccm_other_reasons_for_not_dispensing_diarrhea_medication">Other reasons for not dispensing Diarrhea Medication</string>
+    <string name="visit_in_progress">%s visit still in progress</string>
+
+    <string name="iccm_referral">iCCM Referral</string>
+
+    <string name="palm_pallor_green">Green</string>
+    <string name="palm_pallor_yellow">Yellow</string>
+    <string name="palm_pallor_red">Red</string>
+
+    <string name="malnutrition_screening_subtitle">MUAC: %s Anemia: %s</string>
+    <string name="malnutrition_screening">Malnutrition/Anemia screening</string>
 </resources>

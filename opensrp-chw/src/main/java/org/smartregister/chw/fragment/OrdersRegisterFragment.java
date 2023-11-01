@@ -1,6 +1,9 @@
 package org.smartregister.chw.fragment;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static org.smartregister.chw.core.utils.FormUtils.getStartFormActivity;
+import static org.smartregister.chw.util.Constants.JsonFormConstants.STEP1;
+import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 import android.content.Intent;
 
@@ -13,10 +16,6 @@ import org.smartregister.chw.presenter.OrdersRegisterFragmentPresenter;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-
-import static org.smartregister.chw.core.utils.FormUtils.getStartFormActivity;
-import static org.smartregister.chw.util.Constants.JsonFormConstants.STEP1;
-import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 import timber.log.Timber;
 

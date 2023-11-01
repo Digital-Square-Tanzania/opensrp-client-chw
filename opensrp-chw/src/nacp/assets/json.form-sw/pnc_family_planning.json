@@ -75,6 +75,77 @@
         }
       },
       {
+        "key": "family_planning_counselling_message_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Sasa tutajadili kuhusu Uzazi wa Mpango na faida zake.",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling_spacer",
+        "type": "spacer",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Mama na baba wanatakiwa kupanga muda unaofaa kati ya mimba moja na mimba nyingine na uzazi wa mpango wa baadae. Mama aliyejifungua anatakiwa asubirie hadi miaka miwili kabla ya kupata mimba nyingine.",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_three",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Tafadhali fungua kitendea kazi namba 18 kwenye bango kitita ili kuendelea na mazungumzo",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling_spacer",
+        "type": "spacer",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
         "key": "fp_period_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -179,7 +250,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Mshauri mteja juu ya utumiaji wa njia sahihi ya uzazi wa mpango kwa muda huu.\nMpe rufaa mteja kwenda kituo cha afya kupewa njia sahihi ya uzazi wa mpango.",
-        "text_color": "#CF0800",
+        "text_color": "#000800",
         "toaster_type": "problem",
         "relevance": {
           "step1:fp_method": {
@@ -206,6 +277,22 @@
             "ex-rules": {
               "rules-file": "pnc_family_planning_relevance.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "bango_kitita_lam_reference_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Toa elimu kuhusu LAM kutoka kwenye bangokitita 17.",
+        "text_color": "#000800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:fp_method": {
+            "type": "string",
+            "ex": "equalTo(., \"LAM\")"
           }
         }
       }

@@ -1,0 +1,311 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Malnutrition/Anemia screening",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kuchunguza Utapia Mlo na Upungufu wa Damu",
+    "fields": [
+      {
+        "key": "ask_for_booklet_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ask for the child’s booklet for growth faltering.\nLook on child's growth booklet for growth faltering.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "child_growth_booklet_present",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_booklet_present",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have the Child Health booklet?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_growth_monitoring",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_monitoring",
+        "openmrs_entity_parent": "",
+        "label": "Is the child's growth being adequately monitored in the booklet?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_growth_graph",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_graph",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Enter the range of the graph that the child is within from the childs growth booklet",
+        "values": [
+          "Top red",
+          "White",
+          "Green",
+          "Grey",
+          "Bottom red",
+          "Card not available"
+        ],
+        "keys": [
+          "Top red",
+          "White",
+          "Green",
+          "Bottom red",
+          "Card not available"
+        ],
+        "openmrs_choice_ids": {
+          "Top red": "Top red",
+          "White": "White",
+          "Green": "Green",
+          "Bottom red": "Bottom red",
+          "Card not available": "Card not available"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "child_growth_muac",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_growth_muac",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Measure MUAC and indicate either green, yellow, or red color; Please don’t touch the child’s palm. Instead, ask the client/mother to do it on your behalf.",
+        "values": [
+          "Green",
+          "Yellow",
+          "Red"
+        ],
+        "keys": [
+          "Green",
+          "Yellow",
+          "Red"
+        ],
+        "openmrs_choice_ids": {
+          "Green": "Green",
+          "Yellow": "Yellow",
+          "Red": "Red"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "child_growth_muac_green",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Baby is okay. Praise the caregiver.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_growth_muac_yellow",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The child is at risk for malnutrition.\n\nSAY: Your child is in need of special care and attention to keep from getting malnourished. During the next visit, I will continue discussing best nutritional practices with you",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_growth_muac_red",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Based on your child’s MUAC, he/she is severely malnourished. In order to assist you in providing proper nutrition to your child, I am going to issuea referral and will return in a few days to follow up on the referral.",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_touch_palm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please don’t touch the child’s palm. Instead, ask the client/mother to do it on your behalf.\nI will now check your child for anemia.\nCompare mother's/fathers or caregivers palm with that of a child.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "palm_pallor",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "palm_pallor",
+        "openmrs_entity_parent": "",
+        "label": "Is there palm pallor?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "palm_pallor_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "In order to assist you in providing proper care to your child, I will conduct a referral for anemia.",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_malnutrition_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

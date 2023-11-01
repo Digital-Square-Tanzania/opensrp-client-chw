@@ -1,6 +1,9 @@
 package org.smartregister.chw.model;
 
 
+import static org.smartregister.chw.referral.util.Constants.Tables;
+import static org.smartregister.chw.referral.util.DBConstants.Key;
+
 import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,9 +16,6 @@ import org.smartregister.family.util.DBConstants;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.smartregister.chw.referral.util.Constants.Tables;
-import static org.smartregister.chw.referral.util.DBConstants.Key;
 
 public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentModel {
 

@@ -1,0 +1,39 @@
+---
+name: step1_client_past_malaria_treatment_history
+description: client_past_malaria_treatment_history relevance
+priority: 1
+condition: "!step1_physical_examination.isEmpty() && (!global_is_malaria_suspect && !step1_physical_examination.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_conducting_mrdt
+description: prompt_for_conducting_mrdt relevance
+priority: 1
+condition: "!step1_physical_examination.isEmpty() &&
+            !global_is_malaria_suspect &&
+            !step1_physical_examination.contains('none') &&
+            !step1_client_past_malaria_treatment_history.isEmpty() &&
+            !step1_client_past_malaria_treatment_history.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_providing_referral
+description: prompt_for_providing_referral relevance
+priority: 1
+condition: " (
+              !step1_physical_examination.isEmpty() &&
+              !step1_physical_examination.contains('none') &&
+              !global_is_malaria_suspect &&
+              !step1_client_past_malaria_treatment_history.isEmpty() &&
+              step1_client_past_malaria_treatment_history.contains('yes')
+            ) ||
+            (
+               !global_is_malaria_suspect &&
+               step1_physical_examination.contains('none') &&
+               !global_is_diarrhea_suspect &&
+               !global_is_pneumonia_suspect &&
+               global_has_any_symptom
+            )
+            "
+actions:
+  - "isRelevant = true"

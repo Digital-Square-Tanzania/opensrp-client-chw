@@ -31,21 +31,16 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.PmtctReferralMemberObject;
 import org.smartregister.chw.pmtct.util.NCUtils;
-import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.domain.Location;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.LocationRepository;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;

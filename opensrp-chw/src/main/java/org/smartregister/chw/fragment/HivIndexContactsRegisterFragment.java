@@ -2,18 +2,12 @@ package org.smartregister.chw.fragment;
 
 import android.view.View;
 
-import com.vijay.jsonwizard.utils.FormUtils;
-
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HivIndexContactProfileActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivIndexContactsRegisterFragment;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
-import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.model.HivIndexContactsRegisterFragmentModel;
 import org.smartregister.chw.presenter.HivIndexContactsContactsRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

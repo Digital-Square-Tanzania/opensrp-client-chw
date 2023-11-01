@@ -142,7 +142,6 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -300,6 +299,13 @@
         "v_regex": {
           "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
           "err": "Number must be 10 digits and must start with 06 or 07."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
         }
       },
       {

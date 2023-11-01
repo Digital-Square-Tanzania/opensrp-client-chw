@@ -293,6 +293,7 @@
     <!-- PNC Home visit subtitle text -->
     <string name="pnc_danger_signs_mama">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby_task">Signes de danger - enfant</string>
+    <string name="pnc_skin_to_skin">KMC skin-to-skin counselling</string>
 
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">Visit CPoN au centre de santé - dans les 48 heures</string>
     <string name="pnc_health_facility_visit_days_three_to_seven">Visit CPoN au centre de santé - jours 3-7</string>

@@ -1,0 +1,620 @@
+{
+  "count": "4",
+  "encounter_type": "ICCM Enrollment",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Eneo la Kutolea Huduma",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Tafadhali rekodi eneo unalotea huduma hii",
+        "toaster_type": "info"
+      },
+      {
+        "key": "visit_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Historia ya Matibabu",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "client_testing_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_history",
+        "label": "Je mteja alishapata huduma za afya katika kituo chochote nchini ndani ya mwaka huu?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_history_at_affiliated_health_facility_or_iccm_post",
+        "label": "Je mteja alishapata huduma yoyote  katika kituo mama au katika kituo hiki cha huduma za iCCM?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Viashiria Muhimu",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "temperature",
+        "type": "edit_text",
+        "hint": "Joto (\u2103)",
+        "openmrs_entity_id": "temperature",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the temperature"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Joto halitakiwi kupungua chini ya nyuzi joto 30"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "Joto halitakiwi kuzidi nyuzi joto 50"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza joto la mteja"
+        }
+      },
+      {
+        "key": "prompt_for_providing_anti_pyretic",
+        "type": "toaster_notes",
+        "text": "<b>Mteja ana homa.</b><br> Dawa ya kushusha homa itolewe kwa mgonjwa mwenye homa kali.",
+        "openmrs_entity_id": "notify_client_has_fever",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:temperature": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"38.4\")"
+          }
+        }
+      },
+      {
+        "key": "pulse_rate",
+        "type": "edit_text",
+        "hint": "Mapigo ya moyo kwa dakika",
+        "openmrs_entity_id": "pulse_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza mapigo ya moyo kwa dakika sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Mapigo ya moyo kwa dakika yanatikiwa kuwa zaidi ya 0 kwa dakika"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Mapigo ya moyo kwa dakika hayatakiwa kuzidi 200"
+        }
+      },
+      {
+        "key": "respiratory_rate",
+        "type": "edit_text",
+        "hint": "Kasi ya kupumua kwa dakika",
+        "openmrs_entity_id": "respiratory_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza kasi ya kupumua kwa dakika"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Kasi ya kupumua kwa dakika yatakiwa kuwa zaidi ya 0"
+        },
+        "v_max": {
+          "value": "100",
+          "err": "Kasi ya kupumua kwa dakika  haitakiwi kuzidi  100"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza kasi ya kupumua kwa dakika"
+        }
+      },
+      {
+        "key": "prompt_for_respiratory_rate",
+        "type": "toaster_notes",
+        "text": "<b>Mteja ana dalili za Nimonia.</b><br>Ainisha ugonjwa wa Nimonia ikiwa mgonjwa hana dalili nyingine za hatari.",
+        "openmrs_entity_id": "prompt_for_respiratory_rate",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Uzito (Kilo)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza uzito wa mteja"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "Uzito wa mteja hautakiwi kuzidi kilo 300"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza uzito wa mteja"
+        }
+      },
+      {
+        "key": "height",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Urefu (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza urefu wa mteja"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Urefu wa mteja hautakiwi kuzidi 200 cm"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Dalili za Hatari",
+    "fields": [
+      {
+        "key": "danger_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "danger_signs",
+        "type": "check_box",
+        "label": "Dalili za Hatari",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "extreme_weakness",
+            "text": "Amelegea sana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "extreme_weakness"
+          },
+          {
+            "key": "impaired_consciousness",
+            "text": "Kupoteza fahamu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "impaired_consciousness"
+          },
+          {
+            "key": "change_of_behaviour",
+            "text": "Kuchanganyikiwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "change_of_behaviour"
+          },
+          {
+            "key": "convulsions",
+            "text": "Degedege",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "convulsions"
+          },
+          {
+            "key": "respiratory_distress",
+            "text": "Kupumua kwa shida",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respiratory_distress"
+          },
+          {
+            "key": "bleeding_tendency",
+            "text": "Bleeding tendency/DIC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bleeding_tendency"
+          },
+          {
+            "key": "shock",
+            "text": "Shock/Circulatory collapse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "shock"
+          },
+          {
+            "key": "vomiting_everything",
+            "text": "Anatapika kila kitu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vomiting_everything"
+          },
+          {
+            "key": "inability_to_drink_or_breastfeed",
+            "text": "Hawezi kunywa au kunyonya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inability_to_drink_or_breastfeed"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna dalili ya hatari",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu mojawapo"
+        }
+      },
+      {
+        "key": "dispensed_anti_pyretic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dispensed_anti_pyretic",
+        "label": "Je, dawa ya kushusha homa ilitolewa kwa mteja?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_providing_anti_pyretic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_providing_anti_pyretic",
+        "label": "Sababu ya kutompatia mteja dawa ya kushusha homa",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "can_not_tolerate_oral_medication",
+            "text": "Hawezi kunywa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "can_not_tolerate_oral_medication"
+          },
+          {
+            "key": "stock_out",
+            "text": "Dawa zimeisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_providing_anti_pyretic",
+        "type": "edit_text",
+        "hint": "Sababu nyingine, taja",
+        "openmrs_entity_id": "other_reasons_for_not_providing_anti_pyretic",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_rectal_artesunate_suppository_dispensed",
+        "type": "hidden",
+        "openmrs_entity_id": "number_of_rectal_artesunate_suppository_dispensed",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_number_of_number_of_suppository_to_dispense",
+        "type": "toaster_notes",
+        "text": "Mpatie mtoto Artesunate ya puru {suppository} mtoto wa kilo {weight}",
+        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "administered_artesunate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "administered_artesunate",
+        "label": "Je, mtoto alipatiwa Artesunate ya puru?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_providing_artesunate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_providing_artesunate",
+        "label": "Sababu ya kutompatia Artesunate ya puru?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Dawa zimeisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "others",
+            "text": "Nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_providing_artesunate",
+        "type": "edit_text",
+        "hint": "Sababu nyingine, taja;",
+        "openmrs_entity_id": "other_reasons_for_not_providing_artesunate",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa haraka kwenda kituo cha kutolea huduma za afya",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "should_be_referred",
+        "type": "hidden",
+        "openmrs_entity_id": "should_be_referred",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_enrollment_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

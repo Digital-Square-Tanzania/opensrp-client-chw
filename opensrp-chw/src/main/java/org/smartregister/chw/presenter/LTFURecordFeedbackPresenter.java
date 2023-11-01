@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
+
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +37,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 

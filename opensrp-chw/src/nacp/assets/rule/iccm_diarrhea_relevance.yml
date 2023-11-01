@@ -1,0 +1,42 @@
+---
+name: step1_diarrhea_medication_dispensed
+description: diarrhea_medication_dispensed relevance
+priority: 1
+condition: "!step1_diarrhea_signs.isEmpty() && step1_diarrhea_signs.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea_medication_dispensed_for_referred_clients
+description: diarrhea_medication_dispensed_for_referred_clients relevance
+priority: 1
+condition: "!step1_diarrhea_signs.isEmpty() && !step1_diarrhea_signs.contains('none') && step1_has_bilateral_lower_limbs_oedema == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_ors_sachets_dispensed
+description: number_of_ors_sachets_dispensed relevance
+priority: 1
+condition: "step1_diarrhea_medication_dispensed.contains('ors') || step1_diarrhea_medication_dispensed_for_referred_clients.contains('ors')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_zinc_tablets_dispensed
+description: number_of_zinc_tablets_dispensed relevance
+priority: 1
+condition: "step1_diarrhea_medication_dispensed.contains('zinc') || step1_diarrhea_medication_dispensed_for_referred_clients.contains('zinc')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_zinc_ors_co_packs_dispensed
+description: number_of_zinc_ors_co_packs_dispensed relevance
+priority: 1
+condition: "step1_diarrhea_medication_dispensed.contains('zinc_ors_co_pack') || step1_diarrhea_medication_dispensed_for_referred_clients.contains('zinc_ors_co_pack')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reasons_for_not_dispensing_diarrhea_medication
+description: reasons_for_not_dispensing_diarrhea_medication relevance
+priority: 1
+condition: "step1_diarrhea_medication_dispensed.contains('none') || step1_diarrhea_medication_dispensed_for_referred_clients.contains('none')"
+actions:
+  - "isRelevant = true"

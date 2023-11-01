@@ -162,14 +162,22 @@
     <string name="register">Sajili</string>
     <string name="all_male_clients">Wateja Wote wa Kiume</string>
 
+    <string name="pnc_hv_location">Eneo la tembeleo</string>
+    <string name="pnc_hv_location_captured">Eneo la tembeleo limeshachukuliwa</string>
+
     <string name="pnc_yes">Ndio</string>
     <string name="pnc_no">Hapana</string>
-    <string name="pnc_okay">Nzuri</string>
-    <string name="pnc_bad">Mbaya (Chandarula kimechanika)</string>
+    <string name="pnc_good">Nzuri</string>
+    <string name="pnc_fair">Kawaida</string>
+    <string name="pnc_poor">Mbaya</string>
 
     <string name="pnc_normal">Kawaida</string>
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
+    <string name="pnc_hygiene_safety_counselling_title">Usafi wa mazingira</string>
+
+    <string name="pnc_newborn_care_introduction">Huduma muhimu ya Watoto Wachanga: Utangulizi ({0})</string>
+    <string name="baby_premature">Mtoto ni njiti au ana uzito pungufu</string>
 
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
@@ -476,6 +484,12 @@
     <string name="facility_response_label">Majibu Kutoka Kituoni</string>
 
     <string name="last_appointment_date">Tarehe ya mwisho ya Miadi</string>
+
+    <string name="child_problem_solving">Kutatua Changamoto</string>
+    <string name="child_problem_solving_task">Changamtoto kwenye kucheza na kuwasiliana </string>
+
+    <!--    ICCM Visit History-->
+    <string name="iccm_visit">Matembeleo ya huduma za iCCM</string>
 
 
 </resources>

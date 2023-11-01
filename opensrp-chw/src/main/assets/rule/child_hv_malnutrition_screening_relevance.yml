@@ -1,0 +1,49 @@
+---
+name: step1_child_growth_monitoring
+description: Check if Child Growth Present to do Growth Monitoring
+priority: 1
+condition: "step1_child_growth_booklet_present =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_growth_graph
+description: Check if Child Growth Present to do Growth Monitoring
+priority: 1
+condition: "step1_child_growth_monitoring =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_growth_muac
+description: Check if Child Growth Present to do Growth Monitoring
+priority: 1
+condition: "step1_child_growth_monitoring =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_growth_muac_green
+description: MAUC Prompt Green
+priority: 1
+condition: "step1_child_growth_muac.contains('Green')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_growth_muac_yellow
+description: MAUC Prompt Yellow
+priority: 1
+condition: "step1_child_growth_muac.contains('Yellow')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_growth_muac_red
+description: MAUC Prompt Red
+priority: 1
+condition: "step1_child_growth_muac.contains('Red')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_palm_pallor_yes
+description: Check for Pallor
+priority: 1
+condition: "step1_palm_pallor =='yes'"
+actions:
+  - "isRelevant = true"

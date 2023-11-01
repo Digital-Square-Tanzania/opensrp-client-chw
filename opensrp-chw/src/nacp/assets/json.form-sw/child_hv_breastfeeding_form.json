@@ -1,0 +1,496 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Essential New Born Care: Breastfeeding",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Huduma muhimu ya watoto wachanga: Unyonyeshaji wa maziwa ya mama",
+    "fields": [
+      {
+        "key": "visit_1_visit_8",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "breastfeding_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ningependa kuzungumza na wewe kuhusu unyonyeshaji wa mtoto.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "breastfeed_current",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breastfeed_current",
+        "openmrs_entity_parent": "",
+        "label": "Je unamnyonyesha mtoto?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "breastfeed_current_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Je unaendeleaje na kunyonyesha? \nUnamuekaje mtoto ukitaka kumnyonyesha?\nUnanyonyesha kila baada ya kipindi gani?\nMtoto anachukua muda gani kunyonya kwa mara moja?\n\nMruhusu mama kueleza uzoefu wake wa kunyonyesha punde baada ya kujifungua.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed_current_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mshauri mama kuhusu umuhimu wa unyonyeshaji kwake na mtoto (Tafadhali fungua kitendea kazi cha Bango Kitita kwenye mada ya Unyonyeshaji)",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed_challenge_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Je una changamoto zozote ambazo ungependa tujadili?\nMpe mama nafasi ya kuelezea changamoto zake na mjadili pamoja jinsi ya kuzitatua.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "other_food_child_feeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_food_child_feeds",
+        "type": "check_box",
+        "label": "Je, mtoto alikunywa au kula chochote kati ya vitu hivi vifuatavyo jana wakati wa mchana au usiku?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_infant_formula",
+            "text": "Maziwa ya unga/kopo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_infant_formula"
+          },
+          {
+            "key": "chk_plain_water",
+            "text": "Maji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_plain_water"
+          },
+          {
+            "key": "chk_juice",
+            "text": "Juisi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_juice"
+          },
+          {
+            "key": "chk_clear_broth_soup",
+            "text": "Supu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_clear_broth_soup"
+          },
+          {
+            "key": "chk_milk_from_animals",
+            "text": "Maziwa ya mnyama (ng'ombe, mbuzi n.k)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_milk_from_animals"
+          },
+          {
+            "key": "chk_soft_food",
+            "text": "Chakula laini",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_soft_food"
+          },
+          {
+            "key": "chk_porridge",
+            "text": "Uji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_porridge"
+          },
+          {
+            "key": "chk_something_else",
+            "text": "Kitu kingine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_something_else"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_exclusive_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mpongeze mama/baba au mlezi kwa kuhakikisha mtoto ananyonya maziwa ya mama pekee",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:other_food_child_feeds": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "child_not_exclusive_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Jadiliana na mama na jaribu kujua kwanini hampi mwanae maziwa ya mama pekee. Toa ushauri na msaidie kutatua changamtoto. \n\nFungua kitendeakazi namba 16 kwenye Bango Kitita",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:other_food_child_feeds": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_infant_formula",
+                  "chk_plain_water",
+                  "chk_juice",
+                  "chk_clear_broth_soup",
+                  "chk_milk_from_animals",
+                  "chk_soft_food",
+                  "chk_porridge",
+                  "chk_something_else"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "times_child_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "times_child_breastfeeds",
+        "type": "native_radio",
+        "label": "Ni mara ngapi unamnyonyesha mtoto wako. Ikiwemo usiku na mchana?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "chk_twice_a_day",
+            "text": "mara mbili kwa siku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_twice_a_day"
+          },
+          {
+            "key": "chk_three_a_day",
+            "text": "mara tatu kwa siku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_three_a_day"
+          },
+          {
+            "key": "chk_four_a_day",
+            "text": "mara nne kwa siku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_four_a_day"
+          },
+          {
+            "key": "chk_more_than_five",
+            "text": "zaidi ya mara tano kwa siku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_more_than_five_days"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "times_child_breastfeeds_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Jadiliana na mama ili uweze kujua kwanini hamnyonyeshi mwanawe zaidi ya mara 5 kwa siku. Toa elimu na msaidie mama njia bora ya kutatua changamoto alizoelezea.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Muelimishe mama njia nzuri za upakataji na uwekaji wa mtoto wakati wa kunyonyesha. \n\nFungua bango kitika kitendea kazi namba 16 na muoneshe mama picha inayoonyesha njia bora ya upakataji na unyonyeshaji wa mtoto",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_counselling",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breastfeeding_position_counselling",
+        "openmrs_entity_parent": "",
+        "label": "Je upakataji na uwekaji wa mtoto katika titi uko sawa? Hii inamaanisha kuwa kidevu kinagusa titi, kinywa cha mtoto kimeachama sawasawa, mdomo wa chini wa mtoto unabinuka kwa nje, sehemu kubwa nyeusi ya titi inaonekana zaidi juu ya kinywa cha mtoto kuliko chini.",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "breastfeeds_correctly_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mpongeze mama kwa kumuweka vizuri mtoto wake wakati wa kumnyonyesha.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_demo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Sasa upo katika hatua ya kumfundisha mlezi jinsi ya kumpakata mtoto wake ili aweze kunyonya vizuri, hili zoezi linaweza kuhitaji wewe kumuonesha kwa kutumia mfano ikiwa mama anachangamoto katika unyonyeshaji wa mtoto.\n\nKumbuka: Hakikisha haumgusi mtoto moja kwa moja wakati wa kumnuonesha mama upakataji ulio sahihi kwa ajili ya unyoneshaji wa mtoto.\nMsaidie Mama kufanya haya yafuatayo:\n\nKukaa au kulala vizuri.\n\nMshike mtoto mwili mzima, sio shingo tu na mabega. Hakikisha kichwa cha mtoto na mwili vimenyooka.\n\nMtoto atazame ziwa la mama. Pua ya mtoto iwe mkabala na kinyonyeo.\n\nAlishike ziwa na mgusishe mtoto nalo kwenye mdomo wake ili mtoto afungue mdomo.\n\nHakikisha mdomo wa mtoto umekaa vizuri kwenye ncha ya ziwa la mama. Hakikisha mtoto amewekwa vyema ili kuweza kunyonya vizuri.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_suckling_well",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_suckling_well",
+        "openmrs_entity_parent": "",
+        "label": "Je mtoto ananyonya vizuri?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "child_suckling_demo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Msaidie mama kujua Zaidi kumuweka vizuri mtoto kwa ajili ya kumnyonyesha.  Muongozo wa kumuweka mtoto vizuri wakati wa kunyonya:\n\nKama mtoto analala sana na anakosa kunyonya, muamshe kwa kupapasa mwili wake, miguu au mikono.\nIkiwa mtoto bado hanyonyi baada ya saa moja, kamua maji maji ya mwanzo ya njano kutoka kwenye maziwa kwenye kikombe au kijiko kilicho safi. Mpe mtoto anywe mara kwa mara na kwa kiwango kidogo, hakikisha mtoto anaweza kumeza.\n\nAsubiri hadi mdomo wa mtoto umefunguka sana.\n\nAmuweke mtoto haraka kwenye maziwa akitega mdomo wa chini wa mtoto vizuri chini ya kinyonyeo.\n\nKama maziwa yamevimba, pakaza kiwango kidogo cha maziwa kabla ya kuanza kumnyonyesha mtoto ili kulainisha kinyonyeo na iwe rahisi kwa mtoto kunyonya.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_suckling_demo_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Msaidie mama kujua Zaidi kumuweka vizuri mtoto kwa ajili ya kumnyonyesha.  Muongozo wa kumuweka mtoto vizuri wakati wa kunyonya:\n\nKama mtoto analala sana na anakosa kunyonya, muamshe kwa kupapasa mwili wake, miguu au mikono.\n\n\nAsubiri hadi mdomo wa mtoto umefunguka sana.\n\nAmuweke mtoto haraka kwenye maziwa akitega mdomo wa chini wa mtoto vizuri chini ya kinyonyeo.\n\nKama maziwa yamevimba, pakaza kiwango kidogo cha maziwa kabla ya kuanza kumnyonyesha mtoto ili kulainisha kinyonyeo na iwe rahisi kwa mtoto kunyonya",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exclusive_breast_feeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "exclusive_breast_feeding",
+        "type": "spinner",
+        "image": "ic_form_bf",
+        "hint": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        }
+      }
+    ]
+  }
+}

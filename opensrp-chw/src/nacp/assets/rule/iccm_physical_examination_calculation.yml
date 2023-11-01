@@ -1,0 +1,7 @@
+---
+name: step1_is_malaria_suspect_after_physical_examination
+description: is_malaria_suspect_after_physical_examination calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = !step1_physical_examination.isEmpty() && (global_is_malaria_suspect || !step1_physical_examination.contains('none'))"

@@ -1,0 +1,353 @@
+{
+  "count": "1",
+  "encounter_type": "ICCM Medical History",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Medical History",
+    "fields": [
+      {
+        "key": "is_the_client_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_the_client_pregnant",
+        "label": "Is the client pregnant?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral_for_pregnant_clients",
+        "type": "toaster_notes",
+        "text": "The pregnant client should be referred to the health facility after provision of ICCM services.",
+        "openmrs_entity_id": "prompt_for_providing_referral_for_pregnant_clients",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:is_the_client_pregnant": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "medical_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medical_history",
+        "type": "check_box",
+        "label": "Is the client having any of the following?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "fever",
+            "text": "Fever",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "vomiting",
+            "text": "Vomiting",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vomiting"
+          },
+          {
+            "key": "diarrhea",
+            "text": "Diarrhea",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diarrhea"
+          },
+          {
+            "key": "poor_appetite",
+            "text": "Poor Appetite",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poor_appetite"
+          },
+          {
+            "key": "body_weakness",
+            "text": "Body Weakness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_weakness"
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "headache"
+          },
+          {
+            "key": "joint_pain",
+            "text": "Joint pain",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "joint_pain"
+          },
+          {
+            "key": "malaise",
+            "text": "Malaise",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaise"
+          },
+          {
+            "key": "coughing",
+            "text": "Coughing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "coughing"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "other_medical_history",
+        "type": "edit_text",
+        "hint": "Please specify the other symptom(s)",
+        "openmrs_entity_id": "other_medical_history",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "step1:medical_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "is_malaria_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_malaria_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_past_malaria_treatment_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_past_malaria_treatment_history",
+        "label": "Has the client previously tested Positive for Malaria and received treatment in the past 14 days?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:is_malaria_suspect": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
+        }
+      },
+      {
+        "key": "is_diarrhea_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_diarrhea_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_pneumonia_suspect",
+        "type": "hidden",
+        "openmrs_entity_id": "is_pneumonia_suspect",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": ""
+      },
+      {
+        "key": "prompt_for_conducting_mrdt",
+        "type": "toaster_notes",
+        "text": "<b>The client is a malaria suspect</b><br>Conduct mRDT",
+        "openmrs_entity_id": "prompt_for_conducting_mrdt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral",
+        "type": "toaster_notes",
+        "text": "The client should be referred to the health facility for further management.",
+        "openmrs_entity_id": "prompt_for_providing_referral",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_diarrhea",
+        "type": "toaster_notes",
+        "text": "Diagnose the Client for <b>Diarrhea</b>",
+        "openmrs_entity_id": "prompt_for_diagnosing_diarrhea",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_diagnosing_pneumonia",
+        "type": "toaster_notes",
+        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia.",
+        "openmrs_entity_id": "prompt_for_diagnosing_pneumonia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_medical_history_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medical_history_completion_status",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medical_history_completion_status",
+        "openmrs_entity_parent": "",
+        "value": "pending"
+      },
+      {
+        "key": "iccm_enrollment_form_submission_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iccm_enrollment_form_submission_id",
+        "openmrs_entity_parent": ""
+      }
+    ]
+  }
+}

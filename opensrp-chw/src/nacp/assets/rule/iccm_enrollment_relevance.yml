@@ -1,0 +1,70 @@
+---
+name: step2_client_testing_history_at_affiliated_health_facility_or_iccm_post
+description: client_testing_history_at_affiliated_health_facility_or_iccm_post relevance
+priority: 1
+condition: "step2_client_testing_history == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_prompt_for_respiratory_rate
+description: prompt_for_respiratory_rate relevance
+priority: 1
+condition: "(global_age < 1 && step3_respiratory_rate >= 50) || (global_age >= 1 && global_age < 6 && step3_respiratory_rate >= 40)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_dispensed_anti_pyretic
+description: household_people_for_18_and_above relevance
+priority: 1
+condition: "step3_temperature > 38.4"
+actions:
+  - "isRelevant = true"
+---
+name: step4_reasons_for_not_providing_anti_pyretic
+description: household_people_for_18_and_above relevance
+priority: 1
+condition: "step4_dispensed_anti_pyretic == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_reasons_for_not_providing_anti_pyretic
+description: other_reasons_for_not_providing_anti_pyretic relevance
+priority: 1
+condition: "step4_dispensed_anti_pyretic == 'no' && step4_reasons_for_not_providing_anti_pyretic == 'others'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_administered_artesunate
+description: administered_artesunate relevance
+priority: 1
+condition: "!step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none') && global_age < 6"
+actions:
+  - "isRelevant = true"
+---
+name: step4_prompt_number_of_number_of_suppository_to_dispense
+description: prompt_number_of_number_of_suppository_to_dispense relevance
+priority: 1
+condition: "!step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none') && global_age < 6"
+actions:
+  - "isRelevant = true"
+---
+name: step4_reasons_for_not_providing_artesunate
+description: reasons_for_not_providing_artesunate relevance
+priority: 1
+condition: "step4_administered_artesunate == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_reasons_for_not_providing_artesunate
+description: other_reasons_for_not_providing_artesunate relevance
+priority: 1
+condition: "step4_administered_artesunate == 'no' && step4_reasons_for_not_providing_artesunate == 'others'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_prompt_for_providing_referral
+description: prompt_for_providing_referral relevance
+priority: 1
+condition: "!step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none')"
+actions:
+  - "isRelevant = true"

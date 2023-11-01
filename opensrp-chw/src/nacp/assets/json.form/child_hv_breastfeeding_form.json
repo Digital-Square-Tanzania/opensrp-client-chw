@@ -1,0 +1,503 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Essential New Born Care: Breastfeeding",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Essential New Born Care: Breastfeeding",
+    "fields": [
+      {
+        "key": "visit_1_visit_8",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "breastfeding_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "I'd like to talk to you more about breastfeeding.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "breastfeed_current",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breastfeed_current",
+        "openmrs_entity_parent": "",
+        "label": "Are you breastfeeding now?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "breastfeed_current_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "How is it going?\nWhat positions are you using?\nHow frequently do you breastfeed?\nHow long will the baby feed at one time?\n\nAllow mother to explain her experience breastfeeding.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed_current_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Advice the mother on the importance of breastfeeding the child (Refer to Bango Kitita, Breast feeding module)",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed_challenge_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Are you experiencing any challenges that you would like us to discuss?\nGive the mother an opportunity to speak about her challenges and discuss together how to resolve the challenges",
+        "toaster_type": "info"
+      },
+      {
+        "key": "other_food_child_feeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_food_child_feeds",
+        "type": "check_box",
+        "label": "Did the child drink or eat any of the following yesterday during the day or the night?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_infant_formula",
+            "text": "Infant formula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_infant_formula"
+          },
+          {
+            "key": "chk_plain_water",
+            "text": "Plain water",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_plain_water"
+          },
+          {
+            "key": "chk_juice",
+            "text": "Juice",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_juice"
+          },
+          {
+            "key": "chk_clear_broth_soup",
+            "text": "Clear broth/soup",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_clear_broth_soup"
+          },
+          {
+            "key": "chk_milk_from_animals",
+            "text": "Milk from other animals",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_milk_from_animals"
+          },
+          {
+            "key": "chk_soft_food",
+            "text": "Soft food",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_soft_food"
+          },
+          {
+            "key": "chk_porridge",
+            "text": "Porridge",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_porridge"
+          },
+          {
+            "key": "chk_something_else",
+            "text": "Something else",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_something_else"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "child_exclusive_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Praise the mother/father or caregiver for ensuring that the baby is being fed only breast milk",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:other_food_child_feeds": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "child_not_exclusive_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Discuss with the mother why she is not exclusively breastfeeding. Advise her and problem solve with her.\n\nPlease refer to Bango Kitita page 16",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:other_food_child_feeds": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_infant_formula",
+                  "chk_plain_water",
+                  "chk_juice",
+                  "chk_clear_broth_soup",
+                  "chk_milk_from_animals",
+                  "chk_soft_food",
+                  "chk_porridge",
+                  "chk_something_else"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "times_child_breastfeeds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "times_child_breastfeeds",
+        "type": "native_radio",
+        "label": "How often do you breastfeed your baby, including night and day time?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "chk_twice_a_day",
+            "text": "Twice a day",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_twice_a_day"
+          },
+          {
+            "key": "chk_three_a_day",
+            "text": "Three times a day",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_three_a_day"
+          },
+          {
+            "key": "chk_four_a_day",
+            "text": "Four time a day",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_four_a_day"
+          },
+          {
+            "key": "chk_more_than_five",
+            "text": "More than five times",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_more_than_five_days"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "times_child_breastfeeds_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Discuss with the mother why she is not breastfeeding the baby more than five times. Advise her and problem solve with her.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Observe how the mother breastfeeds her baby. Educate the mother about the proper positioning and attachment of the baby during breastfeeding. Refer to pages numbers 16 and 17 of Bango Kitita.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_counselling",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breastfeeding_position_counselling",
+        "openmrs_entity_parent": "",
+        "label": "Is the positioning and attachment ok? This means the chin is touching the breast, mouth wide open, lower lip turned outward, and more areola visible above than below the mouth.",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "breastfeeds_correctly_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Congratulate mother for breastfeeding in a right position",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_position_demo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Now you are at the stage of coaching the mother how she should position her child toward effective breast feeding. This activity may require you to sometimes needs your direct intervention and perhaps you may need to touch the child.\n\nReminder:Please stop direct intervention and avoid touching the child. Instead, please direct the mother what to do while you observe and provide guidance.\n\nHelp the mother to:\n\nSit or lie comfortably.\n\nSupport the baby's whole body, not just the neck and shoulders. Ensure baby's head and body are in a straight line.\n\nHave the baby face the breast. The baby's nose is opposite her nipple.\n\nHold the breast and touch the baby's cheek with the nipple, so baby turns and opens mouth.\n\nFix the baby's mouth on the nipple. Make sure baby is in a comfortable position to feed.\n\nTouch the baby's lips with her nipple.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_suckling_well",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_suckling_well",
+        "openmrs_entity_parent": "",
+        "label": "Is the baby suckling effectively?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_suckling_demo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Help the mother to improve positioning and attachment.\n\nIf baby is too sleepy to feed, try to wake him by rubbing body, arms, or legs.\n\nIf baby is still not feeding from the breast after one hour, squeeze the first, yellow fluid from the breast into a clean cup or spoon. Feed this to baby often and in small amounts, making sure baby can swallow it.\n\nWait until the baby's mouth is opened wide\n\nMove the baby quickly onto her breast, aiming the infant's lower lip will below the nipple.\n\nIf breast engorgement, express a small amount of breast milk before starting breastfeeding to soften nipple area so that it is easier for the baby to attach.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_suckling_demo_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Help the mother to improve positioning and attachment.\n\nIf baby is too sleepy to feed, try to wake him by rubbing body, arms, or legs.\n\n\n\nWait until the baby's mouth is opened wide\n\nMove the baby quickly onto her breast, aiming the infant's lower lip will below the nipple.\n\nIf breast engorgement, express a small amount of breast milk before starting breastfeeding to soften nipple area so that it is easier for the baby to attach.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_breastfeeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exclusive_breast_feeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "exclusive_breast_feeding",
+        "type": "spinner",
+        "image": "ic_form_bf",
+        "hint": "Has the child been exclusively breastfeeding only?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        }
+      }
+    ]
+  }
+}
