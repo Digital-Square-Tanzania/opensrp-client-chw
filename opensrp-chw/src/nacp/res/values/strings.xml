@@ -10,6 +10,7 @@
     <string name="tb_referral">TB Clinic</string>
     <string name="pmtct_referral">PMTCT Clinic</string>
     <string name="gbv_referral">Gender Based Violence</string>
+    <string name="vmmc_referral">VMMC Services</string>
     <string name="pregnancy_confirmation_referral">Pregnancy Confirmation</string>
     <string name="child_gbv_referral">Child Gender Based Violence</string>
     <string name="created">Created: %s</string>

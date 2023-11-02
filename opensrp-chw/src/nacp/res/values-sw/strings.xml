@@ -9,6 +9,7 @@
     <string name="tb_referral">Kliniki ya TB</string>
     <string name="pmtct_referral">Kliniki ya PMTCT</string>
     <string name="gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
+    <string name="vmmc_referral">Huduma ya tohara kwa wanaume</string>
     <string name="child_gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
     <string name="created">Imeumbwa: %s</string>
     <string name="menu_hiv">HUWANYU (CBHS)</string>

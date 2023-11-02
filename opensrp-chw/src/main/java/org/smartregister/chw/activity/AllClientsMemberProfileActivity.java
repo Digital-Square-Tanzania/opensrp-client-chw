@@ -112,6 +112,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         return (FamilyOtherMemberActivityPresenter) presenter;
     }
 
+
     @Override
     protected void startAncRegister() {
         AncRegisterActivity.startAncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber,
@@ -127,6 +128,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startMalariaRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
+    }
+
+    @Override
+    protected void startVmmcRegister() {
+        //implement
     }
 
     @Override

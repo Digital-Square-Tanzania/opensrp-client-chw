@@ -1,0 +1,147 @@
+{
+  "form": "Referral form",
+  "encounter_type": "Referral Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "Fomu ya rufaa kwa ajili ya huduma ya tohara kwa wanaume",
+      "fields": [
+        {
+          "name": "problem",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Sababu ya rufaa"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem"
+          },
+          "options": [
+            {
+              "name": "vmmc",
+              "text": "Tohara kwa wanaume",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "high_risk_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Sababu nyingine",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify reasons for referral",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Sababu nyingine",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "required_status": "true:Chagua Sababu nyingine",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Chagua kituo cha rufaa"
+          },
+          "options": [],
+          "required_status": "yes:Chagua kituo cha rufaa"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Tafadhali chagua tarehe ya miadi",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
+        }
+      ]
+    }
+  ]
+}

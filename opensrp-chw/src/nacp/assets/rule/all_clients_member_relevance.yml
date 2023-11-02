@@ -16,7 +16,7 @@ actions:
 name: step2_phone_number
 description: phone number relevance
 priority: 1
-condition: "step2_is_primary_caregiver == 'Yes'"
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
 actions:
   - "isRelevant = true"
 ---
