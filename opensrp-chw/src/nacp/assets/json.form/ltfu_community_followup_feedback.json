@@ -279,7 +279,7 @@
             "openmrs_entity_id": "last_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Please select last appointment date",
+          "required_status": "yes:Please select last Visit date",
           "subjects": "followup_status:map"
         },
         {
