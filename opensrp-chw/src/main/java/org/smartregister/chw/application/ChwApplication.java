@@ -34,6 +34,7 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
+import org.smartregister.chw.activity.GbvRegisterActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
@@ -394,6 +395,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.GBV_REGISTER_ACTIVITY, GbvRegisterActivity.class);
         return registeredActivities;
     }
 
