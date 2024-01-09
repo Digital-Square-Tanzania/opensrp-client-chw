@@ -751,6 +751,13 @@
             "creates_case": [
               "ec_sbc_monthly_social_media_report"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "GBV Screening",
+            "creates_case": [
+              "ec_gbv_register"
+            ]
           }
         ]
       }
