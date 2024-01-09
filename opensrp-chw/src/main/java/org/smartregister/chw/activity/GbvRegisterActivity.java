@@ -9,7 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreGbvRegisterActivity;
-import org.smartregister.chw.fragment.SbcRegisterFragment;
+import org.smartregister.chw.fragment.GbvRegisterFragment;
 import org.smartregister.chw.gbv.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -39,7 +39,7 @@ public class GbvRegisterActivity extends CoreGbvRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return null;
+        return new GbvRegisterFragment();
     }
 
     @Override
