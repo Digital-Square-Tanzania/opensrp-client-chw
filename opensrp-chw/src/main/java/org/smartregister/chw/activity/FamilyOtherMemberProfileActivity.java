@@ -31,10 +31,12 @@ import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.gbv.dao.GbvDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -116,14 +118,17 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         if (!ChwApplication.getApplicationFlavor().hasTB()) {
             menu.findItem(R.id.action_tb_registration).setVisible(false);
-        } else {
-            //flavor.updateTbMenuItems(baseEntityId, menu);
-            //will update when the TB module is complete
         }
+
         if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(baseEntityId)) {
             menu.findItem(R.id.action_iccm_registration).setVisible(true);
         }
         menu.findItem(R.id.action_fp_initiation).setVisible(false);
+
+
+        if (ChwApplication.getApplicationFlavor().hasGbv()) {
+            menu.findItem(R.id.action_gbv_registration).setVisible(!GbvDao.isRegisteredForGbv(baseEntityId));
+        }
         return true;
     }
 
@@ -320,6 +325,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startSbcRegistration() {
         SbcRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startGbvRegistration() {
+        GbvRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
