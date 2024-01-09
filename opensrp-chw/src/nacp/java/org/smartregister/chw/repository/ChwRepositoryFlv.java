@@ -115,6 +115,9 @@ public class ChwRepositoryFlv {
                 case 27:
                     upgradeToVersion27(db);
                     break;
+                case 28:
+                    upgradeToVersion28(db);
+                    break;
                 default:
                     break;
             }
@@ -460,6 +463,18 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion27");
+        }
+    }
+
+    private static void upgradeToVersion28(SQLiteDatabase db) {
+        try {
+
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_gbv_register")),
+                    ChwApplication.createCommonFtsObject());
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
         }
     }
 }
