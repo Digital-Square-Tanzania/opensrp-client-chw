@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.dao.AncDao;
@@ -16,6 +20,7 @@ import org.smartregister.chw.gbv.GbvLibrary;
 import org.smartregister.chw.gbv.activity.BaseGbvProfileActivity;
 import org.smartregister.chw.gbv.domain.MemberObject;
 import org.smartregister.chw.gbv.util.Constants;
+import org.smartregister.chw.gbv.util.GbvJsonFormUtils;
 import org.smartregister.chw.gbv.util.VisitUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -39,7 +44,23 @@ public class GbvMemberProfileActivity extends BaseGbvProfileActivity {
 
     @Override
     public void recordGbv(MemberObject memberObject) {
+        JSONObject jsonObject;
+        try {
+            jsonObject = GbvJsonFormUtils.getFormAsJson(Constants.FORMS.GBV_HOME_VISIT);
+            startFormActivity(jsonObject);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 
+    public void startFormActivity(JSONObject jsonForm) {
+        Form form = new Form();
+        form.setWizard(false);
+
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, org.smartregister.chw.gbv.util.Constants.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -141,6 +162,7 @@ public class GbvMemberProfileActivity extends BaseGbvProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
+        textViewRecordGbv.setText(R.string.record_gbv_home_visit);
         addReferralTypes();
     }
 }

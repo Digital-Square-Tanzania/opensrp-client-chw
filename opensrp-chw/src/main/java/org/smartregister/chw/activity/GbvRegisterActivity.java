@@ -19,7 +19,7 @@ public class GbvRegisterActivity extends CoreGbvRegisterActivity {
         Intent intent = new Intent(activity, GbvRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.GBV_FORM_NAME, Constants.FORMS.GBV_ENROLLMENT);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.GBV_FORM_NAME, Constants.FORMS.GBV_SCREENING);
 
         activity.startActivity(intent);
     }
@@ -29,7 +29,7 @@ public class GbvRegisterActivity extends CoreGbvRegisterActivity {
         Form form = new Form();
         form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
         form.setWizard(true);
-        form.setName(getString(R.string.gbv_registration));
+        form.setName(getString(R.string.gbv_screening));
         form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
         form.setNextLabel(this.getResources().getString(org.smartregister.chw.core.R.string.next));
         form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
