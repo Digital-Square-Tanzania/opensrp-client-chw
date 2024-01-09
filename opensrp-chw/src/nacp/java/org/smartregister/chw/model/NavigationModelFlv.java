@@ -66,7 +66,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 } else if (teamRoleIdentifier != null && teamRoleIdentifier.equals("cbhs_provider")) {
                     navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
                 } else {
-                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13, op6, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13, op6));
                 }
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(3, op16);
@@ -93,6 +93,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasGbv()) {
                     navigationOptions.add(op23);
                 }
+                navigationOptions.addAll(Arrays.asList(op8, op15));
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
