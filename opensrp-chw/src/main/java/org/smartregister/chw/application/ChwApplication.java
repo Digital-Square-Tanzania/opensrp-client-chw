@@ -116,7 +116,7 @@ import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
 
-    private static Flavor flavor = new ChwApplicationFlv();
+    private static final Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
 
