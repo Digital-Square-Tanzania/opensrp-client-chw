@@ -62,6 +62,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.gbv.GbvLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
@@ -297,6 +298,9 @@ public class ChwApplication extends CoreChwApplication {
         }
         if (flavor.hasSbc()) {
             SbcLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+        if (flavor.hasGbv()) {
+            GbvLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),
@@ -573,6 +577,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasAGYW();
 
         boolean hasSbc();
+
+        boolean hasGbv();
 
         String[] getFTSTables();
 
