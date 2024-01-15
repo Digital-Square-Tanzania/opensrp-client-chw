@@ -1,0 +1,621 @@
+{
+  "count": "1",
+  "encounter_type": "GBV Details",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "GBV Details",
+    "fields": [
+      {
+        "key": "type_of_violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_violence_experienced",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Type of violence experienced?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "sexual_violence",
+            "text": "Sexual violence (Rape/Sexual assault)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_violence"
+          },
+          {
+            "key": "physical_violence",
+            "text": "Physical Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical_violence"
+          },
+          {
+            "key": "fgm",
+            "text": "Female genital mutilation (FGM)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fgm"
+          },
+          {
+            "key": "neglect",
+            "text": "Neglect",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglect"
+          },
+          {
+            "key": "economical",
+            "text": "Economical",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "economical"
+          },
+          {
+            "key": "child_exploitation",
+            "text": "Child Exploitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_exploitation"
+          },
+          {
+            "key": "emotional",
+            "text": "Emotional",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "emotional"
+          }
+        ]
+      },
+      {
+        "key": "indication_of_sexual_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indication_of_sexual_violence",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Indication of Sexual violence (rape/sexual assault)",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "difficulty_walking",
+            "text": "Difficulty walking",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "difficulty_walking"
+          },
+          {
+            "key": "torn_clothing",
+            "text": "Torn clothing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "torn_clothing"
+          },
+          {
+            "key": "blood_on_clothing",
+            "text": "Blood on clothing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_on_clothing"
+          },
+          {
+            "key": "pain_in_intimate_areas",
+            "text": "Pain or itching in intimate areas",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pain_in_intimate_areas"
+          },
+          {
+            "key": "bruises_in_intimate_areas",
+            "text": "Bruises in intimate areas",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bruises_in_intimate_areas"
+          },
+          {
+            "key": "bruises_around_the_mouth",
+            "text": "Bruises around the mouth",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bruises_around_the_mouth"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "step1:type_of_violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_violence"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "indication_of_physical_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indication_of_physical_violence",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Indication of Physical Violence",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "unexplained_bruises_and_wounds",
+            "text": "Unexplained bruises and wounds",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unexplained_bruises_and_wounds"
+          },
+          {
+            "key": "cigarette_burns_on_the_palms",
+            "text": "Cigarette burns on the palms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cigarette_burns_on_the_palms"
+          },
+          {
+            "key": "marks_resembling_needle_electrical_burns",
+            "text": "Marks resembling needle or electrical burns",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "marks_resembling_needle_electrical_burns"
+          },
+          {
+            "key": "signs_of_being_tied_up_with_a_rope",
+            "text": "Signs of being tied up with a rope",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "signs_of_being_tied_up_with_a_rope"
+          },
+          {
+            "key": "wounds_around_the_mouth",
+            "text": "Wounds or bruises around the mouth",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "wounds_around_the_mouth"
+          },
+          {
+            "key": "unexplained_bruises_and_wounds",
+            "text": "Unexplained bruises and wounds",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unexplained_bruises_and_wounds"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "step1:type_of_violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "physical_violence"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "indication_of_neglect",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indication_of_neglect",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Indication of Neglect",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "often_hungry",
+            "text": "Often hungry",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "often_hungry"
+          },
+          {
+            "key": "dirty_child",
+            "text": "Dirty child",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dirty_child"
+          },
+          {
+            "key": "wearing_inappropriate_or_worn_out_clothes",
+            "text": "Wearing inappropriate or worn-out clothes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "wearing_inappropriate_or_worn_out_clothes"
+          },
+          {
+            "key": "lack_of_supervision",
+            "text": "Lack of supervision much of the time",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lack_of_supervision"
+          },
+          {
+            "key": "clothing_not_suitable_for_the_weather",
+            "text": "Clothing not suitable for the weather",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "clothing_not_suitable_for_the_weather"
+          },
+          {
+            "key": "excessive_dirtiness",
+            "text": "Excessive dirtiness and lack of bathing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_dirtiness"
+          },
+          {
+            "key": "limited_supervision",
+            "text": "Limited supervision",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "limited_supervision"
+          },
+          {
+            "key": "malnourished",
+            "text": "Malnourished",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malnourished"
+          },
+          {
+            "key": "has_rashes_and_sores",
+            "text": "Has rashes and sores",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_rashes_and_sores"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "step1:type_of_violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "neglect"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "indication_of_exploitation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indication_of_exploitation",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Indication of Neglect",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "not_being_seing_at_home_for_a_long_time",
+            "text": "Not being seen at home for a long time",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_being_seen_at_home_for_a_long_time"
+          },
+          {
+            "key": "not_attending_school_or_being_disruptive_in_class",
+            "text": "Not attending school or being disruptive in class",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_attending_school_or_being_disruptive_in_class"
+          },
+          {
+            "key": "having_gifts_of_unknown_origin",
+            "text": "Having gifts of unknown origin",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "having_gifts_of_unknown_origin"
+          },
+          {
+            "key": "cigarette_burns",
+            "text": "Cigarette burns",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cigarette_burns"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "relevance": {
+          "step1:type_of_violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "child_exploitation"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "indication_of_emotional_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indication_of_emotional_violence",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Indication of Emotional violence",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "bedwetting_without_a_medical_reason",
+            "text": "Bedwetting without a medical reason",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bedwetting_without_a_medical_reason"
+          },
+          {
+            "key": "frequent_headaches_or_stomach_aches",
+            "text": "Frequent headaches or stomach aches",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "frequent_headaches_or_stomach_aches"
+          },
+          {
+            "key": "persistent_vomiting_or_diarrhea",
+            "text": "Persistent vomiting or diarrhea",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "persistent_vomiting_or_diarrhea"
+          },
+          {
+            "key": "not_thriving_or_not_doing_well",
+            "text": "Not thriving or not doing well",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_thriving_or_not_doing_well"
+          },
+          {
+            "key": "dressing_differently_from_other_children_in_the_household",
+            "text": "Dressing differently from other children in the household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dressing_differently_from_other_children"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "relevance": {
+          "step1:type_of_violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "emotional"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "time_since_incident",
+        "type": "native_radio",
+        "label": "Time since the incident occurred?",
+        "openmrs_entity_id": "time_since_incident",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "less_than_2_hours",
+            "text": "Less than 2 Hours",
+            "openmrs_entity_id": "less_than_two_hours",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "2_to_36_hours",
+            "text": "2-36 Hours",
+            "openmrs_entity_id": "2_to_36_hours",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "36_to_48_hours",
+            "text": "36-48 Hours",
+            "openmrs_entity_id": "36_to_48_hours",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "48_to_72_hours",
+            "text": "48-72 Hours",
+            "openmrs_entity_id": "48_to_72_hours",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "more_than_72_hours",
+            "text": "More than 72 Hours",
+            "openmrs_entity_id": "more_than_72_hours",
+            "openmrs_entity": "concept"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        }
+      },
+      {
+        "key": "location_where_the_incident_occurred",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "location_where_the_incident_occurred",
+        "type": "edit_text",
+        "hint": "Location where incident occurred",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the location"
+        }
+      },
+      {
+        "key": "was_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_education_provided",
+        "type": "native_radio",
+        "label": "Was Education on violence provided?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "emergency_services_offered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "emergency_services_offered",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Emergency Services offered",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "mental_health_care",
+            "text": "Mental health/Psychosocial care",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_care"
+          },
+          {
+            "key": "paracetamol",
+            "text": "Paracetamol",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "paracetamol"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ]
+      },
+      {
+        "key": "referral_to_other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_to_other_services",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Referral(s) to Other Services Provided",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "social_welfare_officer",
+            "text": "Social Welfare Officer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "social_welfare_officer"
+          },
+          {
+            "key": "ward_community_development_officer",
+            "text": "Ward Community Development Officer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ward_community_development_officer"
+          },
+          {
+            "key": "police_station",
+            "text": "Police Station",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "police_station"
+          },
+          {
+            "key": "safe_house",
+            "text": "Safe House",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_house"
+          },
+          {
+            "key": "mtakuwwa_committee",
+            "text": "MTAKUWWA Committee",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mtakuwwa_committee"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ]
+      }
+    ]
+  }
+}
