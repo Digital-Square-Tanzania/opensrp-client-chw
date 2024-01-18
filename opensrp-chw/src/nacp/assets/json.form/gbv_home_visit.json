@@ -333,7 +333,7 @@
         "openmrs_entity_id": "indication_of_exploitation",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Indication of Neglect",
+        "label": "Indication of Exploitation",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
