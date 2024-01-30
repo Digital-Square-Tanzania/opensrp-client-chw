@@ -54,6 +54,7 @@ public class GbvMemberProfileActivity extends BaseGbvProfileActivity {
             GbvRegistrationObject gbvRegistrationObject = GbvDao.getGbVRegistrationObject(memberObject.getBaseEntityId());
             JSONArray fields = JsonFormUtils.fields(jsonObject);
             JSONObject typeOfViolenceExperienced = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "type_of_violence_experienced");
+            JSONObject indicationOfNeglect = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "indication_of_neglect");
 
             if (gbvRegistrationObject != null && gbvRegistrationObject.getSexualViolence() != null && gbvRegistrationObject.getSexualViolence().equalsIgnoreCase("yes")) {
                 typeOfViolenceExperienced.getJSONArray("options").getJSONObject(0).put("value", true);
@@ -71,8 +72,16 @@ public class GbvMemberProfileActivity extends BaseGbvProfileActivity {
                 typeOfViolenceExperienced.getJSONArray("options").getJSONObject(6).put("value", true);
             }
 
-            if (memberObject.getAge() < 18) {
+            if (memberObject.getAge() >= 18) {
                 typeOfViolenceExperienced.getJSONArray("options").remove(6);
+            }
+
+            if (memberObject.getGender().equalsIgnoreCase("male")) {
+                typeOfViolenceExperienced.getJSONArray("options").remove(2);
+            }
+
+            if (memberObject.getAge() > 15) {
+                indicationOfNeglect.getJSONArray("options").remove(0);
             }
             startFormActivity(jsonObject);
         } catch (Exception e) {

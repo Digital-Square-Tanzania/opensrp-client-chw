@@ -254,16 +254,16 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "often_hungry",
-            "text": "Often hungry",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "often_hungry"
-          },
-          {
             "key": "dirty_child",
             "text": "Dirty child",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "dirty_child"
+          },
+          {
+            "key": "often_hungry",
+            "text": "Often hungry",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "often_hungry"
           },
           {
             "key": "wearing_inappropriate_or_worn_out_clothes",
