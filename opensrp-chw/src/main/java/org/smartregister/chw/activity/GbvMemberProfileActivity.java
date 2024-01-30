@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -16,6 +17,8 @@ import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.GbvFloatingMenu;
+import org.smartregister.chw.dao.GbvDao;
+import org.smartregister.chw.domain.GbvRegistrationObject;
 import org.smartregister.chw.gbv.GbvLibrary;
 import org.smartregister.chw.gbv.activity.BaseGbvProfileActivity;
 import org.smartregister.chw.gbv.domain.MemberObject;
@@ -26,6 +29,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
@@ -47,6 +51,29 @@ public class GbvMemberProfileActivity extends BaseGbvProfileActivity {
         JSONObject jsonObject;
         try {
             jsonObject = GbvJsonFormUtils.getFormAsJson(Constants.FORMS.GBV_HOME_VISIT);
+            GbvRegistrationObject gbvRegistrationObject = GbvDao.getGbVRegistrationObject(memberObject.getBaseEntityId());
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
+            JSONObject typeOfViolenceExperienced = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "type_of_violence_experienced");
+
+            if (gbvRegistrationObject != null && gbvRegistrationObject.getSexualViolence() != null && gbvRegistrationObject.getSexualViolence().equalsIgnoreCase("yes")) {
+                typeOfViolenceExperienced.getJSONArray("options").getJSONObject(0).put("value", true);
+            }
+
+            if (gbvRegistrationObject != null && gbvRegistrationObject.getPhysicalViolence() != null && gbvRegistrationObject.getPhysicalViolence().equalsIgnoreCase("yes")) {
+                typeOfViolenceExperienced.getJSONArray("options").getJSONObject(1).put("value", true);
+            }
+
+            if (gbvRegistrationObject != null && gbvRegistrationObject.getEmotionalViolence() != null && gbvRegistrationObject.getEmotionalViolence().equalsIgnoreCase("yes")) {
+                typeOfViolenceExperienced.getJSONArray("options").getJSONObject(5).put("value", true);
+            }
+
+            if (gbvRegistrationObject != null && gbvRegistrationObject.getExploitationViolence() != null && gbvRegistrationObject.getExploitationViolence().equalsIgnoreCase("yes")) {
+                typeOfViolenceExperienced.getJSONArray("options").getJSONObject(6).put("value", true);
+            }
+
+            if (memberObject.getAge() < 18) {
+                typeOfViolenceExperienced.getJSONArray("options").remove(6);
+            }
             startFormActivity(jsonObject);
         } catch (Exception e) {
             Timber.e(e);

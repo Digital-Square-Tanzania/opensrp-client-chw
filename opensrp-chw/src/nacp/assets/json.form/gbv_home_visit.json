@@ -97,16 +97,16 @@
             "openmrs_entity_id": "economical"
           },
           {
-            "key": "child_exploitation",
-            "text": "Child Exploitation",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "child_exploitation"
-          },
-          {
             "key": "emotional",
             "text": "Emotional",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "emotional"
+          },
+          {
+            "key": "child_exploitation",
+            "text": "Child Exploitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_exploitation"
           }
         ]
       },
