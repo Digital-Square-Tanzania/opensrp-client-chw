@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="./report-script.js"></script>
+
+    <style>
+    *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.show-on-print {
+  display: none;
+}
+
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    padding: 5px;
+}
+
+
+ul {
+    width: 100%;
+}
+ul li {
+    width: 49%;
+    display: inline-block;
+}
+
+ul li > * {
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.no-data {
+  background: #ccc;
+}
+
+@media print {
+  .show-on-print {
+    display: block;
+  }
+
+  .child-table {
+    width: 50%;
+  }
+}
+</style>
+</head>
+
+<body onload="loadData('monthly', 'anc')">
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th rowspan="3">SNo.</th>
+            <th rowspan="3">Kiashiria</th>
+            <th colspan="11">Jumla (KE+ME)</th>
+            <th colspan="11">Jumla (ME)</th>
+        </tr>
+        <tr>
+            <th colspan="11">KE</th>
+            <th colspan="11">ME</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Jumla (KE+ME)</th>
+            <th>Jumla (KE)</th>
+            <th>0-4</th>
+            <th>5-9</th>
+            <th>10-14</th>
+            <th>15-17</th>
+            <th>18-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35+</th>
+            <th>Jumla (ME)</th>
+            <th>0-4</th>
+            <th>5-9</th>
+            <th>10-14</th>
+            <th>15-17</th>
+            <th>18-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35+</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th align="justify">Idadi ya watu waliopata elimu kuhusu ukatili</th>
+            <th id="1-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="1-jumla-ke"></th>
+            <th id="1-0-4-ke"></th>
+            <th id="1-5-9-ke"></th>
+            <th id="1-10-14-ke"></th>
+            <th id="1-15-17-ke"></th>
+            <th id="1-18-19-ke"></th>
+            <th id="1-20-24-ke"></th>
+            <th id="1-25-29-ke"></th>
+            <th id="1-30-34-ke"></th>
+            <th id="1-35+-ke"></th>
+            <!--Male-->
+            <th id="1-jumla-me"></th>
+            <th id="1-0-4-me"></th>
+            <th id="1-5-9-me"></th>
+            <th id="1-10-14-me"></th>
+            <th id="1-15-17-me"></th>
+            <th id="1-18-19-me"></th>
+            <th id="1-20-24-me"></th>
+            <th id="1-25-29-me"></th>
+            <th id="1-30-34-me"></th>
+            <th id="1-35+-me"></th>
+        </tr>
+        <tr>
+            <th>2</th>
+            <th align="justify">Idadi ya wateja waliofanyiwa utambuzi dhidi ya ukatili</th>
+            <th id="2-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="2-jumla-ke"></th>
+            <th id="2-0-4-ke"></th>
+            <th id="2-5-9-ke"></th>
+            <th id="2-10-14-ke"></th>
+            <th id="2-15-17-ke"></th>
+            <th id="2-18-19-ke"></th>
+            <th id="2-20-24-ke"></th>
+            <th id="2-25-29-ke"></th>
+            <th id="2-30-34-ke"></th>
+            <th id="2-35+-ke"></th>
+            <!--Male-->
+            <th id="2-jumla-me"></th>
+            <th id="2-0-4-me"></th>
+            <th id="2-5-9-me"></th>
+            <th id="2-10-14-me"></th>
+            <th id="2-15-17-me"></th>
+            <th id="2-18-19-me"></th>
+            <th id="2-20-24-me"></th>
+            <th id="2-25-29-me"></th>
+            <th id="2-30-34-me"></th>
+            <th id="2-35+-me"></th>
+        </tr>
+        <tr>
+            <th>3</th>
+            <th align="justify">Idadi ya manusura waliofanyiwa ukatili</th>
+            <th id="3-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="3-jumla-ke"></th>
+            <th id="3-0-4-ke"></th>
+            <th id="3-5-9-ke"></th>
+            <th id="3-10-14-ke"></th>
+            <th id="3-15-17-ke"></th>
+            <th id="3-18-19-ke"></th>
+            <th id="3-20-24-ke"></th>
+            <th id="3-25-29-ke"></th>
+            <th id="3-30-34-ke"></th>
+            <th id="3-35+-ke"></th>
+            <!--Male-->
+            <th id="3-jumla-me"></th>
+            <th id="3-0-4-me"></th>
+            <th id="3-5-9-me"></th>
+            <th id="3-10-14-me"></th>
+            <th id="3-15-17-me"></th>
+            <th id="3-18-19-me"></th>
+            <th id="3-20-24-me"></th>
+            <th id="3-25-29-me"></th>
+            <th id="3-30-34-me"></th>
+            <th id="3-35+-me"></th>
+        </tr>
+        <tr>
+            <th>4</th>
+            <th align="justify">Idadi ya manusura wa ukatili waliopata huduma ya afya ya akili/msaada wa kisaikolojia na kijamii</th>
+            <th id="4-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="4-jumla-ke"></th>
+            <th id="4-0-4-ke"></th>
+            <th id="4-5-9-ke"></th>
+            <th id="4-10-14-ke"></th>
+            <th id="4-15-17-ke"></th>
+            <th id="4-18-19-ke"></th>
+            <th id="4-20-24-ke"></th>
+            <th id="4-25-29-ke"></th>
+            <th id="4-30-34-ke"></th>
+            <th id="4-35+-ke"></th>
+            <!--Male-->
+            <th id="4-jumla-me"></th>
+            <th id="4-0-4-me"></th>
+            <th id="4-5-9-me"></th>
+            <th id="4-10-14-me"></th>
+            <th id="4-15-17-me"></th>
+            <th id="4-18-19-me"></th>
+            <th id="4-20-24-me"></th>
+            <th id="4-25-29-me"></th>
+            <th id="4-30-34-me"></th>
+            <th id="4-35+-me"></th>
+        </tr>
+        <tr>
+            <th>5</th>
+            <th align="justify">Idadi ya manusura ukatili waliopewa rufaa</th>
+            <th id="5-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="5-jumla-ke"></th>
+            <th id="5-0-4-ke"></th>
+            <th id="5-5-9-ke"></th>
+            <th id="5-10-14-ke"></th>
+            <th id="5-15-17-ke"></th>
+            <th id="5-18-19-ke"></th>
+            <th id="5-20-24-ke"></th>
+            <th id="5-25-29-ke"></th>
+            <th id="5-30-34-ke"></th>
+            <th id="5-35+-ke"></th>
+            <!--Male-->
+            <th id="5-jumla-me"></th>
+            <th id="5-0-4-me"></th>
+            <th id="5-5-9-me"></th>
+            <th id="5-10-14-me"></th>
+            <th id="5-15-17-me"></th>
+            <th id="5-18-19-me"></th>
+            <th id="5-20-24-me"></th>
+            <th id="5-25-29-me"></th>
+            <th id="5-30-34-me"></th>
+            <th id="5-35+-me"></th>
+        </tr>
+        <tr>
+            <th>6</th>
+            <th align="justify">Idadi ya rufaa zilizofanikiwa</th>
+            <th id="6-jumla-me-plus-ke"></th>
+            <!--Female-->
+            <th id="6-jumla-ke"></th>
+            <th id="6-0-4-ke"></th>
+            <th id="6-5-9-ke"></th>
+            <th id="6-10-14-ke"></th>
+            <th id="6-15-17-ke"></th>
+            <th id="6-18-19-ke"></th>
+            <th id="6-20-24-ke"></th>
+            <th id="6-25-29-ke"></th>
+            <th id="6-30-34-ke"></th>
+            <th id="6-35+-ke"></th>
+            <!--Male-->
+            <th id="6-jumla-me"></th>
+            <th id="6-0-4-me"></th>
+            <th id="6-5-9-me"></th>
+            <th id="6-10-14-me"></th>
+            <th id="6-15-17-me"></th>
+            <th id="6-18-19-me"></th>
+            <th id="6-20-24-me"></th>
+            <th id="6-25-29-me"></th>
+            <th id="6-30-34-me"></th>
+            <th id="6-35+-me"></th>
+        </tr>
+
+        <tbody>
+    </table>
+</div>
+
+</body>
+</html>
