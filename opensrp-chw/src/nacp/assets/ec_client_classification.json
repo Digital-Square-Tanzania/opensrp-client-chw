@@ -751,6 +751,41 @@
             "creates_case": [
               "ec_sbc_monthly_social_media_report"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Community Enrollment",
+            "creates_case": [
+              "ec_cecap_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Home Visit",
+            "creates_case": [
+              "ec_cecap_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Health Education Mobilization",
+            "creates_case": [
+              "ec_cecap_mobilization_session"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ASRH Enrollment",
+            "creates_case": [
+              "ec_asrh_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ASRH Follow-up Visit",
+            "creates_case": [
+              "ec_asrh_visit"
+            ]
           }
         ]
       }
