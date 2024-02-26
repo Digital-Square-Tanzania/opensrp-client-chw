@@ -19,6 +19,8 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.asrh.dao.AsrhDao;
+import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreAllClientsMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreAllClientsMemberContract;
@@ -113,6 +115,18 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_sbc_registration).setVisible(!SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasCecap()) {
+            String dob = org.smartregister.chw.core.utils.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = org.smartregister.chw.core.utils.Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_cancer_preventive_services_registration).setVisible(!CecapDao.isRegisteredForCecap(baseEntityId) && age >= 14);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+            String dob = org.smartregister.chw.core.utils.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = org.smartregister.chw.core.utils.Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_asrh_registration).setVisible(!AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
         return true;
     }
@@ -212,6 +226,21 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startSbcRegistration() {
         SbcRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startGbvRegistration() {
+        //Implement
+    }
+
+    @Override
+    protected void startCancerPreventiveServicesRegistration() {
+        CecapRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startAsrhRegistration() {
+        AsrhRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
