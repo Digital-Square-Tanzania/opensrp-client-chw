@@ -1,0 +1,21 @@
+---
+name: step1_provided_sexual_reproductive_health_health_education_for_male
+description: provided_sexual_reproductive_health_health_education_for_male
+priority: 1
+condition: "global_sex == 'Male'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_sexual_reproductive_health_health_education_for_female
+description: provided_sexual_reproductive_health_health_education_for_female
+priority: 1
+condition: "global_sex == 'Female'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_sexual_reproductive_health_health_education
+description: provided_sexual_reproductive_health_health_education
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_sex == 'Female' ? step1_provided_sexual_reproductive_health_health_education_for_female : step1_provided_sexual_reproductive_health_health_education_for_male"

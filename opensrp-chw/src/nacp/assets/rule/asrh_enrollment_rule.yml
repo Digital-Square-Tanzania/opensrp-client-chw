@@ -1,0 +1,14 @@
+---
+name: step1_parity
+description: parity
+priority: 1
+condition: "global_sex == 'Female' "
+actions:
+  - "isRelevant = true"
+---
+name: step1_pregnancy_status
+description: pregnancy_status
+priority: 1
+condition: "global_sex == 'Female' "
+actions:
+  - "isRelevant = true"

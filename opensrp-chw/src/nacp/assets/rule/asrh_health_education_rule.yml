@@ -1,0 +1,28 @@
+---
+name: step1_provided_health_education_for_male
+description: provided_health_education_for_male
+priority: 1
+condition: "global_sex == 'Male' && step1_was_health_education_provided == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_health_education_for_female
+description: provided_health_education_for_female
+priority: 1
+condition: "global_sex == 'Female' && step1_was_health_education_provided == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_health_education
+description: provided_health_education
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_sex == 'Female' && step1_was_health_education_provided == 'yes' ? step1_provided_health_education_for_female : global_sex == 'Male' && step1_was_health_education_provided == 'yes' ? step1_provided_health_education_for_male  : '[]'"
+---
+name: step1_other_provided_health_education
+description: other_provided_health_education
+priority: 1
+condition: "step1_provided_health_education.contains('other')"
+actions:
+  - "isRelevant = true"
