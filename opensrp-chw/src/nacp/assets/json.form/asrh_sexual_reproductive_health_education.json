@@ -1,0 +1,257 @@
+{
+  "count": "1",
+  "encounter_type": "ASRH Sexual Reproductive Health Education",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "global": {},
+  "step1": {
+    "title": "ASRH Sexual Reproductive Health Education",
+    "fields": [
+      {
+        "key": "provided_sexual_reproductive_health_health_education_for_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education_for_male",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select Sexual reproductive health education provided",
+        "options": [
+          {
+            "key": "developmental_stages_during_adolescence",
+            "text": "Developmental stages during adolescence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "developmental_stages_during_adolescence"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "menstrual_hygiene",
+            "text": "Menstrual hygiene",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "menstrual_hygiene"
+          },
+          {
+            "key": "teenage_pregnancies",
+            "text": "Teenage pregnancies",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "teenage_pregnancies"
+          },
+          {
+            "key": "hiv_prevention",
+            "text": "HIV prevention",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_prevention"
+          },
+          {
+            "key": "hiv_care_and_treatment",
+            "text": "HIV Care and Treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_care_and_treatment"
+          },
+          {
+            "key": "gbv_vac",
+            "text": "GBV and Violence Against Children",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv_vac"
+          },
+          {
+            "key": "life_skills",
+            "text": "Life skills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          },
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_sexual_reproductive_health_health_education_for_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education_for_female",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select Sexual reproductive health education provided",
+        "options": [
+          {
+            "key": "developmental_stages_during_adolescence",
+            "text": "Developmental stages during adolescence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "developmental_stages_during_adolescence"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "post_abortion_care",
+            "text": "Post abortion care",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_abortion_care"
+          },
+          {
+            "key": "anc",
+            "text": "ANC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anc"
+          },
+          {
+            "key": "intra_and_post_natal_care",
+            "text": "Intra and Post Natal Care",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "intra_and_post_natal_care"
+          },
+          {
+            "key": "menstrual_hygiene",
+            "text": "Menstrual hygiene",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "menstrual_hygiene"
+          },
+          {
+            "key": "teenage_pregnancies",
+            "text": "Teenage pregnancies",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "teenage_pregnancies"
+          },
+          {
+            "key": "hiv_prevention",
+            "text": "HIV prevention",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_prevention"
+          },
+          {
+            "key": "hiv_care_and_treatment",
+            "text": "HIV Care and Treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_care_and_treatment"
+          },
+          {
+            "key": "child_marriage",
+            "text": "Child marriage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_marriage"
+          },
+          {
+            "key": "cervical_cancer_prevention",
+            "text": "Cervical cancer prevention",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer_prevention"
+          },
+          {
+            "key": "gbv_vac",
+            "text": "GBV and Violence Against Children",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv_vac"
+          },
+          {
+            "key": "life_skills",
+            "text": "Life skills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          },
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_sexual_reproductive_health_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

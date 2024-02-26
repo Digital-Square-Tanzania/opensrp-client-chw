@@ -1,0 +1,330 @@
+{
+  "count": "1",
+  "encounter_type": "ASRH Health Education",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "global": {},
+  "step1": {
+    "title": "ASRH Health Education",
+    "fields": [
+      {
+        "key": "was_health_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_health_education_provided",
+        "type": "native_radio",
+        "label": "Was Health education and counseling provided ?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "provided_health_education_for_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education_for_male",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select health education and counseling provided",
+        "options": [
+          {
+            "key": "sexual_reproductive_health_education",
+            "text": "Sexual Reproductive health Education",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_reproductive_health_education"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "mental_health_and_substance_abuse",
+            "text": "Mental health and substance abuse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_and_substance_abuse"
+          },
+          {
+            "key": "tb",
+            "text": "Tuberculosis (TB)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non - communicable diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "livelihood_education_skills",
+            "text": "Livelihood Education skills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "livelihood_education_skills"
+          },
+          {
+            "key": "neglected_tropical_disease",
+            "text": "Neglected tropical disease (NTD)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_disease"
+          },
+          {
+            "key": "hiv_aid_and_stis",
+            "text": "HIV/AIDS and STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aid_and_stis"
+          },
+          {
+            "key": "hygiene",
+            "text": "Hygiene",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_health_education_for_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education_for_female",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select health education and counseling provided",
+        "options": [
+          {
+            "key": "sexual_reproductive_health_education",
+            "text": "Sexual Reproductive health Education",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_reproductive_health_education"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "mental_health_and_substance_abuse",
+            "text": "Mental health and substance abuse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_and_substance_abuse"
+          },
+          {
+            "key": "tb",
+            "text": "Tuberculosis (TB)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non - communicable diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "livelihood_education_skills",
+            "text": "Livelihood Education skills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "livelihood_education_skills"
+          },
+          {
+            "key": "neglected_tropical_disease",
+            "text": "Neglected tropical disease (NTD)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_disease"
+          },
+          {
+            "key": "hiv_aid_and_stis",
+            "text": "HIV/AIDS and STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aid_and_stis"
+          },
+          {
+            "key": "hygiene",
+            "text": "Hygiene",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene"
+          },
+          {
+            "key": "cecap_vaccination",
+            "text": "CECAP Vaccination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cecap_vaccination"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_provided_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_provided_health_education",
+        "type": "edit_text",
+        "hint": "Other Health Education Provided",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "education_delivery_point",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_delivery_point",
+        "type": "native_radio",
+        "label": "ASRH education delivery point?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "household",
+            "text": "Household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household"
+          },
+          {
+            "key": "community_group",
+            "text": "Community Group",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_group"
+          },
+          {
+            "key": "school",
+            "text": "School",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:was_health_education_provided": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}
