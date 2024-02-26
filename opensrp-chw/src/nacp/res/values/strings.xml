@@ -281,6 +281,12 @@
     <string name="referral_problem_Umbilical_cord_navel_bleeding">Umbilical cord/navel bleeding</string>
     <string name="referral_problem_Unable_to_breastfeed_or_swallow">Unable to breastfeed or swallow</string>
     <string name="referral_problem_Umbilical_cord">Umbilical cord/navel bleeding</string>
+
+    <string name="referral_problem_cervical_cancer_screening">Cervical Cancer Screening</string>
+    <string name="referral_problem_breast_cancer_screening">Breast Cancer Screening</string>
+    <string name="referral_problem_suspected_of_having_cancer">Suspected of having cancer</string>
+    <string name="referral_problem_prostate_cancer_screening">Prostate Cancer Screening</string>
+
     <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
     <string name="condom_distribution_reports">Condom Distribution Reports</string>
     <string name="cdp_reports">CDP REPORTS</string>
@@ -677,6 +683,71 @@
     <string name="fp_condom_refilled">Select the type of condom provided:</string>
     <string name="fp_number_male_condoms_refilled">Specify quantity (Male):</string>
     <string name="fp_number_female_condoms_refilled">Specify quantity (Female):</string>
+
+    <!--    ASRH   -->
+    <string name="asrh">ASRH</string>
+    <string name="asrh_client_status">Client Status:</string>
+    <string name="asrh_was_health_education_provided">Was Health education and counseling provided:</string>
+    <string name="asrh_provided_health_education">Health education and counseling provided:</string>
+    <string name="asrh_other_provided_health_education">Other Health Education Provided:</string>
+    <string name="asrh_education_delivery_point">ASRH education delivery point:</string>
+    <string name="asrh_provided_sexual_reproductive_health_health_education">Sexual reproductive health education provided:</string>
+    <string name="asrh_education_on_mental_health_and_substance_abuse_provided">Education on Mental health and substance abuse provided:</string>
+    <string name="asrh_facilitation_methods">Facilitation Methods Used:</string>
+    <string name="asrh_other_facilitation_methods">Other Facilitation Methods Used:</string>
+    <string name="asrh_active">Active</string>
+    <string name="asrh_transfer_out">Transfer Out</string>
+    <string name="asrh_opt_out">Opt Out</string>
+    <string name="asrh_yes">Yes</string>
+    <string name="asrh_no">No</string>
+    <string name="asrh_sexual_reproductive_health_education">Sexual Reproductive health Education</string>
+    <string name="asrh_nutrition">Nutrition</string>
+    <string name="asrh_mental_health_and_substance_abuse">Mental health and substance abuse</string>
+    <string name="asrh_tb">Tuberculosis (TB)</string>
+    <string name="asrh_non_communicable_diseases">Non - communicable diseases</string>
+    <string name="asrh_livelihood_education_skills">Livelihood Education skills</string>
+    <string name="asrh_neglected_tropical_disease">Neglected tropical disease (NTD)</string>
+    <string name="asrh_hiv_aid_and_stis">HIV/AIDS and STIs</string>
+    <string name="asrh_hygiene">Hygiene</string>
+    <string name="asrh_cecap_vaccination">CECAP Vaccination</string>
+    <string name="asrh_household">Household</string>
+    <string name="asrh_community_group">Community Group</string>
+    <string name="asrh_school">School</string>
+    <string name="asrh_developmental_stages_during_adolescence">Developmental stages during adolescence</string>
+    <string name="asrh_family_planning">Family planning</string>
+    <string name="asrh_post_abortion_care">Post abortion care</string>
+    <string name="asrh_anc">ANC</string>
+    <string name="asrh_intra_and_post_natal_care">Intra and Post Natal Care</string>
+    <string name="asrh_menstrual_hygiene">Menstrual hygiene</string>
+    <string name="asrh_teenage_pregnancies">Teenage pregnancies</string>
+    <string name="asrh_hiv_prevention">HIV prevention</string>
+    <string name="asrh_hiv_care_and_treatment">HIV Care and Treatment</string>
+    <string name="asrh_child_marriage">Child marriage</string>
+    <string name="asrh_cervical_cancer_prevention">Cervical cancer prevention</string>
+    <string name="asrh_gbv_vac">GBV and Violence Against Children</string>
+    <string name="asrh_life_skills">Life skills</string>
+    <string name="asrh_stis">STIs</string>
+    <string name="asrh_negative_effects_of_substance_abuse">Negative effects of substance abuse</string>
+    <string name="asrh_negative_effects_of_alcohol_and_tobacco_product_use">Negative effects of alcohol and tobacco product use</string>
+    <string name="asrh_presentation">Presentation</string>
+    <string name="asrh_group_discussions">Group Discussions</string>
+    <string name="asrh_role_play">Role play</string>
+    <string name="asrh_case_studies">Case studies</string>
+    <string name="asrh_sports">Sports</string>
+    <string name="asrh_other">Other (Specify)</string>
+
+    <!--    CECAP   -->
+    <string name="cecap_topics_covered">Topics Covered:</string>
+    <string name="cecap_cervical_cancer">Cervical cancer</string>
+    <string name="cecap_breast_cancer">Breast cancer</string>
+    <string name="cecap_prostate_cancer">Prostate cancer</string>
+    <string name="cecap_hiv_aids">HIV AIDS</string>
+
+    <string name="cecap_mobilization_date">Mobilization Date:</string>
+    <string name="cecap_female_clients_reached">Number of Female clients reached:</string>
+    <string name="cecap_male_clients_reached">Number of Male clients reached:</string>
+    <string name="cecap_health_education_provided">Health Education Provided:</string>
+    <string name="cecap_mobilization_location">Mobilization Location:</string>
 
 
 
