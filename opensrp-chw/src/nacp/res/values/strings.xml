@@ -735,6 +735,7 @@
     <string name="asrh_case_studies">Case studies</string>
     <string name="asrh_sports">Sports</string>
     <string name="asrh_other">Other (Specify)</string>
+    <string name="asrh_opted_out">Opted Out</string>
 
     <!--    CECAP   -->
     <string name="cecap_topics_covered">Topics Covered:</string>

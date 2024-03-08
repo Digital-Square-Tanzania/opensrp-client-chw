@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -18,6 +20,7 @@ import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.AsrhLibrary;
 import org.smartregister.chw.asrh.activity.BaseAsrhProfileActivity;
+import org.smartregister.chw.asrh.dao.AsrhDao;
 import org.smartregister.chw.asrh.domain.MemberObject;
 import org.smartregister.chw.asrh.util.Constants;
 import org.smartregister.chw.asrh.util.VisitUtils;
@@ -39,7 +42,6 @@ import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -84,17 +86,29 @@ public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
         setupViews();
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
+        TextView clientStatus = ((TextView) findViewById(R.id.family_asrh_head));
+        memberObject = AsrhDao.getMember(memberObject.getBaseEntityId());
+        if (memberObject.getClientStatus() != null && (memberObject.getClientStatus().equalsIgnoreCase("opt_out")) || memberObject.getClientStatus().equalsIgnoreCase("transfer_out")) {
+            textViewRecordAsrh.setVisibility(View.GONE);
+            clientStatus.setVisibility(View.VISIBLE);
+            clientStatus.setTextColor(getResources().getColor(R.color.alert_urgent_red));
+
+            if (memberObject.getClientStatus().equalsIgnoreCase("opt_out"))
+                clientStatus.setText(getString(R.string.asrh_opted_out));
+            else
+                clientStatus.setText(getString(R.string.asrh_transfer_out));
+
+        } else {
+            textViewRecordAsrh.setVisibility(View.VISIBLE);
+            clientStatus.setVisibility(View.GONE);
+        }
     }
 
     private void addReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-
-            //HIV Testing referrals will only be issued to non positive clients
-            if (memberObject.getCtcNumber().isEmpty()) {
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
-            } else { //HIV Treatment and care referrals will be issued to HIV Positive clients
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral), CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
-            }
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral), CoreConstants.JSON_FORM.getFamilyPlanningUnifiedReferralForm(memberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral), CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral), CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
@@ -299,6 +313,8 @@ public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
             MemberProfileUtils.startSbcRegistration(AsrhMemberProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == org.smartregister.chw.core.R.id.action_cancer_preventive_services_registration) {
             MemberProfileUtils.startCancerPreventiveServicesRegistration(AsrhMemberProfileActivity.this, memberObject.getBaseEntityId());
+        } else if (i == R.id.action_remove_member) {
+            removeIndividualProfile();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -350,5 +366,15 @@ public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
         intent.putExtra(org.smartregister.chw.cecap.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, org.smartregister.chw.cecap.util.Constants.REQUEST_CODE_GET_JSON);
+    }
+
+    protected void removeIndividualProfile() {
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(AsrhMemberProfileActivity.this,
+                client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), FamilyRegisterActivity.class.getCanonicalName());
     }
 }

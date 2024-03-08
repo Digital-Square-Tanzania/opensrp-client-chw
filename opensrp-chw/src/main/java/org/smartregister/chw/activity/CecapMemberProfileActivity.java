@@ -216,6 +216,8 @@ public class CecapMemberProfileActivity extends BaseCecapProfileActivity {
             MemberProfileUtils.startSbcRegistration(CecapMemberProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == R.id.action_asrh_registration) {
             MemberProfileUtils.startAsrhRegistration(CecapMemberProfileActivity.this, memberObject.getBaseEntityId());
+        } else if (i == R.id.action_remove_member) {
+            removeIndividualProfile();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -366,5 +368,15 @@ public class CecapMemberProfileActivity extends BaseCecapProfileActivity {
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
+    }
+
+    protected void removeIndividualProfile() {
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(CecapMemberProfileActivity.this,
+                client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), FamilyRegisterActivity.class.getCanonicalName());
     }
 }

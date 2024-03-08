@@ -784,7 +784,8 @@
             "field": "eventType",
             "field_value": "ASRH Follow-up Visit",
             "creates_case": [
-              "ec_asrh_visit"
+              "ec_asrh_register",
+              "ec_asrh_follow_up_visit"
             ]
           }
         ]
