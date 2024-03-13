@@ -1,11 +1,11 @@
-package org.smartregister.chw.hf.job;
+package org.smartregister.chw.job;
 
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
 import org.smartregister.AllConstants;
-import org.smartregister.chw.hf.sync.intent.CloseVmmcMembershipIntentService;
+import org.smartregister.chw.sync.CloseAsrhMembershipIntentService;
 import org.smartregister.job.BaseJob;
 
 /**
@@ -13,14 +13,14 @@ import org.smartregister.job.BaseJob;
  *
  * @author cozej4 https://github.com/cozej4
  */
-public class CloseVmmcMemberServiceJob extends BaseJob {
+public class CloseAsrhMemberServiceJob extends BaseJob {
 
-    public static final String TAG = "CloseVmmcMemberServiceJob";
+    public static final String TAG = "CloseAsrhMemberServiceJob";
 
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
-        Intent intent = new Intent(getApplicationContext(), CloseVmmcMembershipIntentService.class);
+        Intent intent = new Intent(getApplicationContext(), CloseAsrhMembershipIntentService.class);
         getApplicationContext().startService(intent);
         return params.getExtras().getBoolean(AllConstants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
     }

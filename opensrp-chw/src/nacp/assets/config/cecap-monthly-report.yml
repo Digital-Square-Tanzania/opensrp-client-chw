@@ -1,795 +1,1505 @@
 indicators:
   #Question 1
   #Male
-  - key: "sbc-1-male-10-14"
-    grouping: "SBC"
-    description: "Number of Male individuals from 10-14 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+  - key: "cecap-1-male-total"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention"
+    indicatorQuery: "SELECT SUM(male_clients_reached) as count
+                      FROM ec_cecap_mobilization_session ecms
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
+    
+  - key: "cecap-1-female-total"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention"
+    indicatorQuery: "SELECT SUM(female_clients_reached) as count
+                      FROM ec_cecap_mobilization_session ecms
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
+    
+  - key: "cecap-2-male-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
                       AND (efm.gender='Male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-1-male-15-19"
-    grouping: "SBC"
-    description: "Number of Male individuals from 15-19 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+  - key: "cecap-3-male-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
                       AND (efm.gender='Male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-20-24"
-    grouping: "SBC"
-    description: "Number of Male individuals from 20-24 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Male')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-25-29"
-    grouping: "SBC"
-    description: "Number of Male individuals from 25-29 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                       FROM ec_sbc_register esr
-                       INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                       WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                       AND (efm.gender='Male')
-                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                       date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                       '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-30-34"
-    grouping: "SBC"
-    description: "Number of Male individuals from 30-34 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Male')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  - key: "sbc-1-male-35-39"
-    grouping: "SBC"
-    description: "Number of Male individuals from 35-39 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Male')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-40-44"
-    grouping: "SBC"
-    description: "Number of Male individuals from 40-44 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Male')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-45-49"
-    grouping: "SBC"
-    description: "Number of Male individuals from 45-49 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Male')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-male-50+"
-    grouping: "SBC"
-    description: "Number of Male individuals with 50+ years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE (date('Now')-date(efm.dob))>=50
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-14"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
                       AND (efm.gender='Male')
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  #Female
-  - key: "sbc-1-female-10-14"
-    grouping: "SBC"
-    description: "Number of Female individuals from 10-14 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-14"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-14"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-14"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-14"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
                       AND (efm.gender='Female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-1-female-15-19"
-    grouping: "SBC"
-    description: "Number of Female individuals from 15-19 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+  - key: "cecap-3-female-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
                       AND (efm.gender='Female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-14"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-14"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-14"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-14"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-14"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+#    15 - 24
+  - key: "cecap-2-male-15-24"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25 AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-1-female-20-24"
-    grouping: "SBC"
-    description: "Number of Female individuals from 20-24 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-1-female-25-29"
-    grouping: "SBC"
-    description: "Number of Female individuals from 25-29 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-female-30-34"
-    grouping: "SBC"
-    description: "Number of Female individuals from 30-34 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  - key: "sbc-1-female-35-39"
-    grouping: "SBC"
-    description: "Number of Female individuals from 35-39 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-female-40-44"
-    grouping: "SBC"
-    description: "Number of Female individuals from 40-44 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-female-45-49"
-    grouping: "SBC"
-    description: "Number of Female individuals from 45-49 years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                     FROM ec_sbc_register esr
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Female')
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-1-female-50+"
-    grouping: "SBC"
-    description: "Number of Female individuals with 50+ years old who were reached by specific SBC HIV community activity"
-    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
-                      FROM ec_sbc_register esr
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
-                      WHERE (date('Now')-date(efm.dob))>=50
+  - key: "cecap-3-male-15-24"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-15-24"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-15-24"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-15-24"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-15-24"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-15-24"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-15-24"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
                       AND (efm.gender='Female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-
-
-  #Question 2
-  #Male
-
-  - key: "sbc-2-male-10-14"
-    grouping: "SBC"
-    description: "Number of Male individuals from 10-14 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                      FROM ec_sbc_visit esv
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
-                      AND (efm.gender='Male')
-                      AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                      OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                      OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                      OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+  - key: "cecap-3-female-15-24"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-15-19"
-    grouping: "SBC"
-    description: "Number of Male individuals from 15-19 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                      FROM ec_sbc_visit esv
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-15-24"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-15-24"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-15-24"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-15-24"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-15-24"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      15 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+#    25 - 30
+  - key: "cecap-2-male-25-30"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
                       AND (efm.gender='Male')
-                      AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                      OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                      OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                      OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-2-male-20-24"
-    grouping: "SBC"
-    description: "Number of Male individuals from 20-24 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-25-29"
-    grouping: "SBC"
-    description: "Number of Male individuals from 25-29 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                    '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-30-34"
-    grouping: "SBC"
-    description: "Number of Male individuals from 30-34 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  - key: "sbc-2-male-35-39"
-    grouping: "SBC"
-    description: "Number of Male individuals from 35-39 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-40-44"
-    grouping: "SBC"
-    description: "Number of Male individuals from 40-44 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-45-49"
-    grouping: "SBC"
-    description: "Number of Male individuals from 45-49 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-male-50+"
-    grouping: "SBC"
-    description: "Number of Male individuals with 50+ years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE (date('Now')-date(efm.dob))>=50
-                     AND (efm.gender='Male')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  #Female
-
-  - key: "sbc-2-female-10-14"
-    grouping: "SBC"
-    description: "Number of Female individuals from 10-14 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-15-19"
-    grouping: "SBC"
-    description: "Number of Female individuals from 15-19 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-20-24"
-    grouping: "SBC"
-    description: "Number of Female individuals from 20-24 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-25-29"
-    grouping: "SBC"
-    description: "Number of Female individuals from 25-29 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-30-34"
-    grouping: "SBC"
-    description: "Number of Female individuals from 30-34 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  - key: "sbc-2-female-35-39"
-    grouping: "SBC"
-    description: "Number of Female individuals from 35-39 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-40-44"
-    grouping: "SBC"
-    description: "Number of Female individuals from 40-44 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-45-49"
-    grouping: "SBC"
-    description: "Number of Female individuals from 45-49 years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-2-female-50+"
-    grouping: "SBC"
-    description: "Number of Female individuals with 50+ years old who have received HIV health education "
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE (date('Now')-date(efm.dob))>=50
-                     AND (efm.gender='Female')
-                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
-                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
-                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
-                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  #Question 3
-
-  #Male
-
-  - key: "sbc-3-male-10-14"
-    grouping: "SBC"
-    description: "Number of Male clients from 10-14 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                      FROM ec_sbc_visit esv
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                      WHERE 10 <= (date('Now') - date(efm.dob)) AND (date('Now')-date(efm.dob))<=14
+  - key: "cecap-3-male-25-30"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
                       AND (efm.gender='Male')
-                      AND esv.received_art_counseling = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-male-15-19"
-    grouping: "SBC"
-    description: "Number of Male clients from 15-19 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                      FROM ec_sbc_visit esv
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-25-30"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
                       AND (efm.gender='Male')
-                      AND esv.received_art_counseling = 'yes'
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-25-30"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-25-30"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-25-30"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-25-30"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-25-30"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-20-24"
-    grouping: "SBC"
-    description: "Number of Male clients from 20-24 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cecap-3-female-25-30"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-25-30"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-25-30"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-25-30"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-25-30"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-25-30"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      25 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 31
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+#    31 - 50
+  - key: "cecap-2-male-31-50"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-25-29"
-    grouping: "SBC"
-    description: "Number of Male clients from 25-29 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                    '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cecap-3-male-31-50"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-31-50"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-31-50"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-31-50"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-31-50"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-31-50"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-31-50"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-30-34"
-    grouping: "SBC"
-    description: "Number of Male clients from 30-34 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cecap-3-female-31-50"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-31-50"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-31-50"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-31-50"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-31-50"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-31-50"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      31 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 51
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+#    51 - 60
+  - key: "cecap-2-male-51-60"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
+  - key: "cecap-3-male-51-60"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-51-60"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-51-60"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-51-60"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-51-60"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-51-60"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-51-60"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-35-39"
-    grouping: "SBC"
-    description: "Number of Male clients from 35-39 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cecap-3-female-51-60"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-51-60"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-51-60"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-51-60"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-51-60"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-51-60"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      51 <= (date('Now') - date(efm.dob)) AND (date('Now') - date(efm.dob)) < 61
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+#    61+
+  - key: "cecap-2-male-61+"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-40-44"
-    grouping: "SBC"
-    description: "Number of Male clients from 40-44 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cecap-3-male-61+"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-61+"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-61+"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-61+"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-61+"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-61+"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+    
+  - key: "cecap-2-female-61+"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "sbc-3-male-45-49"
-    grouping: "SBC"
-    description: "Number of Male clients from 45-49 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-male-50+"
-    grouping: "SBC"
-    description: "Number of Male clients with 50+ years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE (date('Now')-date(efm.dob))>=50
-                     AND (efm.gender='Male')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  #Female
-
-  - key: "sbc-3-female-10-14"
-    grouping: "SBC"
-    description: "Number of Female clients from 10-14 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-15-19"
-    grouping: "SBC"
-    description: "Number of Female clients from 15-19 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-20-24"
-    grouping: "SBC"
-    description: "Number of Female clients from 20-24 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-25-29"
-    grouping: "SBC"
-    description: "Number of Female clients from 25-29 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-30-34"
-    grouping: "SBC"
-    description: "Number of Female clients from 30-34 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  - key: "sbc-3-female-35-39"
-    grouping: "SBC"
-    description: "Number of Female clients from 35-39 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-40-44"
-    grouping: "SBC"
-    description: "Number of Female clients from 40-44 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-45-49"
-    grouping: "SBC"
-    description: "Number of Female clients from 45-49 years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-  - key: "sbc-3-female-50+"
-    grouping: "SBC"
-    description: "Number of Female clients with 50+ years old who have received ART adherence counselling"
-    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
-                     FROM ec_sbc_visit esv
-                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
-                     WHERE (date('Now')-date(efm.dob))>=50
-                     AND (efm.gender='Female')
-                     AND esv.received_art_counseling = 'yes'
-                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
-                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-  #Question 4
-  #Audio Visuals
-
-  - key: "sbc-4-audio-visuals-total"
-    grouping: "SBC"
-    description: "Total Number of Audio Visuals in HIV and AIDS IEC materials distributed"
-    indicatorQuery: "SELECT SUM(esmbs.number_audio_visuals_distributed + esmbs.number_pmtct_audio_visuals_distributed_male + esmbs.number_pmtct_audio_visuals_distributed_female) as count
-                     FROM ec_sbc_mobilization_session esmbs
-                     WHERE
-                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
-
-
-  #Audio
-
-  - key: "sbc-4-audio-total"
-    grouping: "SBC"
-    description: "Total Number of Audio in HIV and AIDS IEC materials distributed"
-    indicatorQuery: "SELECT SUM(esmbs.number_pmtct_audio_distributed_female + esmbs.number_audio_distributed + esmbs.number_pmtct_audio_distributed_male) as count
-                     FROM ec_sbc_mobilization_session esmbs
-                     WHERE
-                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
-
-
-  #Materials
-
-  - key: "sbc-4-print-total"
-    grouping: "SBC"
-    description: "Total Number of Print Materials in HIV and AIDS IEC materials distributed"
-    indicatorQuery: "SELECT SUM(esmbs.number_print_materials_distributed + esmbs.number_pmtct_print_materials_distributed_female + esmbs.number_pmtct_print_materials_distributed_male) as count
-                     FROM ec_sbc_mobilization_session esmbs
-                     WHERE
-                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
+  - key: "cecap-3-female-61+"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-female-61+"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-female-61+"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-female-61+"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-female-61+"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-female-61+"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE
+                      61 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Female')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "

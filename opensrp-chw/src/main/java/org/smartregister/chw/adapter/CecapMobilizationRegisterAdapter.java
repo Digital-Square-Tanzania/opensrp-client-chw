@@ -40,7 +40,7 @@ public class CecapMobilizationRegisterAdapter extends RecyclerView.Adapter<Cecap
 
     private static void evaluateView(TextView tv, Context context, String stringValue) {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-        spannableStringBuilder.append(context.getString(R.string.sbc_type_of_sbc_activity), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+        spannableStringBuilder.append(context.getString(R.string.cecap_health_education_provided), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
 
         String[] stringValueArray;
         if (stringValue.contains(",")) {

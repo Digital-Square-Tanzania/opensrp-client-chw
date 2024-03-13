@@ -70,6 +70,8 @@ public class ChwJobCreator implements JobCreator {
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
             case PncCloseDateServiceJob.TAG:
                 return new PncCloseDateServiceJob();
+            case CloseAsrhMemberServiceJob.TAG:
+                return new CloseAsrhMemberServiceJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

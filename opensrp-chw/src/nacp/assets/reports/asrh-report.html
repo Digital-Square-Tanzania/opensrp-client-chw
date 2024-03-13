@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taarifa ya Mwezi kutoka Huduma za iCCM</title>
+    <style>
+        body {
+            padding: 5px;
+            font-size: 0.25rem;
+        }
+
+        body,
+        td,
+        th {
+            font-family: "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            width: 7%;
+            padding: 5px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        thead th {
+            text-align: center;
+        }
+
+        .heading h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .no-data {
+            background: #ccc;
+        }
+
+        .table-title {
+            width: 30%;
+            background-color: #ccc;
+            font-weight: 500;
+        }
+
+        .underline {
+            border-bottom: 1px solid #000;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            .show-on-print {
+                display: block;
+            }
+            body {
+                font-size: 0.65rem;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body onload="loadData(&#39;monthly&#39;, &#39;asrh_report&#39;)">
+<div class="show-on-print">
+    <h1>Taarifa ya Mwezi Ya Mrejesho wa Utoaji Habari  Elimu na Ushauri Kuhusu Afya ya Uzazi  kwa Vijana</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <!--    <h2>KIJIJI: <span id="reporting_facility"></span></h2>-->
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th rowspan="2">S/N</th>
+        <th rowspan="2">Kiashiria</th>
+        <th rowspan="2">JUMLA (KE+ME)</th>
+        <th colspan="4">ME</th>
+        <th colspan="4">KE</th>
+    </tr>
+    <tr>
+        <th>JUMLA (ME)</th>
+        <th>10 - 14</th>
+        <th>15 - 19</th>
+        <th>20 - 24</th>
+        <th>JUMLA (KE)</th>
+        <th>10 - 14</th>
+        <th>15 - 19</th>
+        <th>20 - 24</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Idadi ya walengwa waliofikiwa mwezi huu</td>
+        <td align="center" id="asrh-1-grand-total"></td>
+        <td align="center" id="asrh-1-male-total"></td>
+        <td align="center" id="asrh-1-male-10-14"></td>
+        <td align="center" id="asrh-1-male-15-19"></td>
+        <td align="center" id="asrh-1-male-20-24"></td>
+        <td align="center" id="asrh-1-female-total"></td>
+        <td align="center" id="asrh-1-female-10-14"></td>
+        <td align="center" id="asrh-1-female-15-19"></td>
+        <td align="center" id="asrh-1-female-20-24"></td>
+
+    </tr>
+    <tr style="background-color: #CCC;">
+        <td>2</td>
+        <td colspan="10">Idadi ya walengwa waliopata elimu kuhusu afya ya uzazi kwa vijana</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>a) Uzazi wa mpango</td>
+
+        <td align="center" id="asrh-2a-grand-total"></td>
+        <td align="center" id="asrh-2a-male-total"></td>
+        <td align="center" id="asrh-2a-male-10-14"></td>
+        <td align="center" id="asrh-2a-male-15-19"></td>
+        <td align="center" id="asrh-2a-male-20-24"></td>
+        <td align="center" id="asrh-2a-female-total"></td>
+        <td align="center" id="asrh-2a-female-10-14"></td>
+        <td align="center" id="asrh-2a-female-15-19"></td>
+        <td align="center" id="asrh-2a-female-20-24"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>b) Mimba za utotoni</td>
+        <td align="center" id="asrh-2b-grand-total"></td>
+        <td align="center" id="asrh-2b-male-total"></td>
+        <td align="center" id="asrh-2b-male-10-14"></td>
+        <td align="center" id="asrh-2b-male-15-19"></td>
+        <td align="center" id="asrh-2b-male-20-24"></td>
+        <td align="center" id="asrh-2b-female-total"></td>
+        <td align="center" id="asrh-2b-female-10-14"></td>
+        <td align="center" id="asrh-2b-female-15-19"></td>
+        <td align="center" id="asrh-2b-female-20-24"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>c) Kujikinga na maambukizi ya VVU</td>
+        <td align="center" id="asrh-2c-grand-total"></td>
+        <td align="center" id="asrh-2c-male-total"></td>
+        <td align="center" id="asrh-2c-male-10-14"></td>
+        <td align="center" id="asrh-2c-male-15-19"></td>
+        <td align="center" id="asrh-2c-male-20-24"></td>
+        <td align="center" id="asrh-2c-female-total"></td>
+        <td align="center" id="asrh-2c-female-10-14"></td>
+        <td align="center" id="asrh-2c-female-15-19"></td>
+        <td align="center" id="asrh-2c-female-20-24"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>d) Magonjwa ya ngono</td>
+        <td align="center" id="asrh-2d-grand-total"></td>
+        <td align="center" id="asrh-2d-male-total"></td>
+        <td align="center" id="asrh-2d-male-10-14"></td>
+        <td align="center" id="asrh-2d-male-15-19"></td>
+        <td align="center" id="asrh-2d-male-20-24"></td>
+        <td align="center" id="asrh-2d-female-total"></td>
+        <td align="center" id="asrh-2d-female-10-14"></td>
+        <td align="center" id="asrh-2d-female-15-19"></td>
+        <td align="center" id="asrh-2d-female-20-24"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>e) Ukatili wa kijinsia</td>
+        <td align="center" id="asrh-2e-grand-total"></td>
+        <td align="center" id="asrh-2e-male-total"></td>
+        <td align="center" id="asrh-2e-male-10-14"></td>
+        <td align="center" id="asrh-2e-male-15-19"></td>
+        <td align="center" id="asrh-2e-male-20-24"></td>
+        <td align="center" id="asrh-2e-female-total"></td>
+        <td align="center" id="asrh-2e-female-10-14"></td>
+        <td align="center" id="asrh-2e-female-15-19"></td>
+        <td align="center" id="asrh-2e-female-20-24"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Idadi ya walengwa waliopata ushauri kuhusu upimaji wa hiari wa VVU</td>
+        <td align="center" id="asrh-3-grand-total"></td>
+        <td align="center" id="asrh-3-male-total"></td>
+        <td align="center" id="asrh-3-male-10-14"></td>
+        <td align="center" id="asrh-3-male-15-19"></td>
+        <td align="center" id="asrh-3-male-20-24"></td>
+        <td align="center" id="asrh-3-female-total"></td>
+        <td align="center" id="asrh-3-female-10-14"></td>
+        <td align="center" id="asrh-3-female-15-19"></td>
+        <td align="center" id="asrh-3-female-20-24"></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Idadi ya walengwa waliopata elimu kuhusu afya ya akili</td>
+        <td align="center" id="asrh-4-grand-total"></td>
+        <td align="center" id="asrh-4-male-total"></td>
+        <td align="center" id="asrh-4-male-10-14"></td>
+        <td align="center" id="asrh-4-male-15-19"></td>
+        <td align="center" id="asrh-4-male-20-24"></td>
+        <td align="center" id="asrh-4-female-total"></td>
+        <td align="center" id="asrh-4-female-10-14"></td>
+        <td align="center" id="asrh-4-female-15-19"></td>
+        <td align="center" id="asrh-4-female-20-24"></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Idadi ya walengwa waliopata elimu ya lishe</td>
+        <td align="center" id="asrh-5-grand-total"></td>
+        <td align="center" id="asrh-5-male-total"></td>
+        <td align="center" id="asrh-5-male-10-14"></td>
+        <td align="center" id="asrh-5-male-15-19"></td>
+        <td align="center" id="asrh-5-male-20-24"></td>
+        <td align="center" id="asrh-5-female-total"></td>
+        <td align="center" id="asrh-5-female-10-14"></td>
+        <td align="center" id="asrh-5-female-15-19"></td>
+        <td align="center" id="asrh-5-female-20-24"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    function loadData(reportKey, reportType) {
+  const data = JSON.parse(Android.getData(reportKey));
+  const keys = Object.keys(data.nameValuePairs);
+  const reportPeriod = document.getElementById("report_period");
+  const reportingFacility = document.getElementById("reporting_facility");
+  keys.forEach((key) => {
+    let element;
+    element = document.getElementById(key);
+    if (element !== null && typeof element !== "undefined") {
+      element.innerHTML = data.nameValuePairs[key];
+    }
+  });
+  reportPeriod.innerHTML = Android.getDataPeriod();
+  reportingFacility.innerHTML = Android.getReportingFacility();
+}
+</script>
+
+</html>

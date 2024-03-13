@@ -578,6 +578,10 @@
     <string name="sbc_mobilization_sessions_title">SBC Mobilizations</string>
     <string name="sbc_type_of_sbc_activity">Type of SBC Activity</string>
     <string name="sbc_reports_title">SBC Report</string>
+    <string name="asrh_reports_title">ASRH Report</string>
+    <string name="asrh_reports_subtitle">View ASRH Report</string>
+    <string name="cecap_reports_title">CECAP Report</string>
+    <string name="cecap_reports_subtitle">View CECAP Report</string>
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>
     <string name="sbc_registration">SBC Registration</string>
@@ -743,6 +747,7 @@
     <string name="cecap_breast_cancer">Breast cancer</string>
     <string name="cecap_prostate_cancer">Prostate cancer</string>
     <string name="cecap_hiv_aids">HIV AIDS</string>
+    <string name="cecap_hiv_sti">HIV/AIDS and STIs</string>
 
     <string name="cecap_mobilization_date">Mobilization Date:</string>
     <string name="cecap_female_clients_reached">Number of Female clients reached:</string>

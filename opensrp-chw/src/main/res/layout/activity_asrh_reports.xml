@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SbcReportsViewActivity">
+    tools:context=".activity.AsrhReportsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -37,14 +37,14 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|start"
                 android:paddingEnd="0dp"
-                android:text="SBC Reports"
+                android:text="ASRH Reports"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sbc_report"
+        android:id="@+id/asrh_report"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="SBC Report"
+            android:text="ASRH Report"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"
@@ -101,6 +101,6 @@
         android:background="@color/visit_status_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iccm_client_report" />
+        app:layout_constraintTop_toBottomOf="@id/asrh_report" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

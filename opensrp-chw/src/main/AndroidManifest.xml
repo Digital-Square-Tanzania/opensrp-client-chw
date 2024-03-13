@@ -469,6 +469,14 @@
             android:name=".activity.AsrhVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AsrhReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AsrhReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.CecapRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -478,7 +486,15 @@
             android:name=".activity.CecapMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.CecapMobilizationSessionDetailsActivity"
+            android:name=".activity.CecapMobilizationSessionDetailsActivity" android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.CecapReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CecapReportsActivity"
+            android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
@@ -514,6 +530,7 @@
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
         <service android:name="org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService" />
         <service android:name=".sync.intent.PncCloseDateIntentService" />
+        <service android:name=".sync.CloseAsrhMembershipIntentService" />
 
         <receiver
             android:name="org.smartregister.view.receiver.ConnectivityChangeReceiver"

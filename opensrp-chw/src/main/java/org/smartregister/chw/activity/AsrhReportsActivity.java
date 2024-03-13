@@ -28,8 +28,8 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class CecapReportsActivity extends SecuredActivity implements View.OnClickListener {
-    protected ConstraintLayout sbcReport;
+public class AsrhReportsActivity extends SecuredActivity implements View.OnClickListener {
+    protected ConstraintLayout asrhReport;
 
     protected AppBarLayout appBarLayout;
 
@@ -39,15 +39,15 @@ public class CecapReportsActivity extends SecuredActivity implements View.OnClic
 
     @Override
     protected void onCreation() {
-        setContentView(R.layout.activity_sbc_reports);
+        setContentView(R.layout.activity_asrh_reports);
         setUpToolbar();
         setupViews();
     }
 
     public void setupViews() {
-        sbcReport = findViewById(R.id.sbc_report);
+        asrhReport = findViewById(R.id.asrh_report);
 
-        sbcReport.setOnClickListener(this);
+        asrhReport.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -93,8 +93,8 @@ public class CecapReportsActivity extends SecuredActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.sbc_report) {
-            SbcReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.SBC_REPORT_PATH, R.string.sbc_reports_title, reportPeriod);
+        if (id == R.id.asrh_report) {
+            AsrhReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.ASRH_REPORT_PATH, R.string.asrh_reports_title, reportPeriod);
         } else {
             Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();
         }

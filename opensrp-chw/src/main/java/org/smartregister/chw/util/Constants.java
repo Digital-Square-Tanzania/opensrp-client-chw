@@ -223,6 +223,10 @@ public class Constants extends CoreConstants {
            String AGYW_REPORT = "agyw_report";
            String ICCM_REPORT = "iccm_report";
            String SBC_REPORT = "sbc_report";
+
+           String ASRH_REPORT = "asrh_report";
+
+           String CECAP_REPORT = "cecap_report";
         }
 
         public interface CDPReportKeys {
@@ -245,7 +249,12 @@ public class Constants extends CoreConstants {
             String ICCM_CLIENTS_REPORT_PATH = "iccm_reports/iccm-clients-monthly-report";
             String ICCM_DISPENSING_SUMMARY_PATH = "iccm_reports/iccm-dispensing-summary";
             String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
+
             String SBC_REPORT_PATH = "sbc-report";
+
+            String ASRH_REPORT_PATH = "asrh-report";
+
+            String CECAP_REPORT_PATH = "cecap-report";
         }
     }
 }

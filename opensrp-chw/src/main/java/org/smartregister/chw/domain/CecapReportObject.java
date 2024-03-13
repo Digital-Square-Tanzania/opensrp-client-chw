@@ -1,9 +1,8 @@
-package org.smartregister.chw.domain.sbc_reports;
+package org.smartregister.chw.domain;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
-import org.smartregister.chw.domain.ReportObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,21 +10,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SbcReportObject extends ReportObject {
+public class CecapReportObject extends ReportObject {
     private final List<String> indicatorCodesWithAgeGroups = new ArrayList<>();
 
-    private final String[] indicatorCodes = new String[]{"sbc-1", "sbc-2", "sbc-3"};
+    private final String[] indicatorCodes = new String[]{"cecap-2", "cecap-3", "cecap-4a", "cecap-4b", "cecap-4c", "cecap-4d", "cecap-5"};
 
     private final String[] indicatorSex = new String[]{"male", "female"};
 
-    private final String[] indicatorAgeGroups = new String[]{"10-14", "15-19", "20-24", "25-29", "30-34",
-            "35-39", "40-44", "45-49", "50+"
-
+    private final String[] indicatorAgeGroups = new String[]{"14", "15-24", "25-30", "31-50", "51-60", "61+"
     };
 
     private final Date reportDate;
 
-    public SbcReportObject(Date reportDate) {
+    public CecapReportObject(Date reportDate) {
         super(reportDate);
         this.reportDate = reportDate;
         setIndicatorCodesWithAgeGroups(indicatorCodesWithAgeGroups);
@@ -38,7 +35,7 @@ public class SbcReportObject extends ReportObject {
             String key = entry.getKey().toLowerCase();
             Integer value = entry.getValue();
 
-            if (key.startsWith(specificKey.toLowerCase())) {
+            if (key.contains(specificKey.toLowerCase())) {
                 total += value;
             }
         }
@@ -68,22 +65,19 @@ public class SbcReportObject extends ReportObject {
         }
 
         // Calculate and add total values for "totals"
-        for (int i = 1; i < 4; i++) {
-            int maleTotal = calculateSbcSpecificTotal(indicatorsValues, "sbc-" + i + "-male");
-            int femaleTotal = calculateSbcSpecificTotal(indicatorsValues, "sbc-" + i + "-female");
-            indicatorDataObject.put("sbc-" + i + "-male-total", maleTotal);
-            indicatorDataObject.put("sbc-" + i + "-female-total", femaleTotal);
-            indicatorDataObject.put("sbc-" + i + "-grand-total", maleTotal + femaleTotal);
+        for (String indicatorCode : indicatorCodes) {
+            int maleTotal = calculateSbcSpecificTotal(indicatorsValues, indicatorCode + "-male");
+            int femaleTotal = calculateSbcSpecificTotal(indicatorsValues, indicatorCode + "-female");
+            indicatorDataObject.put(indicatorCode + "-male-total", maleTotal);
+            indicatorDataObject.put(indicatorCode + "-female-total", femaleTotal);
+            indicatorDataObject.put(indicatorCode + "-grand-total", maleTotal + femaleTotal);
         }
 
-        int sbc4audioVisualTotal = ReportDao.getReportPerIndicatorCode("sbc-4-audio-visuals-total", reportDate);
-        int sbc4audioTotal = ReportDao.getReportPerIndicatorCode("sbc-4-audio-total", reportDate);
-        int sbc4printTotal = ReportDao.getReportPerIndicatorCode("sbc-4-print-total", reportDate);
-        indicatorDataObject.put("sbc-4-audio-visuals-total", sbc4audioVisualTotal);
-        indicatorDataObject.put("sbc-4-audio-total", sbc4audioTotal);
-        indicatorDataObject.put("sbc-4-print-total", sbc4printTotal);
-        indicatorDataObject.put("sbc-4-grand-total", sbc4audioVisualTotal + sbc4audioTotal + sbc4printTotal);
-
+        int cecap1MaleTotal = ReportDao.getReportPerIndicatorCode("cecap-1-male-total", reportDate);
+        int cecap1FemaleTotal = ReportDao.getReportPerIndicatorCode("cecap-1-female-total", reportDate);
+        indicatorDataObject.put("cecap-1-male-total", cecap1MaleTotal);
+        indicatorDataObject.put("cecap-1-female-total", cecap1FemaleTotal);
+        indicatorDataObject.put("cecap-1-grand-total", cecap1MaleTotal + cecap1FemaleTotal);
 
         return indicatorDataObject;
     }

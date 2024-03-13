@@ -15,6 +15,8 @@ import androidx.webkit.WebViewAssetLoader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
+import org.smartregister.chw.domain.AsrhReportObject;
+import org.smartregister.chw.domain.CecapReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
@@ -221,6 +223,32 @@ public class ReportUtils {
             SbcReportObject sbcReportObject = new SbcReportObject(startDate);
             try {
                 return sbcReportObject.getIndicatorDataAsGson(sbcReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+
+    public static class AsrhReports {
+        public static String computeClientsReports(Date startDate) {
+            AsrhReportObject asrhReportObject = new AsrhReportObject(startDate);
+            try {
+                return asrhReportObject.getIndicatorDataAsGson(asrhReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+
+    public static class CecapReports {
+        public static String computeClientsReports(Date startDate) {
+            CecapReportObject cecapReportObject = new CecapReportObject(startDate);
+            try {
+                return cecapReportObject.getIndicatorDataAsGson(cecapReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

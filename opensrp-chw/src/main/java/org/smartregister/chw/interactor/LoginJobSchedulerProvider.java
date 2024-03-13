@@ -10,6 +10,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
+import org.smartregister.chw.job.CloseAsrhMemberServiceJob;
 import org.smartregister.chw.job.PncCloseDateServiceJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
@@ -94,6 +95,8 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
             // Finish processing any unprocessed sync records here
             P2pServiceJob.scheduleJobImmediately(P2pServiceJob.TAG);
         }
+
+        CloseAsrhMemberServiceJob.scheduleJobImmediately(CloseAsrhMemberServiceJob.TAG);
     }
 
     @Override

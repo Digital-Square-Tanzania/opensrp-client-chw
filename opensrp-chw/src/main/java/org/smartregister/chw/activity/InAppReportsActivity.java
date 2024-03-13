@@ -34,6 +34,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout sbcReports;
 
+    protected ConstraintLayout asrhReports;
+
+    protected ConstraintLayout cecapReports;
+
     @Override
     protected void onCreation() {
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
@@ -55,6 +59,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports = findViewById(R.id.agyw_reports);
         iccmReports = findViewById(R.id.iccm_reports);
         sbcReports = findViewById(R.id.sbc_reports);
+        asrhReports = findViewById(R.id.asrh_reports);
+        cecapReports = findViewById(R.id.cecap_reports);
 
         if (ChwApplication.getApplicationFlavor().hasHIV()) {
             cbhsReportsLayout.setVisibility(View.VISIBLE);
@@ -76,6 +82,14 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             sbcReports.setVisibility(View.VISIBLE);
         }
 
+        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+            asrhReports.setVisibility(View.VISIBLE);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasCecap()) {
+            cecapReports.setVisibility(View.VISIBLE);
+        }
+
         if (ChwApplication.getApplicationFlavor().hasCdp()) {
             condomDistributionReports.setVisibility(View.VISIBLE);
         }
@@ -85,6 +99,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
+        asrhReports.setOnClickListener(this);
+        cecapReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -137,6 +153,14 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.sbc_reports) {
             Intent intent = new Intent(this, SbcReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.asrh_reports) {
+            Intent intent = new Intent(this, AsrhReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.cecap_reports) {
+            Intent intent = new Intent(this, CecapReportsActivity.class);
             startActivity(intent);
         }
     }

@@ -67,6 +67,54 @@
         }
       },
       {
+        "key": "mobilization_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mobilization_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "health_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_education_provided",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Health Education Provided",
+        "hint": "Health Education Provided",
+        "options": [
+          {
+            "key": "cervical_cancer",
+            "text": "Cervical cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "breast_cancer",
+            "text": "Breast cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breast_cancer"
+          },
+          {
+            "key": "prostate_cancer",
+            "text": "Prostate cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prostate_cancer"
+          },
+          {
+            "key": "hiv_sti",
+            "text": "HIV/AIDS and STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_sti"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
         "key": "female_clients_reached",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -114,54 +162,6 @@
         "v_required": {
           "value": true,
           "err": "Please enter the number"
-        }
-      },
-      {
-        "key": "mobilization_location",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "mobilization_location",
-        "openmrs_data_type": "text",
-        "type": "gps"
-      },
-      {
-        "key": "health_education_provided",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "health_education_provided",
-        "type": "check_box",
-        "combine_checkbox_option_values": "true",
-        "label": "Health Education Provided",
-        "hint": "Health Education Provided",
-        "options": [
-          {
-            "key": "cervical_cancer",
-            "text": "Cervical cancer",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cervical_cancer"
-          },
-          {
-            "key": "breast_cancer",
-            "text": "Breast cancer",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breast_cancer"
-          },
-          {
-            "key": "prostate_cancer",
-            "text": "Prostate cancer",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "prostate_cancer"
-          },
-          {
-            "key": "hiv_sti",
-            "text": "HIV/AIDS and STIs",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_sti"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Required"
         }
       },
       {

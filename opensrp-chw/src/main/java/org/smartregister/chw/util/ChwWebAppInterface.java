@@ -49,7 +49,7 @@ public class ChwWebAppInterface {
                     return "";
             }
         }
-        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ICCM_REPORT)){
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ICCM_REPORT)) {
             switch (key) {
                 case Constants.ReportConstants.ICCMReportKeys.CLIENTS_MONTHLY_REPORT:
                     ReportUtils.setPrintJobName("ICCM_clients_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
@@ -68,6 +68,16 @@ public class ChwWebAppInterface {
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.SBC_REPORT)) {
             ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
             return ReportUtils.SbcReports.computeClientsReports(ReportUtils.getReportDate());
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ASRH_REPORT)) {
+            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.AsrhReports.computeClientsReports(ReportUtils.getReportDate());
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CECAP_REPORT)) {
+            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.CecapReports.computeClientsReports(ReportUtils.getReportDate());
         }
 
         return "";
