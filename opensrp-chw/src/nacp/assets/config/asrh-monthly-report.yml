@@ -1,0 +1,124 @@
+indicators:
+  #Question 1
+  #Male
+  - key: "cecap-2-male-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "cecap-3-male-14"
+    grouping: "CECAP"
+    description: "Number of clients who received education on Reproductive cancer prevention and registered"
+    indicatorQuery: "SELECT count(DISTINCT ecv.base_entity_id) as count
+                      FROM ec_cecap_visit ecv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ecv.entity_id
+                      INNER JOIN ec_cecap_register ecr ON efm.base_entity_id = ecr.base_entity_id
+                      WHERE 14 <= (date('Now') - date(efm.dob))
+                      AND hiv_status = 'known_positive'
+                      AND topics_covered LIKE '%cervical_cancer%'
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ecv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "cecap-4a-male-14"
+    grouping: "CECAP"
+    description: "Referred for Cervical cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on fm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on fm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%cervical_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4b-male-14"
+    grouping: "CECAP"
+    description: "Referred for Breasts cancer screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on fm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on fm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%breast_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4c-male-14"
+    grouping: "CECAP"
+    description: "Referred for Suspicion of cancer"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on fm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on fm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%suspected_of_having_cancer%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-4d-male-14"
+    grouping: "CECAP"
+    description: "Referred for Prostate screening"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on fm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on fm.base_entity_id = t.for
+                               INNER JOIN event ev on ev.formSubmissionId = t.reason_reference
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND ev.json LIKE '%prostate_cancer_screening%'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  
+  - key: "cecap-5-male-14"
+    grouping: "CECAP"
+    description: "Completed Referrals"
+    indicatorQuery: " SELECT count(DISTINCT ear.base_entity_id) as count
+                      FROM ec_cecap_register ear
+                               INNER JOIN ec_family_member efm on fm.base_entity_id = ear.base_entity_id
+                               INNER JOIN task t on fm.base_entity_id = t.for
+                      WHERE
+                      14 <= (date('Now') - date(efm.dob))
+                      AND (efm.gender='Male')
+                      AND t.business_status = 'Complete'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "

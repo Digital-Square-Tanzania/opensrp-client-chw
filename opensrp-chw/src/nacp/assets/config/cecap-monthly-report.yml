@@ -1,0 +1,795 @@
+indicators:
+  #Question 1
+  #Male
+  - key: "sbc-1-male-10-14"
+    grouping: "SBC"
+    description: "Number of Male individuals from 10-14 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-15-19"
+    grouping: "SBC"
+    description: "Number of Male individuals from 15-19 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-20-24"
+    grouping: "SBC"
+    description: "Number of Male individuals from 20-24 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Male')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-25-29"
+    grouping: "SBC"
+    description: "Number of Male individuals from 25-29 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                       FROM ec_sbc_register esr
+                       INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                       WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                       AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                       date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                       '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-30-34"
+    grouping: "SBC"
+    description: "Number of Male individuals from 30-34 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Male')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-1-male-35-39"
+    grouping: "SBC"
+    description: "Number of Male individuals from 35-39 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Male')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-40-44"
+    grouping: "SBC"
+    description: "Number of Male individuals from 40-44 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Male')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-45-49"
+    grouping: "SBC"
+    description: "Number of Male individuals from 45-49 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Male')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-male-50+"
+    grouping: "SBC"
+    description: "Number of Male individuals with 50+ years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE (date('Now')-date(efm.dob))>=50
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  #Female
+  - key: "sbc-1-female-10-14"
+    grouping: "SBC"
+    description: "Number of Female individuals from 10-14 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-15-19"
+    grouping: "SBC"
+    description: "Number of Female individuals from 15-19 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-20-24"
+    grouping: "SBC"
+    description: "Number of Female individuals from 20-24 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-25-29"
+    grouping: "SBC"
+    description: "Number of Female individuals from 25-29 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-30-34"
+    grouping: "SBC"
+    description: "Number of Female individuals from 30-34 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-1-female-35-39"
+    grouping: "SBC"
+    description: "Number of Female individuals from 35-39 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-40-44"
+    grouping: "SBC"
+    description: "Number of Female individuals from 40-44 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-45-49"
+    grouping: "SBC"
+    description: "Number of Female individuals from 45-49 years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                     FROM ec_sbc_register esr
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Female')
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-1-female-50+"
+    grouping: "SBC"
+    description: "Number of Female individuals with 50+ years old who were reached by specific SBC HIV community activity"
+    indicatorQuery: "SELECT count(DISTINCT esr.base_entity_id) as count
+                      FROM ec_sbc_register esr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esr.base_entity_id
+                      WHERE (date('Now')-date(efm.dob))>=50
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+
+  #Question 2
+  #Male
+
+  - key: "sbc-2-male-10-14"
+    grouping: "SBC"
+    description: "Number of Male individuals from 10-14 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                      FROM ec_sbc_visit esv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                      AND (efm.gender='Male')
+                      AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                      OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                      OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                      OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-15-19"
+    grouping: "SBC"
+    description: "Number of Male individuals from 15-19 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                      FROM ec_sbc_visit esv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      AND (efm.gender='Male')
+                      AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                      OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                      OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                      OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-20-24"
+    grouping: "SBC"
+    description: "Number of Male individuals from 20-24 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-25-29"
+    grouping: "SBC"
+    description: "Number of Male individuals from 25-29 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                    '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-30-34"
+    grouping: "SBC"
+    description: "Number of Male individuals from 30-34 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-2-male-35-39"
+    grouping: "SBC"
+    description: "Number of Male individuals from 35-39 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-40-44"
+    grouping: "SBC"
+    description: "Number of Male individuals from 40-44 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-45-49"
+    grouping: "SBC"
+    description: "Number of Male individuals from 45-49 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-male-50+"
+    grouping: "SBC"
+    description: "Number of Male individuals with 50+ years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE (date('Now')-date(efm.dob))>=50
+                     AND (efm.gender='Male')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  #Female
+
+  - key: "sbc-2-female-10-14"
+    grouping: "SBC"
+    description: "Number of Female individuals from 10-14 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-15-19"
+    grouping: "SBC"
+    description: "Number of Female individuals from 15-19 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-20-24"
+    grouping: "SBC"
+    description: "Number of Female individuals from 20-24 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-25-29"
+    grouping: "SBC"
+    description: "Number of Female individuals from 25-29 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-30-34"
+    grouping: "SBC"
+    description: "Number of Female individuals from 30-34 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-2-female-35-39"
+    grouping: "SBC"
+    description: "Number of Female individuals from 35-39 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-40-44"
+    grouping: "SBC"
+    description: "Number of Female individuals from 40-44 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-45-49"
+    grouping: "SBC"
+    description: "Number of Female individuals from 45-49 years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-2-female-50+"
+    grouping: "SBC"
+    description: "Number of Female individuals with 50+ years old who have received HIV health education "
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE (date('Now')-date(efm.dob))>=50
+                     AND (efm.gender='Female')
+                     AND (esv.health_education_received LIKE '%condom_use%' OR esv.health_education_received LIKE '%risk_behavior%' OR esv.health_education_received LIKE '%art_adherence%'
+                     OR esv.health_education_received LIKE '%family_planning%' OR esv.health_education_received LIKE '%sti%' OR esv.health_education_received LIKE '%tb%'
+                     OR esv.health_education_received LIKE '%hepatitis%' OR esv.health_education_received LIKE '%gbv%'
+                     OR esv.health_education_received LIKE '%cervical_cancer%' OR esv.health_education_received LIKE '%other%' )
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  #Question 3
+
+  #Male
+
+  - key: "sbc-3-male-10-14"
+    grouping: "SBC"
+    description: "Number of Male clients from 10-14 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                      FROM ec_sbc_visit esv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob)) AND (date('Now')-date(efm.dob))<=14
+                      AND (efm.gender='Male')
+                      AND esv.received_art_counseling = 'yes'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-15-19"
+    grouping: "SBC"
+    description: "Number of Male clients from 15-19 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                      FROM ec_sbc_visit esv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                      AND (efm.gender='Male')
+                      AND esv.received_art_counseling = 'yes'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-20-24"
+    grouping: "SBC"
+    description: "Number of Male clients from 20-24 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-25-29"
+    grouping: "SBC"
+    description: "Number of Male clients from 25-29 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                    '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-30-34"
+    grouping: "SBC"
+    description: "Number of Male clients from 30-34 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-3-male-35-39"
+    grouping: "SBC"
+    description: "Number of Male clients from 35-39 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-40-44"
+    grouping: "SBC"
+    description: "Number of Male clients from 40-44 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-45-49"
+    grouping: "SBC"
+    description: "Number of Male clients from 45-49 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-male-50+"
+    grouping: "SBC"
+    description: "Number of Male clients with 50+ years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE (date('Now')-date(efm.dob))>=50
+                     AND (efm.gender='Male')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  #Female
+
+  - key: "sbc-3-female-10-14"
+    grouping: "SBC"
+    description: "Number of Female clients from 10-14 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-15-19"
+    grouping: "SBC"
+    description: "Number of Female clients from 15-19 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-20-24"
+    grouping: "SBC"
+    description: "Number of Female clients from 20-24 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=24
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-25-29"
+    grouping: "SBC"
+    description: "Number of Female clients from 25-29 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 25 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=29
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-30-34"
+    grouping: "SBC"
+    description: "Number of Female clients from 30-34 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 30 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=34
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "sbc-3-female-35-39"
+    grouping: "SBC"
+    description: "Number of Female clients from 35-39 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 35 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=39
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-40-44"
+    grouping: "SBC"
+    description: "Number of Female clients from 40-44 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 40 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=44
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-45-49"
+    grouping: "SBC"
+    description: "Number of Female clients from 45-49 years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE 45 <= (date('Now') - date(efm.dob))  AND (date('Now')-date(efm.dob))<=49
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sbc-3-female-50+"
+    grouping: "SBC"
+    description: "Number of Female clients with 50+ years old who have received ART adherence counselling"
+    indicatorQuery: "SELECT count(DISTINCT esv.entity_id) as count
+                     FROM ec_sbc_visit esv
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = esv.entity_id
+                     WHERE (date('Now')-date(efm.dob))>=50
+                     AND (efm.gender='Female')
+                     AND esv.received_art_counseling = 'yes'
+                     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                     date(substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                     '-' || substr(strftime('%Y-%m-%d', datetime(esv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  #Question 4
+  #Audio Visuals
+
+  - key: "sbc-4-audio-visuals-total"
+    grouping: "SBC"
+    description: "Total Number of Audio Visuals in HIV and AIDS IEC materials distributed"
+    indicatorQuery: "SELECT SUM(esmbs.number_audio_visuals_distributed + esmbs.number_pmtct_audio_visuals_distributed_male + esmbs.number_pmtct_audio_visuals_distributed_female) as count
+                     FROM ec_sbc_mobilization_session esmbs
+                     WHERE
+                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
+
+
+  #Audio
+
+  - key: "sbc-4-audio-total"
+    grouping: "SBC"
+    description: "Total Number of Audio in HIV and AIDS IEC materials distributed"
+    indicatorQuery: "SELECT SUM(esmbs.number_pmtct_audio_distributed_female + esmbs.number_audio_distributed + esmbs.number_pmtct_audio_distributed_male) as count
+                     FROM ec_sbc_mobilization_session esmbs
+                     WHERE
+                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
+
+
+  #Materials
+
+  - key: "sbc-4-print-total"
+    grouping: "SBC"
+    description: "Total Number of Print Materials in HIV and AIDS IEC materials distributed"
+    indicatorQuery: "SELECT SUM(esmbs.number_print_materials_distributed + esmbs.number_pmtct_print_materials_distributed_female + esmbs.number_pmtct_print_materials_distributed_male) as count
+                     FROM ec_sbc_mobilization_session esmbs
+                     WHERE
+                     strftime('%m', CURRENT_TIMESTAMP) AND  strftime('%Y', CURRENT_TIMESTAMP)"
