@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductive Cancer Preventive Services Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        th {
+            background-color: #ddd;
+        }
+
+        .header-top {
+            text-align: center;
+            background-color: #666;
+            color: white;
+        }
+
+        .sub-header {
+            text-align: center;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body onload="loadData(&#39;other&#39;, &#39;cecap_report&#39;)">
+<table>
+    <thead>
+    <tr>
+        <th rowspan="3">Na</th>
+        <th rowspan="3">INDICATORS</th>
+        <th rowspan="3">Total (Male+Female)</th>
+        <th colspan="7">Male</th>
+        <th colspan="7">Female</th>
+    </tr>
+    <tr>
+        <th colspan="7">Age</th>
+        <th colspan="7">Age</th>
+    </tr>
+    <tr>
+        <th>14</th>
+        <th>15-24</th>
+        <th>25-30</th>
+        <th>31-50</th>
+        <th>51-60</th>
+        <th>61+</th>
+        <th>Total</th>
+        <th>14</th>
+        <th>15-24</th>
+        <th>25-30</th>
+        <th>31-50</th>
+        <th>51-60</th>
+        <th>61+</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td colspan="16">Number of registered clients who received education on Reproductive cancer prevention</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>a) Cervical Cancer</td>
+        <td align="center" id="cecap-other-1a-grand-total"></td>
+        <td align="center" id="cecap-other-1a-male-14"></td>
+        <td align="center" id="cecap-other-1a-male-15-24"></td>
+        <td align="center" id="cecap-other-1a-male-25-30"></td>
+        <td align="center" id="cecap-other-1a-male-31-50"></td>
+        <td align="center" id="cecap-other-1a-male-51-60"></td>
+        <td align="center" id="cecap-other-1a-male-61+"></td>
+        <td align="center" id="cecap-other-1a-male-total"></td>
+        <td align="center" id="cecap-other-1a-female-14"></td>
+        <td align="center" id="cecap-other-1a-female-15-24"></td>
+        <td align="center" id="cecap-other-1a-female-25-30"></td>
+        <td align="center" id="cecap-other-1a-female-31-50"></td>
+        <td align="center" id="cecap-other-1a-female-51-60"></td>
+        <td align="center" id="cecap-other-1a-female-61+"></td>
+        <td align="center" id="cecap-other-1a-female-total"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>b) Breasts</td>
+
+        <td align="center" id="cecap-other-1b-grand-total"></td>
+        <td align="center" id="cecap-other-1b-male-14"></td>
+        <td align="center" id="cecap-other-1b-male-15-24"></td>
+        <td align="center" id="cecap-other-1b-male-25-30"></td>
+        <td align="center" id="cecap-other-1b-male-31-50"></td>
+        <td align="center" id="cecap-other-1b-male-51-60"></td>
+        <td align="center" id="cecap-other-1b-male-61+"></td>
+        <td align="center" id="cecap-other-1b-male-total"></td>
+        <td align="center" id="cecap-other-1b-female-14"></td>
+        <td align="center" id="cecap-other-1b-female-15-24"></td>
+        <td align="center" id="cecap-other-1b-female-25-30"></td>
+        <td align="center" id="cecap-other-1b-female-31-50"></td>
+        <td align="center" id="cecap-other-1b-female-51-60"></td>
+        <td align="center" id="cecap-other-1b-female-61+"></td>
+        <td align="center" id="cecap-other-1b-female-total"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>c) Prostate</td>
+
+        <td align="center" id="cecap-other-1c-grand-total"></td>
+        <td align="center" id="cecap-other-1c-male-14"></td>
+        <td align="center" id="cecap-other-1c-male-15-24"></td>
+        <td align="center" id="cecap-other-1c-male-25-30"></td>
+        <td align="center" id="cecap-other-1c-male-31-50"></td>
+        <td align="center" id="cecap-other-1c-male-51-60"></td>
+        <td align="center" id="cecap-other-1c-male-61+"></td>
+        <td align="center" id="cecap-other-1c-male-total"></td>
+        <td align="center" id="cecap-other-1c-female-14"></td>
+        <td align="center" id="cecap-other-1c-female-15-24"></td>
+        <td align="center" id="cecap-other-1c-female-25-30"></td>
+        <td align="center" id="cecap-other-1c-female-31-50"></td>
+        <td align="center" id="cecap-other-1c-female-51-60"></td>
+        <td align="center" id="cecap-other-1c-female-61+"></td>
+        <td align="center" id="cecap-other-1c-female-total"></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Number of clients who received education on HIV/AIDS
+        </td>
+        <td align="center" id="cecap-other-2-grand-total"></td>
+        <td align="center" id="cecap-other-2-male-14"></td>
+        <td align="center" id="cecap-other-2-male-15-24"></td>
+        <td align="center" id="cecap-other-2-male-25-30"></td>
+        <td align="center" id="cecap-other-2-male-31-50"></td>
+        <td align="center" id="cecap-other-2-male-51-60"></td>
+        <td align="center" id="cecap-other-2-male-61+"></td>
+        <td align="center" id="cecap-other-2-male-total"></td>
+        <td align="center" id="cecap-other-2-female-14"></td>
+        <td align="center" id="cecap-other-2-female-15-24"></td>
+        <td align="center" id="cecap-other-2-female-25-30"></td>
+        <td align="center" id="cecap-other-2-female-31-50"></td>
+        <td align="center" id="cecap-other-2-female-51-60"></td>
+        <td align="center" id="cecap-other-2-female-61+"></td>
+        <td align="center" id="cecap-other-2-female-total"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Number of clients who received education on STIs
+        </td>
+        <td align="center" id="cecap-other-3-grand-total"></td>
+        <td align="center" id="cecap-other-3-male-14"></td>
+        <td align="center" id="cecap-other-3-male-15-24"></td>
+        <td align="center" id="cecap-other-3-male-25-30"></td>
+        <td align="center" id="cecap-other-3-male-31-50"></td>
+        <td align="center" id="cecap-other-3-male-51-60"></td>
+        <td align="center" id="cecap-other-3-male-61+"></td>
+        <td align="center" id="cecap-other-3-male-total"></td>
+        <td align="center" id="cecap-other-3-female-14"></td>
+        <td align="center" id="cecap-other-3-female-15-24"></td>
+        <td align="center" id="cecap-other-3-female-25-30"></td>
+        <td align="center" id="cecap-other-3-female-31-50"></td>
+        <td align="center" id="cecap-other-3-female-51-60"></td>
+        <td align="center" id="cecap-other-3-female-61+"></td>
+        <td align="center" id="cecap-other-3-female-total"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+<script>
+    function loadData(reportKey, reportType) {
+        const data = JSON.parse(Android.getData(reportKey));
+        const keys = Object.keys(data.nameValuePairs);
+        const reportPeriod = document.getElementById("report_period");
+        const reportingFacility = document.getElementById("reporting_facility");
+        keys.forEach((key) => {
+            let element;
+            if (reportType!== null && reportType === "cecap"){
+                element = document.getElementById(key.replace("cecap-",""));
+            } else{
+                element = document.getElementById(key);
+            }
+            if (element !== null && typeof element !== "undefined") {
+                element.innerHTML = data.nameValuePairs[key];
+            }
+        });
+        reportPeriod.innerHTML = Android.getDataPeriod();
+        reportingFacility.innerHTML = Android.getReportingFacility();
+    }
+</script>
+</html>
