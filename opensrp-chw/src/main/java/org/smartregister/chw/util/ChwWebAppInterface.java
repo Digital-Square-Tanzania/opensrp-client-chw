@@ -71,13 +71,30 @@ public class ChwWebAppInterface {
         }
 
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ASRH_REPORT)) {
-            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
-            return ReportUtils.AsrhReports.computeClientsReports(ReportUtils.getReportDate());
+            switch (key) {
+                case Constants.ReportConstants.CecapReportKeys.CLIENTS_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("ASRH_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AsrhReports.computeClientsReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.CecapReportKeys.OTHER_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("ASRH_other_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AsrhReports.computeOtherReports(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
         }
 
+
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CECAP_REPORT)) {
-            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
-            return ReportUtils.CecapReports.computeClientsReports(ReportUtils.getReportDate());
+            switch (key) {
+                case Constants.ReportConstants.CecapReportKeys.CLIENTS_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("CECAP_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.CecapReports.computeClientsReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.CecapReportKeys.OTHER_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("CECAP_other_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.CecapReports.computeOtherReports(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
         }
 
         return "";

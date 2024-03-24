@@ -81,7 +81,7 @@
     </style>
 </head>
 
-<body onload="loadData(&#39;monthly&#39;, &#39;asrh_report&#39;)">
+<body onload="loadData()">
 <div class="show-on-print">
     <h1>Taarifa ya Mwezi Ya Mrejesho wa Utoaji Habari  Elimu na Ushauri Kuhusu Afya ya Uzazi  kwa Vijana</h1>
     <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
@@ -347,20 +347,20 @@
 </table>
 </body>
 <script>
-    function loadData(reportKey, reportType) {
-  const data = JSON.parse(Android.getData(reportKey));
-  const keys = Object.keys(data.nameValuePairs);
-  const reportPeriod = document.getElementById("report_period");
-  const reportingFacility = document.getElementById("reporting_facility");
-  keys.forEach((key) => {
-    let element;
-    element = document.getElementById(key);
-    if (element !== null && typeof element !== "undefined") {
-      element.innerHTML = data.nameValuePairs[key];
-    }
-  });
-  reportPeriod.innerHTML = Android.getDataPeriod();
-  reportingFacility.innerHTML = Android.getReportingFacility();
+    function loadData() {
+        const data = JSON.parse(Android.getData("other-monthly-report"));
+        const keys = Object.keys(data.nameValuePairs);
+        const reportPeriod = document.getElementById("report_period");
+        const reportingFacility = document.getElementById("reporting_facility");
+        keys.forEach((key) => {
+            let element;
+            element = document.getElementById(key);
+            if (element !== null && typeof element !== "undefined") {
+                element.innerHTML = data.nameValuePairs[key];
+            }
+        });
+        reportPeriod.innerHTML = Android.getDataPeriod();
+        reportingFacility.innerHTML = Android.getReportingFacility();
 }
 </script>
 

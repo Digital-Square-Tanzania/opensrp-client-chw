@@ -166,6 +166,12 @@
             "openmrs_entity_id": "anc"
           },
           {
+            "key": "pnc",
+            "text": "PNC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pnc"
+          },
+          {
             "key": "intra_and_post_natal_care",
             "text": "Intra and Post Natal Care",
             "openmrs_entity": "concept",

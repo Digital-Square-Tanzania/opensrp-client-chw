@@ -80,7 +80,7 @@
     </style>
 </head>
 
-<body onload="loadData(&#39;monthly&#39;, &#39;cecap_report&#39;)">
+<body onload="onLoad()">
 <div class="show-on-print">
     <h1>TAARIFA YA MWEZI ZA HUDUMA SARATANI YA VIA VYA UZAZI KATIKA NGAZI YA JAMII</h1>
     <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
@@ -285,18 +285,14 @@
 </body>
 
 <script>
-    function loadData(reportKey, reportType) {
-        const data = JSON.parse(Android.getData(reportKey));
+    function onLoad() {
+        const data = JSON.parse(Android.getData("clients-monthly-report"));
         const keys = Object.keys(data.nameValuePairs);
         const reportPeriod = document.getElementById("report_period");
         const reportingFacility = document.getElementById("reporting_facility");
         keys.forEach((key) => {
             let element;
-            if (reportType!== null && reportType === "cecap"){
-                element = document.getElementById(key.replace("cecap-",""));
-            } else{
-                element = document.getElementById(key);
-            }
+            element = document.getElementById(key);
             if (element !== null && typeof element !== "undefined") {
                 element.innerHTML = data.nameValuePairs[key];
             }

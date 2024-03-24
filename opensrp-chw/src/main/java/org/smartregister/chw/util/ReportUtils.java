@@ -8,19 +8,18 @@ import android.print.PrintManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import androidx.annotation.RequiresApi;
-import androidx.webkit.WebViewAssetLoader;
-
 import androidx.webkit.WebViewAssetLoader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
-import org.smartregister.chw.domain.AsrhReportObject;
-import org.smartregister.chw.domain.CecapReportObject;
+import org.smartregister.chw.domain.asrh_reports.AsrhOtherReportObject;
+import org.smartregister.chw.domain.asrh_reports.AsrhReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
+import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
+import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
@@ -241,6 +240,15 @@ public class ReportUtils {
             }
             return "";
         }
+        public static String computeOtherReports(Date startDate) {
+            AsrhOtherReportObject asrhOtherReportObject = new AsrhOtherReportObject(startDate);
+            try {
+                return asrhOtherReportObject.getIndicatorDataAsGson(asrhOtherReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
     }
 
 
@@ -249,6 +257,16 @@ public class ReportUtils {
             CecapReportObject cecapReportObject = new CecapReportObject(startDate);
             try {
                 return cecapReportObject.getIndicatorDataAsGson(cecapReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeOtherReports(Date startDate) {
+            CecapOtherReportObject cecapOtherReportObject = new CecapOtherReportObject(startDate);
+            try {
+                return cecapOtherReportObject.getIndicatorDataAsGson(cecapOtherReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

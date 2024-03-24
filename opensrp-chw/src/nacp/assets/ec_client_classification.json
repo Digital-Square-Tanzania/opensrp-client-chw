@@ -153,7 +153,8 @@
             "field": "eventType",
             "field_value": "ANC First Facility Visit",
             "creates_case": [
-              "ec_anc_hf_data"
+              "ec_anc_hf_data",
+              "ec_anc_register"
             ]
           },
           {

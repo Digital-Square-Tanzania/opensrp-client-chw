@@ -579,8 +579,10 @@
     <string name="sbc_type_of_sbc_activity">Type of SBC Activity</string>
     <string name="sbc_reports_title">SBC Report</string>
     <string name="asrh_reports_title">ASRH Report</string>
+    <string name="asrh_other_reports_title">ASRH Other Report</string>
     <string name="asrh_reports_subtitle">View ASRH Report</string>
     <string name="cecap_reports_title">CECAP Report</string>
+    <string name="cecap_other_reports_title">CECAP Other Report</string>
     <string name="cecap_reports_subtitle">View CECAP Report</string>
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>

@@ -31,6 +31,8 @@ import timber.log.Timber;
 public class CecapReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected ConstraintLayout cecapReport;
 
+    protected ConstraintLayout cecapOtherReport;
+
     protected AppBarLayout appBarLayout;
 
     Menu menu;
@@ -46,8 +48,10 @@ public class CecapReportsActivity extends SecuredActivity implements View.OnClic
 
     public void setupViews() {
         cecapReport = findViewById(R.id.cecap_report);
+        cecapOtherReport = findViewById(R.id.cecap_other_report);
 
         cecapReport.setOnClickListener(this);
+        cecapOtherReport.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -95,6 +99,8 @@ public class CecapReportsActivity extends SecuredActivity implements View.OnClic
         int id = v.getId();
         if (id == R.id.cecap_report) {
             CecapReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.CECAP_REPORT_PATH, R.string.cecap_reports_title, reportPeriod);
+        } else if (id == R.id.cecap_other_report) {
+            CecapReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.CECAP_OTHER_REPORT_PATH, R.string.cecap_other_reports_title, reportPeriod);
         } else {
             Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();
         }

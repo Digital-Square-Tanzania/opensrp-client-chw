@@ -31,6 +31,8 @@ import timber.log.Timber;
 public class AsrhReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected ConstraintLayout asrhReport;
 
+    protected ConstraintLayout asrhOtherReport;
+
     protected AppBarLayout appBarLayout;
 
     Menu menu;
@@ -46,8 +48,10 @@ public class AsrhReportsActivity extends SecuredActivity implements View.OnClick
 
     public void setupViews() {
         asrhReport = findViewById(R.id.asrh_report);
+        asrhOtherReport = findViewById(R.id.asrh_other_report);
 
         asrhReport.setOnClickListener(this);
+        asrhOtherReport.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -95,6 +99,8 @@ public class AsrhReportsActivity extends SecuredActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.asrh_report) {
             AsrhReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.ASRH_REPORT_PATH, R.string.asrh_reports_title, reportPeriod);
+        } else if (id == R.id.asrh_other_report) {
+            AsrhReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.ASRH_OTHER_REPORT_PATH, R.string.asrh_other_reports_title, reportPeriod);
         } else {
             Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();
         }

@@ -85,6 +85,12 @@
             "text": "HIV AIDS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
           }
         ],
         "v_required": {

@@ -6,35 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproductive Cancer Preventive Services Report</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            margin-top: 20px;
-        }
+    body {
+        padding: 5px;
+        font-size: 0.25rem;
+    }
 
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-        }
+    body,
+    td,
+    th {
+        font-family: "Times New Roman", serif;
+    }
 
-        th {
-            background-color: #ddd;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        margin-top: 20px;
+    }
 
-        .header-top {
-            text-align: center;
-            background-color: #666;
-            color: white;
-        }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
 
-        .sub-header {
-            text-align: center;
-            background-color: #ccc;
-        }
+    th {
+        background-color: #ddd;
+    }
+
+    .header-top {
+        text-align: center;
+        background-color: #666;
+        color: white;
+    }
+
+    .sub-header {
+        text-align: center;
+        background-color: #ccc;
+    }
     </style>
 </head>
-<body onload="loadData(&#39;other&#39;, &#39;cecap_report&#39;)">
+<body onload="onLoad()">
 <table>
     <thead>
     <tr>
@@ -174,18 +185,14 @@
 </body>
 
 <script>
-    function loadData(reportKey, reportType) {
-        const data = JSON.parse(Android.getData(reportKey));
+    function onLoad() {
+        const data = JSON.parse(Android.getData("other-monthly-report"));
         const keys = Object.keys(data.nameValuePairs);
         const reportPeriod = document.getElementById("report_period");
         const reportingFacility = document.getElementById("reporting_facility");
         keys.forEach((key) => {
             let element;
-            if (reportType!== null && reportType === "cecap"){
-                element = document.getElementById(key.replace("cecap-",""));
-            } else{
-                element = document.getElementById(key);
-            }
+            element = document.getElementById(key);
             if (element !== null && typeof element !== "undefined") {
                 element.innerHTML = data.nameValuePairs[key];
             }

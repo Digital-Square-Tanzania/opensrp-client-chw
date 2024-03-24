@@ -241,6 +241,18 @@ public class Constants extends CoreConstants {
             String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
         }
 
+
+        public interface CecapReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+
+        public interface AsrhReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
             String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
@@ -252,9 +264,13 @@ public class Constants extends CoreConstants {
 
             String SBC_REPORT_PATH = "sbc-report";
 
-            String ASRH_REPORT_PATH = "asrh-report";
+            String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
 
-            String CECAP_REPORT_PATH = "cecap-report";
+            String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
+
+            String CECAP_REPORT_PATH = "cecap_reports/cecap-report";
+
+            String CECAP_OTHER_REPORT_PATH = "cecap_reports/cecap-other-report";
         }
     }
 }
