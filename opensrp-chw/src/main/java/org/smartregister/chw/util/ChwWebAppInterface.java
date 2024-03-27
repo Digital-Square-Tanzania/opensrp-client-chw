@@ -70,6 +70,11 @@ public class ChwWebAppInterface {
             return ReportUtils.SbcReports.computeClientsReports(ReportUtils.getReportDate());
         }
 
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.KVP_REPORT)) {
+            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.KvpReports.computeClientsReports(ReportUtils.getReportDate());
+        }
+
         return "";
     }
 

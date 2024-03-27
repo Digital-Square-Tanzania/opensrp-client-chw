@@ -15,6 +15,7 @@ import androidx.webkit.WebViewAssetLoader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
+import org.smartregister.chw.domain.KvpReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
@@ -221,6 +222,19 @@ public class ReportUtils {
             SbcReportObject sbcReportObject = new SbcReportObject(startDate);
             try {
                 return sbcReportObject.getIndicatorDataAsGson(sbcReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+
+    public static class KvpReports {
+        public static String computeClientsReports(Date startDate) {
+            KvpReportObject kvpReportObject = new KvpReportObject(startDate);
+            try {
+                return kvpReportObject.getIndicatorDataAsGson(kvpReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

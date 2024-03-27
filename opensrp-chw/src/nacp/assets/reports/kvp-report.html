@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="./report-script.js"></script>
+
+    <style>
+    *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.show-on-print {
+  display: none;
+}
+
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    padding: 5px;
+}
+
+
+ul {
+    width: 100%;
+}
+ul li {
+    width: 49%;
+    display: inline-block;
+}
+
+ul li > * {
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.no-data {
+  background: #ccc;
+}
+
+@media print {
+  .show-on-print {
+    display: block;
+  }
+
+  .child-table {
+    width: 50%;
+  }
+}
+</style>
+</head>
+
+<body onload="loadData('monthly', 'anc')">
+
+<div class="show-on-print" style="font-size:12px;">
+    <h1>MAKUNDI MAALUM YA WALIOPO KWENYE HATARI YA KUPATA MAAMBUKIZI YA VVU</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <h2>KITUO: <span id="reporting_facility"></span></h2>
+</div>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="22">Wajidunga</th>
+        </tr>
+        <tr>
+            <th colspan="11">Wanaume</th>
+            <th colspan="11">Wanawake</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Jumla</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-<10-pwid-ME"></td>
+            <td align="center" id="kvp-1-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-1-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-1-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-1-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-1-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-1-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-1-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-1-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-1->50-pwid-ME"></td>
+            <td align="center" id="kvp-1-<10-pwid-KE"></td>
+            <td align="center" id="kvp-1-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-1-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-1-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-1-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-1-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-1-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-1-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-1-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-1->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-<10-pwid-ME"></td>
+            <td align="center" id="kvp-2-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-2-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-2-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-2-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-2-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-2-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-2-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-2-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-2->50-pwid-ME"></td>
+            <td align="center" id="kvp-2-<10-pwid-KE"></td>
+            <td align="center" id="kvp-2-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-2-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-2-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-2-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-2-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-2-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-2-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-2-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-2->50-pwid-KE"></td>
+            <!-- <td align="center" id="kvp-2-pwid-jumla-both-ME-KE"></td> -->
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-<10-pwid-ME"></td>
+            <td align="center" id="kvp-3-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-3-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-3-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-3-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-3-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-3-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-3-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-3-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-3->50-pwid-ME"></td>
+            <td align="center" id="kvp-3-<10-pwid-KE"></td>
+            <td align="center" id="kvp-3-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-3-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-3-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-3-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-3-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-3-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-3-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-3-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-3->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-<10-pwid-ME"></td>
+            <td align="center" id="kvp-4-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-4-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-4-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-4-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-4-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-4-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-4-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-4-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-4->50-pwid-ME"></td>
+            <td align="center" id="kvp-4-<10-pwid-KE"></td>
+            <td align="center" id="kvp-4-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-4-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-4-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-4-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-4-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-4-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-4-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-4-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-4->50-pwid-KE"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-<10-pwid-ME"></td>
+            <td align="center" id="kvp-5-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-5-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-5-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-5-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-5-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-5-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-5-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-5-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-5->50-pwid-ME"></td>
+            <td align="center" id="kvp-5-<10-pwid-KE"></td>
+            <td align="center" id="kvp-5-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-5-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-5-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-5-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-5-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-5-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-5-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-5-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-5->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-<10-pwid-ME"></td>
+            <td align="center" id="kvp-6-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-6-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-6-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-6-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-6-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-6-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-6-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-6-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-6->50-pwid-ME"></td>
+            <td align="center" id="kvp-6-<10-pwid-KE"></td>
+            <td align="center" id="kvp-6-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-6-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-6-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-6-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-6-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-6-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-6-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-6-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-6->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-<10-pwid-ME"></td>
+            <td align="center" id="kvp-7-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-7-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-7-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-7-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-7-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-7-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-7-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-7-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-7->50-pwid-ME"></td>
+            <td align="center" id="kvp-7-<10-pwid-KE"></td>
+            <td align="center" id="kvp-7-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-7-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-7-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-7-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-7-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-7-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-7-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-7-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-7->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-<10-pwid-ME"></td>
+            <td align="center" id="kvp-8-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-8-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-8-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-8-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-8-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-8-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-8-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-8-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-8->50-pwid-ME"></td>
+            <td align="center" id="kvp-8-<10-pwid-KE"></td>
+            <td align="center" id="kvp-8-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-8-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-8-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-8-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-8-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-8-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-8-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-8-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-8->50-pwid-KE"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-<10-pwid-ME"></td>
+            <td align="center" id="kvp-9-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-9-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-9-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-9-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-9-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-9-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-9-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-9-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-9->50-pwid-ME"></td>
+            <td align="center" id="kvp-9-<10-pwid-KE"></td>
+            <td align="center" id="kvp-9-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-9-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-9-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-9-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-9-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-9-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-9-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-9-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-9->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-<10-pwid-ME"></td>
+            <td align="center" id="kvp-10-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-10-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-10-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-10-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-10-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-10-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-10-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-10-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-10->50-pwid-ME"></td>
+            <td align="center" id="kvp-10-<10-pwid-KE"></td>
+            <td align="center" id="kvp-10-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-10-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-10-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-10-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-10-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-10-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-10-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-10-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-10->50-pwid-KE"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-11-pwid-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-<10-pwid-ME"></td>
+            <td align="center" id="kvp-11-10-14-pwid-ME"></td>
+            <td align="center" id="kvp-11-15-19-pwid-ME"></td>
+            <td align="center" id="kvp-11-20-24-pwid-ME"></td>
+            <td align="center" id="kvp-11-25-29-pwid-ME"></td>
+            <td align="center" id="kvp-11-30-34-pwid-ME"></td>
+            <td align="center" id="kvp-11-35-39-pwid-ME"></td>
+            <td align="center" id="kvp-11-40-44-pwid-ME"></td>
+            <td align="center" id="kvp-11-45-49-pwid-ME"></td>
+            <td align="center" id="kvp-11->50-pwid-ME"></td>
+            <td align="center" id="kvp-11-<10-pwid-KE"></td>
+            <td align="center" id="kvp-11-10-14-pwid-KE"></td>
+            <td align="center" id="kvp-11-15-19-pwid-KE"></td>
+            <td align="center" id="kvp-11-20-24-pwid-KE"></td>
+            <td align="center" id="kvp-11-25-29-pwid-KE"></td>
+            <td align="center" id="kvp-11-30-34-pwid-KE"></td>
+            <td align="center" id="kvp-11-35-39-pwid-KE"></td>
+            <td align="center" id="kvp-11-40-44-pwid-KE"></td>
+            <td align="center" id="kvp-11-45-49-pwid-KE"></td>
+            <td align="center" id="kvp-11->50-pwid-KE"></td>
+        </tr>
+
+
+        <tbody>
+    </table>
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="22">Watumiaji wa njia nyingine za dawa za kulevya</th>
+        </tr>
+        <tr>
+            <th colspan="11">Wanaume</th>
+            <th colspan="11">Wanawake</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Jumla</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-<10-pwud-ME"></td>
+            <td align="center" id="kvp-1-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-1-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-1-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-1-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-1-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-1-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-1-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-1-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-1->50-pwud-ME"></td>
+            <td align="center" id="kvp-1-<10-pwud-KE"></td>
+            <td align="center" id="kvp-1-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-1-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-1-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-1-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-1-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-1-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-1-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-1-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-1->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-<10-pwud-ME"></td>
+            <td align="center" id="kvp-2-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-2-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-2-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-2-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-2-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-2-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-2-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-2-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-2->50-pwud-ME"></td>
+            <td align="center" id="kvp-2-<10-pwud-KE"></td>
+            <td align="center" id="kvp-2-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-2-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-2-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-2-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-2-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-2-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-2-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-2-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-2->50-pwud-KE"></td>
+            <!-- <td align="center" id="kvp-2-pwud-jumla-both-ME-KE"></td> -->
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-<10-pwud-ME"></td>
+            <td align="center" id="kvp-3-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-3-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-3-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-3-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-3-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-3-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-3-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-3-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-3->50-pwud-ME"></td>
+            <td align="center" id="kvp-3-<10-pwud-KE"></td>
+            <td align="center" id="kvp-3-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-3-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-3-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-3-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-3-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-3-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-3-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-3-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-3->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-<10-pwud-ME"></td>
+            <td align="center" id="kvp-4-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-4-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-4-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-4-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-4-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-4-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-4-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-4-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-4->50-pwud-ME"></td>
+            <td align="center" id="kvp-4-<10-pwud-KE"></td>
+            <td align="center" id="kvp-4-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-4-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-4-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-4-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-4-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-4-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-4-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-4-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-4->50-pwud-KE"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-<10-pwud-ME"></td>
+            <td align="center" id="kvp-5-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-5-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-5-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-5-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-5-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-5-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-5-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-5-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-5->50-pwud-ME"></td>
+            <td align="center" id="kvp-5-<10-pwud-KE"></td>
+            <td align="center" id="kvp-5-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-5-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-5-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-5-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-5-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-5-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-5-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-5-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-5->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-<10-pwud-ME"></td>
+            <td align="center" id="kvp-6-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-6-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-6-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-6-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-6-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-6-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-6-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-6-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-6->50-pwud-ME"></td>
+            <td align="center" id="kvp-6-<10-pwud-KE"></td>
+            <td align="center" id="kvp-6-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-6-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-6-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-6-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-6-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-6-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-6-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-6-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-6->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-<10-pwud-ME"></td>
+            <td align="center" id="kvp-7-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-7-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-7-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-7-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-7-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-7-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-7-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-7-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-7->50-pwud-ME"></td>
+            <td align="center" id="kvp-7-<10-pwud-KE"></td>
+            <td align="center" id="kvp-7-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-7-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-7-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-7-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-7-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-7-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-7-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-7-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-7->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-<10-pwud-ME"></td>
+            <td align="center" id="kvp-8-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-8-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-8-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-8-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-8-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-8-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-8-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-8-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-8->50-pwud-ME"></td>
+            <td align="center" id="kvp-8-<10-pwud-KE"></td>
+            <td align="center" id="kvp-8-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-8-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-8-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-8-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-8-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-8-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-8-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-8-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-8->50-pwud-KE"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-<10-pwud-ME"></td>
+            <td align="center" id="kvp-9-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-9-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-9-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-9-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-9-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-9-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-9-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-9-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-9->50-pwud-ME"></td>
+            <td align="center" id="kvp-9-<10-pwud-KE"></td>
+            <td align="center" id="kvp-9-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-9-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-9-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-9-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-9-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-9-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-9-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-9-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-9->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-<10-pwud-ME"></td>
+            <td align="center" id="kvp-10-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-10-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-10-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-10-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-10-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-10-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-10-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-10-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-10->50-pwud-ME"></td>
+            <td align="center" id="kvp-10-<10-pwud-KE"></td>
+            <td align="center" id="kvp-10-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-10-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-10-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-10-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-10-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-10-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-10-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-10-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-10->50-pwud-KE"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-pwud-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-<10-pwud-ME"></td>
+            <td align="center" id="kvp-11-10-14-pwud-ME"></td>
+            <td align="center" id="kvp-11-15-19-pwud-ME"></td>
+            <td align="center" id="kvp-11-20-24-pwud-ME"></td>
+            <td align="center" id="kvp-11-25-29-pwud-ME"></td>
+            <td align="center" id="kvp-11-30-34-pwud-ME"></td>
+            <td align="center" id="kvp-11-35-39-pwud-ME"></td>
+            <td align="center" id="kvp-11-40-44-pwud-ME"></td>
+            <td align="center" id="kvp-11-45-49-pwud-ME"></td>
+            <td align="center" id="kvp-11->50-pwud-ME"></td>
+            <td align="center" id="kvp-11-<10-pwud-KE"></td>
+            <td align="center" id="kvp-11-10-14-pwud-KE"></td>
+            <td align="center" id="kvp-11-15-19-pwud-KE"></td>
+            <td align="center" id="kvp-11-20-24-pwud-KE"></td>
+            <td align="center" id="kvp-11-25-29-pwud-KE"></td>
+            <td align="center" id="kvp-11-30-34-pwud-KE"></td>
+            <td align="center" id="kvp-11-35-39-pwud-KE"></td>
+            <td align="center" id="kvp-11-40-44-pwud-KE"></td>
+            <td align="center" id="kvp-11-45-49-pwud-KE"></td>
+            <td align="center" id="kvp-11->50-pwud-KE"></td>
+        </tr>
+        <tbody>
+    </table>
+
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="12">Wanawake wanaofanya biashara ya ngono</th>
+        </tr>
+        <tr>
+            <th colspan="12">Wanawake</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <td></td>
+            <td>Jumla</td>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-<10-fsw-KE"></td>
+            <td align="center" id="kvp-1-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-1-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-1-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-1-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-1-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-1-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-1-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-1-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-1->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-<10-fsw-KE"></td>
+            <td align="center" id="kvp-2-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-2-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-2-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-2-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-2-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-2-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-2-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-2-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-2->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-<10-fsw-KE"></td>
+            <td align="center" id="kvp-3-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-3-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-3-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-3-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-3-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-3-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-3-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-3-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-3->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-<10-fsw-KE"></td>
+            <td align="center" id="kvp-4-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-4-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-4-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-4-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-4-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-4-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-4-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-4-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-4->50-fsw-KE"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-<10-fsw-KE"></td>
+            <td align="center" id="kvp-5-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-5-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-5-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-5-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-5-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-5-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-5-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-5-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-5->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-<10-fsw-KE"></td>
+            <td align="center" id="kvp-6-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-6-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-6-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-6-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-6-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-6-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-6-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-6-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-6->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-<10-fsw-KE"></td>
+            <td align="center" id="kvp-7-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-7-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-7-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-7-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-7-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-7-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-7-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-7-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-7->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-<10-fsw-KE"></td>
+            <td align="center" id="kvp-8-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-8-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-8-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-8-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-8-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-8-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-8-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-8-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-8->50-fsw-KE"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-<10-fsw-KE"></td>
+            <td align="center" id="kvp-9-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-9-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-9-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-9-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-9-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-9-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-9-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-9-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-9->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga/td>
+            <td align="center" id="kvp-10-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-<10-fsw-KE"></td>
+            <td align="center" id="kvp-10-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-10-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-10-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-10-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-10-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-10-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-10-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-10-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-10->50-fsw-KE"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-fsw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-<10-fsw-KE"></td>
+            <td align="center" id="kvp-11-10-14-fsw-KE"></td>
+            <td align="center" id="kvp-11-15-19-fsw-KE"></td>
+            <td align="center" id="kvp-11-20-24-fsw-KE"></td>
+            <td align="center" id="kvp-11-25-29-fsw-KE"></td>
+            <td align="center" id="kvp-11-30-34-fsw-KE"></td>
+            <td align="center" id="kvp-11-35-39-fsw-KE"></td>
+            <td align="center" id="kvp-11-40-44-fsw-KE"></td>
+            <td align="center" id="kvp-11-45-49-fsw-KE"></td>
+            <td align="center" id="kvp-11->50-fsw-KE"></td>
+        </tr>
+        <tbody>
+    </table>
+
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="3">Wasichana rika balehe wanawake vijana</th>
+        </tr>
+        <tr>
+            <th colspan="12">Wanawake</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <td></td>
+            <td>Jumla</td>
+            <th>15-19</th>
+            <th>20-24</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-1-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-2-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-3-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-4-20-24-agyw-KE"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-5-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-6-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-7-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-8-20-24-agyw-KE"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-9-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-10-20-24-agyw-KE"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-agyw-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-15-19-agyw-KE"></td>
+            <td align="center" id="kvp-11-20-24-agyw-KE"></td>
+        </tr>
+        <tbody>
+    </table>
+
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="12">Wanaume wanaofanya ngono na wanaume wenzao</th>
+        </tr>
+        <tr>
+            <th colspan="12">Wanaume</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <td></td>
+            <td>Jumla</td>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-<10-msm-ME"></td>
+            <td align="center" id="kvp-1-10-14-msm-ME"></td>
+            <td align="center" id="kvp-1-15-19-msm-ME"></td>
+            <td align="center" id="kvp-1-20-24-msm-ME"></td>
+            <td align="center" id="kvp-1-25-29-msm-ME"></td>
+            <td align="center" id="kvp-1-30-34-msm-ME"></td>
+            <td align="center" id="kvp-1-35-39-msm-ME"></td>
+            <td align="center" id="kvp-1-40-44-msm-ME"></td>
+            <td align="center" id="kvp-1-45-49-msm-ME"></td>
+            <td align="center" id="kvp-1->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-<10-msm-ME"></td>
+            <td align="center" id="kvp-2-10-14-msm-ME"></td>
+            <td align="center" id="kvp-2-15-19-msm-ME"></td>
+            <td align="center" id="kvp-2-20-24-msm-ME"></td>
+            <td align="center" id="kvp-2-25-29-msm-ME"></td>
+            <td align="center" id="kvp-2-30-34-msm-ME"></td>
+            <td align="center" id="kvp-2-35-39-msm-ME"></td>
+            <td align="center" id="kvp-2-40-44-msm-ME"></td>
+            <td align="center" id="kvp-2-45-49-msm-ME"></td>
+            <td align="center" id="kvp-2->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-<10-msm-ME"></td>
+            <td align="center" id="kvp-3-10-14-msm-ME"></td>
+            <td align="center" id="kvp-3-15-19-msm-ME"></td>
+            <td align="center" id="kvp-3-20-24-msm-ME"></td>
+            <td align="center" id="kvp-3-25-29-msm-ME"></td>
+            <td align="center" id="kvp-3-30-34-msm-ME"></td>
+            <td align="center" id="kvp-3-35-39-msm-ME"></td>
+            <td align="center" id="kvp-3-40-44-msm-ME"></td>
+            <td align="center" id="kvp-3-45-49-msm-ME"></td>
+            <td align="center" id="kvp-3->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-<10-msm-ME"></td>
+            <td align="center" id="kvp-4-10-14-msm-ME"></td>
+            <td align="center" id="kvp-4-15-19-msm-ME"></td>
+            <td align="center" id="kvp-4-20-24-msm-ME"></td>
+            <td align="center" id="kvp-4-25-29-msm-ME"></td>
+            <td align="center" id="kvp-4-30-34-msm-ME"></td>
+            <td align="center" id="kvp-4-35-39-msm-ME"></td>
+            <td align="center" id="kvp-4-40-44-msm-ME"></td>
+            <td align="center" id="kvp-4-45-49-msm-ME"></td>
+            <td align="center" id="kvp-4->50-msm-ME"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-<10-msm-ME"></td>
+            <td align="center" id="kvp-5-10-14-msm-ME"></td>
+            <td align="center" id="kvp-5-15-19-msm-ME"></td>
+            <td align="center" id="kvp-5-20-24-msm-ME"></td>
+            <td align="center" id="kvp-5-25-29-msm-ME"></td>
+            <td align="center" id="kvp-5-30-34-msm-ME"></td>
+            <td align="center" id="kvp-5-35-39-msm-ME"></td>
+            <td align="center" id="kvp-5-40-44-msm-ME"></td>
+            <td align="center" id="kvp-5-45-49-msm-ME"></td>
+            <td align="center" id="kvp-5->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-<10-msm-ME"></td>
+            <td align="center" id="kvp-6-10-14-msm-ME"></td>
+            <td align="center" id="kvp-6-15-19-msm-ME"></td>
+            <td align="center" id="kvp-6-20-24-msm-ME"></td>
+            <td align="center" id="kvp-6-25-29-msm-ME"></td>
+            <td align="center" id="kvp-6-30-34-msm-ME"></td>
+            <td align="center" id="kvp-6-35-39-msm-ME"></td>
+            <td align="center" id="kvp-6-40-44-msm-ME"></td>
+            <td align="center" id="kvp-6-45-49-msm-ME"></td>
+            <td align="center" id="kvp-6->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-<10-msm-ME"></td>
+            <td align="center" id="kvp-7-10-14-msm-ME"></td>
+            <td align="center" id="kvp-7-15-19-msm-ME"></td>
+            <td align="center" id="kvp-7-20-24-msm-ME"></td>
+            <td align="center" id="kvp-7-25-29-msm-ME"></td>
+            <td align="center" id="kvp-7-30-34-msm-ME"></td>
+            <td align="center" id="kvp-7-35-39-msm-ME"></td>
+            <td align="center" id="kvp-7-40-44-msm-ME"></td>
+            <td align="center" id="kvp-7-45-49-msm-ME"></td>
+            <td align="center" id="kvp-7->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-1-8-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-<10-msm-ME"></td>
+            <td align="center" id="kvp-8-10-14-msm-ME"></td>
+            <td align="center" id="kvp-8-15-19-msm-ME"></td>
+            <td align="center" id="kvp-8-20-24-msm-ME"></td>
+            <td align="center" id="kvp-8-25-29-msm-ME"></td>
+            <td align="center" id="kvp-8-30-34-msm-ME"></td>
+            <td align="center" id="kvp-8-35-39-msm-ME"></td>
+            <td align="center" id="kvp-8-40-44-msm-ME"></td>
+            <td align="center" id="kvp-8-45-49-msm-ME"></td>
+            <td align="center" id="kvp-8->50-msm-ME"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-<10-msm-ME"></td>
+            <td align="center" id="kvp-9-10-14-msm-ME"></td>
+            <td align="center" id="kvp-9-15-19-msm-ME"></td>
+            <td align="center" id="kvp-9-20-24-msm-ME"></td>
+            <td align="center" id="kvp-9-25-29-msm-ME"></td>
+            <td align="center" id="kvp-9-30-34-msm-ME"></td>
+            <td align="center" id="kvp-9-35-39-msm-ME"></td>
+            <td align="center" id="kvp-9-40-44-msm-ME"></td>
+            <td align="center" id="kvp-9-45-49-msm-ME"></td>
+            <td align="center" id="kvp-9->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-<10-msm-ME"></td>
+            <td align="center" id="kvp-10-10-14-msm-ME"></td>
+            <td align="center" id="kvp-10-15-19-msm-ME"></td>
+            <td align="center" id="kvp-10-20-24-msm-ME"></td>
+            <td align="center" id="kvp-10-25-29-msm-ME"></td>
+            <td align="center" id="kvp-10-30-34-msm-ME"></td>
+            <td align="center" id="kvp-10-35-39-msm-ME"></td>
+            <td align="center" id="kvp-10-40-44-msm-ME"></td>
+            <td align="center" id="kvp-10-45-49-msm-ME"></td>
+            <td align="center" id="kvp-10->50-msm-ME"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-msm-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-<10-msm-ME"></td>
+            <td align="center" id="kvp-11-10-14-msm-ME"></td>
+            <td align="center" id="kvp-11-15-19-msm-ME"></td>
+            <td align="center" id="kvp-11-20-24-msm-ME"></td>
+            <td align="center" id="kvp-11-25-29-msm-ME"></td>
+            <td align="center" id="kvp-11-30-34-msm-ME"></td>
+            <td align="center" id="kvp-11-35-39-msm-ME"></td>
+            <td align="center" id="kvp-11-40-44-msm-ME"></td>
+            <td align="center" id="kvp-11-45-49-msm-ME"></td>
+            <td align="center" id="kvp-11->50-msm-ME"></td>
+        </tr>
+        <tbody>
+    </table>
+
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th rowspan="3"></th>
+            <th rowspan="3">SEHEMU E: VIASHIRIA</th>
+            <th colspan="22">Makundi maalumu mengine</th>
+        </tr>
+        <tr>
+            <th colspan="11">Wanaume</th>
+            <th colspan="11">Wanawake</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Jumla</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+            <th>&#60;10</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>25-29</th>
+            <th>30-34</th>
+            <th>35-39</th>
+            <th>40-44</th>
+            <th>45-49</th>
+            <th>&#62;=50</th>
+        </tr>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-1-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-1-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-1->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-2-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-2-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-2->50-other_vulnerable_population-KE"></td>
+            <!-- <td align="center" id="kvp-2-other_vulnerable_population-jumla-both-ME-KE"></td> -->
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-3-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-3-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-3->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-4-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-4-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-4->50-other_vulnerable_population-KE"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-5-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-5-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-5->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-6-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-6-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-6->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-7-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-7-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-7->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-8-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-8-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-8->50-other_vulnerable_population-KE"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-9-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-9-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-9->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-10-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-10-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-10->50-other_vulnerable_population-KE"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-other_vulnerable_population-jumla-both-ME-KE"></td>
+            <td align="center" id="kvp-11-<10-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-10-14-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-15-19-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-20-24-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-25-29-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-30-34-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-35-39-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-40-44-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-45-49-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11->50-other_vulnerable_population-ME"></td>
+            <td align="center" id="kvp-11-<10-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-10-14-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-15-19-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-20-24-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-25-29-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-30-34-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-35-39-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-40-44-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11-45-49-other_vulnerable_population-KE"></td>
+            <td align="center" id="kvp-11->50-other_vulnerable_population-KE"></td>
+        </tr>
+
+        <tbody>
+    </table>
+    <table class="fl-table" style="margin-top:15px";>
+
+        <thead>
+        <tr>
+            <th></th>
+            <th>SEHEMU E: VIASHIRIA</th>
+            <th>Jumla kuu makundi yote</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>1.</th>
+            <td>Idadi ya wateja wapya wa makundi maalumu waliofikiwa katika kipindi cha ripoti
+            </td>
+            <td align="center" id="kvp-1-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <td>Idadi ya wateja wa makundi maalumu wanaoendelea na huduma katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-2-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>3.</th>
+            <td>Jumla ya wateja waliofikiwa na huduma katika kipindi cha ripoti(1+2)</td>
+            <td align="center" id="kvp-3-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>4.</th>
+            <td>Idadi ya wateja wa makundi maalumu waliofikiwa na huduma za kinga kufuatana na kiwango cha chini kinachotakiwa (minimum package)</td>
+            <td align="center" id="kvp-4-jumla-kuu"></td>
+        </tr>
+
+        <tr>
+            <th>5.</th>
+            <td>Idadi ya kondomu zilizogawiwa kwa makundi maalum  katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-5-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>6.</th>
+            <td>Idadi ya vitepe vya JIPIME vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-6-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>7.</th>
+            <td>Idadi ya wateja wa makundi maalum waliopata msaada wa kijamii</td>
+            <td align="center" id="kvp-7-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>8.</th>
+            <td>Idadi ya vipeperushi vilivyogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-8-jumla-kuu"></td>
+        </tr>
+
+        <tr>
+            <th>9.</th>
+            <td>Idadi ya kuponi/kadi za mwaliko wa huduma zilizogawiwa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-9-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>10.</th>
+            <td>Idadi ya wateja wa  makundi maalumu waliohamasishwa juu ya dawa-kinga</td>
+            <td align="center" id="kvp-10-jumla-kuu"></td>
+        </tr>
+        <tr>
+            <th>11.</th>
+            <td>Idadi ya rufaa zilizotolewa kwa makundi maalum katika kipindi cha ripoti</td>
+            <td align="center" id="kvp-11-jumla-kuu"></td>
+        </tr>
+
+        <tbody>
+    </table>
+
+
+</div>
+
+</body>
+<script>
+    function loadData(reportKey, reportType) {
+  const data = JSON.parse(Android.getData(reportKey));
+  const keys = Object.keys(data.nameValuePairs);
+  const reportPeriod = document.getElementById("report_period");
+  const reportingFacility = document.getElementById("reporting_facility");
+  keys.forEach((key) => {
+    let element;
+    if(reportType!== null && reportType === "pnc"){
+      element = document.getElementById(key.replace("pnc-",""));
+    }else{
+      element = document.getElementById(key);
+    }
+    if (element !== null && typeof element !== "undefined") {
+      element.innerHTML = data.nameValuePairs[key];
+    }
+  });
+  reportPeriod.innerHTML = Android.getDataPeriod();
+  reportingFacility.innerHTML = Android.getReportingFacility();
+}
+</script>
+</html>
