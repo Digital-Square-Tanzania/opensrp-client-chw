@@ -5103,11 +5103,59 @@
           }
         },
         {
+          "column_name": "sbcc_services_offered",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sbcc_services_offered"
+          }
+        },
+        {
           "column_name": "kits_distributed",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "kits_distributed"
+          }
+        },
+        {
+          "column_name": "number_of_male_condoms_issued",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_condoms_issued"
+          }
+        },
+        {
+          "column_name": "number_of_female_condoms_issued",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_condoms_issued"
+          }
+        },
+        {
+          "column_name": "number_of_iec_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_iec_distributed"
+          }
+        },
+        {
+          "column_name": "number_of_coupons_distributed_for_social_network",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_coupons_distributed_for_social_network"
+          }
+        },
+        {
+          "column_name": "referral_to_structural_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_to_structural_services"
           }
         },
         {

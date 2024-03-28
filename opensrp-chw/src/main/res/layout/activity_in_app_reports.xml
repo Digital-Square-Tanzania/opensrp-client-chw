@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, asrh_reports, cecap_reports"
+                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, asrh_reports, cecap_reports, kvp_reports"
                 app:flow_horizontalAlign="center"
                 app:flow_horizontalGap="20dp"
                 app:flow_horizontalStyle="packed"
@@ -526,6 +526,62 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_cecap_report"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTitle_cecap" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/kvp_reports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/reports_bg_blue"
+                app:layout_constraintTop_toBottomOf="@id/sbc_reports"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:minHeight="150dp"
+                android:paddingVertical="30dp">
+
+                <ImageView
+                    android:id="@+id/iv_kvp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="KVP Report Icon"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_cbhs_summary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewTitle_kvp"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/kvp_reports"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle_kvp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_kvp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewSubtitle_kvp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/kvp_reports_subtitle"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_kvp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle_kvp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

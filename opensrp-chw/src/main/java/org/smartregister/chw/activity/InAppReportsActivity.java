@@ -38,6 +38,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout cecapReports;
 
+    protected ConstraintLayout kvpReports;
+
     @Override
     protected void onCreation() {
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
@@ -61,6 +63,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         sbcReports = findViewById(R.id.sbc_reports);
         asrhReports = findViewById(R.id.asrh_reports);
         cecapReports = findViewById(R.id.cecap_reports);
+        kvpReports = findViewById(R.id.kvp_reports);
 
         if (ChwApplication.getApplicationFlavor().hasHIV()) {
             cbhsReportsLayout.setVisibility(View.VISIBLE);
@@ -93,6 +96,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         if (ChwApplication.getApplicationFlavor().hasCdp()) {
             condomDistributionReports.setVisibility(View.VISIBLE);
         }
+
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
+            kvpReports.setVisibility(View.VISIBLE);
+        }
         motherChampionReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
@@ -101,6 +108,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         sbcReports.setOnClickListener(this);
         asrhReports.setOnClickListener(this);
         cecapReports.setOnClickListener(this);
+        kvpReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -161,6 +169,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.cecap_reports) {
             Intent intent = new Intent(this, CecapReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.kvp_reports) {
+            Intent intent = new Intent(this, KvpReportsActivity.class);
             startActivity(intent);
         }
     }

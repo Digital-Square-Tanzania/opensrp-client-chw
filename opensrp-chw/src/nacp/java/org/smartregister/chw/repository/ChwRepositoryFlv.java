@@ -475,12 +475,25 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion28");
         }
 
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_kvp_prep_followup ADD COLUMN sbcc_services_offered VARCHAR; " +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_male_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_female_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_iec_distributed VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_coupons_distributed_for_social_network VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN referral_to_structural_services VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+
         try{
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
 
             String asrhIndicatorsConfigFile = "config/asrh-monthly-report.yml";
             String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
-            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, cecapIndicatorsConfigFile))) {
+            String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, cecapIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));

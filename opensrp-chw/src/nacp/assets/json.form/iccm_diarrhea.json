@@ -283,12 +283,6 @@
             "openmrs_entity_id": "ors"
           },
           {
-            "key": "zinc",
-            "text": "Zinc",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "zinc"
-          },
-          {
             "key": "zinc_ors_co_pack",
             "text": "Zinc ORS Co-pack",
             "openmrs_entity": "concept",
