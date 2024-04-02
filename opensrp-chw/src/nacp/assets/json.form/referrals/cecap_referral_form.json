@@ -88,7 +88,7 @@
             },
             {
               "name": "suspected_of_having_cancer",
-              "text": "Suspected of having cancer",
+              "text": "Suspected of Having Cancer",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "suspected_of_having_cancer",
@@ -105,11 +105,11 @@
               }
             },
             {
-              "name": "other",
-              "text": "Other",
+              "name": "other_reasons",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "other",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
