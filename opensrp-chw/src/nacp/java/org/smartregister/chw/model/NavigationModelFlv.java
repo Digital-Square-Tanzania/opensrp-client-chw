@@ -87,7 +87,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(7, op20);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
-                    navigationOptions.add(2, op22);
+//                    navigationOptions.add(2, op22);
                     navigationOptions.add(2, op21);
                 }
 

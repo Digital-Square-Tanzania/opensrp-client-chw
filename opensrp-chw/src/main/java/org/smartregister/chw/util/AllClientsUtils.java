@@ -17,6 +17,8 @@ import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.AgywProfileActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
+import org.smartregister.chw.activity.AsrhMemberProfileActivity;
+import org.smartregister.chw.activity.CecapMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
@@ -106,6 +108,14 @@ public class AllClientsUtils {
 
     public static void goToSbcProfile(Activity activity, CommonPersonObjectClient client) {
         SbcMemberProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToCecapProfile(Activity activity, CommonPersonObjectClient client) {
+        CecapMemberProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToAsrhProfile(Activity activity, CommonPersonObjectClient client) {
+        AsrhMemberProfileActivity.startMe(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
