@@ -52,11 +52,7 @@ public class UtilsFlv {
     }
 
     public static void updateFpMenuItems(String baseEntityId, Menu menu) {
-        if (!FpDao.isRegisteredForFp(baseEntityId)) {
-            menu.findItem(R.id.action_fp_initiation).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_fp_initiation).setVisible(false);
-        }
+        menu.findItem(R.id.action_fp_initiation).setVisible(!FpDao.isRegisteredForFp(baseEntityId));
     }
 
     public static void updateHivMenuItems(String baseEntityId, Menu menu) {

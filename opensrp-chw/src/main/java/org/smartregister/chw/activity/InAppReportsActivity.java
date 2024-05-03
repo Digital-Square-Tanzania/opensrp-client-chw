@@ -1,6 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
@@ -14,8 +17,12 @@ import com.google.android.material.appbar.AppBarLayout;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.Arrays;
 
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected CustomFontTextView toolBarTextView;
@@ -65,41 +72,85 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         cecapReports = findViewById(R.id.cecap_reports);
         kvpReports = findViewById(R.id.kvp_reports);
 
-        if (ChwApplication.getApplicationFlavor().hasHIV()) {
-            cbhsReportsLayout.setVisibility(View.VISIBLE);
+        AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = "";
+        if (preferences != null) {
+            teamRoleIdentifier = preferences.getString(TEAM_ROLE_IDENTIFIER, "");
         }
 
-        if (ChwApplication.getApplicationFlavor().hasPmtct()) {
-            motherChampionReportsLayout.setVisibility(View.VISIBLE);
+        if (!teamRoleIdentifier.isEmpty()) {
+            switch (teamRoleIdentifier) {
+                case "mother_champion":
+                    motherChampionReportsLayout.setVisibility(View.VISIBLE);
+                    break;
+                case "cbhs_provider":
+                    cbhsReportsLayout.setVisibility(View.VISIBLE);
+                    break;
+                case "iccm_provider":
+                    iccmReports.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    if (ChwApplication.getApplicationFlavor().hasHIV()) {
+                        cbhsReportsLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasPmtct()) {
+                        motherChampionReportsLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+                        agywReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasSbc()) {
+                        sbcReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasCdp()) {
+                        condomDistributionReports.setVisibility(View.VISIBLE);
+                    }
+                    break;
+            }
+        } else {
+            if (ChwApplication.getApplicationFlavor().hasHIV()) {
+                cbhsReportsLayout.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasPmtct()) {
+                motherChampionReportsLayout.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+                agywReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasICCM()) {
+                iccmReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasSbc()) {
+                sbcReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                asrhReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                cecapReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                kvpReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasCdp()) {
+                condomDistributionReports.setVisibility(View.VISIBLE);
+            }
         }
 
-        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
-            agywReports.setVisibility(View.VISIBLE);
-        }
 
-        if (ChwApplication.getApplicationFlavor().hasICCM()) {
-            iccmReports.setVisibility(View.VISIBLE);
-        }
-
-        if (ChwApplication.getApplicationFlavor().hasSbc()) {
-            sbcReports.setVisibility(View.VISIBLE);
-        }
-
-        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
-            asrhReports.setVisibility(View.VISIBLE);
-        }
-
-        if (ChwApplication.getApplicationFlavor().hasCecap()) {
-            cecapReports.setVisibility(View.VISIBLE);
-        }
-
-        if (ChwApplication.getApplicationFlavor().hasCdp()) {
-            condomDistributionReports.setVisibility(View.VISIBLE);
-        }
-
-        if (ChwApplication.getApplicationFlavor().hasKvp()) {
-            kvpReports.setVisibility(View.VISIBLE);
-        }
         motherChampionReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);

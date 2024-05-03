@@ -203,7 +203,6 @@ android {
 
             buildConfigField "int", "DATABASE_VERSION", '28'
         }
-
     }
 
     dataBinding {

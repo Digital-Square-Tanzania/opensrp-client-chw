@@ -690,4 +690,84 @@ public interface ChwQueryConstant {
             "    FROM ec_cecap_register)\n" +
             ")\n" +
             "ORDER BY last_interacted_with DESC;";
+    String ALL_ICCM_CLIENTS_SELECT_QUERY = "SELECT * FROM (" +
+            "/*INDEPENDENT MEMBERS*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                   as _id,\n" +
+            "       'Independent'                         AS register_type,\n" +
+            "       ec_family_member.relational_id        as relationalid,\n" +
+            "       ec_family.village_town                as home_address,\n" +
+            "       NULL                                  AS mother_first_name,\n" +
+            "       NULL                                  AS mother_last_name,\n" +
+            "       NULL                                  AS mother_middle_name,\n" +
+            "       ec_family_member.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_family.entity_type = 'ec_independent_client'\n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_iccm_enrollment.entity_id AS base_entity_id\n" +
+            "    FROM ec_iccm_enrollment\n" +
+            "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
+            "    AND ec_iccm_enrollment.is_closed = 0  \n" +
+            ")" +
+            "UNION ALL\n" +
+            "/*OTHER FAMILY MEMBERS*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                   as _id,\n" +
+            "       NULL                                  AS register_type,\n" +
+            "       ec_family_member.relational_id        as relationalid,\n" +
+            "       ec_family.village_town                as home_address,\n" +
+            "       NULL                                  AS mother_first_name,\n" +
+            "       NULL                                  AS mother_last_name,\n" +
+            "       NULL                                  AS mother_middle_name,\n" +
+            "       ec_family_member.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND (ec_family.entity_type = 'ec_family' OR ec_family.entity_type is null)\n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_iccm_enrollment.entity_id AS base_entity_id\n" +
+            "    FROM ec_iccm_enrollment\n" +
+            "    WHERE date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
+            "    AND ec_iccm_enrollment.is_closed = 0  \n" +
+            ")\n" +
+            "UNION ALL\n" +
+            "/*ONLY ICCM CLIENTS*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_iccm_enrollment.base_entity_id,\n" +
+            "       ec_family_member.id                          as _id,\n" +
+            "       'iCCM'                                    AS register_type,\n" +
+            "       ec_family_member.relational_id               as relationalid,\n" +
+            "       ec_family.village_town                       as home_address,\n" +
+            "       NULL                                         AS mother_first_name,\n" +
+            "       NULL                                         AS mother_last_name,\n" +
+            "       NULL                                         AS mother_middle_name,\n" +
+            "       ec_iccm_enrollment.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "         inner join ec_iccm_enrollment\n" +
+            "                    on ec_family_member.base_entity_id = ec_iccm_enrollment.entity_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND date('now') <= date(strftime('%Y-%m-%d', ec_iccm_enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime'))\n" +
+            "  AND ec_iccm_enrollment.is_closed = 0 \n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            ")\n" +
+            "ORDER BY last_interacted_with DESC;";
 }
