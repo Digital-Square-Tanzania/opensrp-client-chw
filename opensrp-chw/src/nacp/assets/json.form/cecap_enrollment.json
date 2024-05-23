@@ -67,10 +67,10 @@
             "openmrs_entity_id": "known_positive"
           },
           {
-            "key": "negative",
-            "text": "Negative",
+            "key": "unknown",
+            "text": "Unknown",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "negative"
+            "openmrs_entity_id": "unknown"
           }
         ],
         "v_required": {

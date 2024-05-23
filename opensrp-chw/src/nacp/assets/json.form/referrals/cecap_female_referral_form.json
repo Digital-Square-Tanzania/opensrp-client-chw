@@ -96,15 +96,6 @@
               }
             },
             {
-              "name": "prostate_cancer_screening",
-              "text": "Prostate Cancer Screening",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "prostate_cancer_screening",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "other_reasons",
               "text": "Other reasons",
               "meta_data": {

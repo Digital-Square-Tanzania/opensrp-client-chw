@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.util.Constants.CECAP_REFERRAL_FORM;
+import static org.smartregister.chw.util.Constants.CECAP_FEMALE_REFERRAL_FORM;
+import static org.smartregister.chw.util.Constants.CECAP_MALE_REFERRAL_FORM;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +48,6 @@ import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -247,7 +247,11 @@ public class CecapMemberProfileActivity extends BaseCecapProfileActivity {
 
     private void addReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.cecap_referral), CECAP_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.CECAP_REFERRAL));
+            if (memberObject.getGender().equalsIgnoreCase("male")) {
+                getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.cecap_referral), CECAP_MALE_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.CECAP_REFERRAL));
+            } else {
+                getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.cecap_referral), CECAP_FEMALE_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.CECAP_REFERRAL));
+            }
 
             if (isClientEligibleForAnc(memberObject)) {
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs), org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
