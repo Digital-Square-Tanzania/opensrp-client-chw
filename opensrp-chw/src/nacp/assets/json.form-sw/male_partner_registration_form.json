@@ -790,6 +790,12 @@
             "text": "Ulemavu Usioonekana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
+          },
+          {
+            "key": "albinism",
+            "text": "Ualbino",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "albinism"
           }
         ],
         "relevance": {

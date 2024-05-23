@@ -574,6 +574,12 @@
                 "value": false,
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "invisible_disabilities"
+              },
+              {
+                "key": "albinism",
+                "text": "Albinism",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "albinism"
               }
             ],
             "relevance": {
