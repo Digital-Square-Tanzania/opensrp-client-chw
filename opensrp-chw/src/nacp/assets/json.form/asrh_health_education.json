@@ -135,10 +135,16 @@
             "openmrs_entity_id": "neglected_tropical_disease"
           },
           {
-            "key": "hiv_aid_and_stis",
-            "text": "HIV/AIDS and STIs",
+            "key": "hiv_aid",
+            "text": "HIV/AIDS",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aid_and_stis"
+            "openmrs_entity_id": "hiv_aid"
+          },
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
           },
           {
             "key": "hygiene",
@@ -217,10 +223,16 @@
             "openmrs_entity_id": "neglected_tropical_disease"
           },
           {
-            "key": "hiv_aid_and_stis",
-            "text": "HIV/AIDS and STIs",
+            "key": "hiv_aid",
+            "text": "HIV/AIDS",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aid_and_stis"
+            "openmrs_entity_id": "hiv_aid"
+          },
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
           },
           {
             "key": "hygiene",
