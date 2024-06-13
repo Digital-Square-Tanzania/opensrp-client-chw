@@ -97,7 +97,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
                       AND (efm.gender='Male')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -213,7 +213,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
                       AND (efm.gender='Female')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -329,7 +329,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
                       AND (efm.gender='Male')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -445,7 +445,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
                       AND (efm.gender='Female')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -561,7 +561,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
                       AND (efm.gender='Male')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -677,7 +677,7 @@ indicators:
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
                       WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
                       AND (efm.gender='Female')
-                      AND education_on_mental_health_and_substance_abuse_provided IS NOT NULL
+                      AND education_on_mental_health_provided IS NOT NULL
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

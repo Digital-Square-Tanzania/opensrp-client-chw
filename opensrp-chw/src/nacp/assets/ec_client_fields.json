@@ -6148,11 +6148,11 @@
           }
         },
         {
-          "column_name": "education_on_mental_health_and_substance_abuse_provided",
+          "column_name": "education_on_mental_health_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "education_on_mental_health_and_substance_abuse_provided"
+            "concept": "education_on_mental_health_provided"
           }
         },
         {
