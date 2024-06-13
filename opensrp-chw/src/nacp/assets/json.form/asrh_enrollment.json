@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ASRH Enrollment",
+  "encounter_type": "AYSRH Enrollment",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -53,7 +53,7 @@
   },
   "global": {},
   "step1": {
-    "title": "ASRH Enrollment",
+    "title": "AYSRH Enrollment",
     "fields": [
       {
         "key": "education_level",

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ASRH Client Status",
+  "encounter_type": "AYSRH Client Status",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,7 +53,7 @@
     }
   },
   "step1": {
-    "title": "ASRH Client Status",
+    "title": "AYSRH Client Status",
     "fields": [
       {
         "key": "client_status",

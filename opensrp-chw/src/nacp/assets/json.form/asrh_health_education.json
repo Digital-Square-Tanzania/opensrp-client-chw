@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ASRH Health Education",
+  "encounter_type": "AYSRH Health Education",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -54,7 +54,7 @@
   },
   "global": {},
   "step1": {
-    "title": "ASRH Health Education",
+    "title": "AYSRH Health Education",
     "fields": [
       {
         "key": "was_health_education_provided",
@@ -304,7 +304,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "education_delivery_point",
         "type": "native_radio",
-        "label": "ASRH education delivery point?",
+        "label": "AYSRH education delivery point?",
         "text_color": "#000000",
         "options": [
           {

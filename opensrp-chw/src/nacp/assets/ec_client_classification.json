@@ -776,14 +776,14 @@
           },
           {
             "field": "eventType",
-            "field_value": "ASRH Enrollment",
+            "field_value": "AYSRH Enrollment",
             "creates_case": [
               "ec_asrh_register"
             ]
           },
           {
             "field": "eventType",
-            "field_value": "ASRH Follow-up Visit",
+            "field_value": "AYSRH Follow-up Visit",
             "creates_case": [
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
