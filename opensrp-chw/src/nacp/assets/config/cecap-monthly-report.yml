@@ -6,14 +6,14 @@ indicators:
     description: "Number of clients who received education on Reproductive cancer prevention"
     indicatorQuery: "SELECT SUM(male_clients_reached) as count
                       FROM ec_cecap_mobilization_session ecms
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
     
   - key: "cecap-1-female-total"
     grouping: "CECAP"
     description: "Number of clients who received education on Reproductive cancer prevention"
     indicatorQuery: "SELECT SUM(female_clients_reached) as count
                       FROM ec_cecap_mobilization_session ecms
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =  date((substr(mobilization_date, 7, 4) || '-' || substr(mobilization_date, 4, 2) || '-' || '01'))"
     
   - key: "cecap-2-male-14"
     grouping: "CECAP"

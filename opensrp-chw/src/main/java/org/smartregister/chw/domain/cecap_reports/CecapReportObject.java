@@ -29,7 +29,7 @@ public class CecapReportObject extends ReportObject {
         setIndicatorCodesWithAgeGroups(indicatorCodesWithAgeGroups);
     }
 
-    public static int calculateSbcSpecificTotal(HashMap<String, Integer> indicators, String specificKey) {
+    public static int calculateSpecificTotal(HashMap<String, Integer> indicators, String specificKey) {
         int total = 0;
 
         for (Map.Entry<String, Integer> entry : indicators.entrySet()) {
@@ -67,8 +67,8 @@ public class CecapReportObject extends ReportObject {
 
         // Calculate and add total values for "totals"
         for (String indicatorCode : indicatorCodes) {
-            int maleTotal = calculateSbcSpecificTotal(indicatorsValues, indicatorCode + "-male");
-            int femaleTotal = calculateSbcSpecificTotal(indicatorsValues, indicatorCode + "-female");
+            int maleTotal = calculateSpecificTotal(indicatorsValues, indicatorCode + "-male");
+            int femaleTotal = calculateSpecificTotal(indicatorsValues, indicatorCode + "-female");
             indicatorDataObject.put(indicatorCode + "-male-total", maleTotal);
             indicatorDataObject.put(indicatorCode + "-female-total", femaleTotal);
             indicatorDataObject.put(indicatorCode + "-grand-total", maleTotal + femaleTotal);

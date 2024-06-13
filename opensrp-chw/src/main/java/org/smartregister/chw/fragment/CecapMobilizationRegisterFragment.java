@@ -159,9 +159,9 @@ public class CecapMobilizationRegisterFragment extends BaseCecapRegisterFragment
     protected void setUpAdapter() {
         List<CecapMobilizationSessionModel> cecapMobilizationSessionModels = CecapDao.getCecapMobilizationSessions();
         if (cecapMobilizationSessionModels != null && !cecapMobilizationSessionModels.isEmpty()) {
-            showEmptyState();
             adapter = new CecapMobilizationRegisterAdapter(cecapMobilizationSessionModels, requireActivity());
             clientsView.setAdapter(adapter);
+            showEmptyState();
         } else {
             showEmptyState();
         }

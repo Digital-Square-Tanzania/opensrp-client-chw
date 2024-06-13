@@ -58,7 +58,7 @@
         "type": "date_picker",
         "hint": "Mobilization Date",
         "expanded": false,
-        "default": "12-12-2023",
+        "default": "today",
         "min_date": "today-5y",
         "max_date": "today",
         "v_required": {
