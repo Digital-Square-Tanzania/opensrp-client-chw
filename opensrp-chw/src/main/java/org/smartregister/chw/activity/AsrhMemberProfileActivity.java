@@ -107,13 +107,8 @@ public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
 
     private void addReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral), CoreConstants.JSON_FORM.getFamilyPlanningUnifiedReferralForm(memberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral), CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
-
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral), CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
-
             if (isClientEligibleForAnc(memberObject)) {
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral), CoreConstants.JSON_FORM.getFamilyPlanningUnifiedReferralForm(memberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
                 if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_referral), CoreConstants.JSON_FORM.getPncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
                 }
