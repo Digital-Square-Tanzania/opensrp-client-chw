@@ -19,12 +19,12 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.AsrhLibrary;
-import org.smartregister.chw.asrh.activity.BaseAsrhProfileActivity;
 import org.smartregister.chw.asrh.dao.AsrhDao;
 import org.smartregister.chw.asrh.domain.MemberObject;
 import org.smartregister.chw.asrh.util.Constants;
 import org.smartregister.chw.asrh.util.VisitUtils;
 import org.smartregister.chw.cecap.dao.CecapDao;
+import org.smartregister.chw.core.activity.CoreAsrhMemberProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
@@ -51,7 +51,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
+public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class AsrhMemberProfileActivity extends BaseAsrhProfileActivity {
                 }
                 if (!AncDao.isANCMember(memberObject.getBaseEntityId())) {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation), CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
-                }else{
+                } else {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs), org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
                 }
             }

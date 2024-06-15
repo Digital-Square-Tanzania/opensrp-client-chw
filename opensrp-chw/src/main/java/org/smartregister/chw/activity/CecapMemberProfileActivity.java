@@ -23,15 +23,16 @@ import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.dao.AsrhDao;
 import org.smartregister.chw.cecap.CecapLibrary;
-import org.smartregister.chw.cecap.activity.BaseCecapProfileActivity;
 import org.smartregister.chw.cecap.domain.MemberObject;
 import org.smartregister.chw.cecap.presenter.BaseCecapProfilePresenter;
 import org.smartregister.chw.cecap.util.CecapJsonFormUtils;
 import org.smartregister.chw.cecap.util.Constants;
 import org.smartregister.chw.cecap.util.VisitUtils;
+import org.smartregister.chw.core.activity.CoreCecapMemberProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.presenter.CoreCecapProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.CecapFloatingMenu;
@@ -56,7 +57,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class CecapMemberProfileActivity extends BaseCecapProfileActivity {
+public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
@@ -69,7 +70,7 @@ public class CecapMemberProfileActivity extends BaseCecapProfileActivity {
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        profilePresenter = new BaseCecapProfilePresenter(this, new CecapMemberProfileInteractor(), memberObject);
+        profilePresenter = new CoreCecapProfilePresenter(this, new CecapMemberProfileInteractor(), memberObject);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
     }
