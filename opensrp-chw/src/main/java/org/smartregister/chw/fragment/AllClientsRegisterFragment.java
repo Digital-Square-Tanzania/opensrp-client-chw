@@ -82,7 +82,7 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.CECAP:
                     AllClientsUtils.goToCecapProfile(this.getActivity(), commonPersonObjectClient);
                     break;
-                case CoreConstants.REGISTER_TYPE.ASRH:
+                case CoreConstants.REGISTER_TYPE.AYSRH:
                     AllClientsUtils.goToAsrhProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 default:

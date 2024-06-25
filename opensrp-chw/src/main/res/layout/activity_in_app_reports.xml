@@ -430,7 +430,7 @@
                     android:id="@+id/iv_asrh_summary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:contentDescription="ASRH Summary Icon"
+                    android:contentDescription="AYSRH Summary Icon"
                     android:padding="20dp"
                     android:src="@drawable/ic_pmtct_cohort_report"
                     app:layout_constraintBottom_toBottomOf="parent"

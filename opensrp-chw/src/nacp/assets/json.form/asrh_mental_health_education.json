@@ -17,11 +17,6 @@
       "openmrs_data_type": "end",
       "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "today": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "encounter",
-      "openmrs_entity_id": "encounter_date"
-    },
     "deviceid": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
@@ -66,18 +61,21 @@
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Education on Mental health provided",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
-            "key": "negative_effects_of_substance_abuse",
-            "text": "Negative effects of substance abuse",
+            "key": "effects_of_substance_abuse",
+            "text": "Effects of substance abuse",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "negative_effects_of_substance_abuse"
+            "openmrs_entity_id": "effects_of_substance_abuse"
           },
           {
-            "key": "negative_effects_of_alcohol_and_tobacco_product_use",
-            "text": "Negative effects of alcohol and tobacco product use",
+            "key": "effects_of_alcohol_and_tobacco_product_use",
+            "text": "Effects of alcohol and tobacco product use",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "negative_effects_of_alcohol_and_tobacco_product_use"
+            "openmrs_entity_id": "effects_of_alcohol_and_tobacco_product_use"
           },
           {
             "key": "depression",

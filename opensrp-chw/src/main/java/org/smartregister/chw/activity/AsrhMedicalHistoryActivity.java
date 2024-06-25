@@ -115,7 +115,7 @@ public class AsrhMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
                     }
 
                     String[] visitTypeParams = {"client_status", "was_health_education_provided", "provided_health_education", "other_provided_health_education", "education_delivery_point", "provided_sexual_reproductive_health_health_education",
-                            "education_on_mental_health_provided", "facilitation_methods"};
+                            "education_on_mental_health_provided", "facilitation_methods","other_facilitation_methods","next_appointment_date"};
                     extractVisitDetails(visits, visitTypeParams, visitDetails, x, context);
                     hf_visits.add(visitDetails);
 

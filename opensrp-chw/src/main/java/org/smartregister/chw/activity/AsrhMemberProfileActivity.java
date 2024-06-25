@@ -47,6 +47,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import timber.log.Timber;
@@ -100,7 +101,15 @@ public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
                 clientStatus.setText(getString(R.string.asrh_transfer_out));
 
         } else {
-            textViewRecordAsrh.setVisibility(View.VISIBLE);
+            Date nextAppointmentDate = AsrhDao.getNextAppointmentDate(memberObject.getBaseEntityId());
+            if (nextAppointmentDate != null) {
+                if (nextAppointmentDate.before(new Date()))
+                    textViewRecordAsrh.setVisibility(View.VISIBLE);
+                else
+                    textViewRecordAsrh.setVisibility(View.GONE);
+            } else {
+                textViewRecordAsrh.setVisibility(View.VISIBLE);
+            }
             clientStatus.setVisibility(View.GONE);
         }
     }

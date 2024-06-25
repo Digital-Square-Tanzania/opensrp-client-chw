@@ -469,7 +469,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion28(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_cecap_register", "ec_cecap_visit", "ec_asrh_register","ec_asrh_follow_up_visit","ec_cecap_mobilization_session")),
+                    new HashSet<>(Arrays.asList("ec_cecap_register", "ec_cecap_visit", "ec_asrh_register", "ec_asrh_follow_up_visit", "ec_cecap_mobilization_session")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion28");
@@ -487,13 +487,15 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion28");
         }
 
-        try{
+        try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
 
             String asrhIndicatorsConfigFile = "config/asrh-monthly-report.yml";
+            String asrhOtherMonthlyReportsIndicatorsConfigFile = "config/asrh-other-monthly-report.yml";
             String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
+            String cecapOtherMonthlyReportsIndicatorsConfigFile = "config/cecap-other-monthly-report.yml";
             String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
-            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, cecapIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));

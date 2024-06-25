@@ -646,7 +646,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
-            "       'ASRH'                             AS register_type,\n" +
+            "       'AYSRH'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
             "       NULL                                         AS mother_first_name,\n" +
