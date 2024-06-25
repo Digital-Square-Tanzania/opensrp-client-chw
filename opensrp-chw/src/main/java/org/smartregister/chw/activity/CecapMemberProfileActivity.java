@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.cecap.interactor.BaseCecapProfileInteractor.getVisit;
 import static org.smartregister.chw.util.Constants.CECAP_FEMALE_REFERRAL_FORM;
 import static org.smartregister.chw.util.Constants.CECAP_MALE_REFERRAL_FORM;
 
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -24,6 +26,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.dao.AsrhDao;
 import org.smartregister.chw.cecap.CecapLibrary;
 import org.smartregister.chw.cecap.domain.MemberObject;
+import org.smartregister.chw.cecap.domain.Visit;
 import org.smartregister.chw.cecap.presenter.BaseCecapProfilePresenter;
 import org.smartregister.chw.cecap.util.CecapJsonFormUtils;
 import org.smartregister.chw.cecap.util.Constants;
@@ -53,6 +56,8 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import timber.log.Timber;
@@ -231,6 +236,28 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+
+        Visit lastVisit = getVisit(Constants.EVENT_TYPE.CECAP_HOME_VISIT, memberObject);
+
+        if (lastVisit != null) {
+            Calendar today = Calendar.getInstance();
+            today.setTime(new Date());
+
+            // Get the date to check
+            Calendar dateToCheckCal = Calendar.getInstance();
+            dateToCheckCal.setTime(lastVisit.getDate());
+
+            // Check if the given date is today
+            boolean isToday = (today.get(Calendar.YEAR) == dateToCheckCal.get(Calendar.YEAR)) &&
+                    (today.get(Calendar.DAY_OF_YEAR) == dateToCheckCal.get(Calendar.DAY_OF_YEAR));
+
+            if (isToday) {
+                textViewRecordCecap.setVisibility(View.GONE);
+            } else {
+                textViewRecordCecap.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     @Override
