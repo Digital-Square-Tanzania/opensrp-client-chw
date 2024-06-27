@@ -1,0 +1,100 @@
+{
+  "count": "1",
+  "encounter_type": "Mental Health Education",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "exclusive": [
+    "none"
+  ],
+  "step1": {
+    "title": "Elimu ya Afya ya akili",
+    "fields": [
+      {
+        "key": "education_on_mental_health_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_on_mental_health_provided",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Elimu ya Afya ya akili iliyotolewa",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "effects_of_substance_abuse",
+            "text": "Madhara ya matumizi ya dawa za kulevya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_of_substance_abuse"
+          },
+          {
+            "key": "effects_of_alcohol_and_tobacco_product_use",
+            "text": "Madhara ya pombe na sigara/tumbaku",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_of_alcohol_and_tobacco_product_use"
+          },
+          {
+            "key": "depression",
+            "text": "Huzuni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "depression"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      }
+    ]
+  }
+}

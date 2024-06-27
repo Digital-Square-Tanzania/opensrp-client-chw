@@ -1,0 +1,337 @@
+{
+  "count": "1",
+  "encounter_type": "AYSRH Health Education",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "global": {},
+  "step1": {
+    "title": "Elimu",
+    "fields": [
+      {
+        "key": "was_health_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_health_education_provided",
+        "type": "native_radio",
+        "label": "Je elimu iliyotolewa",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "provided_health_education_for_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education_for_male",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua elimu iliyotolewa",
+        "options": [
+          {
+            "key": "sexual_reproductive_health_education",
+            "text": "Elimu ya afya ya uzazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_reproductive_health_education"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "mental_health_and_substance_abuse",
+            "text": "Afya ya akili na matumizi mabaya ya dawa za kulevya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_and_substance_abuse"
+          },
+          {
+            "key": "tb",
+            "text": "Kifua kikuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasiyoambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "livelihood_education_skills",
+            "text": "Ujuzi wa Elimu ya Kujipatia Kipato",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "livelihood_education_skills"
+          },
+          {
+            "key": "neglected_tropical_disease",
+            "text": "Magonjwa yasiyopewa kipaumbele",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_disease"
+          },
+          {
+            "key": "hiv_aid",
+            "text": "VVU/UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aid"
+          },
+          {
+            "key": "education_on_stis",
+            "text": "Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_stis"
+          },
+          {
+            "key": "hygiene",
+            "text": "Usafi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene"
+          },
+          {
+            "key": "other",
+            "text": "Nyingine(taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_health_education_for_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education_for_female",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua elimu iliyotolewa",
+        "options": [
+          {
+            "key": "sexual_reproductive_health_education",
+            "text": "Elimu ya afya ya uzazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_reproductive_health_education"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "mental_health_and_substance_abuse",
+            "text": "Afya ya akili na matumizi mabaya ya dawa za kulevya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_and_substance_abuse"
+          },
+          {
+            "key": "tb",
+            "text": "Kifua kikuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasiyoambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "livelihood_education_skills",
+            "text": "Ujuzi wa Elimu ya Kujipatia Kipato",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "livelihood_education_skills"
+          },
+          {
+            "key": "neglected_tropical_disease",
+            "text": "Magonjwa yasiyopewa kipaumbele",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_disease"
+          },
+          {
+            "key": "hiv_aid",
+            "text": "VVU/UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aid"
+          },
+          {
+            "key": "stis",
+            "text": "Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          },
+          {
+            "key": "hygiene",
+            "text": "Usafi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene"
+          },
+          {
+            "key": "hpv_vaccination",
+            "text": "Chanjo dhidi ya saratani ya shingo ya kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hpv_vaccination"
+          },
+          {
+            "key": "other",
+            "text": "Nyingine(taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_health_education",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_provided_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_provided_health_education",
+        "type": "edit_text",
+        "hint": "Elimu nyingine iliyotolewa",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "education_delivery_point",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_delivery_point",
+        "type": "native_radio",
+        "label": "Elimu ilipotolewa",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "household",
+            "text": "Kaya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household"
+          },
+          {
+            "key": "community_group",
+            "text": "Kikundi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_group"
+          },
+          {
+            "key": "school",
+            "text": "Shule",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "step1:was_health_education_provided": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}

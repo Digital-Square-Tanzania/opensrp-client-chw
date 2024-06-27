@@ -1,0 +1,258 @@
+{
+  "count": "1",
+  "encounter_type": "Youth Sexual Reproductive health education",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "global": {},
+  "step1": {
+    "title": "Elimu ya afya ya uzazi",
+    "fields": [
+      {
+        "key": "provided_sexual_reproductive_health_health_education_for_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education_for_male",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua Elimu ya afya ya uzazi iliyotolewa",
+        "options": [
+          {
+            "key": "developmental_stages_during_adolescence",
+            "text": "Hatua za ukuaji wakati wa balehe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "developmental_stages_during_adolescence"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "menstrual_hygiene",
+            "text": "Hedhi salama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "menstrual_hygiene"
+          },
+          {
+            "key": "teenage_pregnancies",
+            "text": "Mimba za utotoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "teenage_pregnancies"
+          },
+          {
+            "key": "hiv_prevention",
+            "text": "Kinga dhidi ya maambukizi ya VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_prevention"
+          },
+          {
+            "key": "hiv_care_and_treatment",
+            "text": "Huduma za tiba na kinga za VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_care_and_treatment"
+          },
+          {
+            "key": "gbv_vac",
+            "text": "Unyanyasaji wa kijinsia  na ukatili dhidi ya watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv_vac"
+          },
+          {
+            "key": "life_skills",
+            "text": "Stadi za maisha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          },
+          {
+            "key": "stis",
+            "text": "Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_sexual_reproductive_health_health_education_for_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education_for_female",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua Elimu ya afya ya uzazi iliyotolewa",
+        "options": [
+          {
+            "key": "developmental_stages_during_adolescence",
+            "text": "Hatua za ukuaji wakati wa balehe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "developmental_stages_during_adolescence"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "post_abortion_care",
+            "text": "Huduma baada ya mimba kuharibika",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_abortion_care"
+          },
+          {
+            "key": "anc",
+            "text": "Huduma wakati wa ujauzito",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anc"
+          },
+          {
+            "key": "pnc",
+            "text": "Huduma wakati na baada ya kujifungua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pnc"
+          },
+          {
+            "key": "intra_and_post_natal_care",
+            "text": "Huduma wakati na baada ya kujifungua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "intra_and_post_natal_care"
+          },
+          {
+            "key": "menstrual_hygiene",
+            "text": "Hedhi salama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "menstrual_hygiene"
+          },
+          {
+            "key": "teenage_pregnancies",
+            "text": "Mimba za utotoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "teenage_pregnancies"
+          },
+          {
+            "key": "hiv_prevention",
+            "text": "Kinga dhidi ya maambukizi ya VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_prevention"
+          },
+          {
+            "key": "hiv_care_and_treatment",
+            "text": "Huduma za tiba na kinga za VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_care_and_treatment"
+          },
+          {
+            "key": "child_marriage",
+            "text": "Ndoa za utotoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_marriage"
+          },
+          {
+            "key": "cervical_cancer_prevention",
+            "text": "Kujikinga na saratani ya shingo na kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer_prevention"
+          },
+          {
+            "key": "gbv_vac",
+            "text": "Unyanyasaji wa kijinsia  na ukatili dhidi ya watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv_vac"
+          },
+          {
+            "key": "life_skills",
+            "text": "Stadi za maisha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          },
+          {
+            "key": "stis",
+            "text": "Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_sexual_reproductive_health_health_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sexual_reproductive_health_health_education",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_sexual_reproductive_health_education_rule.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

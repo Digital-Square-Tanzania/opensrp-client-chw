@@ -1,0 +1,124 @@
+{
+  "count": "1",
+  "encounter_type": "Facilitation Methods",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Njia za uwezeshaji",
+    "fields": [
+      {
+        "key": "facilitation_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facilitation_methods",
+        "type": "native_radio",
+        "label": "Njia za uwezeshaji",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "presentation",
+            "text": "Wasilisho",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "presentation"
+          },
+          {
+            "key": "group_discussions",
+            "text": "Majadiliano",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "group_discussions"
+          },
+          {
+            "key": "role_play",
+            "text": "Igizo/Sanaa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "role_play"
+          },
+          {
+            "key": "case_studies",
+            "text": "Kisa mkasa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "case_studies"
+          },
+          {
+            "key": "sports",
+            "text": "Michezo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sports"
+          },
+          {
+            "key": "other",
+            "text": "Nyingine (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "other_facilitation_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_facilitation_methods",
+        "type": "edit_text",
+        "hint": "Njia nyingine ya uwezeshaji",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "step1:facilitation_methods": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      }
+    ]
+  }
+}
