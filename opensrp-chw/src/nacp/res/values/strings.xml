@@ -750,6 +750,10 @@
     <string name="asrh_opted_out">Opted Out</string>
     <string name="asrh_next_appointment_date">Next Appointment Date</string>
 
+    <string name="asrh_referrals_to_other_services">Referrals to Other Services Provided:</string>
+    <string name="asrh_legal_aid_services">Legal Aid Services</string>
+    <string name="asrh_psychosocial_support">Psychosocial Support</string>
+
     <!--    CECAP   -->
     <string name="cecap_topics_covered">Topics Covered:</string>
     <string name="cecap_cervical_cancer">Cervical cancer</string>

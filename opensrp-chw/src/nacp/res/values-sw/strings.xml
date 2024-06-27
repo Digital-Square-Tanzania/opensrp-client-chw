@@ -606,5 +606,59 @@
 
     <!--    ICCM Visit History-->
     <string name="iccm_visit">Matembeleo ya huduma za iCCM</string>
+    <string name="cecap_topics_covered">Mada zilizotolewa:</string>
+
+    <!--    ASRH   -->
+    <string name="asrh_client_status">Hali ya Mteja:</string>
+    <string name="asrh_active">Anaendelea na huduma</string>
+    <string name="asrh_transfer_out">Amehama</string>
+    <string name="asrh_opt_out">Amejitoa</string>
+    <string name="asrh_was_health_education_provided">Je, elimu iliyotolewa:</string>
+    <string name="asrh_provided_health_education">Elimu iliyotolewa:</string>
+    <string name="asrh_other_provided_health_education">Elimu nyingine iliyotolewa:</string>
+    <string name="asrh_education_delivery_point">Elimu ilipotolewa:</string>
+    <string name="asrh_provided_sexual_reproductive_health_health_education">Elimu ya afya ya uzazi imetolewa:</string>
+    <string name="asrh_nutrition">Lishe</string>
+    <string name="asrh_mental_health_and_substance_abuse">Afya ya akili na matumizi mabaya ya dawa za kulevya</string>
+    <string name="asrh_tb">Kifua kikuu</string>
+    <string name="asrh_non_communicable_diseases">Magonjwa yasiyoambukiza</string>
+    <string name="asrh_livelihood_education_skills">Ujuzi wa Elimu ya Kujipatia Kipato</string>
+    <string name="asrh_neglected_tropical_disease">Magonjwa yasiyopewa kipaumbele</string>
+    <string name="asrh_hiv_aid_and_stis">VVU/UKIMWI na Magonjwa ya Zinaa</string>
+    <string name="asrh_hygiene">Usafi</string>
+    <string name="asrh_hpv_vaccination">Chanjo dhidi ya saratani ya shingo ya kizazi</string>
+    <string name="asrh_household">Kaya</string>
+    <string name="asrh_community_group">Kikundi</string>
+    <string name="asrh_school">Shule</string>
+    <string name="asrh_developmental_stages_during_adolescence">Hatua za ukuaji wakati wa balehe</string>
+    <string name="asrh_family_planning">Uzazi wa mpango</string>
+    <string name="asrh_post_abortion_care">Huduma baada ya mimba kuharibika</string>
+    <string name="asrh_anc">Huduma wakati wa ujauzito</string>
+    <string name="asrh_intra_and_post_natal_care">Huduma wakati na baada ya kujifungua</string>
+    <string name="asrh_menstrual_hygiene">Hedhi salama</string>
+    <string name="asrh_teenage_pregnancies">Mimba za utotoni</string>
+    <string name="asrh_hiv_prevention">Kinga dhidi ya maambukizi ya VVU</string>
+    <string name="asrh_hiv_care_and_treatment">Huduma za tiba na kinga za VVU</string>
+    <string name="asrh_child_marriage">Ndoa za utotoni</string>
+    <string name="asrh_cervical_cancer_prevention">Kujikinga na saratani ya shingo na kizazi</string>
+    <string name="asrh_gbv_vac">Unyanyasaji wa kijinsia na ukatili dhidi ya watoto</string>
+    <string name="asrh_life_skills">Stadi za maisha</string>
+    <string name="asrh_stis">Magonjwa ya ngono</string>
+    <string name="asrh_education_on_mental_health_provided">Elimu ya Afya ya akili iliyotolewa:</string>
+    <string name="asrh_effects_of_substance_abuse">Madhara ya matumizi ya dawa za kulevya</string>
+    <string name="asrh_effects_of_alcohol_and_tobacco_product_use">Madhara ya pombe na sigara/tumbaku</string>
+    <string name="asrh_facilitation_methods">Njia za uwezeshaji</string>
+    <string name="asrh_other_facilitation_methods">Njia nyingine ya uwezeshaji</string>
+    <string name="asrh_presentation">Wasilisho</string>
+    <string name="asrh_group_discussions">Majadiliano ya Kundi</string>
+    <string name="asrh_role_play">Igizo/Sanaa</string>
+    <string name="asrh_case_studies">Kisa mkasa</string>
+    <string name="asrh_sports">Michezo</string>
+    <string name="asrh_other">Nyingine</string>
+    <string name="asrh_referrals_to_other_services">Rufaa kwenda kwenye huduma nyingine:</string>
+    <string name="asrh_legal_aid_services">Huduma ya kisheria</string>
+    <string name="asrh_psychosocial_support">Msaada wa kisaikolojia kutoka kwenye makundi</string>
+    <string name="asrh_next_appointment_date">Tarehe ya tembeleo lijayo</string>
+
 
 </resources>
