@@ -6074,6 +6074,14 @@
           }
         },
         {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
@@ -6161,14 +6169,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "provided_sexual_reproductive_health_health_education"
-          }
-        },
-        {
-          "column_name": "next_appointment_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "next_appointment_date"
           }
         },
         {
