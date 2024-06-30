@@ -167,12 +167,6 @@
             "openmrs_entity_id": "pnc"
           },
           {
-            "key": "intra_and_post_natal_care",
-            "text": "Huduma wakati na baada ya kujifungua",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "intra_and_post_natal_care"
-          },
-          {
             "key": "menstrual_hygiene",
             "text": "Hedhi salama",
             "openmrs_entity": "concept",
@@ -204,7 +198,7 @@
           },
           {
             "key": "cervical_cancer_prevention",
-            "text": "Kujikinga na saratani ya shingo na kizazi",
+            "text": "Kujikinga na saratani ya shingo ya kizazi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cervical_cancer_prevention"
           },

@@ -63,7 +63,7 @@
     <!-- Reports View Strings   -->
     <string name="reports_title">RIPOTI</string>
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
-    <string name="monthly_report">Repoti Ya Mwezi</string>
+    <string name="monthly_report">Ripoti Ya Mwezi</string>
     <string name="print_report">Chapa</string>
     <string name="reports">Ripoti</string>
 
@@ -640,13 +640,14 @@
     <string name="asrh_hiv_prevention">Kinga dhidi ya maambukizi ya VVU</string>
     <string name="asrh_hiv_care_and_treatment">Huduma za tiba na kinga za VVU</string>
     <string name="asrh_child_marriage">Ndoa za utotoni</string>
-    <string name="asrh_cervical_cancer_prevention">Kujikinga na saratani ya shingo na kizazi</string>
+    <string name="asrh_cervical_cancer_prevention">Kujikinga na saratani ya shingo ya kizazi</string>
     <string name="asrh_gbv_vac">Unyanyasaji wa kijinsia na ukatili dhidi ya watoto</string>
     <string name="asrh_life_skills">Stadi za maisha</string>
     <string name="asrh_stis">Magonjwa ya ngono</string>
     <string name="asrh_education_on_mental_health_provided">Elimu ya Afya ya akili iliyotolewa:</string>
     <string name="asrh_effects_of_substance_abuse">Madhara ya matumizi ya dawa za kulevya</string>
     <string name="asrh_effects_of_alcohol_and_tobacco_product_use">Madhara ya pombe na sigara/tumbaku</string>
+    <string name="asrh_depression">Sonona</string>
     <string name="asrh_facilitation_methods">Njia za uwezeshaji</string>
     <string name="asrh_other_facilitation_methods">Njia nyingine ya uwezeshaji</string>
     <string name="asrh_presentation">Wasilisho</string>
@@ -657,8 +658,24 @@
     <string name="asrh_other">Nyingine</string>
     <string name="asrh_referrals_to_other_services">Rufaa kwenda kwenye huduma nyingine:</string>
     <string name="asrh_legal_aid_services">Huduma ya kisheria</string>
-    <string name="asrh_psychosocial_support">Msaada wa kisaikolojia kutoka kwenye makundi</string>
+    <string name="asrh_psychosocial_support">Huduma za msaada wa kisaikolojia na kijamii</string>
     <string name="asrh_next_appointment_date">Tarehe ya tembeleo lijayo</string>
+
+    <string name="asrh_reports_title">Ripoti ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="asrh_other_reports_title">Ripoti nyingine ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="asrh_reports_subtitle">Tazama ripoti ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="cecap_reports_title">Ripoti ya huduma ya saratani ya via vya uzazi</string>
+    <string name="cecap_other_reports_title">Ripoti nyingine ya huduma ya saratani ya via vya uzazi</string>
+    <string name="cecap_reports_subtitle">Tazama ripoti ya huduma ya saratani ya via vya uzazi</string>
+
+    <string name="cecap_health_education_provided">Elimu iliyotolewa:</string>
+    <string name="cecap_cervical_cancer">Saratani ya shingo ya kizazi</string>
+    <string name="cecap_breast_cancer">Saratani ya matiti</string>
+    <string name="cecap_prostate_cancer">Tenzi dume</string>
+    <string name="cecap_hiv_sti">VVU/Ukimwi na Magonjwa ya ngono</string>
+    <string name="cecap_mobilization_date">Tarehe ya uhamasishaji</string>
+    <string name="cecap_female_clients_reached">Namba ya wateja wa kike waliofikiwa</string>
+    <string name="cecap_male_clients_reached">Namba ya wateja wa kiume waliofikiwa</string>
 
 
 </resources>

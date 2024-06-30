@@ -56,7 +56,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "mobilization_date",
         "type": "date_picker",
-        "hint": "Tarehe ya uamasishaji",
+        "hint": "Tarehe ya uhamasishaji",
         "expanded": false,
         "default": "today",
         "min_date": "today-5y",

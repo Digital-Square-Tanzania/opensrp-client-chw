@@ -359,6 +359,8 @@
     <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
     <string name="anc_danger_signs">Dalili za hatari ya ujazito</string>
     <string name="suspected_malaria">Malaria inayodhaniwa</string>
+    <string name="cecap_referral">Huduma ya saratani ya via vya uzazi</string>
+
 
     <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 

@@ -51,13 +51,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "mobilization_date",
         "type": "date_picker",
-        "hint": "Tarehe ya uamasishaji",
+        "hint": "Tarehe ya uhamasishaji",
         "expanded": false,
         "min_date": "today-6m",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ya uamasishaji"
+          "err": "Tafadhali ingiza tarehe ya uhamasishaji"
         }
       },
       {
