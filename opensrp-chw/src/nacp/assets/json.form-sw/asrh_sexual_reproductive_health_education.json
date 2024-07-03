@@ -109,10 +109,10 @@
             "openmrs_entity_id": "life_skills"
           },
           {
-            "key": "stis",
+            "key": "education_on_stis",
             "text": "Magonjwa ya ngono",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "stis"
+            "openmrs_entity_id": "education_on_stis"
           }
         ],
         "v_required": {
@@ -215,10 +215,10 @@
             "openmrs_entity_id": "life_skills"
           },
           {
-            "key": "stis",
+            "key": "education_on_stis",
             "text": "Magonjwa ya ngono",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "stis"
+            "openmrs_entity_id": "education_on_stis"
           }
         ],
         "v_required": {

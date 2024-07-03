@@ -644,6 +644,9 @@
     <string name="asrh_gbv_vac">Unyanyasaji wa kijinsia na ukatili dhidi ya watoto</string>
     <string name="asrh_life_skills">Stadi za maisha</string>
     <string name="asrh_stis">Magonjwa ya ngono</string>
+
+    <string name="asrh_hiv_aid">VVU/UKIMWI</string>
+    <string name="asrh_education_on_stis">Magonjwa ya ngono</string>
     <string name="asrh_education_on_mental_health_provided">Elimu ya Afya ya akili iliyotolewa:</string>
     <string name="asrh_effects_of_substance_abuse">Madhara ya matumizi ya dawa za kulevya</string>
     <string name="asrh_effects_of_alcohol_and_tobacco_product_use">Madhara ya pombe na sigara/tumbaku</string>
