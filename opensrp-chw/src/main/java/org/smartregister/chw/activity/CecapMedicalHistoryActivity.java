@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
+import static org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HEALTH_EDUCATION_MOBILIZATION;
 import static org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HOME_VISIT;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getEditEvent;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getFormWithMetaData;
@@ -34,15 +35,20 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.cecap.domain.MemberObject;
+import org.smartregister.chw.cecap.util.VisitUtils;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.cecap.util.Constants;
 import org.smartregister.chw.interactor.CecapMedicalHistoryInteractor;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -321,6 +327,34 @@ public class CecapMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
             }
             intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
             return intent;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+            try {
+                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                JSONObject form = new JSONObject(jsonString);
+                String baseEntityId =  form.getString("entity_id");
+                String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
+                if (encounterType.equals(CECAP_HOME_VISIT)) {
+                    if (form.has(VISIT_ID)) {
+                        String deletedVisitId = form.getString(VISIT_ID);
+                        form.remove(VISIT_ID);
+                        VisitUtils.deleteProcessedVisit(deletedVisitId, baseEntityId);
+                    }
+
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, CoreReferralUtils.setEntityId(jsonString, baseEntityId), Constants.TABLES.CECAP_REGISTER);
+                    org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
+                    NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+                    finish();
+                }
+            } catch (Exception e) {
+                Timber.e(e, "CecapMedicalHistoryActivity -- > onActivityResult");
+            }
         }
     }
 }

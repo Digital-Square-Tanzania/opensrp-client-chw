@@ -1,6 +1,7 @@
 package org.smartregister.chw.sync;
 
 
+import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
 
 import android.content.Context;
@@ -9,8 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
@@ -24,6 +27,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import timber.log.Timber;
@@ -97,6 +101,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
+
+                case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
+                case DELETE_EVENT:
+                    processDeleteEvent(eventClient.getEvent());
                 default:
                     break;
             }
@@ -141,5 +149,43 @@ public class ChwClientProcessor extends CoreClientProcessor {
             Timber.e(e);
         }
         return value;
+    }
+
+    @Override
+    public void processDeleteEvent(Event event) {
+        try {
+            List<String> followupTables = Arrays.asList("ec_cecap_visit");
+            if (event.getDetails().containsKey(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID)) {
+                // delete from vaccine table
+                EventDao.deleteVaccineByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                // delete from visit table
+                EventDao.deleteVisitByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                // delete from recurring service table
+                EventDao.deleteServiceByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+
+                //delete from all  Case Based Management tables that use formSubmissionIds as primaryKeys
+                for (String tableName : followupTables) {
+                    try {
+                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+            } else {
+                super.processDeleteEvent(event);
+                //delete from all PMTCT Case Based Management tables that use formSubmissionIds as primaryKeys
+                for (String tableName : followupTables) {
+                    try {
+                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getFormSubmissionId());
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+            }
+
+            Timber.d("Ending processDeleteEvent: %s", event.getEventId());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

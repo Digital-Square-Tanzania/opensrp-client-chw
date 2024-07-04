@@ -54,6 +54,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "topics_covered",
+        "combine_checkbox_option_values": "true",
         "type": "check_box",
         "label": "Mada zilizofundiswa",
         "options": [
@@ -82,10 +83,10 @@
             "openmrs_entity_id": "hiv_aids"
           },
           {
-            "key": "stis",
+            "key": "education_on_sti",
             "text": "Magonjwa ya ngono",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "stis"
+            "openmrs_entity_id": "education_on_sti"
           }
         ],
         "v_required": {

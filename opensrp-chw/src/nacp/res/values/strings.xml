@@ -763,6 +763,7 @@
     <string name="cecap_prostate_cancer">Prostate cancer</string>
     <string name="cecap_hiv_aids">HIV AIDS</string>
     <string name="cecap_hiv_sti">HIV/AIDS and STIs</string>
+    <string name="cecap_education_on_sti">STIs</string>
 
     <string name="cecap_mobilization_date">Mobilization Date:</string>
     <string name="cecap_female_clients_reached">Number of Female clients reached:</string>

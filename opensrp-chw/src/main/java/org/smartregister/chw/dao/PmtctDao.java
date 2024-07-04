@@ -92,4 +92,10 @@ public class PmtctDao extends org.smartregister.chw.pmtct.dao.PmtctDao {
 
         return res.get(0);
     }
+
+
+    public static void deleteEntryFromTableByFormSubmissionId(String tableName, String submissionId) {
+        String sql = "delete from " + tableName + " where base_entity_id = '" + submissionId + "'";
+        updateDB(sql);
+    }
 }

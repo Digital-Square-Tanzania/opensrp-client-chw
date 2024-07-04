@@ -675,7 +675,9 @@
     <string name="cecap_cervical_cancer">Saratani ya shingo ya kizazi</string>
     <string name="cecap_breast_cancer">Saratani ya matiti</string>
     <string name="cecap_prostate_cancer">Tenzi dume</string>
+    <string name="cecap_hiv_aids">VVU/Ukimwi</string>
     <string name="cecap_hiv_sti">VVU/Ukimwi na Magonjwa ya ngono</string>
+    <string name="cecap_education_on_sti">Magonjwa ya ngono</string>
     <string name="cecap_mobilization_date">Tarehe ya uhamasishaji</string>
     <string name="cecap_female_clients_reached">Namba ya wateja wa kike waliofikiwa</string>
     <string name="cecap_male_clients_reached">Namba ya wateja wa kiume waliofikiwa</string>
