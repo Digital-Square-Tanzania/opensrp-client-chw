@@ -23,6 +23,7 @@
     <string name="hiv_clients">CBHS Clients</string>
     <string name="any_changes_you_make">Any Changes You Made Will Be Discarded</string>
     <string name="menu_independent">Independent</string>
+    <string name="menu_cecap">Reproductive Cancers</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
 
 
@@ -584,9 +585,9 @@
     <string name="asrh_reports_title">AYSRH Report</string>
     <string name="asrh_other_reports_title">AYSRH Other Report</string>
     <string name="asrh_reports_subtitle">View AYSRH Report</string>
-    <string name="cecap_reports_title">CECAP Report</string>
-    <string name="cecap_other_reports_title">CECAP Other Report</string>
-    <string name="cecap_reports_subtitle">View CECAP Report</string>
+    <string name="cecap_reports_title">Reproductive Cancers Report</string>
+    <string name="cecap_other_reports_title">Reproductive Cancers Other Report</string>
+    <string name="cecap_reports_subtitle">View Reproductive Cancers Report</string>
     <string name="kvp_reports_title">KVP Report</string>
     <string name="kvp_reports">KVP REPORTS</string>
     <string name="kvp_reports_subtitle">View Reports For KVP</string>

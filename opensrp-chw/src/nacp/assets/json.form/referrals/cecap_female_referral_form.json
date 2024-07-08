@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "CECAP referral form",
+      "title": "Reproductive Cancers referral form",
       "fields": [
         {
           "name": "problem",
@@ -105,7 +105,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify reasons for CECAP referral",
+          "required_status": "yes:Please specify reasons for Reproductive Cancers Services referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
