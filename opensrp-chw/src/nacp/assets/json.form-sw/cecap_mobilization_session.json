@@ -120,19 +120,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "female_clients_reached",
         "type": "edit_text",
-        "hint": "Namba ya wateja wa kike waliofikiwa",
+        "hint": "Idadi ya wateja wa kike waliofikiwa",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali ingiza numbari sahihi"
+          "err": "Tafadhali ingiza idadi sahihi"
         },
         "v_min": {
           "value": "0",
-          "err": "Tafadhali ingiza numbari sahihi"
+          "err": "Tafadhali ingiza idadi sahihi"
         },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "The number of female clients reached must be less than or equal to 999"
+          "err": "Idadi ya wateja haitaki kuzidi 999"
         },
         "v_required": {
           "value": true,
@@ -145,19 +145,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "male_clients_reached",
         "type": "edit_text",
-        "hint": "Namba ya wateja wa kiume waliofikiwa",
+        "hint": "Idadi ya wateja wa kiume waliofikiwa",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali ingiza numbari sahihi"
+          "err": "Tafadhali ingiza idadi sahihi"
         },
         "v_min": {
           "value": "0",
-          "err": "Tafadhali ingiza numbari sahihi"
+          "err": "Tafadhali ingiza idadi sahihi"
         },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "The number of male clients reached must be less than or equal to 999"
+          "err": "Idadi ya wateja haitaki kuzidi 999"
         },
         "v_required": {
           "value": true,
