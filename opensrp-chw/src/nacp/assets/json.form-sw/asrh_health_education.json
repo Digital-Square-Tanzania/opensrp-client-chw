@@ -57,7 +57,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "was_health_education_provided",
         "type": "native_radio",
-        "label": "Je elimu iliyotolewa",
+        "label": "Je elimu imetolewa?",
         "text_color": "#000000",
         "options": [
           {

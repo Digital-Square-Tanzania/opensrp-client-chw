@@ -92,7 +92,7 @@
           },
           {
             "key": "hiv_care_and_treatment",
-            "text": "Huduma za tiba na kinga za VVU",
+            "text": "Huduma za tiba na matunzo ya WAVIU",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_care_and_treatment"
           },
@@ -186,7 +186,7 @@
           },
           {
             "key": "hiv_care_and_treatment",
-            "text": "Huduma za tiba na kinga za VVU",
+            "text": "Huduma za tiba na matunzo ya WAVIU",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_care_and_treatment"
           },

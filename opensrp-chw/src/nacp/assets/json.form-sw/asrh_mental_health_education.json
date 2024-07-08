@@ -73,7 +73,7 @@
           },
           {
             "key": "effects_of_alcohol_and_tobacco_product_use",
-            "text": "Madhara ya pombe na sigara/tumbaku",
+            "text": "Madhara ya matumizi ya pombe na tumbaku/sigara",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "effects_of_alcohol_and_tobacco_product_use"
           },
