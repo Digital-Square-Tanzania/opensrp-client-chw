@@ -128,6 +128,11 @@ public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
                 }
             }
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral), CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+
+            if (memberObject.getGender().equalsIgnoreCase("male"))
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.aysrh_referral), CoreConstants.JSON_FORM.getMaleAysrhFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.AYSRH_FRIENDLY_SERVICES));
+            else
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.aysrh_referral), CoreConstants.JSON_FORM.getFemaleAysrhFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.AYSRH_FRIENDLY_SERVICES));
         }
 
     }

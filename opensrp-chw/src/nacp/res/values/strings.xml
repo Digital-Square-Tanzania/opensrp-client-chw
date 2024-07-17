@@ -773,6 +773,12 @@
     <string name="cecap_mobilization_location">Mobilization Location:</string>
 
 
+    <!--    AYSRH Referrals-->
+    <string name="aysrh_referral">AYSRH Friendly Services</string>
+    <string name="referral_problem_opportunistic_infections">Opportunistic infections</string>
+    <string name="referral_problem_symptoms_of_stis">Symptoms of STI\’s</string>
+    <string name="referral_problem_abortion_miscarriages_symptoms">Symptoms Abortion/Miscarriages</string>
+
 
 
 </resources>
