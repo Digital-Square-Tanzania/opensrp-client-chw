@@ -685,9 +685,9 @@
 
 
     <!--    AYSRH Referrals-->
-    <string name="aysrh_referral">AYSRH Friendly Services</string>
-    <string name="referral_problem_opportunistic_infections">Opportunistic infections</string>
-    <string name="referral_problem_symptoms_of_stis">Symptoms of STI\’s</string>
-    <string name="referral_problem_abortion_miscarriages_symptoms">Symptoms Abortion/Miscarriages</string>
+    <string name="aysrh_referral">Huduma rafiki za afya ya uzazi kwa vijana</string>
+    <string name="referral_problem_opportunistic_infections">Magonjwa nyemelezi</string>
+    <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
+    <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
 
 </resources>
