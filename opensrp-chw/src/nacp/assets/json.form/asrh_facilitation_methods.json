@@ -55,7 +55,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "facilitation_methods",
-        "type": "native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Facilitation Methods",
         "text_color": "#000000",
         "options": [
@@ -114,8 +115,13 @@
         },
         "relevance": {
           "step1:facilitation_methods": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       }
