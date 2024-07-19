@@ -619,6 +619,8 @@
     <string name="asrh_other_provided_health_education">Elimu nyingine iliyotolewa:</string>
     <string name="asrh_education_delivery_point">Elimu ilipotolewa:</string>
     <string name="asrh_provided_sexual_reproductive_health_health_education">Elimu ya afya ya uzazi imetolewa:</string>
+    <string name="asrh_yes">Ndio</string>
+    <string name="asrh_no">Hapana</string>
     <string name="asrh_nutrition">Lishe</string>
     <string name="asrh_mental_health_and_substance_abuse">Afya ya akili na matumizi mabaya ya dawa za kulevya</string>
     <string name="asrh_tb">Kifua kikuu</string>
