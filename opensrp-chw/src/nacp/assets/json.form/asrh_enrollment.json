@@ -109,17 +109,18 @@
             "text": "Out of school",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "out_of_school"
-          },
-          {
-            "key": "not_applicable",
-            "text": "Not Applicable",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_applicable"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_enrollment_rule.yml"
+            }
+          }
         }
       },
       {

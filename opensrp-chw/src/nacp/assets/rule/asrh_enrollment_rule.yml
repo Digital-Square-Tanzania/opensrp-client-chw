@@ -12,3 +12,10 @@ priority: 1
 condition: "global_sex == 'Female' "
 actions:
   - "isRelevant = true"
+---
+name: step1_education_status
+description: education_status
+priority: 1
+condition: "!step1_education_level.isEmpty() && step1_education_level != 'none'"
+actions:
+  - "isRelevant = true"

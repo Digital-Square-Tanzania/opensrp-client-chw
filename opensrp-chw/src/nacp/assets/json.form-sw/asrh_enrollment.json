@@ -109,17 +109,18 @@
             "text": "Hayuko shule",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "out_of_school"
-          },
-          {
-            "key": "not_applicable",
-            "text": "Haihusiki",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_applicable"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza jibu la swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "asrh_enrollment_rule.yml"
+            }
+          }
         }
       },
       {
