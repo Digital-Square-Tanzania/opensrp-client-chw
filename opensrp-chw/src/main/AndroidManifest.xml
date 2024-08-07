@@ -452,6 +452,10 @@
         <activity
             android:name=".activity.IccmReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name=".activity.PncChildNoMotherProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.IccmMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

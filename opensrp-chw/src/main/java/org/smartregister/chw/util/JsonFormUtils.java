@@ -120,9 +120,11 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 lookUpBaseEntityId = getString(lookUpJSONObject, "value");
             }
             if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
+
                 Client ss = new Client(lookUpBaseEntityId);
                 Context context = ChwApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
+
                 SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
                 EventClientRepository eventClientRepository = new EventClientRepository();
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);

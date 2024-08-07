@@ -197,7 +197,6 @@
     <string name="bango_kitita_message">Tafadhali rejea kurasa zifuatazo za Bango Kitita kueleza michezo kulingana na umri wa mtoto</string>
     <string name="pnc_child_development_screening_assessment"><b>MMMAM: </b>Tathmini ya maendeleo ya Ukuaji wa Mtoto {0}</string>
     <string name="pnc_child_communication_assessment"> <b>MMMAM: </b>Tathmini maendeleo ya Mawasiliano {0}</string>
-
     <string name="pnc_cord_care">Huduma muhimu kwa watoto wachanga: Jinsi ya kutunza kitovu ({0})</string>
 
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
@@ -638,6 +637,7 @@
     <string name="choose_date_mode">Chagua namna ya kuweka tarehe za chanjo</string>
     <string name="shared_date">chanjo zote tarehe moja</string>
     <string name="each_vaccine_its_date">Tarehe ya kila chanjo</string>
+    <string name="no_mother_children">Watoto wasio na mama</string>
 
 
 </resources>

@@ -5,8 +5,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,6 +21,7 @@ import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fragment.PncChildNoMotherFragment;
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.SyncServiceJob;
@@ -58,7 +61,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity implements Bott
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().clear();
 
-        bottomNavigationView.inflateMenu(R.menu.anc_bottom_nav_menu);
+        bottomNavigationView.inflateMenu(R.menu.pnc_bottom_nav_menu);
         bottomNavigationView.getMenu().removeItem(R.id.action_received_referrals);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -72,6 +75,11 @@ public class PncRegisterActivity extends CorePncRegisterActivity implements Bott
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new PncRegisterFragment();
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new PncChildNoMotherFragment[]{new PncChildNoMotherFragment()};
     }
 
     @SuppressLint("MissingSuperCall")
@@ -101,6 +109,13 @@ public class PncRegisterActivity extends CorePncRegisterActivity implements Bott
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.action_pnc) {
+            switchToFragment(0);
+            return true;
+        } else if (menuItem.getItemId() == R.id.action_no_mother) {
+            switchToFragment(1);
+            return true;
+        }
         return false;
     }
 }

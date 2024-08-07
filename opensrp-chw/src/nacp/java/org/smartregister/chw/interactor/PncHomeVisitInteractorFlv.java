@@ -77,6 +77,7 @@ import timber.log.Timber;
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     public static final int DURATION_OF_CHILD_IN_PNC = 42;
     protected List<Person> children;
+    protected Person babyWithNoChild;
     protected BaseAncHomeVisitContract.View view;
     private final HashMap<String, Boolean> dangerSignsEvaluationResults = new HashMap<>();
     private final List<String> otherActionTitles = new ArrayList<>();
@@ -99,56 +100,69 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
         }
 
-        children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
-        if (children == null) {
-            children = new ArrayList<>();
-        }
-
         try {
+            // Child with no mother
+            babyWithNoChild = PersonDao.getPncChildWithNoMother(memberObject.getBaseEntityId());
             evaluateVisitLocation();
-            evaluateDangerSignsMother();
-            for (Person baby : children) {
-                evaluateDangerSignsBaby(baby);
+            if (babyWithNoChild != null) {
+
+                evaluateDangerSignsBaby(babyWithNoChild);
+
+            } else {
+
+                children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
+                if (children == null) {
+                    children = new ArrayList<>();
+                }
+
+                evaluateDangerSignsMother();
+                for (Person baby : children) {
+                    evaluateDangerSignsBaby(baby);
+                }
             }
         } catch (BaseAncHomeVisitAction.ValidationException e) {
-            throw (e);
-        } catch (Exception e) {
             Timber.e(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return actionList;
     }
 
     private void evaluateOtherActions() throws Exception {
-        evaluatePNCHealthFacilityVisit();
-        evaluateFamilyPlanning();
-        evaluateCounselling();
-        evaluateMalariaPrevention();
-        evaluateEnvironmentalHygiene();
 
-
-//            evaluateNutritionStatusMother();
-        evaluateObsIllnessMother();
-
-        for (Person baby : children) {
+        if (babyWithNoChild != null) {
+            evaluateOtherActionForBaby(babyWithNoChild);
+        } else {
+            evaluatePNCHealthFacilityVisit();
+            evaluateFamilyPlanning();
+            evaluateCounselling();
+            evaluateMalariaPrevention();
+            evaluateEnvironmentalHygiene();
+            for (Person baby : children) {
 //                evaluateDangerSignsBaby(baby);
-            evaluateCordCare(baby);
-            evaluateNewBornCareIntroduction(baby);
-            evaluateCordCare(baby);
-            evaluateImmunization(baby);
-            evaluateExclusiveBreastFeeding(baby);
-            evaluateNutritionStatusBaby(baby);
-            evaluateObsIllnessBaby(baby);
-            evaluateSkinToSkin(baby);
-            evaluateChildSafety(baby);
-            evaluateChildPMTCT(baby);
-            evaluateMalnutritionScreening(baby);
-            evaluateCCDIntroduction(baby);
-            evaluateCCDCommunicationAssessment(baby);
-            evaluatePlayAssessmentCounseling(baby);
-            evaluateProblemSolving(baby);
-            evaluateCareGiverResponsiveness(baby);
-            evaluateDevelopmentScreening(baby);
+                evaluateOtherActionForBaby(baby);
+            }
+
         }
+    }
+
+    private void evaluateOtherActionForBaby(Person baby) throws Exception {
+        evaluateNewBornCareIntroduction(baby);
+        evaluateCordCare(baby);
+        evaluateImmunization(baby);
+        evaluateExclusiveBreastFeeding(baby);
+        evaluateNutritionStatusBaby(baby);
+        evaluateObsIllnessBaby(baby);
+        evaluateSkinToSkin(baby);
+        evaluateChildSafety(baby);
+        evaluateChildPMTCT(baby);
+        evaluateMalnutritionScreening(baby);
+        evaluateCCDIntroduction(baby);
+        evaluateCCDCommunicationAssessment(baby);
+        evaluatePlayAssessmentCounseling(baby);
+        evaluateProblemSolving(baby);
+        evaluateCareGiverResponsiveness(baby);
+        evaluateDevelopmentScreening(baby);
     }
 
     private void evaluateEnvironmentalHygiene() throws BaseAncHomeVisitAction.ValidationException {
@@ -211,7 +225,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void refreshActionList() {
-        if (evaluateIfAllDangerSignsActionsAreFilled() && !actionList.containsKey(context.getString(R.string.pnc_counselling))) {
+        //if (evaluateIfAllDangerSignsActionsAreFilled() && !actionList.containsKey(context.getString(R.string.pnc_counselling))) {
+        if (evaluateIfAllDangerSignsActionsAreFilled()) {
             try {
                 evaluateOtherActions();
                 new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
@@ -1241,15 +1256,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private Date getDeliveryDate(String baseId) {
-        Date deliveryDate = null;
         try {
-            String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(baseId);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            deliveryDate = sdf.parse(deliveryDateString);
+            //deliveryDate = sdf.parse(deliveryDateString);
+            return babyWithNoChild != null ? babyWithNoChild.getDob() : sdf.parse(PncLibrary.getInstance().profileRepository().getDeliveryDate(baseId));
         } catch (Exception e) {
             Timber.e(e);
         }
-        return deliveryDate;
+        return null;
     }
 
     private void evaluateCCDIntroduction(Person baby) throws Exception {

@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.util.JsonFormUtils.fields;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +16,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -40,11 +44,14 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 import java.util.Objects;
+
+import timber.log.Timber;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
@@ -102,6 +109,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
             }
         }
     }
+
+
 
     @Override
     protected Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass() {

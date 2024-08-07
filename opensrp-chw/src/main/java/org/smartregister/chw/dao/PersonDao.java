@@ -107,4 +107,42 @@ public class PersonDao extends AbstractDao {
 
         return res.get(0);
     }
+
+    public static Person getPncChildWithNoMother(String baseEntityId) {
+        String sql = "select " +
+                "ec_child_no_mother.base_entity_id ," +
+                "ec_family_member.first_name ," +
+                "ec_family_member.last_name ," +
+                "ec_family_member.middle_name ," +
+                "ec_family_member.dob " +
+            "from " +
+                "ec_child_no_mother " +
+            "inner join " +
+                "ec_family_member " +
+                "on ec_child_no_mother.base_entity_id = ec_family_member.base_entity_id " +
+            "where ec_child_no_mother.base_entity_id = '"+ baseEntityId +  "' COLLATE NOCASE and ec_family_member.date_removed is null " +
+            "order by " +
+                "ec_family_member.first_name ," +
+                "ec_family_member.last_name ," +
+                "ec_family_member.middle_name ";
+
+        DataMap<Person> dataMap = c -> {
+            Date dob = null;
+            try {
+                dob = getDobDateFormat().parse(c.getString(c.getColumnIndex("dob")));
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
+            return new Person(
+                    getCursorValue(c, "base_entity_id"),
+                    getCursorValue(c, "first_name"),
+                    getCursorValue(c, "last_name"),
+                    getCursorValue(c, "middle_name"),
+                    dob
+            );
+        };
+
+        return AbstractDao.readSingleValue(sql, dataMap);
+
+    }
 }
