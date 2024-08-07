@@ -9,10 +9,9 @@ import android.view.View;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.dao.PersonDao;
 
-import timber.log.Timber;
-
-public class PncChildNoMotherProfileActivity extends ChildProfileActivity{
+public class PncChildNoMotherProfileActivity extends ChildProfileActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, PncChildNoMotherProfileActivity.class);
@@ -23,10 +22,8 @@ public class PncChildNoMotherProfileActivity extends ChildProfileActivity{
 
 
     @Override
-    public void setupViews() {
-
-        super.setupViews();
-
+    public void setParentName(String parentName) {
+        this.textViewParentName.setText(getString(R.string.care_giver_initials) + ": " + PersonDao.getCareGiverNameForNoMotherChild(memberObject.getBaseEntityId()));
     }
 
     @Override

@@ -555,49 +555,6 @@
             }
           }
         }
-      },
-      {
-        "key": "mother_available",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "mother_available",
-        "type": "spinner",
-        "hint": "Is the mother available to take care of the baby?",
-        "v_required": {
-          "value": "true",
-          "err": "Please provide the status of the mother"
-        },
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
-      },
-      {
-        "key": "other_caregiver_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_care_giver_name",
-        "type": "edit_text",
-        "hint": "Care giver name",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the person taking care of the child"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
-        }
       }
     ]
   }

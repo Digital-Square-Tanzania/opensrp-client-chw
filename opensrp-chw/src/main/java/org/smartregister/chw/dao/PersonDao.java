@@ -145,4 +145,17 @@ public class PersonDao extends AbstractDao {
         return AbstractDao.readSingleValue(sql, dataMap);
 
     }
+
+    public static String getCareGiverNameForNoMotherChild(String baseEntityId) {
+        String sql = "SELECT caregiver_name FROM ec_child_no_mother p " +
+                " WHERE p.base_entity_id = '" + baseEntityId + "' AND p.is_closed = 0 ";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "caregiver_name");
+
+        List<String> res = readData(sql, dataMap);
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
 }

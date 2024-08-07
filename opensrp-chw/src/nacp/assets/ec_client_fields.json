@@ -695,39 +695,63 @@
       "columns": [
         {
           "column_name": "base_entity_id",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
           }
         },
         {
-          "column_name": "unique_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.opensrp_id"
-          }
-        },
-        {
           "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "caregiver_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "caregiver_name"
+          }
+        },
+        {
+          "column_name": "caregiver_phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "caregiver_phone_number"
+          }
+        },
+        {
+          "column_name": "caregiver_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "caregiver_location"
+          }
+        },
+        {
+          "column_name": "dob",
           "type": "Client",
           "json_mapping": {
-            "field": "relationships.family"
+            "field": "birthdate"
           }
         },
         {
-          "column_name": "mother_available",
+          "column_name": "delivery_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "mother_available"
+            "concept": "delivery_date"
           }
         },
         {
-          "column_name": "other_caregiver_name",
+          "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "other_caregiver_name"
+            "field": "version"
           }
         }
       ]

@@ -115,6 +115,9 @@ public class PncRegisterActivity extends CorePncRegisterActivity implements Bott
         } else if (menuItem.getItemId() == R.id.action_no_mother) {
             switchToFragment(1);
             return true;
+        } else if (menuItem.getItemId() == R.id.action_register_child) {
+            PncNoMotherRegisterActivity.startPncNoMotherRegistrationActivity(this, "pnc_no_mother_registration");
+            return true;
         }
         return false;
     }

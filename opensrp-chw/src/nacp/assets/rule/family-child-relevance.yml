@@ -68,10 +68,3 @@ priority: 1
 condition: "step1_rhc_card.contains('Yes')"
 actions:
   - "isRelevant = true"
----
-name: step1_other_caregiver_name
-description: other_caregiver_name when the mother is not available to take care of the child
-priority: 1
-condition: "step1_mother_available.contains('No')"
-actions:
-  - "isRelevant = true"

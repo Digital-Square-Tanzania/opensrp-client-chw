@@ -567,6 +567,8 @@
     <string name="shared_date">Shared Date</string>
     <string name="each_vaccine_its_date">Each Vaccine its date</string>
     <string name="no_mother_children">No Mother Children</string>
+    <string name="register_no_mother_child">Register No Mother Child</string>
+    <string name="no_mother_child_reg">No Mother Child Registration</string>
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>

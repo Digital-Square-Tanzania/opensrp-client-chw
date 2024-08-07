@@ -638,6 +638,8 @@
     <string name="shared_date">chanjo zote tarehe moja</string>
     <string name="each_vaccine_its_date">Tarehe ya kila chanjo</string>
     <string name="no_mother_children">Watoto wasio na mama</string>
+    <string name="no_mother_child_reg">Usajili wa mtoto asiye na mama</string>
+    <string name="register_no_mother_child">Sajili mtoto asiye na mama</string>
 
 
 </resources>
