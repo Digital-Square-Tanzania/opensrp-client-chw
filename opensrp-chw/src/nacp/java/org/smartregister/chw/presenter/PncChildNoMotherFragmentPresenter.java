@@ -29,4 +29,9 @@ public class PncChildNoMotherFragmentPresenter extends BasePncRegisterFragmentPr
     public String getDefaultSortQuery() {
         return "";
     }
+
+    @Override
+    public String getMainCondition() {
+        return "(julianday('now') - julianday(delivery_date)) <= 42";
+    }
 }
