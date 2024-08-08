@@ -50,6 +50,14 @@
     "title": "Play Assessment and Counselling",
     "fields": [
       {
+        "key": "ccd_play_assessment_counselling_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_play_assessment_counselling_module",
+        "value": true,
+        "type": "hidden"
+      },
+      {
         "key": "visit_17_visit_25",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -62,6 +70,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "spend_time_with",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "CHW information: Say \"Who does the child usually spend time with?\"",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -151,20 +160,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_attend_daycare",
-        "type": "spinner",
-        "hint": "CHW information: Say \"Does your child attend day care?\"",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "CHW information: Say \"Does your child attend day care?\"",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -175,60 +188,72 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "practice_play",
-        "type": "spinner",
-        "hint": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you practice the activities we discussed on the previous visit?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you practice the activities we discussed on the previous visit?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
       },
       {
         "key": "prepare_play_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "prepare_play_materials",
-        "type": "spinner",
-        "hint": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you prepare the play materials that we had agreed on from the previous visit? Can you show me how you play with your child?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you prepare the play materials that we had agreed on from the previous visit? Can you show me how you play with your child?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
       },
       {
         "key": "lesson_learned_previously",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "lesson_learned_previously",
-        "type": "spinner",
-        "hint": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \nDid you share the feedback of what we learned in the previous visit to other households?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \nDid you share the feedback of what we learned in the previous visit to other households?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
       },
       {
         "key": "followup_safety_security",
@@ -252,21 +277,26 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "play_with_child",
-        "type": "spinner",
-        "hint": "CHW information: Say \"Do you play with your child?\"",
-        "label_info_text": "CHW information: Ask the mother/father or caregiver to play with the child in a 'free play' time. The aim of the activity is to observe how mothers/caregivers and their children play and interact together as naturally as possible in their own home. Say, “Now I would like you to spend some minutes playing with your child as naturally as possible. This can involve any kind of play. You can play with your child in any way that is natural for you, and please try to be as natural as possible”,\nCHW information: During the free play, do not look directly at the mother/father/caregiver and/or the child. Look in a different direction so they are not distracted by you but try to notice how they interact. Let the mother know that you will be doing something else in the meanwhile (e.g., looking papers).",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "CHW information: Say \"Do you play with your child?\"",
+        "label_info_text": "Ask the mother/father or caregiver to play with the child in a 'free play' time. The aim of the activity is to observe how mothers/caregivers and their children play and interact together as naturally as possible in their own home. Say, “Now I would like you to spend some minutes playing with your child as naturally as possible. This can involve any kind of play. You can play with your child in any way that is natural for you, and please try to be as natural as possible”,\nCHW information: During the free play, do not look directly at the mother/father/caregiver and/or the child. Look in a different direction so they are not distracted by you but try to notice how they interact. Let the mother know that you will be doing something else in the meanwhile (e.g., looking papers).",
+        "label_info_title": "CHW information:",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -278,6 +308,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "demonstrate_play_child",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "CHW information: Observe the way the mother/father or caregiver plays with the child and then select all what happened:",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -320,20 +351,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "challenges_child_communication",
-        "type": "spinner",
-        "hint": "Are there any challenges you face while playing or communicating with your child?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Are there any challenges you face while playing or communicating with your child?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"

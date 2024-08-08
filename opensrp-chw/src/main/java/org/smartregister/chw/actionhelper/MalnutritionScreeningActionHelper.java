@@ -29,6 +29,8 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
 
     String childGrowthMuacValue = "";
 
+    String childGrowthBookletPresent = "";
+
     String jsonString = "";
 
     @Override
@@ -45,6 +47,7 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
             growthMonitoringSelectedValue = JsonFormUtils.getCheckBoxValue(jsonObject, "child_growth_monitoring");
             palmPallorKey = JsonFormUtils.getValue(jsonObject, "palm_pallor");
             childGrowthMuacKey = JsonFormUtils.getValue(jsonObject, "child_growth_muac");
+            childGrowthBookletPresent = JsonFormUtils.getValue(jsonObject, "child_growth_booklet_present");
         }catch (JSONException e){
             Timber.e(e);
         }
@@ -79,7 +82,7 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(childGrowthMuacKey) || StringUtils.isBlank(palmPallorKey)) {
+        if (StringUtils.isBlank(childGrowthBookletPresent) || StringUtils.isBlank(palmPallorKey)) {
             return BaseAncHomeVisitAction.Status.PENDING;
         }
 

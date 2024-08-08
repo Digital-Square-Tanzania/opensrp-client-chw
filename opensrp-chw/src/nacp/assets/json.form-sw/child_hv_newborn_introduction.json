@@ -72,20 +72,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "premature_baby",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je, mtoto ni njiti au ana uzito pungufu?",
-        "values": [
-          "Ndio",
-          "Hapana"
+        "type": "native_radio",
+        "label": "Je, mtoto ni njiti au ana uzito pungufu?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"

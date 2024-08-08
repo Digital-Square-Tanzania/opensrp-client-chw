@@ -104,15 +104,15 @@ public class ChildCommunicationAssessmentCounselingActionHelper extends HomeVisi
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(communicatesWithChild) || StringUtils.isBlank(communicatesWithChildObservation)) {
+        if (StringUtils.isBlank(communicatesWithChildObservation)) {
             return BaseAncHomeVisitAction.Status.PENDING;
         }
-        if (communicatesWithChild.equalsIgnoreCase("no") || communicatesWithChildObservation.contains("chk_force_smile") || communicatesWithChildObservation.contains("chk_child_asleep")) {
+        if (communicatesWithChildObservation.contains("chk_force_smile") || communicatesWithChildObservation.contains("chk_child_asleep")) {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         } else if ((communicatesWithChild.equalsIgnoreCase("yes") && communicatesWithChildObservation.contains("chk_sounds_and_gestures")) || (communicatesWithChild.equalsIgnoreCase("yes") && communicatesWithChildObservation.contains("chk_looks_into_eyes"))) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
-            return BaseAncHomeVisitAction.Status.PENDING;
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
 

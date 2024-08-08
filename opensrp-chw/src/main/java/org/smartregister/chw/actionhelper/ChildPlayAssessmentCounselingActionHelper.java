@@ -70,7 +70,7 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
                     JsonFormUtils.getFieldJSONObject(fields, entry.getKey()).put("value", "true");
                 }
             }
-            String pages = bangoKitataPages();
+            String pages = bangoKititaPages();
             if (!pages.isEmpty()) {
                 JSONObject bango_kitita_reference_skip_logic = JsonFormUtils.getFieldJSONObject(fields, "bango_kitita_reference_skip_logic");
                 if (bango_kitita_reference_skip_logic != null) {
@@ -158,7 +158,7 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
         return 0;
     }
 
-    private String bangoKitataPages() {
+    private String bangoKititaPages() {
         int visitNumber = visitNumber();
         Map<Integer, String> bangoKititaPages = new HashMap<>();
         bangoKititaPages.put(1, String.format(context.getString(R.string.bango_kitita_three_pages), "2", ",","3", "4"));

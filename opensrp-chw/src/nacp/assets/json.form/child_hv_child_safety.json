@@ -66,16 +66,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_safety_counselled",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did you conduct counselling on child safety?",
+        "type": "native_radio",
+        "label": "Did you conduct counselling on child safety?",
         "label_info_text": "Did you conduct counselling on child safety?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
         "v_required": {
           "value": "true",

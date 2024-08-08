@@ -170,11 +170,11 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
                 try {
-                    String isLatrinePresent = org.smartregister.chw.util.JsonFormUtils.getFieldValue(payload, "is_latrine_present");
+                    String isLatrinePresent = org.smartregister.chw.util.JsonFormUtils.getFieldValue(payload, "is_latrine_present").toLowerCase();
                     String latrineTypes = org.smartregister.chw.util.JsonFormUtils.getFieldValue(payload, "latrine_type");
                     int countLatrineTypes = latrineTypes != null ? new JSONArray(latrineTypes).length() : 0;
 
-                    return ("yes".equalsIgnoreCase(isLatrinePresent) && countLatrineTypes > 0) || "no".equals(isLatrinePresent)
+                    return isLatrinePresent.equals("yes") && countLatrineTypes > 0 || isLatrinePresent.equals("no")
                             ? BaseAncHomeVisitAction.Status.COMPLETED
                             : BaseAncHomeVisitAction.Status.PENDING;
                 } catch (JSONException e) {
@@ -1130,12 +1130,17 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateDevelopmentScreening(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
+        JSONObject childDevelopmentScreeningAssessmentForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvDevelopmentScreeningAssessment());
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(childDevelopmentScreeningAssessmentForm, details);
+        }
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_child_development_screening_assessment), "(" + baby.getFullName() + ")"))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(baby.getBaseEntityID())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName(Constants.JsonForm.getChildHvDevelopmentScreeningAssessment())
+                .withJsonPayload(childDevelopmentScreeningAssessmentForm.toString())
                 .withHelper(new ChildDevelopmentScreeningActionHelper(visitID, null))
                 .build();
         actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_development_screening_assessment), "(" + baby.getFullName() + ")"), action);
@@ -1143,12 +1148,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluatePlayAssessmentCounseling(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
+        JSONObject playAssessmentCounselingForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvPlayAssessmentCounselling());
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(playAssessmentCounselingForm, details);
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_child_play_assessment_counselling), "(" + baby.getFullName() + ")"))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(baby.getBaseEntityID())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName(Constants.JsonForm.getChildHvPlayAssessmentCounselling())
+                .withJsonPayload(playAssessmentCounselingForm.toString())
                 .withHelper(new ChildPlayAssessmentCounselingActionHelper(context, visitID, null))
                 .build();
         actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_play_assessment_counselling), "(" + baby.getFullName() + ")"), action);
@@ -1156,12 +1167,19 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateCCDCommunicationAssessment(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
+
+        JSONObject childCommunicationAssessmentCounselingForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvCommunicationAssessmentCounselling());
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(childCommunicationAssessmentCounselingForm, details);
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_child_communication_assessment), "(" + baby.getFullName() + ")"))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(baby.getBaseEntityID())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName(Constants.JsonForm.getChildHvCommunicationAssessmentCounselling())
+                .withJsonPayload(childCommunicationAssessmentCounselingForm.toString())
                 .withHelper(new ChildCommunicationAssessmentCounselingActionHelper(getChildAgeInMonth(baby.getDob()), context, visitID, null))
                 .build();
         actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_communication_assessment), "(" + baby.getFullName() + ")"), action);

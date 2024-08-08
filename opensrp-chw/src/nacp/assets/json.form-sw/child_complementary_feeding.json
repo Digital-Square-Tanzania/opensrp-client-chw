@@ -110,16 +110,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je mama ameshauriwa kuhusu vyakula vya nyongeza?",
+        "type": "native_radio",
+        "label": "Je mama ameshauriwa kuhusu vyakula vya nyongeza?",
         "label_info_text": "Je mama ameshauriwa kuhusu vyakula vya nyongeza?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "yes",
-          "no"
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
         "v_required": {
           "value": "true",
