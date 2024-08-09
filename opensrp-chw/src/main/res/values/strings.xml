@@ -398,6 +398,7 @@
 
     <string name="created">Created: %s</string>
     <string name="cancel_referral">Cancel Referral</string>
+    <string name="referral_followup">Referral Followup</string>
     <string name="cancel_referral_title">Cancel Referral?</string>
     <string name="cancel_referral_message">Referral will be closed and disappear from app.</string>
     <string name="exit">Exit</string>

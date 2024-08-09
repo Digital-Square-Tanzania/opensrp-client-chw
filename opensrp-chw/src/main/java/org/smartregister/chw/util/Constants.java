@@ -106,6 +106,8 @@ public class Constants extends CoreConstants {
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
 
+        public static final String REFERRAL_FOLLOWUP = "referral_followup";
+
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
         }
