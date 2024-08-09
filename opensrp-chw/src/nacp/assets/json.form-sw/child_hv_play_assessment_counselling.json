@@ -71,7 +71,7 @@
         "openmrs_entity_id": "spend_time_with",
         "combine_checkbox_option_values": "true",
         "type": "check_box",
-        "label": "Taarifa kwa MJA: Uliza \"Muda mwingi, mtoto huwa anakaa na nani?",
+        "label": "<i><b>Taarifa kwa MJA:</b></i> Uliza \"Muda mwingi, mtoto huwa anakaa na nani?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -161,7 +161,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_attend_daycare",
         "type": "native_radio",
-        "label": "Taarifa kwa MJA: Je mtoto anahudhuria kwenye kituo cha kulelea watoto mchana?",
+        "label": "<i><b>Taarifa kwa MJA:</b></i> Je mtoto anahudhuria kwenye kituo cha kulelea watoto mchana?",
         "options": [
           {
             "key": "Yes",
@@ -189,7 +189,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "practice_play",
         "type": "native_radio",
-        "label": "Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya\nJe ulifanya mazoezi ya vitu tulivyojifunza kipindi kilichopita?",
+        "label": "(<i><b>Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya</b></i>) \nJe ulifanya mazoezi ya vitu tulivyojifunza kipindi kilichopita?",
         "options": [
           {
             "key": "Yes",
@@ -213,7 +213,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "prepare_play_materials",
         "type": "native_radio",
-        "label": "Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya \nJe, umetengeneza vifaa vya michezo tulivyokubaliana tembeleo lililopita?naomba nionyeshe ulivyovitumia kucheza na mwanao?",
+        "label": "<i><b>Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya</b></i> \nJe, umetengeneza vifaa vya michezo tulivyokubaliana tembeleo lililopita?naomba nionyeshe ulivyovitumia kucheza na mwanao?",
         "options": [
           {
             "key": "Yes",
@@ -237,7 +237,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "lesson_learned_previously",
         "type": "native_radio",
-        "label": "Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya\nJe Ulitoa mrejesho wa tulijojifunza kipindi kilichopita kwa wanakaya wengine ?",
+        "label": "<i><b>Taarifa kwa MJA :Uliza hili swali tu kama hii ni mara ya pili au zaidi kutembelea hii kaya </b></i>\nJe Ulitoa mrejesho wa tulijojifunza kipindi kilichopita kwa wanakaya wengine ?",
         "options": [
           {
             "key": "Yes",
@@ -278,8 +278,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "play_with_child",
         "type": "native_radio",
-        "label": "Taarifa kwa MJA: Uliza \" Je! huwa unacheza na mwanao?",
-        "label_info_text": "Muombe mama/baba au mlezi acheze na mtoto wake. Lengo ni kuangalia jinsi mama/baba au mlezi anavyocheza na kuhusiana na mtoto wake kwenye mazingira ya kawaida. \nSema, “Sasa ningependa utumie dakika kadhaa kucheza na mtoto wako. Hii inaweza kujumuisha  aina yoyote ya mchezo. Unaweza kucheza na mtoto wako kwa njia yoyote ambayo ni ya kawaida kwako.\n\nTaarifa kwa MJA: Wakati mama anacheza na mtoto wake, usimuangalie moja kwa moja mama/baba/mlezi na/au mtoto. Angalia katika mwelekeo tofauti ili wasisumbuliwe na wewe lakini jaribu kuchunguza jinsi wanavyohusiana. Mjulishe mama/mlezi au baba kwamba utakuwa unafanya  jambo lingine wakati huo huo (kwa mfano, kuangalia karatasi).",
+        "label": "<i><b>Taarifa kwa MJA:</b></i> Uliza \" Je! huwa unacheza na mwanao?",
+        "label_info_text": "Muombe mama/baba au mlezi acheze na mtoto wake. Lengo ni kuangalia jinsi mama/baba au mlezi anavyocheza na kuhusiana na mtoto wake kwenye mazingira ya kawaida. \nSema, “Sasa ningependa utumie dakika kadhaa kucheza na mtoto wako. Hii inaweza kujumuisha  aina yoyote ya mchezo. Unaweza kucheza na mtoto wako kwa njia yoyote ambayo ni ya kawaida kwako.\n\n<i><b>Taarifa kwa MJA:</b></i> Wakati mama anacheza na mtoto wake, usimuangalie moja kwa moja mama/baba/mlezi na/au mtoto. Angalia katika mwelekeo tofauti ili wasisumbuliwe na wewe lakini jaribu kuchunguza jinsi wanavyohusiana. Mjulishe mama/mlezi au baba kwamba utakuwa unafanya  jambo lingine wakati huo huo (kwa mfano, kuangalia karatasi).",
         "label_info_title": "Taarifa kwa MJA:",
         "options": [
           {
@@ -309,7 +309,7 @@
         "openmrs_entity_id": "demonstrate_play_child",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Taarifa kwa MJA: Angalia jinsi mama/baba au mlezi anavyocheza na mtoto kisha uchague yote yaliyojiri:",
+        "label": "<i><b>Taarifa kwa MJA:</b></i> Angalia jinsi mama/baba au mlezi anavyocheza na mtoto kisha uchague yote yaliyojiri:",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

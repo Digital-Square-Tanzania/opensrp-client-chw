@@ -189,7 +189,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "practice_play",
         "type": "native_radio",
-        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you practice the activities we discussed on the previous visit?",
+        "label": "(CHW information: Ask this question only if this is the second visit or more) \n Did you practice the activities we discussed on the previous visit?",
         "options": [
           {
             "key": "Yes",
@@ -213,7 +213,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "prepare_play_materials",
         "type": "native_radio",
-        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \n Did you prepare the play materials that we had agreed on from the previous visit? Can you show me how you play with your child?",
+        "label": "(CHW information: Ask this question only if this is the second visit or more) \n Did you prepare the play materials that we had agreed on from the previous visit? Can you show me how you play with your child?",
         "options": [
           {
             "key": "Yes",
@@ -237,7 +237,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "lesson_learned_previously",
         "type": "native_radio",
-        "label": "CHW information: Ask this question only if this is the second visit or moreAsk this question only if this is the second visit or more \nDid you share the feedback of what we learned in the previous visit to other households?",
+        "label": "(CHW information: Ask this question only if this is the second visit or more) \nDid you share the feedback of what we learned in the previous visit to other households?",
         "options": [
           {
             "key": "Yes",
