@@ -27,6 +27,76 @@ condition: "step1_demonstrate_play_child.contains('chk_move_baby_arms_legs') || 
 actions:
   - "isRelevant = true"
 ---
+name: step1_spend_time_with
+description: Spend time with
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_attend_daycare
+description: Child attend daycare
+priority: 1
+condition: "step1_visit_17_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prepare_play_materials
+description: Prepare play materials
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_challenges_child_communication
+description: Challenges child communication
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lesson_learned_previously
+description: Lesson learned previously
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_followup_safety_security
+description: Followup safety security
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_play_with_child
+description: Play with child
+priority: 1
+condition: "step1_visit_3_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_importance_of_child_play
+description: Importance of child play
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_practice_play_demo
+description: Practice play demo
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_actual_practice_play
+description: Actual practice play
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_bango_kitita_reference
 description: Bango kitita reference
 priority: 1

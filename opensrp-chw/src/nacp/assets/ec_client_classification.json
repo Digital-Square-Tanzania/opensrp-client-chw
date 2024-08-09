@@ -24,7 +24,16 @@
             "field_value": "Child Registration",
             "creates_case": [
               "ec_child",
-              "ec_family_member"
+              "ec_family_member",
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC No Mother Child Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member",
+              "ec_child_no_mother"
             ]
           },
           {
@@ -90,7 +99,8 @@
             "field_value": "Child Home Visit",
             "creates_case": [
               "ec_child",
-              "ec_child_activity"
+              "ec_child_activity",
+              "ec_ecd_activities"
             ]
           },
           {
@@ -750,6 +760,13 @@
             "field_value": "Monthly Social Media Report",
             "creates_case": [
               "ec_sbc_monthly_social_media_report"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Home Visit",
+            "creates_case": [
+              "ec_ecd_activities"
             ]
           }
         ]

@@ -30,6 +30,9 @@ public class Constants extends CoreConstants {
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
         public static final String NAME_OF_HF = "name_of_hf";
         public static final String STEP1 = "step1";
+        public static final String MOTHER_AVAILABLE = "mother_available";
+        public static final String OTHER_CAREGIVER_NAME = "other_caregiver_name";
+        public static final String CAREGIVER_NAME = "caregiver_name";
     }
 
     public static class EncounterType {
@@ -252,6 +255,8 @@ public class Constants extends CoreConstants {
         public static final String PLAY_ASSESSMENT_COUNSELLING= "Play Assessment and Counselling";
         public static final String DEVELOPMENT_SCREENING_AND_ASSESSMENT = "Development Screening and Assessment";
         public static final String COMMUNICATION_ASSESSMENT_COUNSELLING= "Communication Assessment and Counselling";
+
+        public static final String PNC_NO_MOTHER_CHILD_REGISTRATION = "PNC No Mother Child Registration";
     }
 
     public static final class ActionList {
@@ -262,6 +267,7 @@ public class Constants extends CoreConstants {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
         public static final String SBCC = "ec_sbcc";
         public static final String CBHS_REGISTER = "ec_cbhs_register";
+        public static final String CHILD_NO_MOTHER = "ec_child_no_mother";
     }
 
     public static class DBConstants{
@@ -279,6 +285,7 @@ public class Constants extends CoreConstants {
            String CONDOM_DISTRIBUTION_REPORT = "condom_distribution_report";
            String AGYW_REPORT = "agyw_report";
            String ICCM_REPORT = "iccm_report";
+           String ECD_REPORT = "ecd_report";
            String SBC_REPORT = "sbc_report";
         }
 
@@ -294,6 +301,10 @@ public class Constants extends CoreConstants {
             String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
         }
 
+        public interface ECDReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "ecd-clients-monthly-report";
+        }
+
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
             String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
@@ -303,6 +314,7 @@ public class Constants extends CoreConstants {
             String ICCM_DISPENSING_SUMMARY_PATH = "iccm_reports/iccm-dispensing-summary";
             String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
             String SBC_REPORT_PATH = "sbc-report";
+            String ECD_CLIENTS_REPORT_PATH = "ecd_reports/ecd-clients-monthly-report";
         }
     }
 }

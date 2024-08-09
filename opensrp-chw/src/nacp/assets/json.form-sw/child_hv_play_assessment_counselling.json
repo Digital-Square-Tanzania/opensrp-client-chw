@@ -181,7 +181,23 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_play_assessment_counselling_relevance.yml"
+            }
+          }
         }
+      },
+      {
+        "key": "practice_play_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Taariza za MJA: Uliza swali lifuatalo tu kama hii ni mara ya pili au zaidi kutembelea kaya hii"
       },
       {
         "key": "practice_play",
@@ -461,7 +477,7 @@
         "type": "label",
         "text": "Taarifa kwa MJA: Sema,\"Sasa tutajadili kwa vitendo baadhi ya michezo mipya. Michezo hii itamsaidia mtoto wako kujifunza kupitia kuona, kusikia, kugusa, kusogea, kufikiri au kuhisi\".Taarifa kwa MJA: Rejea katika Bango Kitita la Malezi na uchague mchezo kulingana na umri wa mtoto",
         "text_color": "#2D2E2D",
-        "label_info_text": "• Rejea katika Bango Kitita la Malezi na uchague mchezo kulingana na umri wa mtoto\n•Iwapo mtoto hawezi kufanya mchezo, chagua katika kundi la umri mdogo au pendekeza njia za kurahisisha mchezo. \n• Ikiwa mtoto anaweza kufanya mchezo wa umri wake kwa urahisi pendekeza njia za kufanya mchezo kuwa mgumu zaidi au uchague mchezo wa umri mkubwa kidogo",
+        "label_info_text": "• Iwapo mtoto hawezi kufanya mchezo, chagua katika kundi la umri mdogo au pendekeza njia za kurahisisha mchezo. \n• Ikiwa mtoto anaweza kufanya mchezo wa umri wake kwa urahisi, pendekeza njia za kufanya mchezo kuwa mgumu zaidi au uchague mchezo kwa mwenye umri mkubwa kidogo \n• Mhimize mlezi kuendelea kujihusisha na michezo hata wa kila siku ",
         "label_text_style": "italic",
         "has_bg": true
       },

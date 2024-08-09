@@ -78,7 +78,7 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
                 }
                 JSONObject bango_kitita_reference = JsonFormUtils.getFieldJSONObject(fields, "bango_kitita_reference");
                 if (bango_kitita_reference != null) {
-                    bango_kitita_reference.put("text", MessageFormat.format("{0}: {1}", context.getString(R.string.bango_kitita_message), pages));
+                    bango_kitita_reference.put("text", MessageFormat.format("{0}: <b>{1}</b>", context.getString(R.string.bango_kitita_message), pages));
                 }
             }
             return jsonObject.toString();
@@ -161,10 +161,10 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
     private String bangoKititaPages() {
         int visitNumber = visitNumber();
         Map<Integer, String> bangoKititaPages = new HashMap<>();
-        bangoKititaPages.put(1, String.format(context.getString(R.string.bango_kitita_three_pages), "2", ",","3", "4"));
+        bangoKititaPages.put(1, String.format(context.getString(R.string.bango_kitita_three_pages), "2", "3", "4"));
         bangoKititaPages.put(2, String.format(context.getString(R.string.bango_kitita_two_pages), "5", "6"));
-        bangoKititaPages.put(3, String.format(context.getString(R.string.bango_kitita_three_pages), "7", ",","8", "9"));
-        bangoKititaPages.put(4, String.format(context.getString(R.string.bango_kitita_one_page), "33"));
+        bangoKititaPages.put(3, String.format(context.getString(R.string.bango_kitita_three_pages), "7", "8", "9"));
+        bangoKititaPages.put(4, String.format(context.getString(R.string.bango_kitita_one_page), "10"));
         bangoKititaPages.put(5, String.format(context.getString(R.string.bango_kitita_two_pages), "11", "13"));
         bangoKititaPages.put(6, String.format(context.getString(R.string.bango_kitita_one_page), "14"));
         bangoKititaPages.put(7, String.format(context.getString(R.string.bango_kitita_two_pages), "16", "18"));
@@ -176,16 +176,15 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
         bangoKititaPages.put(13, String.format(context.getString(R.string.bango_kitita_two_pages), "34", "35"));
         bangoKititaPages.put(14, String.format(context.getString(R.string.bango_kitita_two_pages), "37", "38"));
         bangoKititaPages.put(15, String.format(context.getString(R.string.bango_kitita_two_pages), "40", "41"));
-        bangoKititaPages.put(16, String.format(context.getString(R.string.bango_kitita_one_page), "42"));
-        bangoKititaPages.put(17, String.format(context.getString(R.string.bango_kitita_one_page), "42"));
-        bangoKititaPages.put(18, String.format(context.getString(R.string.bango_kitita_one_page), "42"));
-        bangoKititaPages.put(19, String.format(context.getString(R.string.bango_kitita_one_page), "42"));
-        bangoKititaPages.put(20, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
-        bangoKititaPages.put(21, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
-        bangoKititaPages.put(22, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
-        bangoKititaPages.put(23, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
-        bangoKititaPages.put(24, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
-        bangoKititaPages.put(25, String.format(context.getString(R.string.bango_kitita_one_page), "43"));
+        String page42 = String.format(context.getString(R.string.bango_kitita_one_page), "42");
+        for (int i = 16; i <= 19; i++) {
+            bangoKititaPages.put(i, page42);
+        }
+
+        String page43 = String.format(context.getString(R.string.bango_kitita_one_page), "43");
+        for (int i = 20; i <= 25; i++) {
+            bangoKititaPages.put(i, page43);
+        }
         String pages = bangoKititaPages.get(visitNumber);
         return (pages != null) ? pages : "";
     }

@@ -496,6 +496,11 @@
     <string name="child_hv_complementary_feeding"> Complementary Feeding Counseling </string>
     <string name="child_hv_complementary_feeding_after_24_month">Nutrition</string>
     <string name="child_hv_breastfeeding">Breastfeeding</string>
+
+    <!-- ECD visit History-->
+    <string name="ecd_reports_subtitle">View ECD Report</string>
+    <string name="ecd_reports_title">ECD Reports</string>
+    <string name="ecd_client_report">ECD Clients Report</string>
     <string name="map_cue">Landmark/Description of house location</string>
     <string name="street_name">Street / Hamlet Name</string>
 </resources>

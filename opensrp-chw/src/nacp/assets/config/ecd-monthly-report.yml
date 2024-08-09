@@ -1,0 +1,199 @@
+indicators:
+  - key: "ecd-1-number-of-households-enrolled"
+    grouping: "ECD"
+    description: "Idadi ya kaya zilizosajiliwa mwezi huu"
+    indicatorQuery: "SELECT count (*) FROM event 
+      inner join ec_family on ec_family.base_entity_id = event.baseEntityId
+      WHERE eventType='Family Registration'
+      AND ec_family.entity_type = 'ec_family' 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+    
+  - key: "ecd-2-number-of-clients-enrolled-anc"
+    grouping: "ECD"
+    description: "Idadi ya wateja wajawazito waliosajiliwa mwezi huu"
+    indicatorQuery: "SELECT count (*) FROM event 
+      WHERE eventType='ANC Registration'  OR eventType='Pregnancy Confirmation'
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-2-number-of-clients-enrolled-pnc"
+    grouping: "ECD"
+    description: "Idadi ya wateja waliojifungua waliosajiliwa mwezi huu"
+    indicatorQuery: "SELECT count (*) FROM event 
+      WHERE eventType='Pregnancy Outcome' OR eventType='Post Delivery Mother Management'
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-2-number-of-clients-enrolled-child-under-5"
+    grouping: "ECD"
+    description: "Idadi ya wateja watoto walio sajiliwa walio chini ya miaka mitano(5)"
+    indicatorQuery: "SELECT count (*) FROM event 
+      WHERE (eventType='PNC Child Registration' OR eventType='Child Registration' OR eventType='No Mother PNC Registration') 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-3-number-of-client-with-danger-sign-and-referral-issued-anc"
+    grouping: "ECD"
+    description: "Idadi ya wateja wajawazito wenye dalili za hatari waliopewa rufaa  kwa mwezi huu"
+    indicatorQuery: "SELECT COUNT (*) FROM event 
+      INNER JOIN ec_anc_register ON ec_anc_register.base_entity_id = event.baseEntityId
+      INNER JOIN task on task.for = ec_anc_register.base_entity_id
+      WHERE eventType='Referral Registration' 
+      AND task.focus = 'ANC Danger Signs' 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-3-number-of-client-with-danger-sign-and-referral-issued-pnc"
+    grouping: "ECD"
+    description: "Idadi ya wateja walio jifungua wenye dalili za hatari waliopewa rufaa  kwa mwezi huu"
+    indicatorQuery: "SELECT count (*) FROM event 
+      INNER JOIN ec_pregnancy_outcome ON ec_pregnancy_outcome.base_entity_id = event.baseEntityId 
+      INNER JOIN task ON task.for = ec_pregnancy_outcome.base_entity_id
+      WHERE eventType='Referral Registration' 
+      AND task.focus = 'PNC Danger Signs'
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-3-number-of-client-with-danger-sign-and-referral-issued-child-under-5"
+    grouping: "ECD"
+    description: "Idadi ya wateja watoto walio chini ya miaka mitano(5) wenye dalili za hatari waliopewa rufaa  kwa mwezi huu"
+    indicatorQuery: "SELECT COUNT(*) FROM event 
+      INNER JOIN ec_child ON ec_child.base_entity_id = event.baseEntityId 
+      INNER JOIN task ON task.for = ec_child.base_entity_id
+      WHERE eventType='Referral Registration'
+      AND task.focus = 'Child Danger Signs' OR task.focus = 'Sick Child' 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-4-number-of-completed-referrals-anc"
+    grouping: "ECD"
+    description: "Idadi ya rufaa zilizokamilika kituoni kwa wajawazito"
+    indicatorQuery: "SELECT COUNT (*) FROM event 
+      INNER JOIN ec_anc_register ON ec_anc_register.base_entity_id = event.baseEntityId
+      INNER JOIN task OR task.for = ec_anc_register.base_entity_id
+      WHERE eventType='Referral Registration' 
+      AND task.focus = 'ANC Danger Signs'
+      AND task.business_status = 'Complete'
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-4-number-of-completed-referrals-pnc"
+    grouping: "ECD"
+    description: "Idadi ya rufaa zilizokamilika kituoni kwa walio jifungua"
+    indicatorQuery: "SELECT count (*) FROM event 
+      INNER JOIN ec_pregnancy_outcome ON ec_pregnancy_outcome.base_entity_id = event.baseEntityId 
+      INNER JOIN task ON task.for = ec_pregnancy_outcome.base_entity_id
+      WHERE eventType='Referral Registration' 
+      AND task.focus = 'PNC Danger Signs'
+      AND AND task.business_status = 'Complete'
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-4-number-of-completed-referrals-child-under-5"
+    grouping: "ECD"
+    description: "Idadi ya rufaa zilizokamilika kituoni kwa watoto wenye Umri chini ya Miaka Mitano"
+    indicatorQuery: "SELECT COUNT(*) FROM event 
+      INNER JOIN ec_child ON ec_child.base_entity_id = event.baseEntityId 
+      INNER JOIN task ON task.for = ec_child.base_entity_id
+      WHERE eventType='Referral Registration'
+      AND task.focus = 'Child Danger Signs' OR task.focus = 'Sick Child' 
+      AND task.business_status = 'Complete' 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-5-number-of-caregiver-received-ecd-ME-years-10-24"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wa Kiume wenye miaka 10 hadi 24  waliopata huduma za MMMAM mwezi huu."
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 
+	  AND ec_family_member.entity_type = 'ec_family_member' 
+	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+	  AND ec_family_member.gender = 'Male'
+	  ec_family_member.is_closed = 0
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-5-number-of-caregiver-received-ecd-ME-years-over-24"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wa Kiume wenye miaka zaidi ya 24  waliopata huduma za MMMAM mwezi huu."
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 
+	  AND ec_family_member.entity_type = 'ec_family_member' 
+	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+	  AND ec_family_member.gender = 'Male'
+	  ec_family_member.is_closed = 0
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-5-number-of-caregiver-received-ecd-KE-years-over-24"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wa Kike wenye miaka zaidi ya 24  waliopata huduma za MMMAM mwezi huu."
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 
+	  AND ec_family_member.entity_type = 'ec_family_member' 
+	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+	  AND ec_family_member.gender = 'Female'
+	  ec_family_member.is_closed = 0
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-5-number-of-caregiver-received-ecd-kE-years-10-24"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wa Kike wenye miaka 10 hadi 24  waliopata huduma za MMMAM mwezi huu."
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 
+	  AND ec_family_member.entity_type = 'ec_family_member' 
+	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+	  AND ec_family_member.gender = 'Female'
+	  ec_family_member.is_closed = 0
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-10-25-years"
+    grouping: "ECD"
+    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri kati ya miaka 10 hadi 25"
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_child.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 
+	  AND ec_family_member.entity_type = 'ec_family_member' 
+	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-over-25-years"
+    grouping: "ECD"
+    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri zaidi ya miaka 25"
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_child.base_entity_id) FROM ec_child
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
+	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
+	  WHERE ec_child.is_closed = 0 and ec_family_member.entity_type = 'ec_family_member' AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit')
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 25
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-7-number-of-caregiver-created-play-material-with-age-10-25-years"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wenye umri kati ya miaka 10 hadi 25 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_ecd_activities.entity_id) FROM ec_ecd_activities 
+      INNER JOIN ec_child on ec_child.base_entity_id = ec_ecd_activities.entity_id 
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id 
+      WHERE prepare_play_materials = 'Yes' OR prepare_play_materials = 'yes'
+      AND ec_child.is_closed = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType = 'PNC Home Visit') 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-7-number-of-caregiver-created-play-material-with-over-25-years"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wenye umri zaidi ya miaka 25 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
+    indicatorQuery: "SELECT COUNT(DISTINCT ec_ecd_activities.entity_id) FROM ec_ecd_activities 
+      INNER JOIN ec_child on ec_child.base_entity_id = ec_ecd_activities.entity_id 
+      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id 
+      WHERE prepare_play_materials = 'Yes' || prepare_play_materials = 'yes'
+      AND ec_child.is_closed = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType = 'PNC Home Visit') 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"

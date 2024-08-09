@@ -25,7 +25,6 @@
     <string name="menu_independent">Independent</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
 
-
     <!-- Reports View Strings   -->
     <string name="reports_title">REPORTS</string>
     <string name="cbhs_reports_title">CBHS Summary Report</string>
@@ -195,6 +194,7 @@
     <string name="pnc_child_play_assessment_counselling">CCD: Play Assessment and Counselling {0}</string>
     <string name="bango_kitita_one_page">Page %s</string>
     <string name="bango_kitita_two_pages">Page %s and Page %s</string>
+    <string name="bango_kitita_three_pages">Page %s, Page %s and Page %s</string>
     <string name="bango_kitita_message">Please refer to the following pages in Bango Kitita to explain the activities depending on the child\'s age</string>
     <string name="pnc_child_development_screening_assessment">CCD: Child development screening assessment {0}</string>
     <string name="pnc_child_communication_assessment">CCD: Communication Assessment and Counselling {0}</string>
@@ -473,9 +473,7 @@
     <string name="condom">Condom</string>
     <string name="traditional">Traditional</string>
     <string name="none">None</string>
-
-
-
+  
     <!--    KVP Community-->
     <string name="kvp_visit">KVP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
@@ -561,21 +559,20 @@
     <string name="ccd_child_discipline_subtitle">Mother corrects child</string>
     <string name="child_home_visit_pmtct">Prevention of Mother to Child transmission of HIV (PMTCT)</string>
     <string name="counselled_mother_for_comp_feeding">" Counselled mother for complementary feeding "</string>
-    <string name="bango_kitita_three_pages">Page %s%s%s and %s</string>
     <string name="malezi_bango_kitita_message">Please refer to the following pages in Bango Kitita Malezi III to explain the activities depending on the child age:</string>
     <string name="choose_date_mode">Choose Date mode</string>
     <string name="shared_date">Shared Date</string>
     <string name="each_vaccine_its_date">Each Vaccine its date</string>
+    <string name="no_mother_children">No Mother Children</string>
+    <string name="register_no_mother_child">Register No Mother Child</string>
+    <string name="no_mother_child_reg">No Mother Child Registration</string>
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>
     <string name="back_to_all_mobilization_sessions">Back to All Mobilization Sessions</string>
     <string name="mobilization_sessions">Mobilization Session</string>
     <string name="mobilization_session_details">Mobilization Session Details</string>
-
-
-
-
+    
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">SBC Mobilization Session Details</string>
     <string name="sbc_mobilization_session">SBC Mobilization Session</string>
@@ -709,8 +706,5 @@
     <string name="fp_condom_refilled">Select the type of condom provided:</string>
     <string name="fp_number_male_condoms_refilled">Specify quantity (Male):</string>
     <string name="fp_number_female_condoms_refilled">Specify quantity (Female):</string>
-
-
-
 
 </resources>

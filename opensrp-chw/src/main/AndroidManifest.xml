@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
             android:name=".activity.LoginActivity"
@@ -169,6 +170,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncNoMotherRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
@@ -452,8 +456,18 @@
         <activity
             android:name=".activity.IccmReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name=".activity.PncChildNoMotherProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.IccmMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

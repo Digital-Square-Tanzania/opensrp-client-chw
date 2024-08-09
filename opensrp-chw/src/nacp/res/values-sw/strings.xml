@@ -194,10 +194,10 @@
     <string name="pnc_child_play_assessment_counselling"><b>MMMAM</b> Tathmini maendeleo ya Michezo {0}</string>
     <string name="bango_kitita_one_page">Ukurasa wa %s</string>
     <string name="bango_kitita_two_pages">Ukurasa wa %s na Ukurasa wa %s</string>
+    <string name="bango_kitita_three_pages">Ukurasa wa %s, Ukurasa wa %s na Ukurasa wa %s</string>
     <string name="bango_kitita_message">Tafadhali rejea kurasa zifuatazo za Bango Kitita kueleza michezo kulingana na umri wa mtoto</string>
     <string name="pnc_child_development_screening_assessment"><b>MMMAM: </b>Tathmini ya maendeleo ya Ukuaji wa Mtoto {0}</string>
     <string name="pnc_child_communication_assessment"> <b>MMMAM: </b>Tathmini maendeleo ya Mawasiliano {0}</string>
-
     <string name="pnc_cord_care">Huduma muhimu kwa watoto wachanga: Jinsi ya kutunza kitovu ({0})</string>
 
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
@@ -633,11 +633,12 @@
     <string name="ccd_child_discipline_subtitle">Mother corrects child</string>
     <string name="child_home_visit_pmtct">Kuzuia maambukizi ya Virusi vya Ukimwi kutoka kwa mama kwenda kwa mtoto</string>
     <string name="counselled_mother_for_comp_feeding"> Mama ameshauriwa juu ya vyakula vya nyongeza </string>
-    <string name="bango_kitita_three_pages">Ukurasa wa %s%s%s na %s</string>
     <string name="malezi_bango_kitita_message">Tafadhali rejelea kurasa zifuatazo za Bango Kitita la  Malezi III kueleza shughuli kulingana na umri wa mtoto:</string>
     <string name="choose_date_mode">Chagua namna ya kuweka tarehe za chanjo</string>
     <string name="shared_date">chanjo zote tarehe moja</string>
     <string name="each_vaccine_its_date">Tarehe ya kila chanjo</string>
-
+    <string name="no_mother_children">Watoto wasio na mama</string>
+    <string name="no_mother_child_reg">Usajili wa mtoto asiye na mama</string>
+    <string name="register_no_mother_child">Sajili mtoto asiye na mama</string>
 
 </resources>
