@@ -234,6 +234,24 @@
                         }
                     }
                 }
+            },
+            {
+                "key": "name_of_ward",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "name_of_hf",
+                "buttonText": "Chagua Kata ya mteja",
+                "sort": true,
+                "maxSelectable": 1,
+                "dialogTitle": "Kata",
+                "searchHint": "Andika jina la Kata",
+                "options": [
+                ],
+                "type": "multi_select_list",
+                "v_required": {
+                    "value": true,
+                    "err": "Tafadhali chagua kata ya Mteja"
+                }
             }
         ]
     }

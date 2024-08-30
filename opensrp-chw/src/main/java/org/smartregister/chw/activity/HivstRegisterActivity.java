@@ -6,9 +6,12 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.core.activity.CoreHivstRegisterActivity;
+import org.smartregister.chw.core.presenter.CoreHivstRegisterPresenter;
 import org.smartregister.chw.fragment.HivstMobilizationFragment;
 import org.smartregister.chw.fragment.HivstRegisterFragment;
+import org.smartregister.chw.hivst.interactor.BaseHivstRegisterInteractor;
 import org.smartregister.chw.hivst.util.Constants;
+import org.smartregister.chw.model.HivstRegisterModel;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HivstRegisterActivity extends CoreHivstRegisterActivity {
@@ -21,6 +24,11 @@ public class HivstRegisterActivity extends CoreHivstRegisterActivity {
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.HIVST_FORM_NAME, Constants.FORMS.HIVST_REGISTRATION);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GENDER, gender);
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new CoreHivstRegisterPresenter(this, new HivstRegisterModel(), new BaseHivstRegisterInteractor());
     }
 
     @Override

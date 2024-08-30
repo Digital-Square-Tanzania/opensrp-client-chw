@@ -100,13 +100,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_female",
-        "label": "Select the client's group as screened by the health care provider",
+        "label": "Select the client's KVP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "fsw",
-            "text": "FSW",
+            "text": "WHR",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
@@ -157,13 +157,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_male",
-        "label": "Select the client's group as screened by the health care provider",
+        "label": "Select the client's KVP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "msm",
-            "text": "High Risk Men",
+            "text": "MHR",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "msm"
@@ -233,6 +233,24 @@
               "rules-file": "hivst_registration_calculation.yml"
             }
           }
+        }
+      },
+      {
+        "key": "name_of_ward",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "name_of_hf",
+        "buttonText": "Select Client's Ward",
+        "sort": true,
+        "maxSelectable": 1,
+        "dialogTitle": "Wards",
+        "searchHint": "Type Wards Name",
+        "options": [
+        ],
+        "type": "multi_select_list",
+        "v_required": {
+          "value": true,
+          "err": "Please select the client's ward"
         }
       }
     ]
