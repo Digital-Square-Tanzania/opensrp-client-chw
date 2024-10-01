@@ -727,6 +727,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "KVP Registration",
+            "creates_case": [
+              "ec_facility_kvp_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "SBC Enrollment",
             "creates_case": [
               "ec_sbc_register"

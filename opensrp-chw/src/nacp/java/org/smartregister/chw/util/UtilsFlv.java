@@ -2,6 +2,7 @@ package org.smartregister.chw.util;
 
 import android.os.AsyncTask;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
@@ -52,14 +53,20 @@ public class UtilsFlv {
     }
 
     public static void updateFpMenuItems(String baseEntityId, Menu menu) {
-        menu.findItem(R.id.action_fp_initiation).setVisible(!FpDao.isRegisteredForFp(baseEntityId));
+        MenuItem fpInitiationItem = menu.findItem(R.id.action_fp_initiation);
+
+        if (fpInitiationItem != null) {
+            boolean isRegistered = FpDao.isRegisteredForFp(baseEntityId);
+            fpInitiationItem.setVisible(!isRegistered);  // Set visible if not registered, hide if registered
+        }
     }
 
     public static void updateHivMenuItems(String baseEntityId, Menu menu) {
-        if (HivDao.isRegisteredForHiv(baseEntityId)) {
-            menu.findItem(R.id.action_cbhs_registration).setVisible(false);
-        }else{
-            menu.findItem(R.id.action_cbhs_registration).setVisible(true);
+        MenuItem cbhsRegistrationItem = menu.findItem(R.id.action_cbhs_registration);
+
+        if (cbhsRegistrationItem != null) {
+            boolean isRegistered = HivDao.isRegisteredForHiv(baseEntityId);
+            cbhsRegistrationItem.setVisible(!isRegistered);  // Set visible if not registered, else hide
         }
     }
 
