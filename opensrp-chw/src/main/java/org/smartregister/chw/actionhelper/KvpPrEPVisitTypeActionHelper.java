@@ -15,6 +15,8 @@ import org.smartregister.chw.referral.util.JsonFormConstants;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
     private String jsonPayload;
@@ -45,7 +47,7 @@ public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisit
             }
             return jsonObject.toString();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         return null;
@@ -57,7 +59,7 @@ public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisit
             JSONObject jsonObject = new JSONObject(jsonPayload);
             visitType = CoreJsonFormUtils.getValue(jsonObject, "visit_type");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 

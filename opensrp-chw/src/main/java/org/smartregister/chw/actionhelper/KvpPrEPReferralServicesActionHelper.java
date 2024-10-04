@@ -12,6 +12,8 @@ import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class KvpPrEPReferralServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
     private String referral_to_structural_services;
@@ -28,7 +30,7 @@ public class KvpPrEPReferralServicesActionHelper implements BaseKvpVisitAction.K
             JSONObject jsonObject = new JSONObject(jsonPayload);
             return jsonObject.toString();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         return null;
@@ -40,7 +42,7 @@ public class KvpPrEPReferralServicesActionHelper implements BaseKvpVisitAction.K
             JSONObject jsonObject = new JSONObject(jsonPayload);
             referral_to_structural_services = CoreJsonFormUtils.getValue(jsonObject, "referral_to_structural_services");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
