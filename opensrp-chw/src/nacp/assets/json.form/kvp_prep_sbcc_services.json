@@ -52,7 +52,7 @@
         "openmrs_entity_id": "sbcc_services_offered",
         "buttonText": "Add SBCC Topics Provided",
         "sort": false,
-        "maxSelectable": 5,
+        "maxSelectable":6,
         "dialogTitle": "Select SBCC Services Provided to the client",
         "searchHint": "Type Service Name",
         "options": [

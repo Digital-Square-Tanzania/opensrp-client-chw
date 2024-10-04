@@ -123,8 +123,12 @@
           "err": "Please enter a valid number"
         },
         "v_min": {
-          "value": "0",
-          "err": "The number must be equal or greater than 0"
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "The value should be less than to 1000"
         },
         "v_required": {
           "value": true,
@@ -154,8 +158,12 @@
           "err": "Please enter a valid number"
         },
         "v_min": {
-          "value": "0",
-          "err": "The number must be equal or greater than 0"
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "The value should be less than to 1000"
         },
         "v_required": {
           "value": true,

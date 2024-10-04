@@ -75,75 +75,6 @@
         }
       },
       {
-        "key": "birth_region",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "birth_region",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "label_info_title": "Mkoa aliozaliwa mteja",
-        "label_info_text": "",
-        "hint": "Chagua mkoa aliozaliwa mteja",
-        "values": [
-          "Arusha",
-          "Dar es Salaam",
-          "Dodoma",
-          "Geita",
-          "Iringa",
-          "Kagera",
-          "Katavi",
-          "Kigoma",
-          "Kilimanjaro",
-          "Lindi",
-          "Manyara",
-          "Mara",
-          "Mbeya",
-          "Morogoro",
-          "Mtwara",
-          "Mwanza",
-          "Njombe",
-          "Pwani",
-          "Rukwa",
-          "Ruvuma",
-          "Shinyanga",
-          "Simiyu",
-          "Singida",
-          "Songwe",
-          "Tanga"
-        ],
-        "keys": [
-          "Arusha",
-          "Dar es Salaam",
-          "Dodoma",
-          "Geita",
-          "Iringa",
-          "Kagera",
-          "Katavi",
-          "Kigoma",
-          "Kilimanjaro",
-          "Lindi",
-          "Manyara",
-          "Mara",
-          "Mbeya",
-          "Morogoro",
-          "Mtwara",
-          "Mwanza",
-          "Njombe",
-          "Pwani",
-          "Rukwa",
-          "Ruvuma",
-          "Shinyanga",
-          "Simiyu",
-          "Singida",
-          "Songwe",
-          "Tanga"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua mkoa"
-        }
-      },
-      {
         "key": "client_group",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -168,14 +99,14 @@
         "options": [
           {
             "key": "fsw",
-            "text": "Mwanamke anayefanya biashara ya ngono",
+            "text": "Mwanamke aliye katika hatari zaidi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
           },
           {
             "key": "pwid",
-            "text": "Mjidunda dawa za kulevya",
+            "text": "Mjidunga dawa za kulevya",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pwid"
@@ -196,7 +127,7 @@
           },
           {
             "key": "agyw",
-            "text": "balehe na mwanamke kijanaMsichana rika",
+            "text": "Msichana rika balehe na mwanamke kijana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "agyw"
@@ -246,14 +177,14 @@
         "options": [
           {
             "key": "fsw",
-            "text": "Mwanamke anayefanya biashara ya ngono",
+            "text": "Mwanamke aliye katika hatari zaidi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
           },
           {
             "key": "pwid",
-            "text": "Mjidunda dawa za kulevya",
+            "text": "Mjidunga dawa za kulevya",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pwid"
@@ -317,14 +248,14 @@
         "options": [
           {
             "key": "msm",
-            "text": "Mwanaume anayefanya ngono na mwanaume mwenzie",
+            "text": "Mwanaume aliye katika hatari zaidi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "msm"
           },
           {
             "key": "pwid",
-            "text": "Mjidunda dawa za kulevya",
+            "text": "Mjidunga dawa za kulevya",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pwid"

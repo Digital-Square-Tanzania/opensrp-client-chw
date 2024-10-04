@@ -69,8 +69,17 @@
           },
           "options": [
             {
-              "name": "prep_and_pep",
-              "text": "Dawa kinga PrEP and PEP",
+              "name": "prep",
+              "text": "Dawa kinga PrEP",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "prep",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "pep",
+              "text": "Dawa kinga PEP",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "prep_and_pep",

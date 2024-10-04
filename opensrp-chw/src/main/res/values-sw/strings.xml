@@ -525,7 +525,7 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_prep_visit_type">Aina ya Hudhurio la Dawa Kinga</string>
+    <string name="kvp_prep_visit_type">Aina ya Hudhurio </string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
     <string name="kvp_prep_followup_visit">Hudhurio la marudio</string>
     <string name="kvp_client_hiv_status">Hali ya mteja ya maambukizi ya VVU:</string>
