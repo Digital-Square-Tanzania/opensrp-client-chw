@@ -11,13 +11,14 @@ import org.smartregister.chw.dao.ChwKvpDao;
 import org.smartregister.chw.kvp.domain.VisitDetail;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.util.JsonFormUtils;
 
 import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
 
-public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
+public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
     private String jsonPayload;
     private String visitType;
@@ -38,7 +39,7 @@ public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisit
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
             JSONArray fields = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-            JSONObject visitTypeObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "visit_type");
+            JSONObject visitTypeObject = JsonFormUtils.getFieldJSONObject(fields, "visit_type");
 
             if (ChwKvpDao.hasFollowupVisits(baseEntityId)) {
                 visitTypeObject.remove("options");
@@ -58,10 +59,13 @@ public class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction.KvpVisit
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
             visitType = CoreJsonFormUtils.getValue(jsonObject, "visit_type");
+            processVisitType(visitType);
         } catch (JSONException e) {
             Timber.e(e);
         }
     }
+
+    public abstract void processVisitType(String visitType);
 
     @Override
     public BaseKvpVisitAction.ScheduleStatus getPreProcessedStatus() {

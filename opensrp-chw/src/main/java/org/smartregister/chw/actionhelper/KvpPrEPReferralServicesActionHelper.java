@@ -1,5 +1,7 @@
 package org.smartregister.chw.actionhelper;
 
+import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FORM_KEY.GLOBAL;
+
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,8 +18,13 @@ import timber.log.Timber;
 
 public class KvpPrEPReferralServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
+    String visitType;
     private String referral_to_structural_services;
     private String jsonPayload;
+
+    public KvpPrEPReferralServicesActionHelper(String visitType) {
+        this.visitType = visitType;
+    }
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
@@ -28,6 +35,7 @@ public class KvpPrEPReferralServicesActionHelper implements BaseKvpVisitAction.K
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
+            jsonObject.getJSONObject(GLOBAL).put("isNewVisit", visitType == null || visitType.equalsIgnoreCase("new_visit"));
             return jsonObject.toString();
         } catch (JSONException e) {
             Timber.e(e);
