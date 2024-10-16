@@ -156,6 +156,88 @@
         }
       },
       {
+        "key": "is_male_caregiver_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_male_caregiver_present",
+        "type": "native_radio",
+        "label": "<i><b>CHW Information (Observe and DO NOT ASK):</b><i> \" Is any male caregiver present in the visit?\"",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "male_caregiver_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_caregiver_present",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "Chagua Mlezi/Walezi wote wakiume walioshiriki kwenye Tembeleo",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_father",
+            "text": "Father",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_father"
+          },
+          {
+            "key": "chk_brother",
+            "text": "Brother",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_brother"
+          },
+          {
+            "key": "chk_grandfather",
+            "text": "Grandfather",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_grandfather"
+          },
+          {
+            "key": "chk_uncle",
+            "text": "Uncle",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_uncle"
+          },
+          {
+            "key": "chk_other_person",
+            "text": "Other Person",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other_person"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_play_assessment_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "child_attend_daycare",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -172,7 +254,7 @@
           },
           {
             "key": "No",
-            "text": "Hapana",
+            "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "No"

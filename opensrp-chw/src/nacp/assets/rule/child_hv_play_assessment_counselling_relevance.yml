@@ -117,3 +117,10 @@ priority: 1
 condition: "step1_demonstrate_play_child.contains('chk_play_with_baby')"
 actions:
   - "isRelevant = true"
+---
+name: step1_male_caregiver_present
+description: Play with child challenge
+priority: 1
+condition: "step1_is_male_caregiver_present == 'Yes'"
+actions:
+  - "isRelevant = true"
