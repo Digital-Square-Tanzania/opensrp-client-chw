@@ -200,7 +200,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '28'
+            buildConfigField "int", "DATABASE_VERSION", '29'
         }
     }
 

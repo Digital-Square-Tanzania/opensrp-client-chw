@@ -118,6 +118,9 @@ public class ChwRepositoryFlv {
                 case 28:
                     upgradeToVersion28(db);
                     break;
+                case 29:
+                    upgradeToVersion29(db);
+                    break;
                 default:
                     break;
             }
@@ -478,6 +481,53 @@ public class ChwRepositoryFlv {
             DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Collections.singletonList("ec_ecd_activities")), ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion28");
+        }
+    }
+
+    private static void upgradeToVersion29(SQLiteDatabase db) {
+        try {
+            refreshIndicatorQueries(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+    }
+
+    private static void refreshIndicatorQueries(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+            String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+
+            boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext().allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+            boolean isUpdated = checkIfAppUpdated();
+
+            //Refreshing all indicator queries adding grouping to all indicator queries which is going to be utilized in synchronization of monthly tallies to the server
+            if (!indicatorDataInitialised || isUpdated) {
+                db.execSQL("DELETE FROM indicator_queries");
+                db.execSQL("DELETE FROM indicators");
+
+                String indicatorsConfigFile = "config/indicator-definitions.yml";
+                String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+                String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+                String motherChampionReportingIndicatorConfigFile = "config/mother_champion-reporting-indicator-definitions.yml";
+                String sbcIndicatorsConfigFile = "config/sbc-monthly-report.yml";
+                String iccmClientReportIndicatorConfigFile = "config/iccm-monthly-report.yml";
+                String iccmDispensingSummaryReportIndicatorConfigFile = "config/iccm-dispensing-monthly-report.yml";
+                String ecdClientReportIndicatorConfigFile = "config/ecd-monthly-report.yml";
+
+                for (String configFile : Collections.unmodifiableList(
+                        Arrays.asList(indicatorsConfigFile, ancIndicatorConfigFile,
+                                sbcIndicatorsConfigFile, pncIndicatorConfigFile,
+                                iccmClientReportIndicatorConfigFile, iccmDispensingSummaryReportIndicatorConfigFile,
+                                motherChampionReportingIndicatorConfigFile, ecdClientReportIndicatorConfigFile))) {
+                    reportingLibraryInstance.readConfigFile(configFile, db);
+                }
+
+                reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, db); // This will persist the data in the DB
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }
