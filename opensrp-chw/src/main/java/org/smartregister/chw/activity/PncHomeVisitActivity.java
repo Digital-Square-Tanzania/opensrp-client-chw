@@ -77,5 +77,6 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
             mAdapter.notifyDataSetChanged();
         }
         displayProgressBar(false);
+        redrawVisitUI();
     }
 }
