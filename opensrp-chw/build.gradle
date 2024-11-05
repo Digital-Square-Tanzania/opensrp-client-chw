@@ -219,6 +219,7 @@ android {
             enableSplit = false
         }
     }
+    ndkVersion '28.0.12433566 rc1'
 }
 
 dependencies {
