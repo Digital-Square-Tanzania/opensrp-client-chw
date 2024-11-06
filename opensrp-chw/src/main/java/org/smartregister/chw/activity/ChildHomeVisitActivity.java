@@ -62,6 +62,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
 
                     String referralProblems = JsonFormUtils.getCheckBoxValue(dangerSignsJsonObject, "toddler_danger_signs_present");
                     ReferralUtils.processReferral(facilitySelectionForm, this.memberObject.getBaseEntityId(), CoreConstants.TASKS_FOCUS.SICK_CHILD, referralProblems);
+                    Toast.makeText(this, R.string.referral_submitted, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Timber.e(e);
                 }

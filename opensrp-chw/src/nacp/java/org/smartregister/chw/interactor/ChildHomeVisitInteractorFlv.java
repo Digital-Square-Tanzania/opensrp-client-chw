@@ -59,10 +59,35 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             this.serviceWrapperMap = serviceWrapperMap;
             //isToddler function needs needs to be confirmed
             if( isToddler() )  evaluateToddlerDanger();
-            else evaluateActions();
+            else evaluateChildDangerSigns();
         }
         catch (BaseAncHomeVisitAction.ValidationException e) {throw (e);}
         catch (Exception e) {Timber.e(e);}
+    }
+
+    private void evaluateChildDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
+
+        String title = context.getString(R.string.child_danger_signs_baby);
+
+
+        ToddlerDangerSignsBabyHelper helper = new ToddlerDangerSignsBabyHelper(context, null);
+        helper.setDangerSignsResultsListener(this::onDangerSignFormResults);
+
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_HOME_VISIT);
+
+        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JsonForm.getChildHomeVisitDangerSignForm());
+        JsonFormUtilsFlv.overwriteQuestionOptions("referral_facility", LocationUtils.INSTANCE.getFacilitiesKeyAndName(), dangerSignsForm);
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context,title)
+                .withHelper(helper)
+                .withDetails(details)
+                .withOptional(false)
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withJsonPayload(dangerSignsForm.toString())
+                .withFormName(org.smartregister.chw.util.Constants.JsonForm.getChildHomeVisitDangerSignForm())
+                .build();
+        actionList.put(context.getString(R.string.child_danger_signs_baby), action);
     }
 
     private int cleanInt(String input){

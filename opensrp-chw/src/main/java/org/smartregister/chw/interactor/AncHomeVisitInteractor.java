@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -41,6 +42,7 @@ public class AncHomeVisitInteractor extends CoreAncHomeVisitInteractor {
 
                         // Here pass the  dangerSignsSelectedObject to the processReferral method and then add the problems to the referralProblems
                         ReferralUtils.processReferral(facilitySelectionForm, memberID, CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS, referralProblems);
+                        Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
