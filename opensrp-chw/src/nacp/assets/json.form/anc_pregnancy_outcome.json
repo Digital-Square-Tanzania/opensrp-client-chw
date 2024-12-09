@@ -478,10 +478,6 @@
             "v_max": {
               "value": "7",
               "err": "The weight must be equal or less than 7 (KG)"
-            },
-            "v_required": {
-              "value": true,
-              "err": "Please enter the weight"
             }
           },
           {

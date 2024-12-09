@@ -504,6 +504,11 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.PrivacyPolicyActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
@@ -518,26 +523,65 @@
                 android:resource="@xml/captured_images_path" />
         </provider>
 
-        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
-        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
-        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService" />
-        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" />
-        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
-        <service android:name="org.smartregister.service.ImageUploadSyncService" />
-        <service android:name=".anc.intent.HomeVisitIntentService" />
-        <service android:name=".sync.intent.ChwSyncTaskIntentService" />
-        <service android:name="org.smartregister.sync.intent.PlanIntentService" />
-        <service android:name=".intent.ChwPncCloseDateIntent" />
-        <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
-        <service android:name=".service.SchedulesIntentService" />
-        <service android:name=".sync.ChwSyncIntentService" />
-        <service android:name=".core.service.StockUsageReportService" />
-        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
-        <service android:name="org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService" />
-        <service android:name=".sync.intent.PncCloseDateIntentService" />
-        <service android:name=".sync.CloseAsrhMembershipIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.service.ImageUploadSyncService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".anc.intent.HomeVisitIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.intent.ChwSyncTaskIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.sync.intent.PlanIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".intent.ChwPncCloseDateIntent"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".service.SchedulesIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.ChwSyncIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".core.service.StockUsageReportService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name="org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.intent.PncCloseDateIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.CloseAsrhMembershipIntentService"
+            android:foregroundServiceType="dataSync"/>
 
         <receiver
             android:name="org.smartregister.view.receiver.ConnectivityChangeReceiver"
@@ -582,6 +626,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />

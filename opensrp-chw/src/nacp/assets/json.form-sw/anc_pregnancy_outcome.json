@@ -478,10 +478,6 @@
             "v_max": {
               "value": "7",
               "err": "Uzito lazima uwe sawasawa au chini ya 7 (KG)"
-            },
-            "v_required": {
-              "value": true,
-              "err": "Tafadhali ingiza uzito"
             }
           },
           {
