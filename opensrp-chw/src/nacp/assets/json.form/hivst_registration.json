@@ -100,7 +100,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_female",
-        "label": "Select the client's group as screened by the health care provider",
+        "label": "Select the client's KVP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -157,7 +157,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_male",
-        "label": "Select the client's group as screened by the health care provider",
+        "label": "Select the client's KVP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

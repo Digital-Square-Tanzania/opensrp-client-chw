@@ -124,7 +124,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasCdp() {
-        return true;
+        return false;
     }
 
     @Override
