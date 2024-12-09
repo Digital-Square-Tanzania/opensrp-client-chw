@@ -127,7 +127,7 @@
           },
           {
             "key": "agyw",
-            "text": "AGYW",
+            "text": "vAGYW",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "agyw"
@@ -233,24 +233,6 @@
               "rules-file": "hivst_registration_calculation.yml"
             }
           }
-        }
-      },
-      {
-        "key": "name_of_ward",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "name_of_hf",
-        "buttonText": "Select Client's Ward",
-        "sort": true,
-        "maxSelectable": 1,
-        "dialogTitle": "Wards",
-        "searchHint": "Type Wards Name",
-        "options": [
-        ],
-        "type": "multi_select_list",
-        "v_required": {
-          "value": true,
-          "err": "Please select the client's ward"
         }
       }
     ]
