@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.domain.ParentClient;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -120,9 +121,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 lookUpBaseEntityId = getString(lookUpJSONObject, "value");
             }
             if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
-                Client ss = new Client(lookUpBaseEntityId);
+                ParentClient parentClient = new ParentClient(lookUpBaseEntityId);
+                parentClient.setMotherBaseEntityId(motherBaseEntityId(baseClient.getBaseEntityId()));
                 Context context = ChwApplication.getInstance().getContext().applicationContext();
-                addRelationship(context, ss, baseClient);
+                addRelationship(context, parentClient, baseClient);
                 SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
                 EventClientRepository eventClientRepository = new EventClientRepository();
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
@@ -133,6 +135,23 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
             Timber.e(e);
+            return null;
+        }
+    }
+
+    private static String motherBaseEntityId(String baseEntityId){
+        try {
+            EventClientRepository eventClientRepository = new EventClientRepository();
+            ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
+            JSONObject object = eventClientRepository.getClientByBaseEntityId(baseEntityId);
+            Client client= syncHelper.convert(object, Client.class);
+            List<String> motherList = client.getRelationships().get("mother");
+            if(motherList != null){
+                return motherList.get(0);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
