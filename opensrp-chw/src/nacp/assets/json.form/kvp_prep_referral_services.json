@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "KVP PrEP Referral Services",
+  "encounter_type": "KVP Referral Services",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -224,6 +224,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_referral_service_rules.yml"
+            }
+          }
         }
       },
       {

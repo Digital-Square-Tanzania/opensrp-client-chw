@@ -43,7 +43,7 @@
   },
   "global": {},
   "step1": {
-    "title": "KVP/PrEP Enrollment",
+    "title": "KVP Enrollment",
     "fields": [
       {
         "key": "hotspot_name",
@@ -75,75 +75,6 @@
         }
       },
       {
-        "key": "birth_region",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "birth_region",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "label_info_title": "Client's Birth Region",
-        "label_info_text": "",
-        "hint": "Select Regions of Birth",
-        "values": [
-          "Arusha",
-          "Dar es Salaam",
-          "Dodoma",
-          "Geita",
-          "Iringa",
-          "Kagera",
-          "Katavi",
-          "Kigoma",
-          "Kilimanjaro",
-          "Lindi",
-          "Manyara",
-          "Mara",
-          "Mbeya",
-          "Morogoro",
-          "Mtwara",
-          "Mwanza",
-          "Njombe",
-          "Pwani",
-          "Rukwa",
-          "Ruvuma",
-          "Shinyanga",
-          "Simiyu",
-          "Singida",
-          "Songwe",
-          "Tanga"
-        ],
-        "keys": [
-          "Arusha",
-          "Dar es Salaam",
-          "Dodoma",
-          "Geita",
-          "Iringa",
-          "Kagera",
-          "Katavi",
-          "Kigoma",
-          "Kilimanjaro",
-          "Lindi",
-          "Manyara",
-          "Mara",
-          "Mbeya",
-          "Morogoro",
-          "Mtwara",
-          "Mwanza",
-          "Njombe",
-          "Pwani",
-          "Rukwa",
-          "Ruvuma",
-          "Shinyanga",
-          "Simiyu",
-          "Singida",
-          "Songwe",
-          "Tanga"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select the region"
-        }
-      },
-      {
         "key": "client_group",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -168,7 +99,7 @@
         "options": [
           {
             "key": "fsw",
-            "text": "FSW",
+            "text": "WHR",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
@@ -196,7 +127,7 @@
           },
           {
             "key": "agyw",
-            "text": "AGYW",
+            "text": "vAGYW",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "agyw"
@@ -246,7 +177,7 @@
         "options": [
           {
             "key": "fsw",
-            "text": "FSW",
+            "text": "WHR",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
@@ -317,7 +248,7 @@
         "options": [
           {
             "key": "msm",
-            "text": "High Risk Men",
+            "text": "MHR",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "msm"
