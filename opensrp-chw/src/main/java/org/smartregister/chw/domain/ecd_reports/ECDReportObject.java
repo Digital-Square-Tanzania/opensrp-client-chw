@@ -108,6 +108,7 @@ public class ECDReportObject extends ReportObject {
                             "ecd-7-number-of-caregiver-created-play-material-with-age-10-25-years",
                             "ecd-7-number-of-caregiver-created-play-material-with-over-25-years");
                     break;
+                default:
             }
             indicatorDataObject.put(key, total);
         }
