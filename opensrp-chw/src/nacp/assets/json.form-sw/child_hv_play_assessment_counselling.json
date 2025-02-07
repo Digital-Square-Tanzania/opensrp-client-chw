@@ -156,6 +156,88 @@
         }
       },
       {
+        "key": "is_male_caregiver_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_male_caregiver_present",
+        "type": "native_radio",
+        "label": "<i><b>Taarifa kwa MJA (Chunguza na USIMUULIZE MLEZI) :</b><i> \"Je kuna mlezi yoyote wa kiume ambaye ameshiriki kwenye hili tembeleo?\"",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "male_caregiver_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_caregiver_present",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "Chagua Mlezi/Walezi wote wakiume walioshiriki kwenye Tembeleo",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_father",
+            "text": "Baba",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_father"
+          },
+          {
+            "key": "chk_brother",
+            "text": "Kaka",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_brother"
+          },
+          {
+            "key": "chk_grandfather",
+            "text": "Babu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_grandfather"
+          },
+          {
+            "key": "chk_uncle",
+            "text": "Mjomba/Baba Mkubwa au Mdogo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_uncle"
+          },
+          {
+            "key": "chk_other_person",
+            "text": "Mtu mwingine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other_person"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_play_assessment_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "child_attend_daycare",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
