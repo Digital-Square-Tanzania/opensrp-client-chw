@@ -47,13 +47,40 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Deworming {0} dose",
+    "title": "Dozi {0} ya tiba na kinga ya minyoo",
     "fields": [
       {
-        "key": "deworming{0}_date",
+        "key": "has_received_deworming{0}",
         "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "has_received_deworming{0}",
+        "type": "native_radio",
+        "image": "ic_form_deworming",
+        "label": "Je, dozi {0} ya minyoo  ilitolewa?",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali Chagua Ndio au Hapana"
+        },
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ]
+      },
+      {
+        "key": "deworming{0}_date",
+        "openmrs_entity_parent": "deworming{0}_date",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deworming{0}_date",
         "type": "date_picker",
         "image": "ic_form_deworming",
         "hint": "Je, dawa ya minyoo {0} ilitolewa lini?",
@@ -61,7 +88,97 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali weka tarehe ambayo dawa ya minyoo ilitolewa"
+          "err": "Tafadhali jaza tarehe ambayo dawa ya minyoo ilitolewa"
+        },
+        "relevance": {
+          "step1:has_received_deworming{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "reason_no_medicine_deworming{0}",
+        "openmrs_entity_parent": "reason_no_medicine_deworming{0}",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_no_medicine_deworming{0}",
+        "type": "check_box",
+        "label": "Jaza sababu ya kutotolewa dawa ya minyoo",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza sababu kuelezea kwanini dawa ya minyoo haikutotolewa"
+        },
+        "options": [
+          {
+            "openmrs_entity": "concept",
+            "key": "medicines_not_available",
+            "openmrs_entity_id": "medicines_not_available",
+            "text": "Medicines Not Available"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "family_refused",
+            "openmrs_entity_id": "family_refused",
+            "text": "Familia ilikataa"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "clinic_closed",
+            "openmrs_entity_id": "clinic_closed",
+            "text": "Kituo cha afya kilikuwa kimefungwa"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "return_another_day",
+            "openmrs_entity_id": "return_another_day",
+            "text": "Kaombwa arudi siku nyingine"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "did_not_know_deworming",
+            "openmrs_entity_id": "did_not_know_deworming",
+            "text": "Hakujua kuhusu dawa za kutokomeza minyoo"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "could_not_take_child_deworming",
+            "openmrs_entity_id": "could_not_take_child_deworming",
+            "text": "Hakuweza kumpeleka mtoto kupata dawa za minyoo"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "other",
+            "openmrs_entity_id": "other",
+            "text": "Sababu nyingine"
+          }
+        ],
+        "relevance": {
+          "step1:has_received_deworming{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_no_medicine_deworming{0}",
+        "openmrs_entity_parent": "other_reason_no_medicine_deworming{0}",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_no_medicine_deworming{0}",
+        "type": "edit_text",
+        "hint": "Jaza sababu ya kutotolewa dawa ya minyoo",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza sababu kuelezea kwanini dawa ya minyoo haikutotolewa"
+        },
+        "relevance": {
+          "step1:reason_no_medicine_deworming{0}": {
+            "type": "string",
+            "ex-checkbox": [
+              {
+                "or": ["other"]
+              }
+            ]
+          }
         }
       }
     ]
