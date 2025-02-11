@@ -22,6 +22,7 @@ import org.smartregister.chw.actionhelper.ChildHVSkinToSkinActionHelper;
 import org.smartregister.chw.actionhelper.ChildPMTCTActionHelper;
 import org.smartregister.chw.actionhelper.ChildPlayAssessmentCounselingActionHelper;
 import org.smartregister.chw.actionhelper.ComplimentaryFeedingActionHelper;
+import org.smartregister.chw.actionhelper.DewormingAction;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.MalnutritionScreeningActionHelper;
 import org.smartregister.chw.actionhelper.PNCVisitLocationActionHelper;
@@ -35,9 +36,9 @@ import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChwAncJsonFormUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.FnList;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.JsonQ;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.DateUtil;
@@ -105,7 +106,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
-            evaluateDeworming(serviceWrapperMap);
+            evaluateChildDeWorming(serviceWrapperMap);
             evaluateMalariaPrevention();
             evaluateCounselling();
             evaluateNutritionStatus();
@@ -708,5 +709,43 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             }
         }
         return 0;
+    }
+
+    private void evaluateChildDeWorming(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("Deworming");
+        if (serviceWrapper == null) return;
+
+        Alert alert = serviceWrapper.getAlert();
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) return;
+
+        String formName=Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING();
+        String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        String title = context.getString(R.string.deworming_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
+
+        DewormingAction helper = new DewormingAction(context, serviceIteration, alert,memberObject);
+        JSONObject formJson =  new JSONObject(helper.getPreProcessed());
+
+        // alert if overdue after 14 days
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+        String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.DEWORMING);
+        if (details != null && !details.isEmpty()) {
+            org.smartregister.chw.anc.util.JsonFormUtils.populateForm(formJson, details);
+        }
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                .withHelper(helper)
+                .withDetails(details)
+                .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withFormName(formName)
+                .withJsonPayload(formJson.toString())
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .build();
+        // don't show if its after now
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) actionList.put(title, action);
     }
 }
