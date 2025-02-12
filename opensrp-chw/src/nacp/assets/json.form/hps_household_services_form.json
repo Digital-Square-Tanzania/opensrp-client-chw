@@ -410,7 +410,7 @@
         "key": "others_specify",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "others_specify",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Others (Specify)",
