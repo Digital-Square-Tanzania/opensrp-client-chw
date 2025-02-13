@@ -39,6 +39,7 @@ import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
+import org.smartregister.chw.activity.HpsRegisterActivity;
 import org.smartregister.chw.activity.IccmRegisterActivity;
 import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.LTFURegisterActivity;
@@ -405,6 +406,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -588,6 +590,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasAGYW();
 
         boolean hasSbc();
+
+        boolean hasHps();
 
         boolean hasAsrh();
 
