@@ -46,6 +46,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.sbc.dao.SbcDao;
@@ -321,6 +322,11 @@ public class AllClientsUtils {
         // Handle Asrh menu items
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
+        }
+
+        // Handle HPS menu items
+        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
         }
     }
 

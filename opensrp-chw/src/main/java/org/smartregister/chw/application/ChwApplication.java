@@ -69,6 +69,7 @@ import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
+import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -311,6 +312,10 @@ public class ChwApplication extends CoreChwApplication {
 
         if (flavor.hasCecap()) {
             CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasHps()) {
+            HpsLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),

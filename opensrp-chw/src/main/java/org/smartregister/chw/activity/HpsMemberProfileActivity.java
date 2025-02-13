@@ -368,11 +368,16 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startServiceForm() {
-
+        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void continueService() {
+        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+    }
 
+    @Override
+    public void openFollowupVisit() {
+        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
     }
 }
