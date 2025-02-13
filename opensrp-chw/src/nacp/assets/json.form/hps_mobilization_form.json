@@ -262,6 +262,32 @@
         }
       },
       {
+        "key": "was_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_education_provided",
+        "type": "native_radio",
+        "label": "Was education provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        }
+      },
+      {
         "key": "education_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -444,6 +470,13 @@
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -595,6 +628,30 @@
         }
       },
       {
+        "key": "number_of_brochures_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_provided",
+        "type": "edit_text",
+        "hint": "Number of brochures provided",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "specify_other_brochure_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -693,6 +750,30 @@
         "v_required": {
           "value": "true",
           "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_posters_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_posters_provided",
+        "type": "edit_text",
+        "hint": "Number of posters provided",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number"
         },
         "relevance": {
           "rules-engine": {
@@ -817,6 +898,30 @@
         }
       },
       {
+        "key": "number_of_leaflet_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_leaflet_provided",
+        "type": "edit_text",
+        "hint": "Number of leaflets provided",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "specify_other_leaflet_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -921,6 +1026,30 @@
         "v_required": {
           "value": "true",
           "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_other_iec_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_iec_provided",
+        "type": "edit_text",
+        "hint": "Number of IEC provided",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number"
         },
         "relevance": {
           "rules-engine": {
