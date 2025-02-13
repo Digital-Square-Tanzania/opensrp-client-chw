@@ -795,6 +795,20 @@
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Client Enrollment",
+            "creates_case": [
+              "ec_hps_client_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Enrollment",
+            "creates_case": [
+              "ec_hps_household_register"
+            ]
           }
         ]
       }

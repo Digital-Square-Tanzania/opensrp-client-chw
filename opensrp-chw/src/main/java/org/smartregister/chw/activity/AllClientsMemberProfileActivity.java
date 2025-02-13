@@ -166,6 +166,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    protected void startHtsScreening() {
+        //NOT Required in WAJA
+    }
+
+    @Override
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
     protected void startKvpPrEPRegistration() {
         String gender = getClientGender(baseEntityId);
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
