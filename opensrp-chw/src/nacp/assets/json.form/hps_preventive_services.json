@@ -1,0 +1,684 @@
+{
+  "validate_on_submit": true,
+  "count": "1",
+  "encounter_type": "HPS Preventive Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Preventive Services",
+    "fields": [
+      {
+        "key": "provide_iec_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provide_iec_materials",
+        "type": "native_radio",
+        "label": "Were the IEC materials provided to the client?",
+        "label_text_size": "18px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ]
+      },
+      {
+        "key": "type_of_iec_material",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_iec_material",
+        "type": "check_box",
+        "label": "Select type of IEC materials",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "leaflets",
+            "text": "Leaflets",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leaflets"
+          },
+          {
+            "key": "posters",
+            "text": "Posters",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "posters"
+          },
+          {
+            "key": "brochure",
+            "text": "Brochures",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "brochure"
+          },
+          {
+            "key": "others_specify",
+            "text": "Others(specify)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others_specify"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_type_of_iec_material",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_type_of_iec_material",
+        "type": "edit_text",
+        "hint": "Other IEC material(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_of_message_leaflets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_leaflets",
+        "type": "check_box",
+        "label": "Select Type of Message in Leaflets",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "HIV/AIDS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_and_leprosy",
+            "text": "Tuberculosis and Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_and_leprosy"
+          },
+          {
+            "key": "maternal_child",
+            "text": "Maternal and Child Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "hygiene_sanitation",
+            "text": "Hygiene and Environmental Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene_sanitation"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Cervical Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_leaflets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_leaflets",
+        "type": "edit_text",
+        "hint": "Number of Leaflets Distributed",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_type_of_leaflets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_type_of_leaflets",
+        "type": "edit_text",
+        "hint": "Others(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_of_message_posters",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_posters",
+        "type": "check_box",
+        "label": "Select Type of Message in Posters",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "HIV/AIDS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_and_leprosy",
+            "text": "Tuberculosis and Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_and_leprosy"
+          },
+          {
+            "key": "maternal_child",
+            "text": "Maternal and Child Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "hygiene_sanitation",
+            "text": "Hygiene and Environmental Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene_sanitation"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Cervical Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_posters",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_posters",
+        "type": "edit_text",
+        "hint": "Number of Posters Distributed",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_type_of_posters",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_type_of_posters",
+        "type": "edit_text",
+        "hint": "Others(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_of_message_brochures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_brochures",
+        "type": "check_box",
+        "label": "Select Type of Message in Brochures",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "HIV/AIDS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_and_leprosy",
+            "text": "Tuberculosis and Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_and_leprosy"
+          },
+          {
+            "key": "maternal_child",
+            "text": "Maternal and Child Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "hygiene_sanitation",
+            "text": "Hygiene and Environmental Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hygiene_sanitation"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Cervical Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_type_of_brochures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_type_of_brochures",
+        "type": "edit_text",
+        "hint": "Others(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures",
+        "type": "edit_text",
+        "hint": "Number of Brochures Distributed",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_provided",
+        "type": "native_radio",
+        "label": "Were preventive services offered to the client?",
+        "label_text_size": "18px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ]
+      },
+      {
+        "key": "preventive_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services",
+        "type": "check_box",
+        "label": "Select Preventive Services Provided",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning Pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "Iron and Folic Acid (IFA) Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets"
+          },
+          {
+            "key": "deworming_medication",
+            "text": "Deworming Medication",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication"
+          },
+          {
+            "key": "male_condoms",
+            "text": "Male Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "Female Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "Post-Exposure Prophylaxis (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis"
+          },
+          {
+            "key": "vitamin_a_supplements",
+            "text": "Vitamin A Supplements",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vitamin_a_supplements"
+          },
+          {
+            "key": "fortified_foods",
+            "text": "Fortified Foods",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods"
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "Distribution of Mosquito Nets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets"
+          },
+          {
+            "key": "hiv_self_test_kits",
+            "text": "Distribution of HIV Self-Test Kits",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_self_test_kits"
+          },
+          {
+            "key": "water_purification_tablets",
+            "text": "Distribution of Water Purification Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "water_purification_tablets"
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "Psychological Counseling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling"
+          },
+          {
+            "key": "preliminary_screening",
+            "text": "Preliminary Screening for Tuberculosis/Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening"
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "Preliminary Screening for Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening"
+          },
+          {
+            "key": "collection_of_samples",
+            "text": "Collection of Sputum/Stool Samples",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_of_samples"
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "Dispensing ARV Medication to People Living with HIV (PLHIV)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication"
+          },
+          {
+            "key": "neglected_tropical_diseases",
+            "text": "Distribution of Preventive Medication for Neglected Tropical Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_diseases"
+          },
+          {
+            "key": "first_aid_services",
+            "text": "First Aid Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services"
+          },
+          {
+            "key": "others_services",
+            "text": "Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others_services"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_services_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_services_specify",
+        "type": "edit_text",
+        "hint": "Others services(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
