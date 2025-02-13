@@ -1,0 +1,14 @@
+---
+name: step1_select_curative_services_provided
+description: relevance rule to control the visibility of (was_curative_service_provided)
+priority: 1
+condition: "step1_was_curative_service_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_others_specify
+description: relevance rule to control the visibility of (others_specify)
+priority: 1
+condition: "step1_select_curative_services_provided.contains('others')"
+actions:
+  - "isRelevant = true"
