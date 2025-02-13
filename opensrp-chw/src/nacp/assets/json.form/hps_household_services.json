@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "hps_household_services",
+  "encounter_type": "HPS Household Services",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -53,7 +53,7 @@
         "key": "name_of_hamlet",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "name_of_hamlet",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Name of hamlet",
