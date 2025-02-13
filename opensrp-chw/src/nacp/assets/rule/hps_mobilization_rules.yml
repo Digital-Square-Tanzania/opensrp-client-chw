@@ -75,3 +75,38 @@ priority: 1
 condition: "step1_select_information_education_and_communication_materials.contains('other_iec_materials')"
 actions:
   - "isRelevant = true"
+---
+name: step1_education_provided
+description: relevance rule to control the visibility of (step1_education_provided)
+priority: 1
+condition: "step1_was_education_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_brochures_provided
+description: relevance rule to control the visibility of (step1_number_of_brochures_provided)
+priority: 1
+condition: "step1_select_information_education_and_communication_materials.contains('brochures')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_posters_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_select_information_education_and_communication_materials.contains('posters')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_leaflet_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_select_information_education_and_communication_materials.contains('leaflets')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_other_iec_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_select_information_education_and_communication_materials.contains('other_iec_materials')"
+actions:
+  - "isRelevant = true"
