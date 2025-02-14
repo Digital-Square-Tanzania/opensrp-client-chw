@@ -518,6 +518,9 @@
     <string name="sbc_reports">Ripoti za SBC</string>
     <string name="kvp_reports">Ripoti za KVP</string>
     <string name="kvp_reports_subtitle">Tazama Ripoti za KVP</string>
+    <string name="hps_reports_title">Ripoti za HPS</string>
+    <string name="hps_reports">Ripoti za HPS</string>
+    <string name="hps_reports_subtitle">Tazama Ripoti za HPS</string>
     <string name="sbc_reports_subtitle">Tazama Ripoti za SBC</string>
     <string name="sbc_campaign">Kampeni</string>
     <string name="sbc_religious_events">Uelimishaji katika nyumba za ibada</string>
