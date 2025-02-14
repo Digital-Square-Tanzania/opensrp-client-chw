@@ -1,0 +1,121 @@
+---
+name: step1_diseases_signs_and_symptoms
+description: hps diseases signs and symptoms
+priority: 1
+condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_is_disease_test_conducted
+description: hps diseases tests conducted
+priority: 1
+condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_is_treatment_provided
+description: hps diseases tests conducted
+priority: 1
+condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_specify_signs_and_symptoms_provided
+description: hps other education provided
+priority: 1
+condition: "step1_diseases_signs_and_symptoms.contains('other_signs_and_symptoms')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_systolic
+description: hps blood pressure measurement result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('blood_pressure_measurement')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_diastolic
+description: hps blood pressure measurement result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('blood_pressure_measurement')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_malaria_mrdt_result
+description: hps malaria result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('malaria_mrdt')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_blood_sugar_result
+description: hps blood sugarresult
+priority: 1
+condition: "step1_diseases_test_conducted.contains('blood_sugar')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_hiv_testing_kits_result
+description: hps hiv testing kits result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('hiv_testing_kits')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_body_temperature_result
+description: hps body temperature result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('body_temperature')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_arm_circumference_result
+description: hps arm circumference result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('arm_circumference')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_body_weight_result
+description: hps body weight result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('body_weight')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_body_height_result
+description: hps body height result
+priority: 1
+condition: "step1_diseases_test_conducted.contains('body_height')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_diseases_test_conducted
+description: hps diseases tests conducted
+priority: 1
+condition: "step1_is_disease_test_conducted.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_treatment_provided
+description: hps treatment provided
+priority: 1
+condition: "step1_is_treatment_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+
