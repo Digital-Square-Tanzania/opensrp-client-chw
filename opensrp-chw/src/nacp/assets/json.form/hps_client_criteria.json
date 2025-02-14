@@ -4,8 +4,6 @@
   "encounter_type": "HPS Client Criteria",
   "entity_id": "",
   "global": {
-    "age": 16,
-    "sex": "Female"
   },
   "metadata": {
     "start": {
