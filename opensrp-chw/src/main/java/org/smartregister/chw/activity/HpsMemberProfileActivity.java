@@ -1,10 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.cecap.interactor.BaseCecapProfileInteractor.getVisit;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +38,7 @@ import org.smartregister.chw.hps.domain.MemberObject;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.hps.util.VisitUtils;
 import org.smartregister.chw.kvp.dao.KvpDao;
+import org.smartregister.chw.hps.domain.Visit;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.sbc.dao.SbcDao;
@@ -377,5 +381,15 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     @Override
     public void openFollowupVisit() {
         HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        Visit lastVisit = getServiceVisit();
+        if (lastVisit != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
     }
 }

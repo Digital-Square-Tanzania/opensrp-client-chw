@@ -113,7 +113,9 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                         days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
                     }
 
-                    String[] visitTypeParams = {"provide_iec_materials", "type_of_iec_material", "others_type_of_iec_material", "type_of_message_leaflets", "number_of_leaflets",
+                    String[] visitTypeParams = {
+                            "client_criteria", "provision_of_preventive_services",
+                            "provide_iec_materials", "type_of_iec_material", "others_type_of_iec_material", "type_of_message_leaflets", "number_of_leaflets",
                             "others_type_of_leaflets", "type_of_message_posters", "number_of_posters", "others_type_of_posters", "type_of_message_brochures", "others_type_of_brochures", "number_of_brochures", "preventive_services_provided",
                             "preventive_services", "others_services_specify"};
                     extractVisitDetails(visits, visitTypeParams, visitDetails, x, context);

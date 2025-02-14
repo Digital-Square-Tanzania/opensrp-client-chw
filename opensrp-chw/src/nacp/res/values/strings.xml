@@ -779,6 +779,56 @@
     <string name="referral_problem_symptoms_of_stis">Symptoms of STI\’s</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Symptoms Abortion/Miscarriages</string>
 
+    <!--    HPS -->
+    <string name="hps_client_criteria">Client Criteria:</string>
+    <string name="hps_person_living">Person living with HIV (PLHIV)</string>
+    <string name="hps_high_risk">High Risk</string>
+    <string name="hps_people_vulnerable_environment">People living in vulnerable environment</string>
+    <string name="hps_leprosy_patient">Leprosy patient</string>
+    <string name="hps_tuberculosis_patient">TB patient</string>
+    <string name="hps_household_tb_patient">Person living in a household with a TB patient</string>
+    <string name="hps_patient_discontinued_treatment">Patient who discontinued treatment</string>
+    <string name="hps_person_disability">Person with a disability</string>
+    <string name="hps_child_born_positive_mother">Child born to an HIV-positive mother</string>
+    <string name="hps_other">Other criteria</string>
+    <string name="hps_parent_child_under_five">Parent/guardian of a child under five years</string>
+
+    <string name="hps_provision_of_preventive_services">Is type of education provided?</string>
+    <string name="hps_yes">Yes</string>
+    <string name="hps_no">No</string>
+    <string name="hps_type_of_education_provided">Type of Education provided</string>
+    <string name="hps_nutrition">Nutrition</string>
+    <string name="hps_anc_danger_signs">ANC Danger Signs</string>
+    <string name="hps_family_planning">Family Planning</string>
+    <string name="hps_malaria">Malaria</string>
+    <string name="hps_tb_leprosy_lab_diagnostics">TB, Leprosy, Lab Diagnostics</string>
+    <string name="hps_hiv_aids_hepatitis_lab_diagnostics">TB, Leprosy, Lab Diagnostics</string>
+    <string name="hps_communicable_diseases">Communicable Diseases</string>
+    <string name="hps_neglected_tropical_diseases">Neglected Tropical Diseases</string>
+    <string name="hps_oral_health">Oral Health</string>
+    <string name="hps_non_communicable_diseases">Non Communicable Diseases (NCDs)</string>
+    <string name="hps_eye_diseases_diagnostics">Eye Diseases &amp; Diagnostics</string>
+    <string name="hps_environmental_hygiene">Environmental Hygiene</string>
+    <string name="hps_nhif_ichf">NHIF/iCHF</string>
+    <string name="hps_gender_based_violence">Gender Based Violence</string>
+    <string name="hps_drug_substance_abuse">Drug &amp; Substance abuse</string>
+    <string name="hps_mental_health">Mental Health</string>
+    <string name="hps_elderly_family_rights_protection">Elderly/Family rights &amp; protection</string>
+    <string name="hps_child_protection_rights">Child protection &amp; rights</string>
+    <string name="hps_sexual_transmission_infections">Sexual Transmission Infections</string>
+    <string name="hps_early_child_marriage_pregnancy">Early child marriage and pregnancy</string>
+    <string name="hps_vaccination_services">Vaccination services</string>
+    <string name="hps_early_child_developments">Early child Developments</string>
+    <string name="hps_importance_of_registered_birth_certificate">Importance of Registered Birth certificate</string>
+    <string name="hps_income_generated_activities">Income Generated Activities (EGA)</string>
+    <string name="hps_first_aid">First Aid</string>
+    <string name="hps_violence_against_children">Violence Against Children</string>
+    <string name="hps_drug_adherence">Drug adherence</string>
+    <string name="hps_m_mama_system">M-mama system</string>
+    <string name="hps_other_educations">Other Educations</string>
+    <string name="hps_other_education_provided">Other(Specify)</string>
+
+
 
 
 </resources>
