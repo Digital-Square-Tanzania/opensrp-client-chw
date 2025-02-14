@@ -1,0 +1,641 @@
+{
+  "validate_on_submit": true,
+  "count": "1",
+  "encounter_type": "HPS Client Criteria",
+  "entity_id": "",
+  "global": {
+  },
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Client Criteria",
+    "fields": [
+      {
+        "key": "client_criteria_below_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria_below_12",
+        "type": "check_box",
+        "label": "Select client criteria",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "person_living",
+            "text": "Person living with HIV (PLHIV)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_living"
+          },
+          {
+            "key": "high_risk",
+            "text": "High Risk",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_risk"
+          },
+          {
+            "key": "people_vulnerable_environment",
+            "text": "People living in vulnerable environment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "people_vulnerable_environment"
+          },
+          {
+            "key": "leprosy_patient",
+            "text": "Leprosy patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy_patient"
+          },
+          {
+            "key": "tuberculosis_patient",
+            "text": "TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_patient"
+          },
+          {
+            "key": "household_tb_patient",
+            "text": "Person living in a household with a TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_tb_patient"
+          },
+          {
+            "key": "patient_discontinued_treatment",
+            "text": "Patient who discontinued treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "patient_discontinued_treatment"
+          },
+          {
+            "key": "person_disability",
+            "text": "Person with a disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "child_born_positive_mother",
+            "text": "Child born to an HIV-positive mother",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_born_positive_mother"
+          },
+          {
+            "key": "other",
+            "text": "Other criteria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_criteria_above_12_male_above_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria_above_12_male_above_15",
+        "type": "check_box",
+        "label": "Select client criteria",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "parent_child_under_five",
+            "text": "Parent/guardian of a child under five years",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_under_five"
+          },
+          {
+            "key": "partner",
+            "text": "Partner",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
+          },
+          {
+            "key": "parent_child_aged",
+            "text": "Parent/guardian of a child aged 0-23 months",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_aged"
+          },
+          {
+            "key": "person_living",
+            "text": "Person living with HIV (PLHIV)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_living"
+          },
+          {
+            "key": "high_risk",
+            "text": "High Risk",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_risk"
+          },
+          {
+            "key": "people_vulnerable_environment",
+            "text": "People living in vulnerable environment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "people_vulnerable_environment"
+          },
+          {
+            "key": "leprosy_patient",
+            "text": "Leprosy patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy_patient"
+          },
+          {
+            "key": "tuberculosis_patient",
+            "text": "TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_patient"
+          },
+          {
+            "key": "household_tb_patient",
+            "text": "Person living in a household with a TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_tb_patient"
+          },
+          {
+            "key": "patient_discontinued_treatment",
+            "text": "Patient who discontinued treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "patient_discontinued_treatment"
+          },
+          {
+            "key": "person_disability",
+            "text": "Person with a disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "other",
+            "text": "Other criteria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_criteria_above_12_male_below_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria_above_12_male_below_15",
+        "type": "check_box",
+        "label": "Select client criteria",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "parent_child_under_five",
+            "text": "Parent/guardian of a child under five years",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_under_five"
+          },
+          {
+            "key": "partner",
+            "text": "Partner",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
+          },
+          {
+            "key": "parent_child_aged",
+            "text": "Parent/guardian of a child aged 0-23 months",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_aged"
+          },
+          {
+            "key": "person_living",
+            "text": "Person living with HIV (PLHIV)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_living"
+          },
+          {
+            "key": "high_risk",
+            "text": "High Risk",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_risk"
+          },
+          {
+            "key": "people_vulnerable_environment",
+            "text": "People living in vulnerable environment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "people_vulnerable_environment"
+          },
+          {
+            "key": "leprosy_patient",
+            "text": "Leprosy patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy_patient"
+          },
+          {
+            "key": "tuberculosis_patient",
+            "text": "TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_patient"
+          },
+          {
+            "key": "household_tb_patient",
+            "text": "Person living in a household with a TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_tb_patient"
+          },
+          {
+            "key": "patient_discontinued_treatment",
+            "text": "Patient who discontinued treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "patient_discontinued_treatment"
+          },
+          {
+            "key": "person_disability",
+            "text": "Person with a disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "child_born_positive_mother",
+            "text": "Child born to an HIV-positive mother",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_born_positive_mother"
+          },
+          {
+            "key": "other",
+            "text": "Other criteria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_criteria_above_12_female_above_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria_above_12_female_above_15",
+        "type": "check_box",
+        "label": "Select client criteria",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "pregnant_woman",
+            "text": "Pregnant Woman",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pregnant_woman"
+          },
+          {
+            "key": "breastfeeding_mother",
+            "text": "Breastfeeding Mother",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breastfeeding_mother"
+          },
+          {
+            "key": "parent_child_under_five",
+            "text": "Parent/guardian of a child under five years",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_under_five"
+          },
+          {
+            "key": "partner",
+            "text": "Partner",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
+          },
+          {
+            "key": "parent_child_aged",
+            "text": "Parent/guardian of a child aged 0-23 months",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_aged"
+          },
+          {
+            "key": "person_living",
+            "text": "Person living with HIV (PLHIV)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_living"
+          },
+          {
+            "key": "high_risk",
+            "text": "High Risk",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_risk"
+          },
+          {
+            "key": "people_vulnerable_environment",
+            "text": "People living in vulnerable environment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "people_vulnerable_environment"
+          },
+          {
+            "key": "leprosy_patient",
+            "text": "Leprosy patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy_patient"
+          },
+          {
+            "key": "tuberculosis_patient",
+            "text": "TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_patient"
+          },
+          {
+            "key": "household_tb_patient",
+            "text": "Person living in a household with a TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_tb_patient"
+          },
+          {
+            "key": "patient_discontinued_treatment",
+            "text": "Patient who discontinued treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "patient_discontinued_treatment"
+          },
+          {
+            "key": "person_disability",
+            "text": "Person with a disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "child_born_positive_mother",
+            "text": "Child born to an HIV-positive mother",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_born_positive_mother"
+          },
+          {
+            "key": "other",
+            "text": "Other criteria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_criteria_above_12_female_below_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria_above_12_female_below_15",
+        "type": "check_box",
+        "label": "Select client criteria",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "pregnant_woman",
+            "text": "Pregnant Woman",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pregnant_woman"
+          },
+          {
+            "key": "breastfeeding_mother",
+            "text": "Breastfeeding Mother",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breastfeeding_mother"
+          },
+          {
+            "key": "parent_child_under_five",
+            "text": "Parent/guardian of a child under five years",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_under_five"
+          },
+          {
+            "key": "partner",
+            "text": "Partner",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
+          },
+          {
+            "key": "parent_child_aged",
+            "text": "Parent/guardian of a child aged 0-23 months",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parent_child_aged"
+          },
+          {
+            "key": "person_living",
+            "text": "Person living with HIV (PLHIV)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_living"
+          },
+          {
+            "key": "high_risk",
+            "text": "High Risk",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_risk"
+          },
+          {
+            "key": "people_vulnerable_environment",
+            "text": "People living in vulnerable environment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "people_vulnerable_environment"
+          },
+          {
+            "key": "leprosy_patient",
+            "text": "Leprosy patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy_patient"
+          },
+          {
+            "key": "tuberculosis_patient",
+            "text": "TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_patient"
+          },
+          {
+            "key": "household_tb_patient",
+            "text": "Person living in a household with a TB patient",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_tb_patient"
+          },
+          {
+            "key": "patient_discontinued_treatment",
+            "text": "Patient who discontinued treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "patient_discontinued_treatment"
+          },
+          {
+            "key": "person_disability",
+            "text": "Person with a disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "other",
+            "text": "Other criteria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_criteria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_criteria",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_criteria_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_criteria_specify",
+        "type": "edit_text",
+        "hint": "Other criteria specify",
+        "v_max": {
+          "value": "100",
+          "err": "Respiration rate value must be equal or less than 100"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_client_criteria_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
