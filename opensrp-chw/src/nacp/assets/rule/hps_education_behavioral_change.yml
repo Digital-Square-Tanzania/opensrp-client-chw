@@ -2,7 +2,7 @@
 name: step1_type_of_education_provided
 description: hps type of education provided
 priority: 1
-condition: "step1_provision_of_preventive_services.equalsIgnoreCase`('yes_provided')"
+condition: "step1_provision_of_preventive_services.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
 
