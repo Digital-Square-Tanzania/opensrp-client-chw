@@ -35,6 +35,6 @@ public class HpsClientServicesVisitActivity extends BaseHpsVisitActivity {
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseHpsVisitPresenter(memberObject, this, new BaseHpsServiceVisitInteractor(org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_SERVICES));
+        presenter = new BaseHpsVisitPresenter(memberObject, this, new BaseHpsServiceVisitInteractor(org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT));
     }
 }

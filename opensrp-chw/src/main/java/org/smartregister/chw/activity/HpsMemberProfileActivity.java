@@ -72,8 +72,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void openMedicalHistory() {
-//        TODO
-//        AsrhMedicalHistoryActivity.startMe(this, memberObject);
+        HpsVisitHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -82,7 +81,6 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         setupViews();
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
-        TextView clientStatus = ((TextView) findViewById(R.id.family_asrh_head));
         memberObject = HpsDao.getMember(memberObject.getBaseEntityId());
     }
 
