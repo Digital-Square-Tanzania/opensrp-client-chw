@@ -49,20 +49,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provision_of_curative_services",
-        "label": "Did the client provided with curative services?",
+        "label": "Je mgonjwa amepata huduma za tiba?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndio",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -70,7 +70,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         }
       },
       {
@@ -78,7 +78,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_signs_and_symptoms",
-        "label": "Diseases Signs and Symptoms",
+        "label": "Dalili za ugonjwa",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -88,294 +88,294 @@
         "options": [
           {
             "key": "fever",
-            "text": "Fever",
+            "text": "Homa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fever"
           },
           {
             "key": "vaginal_blood_discharge",
-            "text": "Vaginal Blood Discharge",
+            "text": "Kutokwa na damu sehemu za siri",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vaginal_blood_discharge"
           },
           {
             "key": "nausea_and_vomiting",
-            "text": "Nausea and Vomiting",
+            "text": "Kichefuchefu na Kutapika",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "nausea_and_vomiting"
           },
           {
             "key": "dizziness",
-            "text": "Dizziness",
+            "text": "Kizunguzungu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "dizziness"
           },
           {
             "key": "headache",
-            "text": "Headache",
+            "text": "Kuumwa kichwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "headache"
           },
           {
             "key": "child_excessive_crying",
-            "text": "Child excessive crying",
+            "text": "Mtoto kulia sana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "child_excessive_crying"
           },
           {
             "key": "loss_of_appetite",
-            "text": "Loss of appetite",
+            "text": "Kukosa hamu ya kula",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "loss_of_appetite"
           },
           {
             "key": "diarrhoea",
-            "text": "Diarrhoea",
+            "text": "Kuharisha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "diarrhoea"
           },
           {
             "key": "vaginal_watery_discharge",
-            "text": "Vaginal Watery Discharge",
+            "text": "Kutokwa na harufu mbaya au maji maji yasiokuwa ya kawaida sehemu za siri",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vaginal_watery_discharge"
           },
           {
             "key": "lower_limb",
-            "text": "Lower limb Edema",
+            "text": "Miguu kuvimba",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "lower_limb"
           },
           {
             "key": "soft_and_coloured_hair",
-            "text": "Soft & Coloured Hair",
+            "text": "Nywele kuwa laini na kubadilika rangi.",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "soft_and_coloured_hair"
           },
           {
             "key": "palm_parror",
-            "text": "Palm Parror",
+            "text": "Viganja kuwa vyeupe",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "palm_parror"
           },
           {
             "key": "body_malaise",
-            "text": "Body malaise",
+            "text": "Kulegea mwili (mgonjwa hawezi kukaa au kusimama bila msaada)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_malaise,"
           },
           {
             "key": "body_convulsion",
-            "text": "Body Convulsion",
+            "text": "Degedege",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_convulsion"
           },
           {
             "key": "unconsciousness",
-            "text": "Unconsciousness",
+            "text": "Kupoteza fahamu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "unconsciousness"
           },
           {
             "key": "mental_confusion",
-            "text": "Mental Confusion",
+            "text": "Kuchanganyikiwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mental_confusion"
           },
           {
             "key": "cough",
-            "text": "Cough",
+            "text": "Kikohozi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cough"
           },
           {
             "key": "blood_sputum",
-            "text": "Blood Sputum",
+            "text": "Makohozi yenye damu/usaha ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "blood_sputum"
           },
           {
             "key": "difficult_in_breathing",
-            "text": "Difficult in breathing",
+            "text": "Kupumua kwa shida",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "difficult_in_breathing"
           },
           {
             "key": "weight_loss",
-            "text": "Weight Loss",
+            "text": "Kupungua Uzito",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "weight_loss"
           },
           {
             "key": "obesity",
-            "text": "Obesity",
+            "text": "Uzito Uliopitiliza",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "obesity"
           },
           {
             "key": "excessive_sweating",
-            "text": "Excessive Sweating",
+            "text": "Kutokwa jasho jingi ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "excessive_sweating"
           },
           {
             "key": "skin_loss_of_sense",
-            "text": "Skin Loss of Sense",
+            "text": "Baka/mabaka yasio na hisia kwenye ngozi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_loss_of_sense"
           },
           {
             "key": "skin_nodules",
-            "text": "Skin nodules",
+            "text": "Ngozi kuota Vinundu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_nodules"
           },
           {
             "key": "arm_and_limb_numbness",
-            "text": "Arm and Limb numbness",
+            "text": "Ganzi Mikononi/Miguuni",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "arm_and_limb_numbness"
           },
           {
             "key": "disability_chronic_wounds",
-            "text": "Disability/ Chronic wounds",
+            "text": "Kupata ulemavu /Vidonda sugu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "disability_chronic_wounds"
           },
           {
             "key": "arm_limp_swelling_breast_enlargement",
-            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "text": "Kuvimba Miguu/Mikono/ziwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"
           },
           {
             "key": "scrotal_swelling",
-            "text": "Scrotal Swelling",
+            "text": "Kuvimba Korodani ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "scrotal_swelling"
           },
           {
             "key": "eye_lashes_scratching_eyelid",
-            "text": "Eye lashes scratching eyelid",
+            "text": "Kope kupinda na kugusa kioo cha jicho",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "eye_lashes_scratching_eyelid"
           },
           {
             "key": "skin_itching_seborrhea",
-            "text": "Skin itching/Seborrhea",
+            "text": "Ngozi kuwasha sana na kuwa na ukurutu usiotibika",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_itching_seborrhea"
           },
           {
             "key": "bloody_stool",
-            "text": "Bloody stool",
+            "text": "Kinyesi kilichochanganyika na damu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "bloody_stool"
           },
           {
             "key": "bloody_urine",
-            "text": "Bloody urine",
+            "text": "Kukojoa damu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "bloody_urine"
           },
           {
             "key": "skin_blood_discharge",
-            "text": "Skin blood discharge",
+            "text": "Kutokwa damu sehemu za wazi za mwili ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_blood_discharge"
           },
           {
             "key": "eye_itching",
-            "text": "Eye itching",
+            "text": "Macho kuwasha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "eye_itching"
           },
           {
             "key": "red_eyes",
-            "text": "Red Eyes",
+            "text": "Macho mekundu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "red_eyes"
           },
           {
             "key": "low_vision",
-            "text": "Low vision",
+            "text": "Uoni hafifu/upofu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "low_vision"
           },
           {
             "key": "swelling",
-            "text": "Swelling",
+            "text": "Uvimbe",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "swelling"
           },
           {
             "key": "body_injury",
-            "text": "Body Injury",
+            "text": "Majeraha ya mwili ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_injury"
           },
           {
             "key": "puss_body_lashes",
-            "text": "Puss body lashes",
+            "text": "Vipele vyenye usaha ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "puss_body_lashes"
           },
           {
             "key": "blood_vomit",
-            "text": "Blood Vomit",
+            "text": "Kutapika damu ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "blood_vomit"
           },
           {
             "key": "gum_swelling_and_tooth_ache",
-            "text": "Gum swelling and tooth ache",
+            "text": "Fizi kuvimba, kutoa damu au meno kutoboka ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gum_swelling_and_tooth_ache"
           },
           {
             "key": "other_signs_and_symptoms",
-            "text": "Other signs and symptoms",
+            "text": "Dalili nyinginezo ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_signs_and_symptoms"
@@ -383,7 +383,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
@@ -399,10 +399,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "specify_signs_and_symptoms_provided",
         "type": "edit_text",
-        "hint": "Other(Specify)",
+        "hint": " Nyinginezo(Taja)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "rules-engine": {
@@ -417,20 +417,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_disease_test_conducted",
-        "label": "Did the client undergo disease tests?",
+        "label": "Je vipimo vya ugonjwa vimefanywa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndio",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -438,7 +438,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
@@ -453,14 +453,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_test_conducted",
-        "label": "Disease Test Conducted",
+        "label": "Vipimo vilivyofanyika",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "blood_pressure_measurement",
-            "text": "Blood Pressure Measurement (BP)",
+            "text": "Kipimo cha shinikizo la damu (BP)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "blood_pressure_measurement"
@@ -474,51 +474,50 @@
           },
           {
             "key": "blood_sugar",
-            "text": "Blood Sugar (RBG)",
+            "text": "Kipimo cha sukari kwenye damu (RBG)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "blood_sugar"
           },
           {
             "key": "hiv_testing_kits",
-            "text": "HIV testing kits",
+            "text": "Upimaji wa VVU kutumia vitepe vya Jipime",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_testing_kits"
           },
           {
             "key": "body_temperature",
-            "text": "Body Temperature (℃)",
+            "text": "Joto la mwili",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_temperature"
           },
           {
             "key": "arm_circumference",
-            "text": "Arm circumference (MUAC)",
+            "text": "Mzingo wa Mkono (MUAC)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "arm_circumference"
           },
           {
             "key": "body_weight",
-            "text": "Body Weight",
+            "text": "Uzito ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_weight"
           },
           {
             "key": "body_height",
-            "text": "Body Height",
+            "text": "Urefu ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_height"
           }
-
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
@@ -531,25 +530,25 @@
       {
         "key": "systolic",
         "type": "edit_text",
-        "hint": "Systolic (Blood Pressure)",
+        "hint": "Shinikizo la juu la damu",
         "openmrs_entity_id": "systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the systolic value"
+          "err": "Tafadhali ingiza shinikizo la juu la damu"
         },
         "v_min": {
           "value": "0",
-          "err": "Systolic value must be equal or greater than 0"
+          "err": "Shinikizo la juu la damu linatakiwa liwe sawa au juu ya 0"
         },
         "v_max": {
           "value": "320",
-          "err": "Systolic value must be equal or less than 320"
+          "err": "Shinikizo la juu la damu linatakiwa liwe sawa au chini ya 320"
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the systolic value"
+          "err": "Tafadhali ingiza shinikizo la juu la damu"
         },
         "relevance": {
           "rules-engine": {
@@ -562,13 +561,13 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Diastolic (Blood Pressure)",
+        "hint": "Shinikizo la chini la damu",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the diastolic value"
+          "err": "Tafadhali ingiza shinikizo la chini la damu"
         },
         "v_max_length": {
           "value": "3",
@@ -577,15 +576,15 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Diastolic value must be equal or greater than 0"
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au juu ya 0"
         },
         "v_max": {
           "value": "200",
-          "err": "Diastolic value must be equal or less than 200"
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au juu ya 200"
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the diastolic value"
+          "err": "Tafadhali ingiza shinikizo la chini la damu"
         },
         "relevance": {
           "rules-engine": {
@@ -608,18 +607,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "malaria_mrdt_result",
         "type": "native_radio",
-        "label": "Select Malaria (mrDT) Results",
+        "label": "Chagua majibu ya Malaria (mrDT)",
         "options": [
           {
             "key": "positive_mrdt",
-            "text": "Positive",
+            "text": "Chanya",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "positive_mrdt"
           },
           {
             "key": "negative_mrdt",
-            "text": "Negative",
+            "text": "Hasi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "negative_mrdt"
@@ -627,7 +626,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "rules-engine": {
@@ -643,14 +642,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_sugar_result",
         "type": "edit_text",
-        "hint": "Blood Sugar (mmol/L)",
+        "hint": "Majibu ya Kipimo cha sukari kwenye damu (RBG)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the blood sugar result"
+          "err": "Tafadhali ingiza majibu"
         },
         "v_max_length": {
           "value": "2",
@@ -659,11 +658,11 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Blood sugar must be equal or greater than 0 (mmol/L)"
+          "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kikubwa kuliko 0 (mmol/L)"
         },
         "v_max": {
           "value": "45",
-          "err": "Blood sugar must be equal or less than 45 (mmol/L)"
+          "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kidogo kuliko 45 (mmol/L)"
         },
         "relevance": {
           "rules-engine": {
@@ -679,18 +678,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_testing_kits_result",
         "type": "native_radio",
-        "label": "Select HIV Testing Kits Results",
+        "label": "Chagua majibu ya Upimaji wa VVU kutumia vitepe vya Jipime",
         "options": [
           {
             "key": "reactive",
-            "text": "Reactive",
+            "text": "Ana Viashiria ",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "reactive"
           },
           {
             "key": "non_reactive",
-            "text": "Non-Reactive",
+            "text": "Hana Viashiria",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "non_reactive"
@@ -698,7 +697,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "rules-engine": {
@@ -714,14 +713,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "body_temperature_result",
         "type": "edit_text",
-        "hint": "Body Temperature (\u2103)",
+        "hint": "Joto la mwili (℃)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the body temperature value"
+          "err": "Tafadhali ingiza joto la mwili"
         },
         "v_max_length": {
           "value": "2",
@@ -730,11 +729,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "Temperature must be equal or greater than 35 (\u2103)"
+          "err": "Joto la mwili linatakiwa liwe sawa au kubwa kuliko 35 (℃)"
         },
         "v_max": {
           "value": "45",
-          "err": "Temperature must be equal or less than 45 (\u2103)"
+          "err": "Joto la mwili linatakiwa liwe sawa au dogo kuliko 45 (℃)"
         },
         "relevance": {
           "rules-engine": {
@@ -750,14 +749,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "arm_circumference_result",
         "type": "edit_text",
-        "hint": "Arm Circumference",
+        "hint": "Mzingo wa Mkono",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the arm circumference value"
+          "err": "Tafadhali ingiza mzingo wa mkono"
         },
         "relevance": {
           "rules-engine": {
@@ -773,10 +772,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "body_weight_result",
         "type": "edit_text",
-        "hint": "Body Weight (KG)",
+        "hint": "Uzito (KG)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "v_max_length": {
           "value": "3",
@@ -785,15 +784,15 @@
         },
         "v_min": {
           "value": "20",
-          "err": "Weight must be equal or greater than 20 (KG)"
+          "err": "Uzito unatakiwa uwe sawa au mkubwa kuliko 20 (KG)"
         },
         "v_max": {
           "value": "500",
-          "err": "Weight must be equal or less than 500 (KG)"
+          "err": "Uzito unatakiwa uwe sawa au mdogo kuliko 500 (KG)"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the body weight value"
+          "err": "Tafadhali ingiza uzito"
         },
         "relevance": {
           "rules-engine": {
@@ -809,14 +808,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "body_height_result",
         "type": "edit_text",
-        "hint": "Body Height (CM)",
+        "hint": "Urefu (CM)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the body height value"
+          "err": "Tafadhali ingiza urefu"
         },
         "v_max_length": {
           "value": "3",
@@ -825,11 +824,11 @@
         },
         "v_min": {
           "value": "5",
-          "err": "Height must be equal or greater than 5 (CM)"
+          "err": "Urefu unatakiwa uwe sawa au mkubwa kuliko 5 (CM)"
         },
         "v_max": {
           "value": "250",
-          "err": "Height must be equal or less than 250 (CM)"
+          "err": "Urefu unatakiwa uwe sawa au mdogo kuliko 250 (CM)"
         },
         "relevance": {
           "rules-engine": {
@@ -844,20 +843,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_treatment_provided",
-        "label": "Was the client provided with treatment?",
+        "label": "Je mteja alipata matibabu?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndio",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -865,7 +864,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
@@ -880,7 +879,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treatment_provided",
-        "label": "Treatment Provided",
+        "label": "Matibabu yaliyotolewa",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -908,21 +907,21 @@
           },
           {
             "key": "malaria_drugs",
-            "text": "Malaria drugs (ALu)",
+            "text": "Dawa mseto za malaria (ALu)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria_drugs"
           },
           {
             "key": "anti_pain",
-            "text": "Anti-pain (panadol)",
+            "text": "Dawa za kutuliza maumivu (panadol)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "anti_pain"
           },
           {
             "key": "food_supplements",
-            "text": "Food Supplements (RUTF)",
+            "text": "Chakula dawa (RUTF)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "food_supplements"
@@ -930,7 +929,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali chagua jibu"
         },
         "relevance": {
           "rules-engine": {
