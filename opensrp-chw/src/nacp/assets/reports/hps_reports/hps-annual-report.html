@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAARIFA ZA MWAKA KUTOKA KATIKA JAMII (ELIMU YA AFYA KWA UMMA)</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            font-size: 1rem;
+            color: #000;
+            width: 80%;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .heading h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .underline {
+            border-bottom: 1px solid #000;
+        }
+
+        ol {
+            margin: 0;
+            padding: 0;
+            padding-left: 1.2rem;
+        }
+
+        li {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 1rem;
+        }
+
+        .dataItem {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0 0.5rem;
+        }
+
+        .divider {
+           width: 100%;
+           height: 2px;
+           background-color: black;
+           margin: 10px 0;
+        }
+
+        .responsive-container {
+           margin: 10px 0;
+           border: 2px solid black;
+           padding: 10px;
+           max-width: 100%;
+           width: 100%;
+           box-sizing: border-box; /* Ensures padding doesn't overflow */
+        }
+
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            .show-on-print {
+                display: block;
+            }
+        }
+
+
+
+    </style>
+</head>
+
+<body onload="loadData()">
+
+<div class="responsive-container">
+    <div style="overflow-x: auto;">
+        <table border="1" width="100%">
+            <thead>
+            <tr>
+                <th colspan="18">Taarifa ya Idadi ya Watu Kwa Makundi ya Rika na Jinsia Katika Kijiji/ Mtaa</th>
+            </tr>
+            <tr>
+                <th rowspan="3" colspan="2" class="table-title">Na.</th>
+                <th colspan="12">Umri</th>
+                <th rowspan="2" colspan="3">Idadi ya Watu</th>
+                <th rowspan="3">Idadi ya Kaya</th>
+            </tr>
+            <tr>
+                <th colspan="2">&lt;1</th>
+                <th colspan="2">1 - 4</th>
+                <th colspan="2">5 - 14</th>
+                <th colspan="2">15 - 49</th>
+                <th colspan="2">50 - 59</th>
+                <th colspan="2">60+</th>
+            </tr>
+            <tr>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>ME</th>
+                <th>KE</th>
+                <th>Jumla</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+
+<div class="divider"></div>
+<h1><b>Taarifa ya Huduma ya Mawasiliano ya Barabara na Simu</b></h1>
+<ol>
+    <li>
+        Idadi ya kaya zinazofikiwa na usafiri wa gari bila matatizo
+        <span class="underline dataItem" id="a-1"></span>
+    </li>
+    <li>
+        Idadi ya kaya yenye angalau simu moja ya kiganjani au mezani <span
+        class="underline dataItem" id="a-2"></span>
+    </li>
+</ol>
+
+<div class="divider"></div>
+<h1><b>Upatikanaji wa Vyakula Vyenye Lishe</b></h1>
+<ol>
+    <li>
+        Kaya zenye Chanzo cha Lishe.
+        <br>
+        A.) Bustani za mbogamboga.
+        <span class="underline dataItem" id="b-1"></span>
+        ,  B) Miti ya Matunda.
+        <span class="underline dataItem" id="b-2"></span>
+        ,  C) Wanyama na ndege wakufugwa.
+        <span class="underline dataItem" id="b-3"></span>
+    </li>
+</ol>
+
+<div class="divider"></div>
+    <div style="overflow-x: auto;">
+        <table border="1" width="100%">
+            <thead>
+            <tr>
+                <th class="table-title">Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee</th>
+            </tr>
+            <tr>
+                <th>Aina ya Kituo</th>
+                <th>Serikali</th>
+                <th>Taasisi ya Kidini</th>
+                <th>Shirika la Umma</th>
+                <th>Binafsi</th>
+                <th>Jumla</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Shule za awali</td>
+                <td align="center" id="c-1"></td>
+                <td align="center" id="c-2"></td>
+                <td align="center" id="c-3"></td>
+                <td align="center" id="c-4"></td>
+                <td align="center" id="c-5"></td>
+            </tr>
+            <tr>
+                <td>Shule za msingi</td>
+                <td align="center" id="d-1"></td>
+                <td align="center" id="d-2"></td>
+                <td align="center" id="d-3"></td>
+                <td align="center" id="d-4"></td>
+                <td align="center" id="d-5"></td>
+            </tr>
+            <tr>
+                <td>Shule za sekondari</td>
+                <td align="center" id="e-1"></td>
+                <td align="center" id="e-2"></td>
+                <td align="center" id="e-3"></td>
+                <td align="center" id="e-4"></td>
+                <td align="center" id="e-5"></td>
+            </tr>
+            <tr>
+                <td>Vyuo</td>
+                <td align="center" id="f-1"></td>
+                <td align="center" id="f-2"></td>
+                <td align="center" id="f-3"></td>
+                <td align="center" id="f-4"></td>
+                <td align="center" id="f-5"></td>
+            </tr>
+            <tr>
+                <td>Shule za wenye mahitaji maalum</td>
+                <td align="center" id="g-1"></td>
+                <td align="center" id="g-2"></td>
+                <td align="center" id="g-3"></td>
+                <td align="center" id="g-4"></td>
+                <td align="center" id="g-5"></td>
+            </tr>
+            <tr>
+                <td>Zahanati</td>
+                <td align="center" id="h-1"></td>
+                <td align="center" id="h-2"></td>
+                <td align="center" id="h-3"></td>
+                <td align="center" id="h-4"></td>
+                <td align="center" id="h-5"></td>
+            </tr>
+            <tr>
+                <td>Kituo cha Afya</td>
+                <td align="center" id="i-1"></td>
+                <td align="center" id="i-2"></td>
+                <td align="center" id="i-3"></td>
+                <td align="center" id="i-4"></td>
+                <td align="center" id="i-5"></td>
+            </tr>
+            <tr>
+                <td>Hospitali</td>
+                <td align="center" id="j-1"></td>
+                <td align="center" id="j-2"></td>
+                <td align="center" id="j-3"></td>
+                <td align="center" id="j-4"></td>
+                <td align="center" id="j-5"></td>
+            </tr>
+            <tr>
+                <td>Kliniki maalum</td>
+                <td align="center" id="k-1"></td>
+                <td align="center" id="k-2"></td>
+                <td align="center" id="k-3"></td>
+                <td align="center" id="k-4"></td>
+                <td align="center" id="k-5"></td>
+            </tr>
+            <tr>
+                <td>Maabara</td>
+                <td align="center" id="l-1"></td>
+                <td align="center" id="l-2"></td>
+                <td align="center" id="l-3"></td>
+                <td align="center" id="l-4"></td>
+                <td align="center" id="l-5"></td>
+            </tr>
+            <tr>
+                <td>Famasi</td>
+                <td align="center" id="m-1"></td>
+                <td align="center" id="m-2"></td>
+                <td align="center" id="m-3"></td>
+                <td align="center" id="m-4"></td>
+                <td align="center" id="m-5"></td>
+            </tr>
+            <tr>
+                <td>Duka la dawa muhimu</td>
+                <td align="center" id="n-1"></td>
+                <td align="center" id="n-2"></td>
+                <td align="center" id="n-3"></td>
+                <td align="center" id="n-4"></td>
+                <td align="center" id="n-5"></td>
+            </tr>
+            <tr>
+                <td>Nyumba ya kusubiria Kabla ya Kujifungua</td>
+                <td align="center" id="o-1"></td>
+                <td align="center" id="o-2"></td>
+                <td align="center" id="o-3"></td>
+                <td align="center" id="o-4"></td>
+                <td align="center" id="o-5"></td>
+            </tr>
+            <tr>
+                <td>Vituo vya kulele watoto yatima</td>
+                <td align="center" id="p-1"></td>
+                <td align="center" id="p-2"></td>
+                <td align="center" id="p-3"></td>
+                <td align="center" id="p-4"></td>
+                <td align="center" id="p-5"></td>
+            </tr>
+            <tr>
+                <td>Vituo vya watoto walemavu</td>
+                <td align="center" id="q-1"></td>
+                <td align="center" id="q-2"></td>
+                <td align="center" id="q-3"></td>
+                <td align="center" id="q-4"></td>
+                <td align="center" id="q-5"></td>
+            </tr>
+            <tr>
+                <td>Community Based Early Child Development Centre (Rehabiliation centre)</td>
+                <td align="center" id="r-1"></td>
+                <td align="center" id="r-2"></td>
+                <td align="center" id="r-3"></td>
+                <td align="center" id="r-4"></td>
+                <td align="center" id="r-5"></td>
+            </tr>
+            <tr>
+                <td>Vituo vya kulea watoto</td>
+                <td align="center" id="s-1"></td>
+                <td align="center" id="s-2"></td>
+                <td align="center" id="s-3"></td>
+                <td align="center" id="s-4"></td>
+                <td align="center" id="s-5"></td>
+            </tr>
+            <tr>
+                <td>Vituo vya makazi ya wazee</td>
+                <td align="center" id="t-1"></td>
+                <td align="center" id="t-2"></td>
+                <td align="center" id="t-3"></td>
+                <td align="center" id="t-4"></td>
+                <td align="center" id="t-5"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<div class="divider"></div>
+<h1><b>Vyanzo vinavyotumiwa zaidi na kaya</b></h1>
+<ol>
+    <li>
+        Maji.
+        <br>
+        A) Bomba.
+        <span class="underline dataItem" id="u-3"></span>
+        ,  B) Mto.
+        <span class="underline dataItem" id="u-4"></span>
+        ,  C) kisima kifupi.
+        <span class="underline dataItem" id="u-5"></span>
+        ,  D) Bwawa.
+        <span class="underline dataItem" id="u-6"></span>
+        ,  E) Lambo.
+        <span class="underline dataItem" id="u-7"></span>
+        ,  F) Ziwa.
+        <span class="underline dataItem" id="u-8"></span>
+        ,  G) Chemchem.
+        <span class="underline dataItem" id="u-9"></span>
+    </li>
+    <li>
+        Nishati ya mwanga.
+        <br>
+        A) Umeme wa kawaida.
+        <span class="underline dataItem" id="u-10"></span>
+        ,  B) Umeme wa jua
+        <span class="underline dataItem" id="u-11"></span>
+        ,  C) Taa ya mafuta ya taa(Chemli)
+        <span class="underline dataItem" id="u-12"></span>
+        ,  D) koroboi.
+        <span class="underline dataItem" id="u-13"></span>
+        ,  E) Nyinginezo.
+        <span class="underline dataItem" id="u-14"></span>
+    </li>
+    <li>
+        Nishati ya Kupikia.
+        <br>
+        A.) Umeme wa kawaida.
+        <span class="underline dataItem" id="u-15"></span>
+        ,  B) Mafuta ya taa.
+        <span class="underline dataItem" id="u-16"></span>
+        ,  C) Umeme wa jua.
+        <span class="underline dataItem" id="u-17"></span>
+        ,  D) Gesi.
+        <span class="underline dataItem" id="u-18"></span>
+        ,  E) Mkaa.
+        <span class="underline dataItem" id="u-19"></span>
+        ,  F) Kuni.
+        <span class="underline dataItem" id="u-20"></span>
+    </li>
+</ol>
+
+<div class="divider"></div>
+<table border="1" width="100%">
+    <thead>
+    <tr>
+        <th class="table-title">Kazi za Kiuchumi</th>
+        <th>ME</th>
+        <th>KE</th>
+        <th>Jumla</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Idadi ya watu wenye uwezo wa kufanya kazi za kiuchumi/ Kuzalisha mali</td>
+        <td align="center" id="v-1"></td>
+        <td align="center" id="v-2"></td>
+        <td align="center" id="v-3"></td>
+    </tr>
+    <tr>
+        <td>Idadi ya watu wanaofanya shughuli za uchumi/ Wanaozalisha mali</td>
+        <td align="center" id="v-4"></td>
+        <td align="center" id="v-5"></td>
+        <td align="center" id="v-6"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="divider"></div>
+<h1><b>Idadi na Aina ya Wahudumu wa Afya Ngazi ya jamii Waliopo na Waliopatiwa Mafunzo</b></h1>
+<ol>
+    <li>
+        Idadi ya Wahudumu Waliopo. (CHW)
+        <span class="underline dataItem" id="w-1"></span>
+    </li>
+    <li>
+        Wahudumu Waliopatiwa Mafunzo. (CHW) <span
+        class="underline dataItem" id="w-2"></span>
+    </li>
+</ol>
+
+<div class="divider"></div>
+<h1><b>Ufanisi wa Vikao vya Kamati ya Afya ya Msingi ya Kijiji</b></h1>
+<ol>
+    <li>
+        Idadi ya Wajumbe
+        <span class="underline dataItem" id="x-1"></span>
+    </li>
+    <li>
+        Wajumbe Waliohudhuria Katika Robo Mwaka <span
+        class="underline dataItem" id="x-2"></span>
+    </li>
+</ol>
+
+
+<div class="divider"></div>
+<h1><b>Huduma za Tiba Mbadala Zinazotolewa</b></h1>
+<ol>
+    <li>
+        Waliosajiliwa,
+        <br>
+        A.) Tiba mbadala
+        <span class="underline dataItem" id="y-1"></span>
+        ,  B.) Tiba asili
+        <span class="underline dataItem" id="y-2"></span>
+    </li>
+    <li>
+        Wasiosajiliwa,
+        <br>
+        A.) Tiba mbadala
+        <span class="underline dataItem" id="z-1"></span>
+        ,  B.) Tiba asili
+        <span class="underline dataItem" id="z-2"></span>
+    </li>
+</ol>
+</div>
+    
+<script>
+    function loadData() {
+        const data = JSON.parse(Android.getData("hps-annual-report"));
+        const keys = Object.keys(data.nameValuePairs);
+        const reportingFacility = document.getElementById("reporting_facility");
+        keys.forEach((key) => {
+            let element;
+            element = document.getElementById(key);
+            if (element !== null && typeof element !== "undefined") {
+              element.innerHTML = data.nameValuePairs[key];
+            }
+        });
+        reportingFacility.innerHTML = Android.getReportingFacility();
+  }
+</script>
+</body>
+
+</html>

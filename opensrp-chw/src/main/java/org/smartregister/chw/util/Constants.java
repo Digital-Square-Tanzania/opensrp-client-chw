@@ -266,6 +266,11 @@ public class Constants extends CoreConstants {
             String OTHER_MONTHLY_REPORT = "other-monthly-report";
         }
 
+        public interface HpsReportKeys {
+            String HPS_MONTHLY_REPORT = "hps-monthly-report";
+            String HPS_ANNUAL_REPORT = "hps-annual-report";
+        }
+
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
 
@@ -285,7 +290,9 @@ public class Constants extends CoreConstants {
 
             String KVP_REPORT_PATH = "kvp-report";
 
-            String HPS_REPORT_PATH = "hps-report";
+            String HPS_MONTHLY_REPORT_PATH = "hps-monthly-report";
+
+            String HPS_ANNUAL_REPORT_PATH = "hps-annual-report";
 
             String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
 
