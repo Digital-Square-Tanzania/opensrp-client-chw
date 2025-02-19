@@ -42,7 +42,9 @@
     },
     "encounter_location": ""
   },
-  "global": {},
+  "global": {
+    "age": 5
+  },
   "step1": {
     "title": "Preventive Services",
     "fields": [
@@ -67,7 +69,11 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
       },
       {
         "key": "type_of_iec_material",
@@ -85,32 +91,32 @@
           {
             "key": "leaflets",
             "text": "Leaflets",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "leaflets"
           },
           {
             "key": "posters",
             "text": "Posters",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "posters"
           },
           {
             "key": "brochure",
             "text": "Brochures",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "brochure"
           },
           {
             "key": "others_specify",
             "text": "Others(specify)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others_specify"
           }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -152,16 +158,40 @@
         ],
         "options": [
           {
-            "key": "malaria",
-            "text": "Malaria",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "malaria"
-          },
-          {
             "key": "hiv_aids",
             "text": "HIV/AIDS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "epidemic_diseases",
+            "text": "Epidemic diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epidemic_diseases"
+          },
+          {
+            "key": "oral_dental_health",
+            "text": "Oral and Dental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_dental_health"
+          },
+          {
+            "key": "neaurological_disorders",
+            "text": "Neurological Disorders",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neaurological_disorders"
+          },
+          {
+            "key": "skin_health",
+            "text": "Skin Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_health"
+          },
+          {
+            "key": "infectious_diseases",
+            "text": "Infectious Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "infectious_diseases"
           },
           {
             "key": "tb_and_leprosy",
@@ -170,16 +200,34 @@
             "openmrs_entity_id": "tb_and_leprosy"
           },
           {
-            "key": "maternal_child",
-            "text": "Maternal and Child Health",
+            "key": "ear_throat_nose_health",
+            "text": "Ear,Throat and Nose health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "maternal_child"
+            "openmrs_entity_id": "ear_throat_nose_health"
           },
           {
-            "key": "nutrition",
-            "text": "Nutrition",
+            "key": "neglected_tropical_diseases",
+            "text": "Neglected tropical diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "nutrition"
+            "openmrs_entity_id": "neglected_tropical_diseases"
+          },
+          {
+            "key": "eye_health",
+            "text": "Eye health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_health"
+          },
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-Communicable diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "family_planning",
@@ -188,10 +236,70 @@
             "openmrs_entity_id": "family_planning"
           },
           {
-            "key": "hygiene_sanitation",
-            "text": "Hygiene and Environmental Sanitation",
+            "key": "reproductive_maternal_adolescent_health",
+            "text": "Reproductive,Maternal,Child and Adolescent Health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hygiene_sanitation"
+            "openmrs_entity_id": "reproductive_maternal_adolescent_health"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "public_health_emergencies",
+            "text": "Public health emergencies",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_health_emergencies"
+          },
+          {
+            "key": "one_health",
+            "text": "One Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one_health"
+          },
+          {
+            "key": "poisoning",
+            "text": "Poisoning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poisoning"
+          },
+          {
+            "key": "antimicrobial_resistance",
+            "text": "Antimicrobial resistance(AMR)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "antimicrobial_resistance"
+          },
+          {
+            "key": "safe_clean_water_sanitation",
+            "text": "Safe and Clean water and Sanitation (WASH)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_clean_water_sanitation"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents/Injuries",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "vaccination",
+            "text": "Vaccination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaccination"
+          },
+          {
+            "key": "mental_health",
+            "text": "Mental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "substance_abuse_drug_addiction",
+            "text": "Substance abuse and drug addiction",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "substance_abuse_drug_addiction"
           },
           {
             "key": "gender_based_violence",
@@ -200,10 +308,40 @@
             "openmrs_entity_id": "gender_based_violence"
           },
           {
-            "key": "cervical_cancer",
-            "text": "Cervical Cancer",
+            "key": "psychological_support",
+            "text": "Psychological support",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "cervical_cancer"
+            "openmrs_entity_id": "psychological_support"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Violence against children",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "rights_special_group",
+            "text": "Rights for special groups",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rights_special_group"
+          },
+          {
+            "key": "health_services_awareness",
+            "text": "Health services awareness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_services_awareness"
+          },
+          {
+            "key": "universal_health_insurance",
+            "text": "Universal health insurance",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "universal_health_insurance"
+          },
+          {
+            "key": "cancer",
+            "text": "Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cancer"
           },
           {
             "key": "others",
@@ -212,24 +350,9 @@
             "openmrs_entity_id": "others"
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "number_of_leaflets",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_leaflets",
-        "type": "edit_text",
-        "hint": "Number of Leaflets Distributed",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Please select an answer"
         },
         "relevance": {
           "rules-engine": {
@@ -259,6 +382,33 @@
         }
       },
       {
+        "key": "number_of_leaflets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_leaflets",
+        "type": "edit_text",
+        "hint": "Number of Leaflets Distributed",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_posters",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -272,16 +422,40 @@
         ],
         "options": [
           {
-            "key": "malaria",
-            "text": "Malaria",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "malaria"
-          },
-          {
             "key": "hiv_aids",
             "text": "HIV/AIDS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "epidemic_diseases",
+            "text": "Epidemic diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epidemic_diseases"
+          },
+          {
+            "key": "oral_dental_health",
+            "text": "Oral and Dental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_dental_health"
+          },
+          {
+            "key": "neaurological_disorders",
+            "text": "Neurological Disorders",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neaurological_disorders"
+          },
+          {
+            "key": "skin_health",
+            "text": "Skin Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_health"
+          },
+          {
+            "key": "infectious_diseases",
+            "text": "Infectious Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "infectious_diseases"
           },
           {
             "key": "tb_and_leprosy",
@@ -290,16 +464,34 @@
             "openmrs_entity_id": "tb_and_leprosy"
           },
           {
-            "key": "maternal_child",
-            "text": "Maternal and Child Health",
+            "key": "ear_throat_nose_health",
+            "text": "Ear,Throat and Nose health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "maternal_child"
+            "openmrs_entity_id": "ear_throat_nose_health"
           },
           {
-            "key": "nutrition",
-            "text": "Nutrition",
+            "key": "neglected_tropical_diseases",
+            "text": "Neglected tropical diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "nutrition"
+            "openmrs_entity_id": "neglected_tropical_diseases"
+          },
+          {
+            "key": "eye_health",
+            "text": "Eye health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_health"
+          },
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-Communicable diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "family_planning",
@@ -308,10 +500,70 @@
             "openmrs_entity_id": "family_planning"
           },
           {
-            "key": "hygiene_sanitation",
-            "text": "Hygiene and Environmental Sanitation",
+            "key": "reproductive_maternal_adolescent_health",
+            "text": "Reproductive,Maternal,Child and Adolescent Health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hygiene_sanitation"
+            "openmrs_entity_id": "reproductive_maternal_adolescent_health"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "public_health_emergencies",
+            "text": "Public health emergencies",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_health_emergencies"
+          },
+          {
+            "key": "one_health",
+            "text": "One Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one_health"
+          },
+          {
+            "key": "poisoning",
+            "text": "Poisoning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poisoning"
+          },
+          {
+            "key": "antimicrobial_resistance",
+            "text": "Antimicrobial resistance(AMR)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "antimicrobial_resistance"
+          },
+          {
+            "key": "safe_clean_water_sanitation",
+            "text": "Safe and Clean water and Sanitation (WASH)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_clean_water_sanitation"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents/Injuries",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "vaccination",
+            "text": "Vaccination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaccination"
+          },
+          {
+            "key": "mental_health",
+            "text": "Mental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "substance_abuse_drug_addiction",
+            "text": "Substance abuse and drug addiction",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "substance_abuse_drug_addiction"
           },
           {
             "key": "gender_based_violence",
@@ -320,10 +572,40 @@
             "openmrs_entity_id": "gender_based_violence"
           },
           {
-            "key": "cervical_cancer",
-            "text": "Cervical Cancer",
+            "key": "psychological_support",
+            "text": "Psychological support",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "cervical_cancer"
+            "openmrs_entity_id": "psychological_support"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Violence against children",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "rights_special_group",
+            "text": "Rights for special groups",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rights_special_group"
+          },
+          {
+            "key": "health_services_awareness",
+            "text": "Health services awareness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_services_awareness"
+          },
+          {
+            "key": "universal_health_insurance",
+            "text": "Universal health insurance",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "universal_health_insurance"
+          },
+          {
+            "key": "cancer",
+            "text": "Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cancer"
           },
           {
             "key": "others",
@@ -332,24 +614,9 @@
             "openmrs_entity_id": "others"
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "number_of_posters",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_posters",
-        "type": "edit_text",
-        "hint": "Number of Posters Distributed",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Please select an answer"
         },
         "relevance": {
           "rules-engine": {
@@ -379,6 +646,33 @@
         }
       },
       {
+        "key": "number_of_posters",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_posters",
+        "type": "edit_text",
+        "hint": "Number of Posters Distributed",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_brochures",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -392,16 +686,40 @@
         ],
         "options": [
           {
-            "key": "malaria",
-            "text": "Malaria",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "malaria"
-          },
-          {
             "key": "hiv_aids",
             "text": "HIV/AIDS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "epidemic_diseases",
+            "text": "Epidemic diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epidemic_diseases"
+          },
+          {
+            "key": "oral_dental_health",
+            "text": "Oral and Dental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_dental_health"
+          },
+          {
+            "key": "neaurological_disorders",
+            "text": "Neurological Disorders",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neaurological_disorders"
+          },
+          {
+            "key": "skin_health",
+            "text": "Skin Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_health"
+          },
+          {
+            "key": "infectious_diseases",
+            "text": "Infectious Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "infectious_diseases"
           },
           {
             "key": "tb_and_leprosy",
@@ -410,16 +728,34 @@
             "openmrs_entity_id": "tb_and_leprosy"
           },
           {
-            "key": "maternal_child",
-            "text": "Maternal and Child Health",
+            "key": "ear_throat_nose_health",
+            "text": "Ear,Throat and Nose health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "maternal_child"
+            "openmrs_entity_id": "ear_throat_nose_health"
           },
           {
-            "key": "nutrition",
-            "text": "Nutrition",
+            "key": "neglected_tropical_diseases",
+            "text": "Neglected tropical diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "nutrition"
+            "openmrs_entity_id": "neglected_tropical_diseases"
+          },
+          {
+            "key": "eye_health",
+            "text": "Eye health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_health"
+          },
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-Communicable diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "family_planning",
@@ -428,10 +764,70 @@
             "openmrs_entity_id": "family_planning"
           },
           {
-            "key": "hygiene_sanitation",
-            "text": "Hygiene and Environmental Sanitation",
+            "key": "reproductive_maternal_adolescent_health",
+            "text": "Reproductive,Maternal,Child and Adolescent Health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hygiene_sanitation"
+            "openmrs_entity_id": "reproductive_maternal_adolescent_health"
+          },
+          {
+            "key": "nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "public_health_emergencies",
+            "text": "Public health emergencies",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_health_emergencies"
+          },
+          {
+            "key": "one_health",
+            "text": "One Health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one_health"
+          },
+          {
+            "key": "poisoning",
+            "text": "Poisoning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poisoning"
+          },
+          {
+            "key": "antimicrobial_resistance",
+            "text": "Antimicrobial resistance(AMR)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "antimicrobial_resistance"
+          },
+          {
+            "key": "safe_clean_water_sanitation",
+            "text": "Safe and Clean water and Sanitation (WASH)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_clean_water_sanitation"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents/Injuries",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "vaccination",
+            "text": "Vaccination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaccination"
+          },
+          {
+            "key": "mental_health",
+            "text": "Mental health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "substance_abuse_drug_addiction",
+            "text": "Substance abuse and drug addiction",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "substance_abuse_drug_addiction"
           },
           {
             "key": "gender_based_violence",
@@ -440,10 +836,40 @@
             "openmrs_entity_id": "gender_based_violence"
           },
           {
-            "key": "cervical_cancer",
-            "text": "Cervical Cancer",
+            "key": "psychological_support",
+            "text": "Psychological support",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "cervical_cancer"
+            "openmrs_entity_id": "psychological_support"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Violence against children",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "rights_special_group",
+            "text": "Rights for special groups",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rights_special_group"
+          },
+          {
+            "key": "health_services_awareness",
+            "text": "Health services awareness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_services_awareness"
+          },
+          {
+            "key": "universal_health_insurance",
+            "text": "Universal health insurance",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "universal_health_insurance"
+          },
+          {
+            "key": "cancer",
+            "text": "Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cancer"
           },
           {
             "key": "others",
@@ -452,6 +878,10 @@
             "openmrs_entity_id": "others"
           }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -490,6 +920,14 @@
           "value": "true",
           "err": "Please specify"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -519,15 +957,54 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
       },
       {
-        "key": "preventive_services",
+        "key": "preventive_services_below_5_years",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "preventive_services",
+        "openmrs_entity_id": "preventive_services_below_5_years",
         "type": "check_box",
-        "label": "Select Preventive Services Provided",
+        "label": "Select preventive services provided",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "vitamin_a_supplements",
+            "text": "Vitamin A Supplements",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vitamin_a_supplements"
+          },
+          {
+            "key": "other_services",
+            "text": "Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_5_years_below_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_5_years_below_18_years",
+        "type": "check_box",
+        "label": "Select preventive services provided",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
@@ -538,7 +1015,7 @@
             "openmrs_entity_id": "counselling"
           },
           {
-            "key": "family_planning",
+            "key": "family_planning_pills",
             "text": "Family Planning Pills",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "family_planning"
@@ -574,10 +1051,147 @@
             "openmrs_entity_id": "post_exposure_prophylaxis"
           },
           {
-            "key": "vitamin_a_supplements",
-            "text": "Vitamin A Supplements",
+            "key": "pre_exposure_prophylaxis",
+            "text": "Pre-Exposure Prophylaxis (PrEP)",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "vitamin_a_supplements"
+            "openmrs_entity_id": "pre_exposure_prophylaxis"
+          },
+          {
+            "key": "fortified_foods",
+            "text": "Fortified Foods",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods"
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "Distribution of Mosquito Nets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets"
+          },
+          {
+            "key": "distribution_water_purification_tablets",
+            "text": "Distribution of Water Purification Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_water_purification_tablets"
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "Psychological Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling"
+          },
+          {
+            "key": "preliminary_screening_tb",
+            "text": "Preliminary Screening for Tuberculosis/Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening_tb"
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "Preliminary Screening for Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening"
+          },
+          {
+            "key": "collection_sputum_stool_samples",
+            "text": "Collection of Sputum/Stool Samples",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_sputum_stool_samples"
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "Dispensing ARV Medication to People Living with HIV (PLHIV)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication"
+          },
+          {
+            "key": "preventive_medication_ntd",
+            "text": "Distribution of Preventive Medication for Neglected Tropical Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_medication_ntd"
+          },
+          {
+            "key": "first_aid_services",
+            "text": "First Aid Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services"
+          },
+          {
+            "key": "other_services",
+            "text": "Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_18_years",
+        "type": "check_box",
+        "label": "Select preventive services provided",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling"
+          },
+          {
+            "key": "family_planning_pills",
+            "text": "Family Planning Pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "Iron and Folic Acid (IFA) Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets"
+          },
+          {
+            "key": "deworming_medication",
+            "text": "Deworming Medication",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication"
+          },
+          {
+            "key": "male_condoms",
+            "text": "Male Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "Female Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "Post-Exposure Prophylaxis (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis"
+          },
+          {
+            "key": "pre_exposure_prophylaxis",
+            "text": "Pre-Exposure Prophylaxis (PrEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pre_exposure_prophylaxis"
           },
           {
             "key": "fortified_foods",
@@ -610,10 +1224,10 @@
             "openmrs_entity_id": "psychological_counselling"
           },
           {
-            "key": "preliminary_screening",
+            "key": "preliminary_screening_tb",
             "text": "Preliminary Screening for Tuberculosis/Leprosy",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "preliminary_screening"
+            "openmrs_entity_id": "preliminary_screening_tb"
           },
           {
             "key": "gender_based_violence_screening",
@@ -634,10 +1248,10 @@
             "openmrs_entity_id": "dispensing_arv_medication"
           },
           {
-            "key": "neglected_tropical_diseases",
+            "key": "preventive_medication_ntd",
             "text": "Distribution of Preventive Medication for Neglected Tropical Diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "neglected_tropical_diseases"
+            "openmrs_entity_id": "preventive_medication_ntd"
           },
           {
             "key": "first_aid_services",
@@ -646,13 +1260,31 @@
             "openmrs_entity_id": "first_aid_services"
           },
           {
-            "key": "others_services",
+            "key": "other_services",
             "text": "Other Services",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "others_services"
+            "openmrs_entity_id": "other_services"
           }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services",
+        "type": "hidden",
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_preventive_services_relevance.yml"
