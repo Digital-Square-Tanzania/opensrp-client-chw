@@ -87,6 +87,11 @@
     </style>
 </head>
 
+<div class="show-on-print" style="font-size:12px;">
+    <h1>TAARIFA ZA MWAKA KUTOKA KATIKA JAMII (ELIMU yA AFYA KWA UMMA)</h1>
+    <h2>Taarifa ya Mwaka: <span id="report_period"></span></h2>
+    <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>
+</div>
 <body onload="loadData()">
 
 <div class="responsive-container">
@@ -183,7 +188,7 @@
                 <td align="center" id="c-2"></td>
                 <td align="center" id="c-3"></td>
                 <td align="center" id="c-4"></td>
-                <td align="center" id="c-5"></td>
+                <td align="center" id="c-total"></td>
             </tr>
             <tr>
                 <td>Shule za msingi</td>
@@ -191,7 +196,7 @@
                 <td align="center" id="d-2"></td>
                 <td align="center" id="d-3"></td>
                 <td align="center" id="d-4"></td>
-                <td align="center" id="d-5"></td>
+                <td align="center" id="d-total"></td>
             </tr>
             <tr>
                 <td>Shule za sekondari</td>
@@ -199,7 +204,7 @@
                 <td align="center" id="e-2"></td>
                 <td align="center" id="e-3"></td>
                 <td align="center" id="e-4"></td>
-                <td align="center" id="e-5"></td>
+                <td align="center" id="e-total"></td>
             </tr>
             <tr>
                 <td>Vyuo</td>
@@ -207,7 +212,7 @@
                 <td align="center" id="f-2"></td>
                 <td align="center" id="f-3"></td>
                 <td align="center" id="f-4"></td>
-                <td align="center" id="f-5"></td>
+                <td align="center" id="f-total"></td>
             </tr>
             <tr>
                 <td>Shule za wenye mahitaji maalum</td>
@@ -215,7 +220,7 @@
                 <td align="center" id="g-2"></td>
                 <td align="center" id="g-3"></td>
                 <td align="center" id="g-4"></td>
-                <td align="center" id="g-5"></td>
+                <td align="center" id="g-total"></td>
             </tr>
             <tr>
                 <td>Zahanati</td>
@@ -223,7 +228,7 @@
                 <td align="center" id="h-2"></td>
                 <td align="center" id="h-3"></td>
                 <td align="center" id="h-4"></td>
-                <td align="center" id="h-5"></td>
+                <td align="center" id="h-total"></td>
             </tr>
             <tr>
                 <td>Kituo cha Afya</td>
@@ -231,7 +236,7 @@
                 <td align="center" id="i-2"></td>
                 <td align="center" id="i-3"></td>
                 <td align="center" id="i-4"></td>
-                <td align="center" id="i-5"></td>
+                <td align="center" id="i-total"></td>
             </tr>
             <tr>
                 <td>Hospitali</td>
@@ -239,7 +244,7 @@
                 <td align="center" id="j-2"></td>
                 <td align="center" id="j-3"></td>
                 <td align="center" id="j-4"></td>
-                <td align="center" id="j-5"></td>
+                <td align="center" id="j-total"></td>
             </tr>
             <tr>
                 <td>Kliniki maalum</td>
@@ -247,7 +252,7 @@
                 <td align="center" id="k-2"></td>
                 <td align="center" id="k-3"></td>
                 <td align="center" id="k-4"></td>
-                <td align="center" id="k-5"></td>
+                <td align="center" id="k-total"></td>
             </tr>
             <tr>
                 <td>Maabara</td>
@@ -255,7 +260,7 @@
                 <td align="center" id="l-2"></td>
                 <td align="center" id="l-3"></td>
                 <td align="center" id="l-4"></td>
-                <td align="center" id="l-5"></td>
+                <td align="center" id="l-total"></td>
             </tr>
             <tr>
                 <td>Famasi</td>
@@ -263,7 +268,7 @@
                 <td align="center" id="m-2"></td>
                 <td align="center" id="m-3"></td>
                 <td align="center" id="m-4"></td>
-                <td align="center" id="m-5"></td>
+                <td align="center" id="m-total"></td>
             </tr>
             <tr>
                 <td>Duka la dawa muhimu</td>
@@ -271,7 +276,7 @@
                 <td align="center" id="n-2"></td>
                 <td align="center" id="n-3"></td>
                 <td align="center" id="n-4"></td>
-                <td align="center" id="n-5"></td>
+                <td align="center" id="n-total"></td>
             </tr>
             <tr>
                 <td>Nyumba ya kusubiria Kabla ya Kujifungua</td>
@@ -279,7 +284,7 @@
                 <td align="center" id="o-2"></td>
                 <td align="center" id="o-3"></td>
                 <td align="center" id="o-4"></td>
-                <td align="center" id="o-5"></td>
+                <td align="center" id="o-total"></td>
             </tr>
             <tr>
                 <td>Vituo vya kulele watoto yatima</td>
@@ -287,7 +292,7 @@
                 <td align="center" id="p-2"></td>
                 <td align="center" id="p-3"></td>
                 <td align="center" id="p-4"></td>
-                <td align="center" id="p-5"></td>
+                <td align="center" id="p-total"></td>
             </tr>
             <tr>
                 <td>Vituo vya watoto walemavu</td>
@@ -295,7 +300,7 @@
                 <td align="center" id="q-2"></td>
                 <td align="center" id="q-3"></td>
                 <td align="center" id="q-4"></td>
-                <td align="center" id="q-5"></td>
+                <td align="center" id="q-total"></td>
             </tr>
             <tr>
                 <td>Community Based Early Child Development Centre (Rehabiliation centre)</td>
@@ -303,7 +308,7 @@
                 <td align="center" id="r-2"></td>
                 <td align="center" id="r-3"></td>
                 <td align="center" id="r-4"></td>
-                <td align="center" id="r-5"></td>
+                <td align="center" id="r-total"></td>
             </tr>
             <tr>
                 <td>Vituo vya kulea watoto</td>
@@ -311,7 +316,7 @@
                 <td align="center" id="s-2"></td>
                 <td align="center" id="s-3"></td>
                 <td align="center" id="s-4"></td>
-                <td align="center" id="s-5"></td>
+                <td align="center" id="s-total"></td>
             </tr>
             <tr>
                 <td>Vituo vya makazi ya wazee</td>
@@ -319,7 +324,7 @@
                 <td align="center" id="t-2"></td>
                 <td align="center" id="t-3"></td>
                 <td align="center" id="t-4"></td>
-                <td align="center" id="t-5"></td>
+                <td align="center" id="t-total"></td>
             </tr>
             </tbody>
         </table>
@@ -333,49 +338,49 @@
         Maji.
         <br>
         A) Bomba.
-        <span class="underline dataItem" id="u-3"></span>
+        <span class="underline dataItem" id="u-1"></span>
         ,  B) Mto.
-        <span class="underline dataItem" id="u-4"></span>
+        <span class="underline dataItem" id="u-2"></span>
         ,  C) kisima kifupi.
-        <span class="underline dataItem" id="u-5"></span>
+        <span class="underline dataItem" id="u-3"></span>
         ,  D) Bwawa.
-        <span class="underline dataItem" id="u-6"></span>
+        <span class="underline dataItem" id="u-4"></span>
         ,  E) Lambo.
-        <span class="underline dataItem" id="u-7"></span>
+        <span class="underline dataItem" id="u-5"></span>
         ,  F) Ziwa.
-        <span class="underline dataItem" id="u-8"></span>
+        <span class="underline dataItem" id="u-6"></span>
         ,  G) Chemchem.
-        <span class="underline dataItem" id="u-9"></span>
+        <span class="underline dataItem" id="u-7"></span>
     </li>
     <li>
         Nishati ya mwanga.
         <br>
         A) Umeme wa kawaida.
-        <span class="underline dataItem" id="u-10"></span>
+        <span class="underline dataItem" id="u-8"></span>
         ,  B) Umeme wa jua
-        <span class="underline dataItem" id="u-11"></span>
+        <span class="underline dataItem" id="u-9"></span>
         ,  C) Taa ya mafuta ya taa(Chemli)
-        <span class="underline dataItem" id="u-12"></span>
+        <span class="underline dataItem" id="u-10"></span>
         ,  D) koroboi.
-        <span class="underline dataItem" id="u-13"></span>
+        <span class="underline dataItem" id="u-11"></span>
         ,  E) Nyinginezo.
-        <span class="underline dataItem" id="u-14"></span>
+        <span class="underline dataItem" id="u-12"></span>
     </li>
     <li>
         Nishati ya Kupikia.
         <br>
         A.) Umeme wa kawaida.
-        <span class="underline dataItem" id="u-15"></span>
+        <span class="underline dataItem" id="u-13"></span>
         ,  B) Mafuta ya taa.
-        <span class="underline dataItem" id="u-16"></span>
+        <span class="underline dataItem" id="u-14"></span>
         ,  C) Umeme wa jua.
-        <span class="underline dataItem" id="u-17"></span>
+        <span class="underline dataItem" id="u-15"></span>
         ,  D) Gesi.
-        <span class="underline dataItem" id="u-18"></span>
+        <span class="underline dataItem" id="u-16"></span>
         ,  E) Mkaa.
-        <span class="underline dataItem" id="u-19"></span>
+        <span class="underline dataItem" id="u-17"></span>
         ,  F) Kuni.
-        <span class="underline dataItem" id="u-20"></span>
+        <span class="underline dataItem" id="u-18"></span>
     </li>
 </ol>
 
@@ -394,13 +399,13 @@
         <td>Idadi ya watu wenye uwezo wa kufanya kazi za kiuchumi/ Kuzalisha mali</td>
         <td align="center" id="v-1"></td>
         <td align="center" id="v-2"></td>
-        <td align="center" id="v-3"></td>
+        <td align="center" id="v-total"></td>
     </tr>
     <tr>
         <td>Idadi ya watu wanaofanya shughuli za uchumi/ Wanaozalisha mali</td>
-        <td align="center" id="v-4"></td>
-        <td align="center" id="v-5"></td>
-        <td align="center" id="v-6"></td>
+        <td align="center" id="vv-4"></td>
+        <td align="center" id="vv-5"></td>
+        <td align="center" id="vv-total"></td>
     </tr>
     </tbody>
 </table>

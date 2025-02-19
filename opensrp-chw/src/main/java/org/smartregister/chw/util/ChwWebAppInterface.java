@@ -109,7 +109,7 @@ public class ChwWebAppInterface {
                     return ReportUtils.HpsReports.computeClientsReports(ReportUtils.getReportDate());
                 case Constants.ReportConstants.HpsReportKeys.HPS_ANNUAL_REPORT:
                     ReportUtils.setPrintJobName("HPS_report_ya_mwaka-" + ReportUtils.getReportPeriod() + ".pdf");
-                    return ReportUtils.HpsReports.computeClientsReports(ReportUtils.getReportDate());
+                    return ReportUtils.HpsReports.computeClientsAnnualReports(ReportUtils.getReportDate());
                 default:
                     return "";
             }

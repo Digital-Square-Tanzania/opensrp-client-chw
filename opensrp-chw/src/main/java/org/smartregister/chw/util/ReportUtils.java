@@ -22,6 +22,7 @@ import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
@@ -298,6 +299,15 @@ public class ReportUtils {
             HpsReportObject hpsReportObject = new HpsReportObject(startDate);
             try {
                 return hpsReportObject.getIndicatorDataAsGson(hpsReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+        public static String computeClientsAnnualReports(Date startDate) {
+            HpsAnnualReportObject hpsAnnualReportObject = new HpsAnnualReportObject(startDate);
+            try {
+                return hpsAnnualReportObject.getIndicatorDataAsGson(hpsAnnualReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }
