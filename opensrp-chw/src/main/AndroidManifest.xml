@@ -533,6 +533,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.HpsHouseholdVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.PrivacyPolicyActivity"
             android:exported="false"
             android:theme="@style/ChwTheme" />

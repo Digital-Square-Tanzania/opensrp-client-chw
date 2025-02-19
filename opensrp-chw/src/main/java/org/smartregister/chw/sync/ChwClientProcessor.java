@@ -95,6 +95,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HOME_VISIT:
                 case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HEALTH_EDUCATION_MOBILIZATION:
                 case org.smartregister.chw.asrh.util.Constants.EVENT_TYPE.ASRH_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT:
                     if (eventClient.getEvent() == null) {
                         return;
                     }

@@ -31,7 +31,6 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
-import org.smartregister.chw.gbv.util.GbvJsonFormUtils;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -78,7 +77,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void openMedicalHistory() {
-        HpsVisitHistoryActivity.startMe(this, memberObject);
+        HpsHouseholdVisitHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -411,6 +410,8 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     protected Visit getServiceVisit() {
+        if (memberObject == null)
+            memberObject = getMemberObject(baseEntityId);
         return HpsLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
     }
 }
