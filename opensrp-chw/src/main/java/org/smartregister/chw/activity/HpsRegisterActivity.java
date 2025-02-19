@@ -9,17 +9,18 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHpsRegisterActivity;
+import org.smartregister.chw.fragment.HpsHouseholdRegisterFragment;
 import org.smartregister.chw.fragment.HpsRegisterFragment;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HpsRegisterActivity extends CoreHpsRegisterActivity {
 
-    public static void startRegistration(Activity activity, String baseEntityId) {
+    public static void startRegistration(Activity activity, String baseEntityId, String formName) {
         Intent intent = new Intent(activity, HpsRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.HPS_FORM_NAME, Constants.FORMS.HPS_CLIENT_ENROLLMENT);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.HPS_FORM_NAME, formName);
 
         activity.startActivity(intent);
     }
@@ -44,6 +45,6 @@ public class HpsRegisterActivity extends CoreHpsRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{};
+        return new Fragment[]{new HpsHouseholdRegisterFragment()};
     }
 }

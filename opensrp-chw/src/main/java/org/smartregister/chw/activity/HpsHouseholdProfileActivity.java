@@ -13,11 +13,14 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
+import org.smartregister.Context;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
+import org.smartregister.chw.cecap.util.CecapJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreHpsProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
@@ -28,12 +31,14 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
+import org.smartregister.chw.gbv.util.GbvJsonFormUtils;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.hps.domain.MemberObject;
 import org.smartregister.chw.hps.domain.Visit;
 import org.smartregister.chw.hps.util.Constants;
+import org.smartregister.chw.hps.util.HpsJsonFormUtils;
 import org.smartregister.chw.hps.util.VisitUtils;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -51,12 +56,12 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
+public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startMe(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, HpsMemberProfileActivity.class);
+        Intent intent = new Intent(activity, HpsHouseholdProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
@@ -131,7 +136,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                     ((HpsFloatingMenu) baseHpsFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    org.smartregister.chw.util.Utils.launchClientReferralActivity(HpsMemberProfileActivity.this, getReferralTypeModels(), memberObject.getBaseEntityId());
+                    org.smartregister.chw.util.Utils.launchClientReferralActivity(HpsHouseholdProfileActivity.this, getReferralTypeModels(), memberObject.getBaseEntityId());
                     ((HpsFloatingMenu) baseHpsFloatingMenu).animateFAB();
                     break;
                 default:
@@ -245,25 +250,25 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             onBackPressed();
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
-            MemberProfileUtils.startAncRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
+            MemberProfileUtils.startAncRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_pregnancy_out_come) {
-            MemberProfileUtils.startPncRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
+            MemberProfileUtils.startPncRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_fp_initiation) {
-            MemberProfileUtils.startFpRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender());
+            MemberProfileUtils.startFpRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_fp_ecp_provision) {
-            MemberProfileUtils.startFpEcpScreening(HpsMemberProfileActivity.this);
+            MemberProfileUtils.startFpEcpScreening(HpsHouseholdProfileActivity.this);
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_malaria_registration) {
-            MemberProfileUtils.startMalariaRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+            MemberProfileUtils.startMalariaRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_iccm_registration) {
-            MemberProfileUtils.startIntegratedCommunityCaseManagementEnrollment(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+            MemberProfileUtils.startIntegratedCommunityCaseManagementEnrollment(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_vmmc_registration) {
-            MemberProfileUtils.startVmmcRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
+            MemberProfileUtils.startVmmcRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_registration) {
             if (UpdateDetailsUtil.isIndependentClient(memberObject.getBaseEntityId())) {
@@ -275,26 +280,26 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             }
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_hiv_registration) {
-            MemberProfileUtils.startHivRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
+            MemberProfileUtils.startHivRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_cbhs_registration) {
-            MemberProfileUtils.startHivRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
+            MemberProfileUtils.startHivRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_tb_registration) {
-            MemberProfileUtils.startTbRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
+            MemberProfileUtils.startTbRegister(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == org.smartregister.chw.core.R.id.action_hivst_registration) {
-            MemberProfileUtils.startHivstRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender());
+            MemberProfileUtils.startHivstRegistration(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_agyw_screening) {
-            MemberProfileUtils.startAgywScreening(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getDob());
+            MemberProfileUtils.startAgywScreening(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getDob());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_kvp_prep_registration) {
-            MemberProfileUtils.startKvpPrEPRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
+            MemberProfileUtils.startKvpPrEPRegistration(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getGender(), memberObject.getDob());
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_sbc_registration) {
-            MemberProfileUtils.startSbcRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
+            MemberProfileUtils.startSbcRegistration(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == org.smartregister.chw.core.R.id.action_cancer_preventive_services_registration) {
-            MemberProfileUtils.startCancerPreventiveServicesRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
+            MemberProfileUtils.startCancerPreventiveServicesRegistration(HpsHouseholdProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == R.id.action_remove_member) {
             removeIndividualProfile();
         }
@@ -361,7 +366,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());
 
-        IndividualProfileRemoveActivity.startIndividualProfileActivity(HpsMemberProfileActivity.this,
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(HpsHouseholdProfileActivity.this,
                 client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), FamilyRegisterActivity.class.getCanonicalName());
     }
 
@@ -377,7 +382,16 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void openFollowupVisit() {
-        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+        JSONObject jsonObject;
+        try {
+            jsonObject = CecapJsonFormUtils.getFormAsJson(Constants.FORMS.HPS_HOUSEHOLD_VISIT);
+
+            String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            HpsJsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
+            startFormActivity(jsonObject);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -388,5 +402,15 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         } else {
             rlLastVisit.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected MemberObject getMemberObject(String baseEntityId) {
+        return HpsDao.getHouseholdMember(baseEntityId);
+    }
+
+    @Override
+    protected Visit getServiceVisit() {
+        return HpsLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
     }
 }

@@ -1,0 +1,945 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Curative Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Curative Services",
+    "fields": [
+      {
+        "key": "provision_of_curative_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provision_of_curative_services",
+        "label": "Did the client provided with curative services?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "diseases_signs_and_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_signs_and_symptoms",
+        "label": "Diseases Signs and Symptoms",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "other_signs_and_symptoms"
+        ],
+        "options": [
+          {
+            "key": "fever",
+            "text": "Fever",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "vaginal_blood_discharge",
+            "text": "Vaginal Blood Discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaginal_blood_discharge"
+          },
+          {
+            "key": "nausea_and_vomiting",
+            "text": "Nausea and Vomiting",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nausea_and_vomiting"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dizziness"
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "headache"
+          },
+          {
+            "key": "child_excessive_crying",
+            "text": "Child excessive crying",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_excessive_crying"
+          },
+          {
+            "key": "loss_of_appetite",
+            "text": "Loss of appetite",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "loss_of_appetite"
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diarrhoea"
+          },
+          {
+            "key": "vaginal_watery_discharge",
+            "text": "Vaginal Watery Discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaginal_watery_discharge"
+          },
+          {
+            "key": "lower_limb",
+            "text": "Lower limb Edema",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lower_limb"
+          },
+          {
+            "key": "soft_and_coloured_hair",
+            "text": "Soft & Coloured Hair",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "soft_and_coloured_hair"
+          },
+          {
+            "key": "palm_parror",
+            "text": "Palm Parror",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "palm_parror"
+          },
+          {
+            "key": "body_malaise",
+            "text": "Body malaise",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_malaise,"
+          },
+          {
+            "key": "body_convulsion",
+            "text": "Body Convulsion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_convulsion"
+          },
+          {
+            "key": "unconsciousness",
+            "text": "Unconsciousness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unconsciousness"
+          },
+          {
+            "key": "mental_confusion",
+            "text": "Mental Confusion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_confusion"
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cough"
+          },
+          {
+            "key": "blood_sputum",
+            "text": "Blood Sputum",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_sputum"
+          },
+          {
+            "key": "difficult_in_breathing",
+            "text": "Difficult in breathing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "difficult_in_breathing"
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight Loss",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight_loss"
+          },
+          {
+            "key": "obesity",
+            "text": "Obesity",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "obesity"
+          },
+          {
+            "key": "excessive_sweating",
+            "text": "Excessive Sweating",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_sweating"
+          },
+          {
+            "key": "skin_loss_of_sense",
+            "text": "Skin Loss of Sense",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_loss_of_sense"
+          },
+          {
+            "key": "skin_nodules",
+            "text": "Skin nodules",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_nodules"
+          },
+          {
+            "key": "arm_and_limb_numbness",
+            "text": "Arm and Limb numbness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_and_limb_numbness"
+          },
+          {
+            "key": "disability_chronic_wounds",
+            "text": "Disability/ Chronic wounds",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "disability_chronic_wounds"
+          },
+          {
+            "key": "arm_limp_swelling_breast_enlargement",
+            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"
+          },
+          {
+            "key": "scrotal_swelling",
+            "text": "Scrotal Swelling",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "scrotal_swelling"
+          },
+          {
+            "key": "eye_lashes_scratching_eyelid",
+            "text": "Eye lashes scratching eyelid",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_lashes_scratching_eyelid"
+          },
+          {
+            "key": "skin_itching_seborrhea",
+            "text": "Skin itching/Seborrhea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_itching_seborrhea"
+          },
+          {
+            "key": "bloody_stool",
+            "text": "Bloody stool",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_stool"
+          },
+          {
+            "key": "bloody_urine",
+            "text": "Bloody urine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_urine"
+          },
+          {
+            "key": "skin_blood_discharge",
+            "text": "Skin blood discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_blood_discharge"
+          },
+          {
+            "key": "eye_itching",
+            "text": "Eye itching",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_itching"
+          },
+          {
+            "key": "red_eyes",
+            "text": "Red Eyes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "red_eyes"
+          },
+          {
+            "key": "low_vision",
+            "text": "Low vision",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "low_vision"
+          },
+          {
+            "key": "swelling",
+            "text": "Swelling",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "swelling"
+          },
+          {
+            "key": "body_injury",
+            "text": "Body Injury",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_injury"
+          },
+          {
+            "key": "puss_body_lashes",
+            "text": "Puss body lashes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puss_body_lashes"
+          },
+          {
+            "key": "blood_vomit",
+            "text": "Blood Vomit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_vomit"
+          },
+          {
+            "key": "gum_swelling_and_tooth_ache",
+            "text": "Gum swelling and tooth ache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gum_swelling_and_tooth_ache"
+          },
+          {
+            "key": "other_signs_and_symptoms",
+            "text": "Other signs and symptoms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_signs_and_symptoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_signs_and_symptoms_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_signs_and_symptoms_provided",
+        "type": "edit_text",
+        "hint": "Other(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_disease_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_disease_test_conducted",
+        "label": "Did the client undergo disease tests?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diseases_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_test_conducted",
+        "label": "Disease Test Conducted",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "blood_pressure_measurement",
+            "text": "Blood Pressure Measurement (BP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_pressure_measurement"
+          },
+          {
+            "key": "malaria_mrdt",
+            "text": "Malaria (mRDT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_mrdt"
+          },
+          {
+            "key": "blood_sugar",
+            "text": "Blood Sugar (RBG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_sugar"
+          },
+          {
+            "key": "hiv_testing_kits",
+            "text": "HIV testing kits",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_testing_kits"
+          },
+          {
+            "key": "body_temperature",
+            "text": "Body Temperature (℃)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_temperature"
+          },
+          {
+            "key": "arm_circumference",
+            "text": "Arm circumference (MUAC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_circumference"
+          },
+          {
+            "key": "body_weight",
+            "text": "Body Weight",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_weight"
+          },
+          {
+            "key": "body_height",
+            "text": "Body Height",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_height"
+          }
+
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "systolic",
+        "type": "edit_text",
+        "hint": "Systolic (Blood Pressure)",
+        "openmrs_entity_id": "systolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the systolic value"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Systolic value must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "320",
+          "err": "Systolic value must be equal or less than 320"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the systolic value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diastolic",
+        "type": "edit_text",
+        "hint": "Diastolic (Blood Pressure)",
+        "openmrs_entity_id": "diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the diastolic value"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Diastolic value must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Diastolic value must be equal or less than 200"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the diastolic value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step2:systolic)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ]
+      },
+      {
+        "key": "malaria_mrdt_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_mrdt_result",
+        "type": "native_radio",
+        "label": "Select Malaria (mrDT) Results",
+        "options": [
+          {
+            "key": "positive_mrdt",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive_mrdt"
+          },
+          {
+            "key": "negative_mrdt",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative_mrdt"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_sugar_result",
+        "type": "edit_text",
+        "hint": "Blood Sugar (mmol/L)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the blood sugar result"
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Blood sugar must be equal or greater than 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Blood sugar must be equal or less than 45 (mmol/L)"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_testing_kits_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_testing_kits_result",
+        "type": "native_radio",
+        "label": "Select HIV Testing Kits Results",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "Reactive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reactive"
+          },
+          {
+            "key": "non_reactive",
+            "text": "Non-Reactive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_reactive"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_temperature_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_temperature_result",
+        "type": "edit_text",
+        "hint": "Body Temperature (\u2103)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the body temperature value"
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature must be equal or greater than 35 (\u2103)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Temperature must be equal or less than 45 (\u2103)"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "arm_circumference_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "arm_circumference_result",
+        "type": "edit_text",
+        "hint": "Arm Circumference",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the arm circumference value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_weight_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_weight_result",
+        "type": "edit_text",
+        "hint": "Body Weight (KG)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Weight must be equal or greater than 20 (KG)"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "Weight must be equal or less than 500 (KG)"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the body weight value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_height_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_height_result",
+        "type": "edit_text",
+        "hint": "Body Height (CM)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the body height value"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "Height must be equal or greater than 5 (CM)"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Height must be equal or less than 250 (CM)"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_treatment_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_treatment_provided",
+        "label": "Was the client provided with treatment?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_provided",
+        "label": "Treatment Provided",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "oral_rehydration_solutions",
+            "text": "Oral rehydration solutions (ORS)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_rehydration_solutions"
+          },
+          {
+            "key": "ped_zinc",
+            "text": "Ped Zinc ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ped_zinc"
+          },
+          {
+            "key": "amoxicillin_dt",
+            "text": "Amoxicillin DT",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "amoxicillin_dt"
+          },
+          {
+            "key": "malaria_drugs",
+            "text": "Malaria drugs (ALu)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_drugs"
+          },
+          {
+            "key": "anti_pain",
+            "text": "Anti-pain (panadol)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anti_pain"
+          },
+          {
+            "key": "food_supplements",
+            "text": "Food Supplements (RUTF)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_supplements"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

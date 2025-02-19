@@ -444,6 +444,56 @@ public class ReportDao extends AbstractDao {
             return new ArrayList<>();
     }
 
+    public static List<Map<String, String>> getHpsAnnualDynamicTablesreports(Date reportDate) {
+        String sql = "SELECT DISTINCT\n" +
+                "    efm.base_entity_id as base_entity_id, \n" +
+                "    uic_id, \n" +
+                "    gender,\n" +
+                "    (efm.first_name || ' ' || efm.middle_name || ' ' || efm.last_name) AS names,\n" +
+                "    CAST((julianday('now') - julianday(substr(efm.dob, 1, 10))) / 365.25 AS INTEGER) AS age,\n" +
+                "    epf.kvp_visit_date AS last_visit_date,\n" +
+                "    strftime('%d-%m-%Y', date(substr(epf.next_visit_date, 7, 4) || '-' || substr(epf.next_visit_date, 4, 2) || '-' || substr(epf.next_visit_date, 1, 2))) AS most_recent_appointment_date,\n" +
+                "    epf.prep_pills_number AS days_dispenses_last_visit,\n" +
+                "    strftime('%d-%m-%Y', date(substr(epf.next_visit_date, 7, 4) || '-' || substr(epf.next_visit_date, 4, 2) || '-' || substr(epf.next_visit_date, 1, 2), '+3 days')) AS misssap_dates\n" +
+                "FROM \n" +
+                "    ec_kvp_register ekr\n" +
+                "INNER JOIN \n" +
+                "    ec_family_member efm \n" +
+                "    ON efm.base_entity_id = ekr.base_entity_id\n" +
+                "INNER JOIN \n" +
+                "    ec_prep_followup epf \n" +
+                "    ON epf.entity_id = efm.base_entity_id\n" +
+                "WHERE \n" +
+                "    date(substr(epf.next_visit_date, 7, 4) || '-' || substr(epf.next_visit_date, 4, 2) || '-' || substr(epf.next_visit_date, 1, 2), '+3 days') < date('now')\n" +
+                "\tAND date(substr(epf.next_visit_date, 7, 4) || '-' || substr(epf.next_visit_date, 4, 2) || '-' || '01')\n" +
+                "\t= date(substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')\n";
+
+        String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
+
+        sql = sql.contains("%s") ? sql.replaceAll("%s", queryDate) : sql;
+
+        DataMap<Map<String, String>> map = cursor -> {
+            Map<String, String> data = new HashMap<>();
+            data.put("names", cursor.getString(cursor.getColumnIndex("names")));
+            data.put("uic_id", cursor.getString(cursor.getColumnIndex("uic_id")));
+            data.put("gender", cursor.getString(cursor.getColumnIndex("gender")));
+            data.put("age", cursor.getString(cursor.getColumnIndex("age")));
+            data.put("last_visit_date", cursor.getString(cursor.getColumnIndex("last_visit_date")));
+            data.put("most_recent_appointment_date", cursor.getString(cursor.getColumnIndex("most_recent_appointment_date")));
+            data.put("days_dispenses_last_visit", cursor.getString(cursor.getColumnIndex("days_dispenses_last_visit")));
+
+            return data;
+        };
+
+        List<Map<String, String>> res = readData(sql, map);
+
+
+        if (res != null && res.size() > 0) {
+            return res;
+        } else
+            return new ArrayList<>();
+    }
+
 
     @NonNull
     public static List<EligibleChild> eligibleChildrenReport(ArrayList<String> communityIds, Date dueDate) {
