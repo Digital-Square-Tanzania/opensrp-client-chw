@@ -1,0 +1,21 @@
+indicators:
+  - key: "b-1"
+    description: "Idadi ya wateja wa HPS waliounganishwaa"
+    indicatorQuery: " SELECT  count(DISTINCT emcf.entity_id) as count
+                      from ec_mother_champion_followup emcf
+                      WHERE linked_to_psychosocial_group = 'yes'
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01')"
+  - key: "b-2"
+    description: "Idadi ya wateja wapya wa HPS waliounganishwa"
+    indicatorQuery: " SELECT  count(DISTINCT emcf.entity_id) as count
+                      from ec_mother_champion_followup emcf
+                      WHERE visit_number = 0
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01')"

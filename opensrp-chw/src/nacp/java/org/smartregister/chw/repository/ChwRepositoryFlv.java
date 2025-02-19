@@ -495,7 +495,8 @@ public class ChwRepositoryFlv {
             String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
             String cecapOtherMonthlyReportsIndicatorsConfigFile = "config/cecap-other-monthly-report.yml";
             String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
-            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
+            String hpsIndicatorsConfigFile = "config/hps-monthly-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile, hpsIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
