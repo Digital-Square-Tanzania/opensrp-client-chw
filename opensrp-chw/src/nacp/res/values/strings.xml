@@ -829,6 +829,84 @@
     <string name="hps_other_education_provided">Other(Specify)</string>
 
 
+    <string name="hps_provision_of_curative_services">Did the client provided with curative services?</string>
+    <string name="hps_diseases_signs_and_symptoms">Diseases Signs and Symptoms</string>
+    <string name="hps_fever">Fever</string>
+    <string name="hps_vaginal_blood_discharge">Vaginal Blood Discharge</string>
+    <string name="hps_nausea_and_vomiting">Nausea and Vomiting</string>
+    <string name="hps_dizziness">Dizziness</string>
+    <string name="hps_headache">Headache</string>
+    <string name="hps_child_excessive_crying">Child excessive crying</string>
+    <string name="hps_loss_of_appetite">Loss of appetite</string>
+    <string name="hps_diarrhoea">Diarrhoea</string>
+    <string name="hps_vaginal_watery_discharge">Vaginal Watery Discharge</string>
+    <string name="hps_lower_limb">Lower limb Edema</string>
+    <string name="hps_soft_and_coloured_hair">Soft &amp; Coloured Hair</string>
+    <string name="hps_palm_parror">Palm Parror</string>
+    <string name="hps_body_malaise">Body malaise</string>
+    <string name="hps_body_convulsion">Body Convulsion</string>
+    <string name="hps_unconsciousness">Unconsciousness</string>
+    <string name="hps_mental_confusion">Mental Confusion</string>
+    <string name="hps_cough">Cough</string>
+    <string name="hps_blood_sputum">Blood Sputum</string>
+    <string name="hps_difficult_in_breathing">Difficult in breathing</string>
+    <string name="hps_weight_loss">Weight Loss</string>
+    <string name="hps_obesity">Obesity</string>
+    <string name="hps_excessive_sweating">Excessive Sweating</string>
+    <string name="hps_skin_loss_of_sense">Skin Loss of Sense</string>
+    <string name="hps_skin_nodules">Skin nodules</string>
+    <string name="hps_arm_and_limb_numbness">Arm and Limb numbness</string>
+    <string name="hps_disability_chronic_wounds">Disability/ Chronic wounds</string>
+    <string name="hps_arm_limp_swelling_breast_enlargement">Arm &amp; Limp Swelling/ Breast enlargement</string>
+    <string name="hps_scrotal_swelling">Scrotal Swelling</string>
+    <string name="hps_eye_lashes_scratching_eyelid">Eye lashes scratching eyelid</string>
+    <string name="hps_skin_itching_seborrhea">Skin itching/Seborrhea</string>
+    <string name="hps_bloody_stool">Bloody stool</string>
+    <string name="hps_bloody_urine">Bloody urine</string>
+    <string name="hps_skin_blood_discharge">Skin blood discharge</string>
+    <string name="hps_eye_itching">Eye itching</string>
+    <string name="hps_red_eyes">Red Eyes</string>
+    <string name="hps_low_vision">Low vision</string>
+    <string name="hps_swelling">Swelling</string>
+    <string name="hps_body_injury">Body Injury</string>
+    <string name="hps_puss_body_lashes">Puss body lashes</string>
+    <string name="hps_blood_vomit">Blood Vomit</string>
+    <string name="hps_gum_swelling_and_tooth_ache">Gum swelling and tooth ache</string>
+    <string name="hps_other_signs_and_symptoms">Other signs and symptoms</string>
+    <string name="hps_specify_signs_and_symptoms_provided">Other(Specify)</string>
+    <string name="hps_is_disease_test_conducted">Did the client undergo disease tests?</string>
+    <string name="hps_diseases_test_conducted">Disease Test Conducted</string>
+    <string name="hps_blood_pressure_measurement">Blood Pressure Measurement (BP)</string>
+    <string name="hps_malaria_mrdt">Malaria (mRDT)</string>
+    <string name="hps_blood_sugar">Blood Sugar (RBG)</string>
+    <string name="hps_hiv_testing_kits">HIV testing kits</string>
+    <string name="hps_body_temperature">Body Temperature (℃)</string>
+    <string name="hps_arm_circumference">Arm circumference (MUAC)</string>
+    <string name="hps_body_weight">Body Weight</string>
+    <string name="hps_body_height">Body Height</string>
+    <string name="hps_systolic">Systolic (Blood Pressure)</string>
+    <string name="hps_diastolic">Diastolic (Blood Pressure)</string>
+    <string name="hps_malaria_mrdt_result">Select Malaria (mrDT) Results</string>
+    <string name="hps_positive_mrdt">Positive</string>
+    <string name="hps_negative_mrdt">Negative</string>
+    <string name="hps_blood_sugar_result">Blood Sugar (mmol/L)</string>
+    <string name="hps_hiv_testing_kits_result">Select HIV Testing Kits Results</string>
+    <string name="hps_reactive">Reactive</string>
+    <string name="hps_non_reactive">Non-Reactive</string>
+    <string name="hps_body_temperature_result">Body Temperature (℃)</string>
+    <string name="hps_arm_circumference_result">Arm Circumference</string>
+    <string name="hps_body_weight_result">Body Weight (KG)</string>
+    <string name="hps_body_height_result">Body Height (CM)</string>
+    <string name="hps_is_treatment_provided">Was the client provided with treatment?</string>
+    <string name="hps_treatment_provided">Treatment Provided</string>
+    <string name="hps_oral_rehydration_solutions">Oral rehydration solutions (ORS)</string>
+    <string name="hps_ped_zinc">Ped Zinc</string>
+    <string name="hps_amoxicillin_dt">Amoxicillin DT</string>
+    <string name="hps_malaria_drugs">Malaria drugs (ALu)</string>
+    <string name="hps_anti_pain">Anti-pain (panadol)</string>
+    <string name="hps_food_supplements">Food Supplements (RUTF)</string>
+
+
 
 
 </resources>
