@@ -63,10 +63,10 @@
         }
       },
       {
-        "key": "select_visit_type",
+        "key": "visit_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_visit_type",
+        "openmrs_entity_id": "visit_type",
         "type": "native_radio",
         "label": "Select visit type",
         "options": [
@@ -341,10 +341,10 @@
         }
       },
       {
-        "key": "select_curative_services_provided",
+        "key": "curative_services_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_curative_services_provided",
+        "openmrs_entity_id": "curative_services_provided",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
