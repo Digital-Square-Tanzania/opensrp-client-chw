@@ -1,0 +1,122 @@
+indicators:
+  # Indicators for Form 1
+  - key: "hps-1a-ME-under-month"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <month"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-1-11-months"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 1-11 months"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-12-23-months"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 12-23 months"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-2-4"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 12-23 months"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-5-9"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-10-14"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-15-19"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-20-24"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-25-59"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+  - key: "hps-1a-ME-60+"
+    grouping: "KVP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
+                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
+                      WHERE visit_type = 'new_visit'
+                      AND ekr.client_group ='pwid'
+                      AND (date('now')-date(efm.dob))<10
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
