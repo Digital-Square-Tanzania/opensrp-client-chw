@@ -44,7 +44,6 @@
   "step1": {
     "title": "Death Information",
     "fields": [
-
       {
         "key": "first_name",
         "openmrs_entity_parent": "",
@@ -127,7 +126,6 @@
           "err": "Please select an answer"
         }
       },
-
       {
         "key": "cause_of_death",
         "openmrs_entity_parent": "",
