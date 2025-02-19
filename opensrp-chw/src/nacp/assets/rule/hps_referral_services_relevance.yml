@@ -16,7 +16,7 @@ actions:
 name: step1_others_referrals_specify
 description: if step1_others_referrals_specify
 priority: 1
-condition: "step1_referral_provided.contains('other_referrals')"
+condition: "step1_referral_provided.contains('other_referral_services')"
 actions:
   - "isRelevant = true "
 ---
