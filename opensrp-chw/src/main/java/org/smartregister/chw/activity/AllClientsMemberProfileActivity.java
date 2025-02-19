@@ -172,7 +172,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     protected void startHpsEnrollment() {
-        HpsRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+        HpsRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT);
     }
 
     @Override

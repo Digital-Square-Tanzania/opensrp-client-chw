@@ -45,6 +45,14 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HpsReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HpsReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.KvpPrEPVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -518,6 +526,14 @@
 
         <activity
             android:name=".activity.HpsVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsHouseholdProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsHouseholdVisitHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,7 +26,6 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
-import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
@@ -165,7 +165,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     public void goToAncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
-        AncMemberProfileActivity.startMe(this,patient.getCaseId());
+        AncMemberProfileActivity.startMe(this, patient.getCaseId());
     }
 
     @Override
@@ -192,6 +192,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     protected boolean isAncMember(String baseEntityId) {
         return ChwApplication.getApplicationFlavor().hasANC() && getFamilyProfilePresenter().isAncMember(baseEntityId);
+    }
+
+    @Override
+    protected void startHpsHouseholdEnrollment(String s) {
+        HpsRegisterActivity.startRegistration(FamilyProfileActivity.this, s, org.smartregister.chw.hps.util.Constants.FORMS.HPS_HOUSEHOLD_ENROLLMENT);
     }
 
     @Override
@@ -261,5 +266,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.action_hps_enrollment).setVisible(ChwApplication.getApplicationFlavor().hasHps());
+        return true;
     }
 }

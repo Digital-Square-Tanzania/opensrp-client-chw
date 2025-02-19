@@ -816,6 +816,13 @@
             "creates_case": [
               "ec_hps_client_services"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Services",
+            "creates_case": [
+              "ec_hps_household_services"
+            ]
           }
         ]
       }
