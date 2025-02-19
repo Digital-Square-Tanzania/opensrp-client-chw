@@ -276,7 +276,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startHpsEnrollment() {
-        HpsRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        HpsRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT);
     }
 
     @Override
