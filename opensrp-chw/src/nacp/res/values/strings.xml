@@ -911,6 +911,53 @@
     <string name="hps_food_supplements">Food Supplements (RUTF)</string>
 
 
+    <string name="hps_name_of_hamlet">Name of hamlet</string>
 
+    <string name="hps_visit_type_label">Select visit type</string>
+    <string name="hps_new_visit">New Visit</string>
+    <string name="hps_return_visit">Return</string>
+
+    <string name="hps_number_of_household_members_reached">Number of household members reached</string>
+
+    <string name="hps_education_provided">Education provided</string>
+
+    <string name="hps_nutrition">Nutrition</string>
+    <string name="hps_danger_signs_of_pregnancy">Danger signs during pregnancy</string>
+    <string name="hps_family_planning">Family Planning</string>
+    <string name="hps_malaria">Malaria</string>
+    <string name="hps_tuberculosis_leprosy_and_testing">Tuberculosis, leprosy, and testing</string>
+    <string name="hps_hiv_hepatitis_and_testing">HIV, hepatitis and testing</string>
+    <string name="hps_epidemic_diseases">Epidemic diseases</string>
+    <string name="hps_neglected_tropical_diseases">Neglected tropical diseases</string>
+    <string name="hps_oral_and_dental_health">Oral and dental health</string>
+    <string name="hps_non_communicable_diseases">Non-communicable diseases</string>
+    <string name="hps_eye_diseases_and_testing">Eye diseases and testing</string>
+    <string name="hps_environmental_sanitation_and_care">Environmental sanitation and care</string>
+    <string name="hps_health_insurance_fund">Health insurance fund</string>
+    <string name="hps_gender_based_violence">Gender-based violence</string>
+    <string name="hps_harmful_effects_of_substance_abuse">Harmful effects of substance abuse</string>
+    <string name="hps_mental_health">Mental health</string>
+    <string name="hps_rights_of_the_elderly_and_family_responsibilities">Rights of the elderly and family responsibilities</string>
+    <string name="hps_childrens_rights_and_protection">Children's rights and protection</string>
+    <string name="hps_sexually_transmitted_diseases">Sexually transmitted diseases (STDs)</string>
+    <string name="hps_effects_of_child_marriage_and_teenage_pregnancies">Effects of child marriage and teenage pregnancies</string>
+    <string name="hps_immunization_services">Immunization services</string>
+    <string name="hps_childcare_growth_and_early_childhood">Childcare, growth, and early childhood</string>
+    <string name="hps_importance_of_birth_certificates">Importance of birth certificates</string>
+    <string name="hps_entrepreneurship">Entrepreneurship</string>
+    <string name="hps_first_aid">First aid</string>
+    <string name="hps_violence_against_children">Violence against children</string>
+    <string name="hps_medication_adherence">Medication adherence</string>
+    <string name="hps_education_on_m_mama_system">Education on the M-Mama system and proper use of the toll-free number 115</string>
+
+    <string name="hps_counselling">Counselling</string>
+    <string name="hps_multi_nutrient_powder">Multi-nutrient powder</string>
+    <string name="hps_llins">LLINs</string>
+    <string name="hps_chlorine_water_treatment">Chlorine water treatment</string>
+    <string name="hps_psychological_counselling">Psychological counselling</string>
+    <string name="hps_first_aid">First Aid</string>
+    <string name="hps_others">Others</string>
+
+    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services</string>
 
 </resources>
