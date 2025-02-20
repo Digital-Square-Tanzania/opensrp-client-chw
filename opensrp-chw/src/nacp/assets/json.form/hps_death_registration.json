@@ -1,0 +1,234 @@
+{
+  "count": "1",
+  "encounter_type": "Death Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Death Information",
+    "fields": [
+      {
+        "key": "dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dod",
+        "hint": "Date of Death",
+        "text_color": "#000000",
+        "type": "date_picker",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_name",
+        "hint": "First name",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "middle_name",
+        "hint": "Middle name",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_name",
+        "hint": "Last name",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dob",
+        "hint": "Tarehe ya kuzaliwa",
+        "text_color": "#000000",
+        "type": "date_picker",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex",
+        "label": "Sex",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Pmale"
+          },
+          {
+            "key": "female",
+            "text": "Female",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female"
+          }
+
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "pnc_death_within_42_days_after_delivery",
+            "text": "PNC Death within (42 days after delivery)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pnc_death_within_42_days_after_delivery"
+          },
+          {
+            "key": "macerated_still_births_msb",
+            "text": "Macerated Still Births (MSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "macerated_still_births_msb"
+          },
+          {
+            "key": "death_occured_during_births_fsb",
+            "text": "Death Occured during Births (FSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "death_occured_during_births_fsb"
+          },
+          {
+            "key": "accidents",
+            "text": "Accidents",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents"
+          },
+          {
+            "key": "matenal_deaths_anc_matenal_pnc",
+            "text": "Matenal Deaths (ANC, Matenal, PNC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "matenal_deaths_anc_matenal_pnc"
+          },
+          {
+            "key": "other_reason",
+            "text": "Other reason",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "cause_of_death_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death_specify",
+        "hint": "Specify",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "comments",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comments",
+        "hint": "Comments",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      }
+    ]
+  }
+}
