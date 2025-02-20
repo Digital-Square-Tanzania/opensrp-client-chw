@@ -1,0 +1,7 @@
+---
+name: step1_cause_of_death_specify
+description: Show specify if "other reason" option is selected
+priority: 1
+condition: "step1_cause_of_death.contains('other_reason')"
+actions:
+  - "isRelevant = true "

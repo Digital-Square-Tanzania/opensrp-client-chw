@@ -837,6 +837,36 @@
     <string name="hps_other_educations">Other Educations</string>
     <string name="hps_other_education_provided">Other(Specify)</string>
 
+    <string name="hps_first_name">First name</string>
+    <string name="hps_middle_name">Middle name</string>
+    <string name="hps_last_name">Last name</string>
+    <string name="hps_date_of_birth">Date of birth</string>
+    <string name="hps_sex">Sex</string>
+    <string name="hps_cause_of_death">Cause of death</string>
+    <string name="hps_pnc_death_within_42_days_after_delivery">PNC Death within (42 days after delivery)</string>
+    <string name="hps_macerated_still_births_msb">Macerated Still Births (MSB)</string>
+    <string name="hps_death_occured_during_births_fsb">Death Occured during Births (FSB)</string>
+    <string name="hps_matenal_deaths_anc_matenal_pnc">Accidents</string>
+    <string name="hps_accidents">Matenal Deaths (ANC, Matenal, PNC)</string>
+    <string name="hps_other_reason">Other reason</string>
+    <string name="hps_cause_of_death_specify">Specify</string>
+    <string name="hps_comments">Comments</string>
+
+    <string name="hps_first_name">Jina la kwanza</string>
+    <string name="hps_middle_name">Jina la kati</string>
+    <string name="hps_last_name">Jina la mwisho</string>
+    <string name="hps_date_of_birth">Tarehe ya kuzaliwa</string>
+    <string name="hps_sex">Jinsi</string>
+    <string name="hps_cause_of_death">Sababu ya kifo</string>
+    <string name="hps_pnc_death_within_42_days_after_delivery">Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)</string>
+    <string name="hps_macerated_still_births_msb">Watoto waliofia tumboni (MSB)</string>
+    <string name="hps_death_occured_during_births_fsb">Vifo vya watoto wakati wa kuzaliwa (FSB)</string>
+    <string name="hps_matenal_deaths_anc_matenal_pnc">Ajali</string>
+    <string name="hps_accidents">Matenal Deaths (ANC, Matenal, PNC)</string>
+    <string name="hps_other_reason">Sababu nyinginezo</string>
+    <string name="hps_cause_of_death_specify">Specify</string>
+    <string name="hps_comments">Comments</string>
+
 
     <string name="hps_provision_of_curative_services">Did the client provided with curative services?</string>
     <string name="hps_diseases_signs_and_symptoms">Diseases Signs and Symptoms</string>
