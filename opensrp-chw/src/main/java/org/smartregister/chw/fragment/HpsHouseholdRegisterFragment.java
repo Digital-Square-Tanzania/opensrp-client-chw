@@ -1,7 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.content.Intent;
-
 import org.smartregister.chw.activity.HpsHouseholdProfileActivity;
 import org.smartregister.chw.core.CoreHpsRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
@@ -12,13 +10,25 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.R;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.Set;
 
 public class HpsHouseholdRegisterFragment extends CoreHpsRegisterFragment {
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        CustomFontTextView titleView = view.findViewById(org.smartregister.chw.hps.R.id.txt_title_label);
+        if (titleView != null) {
+            titleView.setVisibility(android.view.View.VISIBLE);
+            titleView.setText(getString(org.smartregister.chw.hps.R.string.hps_household_register));
+            titleView.setFontVariant(FontVariant.REGULAR);
+        }
+    }
+
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
         CoreRegisterProvider chwRegisterProvider = new FamilyRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
@@ -50,16 +60,6 @@ public class HpsHouseholdRegisterFragment extends CoreHpsRegisterFragment {
 
     protected void goToPatientDetailActivity(CommonPersonObjectClient patient,
                                              boolean goToDuePage) {
-//        Intent intent = new Intent(getActivity(), HpsHouseholdProfileActivity.class);
-//        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
-//        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
-//        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
-//        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
-//        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
-//        intent.putExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, goToDuePage);
-//
-//        startActivity(intent);
-
         HpsHouseholdProfileActivity.startMe(getActivity(), Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
     }
 
