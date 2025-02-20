@@ -234,11 +234,7 @@ public class HpsDeathRegisterFragment extends BaseHpsRegisterFragment {
                     if (form != null) {
                         String randomId = generateRandomUUIDString();
                         form.put(ENTITY_ID, randomId);
-
-                        JSONObject chwName = getFieldJSONObject(fields(form, STEP1), "chw_name");
-                        AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
-                        chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
-                        requireActivity().startActivityForResult(getStartEditFormIntent(form, requireActivity().getString(R.string.cecap_mobilization_sessions_title), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
+                        requireActivity().startActivityForResult(getStartEditFormIntent(form, requireActivity().getString(R.string.hps_death_register_title), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
                     }
                 } catch (JSONException e) {
                     Timber.e(e);
