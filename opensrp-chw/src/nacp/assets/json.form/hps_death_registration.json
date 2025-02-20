@@ -45,6 +45,19 @@
     "title": "Death Information",
     "fields": [
       {
+        "key": "dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dod",
+        "hint": "Date of Death",
+        "text_color": "#000000",
+        "type": "date_picker",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -84,10 +97,10 @@
         }
       },
       {
-        "key": "tarehe_ya_kuzaliwa",
+        "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "tarehe_ya_kuzaliwa",
+        "openmrs_entity_id": "dob",
         "hint": "Tarehe ya kuzaliwa",
         "text_color": "#000000",
         "type": "date_picker",
