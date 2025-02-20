@@ -1009,5 +1009,65 @@
     <string name="hps_referral_form">Referral Form</string>
     <string name="hps_other_method">Other Method (Specify)</string>
     <string name="hps_other_method_specify">Specify other method used for referral</string>
-
+    
+    
+    <string name="hps_date_of_gathering">Date of gathering</string>
+    <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
+    <string name="hps_loud_speakers">Loudspeakers</string>
+    <string name="hps_drumming_public_announcements">Drumming (public announcements)</string>
+    <string name="hps_radio_tv_etc">Radio, TV, etc.</string>
+    <string name="hps_social_media_eg_whatsapp">Social media (e.g., WhatsApp)</string>
+    <string name="hps_face_to_face">Face to face</string>
+    <string name="hps_others_specify">Others (Specify)</string>
+    <string name="hps_other_method_of_education_and_awareness_used">Specify other method of education and awareness</string>
+    <string name="hps_area_where_mobilization_took_place">Area where the mobilization took place</string>
+    <string name="hps_at_the_market_or_stalls">At the market/stalls</string>
+    <string name="hps_places_of_worship">Places of worship</string>
+    <string name="hps_passenger_areas_bus_stops_airport_sea_port">Passenger areas (bus stops, airport, seaport)</string>
+    <string name="hps_industrial_compound_factory_yard">Industrial compound/factory yard</string>
+    <string name="hps_celebrations_or_events">Celebrations/events</string>
+    <string name="hps_inside_transportation_vehicles">Inside transportation vehicles</string>
+    <string name="hps_institutions">Institutions</string>
+    <string name="hps_meetings">Meetings</string>
+    <string name="hps_specify_other_area_where_mobilization_took_place">Others (Specify)</string>
+    <string name="hps_number_of_females_who_attended">Number of females who attended</string>
+    <string name="hps_number_of_males_who_attended">Number of males who attended</string>
+    <string name="hps_was_education_provided">Was education provided?</string>
+    <string name="hps_education_provided">Education provided</string>
+    <string name="hps_danger_signs_of_pregnancy">Danger signs during pregnancy</string>
+    <string name="hps_tuberculosis_leprosy_and_testing">Tuberculosis, leprosy, and testing</string>
+    <string name="hps_hiv_hepatitis_and_testing">HIV, hepatitis and testing</string>
+    <string name="hps_oral_and_dental_health">Oral and dental health</string>
+    <string name="hps_eye_diseases_and_testing">Eye diseases and testing</string>
+    <string name="hps_environmental_sanitation_and_care">Environmental sanitation and care</string>
+    <string name="hps_health_insurance_fund">Health insurance fund</string>
+    <string name="hps_harmful_effects_of_substance_abuse">Harmful effects of substance abuse</string>
+    <string name="hps_rights_of_the_elderly_and_family_responsibilities">Rights of the elderly and family responsibilities</string>
+    <string name="hps_childrens_rights_and_protection">Children\'s rights and protection</string>
+    <string name="hps_sexually_transmitted_diseases">Sexually transmitted diseases (STDs)</string>
+    <string name="hps_effects_of_child_marriage_and_teenage_pregnancies">Effects of child marriage and teenage pregnancies</string>
+    <string name="hps_immunization_services">Immunization services</string>
+    <string name="hps_childcare_growth_and_early_childhood">Childcare, growth, and early childhood</string>
+    <string name="hps_importance_of_birth_certificates">Importance of birth certificates</string>
+    <string name="hps_entrepreneurship">Entrepreneurship</string>
+    <string name="hps_medication_adherence">Medication adherence</string>
+    <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Education on the M-Mama system and proper use of the toll-free number 115</string>
+    <string name="hps_information_education_and_communication_materials">Select Information, Education, and Communication Materials</string>
+    <string name="hps_other_iec_materials">Other IEC materials</string>
+    <string name="hps_specify_other_iec_materials">Specify the other Information, Education, and Communication Materials</string>
+    <string name="hps_brochure_materials">Information, Education, and Communication Materials (Brochure)</string>
+    <string name="hps_number_of_brochures_provided">Number of brochures provided</string>
+    <string name="hps_other_brochure_materials">Specify other Information, Education, and Communication Materials (Brochure)</string>
+    <string name="hps_poster_materials">Information, Education, and Communication Materials (Poster Materials)</string>
+    <string name="hps_number_of_posters_provided">Number of posters provided</string>
+    <string name="hps_other_poster_materials">Specify other poster materials</string>
+    <string name="hps_leaflet_materials">Information, Education, and Communication Materials (Leaflet Materials)</string>
+    <string name="hps_tb_leprosy">TB/Leprosy</string>
+    <string name="hps_mother_and_child">Mother and Child</string>
+    <string name="hps_number_of_leaflet_provided">Number of leaflets provided</string>
+    <string name="hps_other_leaflet_materials">Specify other leaflet materials</string>
+    <string name="hps_others_iec_materials">Information, Education, and Communication Materials (IEC Materials)</string>
+    <string name="hps_number_of_other_iec_provided">Number of IEC provided</string>
+    <string name="hps_specify_other_other_iec_materials">Specify other IEC materials</string>
+    
 </resources>
