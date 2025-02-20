@@ -67,10 +67,10 @@
         }
       },
       {
-        "key": "select_the_method_of_education_and_awareness_used",
+        "key": "method_of_education_and_awareness_used",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_the_method_of_education_and_awareness_used",
+        "openmrs_entity_id": "method_of_education_and_awareness_used",
         "type": "native_radio",
         "label": "Select the method of education and awareness used",
         "options": [
@@ -117,10 +117,10 @@
         }
       },
       {
-        "key": "specify_the_method_of_education_and_awareness_used",
+        "key": "other_method_of_education_and_awareness_used",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_the_method_of_education_and_awareness_used",
+        "openmrs_entity_id": "other_method_of_education_and_awareness_used",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Specify other method of education and awareness",
@@ -480,10 +480,10 @@
         }
       },
       {
-        "key": "select_information_education_and_communication_materials",
+        "key": "information_education_and_communication_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_information_education_and_communication_materials",
+        "openmrs_entity_id": "information_education_and_communication_materials",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Select Information, Education, and Communication Materials",
@@ -520,10 +520,10 @@
         }
       },
       {
-        "key": "specify_iec_materials",
+        "key": "specify_other_iec_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_iec_materials",
+        "openmrs_entity_id": "specify_other_iec_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Specify the other Information, Education, and Communication Materials",
@@ -540,10 +540,10 @@
         }
       },
       {
-        "key": "select_brochure_materials",
+        "key": "brochure_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_brochure_materials",
+        "openmrs_entity_id": "brochure_materials",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Information, Education, and Communication Materials (Brochure)",
@@ -628,6 +628,25 @@
         }
       },
       {
+        "key": "other_brochure_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "other_brochure_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other Information, Education, and Communication Materials (Brochure)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other brochure materials"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "number_of_brochures_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -652,30 +671,10 @@
         }
       },
       {
-        "key": "specify_other_brochure_materials",
+        "key": "poster_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_other_brochure_materials",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Specify other Information, Education, and Communication Materials (Brochure)",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the other brochure materials"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_mobilization_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "select_poster_materials",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "select_poster_materials",
+        "openmrs_entity_id": "poster_materials",
         "combine_checkbox_option_values": "true",
         "type": "check_box",
         "label": "Information, Education, and Communication Materials (Poster Materials)",
@@ -760,6 +759,26 @@
         }
       },
       {
+        "key": "other_poster_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_poster_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other poster materials",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other poster materials"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "number_of_posters_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -784,31 +803,11 @@
         }
       },
       {
-        "key": "specify_other_poster_materials",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_other_poster_materials",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Specify other poster materials",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the other poster materials"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_mobilization_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "select_leaflet_materials",
+        "key": "leaflet_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "type": "check_box",
-        "openmrs_entity_id": "select_leaflet_materials",
+        "openmrs_entity_id": "leaflet_materials",
         "combine_checkbox_option_values": "true",
         "label": "Information, Education, and Communication Materials (Leaflet Materials)",
         "options": [
@@ -861,12 +860,6 @@
             "openmrs_entity_id": "gender_based_violence"
           },
           {
-            "key": "gender_based_violence",
-            "text": "Gender Based Violence",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_based_violence"
-          },
-          {
             "key": "violence_against_children",
             "text": "Violence against Children",
             "openmrs_entity": "concept",
@@ -888,6 +881,26 @@
         "v_required": {
           "value": "true",
           "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_leaflet_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_leaflet_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other leaflet materials",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other poster materials"
         },
         "relevance": {
           "rules-engine": {
@@ -922,31 +935,11 @@
         }
       },
       {
-        "key": "specify_other_leaflet_materials",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_other_leaflet_materials",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Specify other leaflet materials",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the other poster materials"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_mobilization_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "select_other_iec_materials",
+        "key": "others_iec_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "type": "check_box",
-        "openmrs_entity_id": "select_other_iec_materials",
+        "openmrs_entity_id": "others_iec_materials",
         "combine_checkbox_option_values": "true",
         "label": "Information, Education, and Communication Materials (IEC Materials)",
         "options": [
@@ -999,12 +992,6 @@
             "openmrs_entity_id": "gender_based_violence"
           },
           {
-            "key": "gender_based_violence",
-            "text": "Gender Based Violence",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_based_violence"
-          },
-          {
             "key": "violence_against_children",
             "text": "Violence against Children",
             "openmrs_entity": "concept",
@@ -1036,6 +1023,26 @@
         }
       },
       {
+        "key": "specify_other_other_iec_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_other_iec_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other IEC materials",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other poster materials (IEC)"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "number_of_other_iec_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1050,26 +1057,6 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_mobilization_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "specify_other_iec_materials",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_other_iec_materials",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Specify other IEC materials",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the other poster materials (IEC)"
         },
         "relevance": {
           "rules-engine": {
