@@ -165,7 +165,7 @@ public class HpsMobilizationSessionDetailsActivity extends CoreAncMedicalHistory
                         days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
                     }
 
-                    String[] healthEducationMobilizationLocation = {"date_of_gathering", "the_method_of_education_and_awareness_used",
+                    String[] healthEducationMobilizationLocation = {"date_of_gathering", "method_of_education_and_awareness_used",
                             "area_where_mobilization_took_place", "number_of_females_who_attended", "number_of_males_who_attended",
                             "was_education_provided", "education_provided", "information_education_and_communication_materials", "specify_iec_materials", "brochure_materials",
                             "number_of_brochures_provided", "other_brochure_materials", "poster_materials", "number_of_posters_provided", "specify_other_poster_materials",

@@ -6735,11 +6735,11 @@
           }
         },
         {
-          "column_name": "the_method_of_education_and_awareness_used",
+          "column_name": "method_of_education_and_awareness_used",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "the_method_of_education_and_awareness_used"
+            "concept": "method_of_education_and_awareness_used"
           }
         },
         {
