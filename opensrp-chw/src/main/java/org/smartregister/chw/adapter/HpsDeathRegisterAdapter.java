@@ -4,10 +4,6 @@ package org.smartregister.chw.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.BulletSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.HpsDeathRegistrationDetailsActivity;
 import org.smartregister.chw.hps.domain.HpsDeathRegisterModel;
 
 import java.util.List;
@@ -35,24 +32,6 @@ public class HpsDeathRegisterAdapter extends RecyclerView.Adapter<HpsDeathRegist
     public HpsDeathRegisterAdapter(List<HpsDeathRegisterModel> hpsDeathRegisterModels, Context context) {
         this.hpsDeathRegisterModels = hpsDeathRegisterModels;
         this.context = context;
-    }
-
-    private static void evaluateView(TextView tv, Context context, String stringValue) {
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-        spannableStringBuilder.append(context.getString(R.string.cecap_health_education_provided), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
-
-        String[] stringValueArray;
-        if (stringValue.contains(",")) {
-            stringValueArray = stringValue.substring(1, stringValue.length() - 1).split(",");
-            for (String value : stringValueArray) {
-                spannableStringBuilder.append(getStringResource(context, "hps_", value.trim()) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-        } else if (stringValue.charAt(0) == '[' && stringValue.charAt(stringValue.length() - 1) == ']') {
-            spannableStringBuilder.append(getStringResource(context, "hps_", stringValue.substring(1, stringValue.length() - 1))).append("\n");
-        } else {
-            spannableStringBuilder.append(getStringResource(context, "hps_", stringValue)).append("\n");
-        }
-        tv.setText(spannableStringBuilder);
     }
 
     private static String getStringResource(Context context, String prefix, String resourceName) {
@@ -102,11 +81,11 @@ public class HpsDeathRegisterAdapter extends RecyclerView.Adapter<HpsDeathRegist
             nameOfClient = itemView.findViewById(R.id.client_name);
             causeOfDeath = itemView.findViewById(R.id.cause_of_death);
 
-            dateOfDeath.setText(context.getString(R.string.hps_death_register_title, hpsMobilizationSessionModel.getDod()));
+            dateOfDeath.setText(context.getString(R.string.hps_death_register_death_date, hpsMobilizationSessionModel.getDod()));
             nameOfClient.setText(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName()));
-            causeOfDeath.setText(context.getString(R.string.hps_death_register_cause_of_death, hpsMobilizationSessionModel.getCauseOfDeath()));
+            causeOfDeath.setText(context.getString(R.string.hps_death_register_cause_of_death, getStringResource(context, "hps_", hpsMobilizationSessionModel.getCauseOfDeath())));
 
-//            itemView.setOnClickListener(view -> HpsMobilizationSessionDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getSessionId()));
+            itemView.setOnClickListener(view -> HpsDeathRegistrationDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getDeathId()));
         }
     }
 }

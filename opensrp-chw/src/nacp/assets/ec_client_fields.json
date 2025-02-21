@@ -6783,7 +6783,7 @@
           }
         },
         {
-          "column_name": "information_education_and_communication_material",
+          "column_name": "information_education_and_communication_materials",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",

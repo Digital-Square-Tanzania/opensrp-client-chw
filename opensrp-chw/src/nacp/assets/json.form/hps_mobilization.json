@@ -141,9 +141,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "area_where_mobilization_took_place",
-        "openmrs_data_type": "select one",
-        "type": "check_box",
-        "combine_checkbox_option_values": "true",
+        "type": "native_radio",
         "label": "Area where the mobilization took place",
         "hint": "Area where the mobilization took place",
         "options": [

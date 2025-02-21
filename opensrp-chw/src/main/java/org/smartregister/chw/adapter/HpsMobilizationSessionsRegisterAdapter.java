@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.HpsMobilizationSessionDetailsActivity;
 import org.smartregister.chw.hps.domain.HpsMobilizationSessionModel;
 
 import java.util.List;
@@ -104,7 +105,7 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
 
             evaluateView(typeOfCommunitySbcActivity, context, hpsMobilizationSessionModel.getEducationProvided());
 
-//            itemView.setOnClickListener(view -> HpsMobilizationSessionDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getSessionId()));
+            itemView.setOnClickListener(view -> HpsMobilizationSessionDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getSessionId()));
         }
     }
 }
