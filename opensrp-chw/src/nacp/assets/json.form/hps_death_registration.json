@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Death Registration",
+  "encounter_type": "HPS Death Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -46,7 +46,19 @@
   "step1": {
     "title": "Death Information",
     "fields": [
-
+      {
+        "key": "dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dod",
+        "hint": "Date of Death",
+        "text_color": "#000000",
+        "type": "date_picker",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
       {
         "key": "first_name",
         "openmrs_entity_parent": "",
@@ -87,10 +99,10 @@
         }
       },
       {
-        "key": "date_of_birth",
+        "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "date_of_birth",
+        "openmrs_entity_id": "dob",
         "hint": "Date of birth",
         "text_color": "#000000",
         "type": "date_picker",
@@ -131,7 +143,6 @@
           "err": "Please select an answer"
         }
       },
-
       {
         "key": "cause_of_death_male",
         "openmrs_entity_parent": "",
@@ -232,7 +243,6 @@
           }
         }
       },
-
       {
         "key": "cause_of_death_specify",
         "openmrs_entity_parent": "",
