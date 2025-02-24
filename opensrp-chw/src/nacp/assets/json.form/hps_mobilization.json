@@ -494,6 +494,32 @@
         }
       },
       {
+        "key": "iec_materials_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_provided",
+        "type": "native_radio",
+        "label": "Were IEC materials provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        }
+      },
+      {
         "key": "information_education_and_communication_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -531,6 +557,13 @@
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {

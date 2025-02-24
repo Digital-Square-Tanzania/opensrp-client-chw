@@ -110,3 +110,10 @@ priority: 1
 condition: "step1_information_education_and_communication_materials.contains('other_iec_materials')"
 actions:
   - "isRelevant = true"
+---
+name: step1_information_education_and_communication_materials
+description: relevance rule to control the visibility of (step1_information_education_and_communication_materials)
+priority: 1
+condition: "step1_iec_materials_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
