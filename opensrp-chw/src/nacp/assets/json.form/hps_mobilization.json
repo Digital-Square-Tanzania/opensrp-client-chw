@@ -237,6 +237,14 @@
           "value": "true",
           "err": "Please enter a number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
@@ -253,6 +261,14 @@
         "v_required": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
         },
         "v_numeric": {
           "value": "true",
@@ -656,6 +672,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
@@ -792,6 +816,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -924,6 +956,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1051,6 +1091,14 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
         },
         "v_numeric": {
           "value": "true",
