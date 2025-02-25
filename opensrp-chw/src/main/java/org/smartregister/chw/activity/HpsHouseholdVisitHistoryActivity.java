@@ -1,6 +1,12 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getEditEvent;
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getFormWithMetaData;
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.updateValues;
+import static org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT;
+import static org.smartregister.chw.util.PmtctVisitUtils.deleteProcessedVisit;
+import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.VISIT_ID;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,21 +22,37 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hps.domain.MemberObject;
-import org.smartregister.chw.interactor.HpsVisitHistoryInteractor;
+import org.smartregister.chw.hps.util.Constants;
+import org.smartregister.chw.interactor.HpsHouseholdVisitHistoryInteractor;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -38,22 +60,22 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
-    private static MemberObject hpsMemberObject;
+public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
+    private static MemberObject hpsMemberProfile;
 
-    private final Flavor flavor = new HpsHistoryActivityFlv();
+    private final Flavor flavor = new HpsHouseholdVisitHistoryActivityFlv();
 
     private ProgressBar progressBar;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
-        Intent intent = new Intent(activity, HpsVisitHistoryActivity.class);
-        hpsMemberObject = memberObject;
+        Intent intent = new Intent(activity, HpsHouseholdVisitHistoryActivity.class);
+        hpsMemberProfile = memberObject;
         activity.startActivity(intent);
     }
 
     @Override
     public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new HpsVisitHistoryInteractor(), this, hpsMemberObject.getBaseEntityId());
+        presenter = new BaseAncMedicalHistoryPresenter(new HpsHouseholdVisitHistoryInteractor(), this, hpsMemberProfile.getBaseEntityId());
     }
 
     @Override
@@ -62,7 +84,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, hpsMemberObject.getFullName()));
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, hpsMemberProfile.getFullName()));
 
         ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
     }
@@ -84,7 +106,35 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
         progressBar.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
-    private static class HpsHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+            try {
+                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                JSONObject form = new JSONObject(jsonString);
+                String baseEntityId = form.getString("entity_id");
+                String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
+                if (encounterType.equals(HPS_HOUSEHOLD_VISIT)) {
+                    if (form.has(VISIT_ID)) {
+                        String deletedVisitId = form.getString(VISIT_ID);
+                        form.remove(VISIT_ID);
+                        deleteProcessedVisit(deletedVisitId, baseEntityId);
+                    }
+
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, CoreReferralUtils.setEntityId(jsonString, baseEntityId), Constants.TABLES.HPS_HOUSEHOLD_SERVICES);
+                    org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
+                    NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+                    finish();
+                }
+            } catch (Exception e) {
+                Timber.e(e, "HpsHouseholdVisitHistoryActivity -- > onActivityResult");
+            }
+        }
+    }
+
+    private static class HpsHouseholdVisitHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
         private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
 
         @Override
@@ -113,12 +163,9 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                         days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
                     }
 
-                    String[] visitTypeParams = {
-                            "client_criteria", "provision_of_preventive_services", "provision_of_preventive_services", "type_of_education_provided", "other_education_provided",
-                            "provide_iec_materials", "type_of_iec_material", "others_type_of_iec_material", "type_of_message_leaflets", "number_of_leaflets",
-                            "others_type_of_leaflets", "type_of_message_posters", "number_of_posters", "others_type_of_posters", "type_of_message_brochures", "others_type_of_brochures", "number_of_brochures", "preventive_services_provided",
-                            "preventive_services", "others_services_specify", "provide_referral_services", "referral_provided", "others_referrals_specify", "referral_system", "referral_system_used", "other_method_specify"};
+                    String[] visitTypeParams = {"name_of_hamlet", "visit_type", "number_of_household_members_reached", "education_provided", "was_curative_service_provided", "curative_services_provided", "others_specify"};
                     extractVisitDetails(visits, visitTypeParams, visitDetails, x, context);
+
                     hf_visits.add(visitDetails);
 
                     x++;
@@ -131,7 +178,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
 
         private void extractVisitDetails(List<Visit> sourceVisits, String[] hf_params, LinkedHashMap<String, String> visitDetailsMap, int iteration, Context context) {
             // get the hf details
-            LinkedHashMap<String, String> map = new LinkedHashMap<>();
+            Map<String, String> map = new HashMap<>();
             for (String param : hf_params) {
                 try {
                     List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(param);
@@ -174,23 +221,24 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                     else
                         tvEdit.setVisibility(View.GONE);
 
+                    int position = x;
                     tvEdit.setOnClickListener(view1 -> {
-                        Visit visit = visits.get(0);
-
-                        if (visit.getBaseEntityId() != null) {
-                            ((Activity) context).finish();
-                            HpsClientServicesVisitActivity.startMe((Activity) context, visit.getBaseEntityId(), true);
+                        Visit visit = visits.get(position);
+                        try {
+                            startFormForEdit(R.string.hps_edit_home_visit, Constants.FORMS.HPS_HOUSEHOLD_VISIT, visit.getBaseEntityId(), visit.getVisitId(), context);
+                        } catch (Exception e) {
+                            Timber.e(e);
                         }
                     });
 
                     String visitType;
 
-                    if (HPS_CLIENT_FOLLOW_UP_VISIT.equals(visits.get(x).getVisitType())) {
+                    if (HPS_HOUSEHOLD_VISIT.equals(visits.get(x).getVisitType())) {
                         visitType = context.getString(R.string.hps_visit);
                     } else {
                         visitType = visits.get(x).getVisitType();
                     }
-                    tvTypeOfService.setText(String.format("%s - %s", visitType, simpleDateFormat.format(visits.get(x).getDate())));
+                    tvTypeOfService.setText(visitType + " - " + simpleDateFormat.format(visits.get(x).getDate()));
 
 
                     for (LinkedHashMap.Entry<String, String> entry : vals.entrySet()) {
@@ -207,7 +255,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
 
                         try {
                             int resource = context.getResources().getIdentifier("hps_" + entry.getKey(), "string", context.getPackageName());
-                            evaluateView(context, vals, visitDetailTv, entry.getKey(), resource);
+                            evaluateView(context, vals, visitDetailTv, entry.getKey(), resource, "hps_");
                         } catch (Exception e) {
                             Timber.e(e);
                         }
@@ -219,7 +267,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
             }
         }
 
-        private void evaluateView(Context context, Map<String, String> vals, TextView tv, String valueKey, int viewTitleStringResource) {
+        private void evaluateView(Context context, Map<String, String> vals, TextView tv, String valueKey, int viewTitleStringResource, String valuePrefixInStringResources) {
             if (StringUtils.isNotBlank(getMapValue(vals, valueKey))) {
                 SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
                 spannableStringBuilder.append(context.getString(viewTitleStringResource), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
@@ -229,11 +277,10 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                 if (stringValue.contains(",")) {
                     stringValueArray = stringValue.split(",");
                     for (String value : stringValueArray) {
-                        String mValue = value.trim().replaceAll("^\\[|]$", "");
-                        spannableStringBuilder.append(getStringResource(context, mValue) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannableStringBuilder.append(getStringResource(context, valuePrefixInStringResources, value.trim()) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 } else {
-                    spannableStringBuilder.append(getStringResource(context, stringValue)).append("\n");
+                    spannableStringBuilder.append(getStringResource(context, valuePrefixInStringResources, stringValue)).append("\n");
                 }
                 tv.setText(spannableStringBuilder);
             } else {
@@ -249,15 +296,64 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
             return "";
         }
 
-        private String getStringResource(Context context, String resourceName) {
+        private String getStringResource(Context context, String prefix, String resourceName) {
             int resourceId = context.getResources().
-                    getIdentifier("hps_" + resourceName.trim(), "string", context.getPackageName());
+                    getIdentifier(prefix + resourceName.trim(), "string", context.getPackageName());
             try {
                 return context.getString(resourceId);
             } catch (Exception e) {
                 Timber.e(e);
                 return resourceName;
             }
+        }
+
+        public void startFormForEdit(Integer title_resource, String formName, String baseEntityId, String deletedVisitId, Context context) {
+            try {
+
+                Event event = getEditEvent(baseEntityId, HPS_HOUSEHOLD_VISIT);
+
+                final List<Obs> observations = event.getObs();
+                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, HPS_HOUSEHOLD_VISIT);
+
+                if (form != null) {
+                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                    updateValues(jsonArray, observations);
+
+                    //Checking if the form has multiple steps and prefilling them if they exist
+                    if (form.getInt("count") > 1) {
+                        for (int i = 2; i <= form.getInt("count"); i++) {
+                            JSONArray stepFields = form.getJSONObject("step" + i).getJSONArray(JsonFormUtils.FIELDS);
+                            updateValues(stepFields, observations);
+                        }
+                    }
+                    form.put(VISIT_ID, deletedVisitId);
+                }
+
+                ((Activity) context).startActivityForResult(getStartEditFormIntent(form, context.getString(title_resource), context), JsonFormUtils.REQUEST_CODE_GET_JSON);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
+
+        public Intent getStartEditFormIntent(JSONObject jsonForm, String title, Context context) {
+            Intent intent = FormUtils.getStartFormActivity(jsonForm, null, context);
+            intent.putExtra(org.smartregister.chw.hivst.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+            Form form = new Form();
+            form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+            form.setName(title);
+            form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
+
+            try {
+                form.setWizard(jsonForm.getInt(COUNT) > 1);
+            } catch (JSONException e) {
+                Timber.e(e);
+                form.setWizard(false);
+            }
+            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+            return intent;
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -31,7 +32,6 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
-import org.smartregister.chw.gbv.util.GbvJsonFormUtils;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -74,11 +74,20 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+        textViewRecordHps.setText(R.string.record_hps_household_services);
     }
 
     @Override
+    public void setProfileViewWithData() {
+        super.setProfileViewWithData();
+        findViewById(R.id.family_hps_head).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.family_hps_head)).setText(getString(R.string.family, memberObject.getFamilyName()));
+    }
+
+
+    @Override
     public void openMedicalHistory() {
-        HpsVisitHistoryActivity.startMe(this, memberObject);
+        HpsHouseholdVisitHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -411,6 +420,8 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     protected Visit getServiceVisit() {
+        if (memberObject == null)
+            memberObject = getMemberObject(baseEntityId);
         return HpsLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
     }
 }

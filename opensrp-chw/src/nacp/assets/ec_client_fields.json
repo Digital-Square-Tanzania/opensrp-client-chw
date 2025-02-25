@@ -6442,6 +6442,502 @@
           }
         },
         {
+          "column_name": "type_of_iec_material",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_iec_material"
+          }
+        },
+        {
+          "column_name": "type_of_message_leaflets",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_leaflets"
+          }
+        },
+        {
+          "column_name": "number_of_leaflets",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_leaflets"
+          }
+        },
+        {
+          "column_name": "type_of_message_posters",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_posters"
+          }
+        },
+        {
+          "column_name": "number_of_posters",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_posters"
+          }
+        },
+        {
+          "column_name": "type_of_message_brochures",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_brochures"
+          }
+        },
+        {
+          "column_name": "number_of_brochures",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_brochures"
+          }
+        },
+        {
+          "column_name": "preventive_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "preventive_services_provided"
+          }
+        },
+        {
+          "column_name": "preventive_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "preventive_services"
+          }
+        },
+        {
+          "column_name": "provision_of_curative_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provision_of_curative_services"
+          }
+        },
+        {
+          "column_name": "diseases_signs_and_symptoms",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diseases_signs_and_symptoms"
+          }
+        },
+        {
+          "column_name": "is_disease_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_disease_test_conducted"
+          }
+        },
+        {
+          "column_name": "diseases_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diseases_test_conducted"
+          }
+        },
+        {
+          "column_name": "systolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "systolic"
+          }
+        },
+        {
+          "column_name": "diastolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diastolic"
+          }
+        },
+        {
+          "column_name": "malaria_mrdt_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_mrdt_result"
+          }
+        },
+        {
+          "column_name": "blood_sugar_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "blood_sugar_result"
+          }
+        },
+        {
+          "column_name": "hiv_testing_kits_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_testing_kits_result"
+          }
+        },
+        {
+          "column_name": "body_temperature_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_temperature_result"
+          }
+        },
+        {
+          "column_name": "arm_circumference_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "arm_circumference_result"
+          }
+        },
+        {
+          "column_name": "body_weight_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_weight_result"
+          }
+        },
+        {
+          "column_name": "body_height_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_height_result"
+          }
+        },
+        {
+          "column_name": "is_treatment_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_treatment_provided"
+          }
+        },
+        {
+          "column_name": "treatment_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "treatment_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_household_services",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "name_of_hamlet",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "name_of_hamlet"
+          }
+        },
+        {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
+          }
+        },
+        {
+          "column_name": "number_of_household_members_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_household_members_reached"
+          }
+        },
+        {
+          "column_name": "education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "education_provided"
+          }
+        },
+        {
+          "column_name": "was_curative_service_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "was_curative_service_provided"
+          }
+        },
+        {
+          "column_name": "curative_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "curative_services_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_mobilization",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "base_entity_id"
+          }
+        },
+        {
+          "column_name": "date_of_gathering",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_of_gathering"
+          }
+        },
+        {
+          "column_name": "method_of_education_and_awareness_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "method_of_education_and_awareness_used"
+          }
+        },
+        {
+          "column_name": "area_where_mobilization_took_place",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "area_where_mobilization_took_place"
+          }
+        },
+        {
+          "column_name": "number_of_females_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_females_who_attended"
+          }
+        },
+        {
+          "column_name": "number_of_males_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_males_who_attended"
+          }
+        },
+        {
+          "column_name": "was_education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "was_education_provided"
+          }
+        },
+        {
+          "column_name": "education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "education_provided"
+          }
+        },
+        {
+          "column_name": "information_education_and_communication_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "information_education_and_communication_material"
+          }
+        },
+        {
+          "column_name": "brochure_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "brochure_materials"
+          }
+        },
+        {
+          "column_name": "number_of_brochures_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_brochures_provided"
+          }
+        },
+        {
+          "column_name": "poster_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "poster_materials"
+          }
+        },
+        {
+          "column_name": "number_of_posters_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_posters_provided"
+          }
+        },
+        {
+          "column_name": "leaflet_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "leaflet_materials"
+          }
+        },
+        {
+          "column_name": "number_of_leaflet_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_leaflet_provided"
+          }
+        },
+        {
+          "column_name": "other_iec_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_iec_materials"
+          }
+        },
+        {
+          "column_name": "number_of_other_iec_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_other_iec_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_death_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "dod",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dod"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "first_name"
+          }
+        },
+        {
+          "column_name": "middle_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "middle_name"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_name"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dob"
+          }
+        },
+        {
+          "column_name": "sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sex"
+          }
+        },
+        {
+          "column_name": "cause_of_death",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cause_of_death"
+          }
+        },
+        {
+          "column_name": "cause_of_death_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cause_of_death_specify"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

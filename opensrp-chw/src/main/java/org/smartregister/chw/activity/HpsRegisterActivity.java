@@ -9,7 +9,9 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHpsRegisterActivity;
+import org.smartregister.chw.fragment.HpsDeathRegisterFragment;
 import org.smartregister.chw.fragment.HpsHouseholdRegisterFragment;
+import org.smartregister.chw.fragment.HpsMobilizationRegisterFragment;
 import org.smartregister.chw.fragment.HpsRegisterFragment;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -45,6 +47,10 @@ public class HpsRegisterActivity extends CoreHpsRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{new HpsHouseholdRegisterFragment()};
+        return new Fragment[]{
+                new HpsHouseholdRegisterFragment(),
+                new HpsMobilizationRegisterFragment(),
+                new HpsDeathRegisterFragment()
+        };
     }
 }
