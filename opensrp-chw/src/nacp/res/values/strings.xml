@@ -1097,5 +1097,8 @@
     <string name="hps_others_iec_materials">Information, Education, and Communication Materials (IEC Materials)</string>
     <string name="hps_number_of_other_iec_provided">Number of IEC provided</string>
     <string name="hps_specify_other_other_iec_materials">Specify other IEC materials</string>
+    <string name="hps_was_curative_service_provided">Were curative services provided?</string>
+    <string name="hps_curative_services_provided">Curative services provided</string>
+    <string name="hps_visit_type">Visit Type:</string>
 
 </resources>
