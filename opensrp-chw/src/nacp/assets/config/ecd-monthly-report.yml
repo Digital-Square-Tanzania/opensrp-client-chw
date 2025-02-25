@@ -105,114 +105,191 @@ indicators:
   - key: "ecd-5-number-of-caregiver-received-ecd-ME-years-10-24"
     grouping: "ECD"
     description: "Idadi ya wazazi/walezi wa Kiume wenye miaka 10 hadi 24  waliopata huduma za MMMAM mwezi huu."
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 
-	  AND ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-	  AND ec_family_member.gender = 'Male'
-	  AND ec_family_member.is_closed = 0
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+           ec_child.mother_entity_id,
+		   ec_child.is_closed AS child_close_status,
+           ec_family.primary_caregiver,
+           COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+      FROM ec_child
+      INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p' 
+      AND ec_family_member.gender = 'Male' 
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24 
       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
 
   - key: "ecd-5-number-of-caregiver-received-ecd-ME-years-over-24"
     grouping: "ECD"
     description: "Idadi ya wazazi/walezi wa Kiume wenye miaka zaidi ya 24  waliopata huduma za MMMAM mwezi huu."
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 
-	  AND ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-	  AND ec_family_member.gender = 'Male'
-	  AND ec_family_member.is_closed = 0
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+           ec_child.mother_entity_id,
+		   ec_child.is_closed AS child_close_status,
+           ec_family.primary_caregiver,
+           COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+      FROM ec_child
+      INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p' 
+      AND ec_family_member.gender = 'Male' 
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24 
       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
 
   - key: "ecd-5-number-of-caregiver-received-ecd-KE-years-over-24"
     grouping: "ECD"
     description: "Idadi ya wazazi/walezi wa Kike wenye miaka zaidi ya 24  waliopata huduma za MMMAM mwezi huu."
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 
-	  AND ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-	  AND ec_family_member.gender = 'Female'
-	  AND ec_family_member.is_closed = 0
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+           ec_child.mother_entity_id,
+		   ec_child.is_closed AS child_close_status,
+           ec_family.primary_caregiver,
+           COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+      FROM ec_child
+      INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p' 
+      AND ec_family_member.gender = 'Female' 
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24 
       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
 
   - key: "ecd-5-number-of-caregiver-received-ecd-kE-years-10-24"
     grouping: "ECD"
     description: "Idadi ya wazazi/walezi wa Kike wenye miaka 10 hadi 24  waliopata huduma za MMMAM mwezi huu."
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_family_member.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 
-	  AND ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-	  AND ec_family_member.gender = 'Female'
-	  AND ec_family_member.is_closed = 0
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24
-      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
-
-  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-10-25-years"
-    grouping: "ECD"
-    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri kati ya miaka 10 hadi 25"
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_child.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 
-	  AND ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
-      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
-
-  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-over-25-years"
-    grouping: "ECD"
-    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri zaidi ya miaka 25"
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_child.base_entity_id) FROM ec_child
-      INNER JOIN event on event.baseEntityId = ec_child.base_entity_id
-	  INNER join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id
-	  WHERE ec_child.is_closed = 0 and ec_family_member.entity_type = 'ec_family_member' 
-	  AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
-	  AND json_extract(event.json, '$.providerId') = '%p' 
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 25
-      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
-
-  - key: "ecd-7-number-of-caregiver-created-play-material-with-age-10-25-years"
-    grouping: "ECD"
-    description: "Idadi ya wazazi/walezi wenye umri kati ya miaka 10 hadi 25 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_ecd_activities.entity_id) FROM ec_ecd_activities 
-      INNER JOIN ec_child ON ec_child.base_entity_id = ec_ecd_activities.entity_id 
-      INNER JOIN event ON event.baseEntityId = ec_child.base_entity_id 
-      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id 
-      WHERE (prepare_play_materials = 'Yes' OR prepare_play_materials = 'yes')
-      AND ec_child.is_closed = 0 
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+           ec_child.mother_entity_id,
+		   ec_child.is_closed AS child_close_status,
+           ec_family.primary_caregiver,
+           COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+      FROM ec_child
+      INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
       AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p' 
+      AND ec_family_member.gender = 'Female' 
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-10-24-years"
+    grouping: "ECD"
+    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri kati ya miaka 10 hadi 24"
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+                 ec_child.mother_entity_id,
+                 ec_child.is_closed AS child_close_status,
+                 ec_family.primary_caregiver,
+                 COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+          FROM ec_child
+          INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      ) 
+      SELECT COUNT(DISTINCT child_primary_care.base_entity_id) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p'  
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-6-number-of-children-received-ecd-0-5-years-with-caregiver-age-over-24-years"
+    grouping: "ECD"
+    description: "Idadi ya watoto wa miaka 0-5 waliopata huduma za MMMAM mwezi huu wenye walezi au wazazi wenye umri zaidi ya miaka 24"
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+                 ec_child.mother_entity_id,
+                 ec_child.is_closed AS child_close_status,
+                 ec_family.primary_caregiver,
+                 COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+          FROM ec_child
+          INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      ) 
+      SELECT COUNT(DISTINCT child_primary_care.base_entity_id) FROM child_primary_care 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND (event.eventtype = 'Child Home Visit' OR event.eventType='PNC Home Visit') 
+      AND json_extract(event.json, '$.providerId') = '%p'  
+      AND ec_family_member.is_closed = 0 
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24 
+      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
+
+  - key: "ecd-7-number-of-caregiver-created-play-material-with-age-10-24-years"
+    grouping: "ECD"
+    description: "Idadi ya wazazi/walezi wenye umri kati ya miaka 10 hadi 24 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+                 ec_child.mother_entity_id,
+                 ec_child.is_closed AS child_close_status,
+                 ec_family.primary_caregiver,
+                 COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+          FROM ec_child
+          INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN ec_ecd_activities ON ec_ecd_activities.entity_id = child_primary_care.base_entity_id 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE (ec_ecd_activities.prepare_play_materials = 'Yes' OR ec_ecd_activities.prepare_play_materials = 'yes')
+      AND child_primary_care.child_close_status = 0 
+      AND ec_family_member.entity_type = 'ec_family_member' 
+      AND ec_family_member.is_closed = 0 
       AND (event.eventtype = 'Child Home Visit' OR event.eventType = 'PNC Home Visit') 
       AND json_extract(event.json, '$.providerId') = '%p' 
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 24 
       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
 
-  - key: "ecd-7-number-of-caregiver-created-play-material-with-over-25-years"
+  - key: "ecd-7-number-of-caregiver-created-play-material-with-over-24-years"
     grouping: "ECD"
-    description: "Idadi ya wazazi/walezi wenye umri zaidi ya miaka 25 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
-    indicatorQuery: "SELECT COUNT(DISTINCT ec_ecd_activities.entity_id) FROM ec_ecd_activities 
-      INNER JOIN ec_child ON ec_child.base_entity_id = ec_ecd_activities.entity_id 
-      INNER JOIN event ON event.baseEntityId = ec_child.base_entity_id 
-      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = ec_child.mother_entity_id 
-      WHERE (prepare_play_materials = 'Yes' || prepare_play_materials = 'yes')
-      AND ec_child.is_closed = 0 
+    description: "Idadi ya wazazi/walezi wenye umri zaidi ya miaka 24 waliotengeneza vifaa vya michezo kulingana na umri wa mtoto"
+    indicatorQuery: "WITH child_primary_care AS ( 
+      SELECT ec_child.base_entity_id,
+                 ec_child.mother_entity_id,
+                 ec_child.is_closed AS child_close_status,
+                 ec_family.primary_caregiver,
+                 COALESCE(ec_child.mother_entity_id, ec_family.primary_caregiver) AS child_care_giver
+          FROM ec_child
+          INNER JOIN ec_family ON ec_family.base_entity_id = ec_child.relational_id
+      )
+      SELECT COUNT(DISTINCT child_primary_care.child_care_giver) FROM child_primary_care 
+      INNER JOIN ec_ecd_activities ON ec_ecd_activities.entity_id = child_primary_care.base_entity_id 
+      INNER JOIN event ON event.baseEntityId = child_primary_care.base_entity_id 
+      INNER JOIN ec_family_member ON ec_family_member.base_entity_id = child_primary_care.child_care_giver 
+      WHERE (ec_ecd_activities.prepare_play_materials = 'Yes' OR ec_ecd_activities.prepare_play_materials = 'yes')
+      AND child_primary_care.child_close_status = 0 
       AND ec_family_member.entity_type = 'ec_family_member' 
+      AND ec_family_member.is_closed = 0 
       AND (event.eventtype = 'Child Home Visit' OR event.eventType = 'PNC Home Visit') 
       AND json_extract(event.json, '$.providerId') = '%p' 
-      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) BETWEEN 10 AND 25
+      AND (strftime('%Y', date(event.eventDate)) - strftime('%Y', date(ec_family_member.dob))) > 24 
       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(eventDate, 1, 4) || '-' || substr(eventDate, 6, 2) || '-' || '01')"
