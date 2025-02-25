@@ -806,22 +806,15 @@
     <string name="hps_yes">Yes</string>
     <string name="hps_no">No</string>
     <string name="hps_type_of_education_provided">Type of Education provided</string>
-    <string name="hps_nutrition">Nutrition</string>
     <string name="hps_anc_danger_signs">ANC Danger Signs</string>
-    <string name="hps_family_planning">Family Planning</string>
-    <string name="hps_malaria">Malaria</string>
     <string name="hps_tb_leprosy_lab_diagnostics">TB, Leprosy, Lab Diagnostics</string>
     <string name="hps_hiv_aids_hepatitis_lab_diagnostics">TB, Leprosy, Lab Diagnostics</string>
     <string name="hps_communicable_diseases">Communicable Diseases</string>
-    <string name="hps_neglected_tropical_diseases">Neglected Tropical Diseases</string>
     <string name="hps_oral_health">Oral Health</string>
-    <string name="hps_non_communicable_diseases">Non Communicable Diseases (NCDs)</string>
     <string name="hps_eye_diseases_diagnostics">Eye Diseases &amp; Diagnostics</string>
     <string name="hps_environmental_hygiene">Environmental Hygiene</string>
     <string name="hps_nhif_ichf">NHIF/iCHF</string>
-    <string name="hps_gender_based_violence">Gender Based Violence</string>
     <string name="hps_drug_substance_abuse">Drug &amp; Substance abuse</string>
-    <string name="hps_mental_health">Mental Health</string>
     <string name="hps_elderly_family_rights_protection">Elderly/Family rights &amp; protection</string>
     <string name="hps_child_protection_rights">Child protection &amp; rights</string>
     <string name="hps_sexual_transmission_infections">Sexual Transmission Infections</string>
@@ -830,8 +823,6 @@
     <string name="hps_early_child_developments">Early child Developments</string>
     <string name="hps_importance_of_registered_birth_certificate">Importance of Registered Birth certificate</string>
     <string name="hps_income_generated_activities">Income Generated Activities (EGA)</string>
-    <string name="hps_first_aid">First Aid</string>
-    <string name="hps_violence_against_children">Violence Against Children</string>
     <string name="hps_drug_adherence">Drug adherence</string>
     <string name="hps_m_mama_system">M-mama system</string>
     <string name="hps_other_educations">Other Educations</string>
@@ -937,7 +928,6 @@
     <string name="hps_others_type_of_iec_material">Other IEC material(Specify)</string>
     <string name="hps_type_of_message_leaflets">Select Type of Message in Leaflets</string>
     <string name="hps_hiv_aids">HIV/AIDS</string>
-    <string name="hps_epidemic_diseases">Epidemic diseases</string>
     <string name="hps_oral_dental_health">Oral and Dental health</string>
     <string name="hps_neaurological_disorders">Neurological Disorders</string>
     <string name="hps_skin_health">Skin Health</string>
@@ -958,7 +948,6 @@
     <string name="hps_health_services_awareness">Health services awareness</string>
     <string name="hps_universal_health_insurance">Universal health insurance</string>
     <string name="hps_cancer">Cancer</string>
-    <string name="hps_others">Others</string>
     <string name="hps_number_of_leaflets">Number of Leaflets Distributed</string>
     <string name="hps_others_type_of_leaflets">Others(Specify)</string>
     <string name="hps_type_of_message_posters">Select Type of Message in Posters</string>
@@ -969,7 +958,6 @@
     <string name="hps_number_of_brochures">Number of Brochures Distributed</string>
     <string name="hps_preventive_services_provided">Were preventive services offered to the client?</string>
     <string name="hps_preventive_services">Preventive Services:</string>
-    <string name="hps_counselling">Counselling</string>
     <string name="hps_family_planning_pills">Family Planning Pills</string>
     <string name="hps_iron_folic_tablets">Iron and Folic Acid (IFA) Tablets</string>
     <string name="hps_deworming_medication">Deworming Medication</string>
@@ -982,15 +970,60 @@
     <string name="hps_distribution_mosquito_nets">Distribution of Mosquito Nets</string>
     <string name="hps_hiv_self_test_kits">Distribution of HIV Self-Test Kits</string>
     <string name="hps_distribution_water_purification_tablets">Distribution of Water Purification Tablets</string>
-    <string name="hps_psychological_counselling">Psychological Counselling</string>
     <string name="hps_preliminary_screening_tb">Preliminary Screening for Tuberculosis/Leprosy</string>
     <string name="hps_gender_based_violence_screening">Preliminary Screening for Gender-Based Violence</string>
     <string name="hps_collection_sputum_stool_samples">Collection of Sputum/Stool Samples</string>
     <string name="hps_dispensing_arv_medication">Dispensing ARV Medication to People Living with HIV (PLHIV)</string>
     <string name="hps_preventive_medication_ntd">Distribution of Preventive Medication for Neglected Tropical Diseases</string>
-    <string name="hps_first_aid_services">First Aid Services</string>
     <string name="hps_other_services">Other Services</string>
     <string name="hps_others_services_specify">Others services(Specify)</string>
+    <string name="hps_name_of_hamlet">Name of hamlet</string>
+
+    <string name="hps_visit_type_label">Select visit type</string>
+    <string name="hps_new_visit">New Visit</string>
+    <string name="hps_return_visit">Return</string>
+
+    <string name="hps_number_of_household_members_reached">Number of household members reached</string>
+
+    <string name="hps_education_provided">Education provided</string>
+
+    <string name="hps_nutrition">Nutrition</string>
+    <string name="hps_danger_signs_of_pregnancy">Danger signs during pregnancy</string>
+    <string name="hps_family_planning">Family Planning</string>
+    <string name="hps_malaria">Malaria</string>
+    <string name="hps_tuberculosis_leprosy_and_testing">Tuberculosis, leprosy, and testing</string>
+    <string name="hps_hiv_hepatitis_and_testing">HIV, hepatitis and testing</string>
+    <string name="hps_epidemic_diseases">Epidemic diseases</string>
+    <string name="hps_neglected_tropical_diseases">Neglected tropical diseases</string>
+    <string name="hps_oral_and_dental_health">Oral and dental health</string>
+    <string name="hps_non_communicable_diseases">Non-communicable diseases</string>
+    <string name="hps_eye_diseases_and_testing">Eye diseases and testing</string>
+    <string name="hps_environmental_sanitation_and_care">Environmental sanitation and care</string>
+    <string name="hps_health_insurance_fund">Health insurance fund</string>
+    <string name="hps_gender_based_violence">Gender-based violence</string>
+    <string name="hps_harmful_effects_of_substance_abuse">Harmful effects of substance abuse</string>
+    <string name="hps_mental_health">Mental health</string>
+    <string name="hps_rights_of_the_elderly_and_family_responsibilities">Rights of the elderly and family responsibilities</string>
+    <string name="hps_childrens_rights_and_protection">Children\'s rights and protection</string>
+    <string name="hps_sexually_transmitted_diseases">Sexually transmitted diseases (STDs)</string>
+    <string name="hps_effects_of_child_marriage_and_teenage_pregnancies">Effects of child marriage and teenage pregnancies</string>
+    <string name="hps_immunization_services">Immunization services</string>
+    <string name="hps_childcare_growth_and_early_childhood">Childcare, growth, and early childhood</string>
+    <string name="hps_importance_of_birth_certificates">Importance of birth certificates</string>
+    <string name="hps_entrepreneurship">Entrepreneurship</string>
+    <string name="hps_first_aid">First aid</string>
+    <string name="hps_violence_against_children">Violence against children</string>
+    <string name="hps_medication_adherence">Medication adherence</string>
+    <string name="hps_education_on_m_mama_system">Education on the M-Mama system and proper use of the toll-free number 115</string>
+
+    <string name="hps_counselling">Counselling</string>
+    <string name="hps_multi_nutrient_powder">Multi-nutrient powder</string>
+    <string name="hps_llins">LLINs</string>
+    <string name="hps_chlorine_water_treatment">Chlorine water treatment</string>
+    <string name="hps_psychological_counselling">Psychological counselling</string>
+    <string name="hps_others">Others</string>
+
+    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services</string>
 
     <string name="hps_provide_referral_services">Are there referral services provided to the client?</string>
     <string name="hps_referral_provided">Select referral service provided to the client</string>
@@ -1022,8 +1055,8 @@
     <string name="hps_referral_form">Referral Form</string>
     <string name="hps_other_method">Other Method (Specify)</string>
     <string name="hps_other_method_specify">Specify other method used for referral</string>
-    
-    
+
+
     <string name="hps_date_of_gathering">Date of gathering</string>
     <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
     <string name="hps_loud_speakers">Loudspeakers</string>
@@ -1046,24 +1079,6 @@
     <string name="hps_number_of_females_who_attended">Number of females who attended</string>
     <string name="hps_number_of_males_who_attended">Number of males who attended</string>
     <string name="hps_was_education_provided">Was education provided?</string>
-    <string name="hps_education_provided">Education provided</string>
-    <string name="hps_danger_signs_of_pregnancy">Danger signs during pregnancy</string>
-    <string name="hps_tuberculosis_leprosy_and_testing">Tuberculosis, leprosy, and testing</string>
-    <string name="hps_hiv_hepatitis_and_testing">HIV, hepatitis and testing</string>
-    <string name="hps_oral_and_dental_health">Oral and dental health</string>
-    <string name="hps_eye_diseases_and_testing">Eye diseases and testing</string>
-    <string name="hps_environmental_sanitation_and_care">Environmental sanitation and care</string>
-    <string name="hps_health_insurance_fund">Health insurance fund</string>
-    <string name="hps_harmful_effects_of_substance_abuse">Harmful effects of substance abuse</string>
-    <string name="hps_rights_of_the_elderly_and_family_responsibilities">Rights of the elderly and family responsibilities</string>
-    <string name="hps_childrens_rights_and_protection">Children\'s rights and protection</string>
-    <string name="hps_sexually_transmitted_diseases">Sexually transmitted diseases (STDs)</string>
-    <string name="hps_effects_of_child_marriage_and_teenage_pregnancies">Effects of child marriage and teenage pregnancies</string>
-    <string name="hps_immunization_services">Immunization services</string>
-    <string name="hps_childcare_growth_and_early_childhood">Childcare, growth, and early childhood</string>
-    <string name="hps_importance_of_birth_certificates">Importance of birth certificates</string>
-    <string name="hps_entrepreneurship">Entrepreneurship</string>
-    <string name="hps_medication_adherence">Medication adherence</string>
     <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Education on the M-Mama system and proper use of the toll-free number 115</string>
     <string name="hps_information_education_and_communication_materials">Select Information, Education, and Communication Materials</string>
     <string name="hps_other_iec_materials">Other IEC materials</string>
@@ -1082,5 +1097,8 @@
     <string name="hps_others_iec_materials">Information, Education, and Communication Materials (IEC Materials)</string>
     <string name="hps_number_of_other_iec_provided">Number of IEC provided</string>
     <string name="hps_specify_other_other_iec_materials">Specify other IEC materials</string>
-    
+    <string name="hps_was_curative_service_provided">Were curative services provided?</string>
+    <string name="hps_curative_services_provided">Curative services provided</string>
+    <string name="hps_visit_type">Visit Type:</string>
+
 </resources>
