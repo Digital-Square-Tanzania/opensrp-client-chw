@@ -7,7 +7,7 @@ import org.smartregister.chw.domain.ReportObject;
 
 import java.util.Date;
 
-public class HpsReportObject extends ReportObject {
+public class HpsMonthlyReportObject extends ReportObject {
 
 
     private final String[] hpsQuestionsGroups = new String[]{"1a","1b","1c","1A1","1A2","1A3","1A4","1A5","1A6","1A7","1A8",
@@ -18,15 +18,16 @@ public class HpsReportObject extends ReportObject {
             "11","12","13","14","15","16","17","18","19","110","111",
             "1G1","1G2","1G3","1G4","1G5","1G6",
             "1H1","1H2","1H3","1H4","1H5","1H6","1H7","1H8","1H9","1H10","1H11","1H12","1H13","1H14","1H15","1H16","1H17","1H18","1H19","1H20","1H21",
-            "1I1","1I2","1I3","1I4",
+            "4J1","4J2","4J3","4J4","4j5",
+    };
 
+    private final String[] hpsQuestionsGroupsWithOnlyTotal = new String[]{
+            "1I1","1I2","1I3","1I4",
             "2a","2b","2c","2C1","2C2","2C3","2C4","2C5","2C6","2C7","2C8","2C9","2C10","2C11","2C12","2C13","2C14","2C15","2C16","2C17","2C18","2C19","2C20","2C21","2C22","2C23","2C24","2C25","2C26","2C27","2C28","2C29",
             "2D1","2D10","2D11","2D13","2D14","2D19","2D21",
-
             "3K1","3k2","3k3","3K4","3k5","3k6","3L1","3L2","3L3","3L4","3L5","3L6","3L7","3L8",
             "3C1","3C2","3C3","3C4","3C5","3C6","3C7","3C8","3C9","3C10","3C11","3C12","3C13","3C14","3C15","3C16","3C17","3C18","3C19","3C20","3C21","3C22","3C23","3C24","3C25","3C26","3C27","3C28","3C29",
-
-            "4J1","4J2","4J3","4J4","4j5","5M1","5M2","5M3","5M4",
+            "5M1","5M2","5M3","5M4",
     };
 
     private final String[] hpsGenderGroups = new String[]{
@@ -39,7 +40,7 @@ public class HpsReportObject extends ReportObject {
     private final Date reportDate;
     private JSONObject jsonObject ;
 
-    public HpsReportObject(Date reportDate) {
+    public HpsMonthlyReportObject(Date reportDate) {
         super(reportDate);
         this.reportDate = reportDate;
     }
@@ -54,9 +55,11 @@ public class HpsReportObject extends ReportObject {
                                 ReportDao.getReportPerIndicatorCode("hps" + "-" + questionGroup + "-" + genderGroup + "-" + ageGroup, reportDate));
                     }
             }
+            for (String qns : hpsQuestionsGroupsWithOnlyTotal){
+                jsonObject.put("hps" + "-" + qns + "-grand-total",
+                        ReportDao.getReportPerIndicatorCode("hps" + "-" + qns + "-grand-total", reportDate));
+            }
         }
-        // get total of all Male & Female in Qn 2 & 7
-        //and the whole total for both of them
         funcGetTotal();
 
         return jsonObject;
@@ -66,10 +69,8 @@ public class HpsReportObject extends ReportObject {
         int  totalOfGenderGiven = 0;
         int returnedValue = 0;
         for (String age: hpsAgeGroups){
-                totalOfGenderGiven += (ReportDao.getReportPerIndicatorCode("hps" + "-"
-                        + question + "-" + hpsgenderGroup + "-" + age + "-" + "ME", reportDate)
-                +ReportDao.getReportPerIndicatorCode("hps" + "-"
-                        + question + "-" + hpsgenderGroup + "-" + age + "-" + "KE", reportDate));
+                totalOfGenderGiven += (ReportDao.getReportPerIndicatorCode(
+                        "hps" + "-" + question + "-" + hpsgenderGroup + "-" + age, reportDate));
             jsonObject.put("hps"+"-"+question+"-"+hpsgenderGroup+"-total",totalOfGenderGiven);  //display the total for both gender
             returnedValue = totalOfGenderGiven;
         }

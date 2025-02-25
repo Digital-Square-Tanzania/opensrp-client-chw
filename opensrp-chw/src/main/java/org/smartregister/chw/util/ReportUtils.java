@@ -5,7 +5,6 @@ import android.content.Context;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -23,7 +22,7 @@ import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
-import org.smartregister.chw.domain.hps_reports.HpsReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
@@ -296,9 +295,9 @@ public class ReportUtils {
 
     public static class HpsReports {
         public static String computeClientsReports(Date startDate) {
-            HpsReportObject hpsReportObject = new HpsReportObject(startDate);
+            HpsMonthlyReportObject hpsMonthlyReportObject = new HpsMonthlyReportObject(startDate);
             try {
-                return hpsReportObject.getIndicatorDataAsGson(hpsReportObject.getIndicatorData());
+                return hpsMonthlyReportObject.getIndicatorDataAsGson(hpsMonthlyReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }
