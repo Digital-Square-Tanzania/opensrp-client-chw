@@ -21212,6 +21212,1654 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
+  - key: "hps-2a-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <month"
+    indicatorQuery: "SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.visit_type = 'new_visit'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2b-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: "SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.visit_type = 'return_visit'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2c-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: "SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.visit_type = 'new_visit' OR ehhs.visit_type = 'return_visit'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-2C1-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%nutrition%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C2-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%danger_signs_of_pregnancy%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C3-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%family_planning%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C4-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%malaria%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C5-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%tuberculosis_leprosy_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C6-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%hiv_hepatitis_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C7-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%epidemic_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C8-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%neglected_tropical_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C9-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%oral_and_dental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C10-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%non_communicable_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C11-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%eye_diseases_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C12-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%environmental_sanitation_and_care%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C13-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%health_insurance_fund%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C14-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%gender_based_violence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C15-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%harmful_effects_of_substance_abuse%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C16-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%mental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C17-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%rights_of_the_elderly_and_family_responsibilities%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C18-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%childrens_rights_and_protection%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C19-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%sexually_transmitted_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C20-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%effects_of_child_marriage_and_teenage_pregnancies%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C21-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%immunization_services%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C22-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%childcare_growth_and_early_childhood_development%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C23-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%importance_of_birth_certificates%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C24-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%entrepreneurship%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C25-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%first_aid%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C26-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%violence_against_children%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C27-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%medication_adherence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C28-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2C29-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.education_provided like '%other_educations%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-2D1-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%counselling%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D10-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%multi_nutrient_powder%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D11-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%llins%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D13-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%chlorine_water_treatment%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D14-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%psychological_counselling%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D19-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%first_aid%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-2D21-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.curative_services_provided like '%others%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3K1-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%loud_speakers%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3K2-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%drumming_public_announcements%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3K3-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%radio_tv_etc%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3K4-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%social_media_eg_whatsapp%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3K5-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%face_to_face%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3K6-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.method_of_education_and_awareness_used like '%others_specify%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3L1-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%at_the_market_or_stalls%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L2-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%places_of_worship%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L3-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%passenger_areas_bus_stops_airport_sea_port%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3L4-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%industrial_compound_factory_yard%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L5-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%celebrations_or_events%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L6-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%inside_transportation_vehicles%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L7-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%institutions%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3L8-grand-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.area_where_mobilization_took_place like '%meetings%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C1-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%nutrition%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C1-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%nutrition%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C2-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%danger_signs_of_pregnancy%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C2-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%danger_signs_of_pregnancy%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C3-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%family_planning%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C3-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%family_planning%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C4-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%malaria%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C4-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%malaria%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C5-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%tuberculosis_leprosy_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C5-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%tuberculosis_leprosy_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C6-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%hiv_hepatitis_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C6-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%hiv_hepatitis_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C7-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%epidemic_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C7-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%epidemic_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C8-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%neglected_tropical_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C8-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%neglected_tropical_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C9-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%oral_and_dental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C9-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%oral_and_dental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C10-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%non_communicable_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C10-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%non_communicable_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C11-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%eye_diseases_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C11-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%eye_diseases_and_testing%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C12-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%environmental_sanitation_and_care%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C12-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%environmental_sanitation_and_care%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C13-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%health_insurance_fund%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C13-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%health_insurance_fund%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C14-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='male' AND ehhs.education_provided like '%gender_based_violence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C14-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%gender_based_violence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C15-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%harmful_effects_of_substance_abuse%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C15-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%harmful_effects_of_substance_abuse%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C16-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%mental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C16-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%mental_health%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C17-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%rights_of_the_elderly_and_family_responsibilities%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C17-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%rights_of_the_elderly_and_family_responsibilities%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C18-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%childrens_rights_and_protection%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C18-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%childrens_rights_and_protection%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C19-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%sexually_transmitted_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C19-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%sexually_transmitted_diseases%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C20-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%effects_of_child_marriage_and_teenage_pregnancies%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C20-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%effects_of_child_marriage_and_teenage_pregnancies%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C21-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%immunization_services%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C21-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%immunization_services%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C22-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%childcare_growth_and_early_childhood_development%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C22-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%childcare_growth_and_early_childhood_development%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C23-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%importance_of_birth_certificates%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C23-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%importance_of_birth_certificates%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C24-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%entrepreneurship%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C24-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%entrepreneurship%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C25-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%first_aid%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C25-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%first_aid%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C26-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%violence_against_children%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C26-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%violence_against_children%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C27-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%medication_adherence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C27-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%medication_adherence%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C28-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C28-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-3C29-ME-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.education_provided like '%other_educations%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-3C29-KE-total"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = efm.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON efm.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.education_provided like '%other_educations%'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-4J1-KE-5-9"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J1-KE-10-14"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J1-KE-15-19"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J1-KE-20-24"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J1-KE-25-59"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J1-KE-60+"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-4J2-ME-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%macerated_still_births_msb%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J2-KE-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+  			  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+  			  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+  			  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%macerated_still_births_msb%'
+  			  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+  			  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+  			  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+  			  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-4J3-ME-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%death_occured_during_births_fsb%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J3-KE-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+  			  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+  			  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+  			  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%death_occured_during_births_fsb%'
+  			  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+  			  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+  			  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+  			  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-4J4-ME-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-1-11-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-12-23-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-2-4"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-5-9"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-10-14"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-15-19"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-20-24"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-25-59"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-ME-60+"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-1-11-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-12-23-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-2-4"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-5-9"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-10-14"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-15-19"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-20-24"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-25-59"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J4-KE-60+"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%accidents%'
+					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-4J5-ME-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-1-11-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-12-23-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-2-4"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-5-9"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-10-14"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-15-19"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-20-24"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-25-59"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-ME-60+"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Male' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-under-month"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-1-11-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-12-23-months"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-2-4"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-5-9"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-10-14"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-15-19"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-20-24"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-25-59"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-4J5-KE-60+"
+    grouping: "HPS"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr 
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehhr.base_entity_id
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE efm.gender='Female' AND ehhs.cause_of_death like '%other_reason%'
+					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
   - key: "hps-5M1-grand-total"
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
@@ -21240,13 +22888,4 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-
-
-
-
-
-
-
-
-
 
