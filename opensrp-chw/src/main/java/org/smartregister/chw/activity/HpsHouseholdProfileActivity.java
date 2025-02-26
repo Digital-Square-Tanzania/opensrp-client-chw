@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -73,7 +74,16 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+        textViewRecordHps.setText(R.string.record_hps_household_services);
     }
+
+    @Override
+    public void setProfileViewWithData() {
+        super.setProfileViewWithData();
+        findViewById(R.id.family_hps_head).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.family_hps_head)).setText(getString(R.string.family, memberObject.getFamilyName()));
+    }
+
 
     @Override
     public void openMedicalHistory() {
