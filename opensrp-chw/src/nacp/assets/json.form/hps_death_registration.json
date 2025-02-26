@@ -244,6 +244,20 @@
         }
       },
       {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "type": "edit_text",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "cause_of_death_specify",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
