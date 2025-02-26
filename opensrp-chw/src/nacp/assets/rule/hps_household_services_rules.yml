@@ -12,3 +12,11 @@ priority: 1
 condition: "step1_curative_services_provided.contains('others')"
 actions:
   - "isRelevant = true"
+
+---
+name: step1_other_education_provided
+description: relevance rule to control the visibility of (others_specify)
+priority: 1
+condition: "step1_education_provided.contains('others_education_specify')"
+actions:
+  - "isRelevant = true"
