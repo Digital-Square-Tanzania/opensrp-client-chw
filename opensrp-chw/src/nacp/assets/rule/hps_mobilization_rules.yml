@@ -124,3 +124,10 @@ priority: 1
 condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('radio_tv_etc')"
 actions:
   - "isRelevant = true"
+---
+name: step1_area_where_mobilization_took_place
+description: relevance rule to control the visibility of (step1_area_where_mobilization_took_place)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('loud_speakers') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('drumming_public_announcements') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('face_to_face')"
+actions:
+  - "isRelevant = true"
