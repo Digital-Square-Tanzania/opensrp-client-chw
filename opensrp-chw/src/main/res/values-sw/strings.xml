@@ -633,17 +633,13 @@
     <string name="hps_nutrition">Lishe</string>
     <string name="hps_anc_danger_signs">Vidokezo vya hatari wakati wa ujauzito</string>
     <string name="hps_family_planning">Uzazi wa Mpango</string>
-    <string name="hps_malaria">Malaria</string>
     <string name="hps_tb_leprosy_lab_diagnostics">Ugonjwa wa kifua kikuu, ukoma na upimaji</string>
     <string name="hps_hiv_aids_hepatitis_lab_diagnostics">VVU, homa ya ini na upimaji</string>
     <string name="hps_communicable_diseases">Magonjwa ya Mlipuko</string>
-    <string name="hps_neglected_tropical_diseases">Magonjwa yaliokuwa hayapewi kipaumbele</string>
     <string name="hps_oral_health">Afya ya kinywa na meno</string>
-    <string name="hps_non_communicable_diseases">Magonjwa yasiyo ya kuambukizwa</string>
     <string name="hps_eye_diseases_diagnostics">Magonjwa ya macho na upimaji</string>
     <string name="hps_environmental_hygiene">Usafi na Utunzaji wa mazingira</string>
     <string name="hps_nhif_ichf">Mfuko wa bima ya afya</string>
-    <string name="hps_gender_based_violence">Ukatili wa kijinsia</string>
     <string name="hps_drug_substance_abuse">Madhara ya matumizi ya mihadarati</string>
     <string name="hps_mental_health">Afya ya akili</string>
     <string name="hps_elderly_family_rights_protection">Haki za wazee na wajibu wa familia</string>
@@ -654,7 +650,6 @@
     <string name="hps_early_child_developments">Malezi, makuzi na maendeleo ya awali ya mtoto</string>
     <string name="hps_importance_of_registered_birth_certificate">Umuhimu wa cheti cha kuzaliwa</string>
     <string name="hps_income_generated_activities">Ujasiriamali</string>
-    <string name="hps_first_aid">Huduma ya kwanza</string>
     <string name="hps_violence_against_children">Ukatili dhidi ya watoto</string>
     <string name="hps_drug_adherence">Ufuasi wa dawa</string>
     <string name="hps_m_mama_system">Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115</string>
@@ -709,7 +704,6 @@
     <string name="hps_blood_vomit">Kutapika damu</string>
     <string name="hps_gum_swelling_and_tooth_ache">Fizi kuvimba, kutoa damu au meno kutoboka</string>
     <string name="hps_other_signs_and_symptoms">Dalili nyinginezo</string>
-    <string name="hps_is_disease_test_conducted">Je vipimo vya ugonjwa vimefanywa?</string>
     <string name="hps_diseases_test_conducted">Vipimo vilivyofanyika</string>
     <string name="hps_blood_pressure_measurement">Kipimo cha shinikizo la damu (BP)</string>
     <string name="hps_malaria_mrdt">Malaria (mRDT)</string>
@@ -744,9 +738,7 @@
     <string name="hps_return_visit">Marudio</string>
     <string name="hps_number_of_household_members_reached">Idadi ya wanakaya</string>
     <string name="hps_education_provided">Elimu iliyotolewa</string>
-    <string name="hps_nutrition">Lishe</string>
     <string name="hps_danger_signs_of_pregnancy">Vidokezo vya hatari wakati wa ujauzito</string>
-    <string name="hps_family_planning">Uzazi wa Mpango</string>
     <string name="hps_malaria">Malaria</string>
     <string name="hps_tuberculosis_leprosy_and_testing">Ugonjwa wa kifua kikuu, ukoma na upimaji</string>
     <string name="hps_hiv_hepatitis_and_testing">VVU, homa ya ini na upimaji</string>
@@ -759,7 +751,6 @@
     <string name="hps_health_insurance_fund">Mfuko wa bima ya afya</string>
     <string name="hps_gender_based_violence">Ukatili wa kijinsia</string>
     <string name="hps_harmful_effects_of_substance_abuse">Madhara ya matumizi ya mihadarati</string>
-    <string name="hps_mental_health">Afya ya akili</string>
     <string name="hps_rights_of_the_elderly_and_family_responsibilities">Haki za wazee na wajibu wa familia</string>
     <string name="hps_childrens_rights_and_protection">Haki na ulinzi wa watoto</string>
     <string name="hps_sexually_transmitted_diseases">Magonjwa ya ngono</string>
@@ -769,7 +760,6 @@
     <string name="hps_importance_of_birth_certificates">Umuhimu wa cheti cha kuzaliwa</string>
     <string name="hps_entrepreneurship">Ujasiriamali</string>
     <string name="hps_first_aid">Huduma ya kwanza</string>
-    <string name="hps_violence_against_children">Ukatili dhidi ya watoto</string>
     <string name="hps_medication_adherence">Ufuasi wa dawa</string>
     <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115</string>
     <string name="hps_was_curative_service_provided">Je huduma za kinga zilitolewa?</string>
@@ -779,7 +769,6 @@
     <string name="hps_llins">Ugawaji wa vyandarua</string>
     <string name="hps_chlorine_water_treatment">Ugawaji wa dawa za kutibu maji ya kunywa</string>
     <string name="hps_psychological_counselling">Ushauri wa Kisaikolojia</string>
-    <string name="hps_first_aid">Huduma ya kwanza</string>
     <string name="hps_others">Huduma nyinginezo</string>
     <string name="hps_others_specify">Nyinginezo (Taja)</string>
 
