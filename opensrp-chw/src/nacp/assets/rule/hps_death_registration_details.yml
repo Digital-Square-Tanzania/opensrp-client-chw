@@ -25,6 +25,6 @@ actions:
 name: step1_cause_of_death
 description: Rule to conrol the visibility of (step1_cause_of_death)
 priority: 1
-condition: "!step1_cause_of_death_male.equalsIgnoreCase('') || !step1_cause_of_death_female.equalsIgnoreCase('')"
+condition: "true"
 actions:
   - "calculation = (step1_cause_of_death_male.isEmpty() ? step1_cause_of_death_female : step1_cause_of_death_male)"
