@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/anc_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/text_black"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_edit_white" />
+
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/anc_fab"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/call_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/callFab"
+                android:background="@color/white"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:minWidth="50dp"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/CallTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/call"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/CallTextViewHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toEndOf="@+id/CallTextView"
+                    android:layout_toRightOf="@+id/CallTextView"
+                    android:text="@string/call_no_number_provided"
+                    android:textColor="@color/grey"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/callFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                app:backgroundTint="@color/white"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/floating_call" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/refer_to_facility_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/refer_to_facility_fab"
+                android:background="@color/white"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:minWidth="50dp"
+                android:padding="10dp"
+                android:text="@string/refer_to_facility"
+                android:textColor="@android:color/black" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/refer_to_facility_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                app:backgroundTint="@color/white"
+                app:fabSize="mini"
+                app:srcCompat="@mipmap/ic_refer" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/link_to_addo_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/link_to_addo_fab"
+                android:background="@color/white"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:minWidth="50dp"
+                android:padding="10dp"
+                android:text="@string/link_to_addo"
+                android:textColor="@android:color/black" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/link_to_addo_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                app:backgroundTint="@color/white"
+                app:fabSize="mini"
+                app:srcCompat="@mipmap/ic_refer" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

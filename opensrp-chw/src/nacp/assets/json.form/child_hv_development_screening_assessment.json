@@ -50,6 +50,14 @@
     "title": "Child development screening assessment",
     "fields": [
       {
+        "key": "ccd_development_screening_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_development_screening_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "visit_3_visit_16",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -69,6 +77,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_development_issues",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "I want to ask you some other specific questions about your child’s development.\nDoes your child appear to have any of the following?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

@@ -50,26 +50,37 @@
     "title": "Muitikio wa mlezi kwa ishara na sauti za mtoto",
     "fields": [
       {
+        "key": "ccd_caregiver_responsiveness_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_caregiver_responsiveness_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "caregiver_interacts_with_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_interacts_with_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Taarifa kwa MJA: Wakati wa tembeleo, chunguza mama/baba au mlezi anavyohusiana na kuitikia sauti, ishara na mienendo ya mtoto",
-        "label_info_text": "Taarifa kwa MJA: Wakati wa tembeleo, chunguza mama/baba au mlezi anavyohusiana na kuitikia sauti, ishara na mienendo ya mtoto",
-        "values": [
-          "Anamfuata mtoto na kujaribu kuigiza sauti anazotoa na kuongea na mtoto",
-          "Hafanyi vitendo mtoto anavyofanya, au anajaribu kumuongoza mtoto vitendo vya kufanya na hawasiliani na mtoto"
-        ],
-        "keys": [
-          "responds_to_child",
-          "not_responsive_to_child"
-        ],
-        "openmrs_choice_ids": {
-          "responds_to_child": "",
-          "not_responsive_to_child": ""
-        }
+        "type": "native_radio",
+        "label": "Taarifa kwa MJA: Wakati wa tembeleo, chunguza mama/baba au mlezi anavyohusiana na kuitikia sauti, ishara na mienendo ya mtoto",
+        "options": [
+          {
+            "key": "responds_to_child",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "responds_to_child",
+            "openmrs_entity_parent": "",
+            "text": "Anamfuata mtoto na kujaribu kuigiza sauti anazotoa na kuongea na mtoto"
+          },
+          {
+            "key": "not_responsive_to_child",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_responsive_to_child",
+            "openmrs_entity_parent": "",
+            "text": "Hafanyi vitendo mtoto anavyofanya, au anajaribu kumuongoza mtoto vitendo vya kufanya na hawasiliani na mtoto"
+          }
+        ]
       },
       {
         "key": "caregiver_interaction_praise",
@@ -111,21 +122,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_comfort_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je umemuona mama/mlezi akiwa anamfariji mtoto?",
-        "label_info_text": "Je umemuona mama/mlezi akiwa anamfariji mtoto?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "Je umemuona mama/mlezi akiwa anamfariji mtoto?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ]
       },
       {
         "key": "caregiver_response_cue",
@@ -133,27 +147,38 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_response_cue",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Taarifa kwa MJA: Sema, \"Je mama/mlezi alijibu vipi ishara za mtoto?\"",
-        "label_info_text": "Taarifa kwa MJA: Sema, \"Je mama/mlezi alijibu vipi ishara za mtoto?\"",
-        "values": [
-          "Anamtazama mtoto machoni na anajaribu kuongea naye kwa utaratibu na kumbembeleza na kumbeba mwilini kwa ukaribu",
-          "Anajibu ishara za mtoto kwa mfano  mtoto kuvuta kanga kuashiria kucheza",
-          "Hawezi kumbembeleza mtoto na mtoto hatafuti faraja kwa mlezi",
-          "Mtoto amelala"
-        ],
-        "keys": [
-          "respond_to_child_cues_by_looking_into_child_eyes",
-          "respond_to_child_cues_by_responding_child_action",
-          "not_respond_to_child_cues",
-          "child_sleep"
-        ],
-        "openmrs_choice_ids": {
-          "respond_to_child_cues_by_looking_into_child_eyes": "",
-          "respond_to_child_cues_by_responding_child_action": "",
-          "not_respond_to_child_cues": "",
-          "child_sleep": ""
-        }
+        "type": "native_radio",
+        "label": "Taarifa kwa MJA: Sema, \"Je mama/mlezi alijibu vipi ishara za mtoto?\"",
+        "options": [
+          {
+            "key": "respond_to_child_cues_by_looking_into_child_eyes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respond_to_child_cues_by_looking_into_child_eyes",
+            "openmrs_entity_parent": "",
+            "text": "Anamtazama mtoto machoni na anajaribu kuongea naye kwa utaratibu na kumbembeleza na kumbeba mwilini kwa ukaribu"
+          },
+          {
+            "key": "respond_to_child_cues_by_responding_child_action",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respond_to_child_cues_by_responding_child_action",
+            "openmrs_entity_parent": "",
+            "text": "Anajibu ishara za mtoto kwa mfano  mtoto kuvuta kanga kuashiria kucheza"
+          },
+          {
+            "key": "not_respond_to_child_cues",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_respond_to_child_cues",
+            "openmrs_entity_parent": "",
+            "text": "Hawezi kumbembeleza mtoto na mtoto hatafuti faraja kwa mlezi"
+          },
+          {
+            "key": "child_sleep",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_sleep",
+            "openmrs_entity_parent": "",
+            "text": "Mtoto amelala"
+          }
+        ]
       },
       {
         "key": "is_not_comforting",

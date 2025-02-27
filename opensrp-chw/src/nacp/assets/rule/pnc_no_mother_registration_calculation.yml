@@ -1,0 +1,56 @@
+---
+name: step2_age_calculated
+description: Age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_age"
+---
+name: step2_age
+description: Age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_age"
+---
+name: step2_surname
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_fam_name"
+---
+name: step2_first_name
+description: set first name as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_first_name"
+---
+name: step2_middle_name
+description: set middle name as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_middle_name"
+---
+name: step2_sex
+description: set sex as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_sex"
+---
+name: step2_dob
+description: set dob as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_dob"
+---
+name: step2_delivery_date
+description: set delivery date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_dob"

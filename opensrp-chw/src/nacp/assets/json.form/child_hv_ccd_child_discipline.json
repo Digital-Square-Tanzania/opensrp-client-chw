@@ -50,6 +50,14 @@
     "title": "Child Discipline Assessment and Counselling",
     "fields": [
       {
+        "key": "ccd_discipline_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_discipline_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "caregiver_child_correction_observe",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -66,6 +74,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_child_correction",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "CHW information: How did the mother/caregiver explain how she corrected the child?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -164,6 +173,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_treated_harshly",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "CHW information: During the visit, did you have any concerns that child is being treated harshly?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -197,6 +207,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "abuse_child_experienced",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Select the type of abuse that the child experienced",
         "label_text_style": "normal",
         "options": [

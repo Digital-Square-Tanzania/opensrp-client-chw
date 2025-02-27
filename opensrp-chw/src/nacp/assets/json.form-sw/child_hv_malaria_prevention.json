@@ -55,20 +55,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je, mtoto ana chandarua chenye dawa inayodumu kwa muda mrefu (LLIN)?",
-        "values": [
-          "Ndio",
-          "Hapana"
+        "type": "native_radio",
+        "label": "Je, mtoto ana chandarua chenye dawa inayodumu kwa muda mrefu (LLIN)?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
@@ -80,20 +84,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je, mama pamoja na mtoto walilala ndani ya chandarua jana usiku?",
-        "values": [
-          "Ndiyo",
-          "Hapana"
+        "type": "native_radio",
+        "label": "Je, mama pamoja na mtoto walilala ndani ya chandarua jana usiku?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndiyo"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafahdali chagua chaguo moja"
@@ -126,23 +134,31 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Hali ya chandarua (LLIN)",
-        "values": [
-          "Nzuri",
-          "Imetoboka",
-          "Mbaya"
+        "type": "native_radio",
+        "label": "Hali ya chandarua (LLIN)",
+        "options": [
+          {
+            "key": "Good",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Good",
+            "openmrs_entity_parent": "",
+            "text": "Nzuri"
+          },
+          {
+            "key": "Normal with a few holes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Normal with a few holes",
+            "openmrs_entity_parent": "",
+            "text": "Imetoboka"
+          },
+          {
+            "key": "Poor",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Poor",
+            "openmrs_entity_parent": "",
+            "text": "Mbaya"
+          }
         ],
-        "keys": [
-          "Good",
-          "Normal with a few holes",
-          "Poor"
-        ],
-        "openmrs_choice_ids": {
-          "Good": "Good",
-          "Normal with a few holes": "Normal with a few holes",
-          "Poor": "Poor"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"

@@ -55,20 +55,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Does the child have a long lasting insecticide net (LLIN)?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Does the child have a long lasting insecticide net (LLIN)?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -80,20 +84,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did she and her child sleep under the LLIN last night?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Did she and her child sleep under the LLIN last night?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -126,23 +134,31 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Ask the guardian about the condition of the LLIN",
-        "values": [
-          "Good",
-          "Normal with a few holes",
-          "Poor"
+        "type": "native_radio",
+        "label": "Ask the guardian about the condition of the LLIN",
+        "options": [
+          {
+            "key": "Good",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Good",
+            "openmrs_entity_parent": "",
+            "text": "Good"
+          },
+          {
+            "key": "Normal with a few holes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Normal with a few holes",
+            "openmrs_entity_parent": "",
+            "text": "Normal with a few holes"
+          },
+          {
+            "key": "Poor",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Poor",
+            "openmrs_entity_parent": "",
+            "text": "Poor"
+          }
         ],
-        "keys": [
-          "Good",
-          "Normal with a few holes",
-          "Poor"
-        ],
-        "openmrs_choice_ids": {
-          "Good": "Good",
-          "Normal with a few holes": "Normal with a few holes",
-          "Poor": "Poor"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"

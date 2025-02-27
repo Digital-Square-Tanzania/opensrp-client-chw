@@ -19,6 +19,7 @@ import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
+import org.smartregister.chw.domain.ecd_reports.ECDReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
@@ -225,6 +226,19 @@ public class ReportUtils {
                 Timber.e(e);
             }
             return "";
+        }
+    }
+
+    public static class ECDReport {
+        public static String computeReport(Date startDate) {
+            String report = "";
+            ECDReportObject ecdReportObject = new ECDReportObject(startDate);
+            try {
+                report = ecdReportObject.getIndicatorDataAsGson(ecdReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+            return report;
         }
     }
 

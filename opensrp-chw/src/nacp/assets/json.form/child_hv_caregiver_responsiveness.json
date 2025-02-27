@@ -50,26 +50,37 @@
     "title": "Caregiver Responsiveness to Child Behavior/Cues",
     "fields": [
       {
+        "key": "ccd_caregiver_responsiveness_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_caregiver_responsiveness_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "caregiver_interacts_with_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_interacts_with_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "CHW information: Say, \"During the visit, how does the mother/caregiver interact and respond to the child's movements, activities or sounds?\"",
-        "label_info_text": "CHW information: Say, \"During the visit, how does the mother/caregiver interact and respond to the child's movements, activities or sounds?\"",
-        "values": [
-          "Moves toward and with child, and talks to or makes sounds with child, responds to child",
-          "Does not move with child, or controls child’s movements or is not responsive to child"
-        ],
-        "keys": [
-          "responds_to_child",
-          "not_responsive_to_child"
-        ],
-        "openmrs_choice_ids": {
-          "responds_to_child": "",
-          "not_responsive_to_child": ""
-        }
+        "type": "native_radio",
+        "label": "CHW information: Say, \"During the visit, how does the mother/caregiver interact and respond to the child's movements, activities or sounds?\"",
+        "options": [
+          {
+            "key": "responds_to_child",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "responds_to_child",
+            "openmrs_entity_parent": "",
+            "text": "Moves toward and with child, and talks to or makes sounds with child, responds to child"
+          },
+          {
+            "key": "not_responsive_to_child",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_responsive_to_child",
+            "openmrs_entity_parent": "",
+            "text": "Does not move with child, or controls child’s movements or is not responsive to child"
+          }
+        ]
       },
       {
         "key": "caregiver_interaction_praise",
@@ -111,21 +122,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_comfort_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Have you observed the mother/caregiver comforting the child?",
-        "label_info_text": "Have you observed the mother/caregiver comforting the child?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "Have you observed the mother/caregiver comforting the child?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ]
       },
       {
         "key": "caregiver_response_cue",
@@ -133,27 +147,38 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "caregiver_response_cue",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "CHW information: Say, \"How did the mother/caregiver respond to the child's cues?\"",
-        "label_info_text": "CHW information: Say, \"How did the mother/caregiver respond to the child's cues?\"",
-        "values": [
-          "Looks into child’s eyes and talks softly to child, gently touches child or holds child closely",
-          "Responds to the child's cues for example tugging on mothers clothing to show that they want to play",
-          "Is not able to comfort child, and child does not look to caregiver for comfort",
-          "Child is asleep"
-        ],
-        "keys": [
-          "respond_to_child_cues_by_looking_into_child_eyes",
-          "respond_to_child_cues_by_responding_child_action",
-          "not_respond_to_child_cues",
-          "child_sleep"
-        ],
-        "openmrs_choice_ids": {
-          "respond_to_child_cues_by_looking_into_child_eyes": "",
-          "respond_to_child_cues_by_responding_child_action": "",
-          "not_respond_to_child_cues": "",
-          "child_sleep": ""
-        }
+        "type": "native_radio",
+        "label": "CHW information: Say, \"How did the mother/caregiver respond to the child's cues?\"",
+        "options": [
+          {
+            "key": "respond_to_child_cues_by_looking_into_child_eyes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respond_to_child_cues_by_looking_into_child_eyes",
+            "openmrs_entity_parent": "",
+            "text": "Looks into child’s eyes and talks softly to child, gently touches child or holds child closely"
+          },
+          {
+            "key": "respond_to_child_cues_by_responding_child_action",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "respond_to_child_cues_by_responding_child_action",
+            "openmrs_entity_parent": "",
+            "text": "Responds to the child's cues for example tugging on mothers clothing to show that they want to play"
+          },
+          {
+            "key": "not_respond_to_child_cues",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_respond_to_child_cues",
+            "openmrs_entity_parent": "",
+            "text": "Is not able to comfort child, and child does not look to caregiver for comfort"
+          },
+          {
+            "key": "child_sleep",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_sleep",
+            "openmrs_entity_parent": "",
+            "text": "Child is asleep"
+          }
+        ]
       },
       {
         "key": "is_not_comforting",

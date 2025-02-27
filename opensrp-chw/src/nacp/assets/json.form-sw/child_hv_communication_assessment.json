@@ -50,6 +50,14 @@
     "title": "Tathmini maendeleo ya mawasiliano na kufanya majadiliano",
     "fields": [
       {
+        "key": "ccd_communication_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_communication_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "child_age_in_months",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -76,21 +84,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "communication_with_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Taarifa kwa MJA (Uliza hili swali tembeleo la kwanza tu): Sema, \"Je, unazungumza na mtoto wako?\"",
+        "type": "native_radio",
+        "label": "Taarifa kwa MJA (Uliza hili swali tembeleo la kwanza tu): Sema, \"Je, unazungumza na mtoto wako?\"",
         "label_info_text": "Taarifa kwa MJA: Sema, \"Je, unazungumza na mtoto wako?\"",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ]
       },
       {
         "key": "child_communication_demo_caregiver",
@@ -109,6 +121,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_communication_observation",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "MJA: Angalia mama/baba au mlezi jinsi anavyozungumza na mtoto na kufanya mtoto ajibu (tabasamu/sauti) kisha chagua yote yaliyotokea:",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

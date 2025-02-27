@@ -459,21 +459,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "exclusive_breast_feeding",
-        "type": "spinner",
-        "image": "ic_form_bf",
-        "hint": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ]
       }
     ]
   }

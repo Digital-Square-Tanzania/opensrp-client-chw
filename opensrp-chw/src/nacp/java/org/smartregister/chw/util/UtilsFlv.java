@@ -27,9 +27,11 @@ import org.smartregister.dao.AbstractDao;
 import org.smartregister.util.Utils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -48,7 +50,7 @@ public class UtilsFlv {
         protected Void doInBackground(Void... voids) {
             Date malariaTestDate = MalariaDao.getMalariaTestDate(baseEntityId);
             Date followUpDate = MalariaDao.getMalariaFollowUpVisitDate(baseEntityId);
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate,followUpDate);
+            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate, followUpDate);
             return null;
         }
 
@@ -60,6 +62,7 @@ public class UtilsFlv {
             }
         }
     }
+
     public static void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
             Utils.startAsyncTask(new UpdateFollowUpMenuItem(baseEntityId, menu), null);
@@ -79,7 +82,7 @@ public class UtilsFlv {
     public static void updateHivMenuItems(String baseEntityId, Menu menu) {
         if (HivDao.isRegisteredForHiv(baseEntityId)) {
             menu.findItem(R.id.action_cbhs_registration).setVisible(false);
-        }else{
+        } else {
             menu.findItem(R.id.action_cbhs_registration).setVisible(true);
         }
     }
@@ -87,27 +90,31 @@ public class UtilsFlv {
     public static void updateTbMenuItems(String baseEntityId, Menu menu) {
         if (TbDao.isRegisteredForTb(baseEntityId)) {
             menu.findItem(R.id.action_tb_registration).setVisible(false);
-        }else{
+        } else {
             menu.findItem(R.id.action_tb_registration).setVisible(true);
         }
     }
+
     public static Date getDateFromDatePicker(@NonNull DatePicker datePicker) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(
                 datePicker.getYear()
-                ,datePicker.getMonth()
-                ,datePicker.getDayOfMonth());
+                , datePicker.getMonth()
+                , datePicker.getDayOfMonth());
         return calendar.getTime();
     }
 
-    @SafeVarargs @NonNull
-    public static <T> T coalesce(T val1, T val2, T ... input) {
-        if (val1!=null) return val1;
-        if (val2!=null) return val2;
-        for(T val:input){
-            if(val!=null){return val;}
+    @SafeVarargs
+    @NonNull
+    public static <T> T coalesce(T val1, T val2, T... input) {
+        if (val1 != null) return val1;
+        if (val2 != null) return val2;
+        for (T val : input) {
+            if (val != null) {
+                return val;
+            }
         }
-       throw new IllegalArgumentException("All arguments are null");
+        throw new IllegalArgumentException("All arguments are null");
     }
 
 
@@ -118,12 +125,11 @@ public class UtilsFlv {
      * @param json The source JSONObject from which to retrieve the value.
      * @param path A dot-separated string indicating the retrieval path.
      *             For JSONArrays in the path, use the desired index as part of the path.
-     *
      * @return The value found at the specified path. The return type is unchecked,
-     *         so this method should be used with care, ensuring that the expected
-     *         return type matches the actual value at the given path in the JSON.
-     *         Works optimally for JSONArray, JSONObject, and Java primitives.
-     *         Returns null if the path is not found or in case of an error.
+     * so this method should be used with care, ensuring that the expected
+     * return type matches the actual value at the given path in the JSON.
+     * Works optimally for JSONArray, JSONObject, and Java primitives.
+     * Returns null if the path is not found or in case of an error.
      */
     @SuppressWarnings("unchecked")
     public static <T> T jsonGet(JSONObject json, String path) {
@@ -142,35 +148,51 @@ public class UtilsFlv {
         }
         return null;
     }
-    public static <T> T jsonGet(String json, String path,T defaultValue) {
-        return coalesce(jsonGet(json,path),defaultValue);
-    }
-    public static <T> T jsonGet(String json, String path) {
-        return ex(()->jsonGet(new JSONObject(json),path));
+
+    public static <T> T jsonGet(String json, String path, T defaultValue) {
+        return coalesce(jsonGet(json, path), defaultValue);
     }
 
-    public static KeyValue<String,String> getFieldKeyValuePair(JSONObject field){
+    public static <T> T jsonGet(String json, String path) {
+        return ex(() -> jsonGet(new JSONObject(json), path));
+    }
+
+    public static KeyValue<String, String> getFieldKeyValuePair(JSONObject field) {
         return new KeyValue<>(
                 field.optString(JsonFormConstants.KEY),
                 field.optString(JsonFormConstants.VALUE));
     }
-    public static <T> T ex(FnInterfaces.Producer<T> function){
-        return ex(function,null);
+
+    public static <T> T ex(FnInterfaces.Producer<T> function) {
+        return ex(function, null);
     }
-    public static void ex(FnInterfaces.Runnable function){
-        try{ function.run();}
-        catch (Exception e){ Timber.e(e);}
+
+    public static void ex(FnInterfaces.Runnable function) {
+        try {
+            function.run();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
-    public static <T> T ex(FnInterfaces.Producer<T> function, T defaultVal){
-        try{ return function.produce();}
-        catch (Exception e){ Timber.e(e);}
+
+    public static <T> T ex(FnInterfaces.Producer<T> function, T defaultVal) {
+        try {
+            return function.produce();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         return defaultVal;
     }
-    public static boolean isValidDOBDateFormat(String value){
-        try { AbstractDao.getDobDateFormat().parse(value);
-            return true; }
-        catch (ParseException e) { return false; }
+
+    public static boolean isValidDOBDateFormat(String value) {
+        try {
+            AbstractDao.getDobDateFormat().parse(value);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
+
     public static String getEnglishString(Context context, int stringResId) {
         // Save the current configuration
         Configuration configuration = context.getResources().getConfiguration();
@@ -185,5 +207,17 @@ public class UtilsFlv {
         configuration.setLocale(savedLocale);
         context.createConfigurationContext(configuration);
         return defaultString;
+    }
+
+    public static String changeDateFormat(String date, String fromDateFormat, String toDateFormat) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(fromDateFormat, Locale.getDefault());
+            Date minDate = dateFormat.parse(date);
+            return new SimpleDateFormat(toDateFormat, Locale.getDefault()).format(Objects.requireNonNull(minDate));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+
     }
 }

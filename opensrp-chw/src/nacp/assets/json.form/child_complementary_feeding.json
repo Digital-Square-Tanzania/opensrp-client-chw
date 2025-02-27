@@ -110,16 +110,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Was the mother counselled on complimentary feeding?",
+        "type": "native_radio",
+        "label": "Was the mother counselled on complimentary feeding?",
         "label_info_text": "Was the mother counselled on complimentary feeding?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "yes",
-          "no"
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
         "v_required": {
           "value": "true",

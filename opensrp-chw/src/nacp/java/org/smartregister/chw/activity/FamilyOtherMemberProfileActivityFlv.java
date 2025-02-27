@@ -62,7 +62,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public void updateFpMenuItems(String baseEntityId, Menu menu) {
-         UtilsFlv.updateFpMenuItems(baseEntityId, menu);
+        UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override

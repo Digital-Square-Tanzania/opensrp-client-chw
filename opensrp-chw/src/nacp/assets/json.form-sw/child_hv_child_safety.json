@@ -66,16 +66,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_safety_counselled",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je, umetoa ushauri juu ya usalama wa mtoto?",
+        "type": "native_radio",
+        "label": "Je, umetoa ushauri juu ya usalama wa mtoto?",
         "label_info_text": "Je, umetoa ushauri juu ya usalama wa mtoto?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
         ],
         "v_required": {
           "value": "true",

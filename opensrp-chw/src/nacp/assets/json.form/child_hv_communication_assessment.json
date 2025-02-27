@@ -50,6 +50,14 @@
     "title": "Communication Assessment and Counselling",
     "fields": [
       {
+        "key": "ccd_communication_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_communication_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "child_age_in_months",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -76,21 +84,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "communication_with_child",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "CHW information(Ask this question only if it is the first visit): Say, \"Do you communicate with your child?\"",
+        "type": "native_radio",
+        "label": "CHW information(Ask this question only if it is the first visit): Say, \"Do you communicate with your child?\"",
         "label_info_text": "CHW information: Say, \"Do you communicate with your child?\"",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ]
       },
       {
         "key": "child_communication_demo_caregiver",
@@ -109,6 +121,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_communication_observation",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "CHW: Observe the mother/caregiver the way she talks to the child and makes the child responds (smile/sounds) or tell her to show you how she/he communicates with the child and then select all what happened:",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

@@ -4,7 +4,6 @@ import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 
 import android.content.SharedPreferences;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.NavigationModel;
@@ -24,7 +23,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
     @Override
     public List<NavigationOption> getNavigationItems() {
-        if (navigationOptions.size() == 0) {
+        if (navigationOptions.isEmpty()) {
             NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
             NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, R.string.menu_child_clients, Constants.DrawerMenu.CHILD_CLIENTS, 0);
 
@@ -56,43 +55,64 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 teamRoleIdentifier = preferences.getString(TEAM_ROLE_IDENTIFIER, "");
             }
 
-            if (teamRoleIdentifier.equals("iccm_provider")) {
-                navigationOptions.addAll(Arrays.asList(op10, op20, op8));
-            } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                if (teamRoleIdentifier.equals("mother_champion")) {
-                    navigationOptions.addAll(Arrays.asList(op10, op13, op8));
-                } else if (teamRoleIdentifier != null && teamRoleIdentifier.equals("cbhs_provider")) {
-                    navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
-                } else {
-                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13,op6, op8, op15));
-                }
-                if (ChwApplication.getApplicationFlavor().hasHIVST()) {
-                    navigationOptions.add(3, op16);
-                }
-                if (ChwApplication.getApplicationFlavor().hasCdp()) {
-                    navigationOptions.add(4, op17);
-                }
-                if (ChwApplication.getApplicationFlavor().hasAGYW()) {
-                    navigationOptions.add(5, op19);
-                }
-                if (ChwApplication.getApplicationFlavor().hasKvp()) {
-                    navigationOptions.add(5, op18);
-                }
-                if (ChwApplication.getApplicationFlavor().hasMalaria()) {
-                    navigationOptions.add(5, op7);
-                }
-                if (ChwApplication.getApplicationFlavor().hasICCM()) {
-                    navigationOptions.add(7, op20);
-                }
-                if (ChwApplication.getApplicationFlavor().hasSbc()) {
-                    navigationOptions.add(2, op22);
-                    navigationOptions.add(2, op21);
+            if (!teamRoleIdentifier.isEmpty()) {
+                switch (teamRoleIdentifier) {
+                    case "mother_champion":
+                        navigationOptions.addAll(Arrays.asList(op10, op13, op8));
+                        break;
+                    case "cbhs_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
+                        break;
+                    case "iccm_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op20, op8));
+                        break;
+                    default:
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
+                            navigationOptions.add(op16);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasCdp()) {
+                            navigationOptions.add(op17);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+                            navigationOptions.add(op19);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                            navigationOptions.add(op18);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasMalaria()) {
+                            navigationOptions.add(op7);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasSbc()) {
+                            navigationOptions.add(op22);
+                            navigationOptions.add(op21);
+                        }
+
+                        navigationOptions.addAll(Arrays.asList(op8, op15));
+                        break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
-                if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
-                    navigationOptions.add(op8);
-                navigationOptions.add(op9);
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                if (ChwApplication.getApplicationFlavor().hasHIVST()) {
+                    navigationOptions.add(op16);
+                }
+                if (ChwApplication.getApplicationFlavor().hasCdp()) {
+                    navigationOptions.add(op17);
+                }
+                if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+                    navigationOptions.add(op19);
+                }
+                if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                    navigationOptions.add(op18);
+                }
+                if (ChwApplication.getApplicationFlavor().hasMalaria()) {
+                    navigationOptions.add(op7);
+                }
+                if (ChwApplication.getApplicationFlavor().hasSbc()) {
+                    navigationOptions.add(op22);
+                    navigationOptions.add(op21);
+                }
+                navigationOptions.addAll(Arrays.asList(op8, op15));
             }
         }
 

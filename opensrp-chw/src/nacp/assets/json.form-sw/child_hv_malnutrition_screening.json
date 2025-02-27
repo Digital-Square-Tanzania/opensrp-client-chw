@@ -127,30 +127,52 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_growth_graph",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Weka rangi ya safu ya grafu ambayo mtoto yuko  kama ilivyorodheshwa kwenye kitabu cha Afya ya mtoto/Kadi ya Kliniki.",
-        "values": [
-          "Nyekundu ya juu",
-          "Nyeupe",
-          "Kijani",
-          "Kijivu",
-          "Nyekundu ya chini",
-          "Kadi haipo"
+        "type": "native_radio",
+        "label": "Weka rangi ya safu ya grafu ambayo mtoto yuko  kama ilivyorodheshwa kwenye kitabu cha Afya ya mtoto/Kadi ya Kliniki.",
+        "options": [
+          {
+            "key": "Top red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Top red",
+            "openmrs_entity_parent": "",
+            "text": "Nyekundu ya juu"
+          },
+          {
+            "key": "White",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "White",
+            "openmrs_entity_parent": "",
+            "text": "Nyeupe"
+          },
+          {
+            "key": "Green",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Green",
+            "openmrs_entity_parent": "",
+            "text": "Kijani"
+          },
+          {
+            "key": "Grey",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Grey",
+            "openmrs_entity_parent": "",
+            "text": "Kijivu"
+          },
+          {
+            "key": "Bottom red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Bottom red",
+            "openmrs_entity_parent": "",
+            "text": "Nyekundu ya chini"
+          },
+          {
+            "key": "Card not available",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Card not available",
+            "openmrs_entity_parent": "",
+            "text": "Kadi haipo"
+          }
         ],
-        "keys": [
-          "Top red",
-          "White",
-          "Green",
-          "Bottom red",
-          "Card not available"
-        ],
-        "openmrs_choice_ids": {
-          "Top red": "Top red",
-          "White": "White",
-          "Green": "Green",
-          "Bottom red": "Bottom red",
-          "Card not available": "Card not available"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -169,23 +191,31 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_growth_muac",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Mpime MUAC na onesha kama je yupo kwenye kijani, manjano au nyekundu. Tafadhali usiguse kiganja cha mkono wa mtoto. Badala yake, mwambie mama/baba au mlezi afanye kwa niaba yako",
-        "values": [
-          "Kijani",
-          "Njano",
-          "Nyekundu"
+        "type": "native_radio",
+        "label": "Mpime MUAC na onesha kama je yupo kwenye kijani, manjano au nyekundu. Tafadhali usiguse kiganja cha mkono wa mtoto. Badala yake, mwambie mama/baba au mlezi afanye kwa niaba yako",
+        "options": [
+          {
+            "key": "Green",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Green",
+            "openmrs_entity_parent": "",
+            "text": "Kijani"
+          },
+          {
+            "key": "Yellow",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yellow",
+            "openmrs_entity_parent": "",
+            "text": "Njano"
+          },
+          {
+            "key": "Red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Red",
+            "openmrs_entity_parent": "",
+            "text": "Nyekundu"
+          }
         ],
-        "keys": [
-          "Green",
-          "Yellow",
-          "Red"
-        ],
-        "openmrs_choice_ids": {
-          "Green": "Green",
-          "Yellow": "Yellow",
-          "Red": "Red"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

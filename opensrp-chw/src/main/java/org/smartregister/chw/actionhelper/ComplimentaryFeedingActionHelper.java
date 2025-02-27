@@ -67,7 +67,7 @@ public class ComplimentaryFeedingActionHelper extends HomeVisitActionHelper {
     @Override
     public String evaluateSubTitle() {
         if (!complementaryFeedingCounselling.isEmpty()) {
-            return MessageFormat.format(context.getString(R.string.counselled_mother_for_comp_feeding) + " : {0}", complementaryFeedingCounselling.equals("yes") ? context.getString(R.string.yes) : context.getString(R.string.no));
+            return MessageFormat.format(context.getString(R.string.counselled_mother_for_comp_feeding) + " : {0}", complementaryFeedingCounselling.equalsIgnoreCase("yes") ? context.getString(R.string.yes) : context.getString(R.string.no));
         } else {
             return "";
         }
@@ -75,9 +75,9 @@ public class ComplimentaryFeedingActionHelper extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (complementaryFeedingCounselling.equals("yes"))
+        if (complementaryFeedingCounselling.equalsIgnoreCase("yes"))
             return BaseAncHomeVisitAction.Status.COMPLETED;
-        else if (complementaryFeedingCounselling.equals("no"))
+        else if (complementaryFeedingCounselling.equalsIgnoreCase("no"))
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         else
             return BaseAncHomeVisitAction.Status.PENDING;

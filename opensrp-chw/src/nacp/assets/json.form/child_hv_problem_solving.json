@@ -50,6 +50,14 @@
     "title": "Problem Solving",
     "fields": [
       {
+        "key": "ccd_problem_solving_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_problem_solving_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "child_playing_challenge",
         "type": "native_radio",
         "openmrs_entity": "concept",

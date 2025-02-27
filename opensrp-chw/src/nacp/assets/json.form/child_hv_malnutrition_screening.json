@@ -127,30 +127,52 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_growth_graph",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Enter the range of the graph that the child is within from the childs growth booklet",
-        "values": [
-          "Top red",
-          "White",
-          "Green",
-          "Grey",
-          "Bottom red",
-          "Card not available"
+        "type": "native_radio",
+        "label": "Enter the range of the graph that the child is within from the childs growth booklet",
+        "options": [
+          {
+            "key": "Top red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Top red",
+            "openmrs_entity_parent": "",
+            "text": "Top red"
+          },
+          {
+            "key": "White",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "White",
+            "openmrs_entity_parent": "",
+            "text": "White"
+          },
+          {
+            "key": "Green",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Green",
+            "openmrs_entity_parent": "",
+            "text": "Green"
+          },
+          {
+            "key": "Grey",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Grey",
+            "openmrs_entity_parent": "",
+            "text": "Grey"
+          },
+          {
+            "key": "Bottom red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Bottom red",
+            "openmrs_entity_parent": "",
+            "text": "Bottom red"
+          },
+          {
+            "key": "Card not available",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Card not available",
+            "openmrs_entity_parent": "",
+            "text": "Card not available"
+          }
         ],
-        "keys": [
-          "Top red",
-          "White",
-          "Green",
-          "Bottom red",
-          "Card not available"
-        ],
-        "openmrs_choice_ids": {
-          "Top red": "Top red",
-          "White": "White",
-          "Green": "Green",
-          "Bottom red": "Bottom red",
-          "Card not available": "Card not available"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -169,23 +191,31 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_growth_muac",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Measure MUAC and indicate either green, yellow, or red color; Please don’t touch the child’s palm. Instead, ask the client/mother to do it on your behalf.",
-        "values": [
-          "Green",
-          "Yellow",
-          "Red"
+        "type": "native_radio",
+        "label": "Measure MUAC and indicate either green, yellow, or red color; Please don’t touch the child’s palm. Instead, ask the client/mother to do it on your behalf.",
+        "options": [
+          {
+            "key": "Green",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Green",
+            "openmrs_entity_parent": "",
+            "text": "Green"
+          },
+          {
+            "key": "Yellow",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yellow",
+            "openmrs_entity_parent": "",
+            "text": "Yellow"
+          },
+          {
+            "key": "Red",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Red",
+            "openmrs_entity_parent": "",
+            "text": "Red"
+          }
         ],
-        "keys": [
-          "Green",
-          "Yellow",
-          "Red"
-        ],
-        "openmrs_choice_ids": {
-          "Green": "Green",
-          "Yellow": "Yellow",
-          "Red": "Red"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

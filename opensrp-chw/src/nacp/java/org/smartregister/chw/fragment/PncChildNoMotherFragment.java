@@ -21,7 +21,7 @@ public class PncChildNoMotherFragment extends PncRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return "";
+        return presenter().getMainCondition();
     }
 
     @Override

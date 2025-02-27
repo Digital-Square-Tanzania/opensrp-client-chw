@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">WAJA (ECD)</string>
-    <string name="login_title">Ministry of Health  \n WAJA(ECD) app</string>
+    <string name="app_name">WAJA</string>
+    <string name="login_title">Ministry of Health  \n WAJA app</string>
     <string name="nav_logo">Ministry of Health Community App</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
@@ -24,7 +24,6 @@
     <string name="any_changes_you_make">Any Changes You Made Will Be Discarded</string>
     <string name="menu_independent">Independent</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
-
 
     <!-- Reports View Strings   -->
     <string name="reports_title">REPORTS</string>
@@ -474,9 +473,7 @@
     <string name="condom">Condom</string>
     <string name="traditional">Traditional</string>
     <string name="none">None</string>
-
-
-
+  
     <!--    KVP Community-->
     <string name="kvp_visit">KVP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
@@ -567,16 +564,15 @@
     <string name="shared_date">Shared Date</string>
     <string name="each_vaccine_its_date">Each Vaccine its date</string>
     <string name="no_mother_children">No Mother Children</string>
+    <string name="register_no_mother_child">Register No Mother Child</string>
+    <string name="no_mother_child_reg">No Mother Child Registration</string>
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>
     <string name="back_to_all_mobilization_sessions">Back to All Mobilization Sessions</string>
     <string name="mobilization_sessions">Mobilization Session</string>
     <string name="mobilization_session_details">Mobilization Session Details</string>
-
-
-
-
+    
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">SBC Mobilization Session Details</string>
     <string name="sbc_mobilization_session">SBC Mobilization Session</string>
@@ -710,8 +706,5 @@
     <string name="fp_condom_refilled">Select the type of condom provided:</string>
     <string name="fp_number_male_condoms_refilled">Specify quantity (Male):</string>
     <string name="fp_number_female_condoms_refilled">Specify quantity (Female):</string>
-
-
-
 
 </resources>

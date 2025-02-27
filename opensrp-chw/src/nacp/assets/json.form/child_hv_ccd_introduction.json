@@ -50,6 +50,14 @@
     "title": "Care for child development (CCD): Introduction",
     "fields": [
       {
+        "key": "ccd_introduction_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_introduction_module",
+        "value": true,
+        "type": "hidden"
+      },
+      {
         "key": "child_development_intro_note1",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
