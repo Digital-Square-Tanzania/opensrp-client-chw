@@ -117,6 +117,39 @@
         }
       },
       {
+        "key": "type_radio_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_radio_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Chagua aina ya Radio/TV iliyotumika kwatika uselimishaji na uhamasishaji",
+        "options": [
+          {
+            "key": "national_radio",
+            "text": "Redio ya Taifa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_radio"
+          },
+          {
+            "key": "community_radio",
+            "text": "Redio ya kijamii",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_radio"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "other_method_of_education_and_awareness_used",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -487,14 +520,40 @@
         }
       },
       {
+        "key": "iec_materials_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_provided",
+        "type": "native_radio",
+        "label": "Je,vifaa vya  taarifa, elimu na mawasiliano vimetolewa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        }
+      },
+      {
         "key": "information_education_and_communication_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "information_education_and_communication_materials",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano ",
-        "hint": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano ",
+        "label": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano",
+        "hint": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano",
         "options": [
           {
             "key": "brochures",
@@ -524,6 +583,13 @@
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
