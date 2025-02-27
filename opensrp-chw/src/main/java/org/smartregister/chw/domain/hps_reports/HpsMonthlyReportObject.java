@@ -30,6 +30,11 @@ public class HpsMonthlyReportObject extends ReportObject {
             "5M1","5M2","5M3","5M4",
     };
 
+    private final String[] hpsQuestionsGroupsWithGenderTotalAndTotal = new String[]{
+            "3C1","3C2","3C3","3C4","3C5","3C6","3C7","3C8","3C9","3C10","3C11","3C12","3C13","3C14","3C15","3C16",
+            "3C17","3C18","3C19","3C20","3C21","3C22","3C23","3C24","3C25","3C26","3C27","3C28","3C29",
+    };
+
     private final String[] hpsGenderGroups = new String[]{
             "ME","KE"
     };
@@ -60,11 +65,22 @@ public class HpsMonthlyReportObject extends ReportObject {
                         ReportDao.getReportPerIndicatorCode("hps" + "-" + qns + "-grand-total", reportDate));
             }
         }
-        funcGetTotal();
+        funcGetGenderIndicatorTotal();
+        getTotalPerIndicator3C();
 
         return jsonObject;
     }
 
+    private void funcGetGenderIndicatorTotal() throws JSONException {
+        int totalofthewholehpsgroup = 0;
+        for (String question: hpsQuestionsGroups) {
+            for (String hpsGenderGroups : hpsGenderGroups) {
+                totalofthewholehpsgroup+=getTotalPerEachIndicator(question,hpsGenderGroups);
+                jsonObject.put("hps"+"-"+question+"-grand-total",totalofthewholehpsgroup); //total for all hps groups
+            }
+            totalofthewholehpsgroup = 0;
+        }
+    }
     private int getTotalPerEachIndicator(String question,String hpsgenderGroup) throws JSONException {
         int  totalOfGenderGiven = 0;
         int returnedValue = 0;
@@ -77,14 +93,14 @@ public class HpsMonthlyReportObject extends ReportObject {
         return returnedValue;
     }
 
-
-    private void funcGetTotal() throws JSONException {
+    private void getTotalPerIndicator3C() throws JSONException {
         int totalofthewholehpsgroup = 0;
-        for (String question: hpsQuestionsGroups) {
-                for (String hpsGenderGroups : hpsGenderGroups) {
-                    totalofthewholehpsgroup+=getTotalPerEachIndicator(question,hpsGenderGroups);
-                    jsonObject.put("hps"+"-"+question+"-grand-total",totalofthewholehpsgroup); //total for all hps groups
-                }
+        for (String question: hpsQuestionsGroupsWithGenderTotalAndTotal) {
+            for (String hpsGenderGroups : hpsGenderGroups) {
+                totalofthewholehpsgroup+=ReportDao.getReportPerIndicatorCode(
+                        "hps" + "-" + question + "-" + hpsGenderGroups + "-total", reportDate);
+                jsonObject.put("hps"+"-"+question+"-grand-total",totalofthewholehpsgroup); //total for all hps groups
+            }
             totalofthewholehpsgroup = 0;
         }
     }
