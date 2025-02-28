@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -14,9 +15,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
+import org.smartregister.reporting.domain.TallyStatus;
+import org.smartregister.reporting.event.IndicatorTallyEvent;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
@@ -42,6 +47,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout sbcReports;
 
+    protected TextView textViewLogs;
+
     @Override
     protected void onCreation() {
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
@@ -64,6 +71,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         iccmReports = findViewById(R.id.iccm_reports);
         ecdReports = findViewById(R.id.ecd_reports);
         sbcReports = findViewById(R.id.sbc_reports);
+        textViewLogs = findViewById(R.id.textView_logs);
 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
         SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -197,6 +205,25 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         if (id == R.id.sbc_reports) {
             Intent intent = new Intent(this, SbcReportsActivity.class);
             startActivity(intent);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(IndicatorTallyEvent event) {
+        if (event.getStatus().equals(TallyStatus.STARTED)) {
+            textViewLogs.setVisibility(View.VISIBLE);
+            textViewLogs.setText("Started Refreshing Reports");
+            Utils.showToast(this, "Started Refreshing Reports");
+        } else if (event.getStatus().equals(TallyStatus.INPROGRESS)) {
+            textViewLogs.setVisibility(View.VISIBLE);
+            if (event.getMessage() != null) {
+                textViewLogs.setText(event.getMessage());
+            } else {
+                Utils.showToast(this, "Refreshing Reports is In-Progress");
+            }
+        } else if (event.getStatus().equals(TallyStatus.COMPLETE)) {
+            textViewLogs.setVisibility(View.GONE);
+            Utils.showToast(this, "Finished Refreshing Reports");
         }
     }
 

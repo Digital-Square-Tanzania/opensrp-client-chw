@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import androidx.annotation.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -19,6 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -94,7 +97,30 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
             baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
                     list, new ArrayList<>(), null, "pnc_visit_date"));
+
+            List<Object> ecd_modules_present = new ArrayList<>();
+            ecd_modules_present.add(areEcdModulesPresent(baseEvent));
+
+            baseEvent.addObs(new Obs("concept", "text", "ecd_modules_present", "",
+                    ecd_modules_present, ecd_modules_present, null, "ecd_modules_present"));
         }
+    }
+
+    private static boolean areEcdModulesPresent(Event baseEvent) {
+        for (Obs obs : baseEvent.getObs()) {
+            String fieldCode = obs.getFieldCode();
+            if (fieldCode != null && (
+                    fieldCode.equals("ccd_development_screening_assessment_module") ||
+                            fieldCode.equals("child_development_issues") ||
+                            fieldCode.equals("ccd_introduction_module") ||
+                            fieldCode.equals("ccd_communication_assessment_module") ||
+                            fieldCode.equals("ccd_problem_solving_module") ||
+                            fieldCode.equals("ccd_caregiver_responsiveness_module") ||
+                            fieldCode.equals("ccd_play_assessment_counselling_module"))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
