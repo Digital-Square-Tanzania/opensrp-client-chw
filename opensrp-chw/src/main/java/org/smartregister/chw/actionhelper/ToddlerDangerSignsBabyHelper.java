@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.domain.Alert;
 
 import java.text.MessageFormat;
@@ -65,7 +66,7 @@ public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
             if(dangerSignConsumer==null){return super.postProcess(jsonPayload);}
             JSONObject form=new JSONObject(jsonPayload);
             boolean noDangerSigns = danger_signs_present_child.matches(NONE);
-            boolean goFacility = !noDangerSigns && getCheckBoxValue(form,"toddler_referral_health_facility").matches(YES_OR_EMPTY);
+            boolean goFacility = !noDangerSigns && JsonFormUtils.getValue(form,"toddler_referral_health_facility").matches(YES_OR_EMPTY);
             dangerSignConsumer.take(form,danger_signs_present_child,goFacility);
         } catch (Exception e) {Timber.e(e);}
         return super.postProcess(jsonPayload);
