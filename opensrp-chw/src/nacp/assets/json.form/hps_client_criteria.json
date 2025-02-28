@@ -48,6 +48,32 @@
     "title": "Client Criteria",
     "fields": [
       {
+        "key": "visit_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_type",
+        "type": "native_radio",
+        "label": "Select visit type",
+        "options": [
+          {
+            "key": "new_visit",
+            "text": "New Visit",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "new_visit"
+          },
+          {
+            "key": "return_visit",
+            "text": "Return",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "return"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        }
+      },
+      {
         "key": "client_criteria_below_12",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
