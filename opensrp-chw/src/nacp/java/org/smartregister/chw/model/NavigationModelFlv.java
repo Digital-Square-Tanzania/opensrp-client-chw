@@ -71,6 +71,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     case "iccm_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op20, op8));
                         break;
+                    case "rmncah_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8));
+                        break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
