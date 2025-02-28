@@ -6634,6 +6634,22 @@
           }
         },
         {
+          "column_name": "referral_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_provided"
+          }
+        },
+        {
+          "column_name": "referral_system_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_system_used"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

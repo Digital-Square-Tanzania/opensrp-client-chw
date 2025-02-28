@@ -1,23 +1,30 @@
 ---
 name: step1_cause_of_death_male
-description: Rule to conrol the visibility of (step1_caquse_of_death_male)
+description: Rule to control the visibility of (step1_cause_of_death_male)
 priority: 1
 condition: "step1_sex.equalsIgnoreCase('male')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_cause_of_death_female
-description: Rule to conrol the visibility of (step1_cause_of_death_female)
+description: Rule to control the visibility of (step1_cause_of_death_female)
 priority: 1
 condition: "step1_sex.equalsIgnoreCase('female')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_cause_of_death_specify
-description: Rule to conrol the visibility of (step1_cause_of_death_specify)
+description: Rule to control the visibility of (step1_cause_of_death_specify)
 priority: 1
 condition: "step1_cause_of_death_female.equalsIgnoreCase('other_reason') ||
             step1_cause_of_death_male.equalsIgnoreCase('other_reason')
             "
 actions:
   - "isRelevant = true"
+---
+name: step1_cause_of_death
+description: Rule to calculate the visibility of (step1_cause_of_death)
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_cause_of_death_male.isEmpty() ? step1_cause_of_death_female : step1_cause_of_death_male)"

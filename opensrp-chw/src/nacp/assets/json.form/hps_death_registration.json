@@ -54,6 +54,7 @@
         "hint": "Date of Death",
         "text_color": "#000000",
         "type": "date_picker",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
@@ -160,6 +161,20 @@
             "openmrs_entity_id": "accidents"
           },
           {
+            "key": "msb",
+            "text": "Macerated Still Births (MSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msb"
+          },
+          {
+            "key": "fsb",
+            "text": "Death Occurred during Births (FSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsb"
+          },
+          {
             "key": "other_reason",
             "text": "Other reason",
             "openmrs_entity_parent": "",
@@ -189,25 +204,25 @@
         "type": "native_radio",
         "options": [
           {
-            "key": "PNC_death_within_(42 days after delivery)",
+            "key": "pnc_death",
             "text": "PNC Death within (42 days after delivery)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "PNC_death_within_(42 days after delivery)"
+            "openmrs_entity_id": "pnc_death"
           },
           {
-            "key": "macerated_still_births_(MSB)",
+            "key": "msb",
             "text": "Macerated Still Births (MSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "macerated_still_births_(MSB)"
+            "openmrs_entity_id": "msb"
           },
           {
-            "key": "death_occured_during_births_(FSB)",
+            "key": "fsb",
             "text": "Death Occured during Births (FSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "death_occured_during_births_(FSB)"
+            "openmrs_entity_id": "fsb"
           },
           {
             "key": "accidents",
@@ -217,11 +232,11 @@
             "openmrs_entity_id": "accidents"
           },
           {
-            "key": "matenal_deaths_(ANC_Matenal_PNC)",
-            "text": "Matenal Deaths (ANC, Matenal, PNC)",
+            "key": "maternal_death",
+            "text": "Maternal Deaths (ANC, Matenal)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "matenal_deaths_(ANC_Matenal_PNC)"
+            "openmrs_entity_id": "maternal_death"
           },
           {
             "key": "other_reason",
@@ -236,6 +251,21 @@
           "err": "Please select an answer"
         },
         "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_death_registration_details.yml"
