@@ -87,6 +87,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "Number must be less or equal to 50"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
