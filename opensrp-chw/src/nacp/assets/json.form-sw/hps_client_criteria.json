@@ -46,6 +46,32 @@
     "title":"Client Criteria",
     "fields": [
       {
+        "key": "visit_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_type",
+        "type": "native_radio",
+        "label": "Chagua aina ya tembeleo",
+        "options": [
+          {
+            "key": "new_visit",
+            "text": "Jipya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "new_visit"
+          },
+          {
+            "key": "return_visit",
+            "text": "Marudio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "return"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza namba"
+        }
+      },
+      {
         "key":"client_criteria_below_12",
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",

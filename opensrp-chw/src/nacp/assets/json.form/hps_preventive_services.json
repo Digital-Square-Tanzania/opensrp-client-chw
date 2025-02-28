@@ -400,6 +400,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -664,6 +668,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -927,6 +935,10 @@
         "v_max": {
           "value": "1000",
           "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
         },
         "relevance": {
           "rules-engine": {
