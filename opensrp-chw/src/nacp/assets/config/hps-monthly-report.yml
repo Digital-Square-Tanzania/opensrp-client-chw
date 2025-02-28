@@ -6,7 +6,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -17,7 +17,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -28,7 +28,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -39,7 +39,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -50,7 +50,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -61,7 +61,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -72,7 +72,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -83,7 +83,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -94,7 +94,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -105,7 +105,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'new_visit'
 					  AND (date('now')-date(efm.dob))>=60
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -116,7 +116,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -127,7 +127,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -138,7 +138,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -149,7 +149,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -160,7 +160,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -171,7 +171,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -182,7 +182,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -193,7 +193,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -204,7 +204,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -215,7 +215,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'new_visit'
 					  AND (date('now')-date(efm.dob))>=60
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -240,7 +240,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -251,7 +251,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -262,7 +262,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -273,7 +273,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -284,7 +284,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -295,7 +295,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -306,7 +306,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -317,7 +317,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -328,7 +328,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -339,7 +339,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Male' AND ehcs.visit_type = 'return_visit'
 					  AND (date('now')-date(efm.dob))>=60
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -350,7 +350,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m', efm.dob)
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -361,7 +361,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 1 AND 11
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -372,7 +372,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND ((strftime('%Y', 'now') - strftime('%Y', efm.dob)) * 12 + (strftime('%m', 'now') - strftime('%m', efm.dob))) BETWEEN 12 AND 23
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -383,7 +383,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+2 years') <= date('now')) AND (date(efm.dob, '+5 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -394,7 +394,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -405,7 +405,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+10 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -416,7 +416,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+15 years') <= date('now')) AND (date(efm.dob, '+20 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -427,7 +427,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+20 years') <= date('now')) AND (date(efm.dob, '+25 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -438,7 +438,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date(efm.dob, '+25 years') <= date('now')) AND (date(efm.dob, '+29 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -449,7 +449,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
-					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_client'
+					  WHERE efm.gender='Female' AND ehcs.visit_type = 'return_visit'
 					  AND (date('now')-date(efm.dob))>=60
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
