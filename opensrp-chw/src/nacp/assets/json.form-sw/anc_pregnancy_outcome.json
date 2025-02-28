@@ -478,10 +478,6 @@
             "v_max": {
               "value": "7",
               "err": "Uzito lazima uwe sawasawa au chini ya 7 (KG)"
-            },
-            "v_required": {
-              "value": true,
-              "err": "Tafadhali ingiza uzito"
             }
           },
           {
@@ -574,6 +570,12 @@
                 "value": false,
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "invisible_disabilities"
+              },
+              {
+                "key": "albinism",
+                "text": "Ualbino",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "albinism"
               }
             ],
             "relevance": {

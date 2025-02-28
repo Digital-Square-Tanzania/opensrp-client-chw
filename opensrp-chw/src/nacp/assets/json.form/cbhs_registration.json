@@ -266,7 +266,7 @@
             },
             {
               "name": "msm",
-              "text": "High Risk Men",
+              "text": "MHR",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "msm",
@@ -330,7 +330,7 @@
             },
             {
               "name": "sex_worker_woman",
-              "text": "Sex worker",
+              "text": "WHR",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sex_worker_woman",

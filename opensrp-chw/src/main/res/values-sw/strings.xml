@@ -367,6 +367,8 @@
     <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
     <string name="anc_danger_signs">Dalili za hatari ya ujazito</string>
     <string name="suspected_malaria">Malaria inayodhaniwa</string>
+    <string name="cecap_referral">Huduma ya saratani ya via vya uzazi</string>
+
 
     <!--Addo Minor Ailments-->
     <string name="child_minor_ailments"> Maradhi ya mtoto</string>
@@ -541,7 +543,7 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_prep_visit_type">Aina ya Hudhurio la Dawa Kinga</string>
+    <string name="kvp_prep_visit_type">Aina ya Hudhurio </string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
     <string name="kvp_prep_followup_visit">Hudhurio la marudio</string>
     <string name="kvp_client_hiv_status">Hali ya mteja ya maambukizi ya VVU:</string>

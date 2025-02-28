@@ -48,8 +48,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             NavigationOption op21 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc, CoreConstants.DrawerMenu.SBC, 0);
             NavigationOption op22 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc_monthly_social_media_report, CoreConstants.DrawerMenu.SBC_MONTHLY_SOCIAL_MEDIA_REPORT, 0);
+            NavigationOption op23 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.asrh, CoreConstants.DrawerMenu.AYSRH, 0);
+            NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
 
-            NavigationOption op23 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
+            NavigationOption op25 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -91,7 +93,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op21);
                         }
                         if (ChwApplication.getApplicationFlavor().hasADDO()){
-                            navigationOptions.add(op23);
+                            navigationOptions.add(op25);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op15));
@@ -114,8 +116,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasMalaria()) {
                     navigationOptions.add(op7);
                 }
+                if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                    navigationOptions.add(op24);
+                }
+
+                if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                    navigationOptions.add(op23);
+                }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
-                    navigationOptions.add(op22);
+//                    navigationOptions.add(op22);
                     navigationOptions.add(op21);
                 }
                 if (ChwApplication.getApplicationFlavor().hasADDO()){

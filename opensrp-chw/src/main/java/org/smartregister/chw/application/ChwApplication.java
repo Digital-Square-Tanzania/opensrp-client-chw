@@ -30,7 +30,9 @@ import org.smartregister.chw.activity.AddoLinkageRegisterActivity;
 import org.smartregister.chw.activity.AgywRegisterActivity;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
+import org.smartregister.chw.activity.AsrhRegisterActivity;
 import org.smartregister.chw.activity.CdpRegisterActivity;
+import org.smartregister.chw.activity.CecapRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
@@ -53,7 +55,9 @@ import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.agyw.AGYWLibrary;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.asrh.AsrhLibrary;
 import org.smartregister.chw.cdp.CdpLibrary;
+import org.smartregister.chw.cecap.CecapLibrary;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -286,7 +290,7 @@ public class ChwApplication extends CoreChwApplication {
             PmtctLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
-        if(flavor.hasKvp()){
+        if (flavor.hasKvp()) {
             KvpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
@@ -296,8 +300,17 @@ public class ChwApplication extends CoreChwApplication {
             //setup agyw lib
             AGYWLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
+
         if (flavor.hasSbc()) {
             SbcLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasAsrh()) {
+            AsrhLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasCecap()) {
+            CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),
@@ -391,6 +404,8 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
         return registeredActivities;
     }
@@ -579,6 +594,10 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasAGYW();
 
         boolean hasSbc();
+
+        boolean hasAsrh();
+
+        boolean hasCecap();
 
         boolean hasADDO();
 

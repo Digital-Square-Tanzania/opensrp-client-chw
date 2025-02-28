@@ -21,6 +21,7 @@
     <string name="fill_followup_form">Jaza fomu ya ufuatiliaji</string>
     <string name="location_info">Taarifa za Kimaeneo</string>
     <string name="menu_independent">Huru</string>
+    <string name="menu_cecap">Saratani ya via vya uzazi</string>
     <string name="hiv_on">siku ya</string>
     <string name="hiv_client_registered_text">Mteja amesajiliwa %s %s</string>
     <string name="days_until_due">Siku %1$s mpaka kufikia muda</string>
@@ -63,7 +64,7 @@
     <!-- Reports View Strings   -->
     <string name="reports_title">RIPOTI</string>
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
-    <string name="monthly_report">Repoti Ya Mwezi</string>
+    <string name="monthly_report">Ripoti Ya Mwezi</string>
     <string name="print_report">Chapa</string>
     <string name="reports">Ripoti</string>
 
@@ -392,7 +393,7 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_prep_visit_type">Aina ya Hudhurio la Dawa Kinga</string>
+    <string name="kvp_prep_visit_type">Aina ya Hudhurio</string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
     <string name="kvp_prep_followup_visit">Hudhurio la marudio</string>
     <string name="kvp_client_hiv_status">Hali ya mteja ya maambukizi ya VVU:</string>
@@ -515,6 +516,8 @@
     <string name="sbc_type_of_sbc_activity">Aina ya uelimishaji (SBC)</string>
     <string name="sbc_reports_title">Ripoti ya SBC</string>
     <string name="sbc_reports">Ripoti za SBC</string>
+    <string name="kvp_reports">Ripoti za KVP</string>
+    <string name="kvp_reports_subtitle">Tazama Ripoti za KVP</string>
     <string name="sbc_reports_subtitle">Tazama Ripoti za SBC</string>
     <string name="sbc_campaign">Kampeni</string>
     <string name="sbc_religious_events">Uelimishaji katika nyumba za ibada</string>
@@ -604,9 +607,93 @@
 
     <!--    ICCM Visit History-->
     <string name="iccm_visit">Matembeleo ya huduma za iCCM</string>
+    <string name="cecap_topics_covered">Mada zilizotolewa:</string>
+
+    <!--    ASRH   -->
+    <string name="asrh_client_status">Hali ya Mteja:</string>
+    <string name="asrh_active">Anaendelea na huduma</string>
+    <string name="asrh_transfer_out">Amehama</string>
+    <string name="asrh_opt_out">Amejitoa</string>
+    <string name="asrh_was_health_education_provided">Je, elimu iliyotolewa:</string>
+    <string name="asrh_provided_health_education">Elimu iliyotolewa:</string>
+    <string name="asrh_other_provided_health_education">Elimu nyingine iliyotolewa:</string>
+    <string name="asrh_education_delivery_point">Elimu ilipotolewa:</string>
+    <string name="asrh_provided_sexual_reproductive_health_health_education">Elimu ya afya ya uzazi imetolewa:</string>
+    <string name="asrh_yes">Ndio</string>
+    <string name="asrh_no">Hapana</string>
+    <string name="asrh_nutrition">Lishe</string>
+    <string name="asrh_mental_health_and_substance_abuse">Afya ya akili na matumizi mabaya ya dawa za kulevya</string>
+    <string name="asrh_tb">Kifua kikuu</string>
+    <string name="asrh_non_communicable_diseases">Magonjwa yasiyoambukiza</string>
+    <string name="asrh_livelihood_education_skills">Ujuzi wa Elimu ya Kujipatia Kipato</string>
+    <string name="asrh_neglected_tropical_disease">Magonjwa yasiyopewa kipaumbele</string>
+    <string name="asrh_hiv_aid_and_stis">VVU/UKIMWI na Magonjwa ya Zinaa</string>
+    <string name="asrh_hygiene">Usafi</string>
+    <string name="asrh_hpv_vaccination">Chanjo dhidi ya saratani ya shingo ya kizazi</string>
+    <string name="asrh_household">Kaya</string>
+    <string name="asrh_community_group">Kikundi</string>
+    <string name="asrh_school">Shule</string>
+    <string name="asrh_developmental_stages_during_adolescence">Hatua za ukuaji wakati wa balehe</string>
+    <string name="asrh_family_planning">Uzazi wa mpango</string>
+    <string name="asrh_post_abortion_care">Huduma baada ya mimba kuharibika</string>
+    <string name="asrh_anc">Huduma wakati wa ujauzito</string>
+    <string name="asrh_intra_and_post_natal_care">Huduma wakati na baada ya kujifungua</string>
+    <string name="asrh_menstrual_hygiene">Hedhi salama</string>
+    <string name="asrh_teenage_pregnancies">Mimba za utotoni</string>
+    <string name="asrh_hiv_prevention">Kinga dhidi ya maambukizi ya VVU</string>
+    <string name="asrh_hiv_care_and_treatment">Huduma za tiba na kinga za VVU</string>
+    <string name="asrh_child_marriage">Ndoa za utotoni</string>
+    <string name="asrh_cervical_cancer_prevention">Kujikinga na saratani ya shingo ya kizazi</string>
+    <string name="asrh_gbv_vac">Unyanyasaji wa kijinsia na ukatili dhidi ya watoto</string>
+    <string name="asrh_life_skills">Stadi za maisha</string>
+    <string name="asrh_stis">Magonjwa ya ngono</string>
+
+    <string name="asrh_hiv_aid">VVU/UKIMWI</string>
+    <string name="asrh_education_on_stis">Magonjwa ya ngono</string>
+    <string name="asrh_education_on_mental_health_provided">Elimu ya Afya ya akili iliyotolewa:</string>
+    <string name="asrh_effects_of_substance_abuse">Madhara ya matumizi ya dawa za kulevya</string>
+    <string name="asrh_effects_of_alcohol_and_tobacco_product_use">Madhara ya matumizi ya pombe na tumbaku/sigara</string>
+    <string name="asrh_depression">Sonona</string>
+    <string name="asrh_facilitation_methods">Njia za uwezeshaji</string>
+    <string name="asrh_other_facilitation_methods">Njia nyingine ya uwezeshaji</string>
+    <string name="asrh_presentation">Wasilisho</string>
+    <string name="asrh_group_discussions">Majadiliano ya Kundi</string>
+    <string name="asrh_role_play">Igizo/Sanaa</string>
+    <string name="asrh_case_studies">Kisa mkasa</string>
+    <string name="asrh_sports">Michezo</string>
+    <string name="asrh_other">Nyingine</string>
+    <string name="asrh_referrals_to_other_services">Rufaa kwenda kwenye huduma nyingine:</string>
+    <string name="asrh_legal_aid_services">Huduma ya kisheria</string>
+    <string name="asrh_psychosocial_support">Huduma za msaada wa kisaikolojia na kijamii</string>
+    <string name="asrh_next_appointment_date">Tarehe ya tembeleo lijayo</string>
+
+    <string name="asrh_reports_title">Ripoti ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="asrh_other_reports_title">Ripoti nyingine ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="asrh_reports_subtitle">Tazama ripoti ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="cecap_reports_title">Ripoti ya huduma ya saratani ya via vya uzazi</string>
+    <string name="cecap_other_reports_title">Ripoti nyingine ya huduma ya saratani ya via vya uzazi</string>
+    <string name="cecap_reports_subtitle">Tazama ripoti ya huduma ya saratani ya via vya uzazi</string>
+
+    <string name="cecap_health_education_provided">Elimu iliyotolewa:</string>
+    <string name="cecap_cervical_cancer">Saratani ya shingo ya kizazi</string>
+    <string name="cecap_breast_cancer">Saratani ya matiti</string>
+    <string name="cecap_prostate_cancer">Tenzi dume</string>
+    <string name="cecap_hiv_aids">VVU/Ukimwi</string>
+    <string name="cecap_hiv_sti">VVU/Ukimwi na Magonjwa ya ngono</string>
+    <string name="cecap_education_on_sti">Magonjwa ya ngono</string>
+    <string name="cecap_mobilization_date">Tarehe ya uhamasishaji</string>
+    <string name="cecap_female_clients_reached">Namba ya wateja wa kike waliofikiwa</string>
+    <string name="cecap_male_clients_reached">Namba ya wateja wa kiume waliofikiwa</string>
+
+
+    <!--    AYSRH Referrals-->
+    <string name="aysrh_referral">Huduma rafiki za afya ya uzazi kwa vijana</string>
+    <string name="referral_problem_opportunistic_infections">Magonjwa nyemelezi</string>
+    <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
+    <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
     <string name="pnc_child_home_visit_facility_referral">Rufaa ya mtoto kwenda Kituoni</string>
     <string name="pnc_mother_home_visit_facility_referral">Rufaa ya mama kwenda kituoni</string>
-  
+
     <string name="nav_menu_linkage">Miunganisho</string>
 
 </resources>

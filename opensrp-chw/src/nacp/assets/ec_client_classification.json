@@ -153,7 +153,8 @@
             "field": "eventType",
             "field_value": "ANC First Facility Visit",
             "creates_case": [
-              "ec_anc_hf_data"
+              "ec_anc_hf_data",
+              "ec_anc_register"
             ]
           },
           {
@@ -747,6 +748,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "KVP Registration",
+            "creates_case": [
+              "ec_facility_kvp_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "SBC Enrollment",
             "creates_case": [
               "ec_sbc_register"
@@ -771,6 +779,42 @@
             "field_value": "Monthly Social Media Report",
             "creates_case": [
               "ec_sbc_monthly_social_media_report"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Community Enrollment",
+            "creates_case": [
+              "ec_cecap_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Home Visit",
+            "creates_case": [
+              "ec_cecap_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Health Education Mobilization",
+            "creates_case": [
+              "ec_cecap_mobilization_session"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYSRH Enrollment",
+            "creates_case": [
+              "ec_asrh_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYSRH Follow-up Visit",
+            "creates_case": [
+              "ec_asrh_register",
+              "ec_asrh_follow_up_visit"
             ]
           }
         ]

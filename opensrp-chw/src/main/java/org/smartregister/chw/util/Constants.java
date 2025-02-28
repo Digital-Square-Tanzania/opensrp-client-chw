@@ -13,6 +13,8 @@ public class Constants extends CoreConstants {
     public static final String DB_VERSION = "db_version";
     public static final String MALARIA_REFERRAL_FORM = "malaria_referral_form";
     public static final String ICCM_REFERRAL_FORM = "referrals/iccm_referral_form";
+    public static final String CECAP_MALE_REFERRAL_FORM = "referrals/cecap_male_referral_form";
+    public static final String CECAP_FEMALE_REFERRAL_FORM = "referrals/cecap_female_referral_form";
     public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
     public static String pregnancyOutcome = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
@@ -205,7 +207,9 @@ public class Constants extends CoreConstants {
 
     public static class TableName {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
+
         public static final String SBCC = "ec_sbcc";
+
         public static final String CBHS_REGISTER = "ec_cbhs_register";
     }
 
@@ -220,15 +224,27 @@ public class Constants extends CoreConstants {
 
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
+
            String MOTHER_CHAMPION_REPORT = "mother_champion_report";
+
            String CONDOM_DISTRIBUTION_REPORT = "condom_distribution_report";
+
            String AGYW_REPORT = "agyw_report";
+
            String ICCM_REPORT = "iccm_report";
+
            String SBC_REPORT = "sbc_report";
+
+           String KVP_REPORT = "kvp_report";
+
+           String ASRH_REPORT = "asrh_report";
+
+           String CECAP_REPORT = "cecap_report";
         }
 
         public interface CDPReportKeys {
             String ISSUING_REPORTS = "issuing_reports";
+
             String RECEIVING_REPORTS = "receiving_reports";
         }
 
@@ -239,15 +255,44 @@ public class Constants extends CoreConstants {
             String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
         }
 
+
+        public interface CecapReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+
+        public interface AsrhReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
+
             String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
+
             String CONDOM_DISTRIBUTION_ISSUING_REPORT_PATH = "condom-distribution-issuing-report";
+
             String CONDOM_DISTRIBUTION_RECEIVING_REPORT_PATH = "condom-distribution-receiving-report";
+
             String ICCM_CLIENTS_REPORT_PATH = "iccm_reports/iccm-clients-monthly-report";
+
             String ICCM_DISPENSING_SUMMARY_PATH = "iccm_reports/iccm-dispensing-summary";
+
             String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
+
             String SBC_REPORT_PATH = "sbc-report";
+
+            String KVP_REPORT_PATH = "kvp-report";
+
+            String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
+
+            String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
+
+            String CECAP_REPORT_PATH = "cecap_reports/cecap-report";
+
+            String CECAP_OTHER_REPORT_PATH = "cecap_reports/cecap-other-report";
         }
     }
 

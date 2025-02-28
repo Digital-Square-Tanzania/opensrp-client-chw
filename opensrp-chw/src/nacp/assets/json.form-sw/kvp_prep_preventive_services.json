@@ -119,17 +119,22 @@
         "type": "edit_text",
         "hint": "Idadi ya kondomu za kiume zilizotolewa",
         "v_numeric": {
-          "value": "true",
+          "value": true,
           "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
-          "value": "0",
+          "value": 0,
           "err": "Idadi inatakiwa kuwa sawa au zaidi ya 0"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "Idadi inatakiwa kuwa chini ya 1000"
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingiza namba "
+          "err": "Tafadhali ingiza namba"
         },
+        "maxLength": 3,
         "relevance": {
           "step1:type_of_issued_condoms": {
             "ex-checkbox": [
@@ -154,8 +159,12 @@
           "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
-          "value": "0",
-          "err": "Idadi inatakiwa kuwa sawa na au zaidi ya 0"
+          "value": 0,
+          "err": "Idadi inatakiwa kuwa sawa au zaidi ya 0"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "Idadi inatakiwa kuwa chini ya 1000"
         },
         "v_required": {
           "value": true,
