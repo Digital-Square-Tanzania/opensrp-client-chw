@@ -121,6 +121,7 @@
         "hint": "Please specify the appointment date",
         "expanded": false,
         "min_date": "today",
+        "max_date": "today+30d",
         "v_required": {
           "value": "true",
           "err": "Please enter date"
