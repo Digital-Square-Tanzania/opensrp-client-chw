@@ -4,6 +4,7 @@ import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.core.utils.CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS;
 import static org.smartregister.chw.interactor.FacilitySelectionActionHelper.ReferralHelperInfo;
 import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
+import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 import android.content.Context;
 import android.os.Handler;
@@ -321,7 +322,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     String actionName = context.getString(R.string.pnc_danger_signs_mother);
                     String referralStepName = actionName.replaceAll("^.*?-(.*)", "$1-" + context.getString(R.string.home_visit_facility_referral));
                     danger_signs_present_mama = getCheckBoxValue(form, "danger_signs_present_mama");
-                    String motherReferral = getCheckBoxValue(form, "mother_referral_health_facility");
+                    String motherReferral = getValue(form, "mother_referral_health_facility");
 
                     boolean hasDangerSigns = !danger_signs_present_mama.matches(NONE);
                     boolean goFacility = hasDangerSigns && motherReferral.matches(YES_OR_EMPTY);
@@ -386,7 +387,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject form = new JSONObject(dangerSignForm);
                     String actionName = MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName());
                     String referralStepName = actionName.replaceAll("^.*?-(.*)", "$1-" + context.getString(R.string.home_visit_facility_referral));
-                    String neonatalReferral = getCheckBoxValue(form, "neonatal_referral_health_facility").toLowerCase().toLowerCase();
+                    String neonatalReferral = getValue(form, "neonatal_referral_health_facility").toLowerCase().toLowerCase();
                     danger_signs_present_child = getCheckBoxValue(form, "danger_signs_present_child");
 
                     boolean hasDangerSigns = !danger_signs_present_child.matches(NONE);

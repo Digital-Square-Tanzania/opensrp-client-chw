@@ -431,7 +431,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
                 evaluateFacilityReferral(dangerSignForm);
                 evaluateMalariaPrevention();
             }
-            else if(dangerSigns.matches(NONE)) evaluateActions();
+            else evaluateActions();
             new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
         }
         catch (Exception e){Timber.e(e);}
