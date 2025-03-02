@@ -106,6 +106,24 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "health_education_title",
+        "type": "label",
+        "text": "Health Educations",
+        "text_size": "12sp",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": ""
+      },
+      {
         "key": "education_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -356,6 +374,14 @@
           "value": "true",
           "err": "Required"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
       },
       {
         "key": "other_education_provided",

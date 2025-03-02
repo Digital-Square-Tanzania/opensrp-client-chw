@@ -112,7 +112,14 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "lessThanEqualTo(., step1:dod)",
+            "err": "Date of birth must be earlier than date of death"
+          }
+        ]
       },
       {
         "key": "sex",
