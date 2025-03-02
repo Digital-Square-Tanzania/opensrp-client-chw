@@ -270,13 +270,14 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.6.1-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.6.4-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
         exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
         exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.google.guava', module: 'listenablefuture'
         exclude group: 'com.mcxiaoke.volley', module: 'library'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.github.chivorns.androidx', module: 'smartmaterialspinner'
