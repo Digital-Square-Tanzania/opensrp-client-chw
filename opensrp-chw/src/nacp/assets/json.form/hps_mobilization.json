@@ -117,6 +117,39 @@
         }
       },
       {
+        "key": "type_radio_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_radio_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Select the type of Radio/TV used for education and awareness",
+        "options": [
+          {
+            "key": "national_radio",
+            "text": "National radio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_radio"
+          },
+          {
+            "key": "community_radio",
+            "text": "Community Radio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_radio"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "other_method_of_education_and_awareness_used",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -203,6 +236,13 @@
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -237,6 +277,14 @@
           "value": "true",
           "err": "Please enter a number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
@@ -253,6 +301,14 @@
         "v_required": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
         },
         "v_numeric": {
           "value": "true",
@@ -478,6 +534,32 @@
         }
       },
       {
+        "key": "iec_materials_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_provided",
+        "type": "native_radio",
+        "label": "Were IEC materials provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        }
+      },
+      {
         "key": "information_education_and_communication_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -515,6 +597,13 @@
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -656,6 +745,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
@@ -792,6 +889,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -924,6 +1029,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1051,6 +1164,14 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Number must be four digits"
         },
         "v_numeric": {
           "value": "true",

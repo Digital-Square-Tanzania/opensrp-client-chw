@@ -87,6 +87,14 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "Number must be less or equal to 50"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
@@ -96,6 +104,24 @@
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "health_education_title",
+        "type": "label",
+        "text": "Health Educations",
+        "text_size": "12sp",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": ""
       },
       {
         "key": "education_provided",
@@ -178,8 +204,8 @@
             "key": "oral_and_dental_health",
             "text": "Oral and dental health",
             "property": {
-              "presumed-id": "malaria",
-              "confirmed-id": "malaria"
+              "presumed-id": "oral_and_dental_health",
+              "confirmed-id": "oral_and_dental_health"
             }
           },
           {
@@ -336,7 +362,7 @@
           },
           {
             "key": "others_education_specify",
-            "text": "Medication adherence",
+            "text": "Other education provided",
             "property": {
               "presumed-id": "others_education_specify",
               "confirmed-id": "others_education_specify"
@@ -348,6 +374,14 @@
           "value": "true",
           "err": "Required"
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
       },
       {
         "key": "other_education_provided",

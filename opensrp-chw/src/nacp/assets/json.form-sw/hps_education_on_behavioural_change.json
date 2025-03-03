@@ -1,5 +1,5 @@
 {
-  "count": 1,
+  "count": "1",
   "encounter_type": "HPS Behavioral Change Education",
   "entity_id": "",
   "metadata": {
@@ -106,7 +106,7 @@
           },
           {
             "key": "malaria",
-            "text": "Malaria ",
+            "text": "Malaria",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria"
@@ -134,7 +134,7 @@
           },
           {
             "key": "neglected_tropical_diseases",
-            "text": "Magonjwa yaliokuwa hayapewi kipaumbele ",
+            "text": "Magonjwa yaliokuwa hayapewi kipaumbele",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "neglected_tropical_diseases"
@@ -148,7 +148,7 @@
           },
           {
             "key": "non_communicable_diseases",
-            "text": "Magonjwa yasiyo ya kuambukizwa ",
+            "text": "Magonjwa yasiyo ya kuambukizwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "non_communicable_diseases"
@@ -218,7 +218,7 @@
           },
           {
             "key": "early_child_marriage_pregnancy",
-            "text": "Madhara ya ndoa na mimba za utotoni ",
+            "text": "Madhara ya ndoa na mimba za utotoni",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "early_child_marriage_pregnancy"
