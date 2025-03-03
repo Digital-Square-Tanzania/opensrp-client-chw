@@ -121,6 +121,9 @@ public class ChwRepositoryFlv {
                 case 29:
                     upgradeToVersion29(db);
                     break;
+                case 30:
+                    upgradeToVersion30(db);
+                    break;
                 default:
                     break;
             }
@@ -470,6 +473,44 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion28(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_cecap_register", "ec_cecap_visit", "ec_asrh_register", "ec_asrh_follow_up_visit", "ec_cecap_mobilization_session")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_kvp_prep_followup ADD COLUMN sbcc_services_offered VARCHAR; " +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_male_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_female_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_iec_distributed VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_coupons_distributed_for_social_network VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN referral_to_structural_services VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+
+            String asrhIndicatorsConfigFile = "config/asrh-monthly-report.yml";
+            String asrhOtherMonthlyReportsIndicatorsConfigFile = "config/asrh-other-monthly-report.yml";
+            String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
+            String cecapOtherMonthlyReportsIndicatorsConfigFile = "config/cecap-other-monthly-report.yml";
+            String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+    }
+
+    private static void upgradeToVersion29(SQLiteDatabase db) {
         // setup ecd reporting
         ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
         String ecdClientReportIndicatorConfigFile = "config/ecd-monthly-report.yml";
@@ -480,15 +521,15 @@ public class ChwRepositoryFlv {
         try {
             DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Collections.singletonList("ec_ecd_activities")), ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion28");
+            Timber.e(e, "upgradeToVersion29");
         }
     }
 
-    private static void upgradeToVersion29(SQLiteDatabase db) {
+    private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             refreshIndicatorQueries(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion29");
+            Timber.e(e, "upgradeToVersion30");
         }
     }
 

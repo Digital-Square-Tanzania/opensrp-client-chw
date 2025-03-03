@@ -143,6 +143,16 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasAsrh() {
+        return true;
+    }
+
+    @Override
+    public boolean hasCecap() {
+        return true;
+    }
+
+    @Override
     public boolean hasKvp() {
         return true;
     }

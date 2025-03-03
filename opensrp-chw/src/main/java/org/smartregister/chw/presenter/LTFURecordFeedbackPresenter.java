@@ -80,13 +80,13 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
     }
 
     @Override
-    public void saveForm(@NonNull HashMap<String, NFormViewData> valuesHashMap, @NonNull JSONObject jsonObject) {
+    public void saveForm(@NonNull HashMap<String, NFormViewData> valuesHashMap, @NonNull JSONObject jsonObject, boolean isAdoLinkage) {
         //first close the referral task
         //if from the valuesHasMap followupStatus value is client_found_ready_to_return then call save form super
         //else create an event that just sends the feedback to the server
         if (StringUtils.containsIgnoreCase(String.valueOf(valuesHashMap.get("followup_status").getValue()), "client_found_ready_to_return")) {
             tagWithReferralDetails(valuesHashMap);
-            super.saveForm(valuesHashMap, jsonObject);
+            super.saveForm(valuesHashMap, jsonObject, isAdoLinkage);
         }
         try {
             createFeedbackEvent(valuesHashMap);

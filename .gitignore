@@ -22,3 +22,10 @@ build/
 jacoco.exec
 opensrp-chw/ba/
 opensrp-chw/nacp/
+caches
+daemon
+build-scan-data
+kotlin-profile
+wrapper
+native
+/opensrp-chw/libs/

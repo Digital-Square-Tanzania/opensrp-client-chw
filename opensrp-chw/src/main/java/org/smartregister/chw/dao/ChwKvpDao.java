@@ -12,7 +12,20 @@ public class ChwKvpDao extends KvpDao {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "client_group");
 
         List<String> res = readData(sql, dataMap);
-        if (res != null && res.size() != 0 && res.get(0) != null) {
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
+
+    public static String getDominantKVPGroupFromFacility(String baseEntityId) {
+        String sql = "SELECT client_group FROM ec_facility_kvp_register p " +
+                " WHERE p.base_entity_id = '" + baseEntityId + "' AND p.is_closed = 0 ";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "client_group");
+
+        List<String> res = readData(sql, dataMap);
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
             return res.get(0);
         }
         return "";

@@ -359,6 +359,8 @@
     <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
     <string name="anc_danger_signs">Dalili za hatari ya ujazito</string>
     <string name="suspected_malaria">Malaria inayodhaniwa</string>
+    <string name="cecap_referral">Huduma ya saratani ya via vya uzazi</string>
+
 
     <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 
@@ -523,7 +525,7 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_prep_visit_type">Aina ya Hudhurio la Dawa Kinga</string>
+    <string name="kvp_prep_visit_type">Aina ya Hudhurio </string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
     <string name="kvp_prep_followup_visit">Hudhurio la marudio</string>
     <string name="kvp_client_hiv_status">Hali ya mteja ya maambukizi ya VVU:</string>
@@ -633,4 +635,8 @@
     <string name="ecd_reports_subtitle">Tazama ripoti ya MMMAM</string>
     <string name="ecd_reports_title">Ripoti ya MMMAM</string>
     <string name="ecd_client_report">Ripoti ya Mwezi MMMAM</string>
+
+    <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
+    <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>
+    <string name="finished_refreshing_reports">Uchakataji wa Ripoti Umemalizika</string>
 </resources>

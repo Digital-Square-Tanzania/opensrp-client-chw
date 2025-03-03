@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.R;
@@ -26,8 +27,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
-
-import java.util.Arrays;
 
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected CustomFontTextView toolBarTextView;
@@ -48,6 +47,12 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     protected ConstraintLayout sbcReports;
 
     protected TextView textViewLogs;
+
+    protected ConstraintLayout asrhReports;
+
+    protected ConstraintLayout cecapReports;
+
+    protected ConstraintLayout kvpReports;
 
     @Override
     protected void onCreation() {
@@ -79,6 +84,9 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         if (preferences != null) {
             teamRoleIdentifier = preferences.getString(TEAM_ROLE_IDENTIFIER, "");
         }
+        asrhReports = findViewById(R.id.asrh_reports);
+        cecapReports = findViewById(R.id.cecap_reports);
+        kvpReports = findViewById(R.id.kvp_reports);
 
         if (!teamRoleIdentifier.isEmpty()) {
             switch (teamRoleIdentifier) {
@@ -137,6 +145,21 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             if (ChwApplication.getApplicationFlavor().hasCdp()) {
                 condomDistributionReports.setVisibility(View.VISIBLE);
             }
+            if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                asrhReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                cecapReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                kvpReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasCdp()) {
+                condomDistributionReports.setVisibility(View.VISIBLE);
+            }
         }
 
         ecdReports.setVisibility(View.VISIBLE);
@@ -148,6 +171,9 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         iccmReports.setOnClickListener(this);
         ecdReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
+        asrhReports.setOnClickListener(this);
+        cecapReports.setOnClickListener(this);
+        kvpReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -206,24 +232,49 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             Intent intent = new Intent(this, SbcReportsActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.asrh_reports) {
+            Intent intent = new Intent(this, AsrhReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.cecap_reports) {
+            Intent intent = new Intent(this, CecapReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.kvp_reports) {
+            Intent intent = new Intent(this, KvpReportsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(IndicatorTallyEvent event) {
         if (event.getStatus().equals(TallyStatus.STARTED)) {
             textViewLogs.setVisibility(View.VISIBLE);
-            textViewLogs.setText("Started Refreshing Reports");
-            Utils.showToast(this, "Started Refreshing Reports");
+            textViewLogs.setText(R.string.started_refreshing_reports);
+            Utils.showToast(this, "Imeanza kuchakata Ripoti Upya");
         } else if (event.getStatus().equals(TallyStatus.INPROGRESS)) {
             textViewLogs.setVisibility(View.VISIBLE);
             if (event.getMessage() != null) {
                 textViewLogs.setText(event.getMessage());
             } else {
-                Utils.showToast(this, "Refreshing Reports is In-Progress");
+                Utils.showToast(this, "Uchakataji wa Ripoti Unaendelea");
             }
         } else if (event.getStatus().equals(TallyStatus.COMPLETE)) {
             textViewLogs.setVisibility(View.GONE);
-            Utils.showToast(this, "Finished Refreshing Reports");
+            Utils.showToast(this, "Uchakataji wa Ripoti Umemalizika");
         }
     }
 
