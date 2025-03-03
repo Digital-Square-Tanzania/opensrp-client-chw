@@ -249,7 +249,7 @@
           },
           {
             "key": "skin_nodules",
-            "text": "Ngozi kuota Vinundu",
+            "text": "Ngozi kuota vinundu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "skin_nodules"

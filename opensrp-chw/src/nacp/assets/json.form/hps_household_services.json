@@ -178,8 +178,8 @@
             "key": "oral_and_dental_health",
             "text": "Oral and dental health",
             "property": {
-              "presumed-id": "malaria",
-              "confirmed-id": "malaria"
+              "presumed-id": "oral_and_dental_health",
+              "confirmed-id": "oral_and_dental_health"
             }
           },
           {
@@ -336,7 +336,7 @@
           },
           {
             "key": "others_education_specify",
-            "text": "Medication adherence",
+            "text": "Other education provided",
             "property": {
               "presumed-id": "others_education_specify",
               "confirmed-id": "others_education_specify"
