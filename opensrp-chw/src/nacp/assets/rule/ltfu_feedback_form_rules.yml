@@ -20,6 +20,27 @@ condition: "followup_status.value == 'Deceased' || followup_status.value == 'Ame
 actions:
   - "date_of_death_visibility =  true"
 ---
+name: "place_of_death_visibility"
+description: "place_of_death_visibility visibility"
+priority: 1
+condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
+actions:
+  - "place_of_death_visibility =  true"
+---
+name: "cause_of_death_visibility"
+description: "cause_of_death visibility"
+priority: 1
+condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
+actions:
+  - "cause_of_death_visibility =  true"
+---
+name: "chw_referral_hf_visibility"
+description: "chw_referral_hf visibility"
+priority: 1
+condition: "followup_status.value == 'Attended other clinic' || followup_status.value == 'Mteja alihudhuria cliniki nyingine' || followup_status.value == 'Client has transferred to another center without notice'  || followup_status.value == 'Amehamia kituo kingine bila taarifa' "
+actions:
+  - "chw_referral_hf_visibility =  true"
+---
 name: "reason_client_not_found_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1

@@ -76,8 +76,6 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         Intent intent = new Intent(activity, BaseHivFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
-        HivIndexContactObject hivIndexContactObject = HivIndexDao.getMember(baseEntityID);
-
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit());
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
 
@@ -85,14 +83,6 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
-    }
-
-    @Override
-    public void setupViews() {
-        super.setupViews();
-        if (getHivIndexContactObject().getFollowedUpByChw()) {
-
-        }
     }
 
 
