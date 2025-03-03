@@ -54,6 +54,13 @@ allprojects {
         maven { url "https://repository.liferay.com/nexus/content/repositories/public/" }
         maven { url "https://maven.bestsolution.at/efxclipse-releases/" }
     }
+    configurations.configureEach {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'com.facebook.soloader') {
+                details.useVersion "0.10.4" // or "0.10.4"
+            }
+        }
+    }
 }
 
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
