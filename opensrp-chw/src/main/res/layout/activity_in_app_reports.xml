@@ -588,6 +588,7 @@
                 android:id="@+id/hps_reports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/reports_bg_green"
                 app:layout_constraintTop_toBottomOf="@id/kvp_reports"

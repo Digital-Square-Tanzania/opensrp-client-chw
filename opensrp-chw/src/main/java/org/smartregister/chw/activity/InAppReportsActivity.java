@@ -152,7 +152,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 condomDistributionReports.setVisibility(View.VISIBLE);
             }
 
-            if (ChwApplication.getApplicationFlavor().hasKvp()) {
+            if (ChwApplication.getApplicationFlavor().hasHps()) {
                 hpsReports.setVisibility(View.VISIBLE);
             }
         }
