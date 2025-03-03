@@ -719,6 +719,9 @@
     <string name="hps_breastfeeding_mother">Mama anayenyonyesha</string>
     <string name="hps_partner">Mwenza</string>
     <string name="hps_other_criteria_specify">Taja kigezo kingine</string>
+    <string name="hps_visit_type_label">Chagua aina ya tembeleo</string>
+    <string name="hps_new_visit">Jipya</string>
+    <string name="hps_return_visit">Marudio</string>
 
 
     <string name="hps_provide_iec_materials">Je, kuna vielelezo vimetolewa kwa mteja?</string>

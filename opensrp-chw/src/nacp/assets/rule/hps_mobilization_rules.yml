@@ -110,3 +110,24 @@ priority: 1
 condition: "step1_information_education_and_communication_materials.contains('other_iec_materials')"
 actions:
   - "isRelevant = true"
+---
+name: step1_information_education_and_communication_materials
+description: relevance rule to control the visibility of (step1_information_education_and_communication_materials)
+priority: 1
+condition: "step1_iec_materials_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_type_radio_tv_used_for_education
+description: relevance rule to control the visibility of (step1_type_radio_tv_used_for_education)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('radio_tv_etc')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_area_where_mobilization_took_place
+description: relevance rule to control the visibility of (step1_area_where_mobilization_took_place)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('loud_speakers') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('drumming_public_announcements') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('face_to_face')"
+actions:
+  - "isRelevant = true"
