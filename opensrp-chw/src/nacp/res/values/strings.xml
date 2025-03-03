@@ -1104,15 +1104,14 @@
 
 
     <string name="hps_select_age_group">Select age group</string>
-    <string name="hps_age_group_less_1"><1</string>
+    <string name="hps_age_group_less_1">Less than 1</string>
     <string name="hps_age_group_1_4">1–4</string>
     <string name="hps_age_group_5_14">5–14</string>
     <string name="hps_age_group_15_49">15–49</string>
     <string name="hps_age_group_50_59">50_59</string>
-    <string name="hps_age_group_50_59">50_59</string>
     <string name="hps_age_group_equal_and_above_60">60+</string>
-    <string name="hps_number_of_male_by_age_group_less_1">Number of male (<1)</string>
-    <string name="hps_number_of_female_by_age_group_less_1">Number of female (<1)</string>
+    <string name="hps_number_of_male_by_age_group_less_1">Number of male (Less than 1)</string>
+    <string name="hps_number_of_female_by_age_group_less_1">Number of female (Less than 1)</string>
     <string name="hps_number_of_male_by_age_group_1_4">Number of male (1–4)</string>
     <string name="hps_number_of_female_by_age_group_1_4">Number of female (1–4)</string>
     <string name="hps_number_of_male_by_age_group_5_14">Number of male (5–14)</string>
@@ -1287,7 +1286,7 @@
     <string name="hps_number_of_industries_areas_inspected_with_risk_indicators">Number of industries areas inspected  with risk indicators</string>
     <string name="hps_number_of_offices_areas_inspected_with_risk_indicators">Number of offices areas inspected  with risk indicators</string>
     <string name="hps_number_of_transportation_areas_inspected_with_risk_indicators">Number of transportation areas inspected  with risk indicators</string>
-    <string name="hps_number_of_transportation_areas_inspected_with_risk_indicators">Number of other areas inspected  with risk indicators</string>
+    <string name="hps_number_of_other_areas_inspected_with_risk_indicators">Number of other areas inspected  with risk indicators</string>
     <string name="hps_number_of_inspected_grains">Number of inspected grains</string>
     <string name="hps_number_of_inspected_legumes">Number of inspected legumes</string>
     <string name="hps_number_of_inspected_meat">Number of inspected meat</string>
