@@ -126,6 +126,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -157,6 +162,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -190,6 +200,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -221,6 +236,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -254,6 +274,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -285,6 +310,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -318,6 +348,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -349,6 +384,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -382,6 +422,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -413,6 +458,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -446,6 +496,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -478,6 +533,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -509,6 +569,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -534,6 +599,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]
@@ -565,6 +635,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -590,6 +665,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -615,6 +695,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]
@@ -690,6 +775,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -721,6 +811,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -754,6 +849,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -785,6 +885,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -818,6 +923,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -849,6 +959,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -882,6 +997,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -913,6 +1033,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -946,6 +1071,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -977,6 +1107,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1010,6 +1145,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1041,6 +1181,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1074,6 +1219,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1105,6 +1255,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1138,6 +1293,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1169,6 +1329,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1202,6 +1367,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1233,6 +1403,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1266,6 +1441,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1297,6 +1477,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1330,6 +1515,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1361,6 +1551,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1394,6 +1589,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1425,6 +1625,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1458,6 +1663,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1489,6 +1699,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1522,6 +1737,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1553,6 +1773,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1586,6 +1811,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1617,6 +1847,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1650,6 +1885,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1681,6 +1921,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1714,6 +1959,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1745,6 +1995,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1778,6 +2033,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1809,6 +2069,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1842,6 +2107,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1873,6 +2143,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1906,6 +2181,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1937,6 +2217,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1970,6 +2255,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2001,6 +2291,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2034,6 +2329,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2065,6 +2365,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2098,6 +2403,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2129,6 +2439,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2162,6 +2477,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2193,6 +2513,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2226,6 +2551,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2257,6 +2587,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2290,6 +2625,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2321,6 +2661,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2354,6 +2699,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2385,6 +2735,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2418,6 +2773,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2449,6 +2809,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2482,6 +2847,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2513,6 +2883,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2546,6 +2921,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2577,6 +2957,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2610,6 +2995,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2641,6 +3031,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2674,6 +3069,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2705,6 +3105,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2738,6 +3143,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2769,6 +3179,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2802,6 +3217,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2833,6 +3253,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2866,6 +3291,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2897,6 +3327,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2930,6 +3365,11 @@
           "value": "10000",
           "err": "Number must be five digits"
         },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2961,6 +3401,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -2999,6 +3444,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3024,6 +3474,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3049,6 +3504,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3074,6 +3534,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3099,6 +3564,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3124,6 +3594,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3149,6 +3624,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3174,6 +3654,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3199,6 +3684,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3224,6 +3714,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3249,6 +3744,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3274,6 +3774,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3299,6 +3804,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3324,6 +3834,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3349,6 +3864,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3374,6 +3894,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3399,6 +3924,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3424,6 +3954,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3449,6 +3984,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3474,6 +4014,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]
@@ -3505,6 +4050,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3530,6 +4080,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3556,6 +4111,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3581,6 +4141,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3606,6 +4171,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3631,6 +4201,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3656,6 +4231,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3681,6 +4261,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3706,16 +4291,18 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]},
-
-
   "step6": {
     "title": "Environmental and sanitation Inspection report",
     "next": "step7",
     "fields": [
-
       {
         "key": "number_of_housholds_inspected",
         "openmrs_entity_parent": "",
@@ -3739,6 +4326,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3764,6 +4356,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3789,6 +4386,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3814,6 +4416,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3839,6 +4446,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3864,6 +4476,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3889,6 +4506,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3914,6 +4536,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3939,6 +4566,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3964,6 +4596,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -3989,16 +4626,18 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
-
     ]},
-
   "step7": {
     "title": "Building Inspection Report",
     "next": "step8",
     "fields": [
-
       {
         "key": "number_of_food_shop_visited",
         "openmrs_entity_parent": "",
@@ -4022,6 +4661,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4047,6 +4691,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4072,6 +4721,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4097,6 +4751,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4122,6 +4781,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4147,6 +4811,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4172,6 +4841,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4197,6 +4871,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4222,6 +4901,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4247,6 +4931,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4272,6 +4961,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4297,6 +4991,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4322,6 +5021,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4347,6 +5051,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4372,6 +5081,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4397,6 +5111,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4422,6 +5141,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4447,6 +5171,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4472,6 +5201,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4497,6 +5231,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4522,6 +5261,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4547,6 +5291,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4572,6 +5321,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4597,6 +5351,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4622,6 +5381,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4647,6 +5411,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4672,6 +5441,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4697,6 +5471,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4722,6 +5501,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4747,6 +5531,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4772,6 +5561,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4797,6 +5591,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]},
@@ -4804,7 +5603,6 @@
     "title": "Workplace Inspection Report",
     "next": "step9",
     "fields":[
-
       {
         "key": "number_of_inspected_agriculture_areas",
         "openmrs_entity_parent": "",
@@ -4828,6 +5626,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4853,6 +5656,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4878,6 +5686,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4903,6 +5716,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4928,6 +5746,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4953,6 +5776,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -4978,9 +5806,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
-
       {
         "key": "number_of_agriculture_areas_inspected_with_risk_indicators",
         "openmrs_entity_parent": "",
@@ -5004,6 +5836,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5029,6 +5866,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5054,6 +5896,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5079,6 +5926,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5104,6 +5956,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5129,10 +5986,15 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
-        "key": "number_of_transportation_areas_inspected_with_risk_indicators",
+        "key": "number_of_other_areas_inspected_with_risk_indicators",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_other_areas_inspected_with_risk_indicators",
@@ -5154,6 +6016,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
 
@@ -5186,6 +6053,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5211,6 +6083,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5236,6 +6113,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5261,6 +6143,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5286,6 +6173,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5311,9 +6203,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
-
       {
         "key": "number_of_grains_discarded",
         "openmrs_entity_parent": "",
@@ -5337,6 +6233,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5362,6 +6263,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5387,6 +6293,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5412,6 +6323,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5437,6 +6353,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5462,10 +6383,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
-
-
     ]},
   "step10": {
     "title": "Health Reports Affecting People in Workplaces",
@@ -5494,6 +6418,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5519,6 +6448,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5544,6 +6478,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5569,6 +6508,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5594,6 +6538,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5619,6 +6568,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]
@@ -5627,7 +6581,6 @@
     "title": "Solid waste & waste collection equipments",
     "next": "step12",
     "fields": [
-
       {
         "key": "amount_of_solid_waste_generated_annually_tons",
         "openmrs_entity_parent": "",
@@ -5651,6 +6604,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5676,9 +6634,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
-
       {
         "key": "number_of_waste_collection_equipment_vehicles",
         "openmrs_entity_parent": "",
@@ -5702,6 +6664,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5727,6 +6694,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5752,6 +6724,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5777,6 +6754,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5802,6 +6784,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       }
     ]
@@ -5809,7 +6796,6 @@
   "step12": {
     "title": "Identification and Control of Insect Breeding Sites",
     "fields": [
-
       {
         "key": "number_of_areas_sprayed_with_pesticides_ponds",
         "openmrs_entity_parent": "",
@@ -5833,6 +6819,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5858,6 +6849,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5883,6 +6879,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5908,6 +6909,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5933,9 +6939,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
-
       {
         "key": "number_of_times_spraying_was_done_ponds",
         "openmrs_entity_parent": "",
@@ -5959,6 +6969,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -5984,6 +6999,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -6009,6 +7029,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -6034,6 +7059,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -6059,9 +7089,13 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
-
       {
         "key": "types_of_pesticides_used_ponds",
         "openmrs_entity_parent": "",
@@ -6127,7 +7161,6 @@
           "err": "Please select an answer"
         }
       },
-
       {
         "key": "amount_of_pesticide_used_ponds",
         "openmrs_entity_parent": "",
