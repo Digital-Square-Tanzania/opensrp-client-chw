@@ -14,6 +14,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.chw.model.LTFURecordFeedbackModel;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.referral.model.AbstractIssueReferralModel;
@@ -85,7 +86,11 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
         //if from the valuesHasMap followupStatus value is client_found_ready_to_return then call save form super
         //else create an event that just sends the feedback to the server
         if (StringUtils.containsIgnoreCase(String.valueOf(valuesHashMap.get("followup_status").getValue()), "client_found_ready_to_return")) {
-            tagWithReferralDetails(valuesHashMap);
+            try {
+                tagWithReferralDetails(valuesHashMap);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             super.saveForm(valuesHashMap, jsonObject, isAdoLinkage);
         }
         try {
@@ -135,28 +140,33 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
     }
 
     private NFormViewData generateChwReferralHf(String referralHfCode, String referralHfName) {
-        NFormViewData chwReferralHf = new NFormViewData();
-        HashMap<String, String> chwReferralHfMetaData = new HashMap<>();
+        try {
+            NFormViewData chwReferralHf = new NFormViewData();
+            HashMap<String, String> chwReferralHfMetaData = new HashMap<>();
 
-        NFormViewData chwReferralHfValue = new NFormViewData();
-        HashMap<String, String> chwReferralHfValueMetaData = new HashMap<>();
+            NFormViewData chwReferralHfValue = new NFormViewData();
+            HashMap<String, String> chwReferralHfValueMetaData = new HashMap<>();
 
-        chwReferralHfValueMetaData.put("openmrs_entity", "concept");
-        chwReferralHfValueMetaData.put("openmrs_entity_id", referralHfCode);
+            chwReferralHfValueMetaData.put("openmrs_entity", "concept");
+            chwReferralHfValueMetaData.put("openmrs_entity_id", referralHfCode);
 
-        chwReferralHfValue.setMetadata(chwReferralHfValueMetaData);
+            chwReferralHfValue.setMetadata(chwReferralHfValueMetaData);
 
-        chwReferralHfValue.setValue(referralHfName);
+            chwReferralHfValue.setValue(referralHfName);
 
-        chwReferralHfMetaData.put("openmrs_entity", "concept");
-        chwReferralHfMetaData.put("openmrs_entity_id", "chw_referral_hf");
+            chwReferralHfMetaData.put("openmrs_entity", "concept");
+            chwReferralHfMetaData.put("openmrs_entity_id", "chw_referral_hf");
 
-        chwReferralHf.setMetadata(chwReferralHfMetaData);
-        chwReferralHf.setValue(chwReferralHfValue);
-        chwReferralHf.setVisible(true);
-        chwReferralHf.setType("Calculation");
+            chwReferralHf.setMetadata(chwReferralHfMetaData);
+            chwReferralHf.setValue(chwReferralHfValue);
+            chwReferralHf.setVisible(true);
+            chwReferralHf.setType("Calculation");
 
-        return chwReferralHf;
+            return chwReferralHf;
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
     }
 
     private void saveCloseReferralEvent() {
@@ -202,7 +212,7 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
 
     private void createFeedbackEvent(HashMap<String, NFormViewData> valuesHashMap) throws Exception {
         List<Obs> obs = org.smartregister.chw.util.JsonFormUtils.getObsForNeatForm(valuesHashMap);
-        if (obs.size() > 0) {
+        if (!obs.isEmpty()) {
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(baseEntityId)
                     .withEventDate(new Date())
@@ -220,8 +230,22 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
             for (Obs ob : obs) {
                 baseEvent.addObs(ob);
             }
+
+            String ctcRecGuid = ReferralDao.getRecGuid(getTask().getReasonReference());
+            if (StringUtils.isNotBlank(ctcRecGuid)) {
+                baseEvent.addObs((
+                        new Obs())
+                        .withFormSubmissionField("rec_guid")
+                        .withValue(ctcRecGuid)
+                        .withFieldCode("rec_guid")
+                        .withFieldType("formsubmissionField")
+                        .withFieldDataType("text")
+                        .withParentCode("")
+                        .withHumanReadableValues(new ArrayList<>()));
+            }
             baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withValue(getTask().getIdentifier())
                     .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             FamilyLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);

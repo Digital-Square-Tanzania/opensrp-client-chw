@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_MEMBER_OBJECT;
+import static org.smartregister.chw.referral.util.JsonFormConstants.FIELDS;
+import static org.smartregister.chw.referral.util.JsonFormConstants.STEPS;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -32,6 +35,7 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HivIndexContactFloatingMenu;
+import org.smartregister.chw.dao.ChwIndexDao;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
@@ -77,6 +81,34 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit());
+
+        String recGuid = ChwIndexDao.getIndexContactRegGuid(baseEntityID);
+        if (StringUtils.isNotBlank(recGuid)) {
+            JSONArray fields = form.getJSONArray(STEPS).getJSONObject(0).getJSONArray(FIELDS);
+
+            // Create the nested "properties" JSON object
+            JSONObject properties = new JSONObject();
+            properties.put("hint", "CTC Record GUID");
+            properties.put("text", recGuid);
+            properties.put("inputType", "none");
+
+            // Create the nested "meta_data" JSON object
+            JSONObject metaData = new JSONObject();
+            metaData.put("openmrs_entity", "concept");
+            metaData.put("openmrs_entity_id", "rec_guid");
+            metaData.put("openmrs_entity_parent", "");
+
+            // Create the main JSON object and populate it with data and nested objects
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", "rec_guid");
+            jsonObject.put("type", "text_input_edit_text");
+            jsonObject.put("properties", properties);
+            jsonObject.put("meta_data", metaData);
+            jsonObject.put("required_status", "false");
+
+            fields.put(jsonObject);
+        }
+
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);

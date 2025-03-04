@@ -2053,6 +2053,14 @@
             "field": "obs.fieldCode",
             "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+        {
+          "column_name": "rec_guid",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rec_guid"
+          }
         }
       ]
     },
@@ -3905,6 +3913,14 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "rec_guid",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rec_guid"
           }
         }
       ]
