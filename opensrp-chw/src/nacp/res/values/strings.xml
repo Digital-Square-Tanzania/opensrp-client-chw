@@ -1332,5 +1332,6 @@
     <string name="hps_amount_of_pesticide_used_drums">Amount of pesticide used (drums)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Amount of pesticide used (barrels)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
+    <string name="hps_none">None</string>
 
 </resources>

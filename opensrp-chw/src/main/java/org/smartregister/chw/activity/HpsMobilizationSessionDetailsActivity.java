@@ -84,7 +84,7 @@ public class HpsMobilizationSessionDetailsActivity extends CoreAncMedicalHistory
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
         tvTitle.setText(getString(R.string.sbc_back_to_all_mobilization_sessions));
 
-        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_death_registration_details));
+        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_mobilization_session_details));
     }
 
     @Override
