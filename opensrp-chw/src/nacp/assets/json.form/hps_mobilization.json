@@ -288,6 +288,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -313,6 +318,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -757,6 +767,11 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -896,6 +911,11 @@
         "v_max": {
           "value": "10000",
           "err": "Number must be four digits"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1037,6 +1057,11 @@
           "value": "10000",
           "err": "Number must be four digits"
         },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1176,6 +1201,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
