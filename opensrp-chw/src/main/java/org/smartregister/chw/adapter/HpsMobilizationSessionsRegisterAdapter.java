@@ -4,6 +4,7 @@ package org.smartregister.chw.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsMobilizationSessionDetailsActivity;
 import org.smartregister.chw.hps.domain.HpsMobilizationSessionModel;
@@ -87,6 +89,7 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
 
     protected static class HpsMobilizationViewHolder extends RecyclerView.ViewHolder {
         public TextView sbccSessionDate;
+        public TextView clientsReached;
 
         public TextView typeOfCommunitySbcActivity;
 
@@ -100,10 +103,17 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
         public void bindData(HpsMobilizationSessionModel hpsMobilizationSessionModel) {
             sbccSessionDate = itemView.findViewById(R.id.sbc_session_date);
             typeOfCommunitySbcActivity = itemView.findViewById(R.id.sbc_activity_provided);
+            clientsReached = itemView.findViewById(R.id.sbc_clients_reached);
+            clientsReached.setVisibility(View.VISIBLE);
 
-            sbccSessionDate.setText(context.getString(R.string.sbcc_session_date, hpsMobilizationSessionModel.getDateOfGathering()));
+            sbccSessionDate.setText(Html.fromHtml(context.getString(R.string.hps_session_date, hpsMobilizationSessionModel.getDateOfGathering())));
+            clientsReached.setText(Html.fromHtml(context.getString(R.string.hps_clients_reached, hpsMobilizationSessionModel.getNumberOfMalesWhoAttended() + hpsMobilizationSessionModel.getNumberOfFemalesWhoAttended())));
 
-            evaluateView(typeOfCommunitySbcActivity, context, hpsMobilizationSessionModel.getEducationProvided());
+            if (StringUtils.isNotBlank(hpsMobilizationSessionModel.getEducationProvided()) && !hpsMobilizationSessionModel.getEducationProvided().equalsIgnoreCase("null")) {
+                evaluateView(typeOfCommunitySbcActivity, context, hpsMobilizationSessionModel.getEducationProvided());
+            } else {
+                evaluateView(typeOfCommunitySbcActivity, context, "none");
+            }
 
             itemView.setOnClickListener(view -> HpsMobilizationSessionDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getSessionId()));
         }

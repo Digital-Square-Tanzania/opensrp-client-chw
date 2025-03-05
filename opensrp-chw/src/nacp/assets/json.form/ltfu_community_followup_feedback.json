@@ -106,6 +106,15 @@
               }
             },
             {
+              "name": "client_attended_another_facility",
+              "text": "Attended other clinic",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_attended_another_facility",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "client_does_not_want_to_return",
               "text": "Client is found but is not ready to return to clinic",
               "meta_data": {
@@ -324,6 +333,55 @@
           "subjects": "followup_status:map"
         },
         {
+          "name": "place_of_death",
+          "type": "spinner",
+          "properties": {
+            "text": "Place of Death"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "place_of_death",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "community",
+              "text": "Community",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "community",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "facility",
+              "text": "Facility",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "facility",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select the place of death",
+          "subjects": "followup_status:map"
+        },
+        {
+          "name": "cause_of_death",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Cause of Death",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cause_of_death",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Please fill the cause of death",
+          "subjects": "followup_status:map"
+        },
+        {
           "name": "reason_client_not_found",
           "type": "spinner",
           "properties": {
@@ -415,6 +473,22 @@
           },
           "required_status": "yes:Please fill the other reason for missed appointment",
           "subjects": "reasons_why_the_client_is_not_ready_to_return_to_clinic:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Health Facility the client attended",
+            "searchable": "Select Health Facility the client attended"
+          },
+          "options": [],
+          "required_status": "yes:Please specify the health facility the client attended",
+          "subjects": "followup_status:map"
         }
       ]
     }

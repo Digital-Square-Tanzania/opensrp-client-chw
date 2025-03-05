@@ -1,4 +1,16 @@
 ---
+name: step1_year
+description: Rule for calculation of the year
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
+    }"
+  - "calculation = getDate('yyyy')"
+---
 name: step1_number_of_male_by_age_group_<1
 description: Rule to conrol the visibility of (step1_number_of_male_by_age_group_<1)
 priority: 1
