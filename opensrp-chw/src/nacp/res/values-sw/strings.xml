@@ -905,16 +905,16 @@
     <string name="hps_specify_other_other_iec_materials">Taja aina ya vielelezo vinginenvyo vilivyotolewa</string>
 
 
-<!--    HPS ANNUAL SENSUS-->
+     <!--    HPS ANNUAL SENSUS-->
     <string name="hps_select_age_group">Chagua kundi la umri</string>
-    <string name="hps_age_group_less_1">1</string>
+    <string name="hps_age_group_less_1">&lt;1</string>
     <string name="hps_age_group_1_4">1–4</string>
     <string name="hps_age_group_5_14">5–14</string>
     <string name="hps_age_group_15_49">15–49</string>
     <string name="hps_age_group_50_59">50–59</string>
     <string name="age_group_equal_and_above_60">60+</string>
-    <string name="hps_number_of_male_by_age_group_less_1">Idadi ya watoto wa kiume chini ya mwaka mmoja</string>
-    <string name="hps_number_of_female_by_age_group_less_1">Idadi ya watoto wa kike chini ya mwaka mmoja</string>
+    <string name="hps_number_of_male_by_age_group_less_1">Idadi ya watoto wa kiume(&lt;1)</string>
+    <string name="hps_number_of_female_by_age_group_less_1">Idadi ya watoto wa kike(&lt;1)</string>
     <string name="hps_number_of_male_by_age_group_1_4">Idadi ya watoto wa kiume kati ya 1–4</string>
     <string name="hps_number_of_female_by_age_group_1_4">Idadi ya watoto wa kike kati ya 1–4</string>
     <string name="hps_number_of_male_by_age_group_5_14">Idadi ya wavulana (5–14)</string>
