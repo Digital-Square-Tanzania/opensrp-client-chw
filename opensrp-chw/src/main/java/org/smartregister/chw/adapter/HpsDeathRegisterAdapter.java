@@ -4,6 +4,7 @@ package org.smartregister.chw.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,14 +82,14 @@ public class HpsDeathRegisterAdapter extends RecyclerView.Adapter<HpsDeathRegist
             nameOfClient = itemView.findViewById(R.id.client_name);
             causeOfDeath = itemView.findViewById(R.id.cause_of_death);
 
-            dateOfDeath.setText(context.getString(R.string.hps_death_register_death_date, hpsMobilizationSessionModel.getDod()));
+            dateOfDeath.setText(Html.fromHtml(context.getString(R.string.hps_death_register_death_date, hpsMobilizationSessionModel.getDod())));
 
             if (hpsMobilizationSessionModel.getAge() > 0) {
-                nameOfClient.setText(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName() + ", " + hpsMobilizationSessionModel.getAge()));
+                nameOfClient.setText(Html.fromHtml(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName() + ", " + hpsMobilizationSessionModel.getAge())));
             } else {
-                nameOfClient.setText(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName()));
+                nameOfClient.setText(Html.fromHtml(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName())));
             }
-            causeOfDeath.setText(context.getString(R.string.hps_death_register_cause_of_death, getStringResource(context, "hps_", hpsMobilizationSessionModel.getCauseOfDeath())));
+            causeOfDeath.setText(Html.fromHtml(context.getString(R.string.hps_death_register_cause_of_death, getStringResource(context, "hps_", hpsMobilizationSessionModel.getCauseOfDeath()))));
 
             itemView.setOnClickListener(view -> HpsDeathRegistrationDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getDeathId()));
         }

@@ -84,7 +84,8 @@ public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryAc
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
         tvTitle.setText(getString(R.string.hps_back_to_all_mobilization_sessions));
 
-        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_death_register_title));
+        ((TextView) findViewById(R.id.medical_history)).setVisibility(View.GONE);
+//        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_death_register_title));
     }
 
     @Override

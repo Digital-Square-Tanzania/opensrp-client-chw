@@ -1099,5 +1099,6 @@
     <string name="hps_amount_of_pesticide_used_drums">Kiasi cha kiuatilifu kilichotumika(Madebe)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Kiasi cha kiuatilifu kilichotumika(Mapipa)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Kiasi cha kiuatilifu kilichotumika(Vifuu vya nazi)</string>
+    <string name="hps_none">Hakuna</string>
 
 </resources>

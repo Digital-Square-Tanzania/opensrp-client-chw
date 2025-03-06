@@ -38,6 +38,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     private static String baseEntityId;
     private static String locationId;
     private static String taskId;
+    public String reasonReference;
 
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
@@ -123,7 +124,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
 
         getReferralDetails();
         LocationRepository locationRepository = new LocationRepository();
-        String reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
+        reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
         Location location = locationRepository.getLocationById(locationId);
         if (location != null) {
             chwDetailsNames.setText(location.getProperties().getName());
