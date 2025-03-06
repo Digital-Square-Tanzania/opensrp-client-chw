@@ -1,0 +1,7 @@
+---
+name: step1_referrals_completed_to_structural_services
+description: referrals_completed_to_structural_services relevance
+priority: 1
+condition: "!global_isNewVisit"
+actions:
+  - "isRelevant = true"

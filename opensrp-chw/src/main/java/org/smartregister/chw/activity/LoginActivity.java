@@ -25,6 +25,8 @@ import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
+import java.util.Objects;
+
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
@@ -81,6 +83,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (hasPinLogin() && !pinLogger.isFirstAuthentication()) {
             menu.add("Reset Pin Login");
         }
+        menu.add("Privacy Policy");
         return true;
     }
 
@@ -89,6 +92,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (item.getTitle().toString().equalsIgnoreCase("Reset Pin Login")) {
             pinLogger.resetPinLogin();
             this.recreate();
+            return true;
+        }
+        if (Objects.requireNonNull(item.getTitle()).toString().equalsIgnoreCase("Privacy Policy")) {
+            this.startActivity(new Intent(this, PrivacyPolicyActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

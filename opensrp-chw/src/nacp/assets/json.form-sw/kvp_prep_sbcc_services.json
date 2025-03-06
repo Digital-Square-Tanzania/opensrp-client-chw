@@ -52,7 +52,7 @@
         "openmrs_entity_id": "sbcc_services_offered",
         "buttonText": "Ongeza mada zilizotolewa",
         "sort": false,
-        "maxSelectable": 5,
+        "maxSelectable":6,
         "dialogTitle": "Chagua elimu ya mabadiliko ya tabia ya kiafya zilizotolewa",
         "searchHint": "Andika jina la elimu",
         "options": [
@@ -178,7 +178,7 @@
           },
           {
             "key": "education_on_overdose_management",
-            "text": "Education on Overdose Management",
+            "text": "Elimu kuhusu matumizi ya kupindukia ya dawa",
             "openmrs_entity_id": "education_on_overdose_management",
             "openmrs_entity": "concept",
             "property": {

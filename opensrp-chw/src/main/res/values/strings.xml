@@ -503,4 +503,7 @@
     <string name="ecd_client_report">ECD Clients Report</string>
     <string name="map_cue">Landmark/Description of house location</string>
     <string name="street_name">Street / Hamlet Name</string>
+
+
+    <string name="cecap_referral">Reproductive Cancers Services</string>
 </resources>
