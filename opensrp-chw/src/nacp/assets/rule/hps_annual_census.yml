@@ -11,17 +11,17 @@ actions:
     }"
   - "calculation = getDate('yyyy')"
 ---
-name: step1_number_of_male_by_age_group_<1
-description: Rule to conrol the visibility of (step1_number_of_male_by_age_group_<1)
+name: step1_number_of_male_by_age_group_less_1
+description: Rule to conrol the visibility of (step1_number_of_male_by_age_group_less_1)
 priority: 1
-condition: "step1_select_age_group.contains('age_group_<1')"
+condition: "step1_select_age_group.contains('age_group_less_1')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_number_of_female_by_age_group_<1
-description: Rule to conrol the visibility of (step1_number_of_female_by_age_group_<1)
+name: step1_number_of_female_by_age_group_less_1
+description: Rule to conrol the visibility of (step1_number_of_female_by_age_group_less_1)
 priority: 1
-condition: "step1_select_age_group.contains('age_group_<1')"
+condition: "step1_select_age_group.contains('age_group_less_1')"
 actions:
   - "isRelevant = true"
 ---
@@ -81,17 +81,17 @@ condition: "step1_select_age_group.contains('age_group_50_59')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_number_of_male_by_age_group_60_+
-description: Rule to conrol the visibility of (step1_number_of_male_by_age_group_60_+)
+name: step1_number_of_male_by_age_group_equal_and_above_60
+description: Rule to conrol the visibility of (step1_number_of_male_by_age_group_equal_and_above_60)
 priority: 1
-condition: "step1_select_age_group.contains('age_group_60_+')"
+condition: "step1_select_age_group.contains('age_group_equal_and_above_60')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_number_of_female_by_age_group_60_+
-description: Rule to conrol the visibility of (step1_number_of_female_by_age_group_60_+)
+name: step1_number_of_female_by_age_group_equal_and_above_60
+description: Rule to conrol the visibility of (step1_number_of_female_by_age_group_equal_and_above_60)
 priority: 1
-condition: "step1_select_age_group.contains('age_group_60_+')"
+condition: "step1_select_age_group.contains('age_group_equal_and_above_60')"
 actions:
   - "isRelevant = true"
 ---
