@@ -1,5 +1,7 @@
 package org.smartregister.chw.domain.hps_reports;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,12 +14,12 @@ import java.util.Map;
 
 public class HpsAnnualReportObject extends ReportObject {
     private final String[] indicatorCodes = new String[]{
-            "a-1", "a-2", "b-1", "b-2", "b-3","x-1","x-2","w-1", "w-2","y-1", "y-2","z-1", "z-2","u-1","u-2","u-3",
-            "u-4","u-5", "u-6","u-7","u-8","u-9","u-10","u-11", "u-12","u-13","u-14","u-15","u-16","u-17","u-18",
+            "hps-a-1" ,"hps-a-2" ,"hps-b-1" ,"hps-b-2" ,"hps-b-3","hps-x-1","hps-x-2","hps-w-1" ,"hps-w-2","hps-y-1" ,"hps-y-2","hps-z-1" ,"hps-z-2","hps-u-1","hps-u-2","hps-u-3",
+            "hps-u-4","hps-u-5" ,"hps-u-6","hps-u-7","hps-u-8","hps-u-9","hps-u-10","hps-u-11" ,"hps-u-12","hps-u-13","hps-u-14","hps-u-15","hps-u-16","hps-u-17","hps-u-18",
 
     };
     private final String[] indicatorTableCodes = new String[]{
-            "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","v","vv"
+            "hps-c","hps-d","hps-e","hps-f","hps-g","hps-h","hps-i","hps-j","hps-k","hps-l","hps-m","hps-n","hps-o","hps-p","hps-q","hps-r","hps-s","hps-t","hps-v","hps-vv"
     };
     private final String[] hpsQuestionsGroups = new String[]{"1","2","3","4","5","6"};
 
@@ -38,13 +40,13 @@ public class HpsAnnualReportObject extends ReportObject {
         int totalofthewholehpsindicator = 0;
 
         for (String indicatorCode : indicatorCodes) {
-            jsonObject.put(indicatorCode, ReportDao.getReportPerIndicatorCode(indicatorCode, reportDate));
+            jsonObject.put(indicatorCode, ReportDao.getAnnualReportPerIndicatorCode(indicatorCode, reportDate));
         }
         for (String indicatorTableCode : indicatorTableCodes) {   //rows
             for (String questionGroup : hpsQuestionsGroups) {
                     jsonObject.put( indicatorTableCode + "-" + questionGroup,
-                            ReportDao.getReportPerIndicatorCode(indicatorTableCode + "-" + questionGroup, reportDate));
-                totalofthewholehpsindicator+=ReportDao.getReportPerIndicatorCode(indicatorTableCode + "-" + questionGroup, reportDate);
+                            ReportDao.getAnnualReportPerIndicatorCode(indicatorTableCode + "-" + questionGroup, reportDate));
+                totalofthewholehpsindicator+=ReportDao.getAnnualReportPerIndicatorCode(indicatorTableCode + "-" + questionGroup, reportDate);
                 jsonObject.put(indicatorTableCode+"-total",totalofthewholehpsindicator); //total for all hps groups
             }
         }
