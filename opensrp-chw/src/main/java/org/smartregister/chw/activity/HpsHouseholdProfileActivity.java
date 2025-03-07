@@ -1,5 +1,11 @@
 package org.smartregister.chw.activity;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.EDITABLE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.READ_ONLY;
+import static org.smartregister.client.utils.constants.JsonFormConstants.STEP1;
+import static org.smartregister.client.utils.constants.JsonFormConstants.VALUE;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
@@ -13,6 +19,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -357,6 +365,20 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
         form.setWizard(false);
+
+        //Handle Visit Type
+        String visitTypeValue = HpsDao.houseHoldClientHasAnyVisit(memberObject.getBaseEntityId()) ? "return_visit" : "new_visit";
+        //Client has a visit, set visit type
+        JSONArray fieldsArray = null;
+        try {
+            fieldsArray = jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS);
+            JSONObject visitType = org.smartregister.chw.hps.util.JsonFormUtils.getFieldJSONObject(fieldsArray,"visit_type");
+            visitType.put(VALUE,visitTypeValue);
+            visitType.put(READ_ONLY,true);
+            visitType.put(EDITABLE, false);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.chw.cecap.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
