@@ -824,6 +824,7 @@
     <string name="hps_referral_form">Fomu ya Rufaa</string>
     <string name="hps_other_method">Njia nyingine</string>
     <string name="hps_other_method_specify">Taja njia nyingine iliyotumika kutoa rufaaa</string>
+
     <string name="hps_first_name">Jina la kwanza</string>
     <string name="hps_middle_name">Jina la kati</string>
     <string name="hps_last_name">Jina la mwisho</string>
@@ -834,7 +835,7 @@
     <string name="hps_macerated_still_births_msb">Watoto waliofia tumboni (MSB)</string>
     <string name="hps_death_occured_during_births_fsb">Vifo vya watoto wakati wa kuzaliwa (FSB)</string>
     <string name="hps_matenal_deaths_anc_matenal_pnc">Ajali</string>
-    <string name="hps_accidents">Matenal Deaths (ANC, Matenal, PNC)</string>
+    <string name="hps_accidents">Matenal Deaths (ANC, Matenal)</string>
     <string name="hps_other_reason">Sababu nyinginezo</string>
     <string name="hps_cause_of_death_specify">Specify</string>
     <string name="hps_comments">Comments</string>

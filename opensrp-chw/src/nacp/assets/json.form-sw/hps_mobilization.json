@@ -88,7 +88,7 @@
           },
           {
             "key": "radio_tv_etc",
-            "text": "Radio, TV, etc",
+            "text": "Redio, TV, nk",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "radio_tv_etc"
           },
@@ -122,7 +122,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_radio_tv_used_for_education",
         "type": "native_radio",
-        "label": "Chagua aina ya Radio/TV iliyotumika kwatika uselimishaji na uhamasishaji",
+        "label": "Chagua aina ya Redio/TV iliyotumika kwatika uselimishaji na uhamasishaji",
         "options": [
           {
             "key": "national_radio",
@@ -282,6 +282,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -299,6 +304,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -736,6 +746,11 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -867,6 +882,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
@@ -1000,6 +1020,11 @@
           "value": "true",
           "err": "Please enter the number"
         },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1111,6 +1136,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance": {
           "rules-engine": {
