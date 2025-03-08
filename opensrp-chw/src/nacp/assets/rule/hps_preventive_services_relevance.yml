@@ -110,7 +110,7 @@ actions:
 name: step1_preventive_services
 description: Rule to control the value of (step1_preventive_services)
 priority: 1
-condition: "true"
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes')"
 actions:
   - "calculation =  if (global_age < 5) { return step1_preventive_services_below_5_years }
                     else if(global_age >= 5 && global_age < 18) { return step1_preventive_services_above_5_years_below_18_years } 
