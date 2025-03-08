@@ -37,7 +37,13 @@ actions:
 name: "chw_referral_hf_visibility"
 description: "chw_referral_hf visibility"
 priority: 1
-condition: "followup_status.value == 'Attended other clinic' || followup_status.value == 'Mteja alihudhuria cliniki nyingine' || followup_status.value == 'Client has transferred to another center without notice'  || followup_status.value == 'Amehamia kituo kingine bila taarifa' "
+condition: "
+        followup_status.value == 'Attended other clinic' || 
+        followup_status.value == 'Mteja alihudhuria cliniki nyingine' || 
+        followup_status.value == 'Client has transferred to another center without notice'  || 
+        followup_status.value == 'Amehamia kituo kingine bila taarifa' ||
+        followup_status.value == 'ON TRANSIT (refill at other HF)' ||
+        followup_status.value == 'Alikuwa katika Safari (Alichukua dawa kutoka kituo kingine cha afya)' "
 actions:
   - "chw_referral_hf_visibility =  true"
 ---

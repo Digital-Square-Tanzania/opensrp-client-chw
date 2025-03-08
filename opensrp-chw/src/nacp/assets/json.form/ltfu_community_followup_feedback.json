@@ -124,6 +124,15 @@
               }
             },
             {
+              "name": "on_transit",
+              "text": "ON TRANSIT (refill at other HF)",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "on_transit",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "deceased",
               "text": "Deceased",
               "meta_data": {
@@ -158,7 +167,7 @@
           "options": [
             {
               "name": "client_has_forgotten",
-              "text": "Client has forgotten",
+              "text": "Client forgot",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_forgotten",
@@ -176,7 +185,7 @@
             },
             {
               "name": "client_failed_to_disclose_his_status",
-              "text": "Client failed to disclose him/herself",
+              "text": "The client did not disclose the reason",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_failed_to_disclose_his_status",
@@ -221,7 +230,7 @@
             },
             {
               "name": "client_traveled",
-              "text": "Client has traveled",
+              "text": "Client had traveled",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_traveled",

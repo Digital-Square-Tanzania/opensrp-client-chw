@@ -111,7 +111,7 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_attended_another_facility",
-                "openmrs_entity_parent": ""
+                 "openmrs_entity_parent": ""
               }
             },
             {
@@ -120,6 +120,15 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_does_not_want_to_return",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "on_transit",
+              "text": "Alikuwa katika Safari (Alichukua dawa kutoka kituo kingine cha afya)",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "on_transit",
                 "openmrs_entity_parent": ""
               }
             },
