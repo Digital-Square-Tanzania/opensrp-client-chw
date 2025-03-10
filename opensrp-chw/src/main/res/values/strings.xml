@@ -495,4 +495,7 @@
 
 
     <string name="cecap_referral">Reproductive Cancers Services</string>
+    <string name="child_name_label">Child Name</string>
+    <string name="client_details">Client Details</string>
+    <string name="chw_details">CHW Details</string>
 </resources>

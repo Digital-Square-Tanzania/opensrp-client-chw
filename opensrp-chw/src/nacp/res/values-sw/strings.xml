@@ -1101,5 +1101,8 @@
     <string name="hps_amount_of_pesticide_used_barrels">Kiasi cha kiuatilifu kilichotumika(Mapipa)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Kiasi cha kiuatilifu kilichotumika(Vifuu vya nazi)</string>
     <string name="hps_none">Hakuna</string>
+<!--    <string name="treatment_supporter_prefix">Msaidizi wa Tiba: %s</string>-->
+    <string name="treatment_supporter_prefix"><![CDATA[<font color="#218CC5"><small>Msaidizi wa Tiba:</small></font> %s]]></string>
+    <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
 
 </resources>

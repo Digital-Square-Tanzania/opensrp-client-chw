@@ -1335,4 +1335,6 @@
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
     <string name="hps_none">None</string>
 
+    <string name="treatment_supporter_prefix">Treatment Supporter: %s</string>
+    <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>
 </resources>

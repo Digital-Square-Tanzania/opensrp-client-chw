@@ -1,123 +1,126 @@
 ---
-name: "reasons_for_missed_appointment_visibility"
-description: "Reasons for missed appointment visibility"
+name: step1_reasons_for_missed_appointment
+description: reasons_for_missed_appointment relevance
 priority: 1
-condition: "followup_status.value == 'Client is found and ready to return to clinic' || followup_status.value == 'Amepatikana na yupo tayari kurudi kliniki' "
+condition: "step1_followup_status.contains('client_found_ready_to_return')"
 actions:
-  - "reasons_for_missed_appointment_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "referral_appointment_date_visibility"
-description: "Reasons for missed appointment visibility"
+name: step1_referral_appointment_date
+description: referral_appointment_date relevance
 priority: 1
-condition: "followup_status.value == 'Client is found and ready to return to clinic' || followup_status.value == 'Amepatikana na yupo tayari kurudi kliniki' "
+condition: "step1_followup_status.contains('client_found_ready_to_return')"
 actions:
-  - "referral_appointment_date_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "date_of_death_visibility"
-description: "Reasons for missed appointment visibility"
+name: step1_date_of_death
+description: date_of_death relevance
 priority: 1
-condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
+condition: "step1_followup_status.contains('deceased')"
 actions:
-  - "date_of_death_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "place_of_death_visibility"
-description: "place_of_death_visibility visibility"
+name: step1_place_of_death
+description: place_of_death relevance
 priority: 1
-condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
+condition: "step1_followup_status.contains('deceased')"
 actions:
-  - "place_of_death_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "cause_of_death_visibility"
-description: "cause_of_death visibility"
+name: step1_cause_of_death
+description: cause_of_death relevance
 priority: 1
-condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
+condition: "step1_followup_status.contains('deceased')"
 actions:
-  - "cause_of_death_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "chw_referral_hf_visibility"
-description: "chw_referral_hf visibility"
+name: step1_chw_referral_hf
+description: chw_referral_hf relevance
 priority: 1
-condition: "
-        followup_status.value == 'Attended other clinic' || 
-        followup_status.value == 'Mteja alihudhuria cliniki nyingine' || 
-        followup_status.value == 'Client has transferred to another center without notice'  || 
-        followup_status.value == 'Amehamia kituo kingine bila taarifa' ||
-        followup_status.value == 'ON TRANSIT (refill at other HF)' ||
-        followup_status.value == 'Alikuwa katika Safari (Alichukua dawa kutoka kituo kingine cha afya)' "
+condition: " step1_followup_status.contains('client_attended_another_facility') || 
+            step1_followup_status.contains('client_has_moved_to_another_facility') ||
+            step1_followup_status.contains('on_transit') "
 actions:
-  - "chw_referral_hf_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "reason_client_not_found_visibility"
-description: "Reasons for missed appointment visibility"
+name: step1_details
+description: details relevance
 priority: 1
-condition: "followup_status.value == 'Client not found' || followup_status.value == 'Hajapatikana' "
+condition: "step1_followup_status.contains('client_attended_another_facility') || 
+            step1_followup_status.contains('client_has_moved_to_another_facility') ||
+            step1_followup_status.contains('on_transit') "
 actions:
-  - "reason_client_not_found_visibility =  true"
+  - "isRelevant = true"
 ---
-name: "referral_date_calculation"
-description: "Referral date calculation"
+name: step1_reason_client_not_found
+description: reason_client_not_found relevance
+priority: 1
+condition: " step1_followup_status.contains('client_not_found') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_last_appointment_date
+description: last_appointment_date relevance
+priority: 1
+condition: " step1_followup_status.contains('client_found_and_has_returned_to_clinic') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reason_for_missed_appointment
+description: other_reason_for_missed_appointment relevance
+priority: 1
+condition: " step1_reasons_for_missed_appointment.contains('other') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_reasons_why_the_client_is_not_ready_to_return_to_clinic
+description: reasons_why_the_client_is_not_ready_to_return_to_clinic relevance
+priority: 1
+condition: " step1_followup_status.contains('client_does_not_want_to_return') && (global_clinic.equalsIgnoreCase('CTC') || global_clinic.equalsIgnoreCase('PMTCT'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reason_for_not_being_ready_to_return_to_clinic
+description: other_reason_for_not_being_ready_to_return_to_clinic relevance
+priority: 1
+condition: " step1_reasons_why_the_client_is_not_ready_to_return_to_clinic.contains('other') && (global_clinic.equalsIgnoreCase('CTC') || global_clinic.equalsIgnoreCase('PMTCT'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_arv_line
+description: arv_line relevance
+priority: 1
+condition: "(step1_followup_status.contains('client_attended_another_facility') || 
+            step1_followup_status.contains('client_has_moved_to_another_facility') ||
+            step1_followup_status.contains('on_transit')) && (global_clinic.equalsIgnoreCase('CTC') || global_clinic.equalsIgnoreCase('PMTCT'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_first_line
+description: first_line relevance
+priority: 1
+condition: " step1_arv_line.contains('first_line') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_second_line
+description: second_line relevance
+priority: 1
+condition: " step1_arv_line.contains('second_line') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_third_line
+description: third_line relevance
+priority: 1
+condition: " step1_arv_line.contains('third_line') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_regimen
+description: regimen calculation
 priority: 1
 condition: "true"
 actions:
-  - "referral_date_calculation =  System.currentTimeMillis()"
----
-name: "referral_time_calculation"
-description: "Referral time calculation"
-priority: 1
-condition: "true"
-actions:
-  - "def getDate(dateFormat) {
-        import java.util.*;
-        import java.text.SimpleDateFormat;
-        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
-    }"
-  - "referral_time_calculation = getDate('HH:mm:ss.SSS')"
----
-name: "referral_type_calculation"
-description: "Referral type calculation"
-priority: 1
-condition: "true"
-actions:
-  - "referral_type_calculation = 'community_to_facility_referral'"
----
-name: "referral_status_calculation"
-description: "Referral type calculation"
-priority: 1
-condition: "true"
-actions:
-  - "referral_status_calculation = 'PENDING'"
----
-name: "service_before_referral_calculation"
-description: "Service Before Referral"
-condition: "true"
-priority: 1
-actions:
-  - "service_before_referral_calculation = 'None'"
----
-name: "last_appointment_date_visibility"
-description: "Last Appointment Date if client was continuing with service"
-priority: 1
-condition: "followup_status.value == 'Client attending the clinic' || followup_status.value == 'Mteja anahudhuria kliniki' "
-actions:
-  - "last_appointment_date_visibility =  true"
----
-name: "other_reason_for_missed_appointment_visibility"
-description: "other_reason_for_missed_appointment_visibility"
-priority: 1
-condition: "reasons_for_missed_appointment.value == 'Other' || reasons_for_missed_appointment.value == 'Nyinginezo' "
-actions:
-  - "other_reason_for_missed_appointment_visibility =  true"
----
-name: "reasons_why_the_client_is_not_ready_to_return_to_clinic_visibility"
-description: "reasons_why_the_client_is_not_ready_to_return_to_clinic"
-priority: 1
-condition: "followup_status.value == 'Client is found but is not ready to return to clinic' || followup_status.value == 'Amepatikana lakini hayuko tayari kurudi kliniki' "
-actions:
-  - "reasons_why_the_client_is_not_ready_to_return_to_clinic_visibility =  true"
----
-name: "other_reason_for_not_being_ready_to_return_to_clinic_visibility"
-description: "other_reason_for_not_being_ready_to_return_to_clinic"
-priority: 1
-condition: "(followup_status.value == 'Client is found but is not ready to return to clinic' || followup_status.value == 'Amepatikana lakini hayuko tayari kurudi kliniki') && reasons_why_the_client_is_not_ready_to_return_to_clinic['other'] != null "
-actions:
-  - "other_reason_for_not_being_ready_to_return_to_clinic_visibility =  true"
+  - "calculation = !step1_first_line.equals('') ? step1_first_line : (!step1_second_line.equals('') ? step1_second_line : (!step1_third_line.equals('') ? step1_third_line : ''))"
+

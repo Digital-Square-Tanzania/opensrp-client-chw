@@ -1,10 +1,7 @@
 {
-  "form": "LTFU Community Followup Feedback",
   "count": "1",
   "encounter_type": "LTFU Feedback",
   "entity_id": "",
-  "relational_id": "",
-  "rules_file": "rule/ltfu_feedback_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -17,11 +14,6 @@
       "openmrs_entity": "concept",
       "openmrs_data_type": "end",
       "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "today": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "encounter",
-      "openmrs_entity_id": "encounter_date"
     },
     "deviceid": {
       "openmrs_entity_parent": "",
@@ -47,459 +39,758 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
+    "encounter_location": ""
   },
-  "steps": [
-    {
-      "title": "Taarifa za mteja baada ya ufuatiliaji",
-      "fields": [
-        {
-          "name": "followup_status",
-          "type": "spinner",
-          "properties": {
-            "text": "Matokeo ya Ufuatiliaji"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "followup_status",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "continuing_with_services",
-              "text": "Mteja anahudhuria kliniki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "continuing_with_services",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_found_ready_to_return",
-              "text": "Amepatikana na yupo tayari kurudi kliniki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_found_ready_to_return",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_found_and_has_returned_to_clinic",
-              "text": "Amepatikana na amerudi kliniki kuendelea na huduma",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_found_and_has_returned_to_clinic",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_has_moved_to_another_facility",
-              "text": "Amehamia kituo kingine bila taarifa",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_has_moved_to_another_facility",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_attended_another_facility",
-              "text": "Mteja alihudhuria cliniki nyingine",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_attended_another_facility",
-                 "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_does_not_want_to_return",
-              "text": "Amepatikana lakini hayuko tayari kurudi kliniki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_does_not_want_to_return",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "on_transit",
-              "text": "Alikuwa katika Safari (Alichukua dawa kutoka kituo kingine cha afya)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "on_transit",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "deceased",
-              "text": "Amefariki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "deceased",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_not_found",
-              "text": "Hajapatikana",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_not_found",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Tafadhali chagua matokeo ya ufuatiliaji"
-        },
-        {
-          "name": "reasons_for_missed_appointment",
-          "type": "spinner",
-          "properties": {
-            "text": "Sababu za kutohudhuria kliniki"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "reasons_for_missed_appointment",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "client_has_forgotten",
-              "text": "Alisahau",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_has_forgotten",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_was_ill",
-              "text": "Alikuwa mgonjwa sana",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_was_ill",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_failed_to_disclose_his_status",
-              "text": "Ameshindwa kujiweka wazi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_failed_to_disclose_his_status",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_did_not_have_fare",
-              "text": "Amekosa Nauli",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_did_not_have_fare",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_lives_far_away_from_the_health_facility",
-              "text": "Umbali/Usafiri Mgumu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_lives_far_away_from_the_health_facility",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_feels_well",
-              "text": "Amepata Nafuu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_feels_well",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_was_busy_at_work",
-              "text": "Hakupata ruhusa kazini",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_was_busy_at_work",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_traveled",
-              "text": "Alisafiri",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_traveled",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_uses_alternative_medicine",
-              "text": "Anatumia tiba mbadala",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_uses_alternative_medicine",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "poor_services_at_health_facility",
-              "text": "Huduma haziridhishi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "poor_services_at_health_facility",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other",
-              "text": "Nyinginezo",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "other",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Tafadhali chagua",
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "other_reason_for_missed_appointment",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Taja sababu nyingine za kutohudhuria kliniki",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_reason_for_missed_appointment",
-            "openmrs_entity_parent": "reasons_for_missed_appointment"
-          },
-          "required_status": "yes:Tafadhali jaza",
-          "subjects": "reasons_for_missed_appointment:map"
-        },
-        {
-          "name": "last_appointment_date",
-          "type": "datetime_picker",
-          "properties": {
-            "hint": "Tarehe ya hudhurio la mwisho",
-            "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "max_date": "today"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "last_appointment_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "yes:Tafadhali taja tarehe",
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "referral_appointment_date",
-          "type": "datetime_picker",
-          "properties": {
-            "hint": "Tarehe aliyoahidi kurudi",
-            "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "min_date": "today"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "referral_appointment_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "yes:Tafadhali taja tarehe",
-          "dependent_calculations": [
-            "referral_date",
-            "referral_time",
-            "referral_type",
-            "referral_status",
-            "service_before_referral"
-          ],
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "date_of_death",
-          "type": "datetime_picker",
-          "properties": {
-            "hint": "Tarehe ya kifo",
-            "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "max_date": "today"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "date_of_death",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "yes:Tafadhali taja tarehe",
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "place_of_death",
-          "type": "spinner",
-          "properties": {
-            "text": "Mahali alipofariki"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "place_of_death",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "community",
-              "text": "Kwenye Jamii",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "community",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "facility",
-              "text": "Kwenye Kituo cha Afya",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "facility",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Tafadhali chagua mahali mteja alipofariki",
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "cause_of_death",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Cause of Death",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cause_of_death",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "yes:Please fill the cause of death",
-          "subjects": "followup_status:map"
-        },
-        {
-          "name": "reason_client_not_found",
-          "type": "spinner",
-          "properties": {
-            "text": "Sababu za kutopatikana mteja"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "reason_client_not_found",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "address_incorrect",
-              "text": "Anwani sio sahihi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "address_incorrect",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "client_relocated",
-              "text": "Amehama makazi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_relocated",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "seasonal_work",
-              "text": "Kilimo/kazi za msimu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "seasonal_work",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "subjects": "followup_status:map",
-          "required_status": "yes:Tafadhali chagua"
-        },
-        {
-          "name": "reasons_why_the_client_is_not_ready_to_return_to_clinic",
-          "meta_data": {
+  "global": {},
+  "step1": {
+    "title": "Taarifa za mteja baada ya ufuatiliaji",
+    "fields": [
+      {
+        "key": "followup_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "followup_status",
+        "label": "Matokeo ya Ufuatiliaji",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "continuing_with_services",
+            "text": "Mteja anahudhuria kliniki",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "reasons_why_the_client_is_not_ready_to_return_to_clinic"
+            "openmrs_entity_id": "continuing_with_services"
           },
-          "type": "multi_choice_checkbox",
-          "properties": {
-            "text": "Sababu zilizomfanya mteja asiwe tayari kurudi kliniki"
-          },
-          "options": [
-            {
-              "name": "confirmed_hiv_negative",
-              "text": "Imethibitishwa kuwa hana VVU",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "confirmed_hiv_negative",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other",
-              "text": "Nyinginezo",
-              "is_exclusive": true,
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "other",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "subjects": "followup_status:map",
-          "required_status": "yes:Please fill the reasons"
-        },
-        {
-          "name": "other_reason_for_not_being_ready_to_return_to_clinic",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Sababu nyinginezo ambazo zimemfanya mteja asiwe tayari kurudi kliniki",
-            "type": "name"
-          },
-          "meta_data": {
+          {
+            "key": "client_found_ready_to_return",
+            "text": "Amepatikana na yupo tayari kurudi kliniki",
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_reason_for_not_being_ready_to_return_to_clinic",
-            "openmrs_entity_parent": "reasons_why_the_client_is_not_ready_to_return_to_clinic"
+            "openmrs_entity_id": "client_found_ready_to_return"
           },
-          "required_status": "yes:Tafadhali jaza sababu nyinginezo",
-          "subjects": "reasons_why_the_client_is_not_ready_to_return_to_clinic:map"
-        },
-        {
-          "name": "chw_referral_hf",
-          "type": "spinner",
-          "meta_data": {
+          {
+            "key": "client_found_and_has_returned_to_clinic",
+            "text": "Amepatikana na amerudi kliniki kuendelea na huduma",
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_id": "client_found_and_has_returned_to_clinic"
+          },
+          {
+            "key": "client_has_moved_to_another_facility",
+            "text": "Amehamia kituo kingine bila taarifa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_has_moved_to_another_facility"
+          },
+          {
+            "key": "client_attended_another_facility",
+            "text": "Mteja alihudhuria cliniki nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_attended_another_facility"
+          },
+          {
+            "key": "client_does_not_want_to_return",
+            "text": "Amepatikana lakini hayuko tayari kurudi kliniki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_does_not_want_to_return"
+          },
+          {
+            "key": "on_transit",
+            "text": "Alikuwa katika Safari (Alichukua dawa kutoka kituo kingine cha afya)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "on_transit"
+          },
+          {
+            "key": "deceased",
+            "text": "Amefariki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deceased"
+          },
+          {
+            "key": "client_not_found",
+            "text": "Hajapatikana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_not_found"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua matokeo ya ufuatiliaji"
+        }
+      },
+      {
+        "key": "reasons_for_missed_appointment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_missed_appointment",
+        "label": "Sababu za kutohudhuria kliniki",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "client_has_forgotten",
+            "text": "Alisahau",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_has_forgotten"
+          },
+          {
+            "key": "client_was_ill",
+            "text": "Alikuwa mgonjwa sana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_was_ill"
+          },
+          {
+            "key": "client_failed_to_disclose_his_status",
+            "text": "Ameshindwa kujiweka wazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_failed_to_disclose_his_status",
             "openmrs_entity_parent": ""
           },
-          "properties": {
-            "text": "Chagua Kituo alichohudhuria mjeta",
-            "searchable": "Chagua Kituo alichohudhuria mjeta"
+          {
+            "key": "client_did_not_have_fare",
+            "text": "Amekosa Nauli",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_did_not_have_fare",
+            "openmrs_entity_parent": ""
           },
-          "options": [],
-          "required_status": "yes:Tafadhali Chagua Kituo alichohudhuria mjeta",
-          "subjects": "followup_status:map"
+          {
+            "key": "client_lives_far_away_from_the_health_facility",
+            "text": "Umbali/Usafiri Mgumu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_lives_far_away_from_the_health_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "client_feels_well",
+            "text": "Amepata Nafuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_feels_well",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "client_was_busy_at_work",
+            "text": "Hakupata ruhusa kazini",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_was_busy_at_work",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "client_traveled",
+            "text": "Alisafiri",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_traveled",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "client_uses_alternative_medicine",
+            "text": "Anatumia tiba mbadala",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_uses_alternative_medicine",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "poor_services_at_health_facility",
+            "text": "Huduma haziridhishi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "poor_services_at_health_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
         }
-      ]
-    }
-  ]
+      },
+      {
+        "key": "other_reason_for_missed_appointment",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_for_missed_appointment",
+        "openmrs_entity_parent": "",
+        "hint": "Taja sababu nyingine za kutohudhuria kliniki",
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "last_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_appointment_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya hudhurio la mwisho",
+        "expanded": false,
+        "min_date": "today-1y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja tarehe"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "hint": "Tarehe aliyoahidi kurudi",
+        "expanded": false,
+        "min_date": "today",
+        "max_date": "today+1m",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja tarehe"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "date_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_death",
+        "type": "date_picker",
+        "hint": "Tarehe ya kifo",
+        "expanded": false,
+        "min_date": "today-1y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja tarehe"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "place_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "place_of_death",
+        "label": "Mahali alipofariki",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "community",
+            "text": "Kwenye Jamii",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community"
+          },
+          {
+            "key": "facility",
+            "text": "Kwenye Kituo cha Afya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua mahali mteja alipofariki"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "hint": "Cause of Death",
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_client_not_found",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_client_not_found",
+        "label": "Sababu za kutopatikana mteja",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "address_incorrect",
+            "text": "Anwani sio sahihi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "address_incorrect",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "client_relocated",
+            "text": "Amehama makazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_relocated",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "seasonal_work",
+            "text": "Kilimo/kazi za msimu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "seasonal_work",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_why_the_client_is_not_ready_to_return_to_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_why_the_client_is_not_ready_to_return_to_clinic",
+        "label": "Sababu zilizomfanya mteja asiwe tayari kurudi kliniki",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "confirmed_hiv_negative",
+            "text": "Imethibitishwa kuwa hana VVU",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "confirmed_hiv_negative",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo",
+            "is_exclusive": true,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "other",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reason_for_not_being_ready_to_return_to_clinic",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_for_not_being_ready_to_return_to_clinic",
+        "openmrs_entity_parent": "",
+        "hint": "Sababu nyinginezo ambazo zimemfanya mteja asiwe tayari kurudi kliniki",
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "details",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Kituo alichohudhuria mjeta",
+        "text_size": "25px",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chw_referral_hf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_referral_hf",
+        "buttonText": "Chagua Kituo alichohudhuria mjeta",
+        "sort": true,
+        "maxSelectable": 1,
+        "dialogTitle": "Health Facility",
+        "searchHint": "Chagua Kituo alichohudhuria mjeta",
+        "options": [
+        ],
+        "type": "multi_select_list",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali Chagua Kituo alichohudhuria mjeta"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "arv_line",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "arv_line",
+        "label": "Chagua laini ya ARV",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "first_line",
+            "text": "Mstari wa Kwanza",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_line"
+          },
+          {
+            "key": "second_line",
+            "text": "Mstari wa Pili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "second_line"
+          },
+          {
+            "key": "third_line",
+            "text": "Mstari wa tatu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "third_line"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "first_line",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_line",
+        "label": "Dawa za ARVs katika mstari wa kwanza",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "1_gA",
+            "text": "1g-A (TDF+3TC+EFV)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_gA"
+          },
+          {
+            "key": "1_bA",
+            "text": "1b-A (AZT+3TC+NVP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_bA"
+          },
+          {
+            "key": "1_cA",
+            "text": "1c-A (AZT+3TC+EFV)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_cA"
+          },
+          {
+            "key": "1_kA",
+            "text": "1k-A (ABC+3TC+EFV)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_kA"
+          },
+          {
+            "key": "1_pA",
+            "text": "1p-A (ABC+3TC+DTG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_pA"
+          },
+          {
+            "key": "1_rA",
+            "text": "1r-A (TDF+3TC+DTG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_rA"
+          },
+          {
+            "key": "1_uA",
+            "text": "1u-A (AZT+3TC+DTG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_uA"
+          },
+          {
+            "key": "1_qA",
+            "text": "1q-A (TDF+FTC+DTG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_qA"
+          },
+          {
+            "key": "1_xA",
+            "text": "1x-A (Other 1st line)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1_xA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali swali hili"
+        }
+      },
+      {
+        "key": "second_line",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "second_line",
+        "label": "Dawa za ARVs katika Mstari wa pili",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "2_fA",
+            "text": "2f-A (TDF+FTC+LPV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_fA"
+          },
+          {
+            "key": "2_hA",
+            "text": "2h-A (TDF+FTC+ATV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_hA"
+          },
+          {
+            "key": "2_sA",
+            "text": "2s-A (AZT+3TC+ATV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_sA"
+          },
+          {
+            "key": "2_gA",
+            "text": "2g-A (ABC+3TC+LPV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_gA"
+          },
+          {
+            "key": "2_kA",
+            "text": "2k-A (ABC+3TC+ATV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_kA"
+          },
+          {
+            "key": "2_nA",
+            "text": "2n-A (AZT+3TC+LPV/r)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_nA"
+          },
+          {
+            "key": "2_xA",
+            "text": "2x-A (Other 2nd line)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "2_xA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "third_line",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "third_line",
+        "label": "Dawa za ARVs katika mstari wa tatu",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "3_yA",
+            "text": "3y-A (DTG+DRV/r+AZT+3TC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_yA"
+          },
+          {
+            "key": "3_wA",
+            "text": "3w-A (RAL+DRV/r+AZT+3TC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_wA"
+          },
+          {
+            "key": "3_kA",
+            "text": "3k-A (DTG+LPV/r+AZT+3TC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_kA"
+          },
+          {
+            "key": "3_tA",
+            "text": "3t-A (DTG+LPV/r+TDF+FTC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_tA"
+          },
+          {
+            "key": "3_hA",
+            "text": "3h-A (RAL+LPV/r+AZT+3TC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_hA"
+          },
+          {
+            "key": "3_gA",
+            "text": "3g-A (RAL+LPV/r+TDF+FTC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_gA"
+          },
+          {
+            "key": "3_zA",
+            "text": "3z-A (DTG+ATV/r+AZT+3TC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_zA"
+          },
+          {
+            "key": "3_xA",
+            "text": "3x-A (Other 3rd line)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "3_xA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "regimen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "regimen",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ltfu_feedback_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "rec_guid",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "rec_guid",
+        "type": "hidden"
+      }
+    ]
+  }
 }
