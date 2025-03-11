@@ -6,6 +6,7 @@ import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.model.HpsHouseholdRegisterFragmentModel;
 import org.smartregister.chw.presenter.HpsHouseholdRegisterFragmentPresenter;
 import org.smartregister.chw.provider.FamilyRegisterProvider;
+import org.smartregister.chw.provider.HpsHouseholdRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -31,7 +32,7 @@ public class HpsHouseholdRegisterFragment extends CoreHpsRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        CoreRegisterProvider chwRegisterProvider = new FamilyRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        CoreRegisterProvider chwRegisterProvider = new HpsHouseholdRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

@@ -771,10 +771,9 @@
     <string name="hps_psychological_counselling">Ushauri wa Kisaikolojia</string>
     <string name="hps_others">Huduma nyinginezo</string>
     <string name="hps_others_specify">Nyinginezo (Taja)</string>
-
-
-
-
+    <string name="child_name_label">Jina la mtoto</string>
+    <string name="client_details">Taarifa za mteja</string>
+    <string name="chw_details">Taarifa za mja</string>
 
 
 </resources>

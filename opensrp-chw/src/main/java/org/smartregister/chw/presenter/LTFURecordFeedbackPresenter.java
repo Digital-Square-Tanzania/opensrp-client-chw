@@ -169,7 +169,7 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
         }
     }
 
-    private void saveCloseReferralEvent() {
+    public void saveCloseReferralEvent() {
         try {
             AllSharedPreferences sharedPreferences = Utils.getAllSharedPreferences();
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -259,7 +259,7 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
         return ChwApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
     }
 
-    private void completeTask() {
+    public void completeTask() {
         Task currentTask = getTask();
         currentTask.setForEntity(baseEntityId);
         currentTask.setStatus(Task.TaskStatus.IN_PROGRESS);

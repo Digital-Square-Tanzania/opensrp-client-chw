@@ -838,10 +838,11 @@
     <string name="hps_macerated_still_births_msb">Macerated Still Births (MSB)</string>
     <string name="hps_death_occured_during_births_fsb">Death Occured during Births (FSB)</string>
     <string name="hps_matenal_deaths_anc_matenal_pnc">Accidents</string>
-    <string name="hps_accidents">Matenal Deaths (ANC, Matenal, PNC)</string>
+    <string name="hps_accidents">Matenal Deaths (ANC, Matenal)</string>
     <string name="hps_other_reason">Other reason</string>
     <string name="hps_cause_of_death_specify">Specify</string>
     <string name="hps_comments">Comments</string>
+
     <string name="hps_provision_of_curative_services">Did the client provided with curative services?</string>
     <string name="hps_diseases_signs_and_symptoms">Diseases Signs and Symptoms</string>
     <string name="hps_fever">Fever</string>
@@ -1334,4 +1335,6 @@
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
     <string name="hps_none">None</string>
 
+    <string name="treatment_supporter_prefix">Treatment Supporter: %s</string>
+    <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>
 </resources>
