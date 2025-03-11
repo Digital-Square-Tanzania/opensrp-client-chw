@@ -246,13 +246,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "last_appointment_date",
         "type": "date_picker",
-        "hint": "Last appointment date",
+        "hint": "Last visit date",
         "expanded": false,
         "min_date": "today-1y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last appointment date"
+          "err": "Please enter the last visit date"
         },
         "relevance": {
           "rules-engine": {

@@ -14,4 +14,9 @@ public class HpsAnnualCensusRegisterFragmentPresenter extends BaseHpsRegisterFra
         return Constants.TABLES.HPS_ANNUAL_CENSUS_REGISTER;
     }
 
+    @Override
+    public String getMainCondition() {
+        return " "+getMainTable()+".is_closed = 0 ";
+    }
+
 }

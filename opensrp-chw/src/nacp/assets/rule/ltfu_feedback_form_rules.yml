@@ -62,7 +62,7 @@ actions:
 name: step1_last_appointment_date
 description: last_appointment_date relevance
 priority: 1
-condition: " step1_followup_status.contains('client_found_and_has_returned_to_clinic') "
+condition: " step1_followup_status.contains('client_found_and_has_returned_to_clinic') || step1_followup_status.contains('continuing_with_services') "
 actions:
   - "isRelevant = true"
 ---

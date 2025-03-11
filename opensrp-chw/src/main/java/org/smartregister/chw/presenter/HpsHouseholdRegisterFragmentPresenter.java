@@ -14,4 +14,9 @@ public class HpsHouseholdRegisterFragmentPresenter extends BaseHpsRegisterFragme
     public String getMainTable() {
         return Constants.TABLES.HPS_HOUSEHOLD_REGISTER;
     }
+
+    @Override
+    public String getMainCondition() {
+        return " "+getMainTable()+".is_closed = 0 AND does_the_household_consent_to_be_enrolled_in_hps_services = 'yes' ";
+    }
 }
