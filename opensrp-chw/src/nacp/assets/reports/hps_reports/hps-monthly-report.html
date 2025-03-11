@@ -12,6 +12,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
+
 .show-on-print {
   display: none;
 }
@@ -30,6 +31,8 @@ table, th, td {
 .table-wrapper{
     margin: 10px;
     margin-right: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch;
 }
 
 .fl-table {
@@ -37,6 +40,7 @@ table, th, td {
     font-size: 10px;
     font-weight: normal;
     border-collapse: collapse;
+    table-layout: auto;
     width: 100%;
     max-width: 100%;
     background-color: white;
@@ -44,6 +48,8 @@ table, th, td {
 
 .fl-table td, .fl-table th {
     padding: 5px;
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
 }
 
 .table-th-color {
@@ -65,6 +71,25 @@ table, th, td {
 .description-data{
     background-color: #231F20;
     color: white;
+}
+
+.description-data-total{
+    background-color: #231F20;
+    color: white;
+}
+
+/* Specific width for the "MAELEZO" column */
+.fl-table th.description-data,
+.fl-table td.description-data {
+    width: 15%; /* Adjust this value as needed */
+    text-align: center; /* Align text to the left for better readability */
+}
+
+/* Specific width for the "JUMLA" column */
+.fl-table th.description-data-total,
+.fl-table td.description-data-total {
+    width: 5%; /* Adjust this value as needed */
+    text-align: center; /* Align text to the left for better readability */
 }
 
 ul {
@@ -103,6 +128,35 @@ ul li > * {
   .child-table {
     width: 50%;
   }
+
+  .description-data{
+    background-color: #231F20;
+    color: white;
+}
+
+.description-data-total{
+    background-color: #231F20;
+    color: white;
+}
+
+.description-data-total{
+    background-color: #231F20;
+    color: white;
+}
+
+/* Specific width for the "MAELEZO" column */
+.fl-table th.description-data,
+.fl-table td.description-data {
+    width: 15%; /* Adjust this value as needed */
+    text-align: center; /* Align text to the left for better readability */
+}
+
+/* Specific width for the "JUMLA" column */
+.fl-table th.description-data-total,
+.fl-table td.description-data-total {
+    width: 5%; /* Adjust this value as needed */
+    text-align: center; /* Align text to the left for better readability */
+}
 }
     </style>
 </head>
@@ -121,7 +175,7 @@ ul li > * {
             <th rowspan="2" class="description-data">MAELEZO</th>
             <th colspan="11">ME</th>
             <th colspan="11">KE</th>
-            <th rowspan="2" class="description-data">Jumla (ME+KE)</th>
+            <th rowspan="2" class="description-data-total">Jumla (ME+KE)</th>
         </tr>
         <tr>
             <th>Chini ya mwezi 1</th>
@@ -3661,7 +3715,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>ELIMU ILIYOTOLEWA</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>C1</td>
@@ -4449,7 +4503,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>HUDUMA KINGA ZILIZOTOLEWA</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>D1</td>
@@ -4648,7 +4702,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>Njia ya Uelimishaji na Uhamasishaji iliyotumika</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>K1</td>
@@ -4816,7 +4870,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>Eneo Uhamasishaji Ulipofanyika</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>L1</td>
@@ -5037,7 +5091,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>Elimu Iliyotolewa</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>C1</td>
@@ -5830,7 +5884,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>AINA YA KIFO</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>J1</td>
@@ -5841,12 +5895,12 @@ ul li > * {
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
-            <td align="center" class="no-data"></td>>
-            <td align="center" class="no-data"></td>>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
@@ -5868,10 +5922,10 @@ ul li > * {
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
             <td align="center" id="hps-4J2-ME-total"></td>
             <td align="center" id="hps-4J2-KE-under-month"></td>
             <td align="center" class="no-data"></td>
@@ -5879,10 +5933,10 @@ ul li > * {
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
             <td align="center" id="hps-4J2-KE-total"></td>
             <td align="center" id="hps-4J2-grand-total"></td>
         </tr>
@@ -5895,10 +5949,10 @@ ul li > * {
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
             <td align="center" id="hps-4J3-ME-total"></td>
             <td align="center" id="hps-4J3-KE-under-month"></td>
             <td align="center" class="no-data"></td>
@@ -5906,10 +5960,10 @@ ul li > * {
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
             <td align="center" class="no-data"></td>
             <td align="center" class="no-data"></td>
-            <td align="center" class="no-data"></td>>
+            <td align="center" class="no-data"></td>
+            <td align="center" class="no-data"></td>
             <td align="center" id="hps-4J3-KE-total"></td>
             <td align="center" id="hps-4J3-grand-total"></td>
         </tr>
@@ -5975,7 +6029,7 @@ ul li > * {
         <tr class="table-th-color">
             <td>CODE</td>
             <td>AINA YA VIELELEZO</td>
-            <td colspan="24"></td>
+            <td colspan="23"></td>
         </tr>
         <tr>
             <td>M1</td>
@@ -6089,26 +6143,63 @@ ul li > * {
     </table>
 </div>
 
+<!--<script>-->
+<!--    function loadData(reportKey, reportType) {-->
+<!--  const data = JSON.parse(Android.getData("hps-monthly-report"));-->
+<!--  const keys = Object.keys(data.nameValuePairs);-->
+<!--  const reportPeriod = document.getElementById("report_period");-->
+<!--  const reportingFacility = document.getElementById("reporting_facility");-->
+<!--  keys.forEach((key) => {-->
+<!--    let element;-->
+<!--    if(reportType!== null && reportType === "pnc"){-->
+<!--      element = document.getElementById(key.replace("pnc-",""));-->
+<!--    }else{-->
+<!--      element = document.getElementById(key);-->
+<!--    }-->
+<!--    if (element !== null && typeof element !== "undefined") {-->
+<!--      element.innerHTML = data.nameValuePairs[key];-->
+<!--    }-->
+<!--  });-->
+<!--  reportPeriod.innerHTML = Android.getDataPeriod();-->
+<!--  reportingFacility.innerHTML = Android.getReportingFacility();-->
+<!--}-->
+<!--</script>-->
 <script>
+    // Function to load and update data
     function loadData(reportKey, reportType) {
-  const data = JSON.parse(Android.getData("hps-monthly-report"));
-  const keys = Object.keys(data.nameValuePairs);
-  const reportPeriod = document.getElementById("report_period");
-  const reportingFacility = document.getElementById("reporting_facility");
-  keys.forEach((key) => {
-    let element;
-    if(reportType!== null && reportType === "pnc"){
-      element = document.getElementById(key.replace("pnc-",""));
-    }else{
-      element = document.getElementById(key);
+      const data = JSON.parse(Android.getData("hps-monthly-report")); // Fetch data
+      const keys = Object.keys(data.nameValuePairs); // Get keys from the data
+      const reportPeriod = document.getElementById("report_period");
+      const reportingFacility = document.getElementById("reporting_facility");
+
+      // Update elements with new data
+      keys.forEach((key) => {
+        let element;
+        if (reportType !== null && reportType === "pnc") {
+          element = document.getElementById(key.replace("pnc-", ""));
+        } else {
+          element = document.getElementById(key);
+        }
+        if (element !== null && typeof element !== "undefined") {
+          element.innerHTML = data.nameValuePairs[key]; // Update element content
+        }
+      });
+
+      // Update report period and reporting facility
+      reportPeriod.innerHTML = Android.getDataPeriod();
+      reportingFacility.innerHTML = Android.getReportingFacility();
     }
-    if (element !== null && typeof element !== "undefined") {
-      element.innerHTML = data.nameValuePairs[key];
+
+    // Function to start polling for updates
+    function startPolling(reportKey, reportType, interval = 5000) {
+      setInterval(() => {
+        console.log("Polling for new data...");
+        loadData(reportKey, reportType); // Call loadData to fetch and update data
+      }, interval);
     }
-  });
-  reportPeriod.innerHTML = Android.getDataPeriod();
-  reportingFacility.innerHTML = Android.getReportingFacility();
-}
+
+    // Start polling when the page loads
+    startPolling(reportKey, reportTyp);
 </script>
 </body>
 </html>
