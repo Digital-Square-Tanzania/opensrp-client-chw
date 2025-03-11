@@ -85,6 +85,7 @@
 
 
     </style>
+    <script src="../hps-annual-report-script.js"></script>
 </head>
 
 <div class="show-on-print" style="font-size:12px;">
@@ -92,7 +93,7 @@
     <h2>Taarifa ya Mwaka: <span id="hps-report_period"></span></h2>
     <h2>Jina la Kijiji/Mtaa: <span id="hps-reporting_facility"></span></h2>
 </div>
-<body onload="loadData()">
+<body onload="loadData('hps-annual-report')">
 
 <div class="responsive-container">
     <div style="overflow-x: auto;">
@@ -133,6 +134,27 @@
                 <th>Jumla</th>
             </tr>
             </thead>
+            <tbody>
+            <tr>
+                <td colspan="2"></td>
+                <td align="center" id="hps-M-<1"></td>
+                <td align="center" id="hps-F-<1"></td>
+                <td align="center" id="hps-M-1-4"></td>
+                <td align="center" id="hps-F-1-4"></td>
+                <td align="center" id="hps-M-5-14"></td>
+                <td align="center" id="hps-F-5-14"></td>
+                <td align="center" id="hps-M-15-49"></td>
+                <td align="center" id="hps-F-15-49"></td>
+                <td align="center" id="hps-M-50-59"></td>
+                <td align="center" id="hps-F-50-59"></td>
+                <td align="center" id="hps-M-60-+"></td>
+                <td align="center" id="hps-F-60-+"></td>
+                <td align="center" id="hps-M-total"></td>
+                <td align="center" id="hps-F-total"></td>
+                <td align="center" id="hps-MF-grand-total"></td>
+                <td></td>
+            </tr>
+            </tbody>
         </table>
     </div>
 
@@ -458,22 +480,6 @@
     </li>
 </ol>
 </div>
-    
-<script>
-    function loadData() {
-        const data = JSON.parse(Android.getData("hps-annual-report"));
-        const keys = Object.keys(data.nameValuePairs);
-        const reportingFacility = document.getElementById("reporting_facility");
-        keys.forEach((key) => {
-            let element;
-            element = document.getElementById(key);
-            if (element !== null && typeof element !== "undefined") {
-              element.innerHTML = data.nameValuePairs[key];
-            }
-        });
-        reportingFacility.innerHTML = Android.getReportingFacility();
-  }
-</script>
 </body>
 
 </html>
