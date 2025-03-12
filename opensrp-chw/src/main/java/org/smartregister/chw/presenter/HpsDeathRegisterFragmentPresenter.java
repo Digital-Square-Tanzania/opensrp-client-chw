@@ -14,4 +14,9 @@ public class HpsDeathRegisterFragmentPresenter extends BaseHpsRegisterFragmentPr
         return Constants.TABLES.HPS_DEATH_REGISTER;
     }
 
+    @Override
+    public String getMainCondition() {
+        return " "+getMainTable()+".is_closed = 0 ";
+    }
+
 }

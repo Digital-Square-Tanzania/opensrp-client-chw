@@ -737,6 +737,7 @@
     <string name="hps_food_supplements">Chakula dawa (RUTF)</string>
 
 
+    <string name="hps_health_education_title">Elimu ya afya</string>
     <string name="hps_name_of_hamlet">Jina la kitongoji</string>
     <string name="hps_visit_type">Chagua aina ya tembeleo</string>
     <string name="hps_new_visit">Mpya</string>
@@ -771,10 +772,9 @@
     <string name="hps_psychological_counselling">Ushauri wa Kisaikolojia</string>
     <string name="hps_others">Huduma nyinginezo</string>
     <string name="hps_others_specify">Nyinginezo (Taja)</string>
-
-
-
-
+    <string name="child_name_label">Jina la mtoto</string>
+    <string name="client_details">Taarifa za mteja</string>
+    <string name="chw_details">Taarifa za mja</string>
 
 
 </resources>

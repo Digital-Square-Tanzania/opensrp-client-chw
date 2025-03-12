@@ -400,6 +400,11 @@
           "value":"1000",
           "err":"Number must be three digits"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance":{
           "rules-engine":{
             "ex-rules":{
@@ -664,6 +669,11 @@
           "value":"1000",
           "err":"Number must be three digits"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "relevance":{
           "rules-engine":{
             "ex-rules":{
@@ -927,6 +937,11 @@
         "v_max":{
           "value":"1000",
           "err":"Number must be three digits"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "relevance":{
           "rules-engine":{

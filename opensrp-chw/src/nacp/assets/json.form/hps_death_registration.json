@@ -168,6 +168,35 @@
             "openmrs_entity_id": "accidents"
           },
           {
+            "key": "other_reason",
+            "text": "Other reason",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death_male_dob_dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death_male_dob_dod",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
             "key": "msb",
             "text": "Macerated Still Births (MSB)",
             "openmrs_entity_parent": "",
@@ -180,13 +209,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsb"
-          },
-          {
-            "key": "other_reason",
-            "text": "Other reason",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_reason"
           }
         ],
         "v_required": {
@@ -218,20 +240,6 @@
             "openmrs_entity_id": "pnc_death"
           },
           {
-            "key": "msb",
-            "text": "Macerated Still Births (MSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "msb"
-          },
-          {
-            "key": "fsb",
-            "text": "Death Occured during Births (FSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "fsb"
-          },
-          {
             "key": "accidents",
             "text": "Accidents",
             "openmrs_entity_parent": "",
@@ -251,6 +259,42 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death_female_dob_dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death_female_dob_dod",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "msb",
+            "text": "Macerated Still Births (MSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msb"
+          },
+          {
+            "key": "fsb",
+            "text": "Death Occured during Births (FSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsb"
           }
         ],
         "v_required": {

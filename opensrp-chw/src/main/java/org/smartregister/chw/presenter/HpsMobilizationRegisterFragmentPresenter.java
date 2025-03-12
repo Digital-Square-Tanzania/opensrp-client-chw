@@ -14,4 +14,9 @@ public class HpsMobilizationRegisterFragmentPresenter extends BaseHpsRegisterFra
         return Constants.TABLES.HPS_MOBILIZATION_SESSIONS;
     }
 
+    @Override
+    public String getMainCondition() {
+        return " "+getMainTable()+".is_closed = 0 ";
+    }
+
 }
