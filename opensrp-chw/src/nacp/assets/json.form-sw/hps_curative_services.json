@@ -42,7 +42,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Curative Services",
+    "title": "Huduma za Tiba",
     "fields": [
       {
         "key": "provision_of_curative_services",
@@ -82,9 +82,6 @@
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "exclusive": [
-          "other_signs_and_symptoms"
-        ],
         "options": [
           {
             "key": "fever",
@@ -417,7 +414,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_disease_test_conducted",
-        "label": "Je vipimo vya ugonjwa vimefanywa?",
+        "label": "Je vipimo vya ugonjwa vimefanyika?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -453,7 +450,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_test_conducted",
-        "label": "Vipimo vilivyofanyika",
+        "label": "Vipimo vya ugonjwa vilivyofanyika",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -530,13 +527,18 @@
       {
         "key": "systolic",
         "type": "edit_text",
-        "hint": "Shinikizo la juu la damu",
+        "hint": "Shinikizo la juu la damu (mmHg)",
         "openmrs_entity_id": "systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza shinikizo la juu la damu"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "0",
@@ -561,7 +563,7 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Shinikizo la chini la damu",
+        "hint": "Shinikizo la chini la damu (mmHG)",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -572,7 +574,7 @@
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "0",
@@ -580,7 +582,7 @@
         },
         "v_max": {
           "value": "200",
-          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au juu ya 200"
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au chini ya 200"
         },
         "v_required": {
           "value": true,
@@ -596,8 +598,8 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step2:systolic)",
-            "err": "The diastolic value must be less than the systolic value"
+            "ex": "lessThan(., step1:systolic)",
+            "err": "Shinikizo la chini la damu linatikiwa liwe dogo kuliko shinikizo la juu la damu"
           }
         ]
       },
@@ -749,7 +751,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "arm_circumference_result",
         "type": "edit_text",
-        "hint": "Mzingo wa Mkono",
+        "hint": "Mzingo wa Mkono (CM)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja"

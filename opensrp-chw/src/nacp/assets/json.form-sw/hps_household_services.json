@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "HPS Household Services",
+    "title": "Huduma za Kaya",
     "fields": [
       {
         "key": "visit_type",
@@ -139,6 +139,8 @@
           {
             "key": "nutrition",
             "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition",
             "property": {
               "presumed-id": "nutrition",
               "confirmed-id": "nutrition"
@@ -147,6 +149,8 @@
           {
             "key": "danger_signs_of_pregnancy",
             "text": "Vidokezo vya hatari wakati wa ujauzito ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "danger_signs_of_pregnancy",
             "property": {
               "presumed-id": "danger_signs_of_pregnancy",
               "confirmed-id": "danger_signs_of_pregnancy"
@@ -155,6 +159,8 @@
           {
             "key": "family_planning",
             "text": "Uzazi wa Mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
             "property": {
               "presumed-id": "family_planning",
               "confirmed-id": "family_planning"
@@ -163,6 +169,8 @@
           {
             "key": "malaria",
             "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria",
             "property": {
               "presumed-id": "malaria",
               "confirmed-id": "malaria"
@@ -171,6 +179,8 @@
           {
             "key": "tuberculosis_leprosy_and_testing",
             "text": "Ugonjwa wa kifua kikuu, ukoma na upimaji.",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_leprosy_and_testing",
             "property": {
               "presumed-id": "tuberculosis_leprosy_and_testing",
               "confirmed-id": "tuberculosis_leprosy_and_testing"
@@ -179,6 +189,8 @@
           {
             "key": "hiv_hepatitis_and_testing",
             "text": "VVU, homa ya ini na upimaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_hepatitis_and_testing",
             "property": {
               "presumed-id": "hiv_hepatitis_and_testing",
               "confirmed-id": "hiv_hepatitis_and_testing"
@@ -187,6 +199,8 @@
           {
             "key": "epidemic_diseases",
             "text": "Magonjwa ya Mlipuko ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epidemic_diseases",
             "property": {
               "presumed-id": "epidemic_diseases",
               "confirmed-id": "epidemic_diseases"
@@ -195,6 +209,8 @@
           {
             "key": "neglected_tropical_diseases",
             "text": "Magonjwa yaliokuwa hayapewi kipaumbele ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_diseases",
             "property": {
               "presumed-id": "neglected_tropical_diseases",
               "confirmed-id": "neglected_tropical_diseases"
@@ -203,6 +219,8 @@
           {
             "key": "oral_and_dental_health",
             "text": "Afya ya kinywa na meno ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_and_dental_health",
             "property": {
               "presumed-id": "oral_and_dental_health",
               "confirmed-id": "oral_and_dental_health"
@@ -211,6 +229,8 @@
           {
             "key": "non_communicable_diseases",
             "text": "Magonjwa yasiyo ya kuambikizwa ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases",
             "property": {
               "presumed-id": "non_communicable_diseases",
               "confirmed-id": "non_communicable_diseases"
@@ -219,6 +239,8 @@
           {
             "key": "eye_diseases_and_testing",
             "text": "Magonjwa ya macho na upimaji ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_diseases_and_testing",
             "property": {
               "presumed-id": "eye_diseases_and_testing",
               "confirmed-id": "eye_diseases_and_testing"
@@ -227,6 +249,8 @@
           {
             "key": "environmental_sanitation_and_care",
             "text": "Usafi na Utunzaji wa mazingira ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_sanitation_and_care",
             "property": {
               "presumed-id": "environmental_sanitation_and_care",
               "confirmed-id": "environmental_sanitation_and_care"
@@ -235,6 +259,8 @@
           {
             "key": "health_insurance_fund",
             "text": "Mfuko wa bima ya afya ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_insurance_fund",
             "property": {
               "presumed-id": "health_insurance_fund",
               "confirmed-id": "health_insurance_fund"
@@ -243,6 +269,8 @@
           {
             "key": "gender_based_violence",
             "text": "Ukatili wa kijinsia ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence",
             "property": {
               "presumed-id": "gender_based_violence",
               "confirmed-id": "gender_based_violence"
@@ -251,6 +279,8 @@
           {
             "key": "harmful_effects_of_substance_abuse",
             "text": "Madhara ya matumizi ya mihadarati ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "harmful_effects_of_substance_abuse",
             "property": {
               "presumed-id": "harmful_effects_of_substance_abuse",
               "confirmed-id": "harmful_effects_of_substance_abuse"
@@ -259,6 +289,8 @@
           {
             "key": "mental_health",
             "text": "Afya ya akili ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health",
             "property": {
               "presumed-id": "harmful_effects_of_substance_abuse",
               "confirmed-id": "harmful_effects_of_substance_abuse"
@@ -267,6 +299,8 @@
           {
             "key": "rights_of_the_elderly_and_family_responsibilities",
             "text": "Haki za wazee na wajibu wa familia ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities",
             "property": {
               "presumed-id": "rights_of_the_elderly_and_family_responsibilities",
               "confirmed-id": "rights_of_the_elderly_and_family_responsibilities"
@@ -275,6 +309,8 @@
           {
             "key": "childrens_rights_and_protection",
             "text": "Haki na ulinzi wa watoto ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childrens_rights_and_protection",
             "property": {
               "presumed-id": "childrens_rights_and_protection",
               "confirmed-id": "childrens_rights_and_protection"
@@ -283,6 +319,8 @@
           {
             "key": "sexually_transmitted_diseases",
             "text": "Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexually_transmitted_diseases",
             "property": {
               "presumed-id": "sexually_transmitted_diseases",
               "confirmed-id": "sexually_transmitted_diseases"
@@ -291,6 +329,8 @@
           {
             "key": "effects_of_child_marriage_and_teenage_pregnancies",
             "text": "Madhara ya ndoa na mimba za utotoni ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies",
             "property": {
               "presumed-id": "effects_of_child_marriage_and_teenage_pregnancies",
               "confirmed-id": "effects_of_child_marriage_and_teenage_pregnancies"
@@ -299,6 +339,8 @@
           {
             "key": "immunization_services",
             "text": "Huduma za chanjo ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "immunization_services",
             "property": {
               "presumed-id": "immunization_services",
               "confirmed-id": "immunization_services"
@@ -307,6 +349,8 @@
           {
             "key": "childcare_growth_and_early_childhood_development",
             "text": "Malezi, makuzi na maendeleo ya awali ya mtoto ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childcare_growth_and_early_childhood_development",
             "property": {
               "presumed-id": "childcare_growth_and_early_childhood_development",
               "confirmed-id": "childcare_growth_and_early_childhood_development"
@@ -315,6 +359,8 @@
           {
             "key": "importance_of_birth_certificates",
             "text": "Umuhimu wa cheti cha kuzaliwa ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "importance_of_birth_certificates",
             "property": {
               "presumed-id": "importance_of_birth_certificates",
               "confirmed-id": "importance_of_birth_certificates"
@@ -323,6 +369,8 @@
           {
             "key": "entrepreneurship",
             "text": "Ujasiriamali ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "entrepreneurship",
             "property": {
               "presumed-id": "entrepreneurship",
               "confirmed-id": "entrepreneurship"
@@ -331,6 +379,8 @@
           {
             "key": "first_aid",
             "text": "Huduma ya kwanza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid",
             "property": {
               "presumed-id": "first_aid",
               "confirmed-id": "first_aid"
@@ -339,6 +389,8 @@
           {
             "key": "violence_against_children",
             "text": "Ukatili dhidi ya watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children",
             "property": {
               "presumed-id": "violence_against_children",
               "confirmed-id": "violence_against_children"
@@ -347,6 +399,8 @@
           {
             "key": "medication_adherence",
             "text": "Ufuasi wa dawa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "medication_adherence",
             "property": {
               "presumed-id": "medication_adherence",
               "confirmed-id": "medication_adherence"
@@ -355,6 +409,8 @@
           {
             "key": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
             "text": "Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
             "property": {
               "presumed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
               "confirmed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115"
@@ -363,6 +419,8 @@
           {
             "key": "others_education_specify",
             "text": "Elimu nyingine iliyotolewa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others_education_specify",
             "property": {
               "presumed-id": "others_education_specify",
               "confirmed-id": "others_education_specify"

@@ -1,5 +1,5 @@
 {
-  "count": 1,
+  "count": "1",
   "encounter_type": "HPS Client Enrollment",
   "entity_id": "",
   "relational_id": "",
@@ -53,15 +53,15 @@
     }
   },
   "step1": {
-    "title": "HPS Enrolment",
+    "title": "Ridhaa ya Kaya",
     "fields": [
       {
-        "key": "does_the_client_consent_to_be_enrolled_in_hps_services",
+        "key": "does_the_household_consent_to_be_enrolled_in_hps_services",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "does_the_client_consent_to_be_enrolled_in_hps_services",
+        "openmrs_entity_id": "does_the_household_consent_to_be_enrolled_in_hps_services",
         "type": "native_radio",
-        "label": "Je mteja amekubali kujiandikisha katika Elimu ya Afya kwa Umma?",
+        "label": "Je kaya imeridhia kujiandikisha katika Elimu ya Afya kwa Umma?",
         "options": [
           {
             "key": "yes",

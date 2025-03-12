@@ -82,9 +82,6 @@
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "exclusive": [
-          "other_signs_and_symptoms"
-        ],
         "options": [
           {
             "key": "fever",
@@ -531,13 +528,18 @@
       {
         "key": "systolic",
         "type": "edit_text",
-        "hint": "Systolic (Blood Pressure)",
+        "hint": "Systolic (mmHg)",
         "openmrs_entity_id": "systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the systolic value"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "v_min": {
           "value": "0",
@@ -562,7 +564,7 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Diastolic (Blood Pressure)",
+        "hint": "Diastolic (mmHg)",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -597,7 +599,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step2:systolic)",
+            "ex": "lessThan(., step1:systolic)",
             "err": "The diastolic value must be less than the systolic value"
           }
         ]
@@ -750,7 +752,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "arm_circumference_result",
         "type": "edit_text",
-        "hint": "Arm Circumference",
+        "hint": "Arm Circumference (CM)",
         "v_required": {
           "value": "true",
           "err": "Please specify"

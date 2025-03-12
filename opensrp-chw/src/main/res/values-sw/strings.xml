@@ -735,6 +735,8 @@
     <string name="hps_malaria_drugs">Dawa mseto za malaria (ALu)</string>
     <string name="hps_anti_pain">Dawa za kutuliza maumivu (panadol)</string>
     <string name="hps_food_supplements">Chakula dawa (RUTF)</string>
+    
+    <string name="hps_household_consent_to_be_enrolled_in_hps_services">"Je kaya imeridhia kujiandikisha katika Elimu ya Afya kwa Umma?</string>
 
 
     <string name="hps_health_education_title">Elimu ya afya</string>

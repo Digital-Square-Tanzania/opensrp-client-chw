@@ -1024,7 +1024,8 @@
     <string name="hps_psychological_counselling">Psychological counselling</string>
     <string name="hps_others">Others</string>
 
-    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services</string>
+    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services?</string>
+    <string name="hps_household_consent_to_be_enrolled_in_hps_services">Does the household consent to be enrolled in HPS services?</string>
 
     <string name="hps_provide_referral_services">Are there referral services provided to the client?</string>
     <string name="hps_referral_provided">Select referral service provided to the client</string>
