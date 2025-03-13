@@ -36,14 +36,6 @@ condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') > 10) || (step1
 actions:
   - "isRelevant = true"
 ---
-name: step1_preg_1yr
-description: pregnance 1yr relevance
-priority: 1
-condition: "step1_wra == 1"
-actions:
-  - "isRelevant = true"
-
----
 name: step1_insurance_provider_other
 description: insurance_provider_other relevance
 priority: 1
@@ -64,12 +56,5 @@ name: step1_type_of_disability
 description: type_of_disability relevance
 priority: 1
 condition: "step1_disabilities.equals('Yes')"
-actions:
-  - "isRelevant = true"
----
-name: step1_preg_1yr
-description: pregnance 1yr relevance
-priority: 1
-condition: "step1_wra == 1"
 actions:
   - "isRelevant = true"
