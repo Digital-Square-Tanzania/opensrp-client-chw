@@ -42,7 +42,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Annual census",
+    "title": "Sensa ya mwaka",
     "next": "step2",
     "fields": [
       {
@@ -146,6 +146,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -176,6 +183,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -206,6 +220,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -236,6 +257,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -266,6 +294,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -296,6 +331,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -326,6 +368,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -356,6 +405,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -386,6 +442,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -416,6 +479,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -446,6 +516,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -476,6 +553,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -711,6 +795,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -741,6 +832,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -771,6 +869,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -801,6 +906,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -831,6 +943,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -861,6 +980,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -891,6 +1017,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -921,6 +1054,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -951,6 +1091,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -981,6 +1128,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1011,6 +1165,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1041,6 +1202,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1071,6 +1239,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1101,6 +1276,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1131,6 +1313,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1161,6 +1350,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1191,6 +1387,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1221,6 +1424,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1251,6 +1461,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1281,6 +1498,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1311,6 +1535,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1341,6 +1572,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1371,6 +1609,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1401,6 +1646,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1431,6 +1683,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1461,6 +1720,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1491,6 +1757,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1521,6 +1794,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1551,6 +1831,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1581,6 +1868,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1611,6 +1905,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1641,6 +1942,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1671,6 +1979,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1701,6 +2016,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1731,6 +2053,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1761,6 +2090,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1791,7 +2127,15 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
+
       },
       {
         "key": "number_of_primary_schools_public",
@@ -1821,6 +2165,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1851,6 +2202,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1881,6 +2239,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1911,6 +2276,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1941,6 +2313,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1971,6 +2350,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2001,6 +2387,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2031,6 +2424,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2061,6 +2461,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2091,6 +2498,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2121,6 +2535,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2151,6 +2572,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2181,6 +2609,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2211,6 +2646,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2241,6 +2683,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2271,6 +2720,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2301,6 +2757,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2331,6 +2794,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2361,6 +2831,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2391,6 +2868,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2421,6 +2905,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2451,6 +2942,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2481,6 +2979,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2511,6 +3016,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2541,6 +3053,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2571,6 +3090,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2601,6 +3127,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2631,6 +3164,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2661,6 +3201,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2691,6 +3238,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2721,6 +3275,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2751,6 +3312,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2781,6 +3349,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2811,6 +3386,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2841,6 +3423,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       }
     ]
