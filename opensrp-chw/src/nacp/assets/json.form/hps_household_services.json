@@ -117,7 +117,6 @@
         "key": "health_education_title",
         "type": "label",
         "text": "Health Educations",
-        "text_size": "18px",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

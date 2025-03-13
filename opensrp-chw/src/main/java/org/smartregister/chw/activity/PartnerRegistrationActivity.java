@@ -163,7 +163,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
                 stepTwoUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId);
             }
 
-            org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
+            org.smartregister.chw.util.JsonFormUtils.addLocHierarchyQuestions(form);
             return form;
 
         } catch (Exception e) {
