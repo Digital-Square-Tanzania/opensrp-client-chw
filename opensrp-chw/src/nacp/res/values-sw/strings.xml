@@ -423,7 +423,7 @@
     <string name="edit_outlet">Hakiki taarifa za kituo</string>
     <string name="enable_outlet">Fungua kituo</string>
     <string name="familia">Familia</string>
-    <string name="female">Kike</string>
+    <string name="female">Ke</string>
     <string name="female_condom">Kondomu za kike</string>
     <string name="female_condoms_stock_on_hand">Kondomu za kike: %d</string>
     <string name="health_facility">Kituo cha afya:</string>
@@ -432,7 +432,7 @@
     <string name="issuing_organization_label">Shirika linalotoa:</string>
     <string name="last_recorded_stock">Idadi ya mwisho kurekodiwa: %d</string>
     <string name="last_visit_40_days_ago">Hudhurio la mwisho %1$s ago</string>
-    <string name="male">Kiume</string>
+    <string name="male">Me</string>
     <string name="male_condom">Kondomu za kiume</string>
     <string name="male_condoms_stock_on_hand">Kondomu za kiume: %d</string>
     <string name="mark_as_received">Kupokea Kondomu</string>
