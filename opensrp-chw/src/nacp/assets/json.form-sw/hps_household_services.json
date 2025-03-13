@@ -130,7 +130,7 @@
         "openmrs_entity_id": "education_provided",
         "openmrs_data_type": "select one",
         "type": "multi_select_list",
-        "maxSelectable": 5,
+        "maxSelectable": 6,
         "buttonText": "+ Ongeza elimu iliyotolewa",
         "sort": true,
         "dialogTitle": "Ongeza elimu iliyotolewa",
@@ -461,10 +461,10 @@
         }
       },
       {
-        "key": "was_curative_service_provided",
+        "key": "was_preventive_service_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "was_curative_service_provided",
+        "openmrs_entity_id": "was_preventive_service_provided",
         "type": "native_radio",
         "label": "Je huduma za kinga zilitolewa?",
         "options": [
@@ -487,15 +487,15 @@
         }
       },
       {
-        "key": "curative_services_provided",
+        "key": "preventive_services_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "curative_services_provided",
+        "openmrs_entity_id": "preventive_services_provided",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": true,
-        "label": "Chagua huduma za tiba zilizotolewa",
-        "hint": "Chagua huduma za tiba zilizotolewa",
+        "label": "Chagua huduma za kinga zilizotolewa",
+        "hint": "Chagua huduma za kinga zilizotolewa",
         "options": [
           {
             "key": "counselling",

@@ -738,6 +738,9 @@
     
     <string name="hps_household_consent_to_be_enrolled_in_hps_services">"Je kaya imeridhia kujiandikisha katika Elimu ya Afya kwa Umma?</string>
 
+    <string name="hps_was_preventive_service_provided">Je huduma za kinga zilitolewa?</string>
+    <string name="hps_preventive_services_provided">Chagua huduma za kinga zilizotolewa</string>
+
 
     <string name="hps_health_education_title">Elimu ya afya</string>
     <string name="hps_name_of_hamlet">Jina la kitongoji</string>

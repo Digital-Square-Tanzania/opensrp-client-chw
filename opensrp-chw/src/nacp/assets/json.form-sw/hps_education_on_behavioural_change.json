@@ -80,7 +80,7 @@
         "openmrs_entity_id": "type_of_education_provided",
         "openmrs_data_type": "select one",
         "type": "multi_select_list",
-        "maxSelectable": 5,
+        "maxSelectable": 6,
         "buttonText": "+ Ongeza elimu iliyotolewa",
         "sort": true,
         "dialogTitle": "Ongeza elimu iliyotolewa",

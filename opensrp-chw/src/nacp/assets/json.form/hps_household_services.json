@@ -67,7 +67,7 @@
             "key": "return_visit",
             "text": "Return",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "return"
+            "openmrs_entity_id": "return_visit"
           }
         ],
         "v_required": {
@@ -117,7 +117,7 @@
         "key": "health_education_title",
         "type": "label",
         "text": "Health Educations",
-        "text_size": "12sp",
+        "text_size": "18px",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -130,7 +130,7 @@
         "openmrs_entity_id": "education_provided",
         "openmrs_data_type": "select one",
         "type": "multi_select_list",
-        "maxSelectable": 5,
+        "maxSelectable": 6,
         "buttonText": "+ Add education provided",
         "sort": true,
         "dialogTitle": "Add education provided",
@@ -461,12 +461,12 @@
         }
       },
       {
-        "key": "was_curative_service_provided",
+        "key": "was_preventive_service_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "was_curative_service_provided",
+        "openmrs_entity_id": "was_preventive_service_provided",
         "type": "native_radio",
-        "label": "Was curative service provided",
+        "label": "Was preventive service provided",
         "options": [
           {
             "key": "yes",
@@ -487,15 +487,15 @@
         }
       },
       {
-        "key": "curative_services_provided",
+        "key": "preventive_services_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "curative_services_provided",
+        "openmrs_entity_id": "preventive_services_provided",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Select curative services provided",
-        "hint": "Select curative services provided",
+        "label": "Select preventive services provided",
+        "hint": "Select preventive services provided",
         "options": [
           {
             "key": "counselling",
