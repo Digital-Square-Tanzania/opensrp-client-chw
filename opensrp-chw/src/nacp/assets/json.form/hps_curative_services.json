@@ -82,9 +82,6 @@
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "exclusive": [
-          "other_signs_and_symptoms"
-        ],
         "options": [
           {
             "key": "fever",
@@ -514,7 +511,6 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "body_height"
           }
-
         ],
         "v_required": {
           "value": "true",
@@ -531,13 +527,18 @@
       {
         "key": "systolic",
         "type": "edit_text",
-        "hint": "Systolic (Blood Pressure)",
+        "hint": "Systolic (mmHg)",
         "openmrs_entity_id": "systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the systolic value"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
         "v_min": {
           "value": "0",
@@ -562,7 +563,7 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Diastolic (Blood Pressure)",
+        "hint": "Diastolic (mmHg)",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -597,10 +598,42 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step2:systolic)",
+            "ex": "lessThan(., step1:systolic)",
             "err": "The diastolic value must be less than the systolic value"
           }
         ]
+      },
+      {
+        "key": "prompt_for_management_of_hypertension",
+        "type": "toaster_notes",
+        "text": "Manage the hypertension according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_management_of_hypertension",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_management_of_hypotension",
+        "type": "toaster_notes",
+        "text": "Give IV fluids, identify the cause of hypotension and manage according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_management_of_hypotension",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
       },
       {
         "key": "malaria_mrdt_result",
@@ -665,6 +698,38 @@
           "value": "45",
           "err": "Blood sugar must be equal or less than 45 (mmol/L)"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_gestational_diabetes_mellitus",
+        "type": "toaster_notes",
+        "text": "Manage the gestational diabetes mellitus according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_gestational_diabetes_mellitus",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_hypoglycaemia",
+        "type": "toaster_notes",
+        "text": "Manage the hypoglycaemia according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_hypoglycaemia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -745,12 +810,42 @@
         }
       },
       {
+        "key": "notify_client_has_fever",
+        "type": "toaster_notes",
+        "text": "Conduct relevant laboratory tests to elicit the cause of fever and manage according to standard guidelines",
+        "openmrs_entity_id": "notify_client_has_fever",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"37.8\")"
+          }
+        }
+      },
+      {
+        "key": "notify_client_has_hypothermia",
+        "type": "toaster_notes",
+        "text": "Manage the hypothermia according to standard guidelines",
+        "openmrs_entity_id": "notify_client_has_hypothermia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "lessThan(.,\"36.5\")"
+          }
+        }
+      },
+      {
         "key": "arm_circumference_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "arm_circumference_result",
         "type": "edit_text",
-        "hint": "Arm Circumference",
+        "hint": "Arm Circumference (CM)",
         "v_required": {
           "value": "true",
           "err": "Please specify"

@@ -117,5 +117,33 @@ priority: 1
 condition: "step1_is_treatment_provided.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
+---
+name: step1_prompt_for_management_of_hypertension
+description: prompt for management of hypertension
+priority: 1
+condition: "(!step1_systolic.equals('') && step1_systolic >= 140) || (!step1_diastolic.equals('') && step1_diastolic >= 90)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_management_of_hypotension
+description: prompt_for_management_of_hypotension
+priority: 1
+condition: "(!step1_systolic.equals('') && step1_systolic < 90) || (!step1_diastolic.equals('') && step1_diastolic < 60)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_gestational_diabetes_mellitus
+description:  prompt for gestational diabetes mellitus
+priority: 1
+condition: "(!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) > 11.1) || (!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) > 7.8) || (!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) > 7.8)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_hypoglycaemia
+description:  prompt for hypoglycaemia
+priority: 1
+condition: "(!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) < 3.9) || (!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) < 3.9) || (!step1_blood_sugar_result.equals('') && Float.parseFloat(step1_blood_sugar_result) < 3.5)"
+actions:
+  - "isRelevant = true"
 
 
