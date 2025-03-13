@@ -117,7 +117,6 @@
         "key": "health_education_title",
         "type": "label",
         "text": "Elimu ya afya",
-        "text_size": "12sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -131,9 +130,9 @@
         "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "maxSelectable": 5,
-        "buttonText": "+ Ongeza elimu iliyotolewa",
+        "buttonText": "+Ongeza elimu iliyotolewa",
         "sort": true,
-        "dialogTitle": "Ongeza elimu iliyotolewa",
+        "dialogTitle": "Chagua elimu iliyotolewa",
         "searchHint": "Elimu iliyotolewa",
         "options": [
           {
