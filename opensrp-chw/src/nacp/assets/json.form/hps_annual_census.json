@@ -563,6 +563,36 @@
         }
       },
       {
+        "key": "number_of_house_hold",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold",
+        "hint": "Number of house hold",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
         "key": "number_of_house_hold_with_road_access",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3978,11 +4008,11 @@
         }
       },
       {
-        "key": "number_of_people_capable_of_engaging_in_economic_activities",
+        "key": "number_of_male_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_capable_of_engaging_in_economic_activities",
-        "hint": "Number of people capable of engaging in economic activities",
+        "openmrs_entity_id": "number_of_male_capable_of_engaging_in_economic_activities",
+        "hint": "Number of male capable of engaging in economic activities",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4008,11 +4038,11 @@
         }
       },
       {
-        "key": "number_of_people_engaged_in_economic_activities",
+        "key": "number_of_female_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_engaged_in_economic_activities",
-        "hint": "Number of people engaged in economic activities",
+        "openmrs_entity_id": "number_of_female_capable_of_engaging_in_economic_activities",
+        "hint": "Number of female capable of engaging in economic activities",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4036,8 +4066,82 @@
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
         }
+      },
+      {
+        "key": "number_of_male_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_engaged_in_economic_activities",
+        "hint": "Number of male engaged in economic activities",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_male_capable_of_engaging_in_economic_activities)",
+            "err": "must be not greater than number of male capable_of_engaging_in_economic_activities"
+          }
+        ]
+      },
+      {
+        "key": "number_of_female_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_engaged_in_economic_activities",
+        "hint": "Number of female engaged in economic activities",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_female_engaged_in_economic_activities)",
+            "err": "must be not greater than number of male capable_of_engaging_in_economic_activities"
+          }
+        ]
       }
-    ]
+      ]
   },
   "step5": {
     "title": "Committee meetings & Traditional medicine",
