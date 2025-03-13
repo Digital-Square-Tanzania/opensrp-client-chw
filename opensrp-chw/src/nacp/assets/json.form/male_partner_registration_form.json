@@ -161,11 +161,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Village/Street",
+        "hint": "Street/Hamlet",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please select the village or street"
+          "err": "Please select the hamlet or street"
         }
       }
     ]

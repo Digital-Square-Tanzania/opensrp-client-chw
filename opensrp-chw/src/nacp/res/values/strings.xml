@@ -958,7 +958,7 @@
     <string name="hps_others_type_of_brochures">Others(Specify)</string>
     <string name="hps_number_of_brochures">Number of Brochures Distributed</string>
     <string name="hps_preventive_services_provided">Were preventive services offered to the client?</string>
-    <string name="hps_preventive_services">Preventive Services:</string>
+    <string name="hps_preventive_services">Preventive Services</string>
     <string name="hps_family_planning_pills">Family Planning Pills</string>
     <string name="hps_iron_folic_tablets">Iron and Folic Acid (IFA) Tablets</string>
     <string name="hps_deworming_medication">Deworming Medication</string>
@@ -1024,7 +1024,8 @@
     <string name="hps_psychological_counselling">Psychological counselling</string>
     <string name="hps_others">Others</string>
 
-    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services</string>
+    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services?</string>
+    <string name="hps_household_consent_to_be_enrolled_in_hps_services">Does the household consent to be enrolled in HPS services?</string>
 
     <string name="hps_provide_referral_services">Are there referral services provided to the client?</string>
     <string name="hps_referral_provided">Select referral service provided to the client</string>
@@ -1103,6 +1104,9 @@
     <string name="hps_visit_type">Visit Type</string>
     <string name="hps_health_education_title">Health Education</string>
     <string name="hps_childcare_growth_and_early_childhood_development">Childcare, growth, and early childhood development</string>
+    
+    <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
+    <string name="hps_preventive_service_provided">Preventive services provided</string>
 
 
     <string name="hps_select_age_group">Select age group</string>

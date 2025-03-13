@@ -6724,7 +6724,7 @@
           }
         },
         {
-          "column_name": "was_curative_service_provided",
+          "column_name": "was_preventive_service_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -6732,7 +6732,7 @@
           }
         },
         {
-          "column_name": "curative_services_provided",
+          "column_name": "preventive_services_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
