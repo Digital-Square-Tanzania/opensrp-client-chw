@@ -859,7 +859,7 @@
           },
           {
             "key": "chk_farmer",
-            "text": "Farmer",
+            "text": "Mkulima",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
           },
