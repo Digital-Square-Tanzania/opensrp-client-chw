@@ -1128,6 +1128,7 @@
     <string name="hps_number_of_female_by_age_group_50_59">Number of female (50–59)</string>
     <string name="hps_number_of_male_by_age_group_equal_and_above_60">Number of male (60+)</string>
     <string name="number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
+    <string name="hps_number_of_house_hold">Number of house hold</string>
     <string name="hps_number_of_house_hold_with_road_access">Number of house hold with road access</string>
     <string name="hps_number_of_house_holds_with_at_least_one_landline_or_mobile_phone">Number of households with at least one mobile or landline phone</string>
     <string name="number_of_house_hold_with_basic_nutrition_source_vegetable">Number of houshold with basic nutrition source(Vegetable garden)</string>
@@ -1152,8 +1153,7 @@
     <string name="hps_number_of_cbecdc_rehabilitation_centre_government">Number of Community Based Early Child Development Centre (Rehabiliation centre) (government)</string>
     <string name="hps_number_of_day_care_centers_government">Number of day care centers (government)</string>
     <string name="hps_number_of_elderly_care_centers_government">Number of Elderly care centers (government)</string>
-    <string name="hps_number_of_pre_schools_faith_based_organisation">60+</string>
-    <string name="hps_age_group_above_60">Number of pre_school (Faith based organisation)</string>
+    <string name="hps_number_of_pre_schools_faith_based_organisation">Number of pre_school (Faith based organisation)</string>
     <string name="hps_number_of_primary_schools_faith_based_organisation">Number of primary schools (Faith based organisation)</string>
     <string name="hps_number_of_secondary_schools_faith_based_organisation">Number of secondary schools (Faith based organisation)</string>
     <string name="hps_number_of_universities_faith_based_organisation">Number of Universities (Faith based organisation)</string>
@@ -1225,7 +1225,10 @@
     <string name="hps_number_of_households_using_gas_as_source_of_cooking_energy">Number of households using gas as source of cooking energy</string>
     <string name="hps_number_of_households_using_charcoal_as_source_of_cooking_energy">Number of households using charcoal as source of cooking energy</string>
     <string name="hps_number_of_households_using_firewood_as_source_of_cooking_energy">Number of households using firewood as source of cooking energy</string>
-    <string name="hps_number_of_people_capable_of_engaging_in_economic_activities">Number of people capable of engaging in economic activities</string>
+    <string name="hps_number_of_male_capable_of_engaging_in_economic_activities">Number of male capable of engaging in economic activities</string>
+    <string name="hps_number_of_female_capable_of_engaging_in_economic_activities">Number of female capable of engaging in economic activities</string>
+    <string name="hps_number_of_male_engaged_in_economic_activities">Number of male engaged in economic activities</string>
+    <string name="hps_number_of_female_engaged_in_economic_activities">Number of female engaged in economic activities</string>
     <string name="hps_number_of_people_engaged_in_economic_activities">Number of people engaged in economic activities</string>
     <string name="hps_number_of_health_committee_members_for_effective_committee_meetings">Number of health committee members for effective committee meetings</string>
     <string name="hps_number_of_committee_members_attended_fisrt_quarter">Number of committee members attended fisrt quarter</string>

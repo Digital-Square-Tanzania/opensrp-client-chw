@@ -104,3 +104,18 @@ condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') > 10) || (step1
 actions:
   - "isRelevant = true"
 
+---
+name: step1_service_provider
+description: service provider relevance
+priority: 1
+condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 10) || (step1_age != '' && step1_age >= 10)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_service_provider_other
+description: service provider relevance
+priority: 1
+condition: "step1_service_provider_other.equals('chk_other')"
+actions:
+  - "isRelevant = true"
+
