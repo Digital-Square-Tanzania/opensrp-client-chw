@@ -28,6 +28,7 @@ import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivityFlv;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
@@ -132,6 +133,10 @@ public class AllClientsUtils {
 
     public static void goToAsrhProfile(Activity activity, CommonPersonObjectClient client) {
         AsrhMemberProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToHpsProfile(Activity activity, CommonPersonObjectClient client) {
+        HpsMemberProfileActivity.startMe(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
