@@ -782,37 +782,6 @@
         }
       },
       {
-        "key": "preg_1yr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_1yr",
-        "type": "spinner",
-        "hint": "Je, mwanamke amejifungua katika mwaka 1 uliopita?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua ikiwa mwanamke amejifungua katika mwaka 1 uliopita"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -995,40 +964,77 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "chk_self_employed",
-            "text": "Amejiajiri",
+            "key": "chk_fisherman",
+            "text": "Mvuvi",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_self_employed"
+            "openmrs_entity_id": "chk_fisherman"
           },
           {
-            "key": "chk_employed",
-            "text": "Ameajiriwa",
+            "key": "chk_miner",
+            "text": "Kazi eneo la madini",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_employed"
+            "openmrs_entity_id": "chk_miner"
           },
           {
-            "key": "chk_unemployed",
-            "text": "Hajaajiriwa",
+            "key": "chk_truck_driver",
+            "text": "Dereva wa malori",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unemployed"
+            "openmrs_entity_id": "chk_truck_driver"
+          },
+          {
+            "key": "chk_bus_driver",
+            "text": "Dereva wa mabasi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bus_driver"
+          },
+          {
+            "key": "chk_pastoralist",
+            "text": "Mfugaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pastoralist"
+          },
+          {
+            "key": "chk_business_person",
+            "text": "Mfanyabiashara",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_business_person"
           },
           {
             "key": "chk_farmer",
-            "text": "Mkulima",
+            "text": "Farmer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
           },
           {
-            "key": "chk_traditional_healer",
-            "text": "Mtoa huduma ya Tiba Asili",
-            "value": false,
+            "key": "chk_other",
+            "text": "Nyinginezo",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_traditional_healer"
+            "openmrs_entity_id": "chk_other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua angalau moja"
+          "err": "Tafadhali chagua jibu mojawapo"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Kazi nyinginezo (Taja)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
