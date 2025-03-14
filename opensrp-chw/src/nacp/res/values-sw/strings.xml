@@ -423,7 +423,7 @@
     <string name="edit_outlet">Hakiki taarifa za kituo</string>
     <string name="enable_outlet">Fungua kituo</string>
     <string name="familia">Familia</string>
-    <string name="female">Ke</string>
+    <string name="female">Mwanamke</string>
     <string name="female_condom">Kondomu za kike</string>
     <string name="female_condoms_stock_on_hand">Kondomu za kike: %d</string>
     <string name="health_facility">Kituo cha afya:</string>
@@ -432,7 +432,7 @@
     <string name="issuing_organization_label">Shirika linalotoa:</string>
     <string name="last_recorded_stock">Idadi ya mwisho kurekodiwa: %d</string>
     <string name="last_visit_40_days_ago">Hudhurio la mwisho %1$s ago</string>
-    <string name="male">Me</string>
+    <string name="male">Mwanaume</string>
     <string name="male_condom">Kondomu za kiume</string>
     <string name="male_condoms_stock_on_hand">Kondomu za kiume: %d</string>
     <string name="mark_as_received">Kupokea Kondomu</string>
@@ -722,8 +722,6 @@
     <string name="hps_visit_type_label">Chagua aina ya tembeleo</string>
     <string name="hps_new_visit">Jipya</string>
     <string name="hps_return_visit">Marudio</string>
-
-
     <string name="hps_provide_iec_materials">Je, kuna vielelezo vimetolewa kwa mteja?</string>
     <string name="hps_type_of_iec_material">Chagua aina ya vielelezo</string>
     <string name="hps_leaflets">Vipeperushi</string>
@@ -792,8 +790,6 @@
     <string name="hps_first_aid_services">Huduma ya kwanza</string>
     <string name="hps_other_services">Huduma nyinginezo</string>
     <string name="hps_others_services_specify">Taja huduma nyinginezo</string>
-
-
     <string name="hps_provide_referral_services">Kuna huduma za rufaa zimetolewa kwa mteja?</string>
     <string name="hps_referral_provided">Chagua aina ya huduma za rufaa zilizotolewa kwa mteja</string>
     <string name="hps_anc_services">Huduma ya mama mjamzito</string>
@@ -1101,6 +1097,11 @@
     <string name="hps_amount_of_pesticide_used_barrels">Kiasi cha kiuatilifu kilichotumika(Mapipa)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Kiasi cha kiuatilifu kilichotumika(Vifuu vya nazi)</string>
     <string name="hps_none">Hakuna</string>
+    <string name="hps_number_of_male_capable_of_engaging_in_economic_activities">Idadi ya wanaume wanaoweza kushiriki katika shughuli za kiuchumi</string>
+    <string name="hps_number_of_female_capable_of_engaging_in_economic_activities">Idadi ya wanawake wanaoweza kushiriki katika shughuli za kiuchumi</string>
+    <string name="hps_number_of_male_engaged_in_economic_activities">Idadi ya wanaume wanaoshiriki katika shughuli za kiuchumi</string>
+    <string name="hps_number_of_female_engaged_in_economic_activities">Idadi ya wanawake wanaoshiriki katika shughuli za kiuchumi</string>
+    <string name="hps_number_of_house_hold">Idadi ya Kaya</string>
 <!--    <string name="treatment_supporter_prefix">Msaidizi wa Tiba: %s</string>-->
     <string name="treatment_supporter_prefix"><![CDATA[<font color="#218CC5"><small>Msaidizi wa Tiba:</small></font> %s]]></string>
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
