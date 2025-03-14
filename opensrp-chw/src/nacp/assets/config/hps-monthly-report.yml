@@ -22297,7 +22297,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+5 years') <= date('now')) AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22306,7 +22306,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+10 years') <= date('now')) AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+15 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22315,7 +22315,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+15 years') <= date('now')) AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+20 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22324,7 +22324,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+20 years') <= date('now')) AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+25 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22333,7 +22333,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+25 years') <= date('now')) AND (date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+60 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22342,7 +22342,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death_within_42_days_after_delivery'	
+					  WHERE edhr.sex='female' AND edhr.cause_of_death = 'pnc_death'	
 					  AND date(substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2),'+60 years') <= date('now')
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22352,7 +22352,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='male' AND edhr.cause_of_death like '%macerated_still_births_msb%'
+					  WHERE edhr.sex='male' AND edhr.cause_of_death like '%msb%'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m',substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22361,7 +22361,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death like '%macerated_still_births_msb%'
+					  WHERE edhr.sex='female' AND edhr.cause_of_death like '%msb%'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m',substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2))AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -22370,7 +22370,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='male' AND edhr.cause_of_death like '%death_occured_during_births_fsb%'
+					  WHERE edhr.sex='male' AND edhr.cause_of_death like '%fsb%'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m',substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
@@ -22379,7 +22379,7 @@ indicators:
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT edhr.base_entity_id) as count FROM ec_hps_death_register edhr 
-					  WHERE edhr.sex='female' AND edhr.cause_of_death like '%death_occured_during_births_fsb%'
+					  WHERE edhr.sex='female' AND edhr.cause_of_death like '%fsb%'
 					  AND strftime('%Y-%m', 'now') = strftime('%Y-%m',substr(edhr.dob, 7, 4) || '-' || substr(edhr.dob, 4, 2) || '-' || substr(edhr.dob, 1, 2))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(edhr.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
