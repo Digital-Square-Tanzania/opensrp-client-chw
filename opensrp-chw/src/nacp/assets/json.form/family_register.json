@@ -894,40 +894,80 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "chk_self_employed",
-            "text": "Self-Employed",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_self_employed"
-          },
-          {
-            "key": "chk_employed",
-            "text": "Employed",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_employed"
-          },
-          {
-            "key": "chk_unemployed",
-            "text": "Unemployed",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unemployed"
-          },
-          {
             "key": "chk_farmer",
             "text": "Farmer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
           },
           {
-            "key": "chk_traditional_healer",
-            "text": "Traditional healer",
-            "value": false,
+            "key": "chk_fisherman",
+            "text": "Fisherman",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_traditional_healer"
+            "openmrs_entity_id": "chk_fisherman"
+          },
+          {
+            "key": "chk_mining_worker",
+            "text": "Mining Worker",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_mining_worker"
+          },
+          {
+            "key": "chk_truck_driver",
+            "text": "Truck Driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_truck_driver"
+          },
+          {
+            "key": "chk_bus_driver",
+            "text": "Bus Driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bus_driver"
+          },
+          {
+            "key": "chk_livestock_keeper",
+            "text": "Livestock Keeper",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_livestock_keeper"
+          },
+          {
+            "key": "chk_business_person",
+            "text": "Business person",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_business_person"
+          },
+          {
+            "key": "chk_others",
+            "text": "Others",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_others"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "other_service_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_service_provider",
+        "type": "edit_text",
+        "hint": "Name of other service provider",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid service provider"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter a valid service provider"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_relevance.yml"
+            }
+          }
         }
       },
       {
