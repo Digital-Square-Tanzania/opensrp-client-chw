@@ -337,6 +337,22 @@
             }
           }
         }
+      },
+      {
+        "key": "prompt_for_referral_system_used",
+        "type": "toaster_notes",
+        "text": "Please use this system to provide referral to client",
+        "openmrs_entity_id": "prompt_for_referral_system_used",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

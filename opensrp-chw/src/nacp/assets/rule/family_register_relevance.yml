@@ -120,13 +120,6 @@ condition: "!step1_insurance_provider.contains('None')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_preg_1yr
-description: pregnance 1yr relevance
-priority: 1
-condition: "step2_wra == 1"
-actions:
-  - "isRelevant = true"
----
 name: step2_id_avail
 description: identity relevance
 priority: 1
