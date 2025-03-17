@@ -385,7 +385,7 @@
           },
           {
             "key": "m_mama_system",
-            "text": "Education on the M-Mama system and proper use of the toll-free number 115",
+            "text": "Education on the m-mama system and proper use of the toll-free number 115",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "m_mama_system",
