@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Gathering Activity",
+    "title": "Njia za Uelimishaji na Uhamasishaji Uliotumika",
     "fields": [
       {
         "key": "date_of_gathering",
@@ -63,7 +63,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": ""
+          "err": "Tafadhali weka tarehe ya mkusanyiko"
         }
       },
       {
@@ -113,7 +113,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua njia ya ueleimishaji na uhamasishaji iliyotumika"
         }
       },
       {
@@ -139,7 +139,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -159,7 +159,7 @@
         "hint": "Taja njia nyinginezo za ueleimishaji na uhamasishaji zilizotumika",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other methods of education and awareness"
+          "err": "Tafadhali taja njia nyinginezo za uelemishaji na uhamasishaji zilizotumika"
         },
         "relevance": {
           "rules-engine": {
@@ -237,7 +237,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua eneo sahihi uhamasishaji ulipofanyika"
         },
         "relevance": {
           "rules-engine": {
@@ -257,7 +257,7 @@
         "hint": "Taja maeneo mengineyo uhamasishaji ulipofanyika",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other areas where mobilization took place"
+          "err": "Tafadhali taja maeneo mengineyo uhamasishaji ulipofanyika"
         },
         "relevance": {
           "rules-engine": {
@@ -277,16 +277,16 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter a number"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a number"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza nambari sahihi"
         }
       },
       {
@@ -299,16 +299,16 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter a number"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a number"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza nambari sahihi"
         }
       },
       {
@@ -334,7 +334,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         }
       },
       {
@@ -552,7 +552,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         }
       },
       {
@@ -612,7 +612,7 @@
         "hint": "Taja vifaa vinginevyo vya taarifa, elimu na mawasiliano",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other brochure materials"
+          "err": "Tafadhali taja vifaa vinginenvyo vya taarifa,elimu na mawasiliano kwenye vijarida"
         },
         "relevance": {
           "rules-engine": {
@@ -700,7 +700,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -720,7 +720,7 @@
         "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (Vijarida)",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other brochure materials"
+          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vijarida"
         },
         "relevance": {
           "rules-engine": {
@@ -837,7 +837,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -857,7 +857,7 @@
         "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (mabango)",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other poster materials"
+          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye mabango"
         },
         "relevance": {
           "rules-engine": {
@@ -877,16 +877,16 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali inginza nambari sahihi"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali ingiza namabari"
         },
         "v_max_length": {
           "value": "4",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali inginza nambari sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -974,7 +974,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -994,7 +994,7 @@
         "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (vipeperushi)",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other poster materials"
+          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vipeperushi"
         },
         "relevance": {
           "rules-engine": {
@@ -1014,16 +1014,16 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
           "value": "4",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -1111,7 +1111,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select a value"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -1131,16 +1131,16 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the number"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
           "value": "4",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza nambari sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -1160,7 +1160,7 @@
         "hint": "Taja aina ya vifaa  vinginenvyo vya  taarifa, elimu na mawasiliano vilivyotolewa",
         "v_required": {
           "value": "true",
-          "err": "Please specify the other poster materials (IEC)"
+          "err": "Tafadhali taja aina ya vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vielelzo"
         },
         "relevance": {
           "rules-engine": {

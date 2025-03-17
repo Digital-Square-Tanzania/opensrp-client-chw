@@ -45,7 +45,7 @@
 
   },
   "step1": {
-    "title":"Referral Services",
+    "title":"Rufaa Iliyotolewa",
     "fields": [
       {
         "key":"provide_referral_services",
@@ -71,7 +71,7 @@
         "v_required":
         {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -216,7 +216,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -235,7 +235,7 @@
         "hint":"Taja rufaa nyinginezo kwa uchunguzi na matibabu zaidi",
         "v_required": {
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -269,7 +269,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         }
       },
       {
@@ -312,7 +312,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -331,12 +331,28 @@
         "hint":"Taja njia nyingine iliyotumika kutoa rufaaa",
         "v_required": {
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja njia nyingine iliyotumika kutoa rufaa"
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file":"hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_referral_system_used",
+        "type": "toaster_notes",
+        "text": "Tafadhali tumia Mfumo huu kumpatia mteja rufaa kwenda kituo husika",
+        "openmrs_entity_id": "prompt_for_referral_system_used",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
             }
           }
         }
