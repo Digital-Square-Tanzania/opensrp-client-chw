@@ -1,0 +1,59 @@
+---
+name: step1_client_criteria_below_12
+description: Rule to control the visibility of (step1_client_criteria_below_12)
+priority: 1
+condition: "global_age < 12"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_criteria_above_12_male_above_15
+description: Rule to control the visibility of (step1_client_criteria_above_12_male_above_15)
+priority: 1
+condition: "global_sex.equalsIgnoreCase('male') && global_age >= 15"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_criteria_above_12_male_below_15
+description: Rule to control the visibility of (step1_client_criteria_above_12_male_below_15)
+priority: 1
+condition: "global_sex.equalsIgnoreCase('male') && global_age >= 12 && global_age < 15"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_criteria_above_12_female_above_15
+description: Rule to control the visibility of (step1_client_criteria_above_12_female_above_15)
+priority: 1
+condition: "global_sex.equalsIgnoreCase('female') && global_age >= 15"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_criteria_above_12_female_below_15
+description: Rule to control the visibility of (step1_client_criteria_above_12_female_below_15)
+priority: 1
+condition: "global_sex.equalsIgnoreCase('female') && global_age >= 12 && global_age < 15"
+actions:
+  - "isRelevant = true "
+---
+name: step1_other_criteria_specify
+description: Rule to control the visibility of (step1_other_criteria_specify)
+priority: 1
+condition: "step1_client_criteria_below_12.equalsIgnoreCase('other') ||
+            step1_client_criteria_above_12_male_above_15.equalsIgnoreCase('other') ||
+            step1_client_criteria_above_12_male_below_15.equalsIgnoreCase('other') ||
+            step1_client_criteria_above_12_female_above_15.equalsIgnoreCase('other') ||
+            step1_client_criteria_above_12_female_below_15.equalsIgnoreCase('other')
+            "
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_criteria
+description: Rule to control the value of (step1_client_criteria)
+priority: 1
+condition: "true"
+actions:
+  - "calculation =  global_age < 12 ? step1_client_criteria_below_12 : 
+                    global_sex.equalsIgnoreCase('male') && global_age >= 15 ? step1_client_criteria_above_12_male_above_15 :
+                    global_sex.equalsIgnoreCase('male') && global_age >= 12 && global_age < 15 ? step1_client_criteria_above_12_male_below_15 :
+                    global_sex.equalsIgnoreCase('female') && global_age >= 15 ? step1_client_criteria_above_12_female_above_15 :
+                    global_sex.equalsIgnoreCase('female') && global_age >= 12 && global_age < 15 ? step1_client_criteria_above_12_female_below_15 : ''
+   "

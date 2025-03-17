@@ -523,7 +523,7 @@
             ]
           },
           {
-            "field":"eventType",
+            "field": "eventType",
             "field_value": "ANC Partner Community Followup Referral",
             "creates_case": [
               "ec_anc_partner_community_followup"
@@ -616,7 +616,7 @@
           {
             "field": "eventType",
             "field_value": "HIVST Mobilization Session",
-            "creates_case":[
+            "creates_case": [
               "ec_hivst_mobilization"
             ]
           },
@@ -794,6 +794,34 @@
             "creates_case": [
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Client Enrollment",
+            "creates_case": [
+              "ec_hps_client_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Enrollment",
+            "creates_case": [
+              "ec_hps_household_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Client Follow-up Visit",
+            "creates_case": [
+              "ec_hps_client_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Services",
+            "creates_case": [
+              "ec_hps_household_services"
             ]
           }
         ]

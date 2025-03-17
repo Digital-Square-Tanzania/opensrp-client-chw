@@ -39,6 +39,7 @@ import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
+import org.smartregister.chw.activity.HpsRegisterActivity;
 import org.smartregister.chw.activity.IccmRegisterActivity;
 import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.LTFURegisterActivity;
@@ -68,6 +69,7 @@ import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
+import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -312,6 +314,10 @@ public class ChwApplication extends CoreChwApplication {
             CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
+        if (flavor.hasHps()) {
+            HpsLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -405,6 +411,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -588,6 +595,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasAGYW();
 
         boolean hasSbc();
+
+        boolean hasHps();
 
         boolean hasAsrh();
 

@@ -293,11 +293,11 @@
           }
         },
         {
-          "column_name": "service_provider",
+          "column_name": "occupation",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "service_provider"
+            "concept": "occupation"
           }
         },
         {
@@ -2052,6 +2052,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "rec_guid",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rec_guid"
           }
         }
       ]
@@ -3905,6 +3913,14 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "rec_guid",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rec_guid"
           }
         }
       ]
@@ -6318,6 +6334,2137 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "mobilization_date"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_client_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "does_the_client_consent_to_be_enrolled_in_hps_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "does_the_client_consent_to_be_enrolled_in_hps_services"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_household_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "does_the_household_consent_to_be_enrolled_in_hps_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "does_the_household_consent_to_be_enrolled_in_hps_services"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_client_services",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
+          }
+        },
+        {
+          "column_name": "client_criteria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_criteria"
+          }
+        },
+        {
+          "column_name": "provision_of_preventive_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provision_of_preventive_services"
+          }
+        },
+        {
+          "column_name": "type_of_education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_education_provided"
+          }
+        },
+        {
+          "column_name": "provide_iec_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provide_iec_materials"
+          }
+        },
+        {
+          "column_name": "type_of_iec_material",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_iec_material"
+          }
+        },
+        {
+          "column_name": "type_of_message_leaflets",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_leaflets"
+          }
+        },
+        {
+          "column_name": "number_of_leaflets",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_leaflets"
+          }
+        },
+        {
+          "column_name": "type_of_message_posters",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_posters"
+          }
+        },
+        {
+          "column_name": "number_of_posters",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_posters"
+          }
+        },
+        {
+          "column_name": "type_of_message_brochures",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_message_brochures"
+          }
+        },
+        {
+          "column_name": "number_of_brochures",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_brochures"
+          }
+        },
+        {
+          "column_name": "preventive_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "preventive_services_provided"
+          }
+        },
+        {
+          "column_name": "preventive_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "preventive_services"
+          }
+        },
+        {
+          "column_name": "provision_of_curative_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provision_of_curative_services"
+          }
+        },
+        {
+          "column_name": "diseases_signs_and_symptoms",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diseases_signs_and_symptoms"
+          }
+        },
+        {
+          "column_name": "is_disease_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_disease_test_conducted"
+          }
+        },
+        {
+          "column_name": "diseases_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diseases_test_conducted"
+          }
+        },
+        {
+          "column_name": "systolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "systolic"
+          }
+        },
+        {
+          "column_name": "diastolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diastolic"
+          }
+        },
+        {
+          "column_name": "malaria_mrdt_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_mrdt_result"
+          }
+        },
+        {
+          "column_name": "blood_sugar_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "blood_sugar_result"
+          }
+        },
+        {
+          "column_name": "hiv_testing_kits_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_testing_kits_result"
+          }
+        },
+        {
+          "column_name": "body_temperature_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_temperature_result"
+          }
+        },
+        {
+          "column_name": "arm_circumference_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "arm_circumference_result"
+          }
+        },
+        {
+          "column_name": "body_weight_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_weight_result"
+          }
+        },
+        {
+          "column_name": "body_height_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "body_height_result"
+          }
+        },
+        {
+          "column_name": "is_treatment_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_treatment_provided"
+          }
+        },
+        {
+          "column_name": "treatment_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "treatment_provided"
+          }
+        },
+        {
+          "column_name": "referral_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_provided"
+          }
+        },
+        {
+          "column_name": "referral_system_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_system_used"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_household_services",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "name_of_hamlet",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "name_of_hamlet"
+          }
+        },
+        {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
+          }
+        },
+        {
+          "column_name": "number_of_household_members_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_household_members_reached"
+          }
+        },
+        {
+          "column_name": "education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "education_provided"
+          }
+        },
+        {
+          "column_name": "was_preventive_service_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "was_curative_service_provided"
+          }
+        },
+        {
+          "column_name": "preventive_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "curative_services_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_mobilization",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "base_entity_id"
+          }
+        },
+        {
+          "column_name": "date_of_gathering",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_of_gathering"
+          }
+        },
+        {
+          "column_name": "method_of_education_and_awareness_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "method_of_education_and_awareness_used"
+          }
+        },
+        {
+          "column_name": "area_where_mobilization_took_place",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "area_where_mobilization_took_place"
+          }
+        },
+        {
+          "column_name": "number_of_females_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_females_who_attended"
+          }
+        },
+        {
+          "column_name": "number_of_males_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_males_who_attended"
+          }
+        },
+        {
+          "column_name": "was_education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "was_education_provided"
+          }
+        },
+        {
+          "column_name": "education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "education_provided"
+          }
+        },
+        {
+          "column_name": "information_education_and_communication_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "information_education_and_communication_material"
+          }
+        },
+        {
+          "column_name": "brochure_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "brochure_materials"
+          }
+        },
+        {
+          "column_name": "number_of_brochures_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_brochures_provided"
+          }
+        },
+        {
+          "column_name": "poster_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "poster_materials"
+          }
+        },
+        {
+          "column_name": "number_of_posters_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_posters_provided"
+          }
+        },
+        {
+          "column_name": "leaflet_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "leaflet_materials"
+          }
+        },
+        {
+          "column_name": "number_of_leaflet_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_leaflet_provided"
+          }
+        },
+        {
+          "column_name": "other_iec_materials",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_iec_materials"
+          }
+        },
+        {
+          "column_name": "number_of_other_iec_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_other_iec_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_death_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "dod",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dod"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "first_name"
+          }
+        },
+        {
+          "column_name": "middle_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "middle_name"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_name"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dob"
+          }
+        },
+        {
+          "column_name": "sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sex"
+          }
+        },
+        {
+          "column_name": "cause_of_death",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cause_of_death"
+          }
+        },
+        {
+          "column_name": "cause_of_death_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cause_of_death_specify"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hps_annual_census_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "year",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "year"
+          }
+        },
+        {
+          "column_name": "select_age_group",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "select_age_group"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_under1",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_under1"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_under1",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_under1"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_1_4",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_1_4"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_1_4",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_1_4"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_5_14",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_5_14"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_5_14",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_5_14"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_15_49",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_15_49"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_15_49",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_15_49"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_50_59",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_50_59"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_50_59",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_50_59"
+          }
+        },
+        {
+          "column_name": "number_of_male_by_age_group_60_plus",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_by_age_group_60_plus"
+          }
+        },
+        {
+          "column_name": "number_of_female_by_age_group_60_plus",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_by_age_group_60_plus"
+          }
+        },
+        {
+          "column_name": "number_of_house_hold_with_road_access",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_hold_with_road_access"
+          }
+        },
+        {
+          "column_name": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone"
+          }
+        },
+        {
+          "column_name": "number_of_house_hold_with_basic_nutrition_source_vegetable",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_hold_with_basic_nutrition_source_vegetable"
+          }
+        },
+        {
+          "column_name": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_hold_with_basic_nutrition_source_fruit_trees"
+          }
+        },
+        {
+          "column_name": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_hold_with_basic_nutrition_source_domestic_animal"
+          }
+        },
+        {
+          "column_name": "select_centers_category",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "select_centers_category"
+          }
+        },
+        {
+          "column_name": "number_of_pre_schools_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pre_schools_government"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_government"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_government"
+          }
+        },
+        {
+          "column_name": "number_of_universities_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_government"
+          }
+        },
+        {
+          "column_name": "number_of_special_needs_schools_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_needs_schools_government"
+          }
+        },
+        {
+          "column_name": "number_of_dispensary_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensary_government"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_government"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_government"
+          }
+        },
+        {
+          "column_name": "number_of_special_clinics_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_clinics_government"
+          }
+        },
+        {
+          "column_name": "number_of_laboratory_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_laboratory_government"
+          }
+        },
+        {
+          "column_name": "number_of_pharmacy_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pharmacy_government"
+          }
+        },
+        {
+          "column_name": "number_of_addo_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_addo_government"
+          }
+        },
+        {
+          "column_name": "number_of_maternity_home_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_maternity_home_government"
+          }
+        },
+        {
+          "column_name": "number_of_orphan_care_centers_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_orphan_care_centers_government"
+          }
+        },
+        {
+          "column_name": "number_of_centers_for_children_with_disabilities_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_centers_for_children_with_disabilities_government"
+          }
+        },
+        {
+          "column_name": "number_of_cbecdc_rehabilitation_centre_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_cbecdc_rehabilitation_centre_government"
+          }
+        },
+        {
+          "column_name": "number_of_day_care_centers_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_day_care_centers_government"
+          }
+        },
+        {
+          "column_name": "number_of_elderly_care_centers_government",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_elderly_care_centers_government"
+          }
+        },
+        {
+          "column_name": "number_of_pre_schools_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pre_schools_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_universities_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_special_needs_schools_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_needs_schools_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_dispensary_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensary_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_special_clinics_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_clinics_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_laboratory_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_laboratory_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_pharmacy_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pharmacy_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_addo_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_addo_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_maternity_home_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_maternity_home_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_orphan_care_centers_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_orphan_care_centers_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_centers_for_children_with_disabilities_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_centers_for_children_with_disabilities_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_cbecdc_rehabilitation_centre_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_cbecdc_rehabilitation_centre_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_day_care_centers_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_day_care_centers_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_elderly_care_centers_faith_based_organisation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_elderly_care_centers_faith_based_organisation"
+          }
+        },
+        {
+          "column_name": "number_of_pre_schools_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pre_schools_public"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_public"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_public"
+          }
+        },
+        {
+          "column_name": "number_of_universities_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_public"
+          }
+        },
+        {
+          "column_name": "number_of_special_needs_schools_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_needs_schools_public"
+          }
+        },
+        {
+          "column_name": "number_of_dispensary_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensary_public"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_public"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_public"
+          }
+        },
+        {
+          "column_name": "number_of_special_clinics_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_clinics_public"
+          }
+        },
+        {
+          "column_name": "number_of_laboratory_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_laboratory_public"
+          }
+        },
+        {
+          "column_name": "number_of_pharmacy_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pharmacy_public"
+          }
+        },
+        {
+          "column_name": "number_of_addo_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_addo_public"
+          }
+        },
+        {
+          "column_name": "number_of_maternity_home_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_maternity_home_public"
+          }
+        },
+        {
+          "column_name": "number_of_orphan_care_centers_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_orphan_care_centers_public"
+          }
+        },
+        {
+          "column_name": "number_of_centers_for_children_with_disabilities_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_centers_for_children_with_disabilities_public"
+          }
+        },
+        {
+          "column_name": "number_of_cbecdc_rehabilitation_centre_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_cbecdc_rehabilitation_centre_public"
+          }
+        },
+        {
+          "column_name": "number_of_day_care_centers_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_day_care_centers_public"
+          }
+        },
+        {
+          "column_name": "number_of_elderly_care_centers_public",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_elderly_care_centers_public"
+          }
+        },
+        {
+          "column_name": "number_of_pre_schools_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pre_schools_private"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_private"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_private"
+          }
+        },
+        {
+          "column_name": "number_of_universities_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_private"
+          }
+        },
+        {
+          "column_name": "number_of_special_needs_schools_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_needs_schools_private"
+          }
+        },
+        {
+          "column_name": "number_of_dispensary_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensary_private"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_private"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_private"
+          }
+        },
+        {
+          "column_name": "number_of_special_clinics_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_special_clinics_private"
+          }
+        },
+        {
+          "column_name": "number_of_laboratory_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_laboratory_private"
+          }
+        },
+        {
+          "column_name": "number_of_pharmacy_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_pharmacy_private"
+          }
+        },
+        {
+          "column_name": "number_of_addo_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_addo_private"
+          }
+        },
+        {
+          "column_name": "number_of_maternity_home_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_maternity_home_private"
+          }
+        },
+        {
+          "column_name": "number_of_orphan_care_centers_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_orphan_care_centers_private"
+          }
+        },
+        {
+          "column_name": "number_of_centers_for_children_with_disabilities_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_centers_for_children_with_disabilities_private"
+          }
+        },
+        {
+          "column_name": "number_of_cbecdc_rehabilitation_centre_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_cbecdc_rehabilitation_centre_private"
+          }
+        },
+        {
+          "column_name": "number_of_day_care_centers_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_day_care_centers_private"
+          }
+        },
+        {
+          "column_name": "number_of_elderly_care_centers_private",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_elderly_care_centers_private"
+          }
+        },
+        {
+          "column_name": "number_of_food_shop_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_food_shop_visited"
+          }
+        },
+        {
+          "column_name": "number_of_restaurants_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_restaurants_visited"
+          }
+        },
+        {
+          "column_name": "number_of_butcheries_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_butcheries_visited"
+          }
+        },
+        {
+          "column_name": "number_of_bar_and_clubs_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_bar_and_clubs_visited"
+          }
+        },
+        {
+          "column_name": "number_of_guest_house_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_guest_house_visited"
+          }
+        },
+        {
+          "column_name": "number_of_loca_food_vendors_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_loca_food_vendors_visited"
+          }
+        },
+        {
+          "column_name": "number_of_markets_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_markets_visited"
+          }
+        },
+        {
+          "column_name": "number_of_public_toilets_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_public_toilets_visited"
+          }
+        },
+        {
+          "column_name": "number_of_bus_stations_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_bus_stations_visited"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_visited"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_visited"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_visited"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_visited"
+          }
+        },
+        {
+          "column_name": "number_of_dispensaries_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensaries_visited"
+          }
+        },
+        {
+          "column_name": "number_of_offices_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_offices_visited"
+          }
+        },
+        {
+          "column_name": "number_of_universities_college_visited",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_college_visited"
+          }
+        },
+        {
+          "column_name": "number_of_food_shop_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_food_shop_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_restaurants_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_restaurants_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_butcheries_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_butcheries_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_bar_and_clubs_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_bar_and_clubs_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_guest_house_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_guest_house_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_loca_food_vendors_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_loca_food_vendors_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_markets_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_markets_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_public_toilets_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_public_toilets_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_bus_stations_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_bus_stations_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_primary_schools_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_primary_schools_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_secondary_schools_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_secondary_schools_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_hospital_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_hospital_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_health_centers_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_centers_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_dispensaries_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_dispensaries_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_offices_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_offices_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_universities_college_that_met_the_standards",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_universities_college_that_met_the_standards"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_agriculture_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_agriculture_areas"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_livestock_keeping_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_livestock_keeping_areas"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_fishing_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_fishing_areas"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_industries_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_industries_areas"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_offices_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_offices_areas"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_transportation_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_transportation_areas"
+          }
+        },
+        {
+          "column_name": "number_of_other_inspected_areas",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_other_inspected_areas"
+          }
+        },
+        {
+          "column_name": "number_of_agriculture_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_agriculture_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_livestock_keeping_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_fishing_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_fishing_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_industries_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_industries_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_offices_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_offices_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_transportation_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_transportation_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_other_areas_inspected_with_risk_indicators",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_other_areas_inspected_with_risk_indicators"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_grains",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_grains"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_legumes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_legumes"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_meat",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_meat"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_fishing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_fishing"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_alcoholic_beverages",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_alcoholic_beverages"
+          }
+        },
+        {
+          "column_name": "number_of_inspected_non_alcoholic_beverages",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_inspected_non_alcoholic_beverages"
+          }
+        },
+        {
+          "column_name": "number_of_grains_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_grains_discarded"
+          }
+        },
+        {
+          "column_name": "number_of_legumes_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_legumes_discarded"
+          }
+        },
+        {
+          "column_name": "number_of_meat_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_meat_discarded"
+          }
+        },
+        {
+          "column_name": "number_of_fishing_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_fishing_discarded"
+          }
+        },
+        {
+          "column_name": "number_of_alcoholic_beverage_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_alcoholic_beverage_discarded"
+          }
+        },
+        {
+          "column_name": "number_of_non_alcoholic_beverage_discarded",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_non_alcoholic_beverage_discarded"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_respiratory_diseases",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_respiratory_diseases"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_toxic_chemicals",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_toxic_chemicals"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_burns",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_burns"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_hearing_loss",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_hearing_loss"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_eye_problems",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_eye_problems"
+          }
+        },
+        {
+          "column_name": "health_reports_affecting_people_in_workplaces_other_effects",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_reports_affecting_people_in_workplaces_other_effects"
+          }
+        },
+        {
+          "column_name": "amount_of_solid_waste_generated_annually_tons",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_solid_waste_generated_annually_tons"
+          }
+        },
+        {
+          "column_name": "amount_of_solid_waste_disposed_at_a_designated_site_annually_tons",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_solid_waste_disposed_at_a_designated_site_annually_tons"
+          }
+        },
+        {
+          "column_name": "number_of_waste_collection_equipment_vehicles",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_waste_collection_equipment_vehicles"
+          }
+        },
+        {
+          "column_name": "number_of_waste_collection_equipment_tractors",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_waste_collection_equipment_tractors"
+          }
+        },
+        {
+          "column_name": "number_of_waste_collection_equipment_carts",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_waste_collection_equipment_carts"
+          }
+        },
+        {
+          "column_name": "number_of_waste_collection_equipment_wheelbarrows",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_waste_collection_equipment_wheelbarrows"
+          }
+        },
+        {
+          "column_name": "number_of_waste_collection_equipment_others",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_waste_collection_equipment_others"
+          }
+        },
+        {
+          "column_name": "number_of_areas_sprayed_with_pesticides_ponds",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_areas_sprayed_with_pesticides_ponds"
+          }
+        },
+        {
+          "column_name": "number_of_areas_sprayed_with_pesticides_cans",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_areas_sprayed_with_pesticides_cans"
+          }
+        },
+        {
+          "column_name": "number_of_areas_sprayed_with_pesticides_drums",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_areas_sprayed_with_pesticides_drums"
+          }
+        },
+        {
+          "column_name": "number_of_areas_sprayed_with_pesticides_barrels",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_areas_sprayed_with_pesticides_barrels"
+          }
+        },
+        {
+          "column_name": "number_of_areas_sprayed_with_pesticides_coconut_shells",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_areas_sprayed_with_pesticides_coconut_shells"
+          }
+        },
+        {
+          "column_name": "number_of_times_spraying_was_done_ponds",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_times_spraying_was_done_ponds"
+          }
+        },
+        {
+          "column_name": "number_of_times_spraying_was_done_cans",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_times_spraying_was_done_cans"
+          }
+        },
+        {
+          "column_name": "number_of_times_spraying_was_done_drums",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_times_spraying_was_done_drums"
+          }
+        },
+        {
+          "column_name": "number_of_times_spraying_was_done_barrels",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_times_spraying_was_done_barrels"
+          }
+        },
+        {
+          "column_name": "number_of_times_spraying_was_done_coconut_shells",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_times_spraying_was_done_coconut_shells"
+          }
+        },
+        {
+          "column_name": "types_of_pesticides_used_ponds",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "types_of_pesticides_used_ponds"
+          }
+        },
+        {
+          "column_name": "types_of_pesticides_used_cans",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "types_of_pesticides_used_cans"
+          }
+        },
+        {
+          "column_name": "types_of_pesticides_used_drums",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "types_of_pesticides_used_drums"
+          }
+        },
+        {
+          "column_name": "types_of_pesticides_used_barrels",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "types_of_pesticides_used_barrels"
+          }
+        },
+        {
+          "column_name": "types_of_pesticides_used_coconut_shells",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "types_of_pesticides_used_coconut_shells"
+          }
+        },
+        {
+          "column_name": "amount_of_pesticide_used_ponds",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_pesticide_used_ponds"
+          }
+        },
+        {
+          "column_name": "amount_of_pesticide_used_cans",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_pesticide_used_cans"
+          }
+        },
+        {
+          "column_name": "amount_of_pesticide_used_drums",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_pesticide_used_drums"
+          }
+        },
+        {
+          "column_name": "amount_of_pesticide_used_barrels",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_pesticide_used_barrels"
+          }
+        },
+        {
+          "column_name": "amount_of_pesticide_used_coconut_shells",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amount_of_pesticide_used_coconut_shells"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
           }
         }
       ]

@@ -1,0 +1,35 @@
+---
+name: step1_other_method_specify
+description: if step1_other_method_specify
+priority: 1
+condition: "step1_referral_system_used.contains('other_method')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_referral_system_used
+description: if step1_referral_system_used
+priority: 1
+condition: "step1_referral_system.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_referrals_specify
+description: if step1_others_referrals_specify
+priority: 1
+condition: "step1_referral_provided.contains('other_referral_services')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_referral_provided
+description: if step1_referral_provided
+priority: 1
+condition: "step1_provide_referral_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_prompt_for_referral_system_used
+description: if step1_prompt_for_referral_system_used
+priority: 1
+condition: "step1_referral_system_used.contains('ucs')"
+actions:
+  - "isRelevant = true "

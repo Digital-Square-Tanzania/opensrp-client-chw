@@ -221,11 +221,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Village/Street",
+        "hint": "Street/Hamlet",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please select the village or street"
+          "err": "Please select the hamlet or street"
         }
       }
     ]
@@ -782,37 +782,6 @@
         }
       },
       {
-        "key": "preg_1yr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_1yr",
-        "type": "spinner",
-        "hint": "Has the woman delivered in the last 1 year?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select if the woman has delivered in the last 1 year"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -985,7 +954,7 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider",
@@ -995,22 +964,41 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "chk_self_employed",
-            "text": "Self-Employed",
+            "key": "chk_fisherman",
+            "text": "Fisherman",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_self_employed"
+            "openmrs_entity_id": "chk_fisherman"
           },
           {
-            "key": "chk_employed",
-            "text": "Employed",
+            "key": "chk_miner",
+            "text": "Miner",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_employed"
+            "openmrs_entity_id": "chk_miner"
           },
           {
-            "key": "chk_unemployed",
-            "text": "Unemployed",
+            "key": "chk_truck_driver",
+            "text": "Truck Driver",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unemployed"
+            "openmrs_entity_id": "chk_truck_driver"
+          },
+          {
+            "key": "chk_bus_driver",
+            "text": "Bus driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bus_driver"
+          },
+          {
+            "key": "chk_pastoralist",
+            "text": "Pastoralist",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pastoralist"
+          },
+          {
+            "key": "chk_business_person",
+            "text": "Business person",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_business_person"
           },
           {
             "key": "chk_farmer",
@@ -1019,16 +1007,34 @@
             "openmrs_entity_id": "chk_farmer"
           },
           {
-            "key": "chk_traditional_healer",
-            "text": "Traditional healer",
-            "value": false,
+            "key": "chk_other",
+            "text": "Other",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_traditional_healer"
+            "openmrs_entity_id": "chk_other"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Other Occupation",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify role"
         },
         "relevance": {
           "rules-engine": {

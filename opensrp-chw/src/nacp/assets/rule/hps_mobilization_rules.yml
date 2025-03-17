@@ -1,0 +1,133 @@
+---
+name: step1_specify_other_iec_materials
+description: relevance rule to control the visibility of (step1_specify_other_iec_materials)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('other_iec_materials')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_brochure_materials
+description: relevance rule to control the visibility of (step1_other_brochure_materials)
+priority: 1
+condition: "step1_brochure_materials.contains('others')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_poster_materials
+description: relevance rule to control the visibility of (step1_other_poster_materials)
+priority: 1
+condition: "step1_poster_materials.contains('others')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_leaflet_materials
+description: relevance rule to control the visibility of (step1_other_leaflet_materials)
+priority: 1
+condition: "step1_leaflet_materials.contains('others')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_specify_other_other_iec_materials
+description: relevance rule to control the visibility of (step1_specify_other_other_iec_materials)
+priority: 1
+condition: "step1_others_iec_materials.contains('others')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_method_of_education_and_awareness_used
+description: relevance rule to control the visibility of (step1_other_method_of_education_and_awareness_used)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.contains('others_specify')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_specify_other_area_where_mobilization_took_place
+description: relevance rule to control the visibility of (step1_specify_other_area_where_mobilization_took_place)
+priority: 1
+condition: "step1_area_where_mobilization_took_place.contains('other_specify')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_brochure_materials
+description: relevance rule to control the visibility of (step1_brochure_materials)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('brochures')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_poster_materials
+description: relevance rule to control the visibility of (step1_poster_materials)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('posters')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflet_materials
+description: relevance rule to control the visibility of (step1_leaflet_materials)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('leaflets')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_iec_materials
+description: relevance rule to control the visibility of (step1_other_iec_materials)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('other_iec_materials')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_education_provided
+description: relevance rule to control the visibility of (step1_education_provided)
+priority: 1
+condition: "step1_was_education_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_brochures_provided
+description: relevance rule to control the visibility of (step1_number_of_brochures_provided)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('brochures')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_posters_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('posters')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_leaflet_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('leaflets')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_other_iec_provided
+description: relevance rule to control the visibility of (step1_number_of_posters_provided)
+priority: 1
+condition: "step1_information_education_and_communication_materials.contains('other_iec_materials')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_information_education_and_communication_materials
+description: relevance rule to control the visibility of (step1_information_education_and_communication_materials)
+priority: 1
+condition: "step1_iec_materials_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_type_radio_tv_used_for_education
+description: relevance rule to control the visibility of (step1_type_radio_tv_used_for_education)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('radio_tv_etc')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_area_where_mobilization_took_place
+description: relevance rule to control the visibility of (step1_area_where_mobilization_took_place)
+priority: 1
+condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('loud_speakers') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('drumming_public_announcements') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('face_to_face')"
+actions:
+  - "isRelevant = true"

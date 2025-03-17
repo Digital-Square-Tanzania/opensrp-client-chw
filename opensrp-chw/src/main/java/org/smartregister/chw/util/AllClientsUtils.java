@@ -28,6 +28,7 @@ import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivityFlv;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
@@ -46,6 +47,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.sbc.dao.SbcDao;
@@ -131,6 +133,10 @@ public class AllClientsUtils {
 
     public static void goToAsrhProfile(Activity activity, CommonPersonObjectClient client) {
         AsrhMemberProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToHpsProfile(Activity activity, CommonPersonObjectClient client) {
+        HpsMemberProfileActivity.startMe(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
@@ -321,6 +327,11 @@ public class AllClientsUtils {
         // Handle Asrh menu items
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
+        }
+
+        // Handle HPS menu items
+        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
         }
     }
 
