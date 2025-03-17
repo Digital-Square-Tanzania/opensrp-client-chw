@@ -1345,4 +1345,7 @@
 
     <string name="treatment_supporter_prefix">Treatment Supporter: %s</string>
     <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>
+    <string name="manual_process_visit">Process Visit</string>
+    <string name="hps_view_visit_history">View visit history</string>
+
 </resources>
