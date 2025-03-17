@@ -676,7 +676,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_sugar_result",
         "type": "edit_text",
-        "hint": "Majibu ya Kipimo cha sukari kwenye damu (RBG)",
+        "hint": "Kipimo cha sukari kwenye damu (mmol/L)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja"
@@ -744,7 +744,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_testing_kits_result",
         "type": "native_radio",
-        "label": "Chagua majibu ya Upimaji wa VVU kutumia vitepe vya Jipime",
+        "label": "Chagua majibu ya upimaji wa VVU kutumia vitepe vya Jipime",
         "options": [
           {
             "key": "reactive",
