@@ -45,7 +45,7 @@
 
   },
   "step1": {
-    "title":"Referral Services",
+    "title":"Rufaa Iliyotolewa",
     "fields": [
       {
         "key":"provide_referral_services",
@@ -71,7 +71,7 @@
         "v_required":
         {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -216,7 +216,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -235,7 +235,7 @@
         "hint":"Taja rufaa nyinginezo kwa uchunguzi na matibabu zaidi",
         "v_required": {
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -269,7 +269,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         }
       },
       {
@@ -312,7 +312,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -331,7 +331,7 @@
         "hint":"Taja njia nyingine iliyotumika kutoa rufaaa",
         "v_required": {
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja njia nyingine iliyotumika kutoa rufaa"
         },
         "relevance": {
           "rules-engine": {

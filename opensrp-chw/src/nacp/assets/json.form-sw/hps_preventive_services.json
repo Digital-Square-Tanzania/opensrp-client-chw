@@ -46,7 +46,7 @@
     "age":5
   },
   "step1":{
-    "title":"Preventive Services",
+    "title":"Huduma Kinga Zilizotolewa",
     "fields":[
       {
         "key":"provide_iec_materials",
@@ -72,7 +72,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -115,7 +115,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -134,7 +134,7 @@
         "hint":"Taja mengineyo",
         "v_required":{
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja vielelezo kwenye mengineyo"
         },
         "relevance":{
           "rules-engine":{
@@ -513,7 +513,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali jaza jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -532,7 +532,7 @@
         "hint":"Mengineyo(Taja)",
         "v_required":{
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja mengineyo kwenye vipeperushi"
         },
         "relevance":{
           "rules-engine":{
@@ -551,7 +551,7 @@
         "hint":"Idadi ya vipeperushi vilivyogawiwa",
         "v_required":{
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja idadi ya vipeperushi vilivyogawiwa"
         },
         "v_min":{
           "value":"0",
@@ -943,7 +943,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -962,7 +962,7 @@
         "hint":"Mengineyo(Taja)",
         "v_required":{
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja mengineyo kwenye mabango"
         },
         "relevance":{
           "rules-engine":{
@@ -1373,7 +1373,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -1458,7 +1458,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         }
       },
       {
@@ -1486,7 +1486,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -1709,7 +1709,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -1942,7 +1942,7 @@
         ],
         "v_required":{
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance":{
           "rules-engine":{
@@ -1975,7 +1975,7 @@
         "hint":"Taja huduma nyinginezo",
         "v_required":{
           "value":"true",
-          "err":"Please specify"
+          "err":"Tafadhali taja huduma nyinginezo"
         },
         "relevance":{
           "rules-engine":{

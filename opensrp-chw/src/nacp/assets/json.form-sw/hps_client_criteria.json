@@ -43,7 +43,7 @@
     "encounter_location":""
   },
   "step1": {
-    "title":"Client Criteria",
+    "title":"Kigezo Cha Mteja",
     "fields": [
       {
         "key": "visit_type",
@@ -144,7 +144,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -340,7 +340,7 @@
         "v_required":
         {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -453,7 +453,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -560,7 +560,7 @@
         ],
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
@@ -593,11 +593,11 @@
         "hint":"Taja kigezo kingine",
         "v_max": {
           "value":"100",
-          "err":"Respiration rate value must be equal or less than 100"
+          "err":"Other criteria value must be equal or less than 100"
         },
         "v_required": {
           "value":"true",
-          "err":"Please select an answer"
+          "err":"Tafadhali chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
