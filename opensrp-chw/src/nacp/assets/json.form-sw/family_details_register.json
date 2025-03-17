@@ -173,11 +173,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kijiji/Mtaa",
+        "hint": "Kitongoji/Mtaa",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingia kijijini au mtaani"
+          "err": "Tafadhali ingia kitongoji au mtaani"
         }
       }
     ]

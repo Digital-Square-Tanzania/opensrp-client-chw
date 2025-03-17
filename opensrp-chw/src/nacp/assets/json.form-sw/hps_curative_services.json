@@ -42,7 +42,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Curative Services",
+    "title": "Huduma za Tiba",
     "fields": [
       {
         "key": "provision_of_curative_services",
@@ -82,9 +82,6 @@
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "exclusive": [
-          "other_signs_and_symptoms"
-        ],
         "options": [
           {
             "key": "fever",
@@ -417,7 +414,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_disease_test_conducted",
-        "label": "Je vipimo vya ugonjwa vimefanywa?",
+        "label": "Je vipimo vya ugonjwa vimefanyika?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -453,7 +450,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_test_conducted",
-        "label": "Vipimo vilivyofanyika",
+        "label": "Vipimo vya ugonjwa vilivyofanyika",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -530,13 +527,18 @@
       {
         "key": "systolic",
         "type": "edit_text",
-        "hint": "Shinikizo la juu la damu",
+        "hint": "Shinikizo la juu la damu (mmHg)",
         "openmrs_entity_id": "systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza shinikizo la juu la damu"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "0",
@@ -561,7 +563,7 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Shinikizo la chini la damu",
+        "hint": "Shinikizo la chini la damu (mmHG)",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -572,7 +574,7 @@
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "0",
@@ -580,7 +582,7 @@
         },
         "v_max": {
           "value": "200",
-          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au juu ya 200"
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au chini ya 200"
         },
         "v_required": {
           "value": true,
@@ -596,10 +598,42 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step2:systolic)",
-            "err": "The diastolic value must be less than the systolic value"
+            "ex": "lessThan(., step1:systolic)",
+            "err": "Shinikizo la chini la damu linatikiwa liwe dogo kuliko shinikizo la juu la damu"
           }
         ]
+      },
+      {
+        "key": "prompt_for_management_of_hypertension",
+        "type": "toaster_notes",
+        "text": "Dhibiti shinikizo la damu la juu kulingana na miongozo.",
+        "openmrs_entity_id": "prompt_for_management_of_hypertension",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_management_of_hypotension",
+        "type": "toaster_notes",
+        "text": "Toa maji kwa njia ya mshipa (IV fluids), baini chanzo cha shinikizo la chini la damu na udhibiti kulingana na miongozo",
+        "openmrs_entity_id": "prompt_for_management_of_hypotension",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
       },
       {
         "key": "malaria_mrdt_result",
@@ -642,7 +676,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_sugar_result",
         "type": "edit_text",
-        "hint": "Majibu ya Kipimo cha sukari kwenye damu (RBG)",
+        "hint": "Kipimo cha sukari kwenye damu (mmol/L)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja"
@@ -673,12 +707,44 @@
         }
       },
       {
+        "key": "prompt_for_gestational_diabetes_mellitus",
+        "type": "toaster_notes",
+        "text": "Manage the gestational diabetes mellitus according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_gestational_diabetes_mellitus",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_hypoglycaemia",
+        "type": "toaster_notes",
+        "text": "Manage the hypoglycaemia according to standard guidelines",
+        "openmrs_entity_id": "prompt_for_hypoglycaemia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "hiv_testing_kits_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_testing_kits_result",
         "type": "native_radio",
-        "label": "Chagua majibu ya Upimaji wa VVU kutumia vitepe vya Jipime",
+        "label": "Chagua majibu ya upimaji wa VVU kutumia vitepe vya Jipime",
         "options": [
           {
             "key": "reactive",
@@ -744,12 +810,42 @@
         }
       },
       {
+        "key": "notify_client_has_fever",
+        "type": "toaster_notes",
+        "text": "Fanya vipimo husika vya maabara ili kubaini chanzo cha homa na utibu kulingana na miongozo.",
+        "openmrs_entity_id": "notify_client_has_fever",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"37.8\")"
+          }
+        }
+      },
+      {
+        "key": "notify_client_has_hypothermia",
+        "type": "toaster_notes",
+        "text": "Dhibiti joto la chini la mwili kulingana na miongozo.",
+        "openmrs_entity_id": "notify_client_has_hypothermia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "lessThan(.,\"36.5\")"
+          }
+        }
+      },
+      {
         "key": "arm_circumference_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "arm_circumference_result",
         "type": "edit_text",
-        "hint": "Mzingo wa Mkono",
+        "hint": "Mzingo wa Mkono (CM)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja"

@@ -42,7 +42,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Annual census",
+    "title": "Taarifa ya mwaka",
     "next": "step2",
     "fields": [
       {
@@ -115,7 +115,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -128,7 +128,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -139,13 +139,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Unatakiwa kuweka tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -158,7 +165,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -169,13 +176,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -188,7 +202,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -199,13 +213,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano."
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -218,7 +239,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -229,13 +250,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano."
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -248,7 +276,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -259,13 +287,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano."
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -278,7 +313,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -289,13 +324,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -308,7 +350,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -319,13 +361,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -338,7 +387,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -349,13 +398,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -368,7 +424,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -379,13 +435,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -398,7 +461,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -409,13 +472,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -428,7 +498,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -439,13 +509,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -458,7 +535,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -469,13 +546,50 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_house_hold",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold",
+        "hint": "Idadi ya Kaya",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -488,7 +602,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -499,13 +613,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -518,7 +632,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -529,19 +643,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step2": {
-    "title": "Number of house hold with basic nutrition source",
+    "title": "Kaya zenye chanzo cha lishe",
     "next": "step3",
     "fields": [
       {
@@ -554,7 +668,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -565,13 +679,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -584,7 +698,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -595,13 +709,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -614,7 +728,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -625,19 +739,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step3": {
-    "title": "Healthcare services, education, child and elder care centers",
+    "title": "Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee",
     "next": "step4",
     "fields": [
       {
@@ -680,7 +794,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -693,7 +807,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -704,13 +818,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -723,7 +844,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -734,13 +855,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -753,7 +881,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -764,13 +892,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -783,7 +918,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -794,13 +929,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -813,7 +955,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -824,13 +966,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -843,7 +992,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -854,13 +1003,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -873,7 +1029,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -884,13 +1040,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -903,7 +1066,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -914,13 +1077,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -933,7 +1103,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -944,13 +1114,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -963,7 +1140,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -974,13 +1151,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1004,13 +1188,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1023,7 +1214,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1034,13 +1225,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1053,7 +1251,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1064,13 +1262,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1083,7 +1288,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1094,13 +1299,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1113,7 +1325,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1124,13 +1336,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1143,7 +1362,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1154,13 +1373,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1173,7 +1399,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1184,13 +1410,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1203,7 +1436,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1214,13 +1447,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1233,7 +1473,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1244,13 +1484,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1263,7 +1510,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1274,13 +1521,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1293,7 +1547,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1304,13 +1558,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1323,7 +1584,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1334,13 +1595,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1353,7 +1621,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1364,13 +1632,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1383,7 +1658,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1394,13 +1669,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1413,7 +1695,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1424,13 +1706,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1443,7 +1732,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1454,13 +1743,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1473,7 +1769,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1484,13 +1780,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1503,7 +1806,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1514,13 +1817,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1533,7 +1843,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1544,13 +1854,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1563,7 +1880,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1574,13 +1891,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1593,7 +1917,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1604,13 +1928,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1623,7 +1954,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1634,13 +1965,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1653,7 +1991,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1664,13 +2002,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1694,13 +2039,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1713,7 +2065,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1724,13 +2076,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1743,7 +2102,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1754,13 +2113,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1773,7 +2139,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1784,14 +2150,22 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
+
       },
       {
         "key": "number_of_primary_schools_public",
@@ -1803,7 +2177,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1814,13 +2188,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1833,7 +2214,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1844,13 +2225,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1863,7 +2251,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1874,13 +2262,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1893,7 +2288,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1904,13 +2299,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1923,7 +2325,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1934,13 +2336,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1953,7 +2362,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1964,13 +2373,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -1983,7 +2399,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -1994,13 +2410,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2013,7 +2436,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2024,13 +2447,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2043,7 +2473,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2054,13 +2484,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2073,7 +2510,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2084,13 +2521,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2103,7 +2547,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2114,13 +2558,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2133,7 +2584,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2144,13 +2595,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2163,7 +2621,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2174,13 +2632,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2193,7 +2658,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2204,13 +2669,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2223,7 +2695,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2234,13 +2706,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2253,7 +2732,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2264,13 +2743,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2283,7 +2769,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2294,13 +2780,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2313,7 +2806,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2324,13 +2817,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2343,7 +2843,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2354,13 +2854,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2373,7 +2880,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2384,13 +2891,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2403,7 +2917,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2414,13 +2928,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2433,7 +2954,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2444,13 +2965,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2463,7 +2991,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2474,13 +3002,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2493,7 +3028,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2504,13 +3039,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2523,7 +3065,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2534,13 +3076,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2553,7 +3102,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2564,13 +3113,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2583,7 +3139,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2594,13 +3150,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2613,7 +3176,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2624,13 +3187,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2643,7 +3213,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2654,13 +3224,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2673,7 +3250,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2684,13 +3261,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2703,7 +3287,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2714,13 +3298,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2733,7 +3324,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2744,13 +3335,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2763,7 +3361,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2774,13 +3372,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2793,7 +3398,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2804,13 +3409,20 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       },
       {
@@ -2823,7 +3435,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2834,19 +3446,26 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census.yml"
+            }
+          }
         }
       }
     ]
   },
   "step4": {
-    "title": "Social services and economic activities",
+    "title": "Vyanzo vinavyotumiwa zaidi na kaya",
     "next": "step5",
     "fields": [
       {
@@ -2859,7 +3478,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2870,13 +3489,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -2889,7 +3508,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2900,13 +3519,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -2919,7 +3538,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2930,13 +3549,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -2949,7 +3568,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2960,13 +3579,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -2979,7 +3598,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -2990,13 +3609,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3009,7 +3628,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3020,13 +3639,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3039,7 +3658,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3050,13 +3669,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3069,7 +3688,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3080,13 +3699,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3099,7 +3718,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3110,13 +3729,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3129,7 +3748,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3140,13 +3759,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3170,13 +3789,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3189,7 +3808,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3200,13 +3819,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3219,7 +3838,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3230,13 +3849,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3249,7 +3868,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3260,13 +3879,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3279,7 +3898,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3290,13 +3909,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3309,7 +3928,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3320,13 +3939,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3339,7 +3958,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3350,13 +3969,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3369,7 +3988,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3380,26 +3999,26 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
-        "key": "number_of_people_capable_of_engaging_in_economic_activities",
+        "key": "number_of_male_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_capable_of_engaging_in_economic_activities",
-        "hint": "Idadi ya watu wenye uwezo wa kufanya kazi za kiuchumi/ Kuzalisha mali",
+        "openmrs_entity_id": "number_of_male_capable_of_engaging_in_economic_activities",
+        "hint": "Idadi ya wanaume wanaoweza kushiriki katika shughuli za kiuchumi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3410,26 +4029,26 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
-        "key": "number_of_people_engaged_in_economic_activities",
+        "key": "number_of_female_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_engaged_in_economic_activities",
-        "hint": "Idadi ya watu wanaofanya shughuli za uchumi/ Wanaozalisha mali",
+        "openmrs_entity_id": "number_of_female_capable_of_engaging_in_economic_activities",
+        "hint": "Idadi ya wanawake wanaoweza kushiriki katika shughuli za kiuchumi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3440,19 +4059,93 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
+      },
+      {
+        "key": "number_of_male_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_engaged_in_economic_activities",
+        "hint": "Idadi ya wanaume wanaoshiriki katika shughuli za kiuchumi.",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_male_capable_of_engaging_in_economic_activities)",
+            "err": "Namba haitakiwi kuwa kubwa kuliko idadi ya wanaume wanaoweza kushiriki katika shughuli za kiuchumi"
+          }
+        ]
+      },
+      {
+        "key": "number_of_female_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_engaged_in_economic_activities",
+        "hint": "Idadi ya wanawake wanaoshiriki katika shughuli za kiuchumi.",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_female_capable_of_engaging_in_economic_activities)",
+            "err": "must be not greater than number of male capable_of_engaging_in_economic_activities"
+          }
+        ]
       }
     ]
   },
   "step5": {
-    "title": "Committee meetings & Traditional medicine",
+    "title": "Ufanisi wa Vikao vya Kamati vya Afya & Huduma za Tiba Mbadala Zinazotolewa",
     "next": "step6",
     "fields": [
       {
@@ -3465,7 +4158,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3476,13 +4169,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3495,7 +4188,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3506,13 +4199,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3525,7 +4218,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3536,13 +4229,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3555,7 +4248,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3566,13 +4259,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3585,7 +4278,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3596,13 +4289,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3615,7 +4308,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3626,13 +4319,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3645,7 +4338,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3656,13 +4349,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3675,7 +4368,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3686,13 +4379,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3705,7 +4398,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3716,19 +4409,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step6": {
-    "title": "Environmental and sanitation Inspection report",
+    "title": "Taarifa ya Ukaguzi na safi wa Mazingira ",
     "next": "step7",
     "fields": [
       {
@@ -3741,7 +4434,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3752,13 +4445,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3771,7 +4464,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3782,13 +4475,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3801,7 +4494,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3812,13 +4505,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3831,7 +4524,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali Chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3842,13 +4535,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3861,7 +4554,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3872,13 +4565,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3891,7 +4584,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3902,13 +4595,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3921,7 +4614,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3932,13 +4625,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3951,7 +4644,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3962,13 +4655,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -3981,7 +4674,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -3992,13 +4685,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4011,7 +4704,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4022,13 +4715,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4041,7 +4734,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4052,19 +4745,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step7": {
-    "title": "Building Inspection Report",
+    "title": "Taarifa Ya Ukaguzi wa Majengo",
     "next": "step8",
     "fields": [
       {
@@ -4077,7 +4770,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4088,13 +4781,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4107,7 +4800,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4118,13 +4811,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4137,7 +4830,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4148,13 +4841,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4167,7 +4860,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4178,13 +4871,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4197,7 +4890,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4208,13 +4901,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4227,7 +4920,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4238,13 +4931,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4257,7 +4950,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4268,13 +4961,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4287,7 +4980,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4298,13 +4991,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4317,7 +5010,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4328,13 +5021,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4347,7 +5040,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4358,13 +5051,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4377,7 +5070,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4388,13 +5081,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4407,7 +5100,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4418,13 +5111,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4437,7 +5130,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4448,13 +5141,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4467,7 +5160,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4478,13 +5171,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4497,7 +5190,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4508,13 +5201,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4527,7 +5220,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4538,13 +5231,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4557,7 +5250,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4568,13 +5261,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4587,7 +5280,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4598,13 +5291,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4617,7 +5310,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4628,13 +5321,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4647,7 +5340,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4658,13 +5351,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4677,7 +5370,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4688,13 +5381,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4707,7 +5400,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4718,13 +5411,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4737,7 +5430,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4748,13 +5441,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4767,7 +5460,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4778,13 +5471,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4797,7 +5490,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4808,13 +5501,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4827,7 +5520,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4838,13 +5531,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4857,7 +5550,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4868,13 +5561,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4887,7 +5580,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4898,13 +5591,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4917,7 +5610,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4928,13 +5621,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4947,7 +5640,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4958,13 +5651,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -4977,7 +5670,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4988,13 +5681,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5007,7 +5700,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5018,19 +5711,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step8": {
-    "title": "Workplace Inspection Report",
+    "title": "Taarifa ya ukaguzi Sehemu ya Kazi",
     "next": "step9",
     "fields": [
       {
@@ -5043,7 +5736,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5054,13 +5747,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5073,7 +5766,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5084,13 +5777,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5103,7 +5796,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5114,13 +5807,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5133,7 +5826,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5144,13 +5837,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5163,7 +5856,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5174,13 +5867,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5193,7 +5886,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5204,13 +5897,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5223,7 +5916,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5234,13 +5927,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5253,7 +5946,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5264,13 +5957,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5283,7 +5976,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5294,13 +5987,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5313,7 +6006,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5324,13 +6017,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5343,7 +6036,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5354,13 +6047,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5373,7 +6066,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5384,13 +6077,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5403,7 +6096,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5414,13 +6107,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5433,7 +6126,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5444,19 +6137,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step9": {
-    "title": "Food and Beverage Inspection Report",
+    "title": "Taarifa za Ukaguzi wa Vyakula na Vinywaji",
     "next": "step10",
     "fields": [
       {
@@ -5469,7 +6162,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5480,13 +6173,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5499,7 +6192,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5510,13 +6203,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5529,7 +6222,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5540,13 +6233,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5559,7 +6252,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5570,13 +6263,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5589,7 +6282,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5600,13 +6293,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5619,7 +6312,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5630,13 +6323,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5649,7 +6342,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5660,13 +6353,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5679,7 +6372,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5690,13 +6383,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5709,7 +6402,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5720,13 +6413,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5739,7 +6432,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5750,13 +6443,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5769,7 +6462,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5780,13 +6473,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5799,7 +6492,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5810,19 +6503,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step10": {
-    "title": "Health Reports Affecting People in Workplaces",
+    "title": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi",
     "next": "step11",
     "fields": [
       {
@@ -5835,7 +6528,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5846,13 +6539,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5865,7 +6558,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5876,13 +6569,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5895,7 +6588,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5906,13 +6599,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5925,7 +6618,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5936,13 +6629,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5955,7 +6648,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5966,13 +6659,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -5985,7 +6678,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -5996,19 +6689,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step11": {
-    "title": "Solid waste & waste collection equipments",
+    "title": "Taarifa ya Taka Ngumu & Idadi ya Vifaa vya kukusanyia Taka",
     "next": "step12",
     "fields": [
       {
@@ -6021,7 +6714,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6032,13 +6725,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6051,7 +6744,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6062,13 +6755,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6081,7 +6774,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6092,13 +6785,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6111,7 +6804,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6122,13 +6815,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6141,7 +6834,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6152,13 +6845,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6171,7 +6864,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6182,13 +6875,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6201,7 +6894,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6212,19 +6905,19 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]
   },
   "step12": {
-    "title": "Identification and Control of Insect Breeding Sites",
+    "title": "Utambuzi wa Mazalia ya Wadudu na Udhibiti",
     "fields": [
       {
         "key": "number_of_areas_sprayed_with_pesticides_ponds",
@@ -6236,7 +6929,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6247,13 +6940,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6266,7 +6959,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6277,13 +6970,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6296,7 +6989,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6307,13 +7000,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6326,7 +7019,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6337,13 +7030,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6356,7 +7049,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6367,13 +7060,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6386,7 +7079,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6397,13 +7090,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6416,7 +7109,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6427,13 +7120,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6446,7 +7139,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6457,13 +7150,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6476,7 +7169,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6487,13 +7180,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6506,7 +7199,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6517,13 +7210,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6536,7 +7229,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -6549,7 +7242,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -6562,7 +7255,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -6575,7 +7268,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -6588,7 +7281,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         }
       },
       {
@@ -6601,7 +7294,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6612,13 +7305,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6631,7 +7324,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6642,13 +7335,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6661,7 +7354,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6672,13 +7365,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6691,7 +7384,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6702,13 +7395,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       },
       {
@@ -6721,7 +7414,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jibu"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -6732,13 +7425,13 @@
           "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
-          "value": "10000",
+          "value": "100000",
           "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         }
       }
     ]

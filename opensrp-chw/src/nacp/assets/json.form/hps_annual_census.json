@@ -563,6 +563,36 @@
         }
       },
       {
+        "key": "number_of_house_hold",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold",
+        "hint": "Number of house hold",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
         "key": "number_of_house_hold_with_road_access",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3978,11 +4008,11 @@
         }
       },
       {
-        "key": "number_of_people_capable_of_engaging_in_economic_activities",
+        "key": "number_of_male_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_capable_of_engaging_in_economic_activities",
-        "hint": "Number of people capable of engaging in economic activities",
+        "openmrs_entity_id": "number_of_male_capable_of_engaging_in_economic_activities",
+        "hint": "Number of male capable of engaging in economic activities",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4008,11 +4038,11 @@
         }
       },
       {
-        "key": "number_of_people_engaged_in_economic_activities",
+        "key": "number_of_female_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_people_engaged_in_economic_activities",
-        "hint": "Number of people engaged in economic activities",
+        "openmrs_entity_id": "number_of_female_capable_of_engaging_in_economic_activities",
+        "hint": "Number of female capable of engaging in economic activities",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4036,8 +4066,82 @@
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
         }
+      },
+      {
+        "key": "number_of_male_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_engaged_in_economic_activities",
+        "hint": "Number of male engaged in economic activities",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_male_capable_of_engaging_in_economic_activities)",
+            "err": "must be not greater than number of male capable of engaging in economic activities"
+          }
+        ]
+      },
+      {
+        "key": "number_of_female_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_engaged_in_economic_activities",
+        "hint": "Number of female engaged in economic activities",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step4:number_of_female_capable_of_engaging_in_economic_activities)",
+            "err": "must be not greater than number of male capable of engaging in economic activities"
+          }
+        ]
       }
-    ]
+      ]
   },
   "step5": {
     "title": "Committee meetings & Traditional medicine",
@@ -4320,11 +4424,11 @@
     "next": "step7",
     "fields": [
       {
-        "key": "number_of_housholds_inspected",
+        "key": "number_of_households_inspected",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_housholds_inspected",
-        "hint": "Number of housholds inspected",
+        "hint": "Number of households inspected",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4350,11 +4454,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_good_latrine",
+        "key": "number_of_households_with_good_latrine",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_good_latrine",
-        "hint": "Number of housholds with good latrine",
+        "openmrs_entity_id": "number_of_households_with_good_latrine",
+        "hint": "Number of households with good latrine",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4380,11 +4484,11 @@
         }
       },
       {
-        "key": "number_of_housholds_without_good_latrine",
+        "key": "number_of_households_without_good_latrine",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_without_good_latrine",
-        "hint": "Number of housholds without good latrine",
+        "openmrs_entity_id": "number_of_households_without_good_latrine",
+        "hint": "Number of households without good latrine",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4410,11 +4514,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_no_latrine",
+        "key": "number_of_households_with_no_latrine",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_no_latrine",
-        "hint": "Number of housholds with no latrine",
+        "openmrs_entity_id": "number_of_households_with_no_latrine",
+        "hint": "Number of households with no latrine",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4440,11 +4544,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_waste_disposal_pits",
+        "key": "number_of_households_with_waste_disposal_pits",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_waste_disposal_pits",
-        "hint": "Number of housholds with waste disposal pits",
+        "openmrs_entity_id": "number_of_households_with_waste_disposal_pits",
+        "hint": "Number of households with waste disposal pits",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4470,11 +4574,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_dish_racks_for_drying_utensils",
+        "key": "number_of_households_with_dish_racks_for_drying_utensils",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_dish_racks_for_drying_utensils",
-        "hint": "Number of housholds with dish racks for drying utensils",
+        "openmrs_entity_id": "number_of_households_with_dish_racks_for_drying_utensils",
+        "hint": "Number of households with dish racks for drying utensils",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4500,11 +4604,11 @@
         }
       },
       {
-        "key": "number_of_housholds_near_clean_water_sources",
+        "key": "number_of_households_near_clean_water_sources",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_near_clean_water_sources",
-        "hint": "Number of housholds near clean water sources",
+        "openmrs_entity_id": "number_of_households_near_clean_water_sources",
+        "hint": "Number of households near clean water sources",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4530,11 +4634,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_economic_problems",
+        "key": "number_of_households_with_economic_problems",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_economic_problems",
-        "hint": "Number of housholds with economic problems",
+        "openmrs_entity_id": "number_of_households_with_economic_problems",
+        "hint": "Number of households with economic problems",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4560,11 +4664,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_social_problems",
+        "key": "number_of_households_with_social_problems",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_social_problems",
-        "hint": "Number of housholds with social problems",
+        "openmrs_entity_id": "number_of_households_with_social_problems",
+        "hint": "Number of households with social problems",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4590,11 +4694,11 @@
         }
       },
       {
-        "key": "number_of_housholds_with_handwashing_facilities_after_using_the_toilet",
+        "key": "number_of_households_with_handwashing_facilities_after_using_the_toilet",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_with_handwashing_facilities_after_using_the_toilet",
-        "hint": "Number of housholds with handwashing facilities after using the toilet",
+        "openmrs_entity_id": "number_of_households_with_handwashing_facilities_after_using_the_toilet",
+        "hint": "Number of households with handwashing facilities after using the toilet",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4620,11 +4724,11 @@
         }
       },
       {
-        "key": "number_of_housholds_that_have_been_sprayed_with_insecticide",
+        "key": "number_of_households_that_have_been_sprayed_with_insecticide",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_housholds_that_have_been_sprayed_with_insecticide",
-        "hint": "Number of housholds that have been sprayed with insecticide",
+        "openmrs_entity_id": "number_of_households_that_have_been_sprayed_with_insecticide",
+        "hint": "Number of households that have been sprayed with insecticide",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5163,7 +5267,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_food_shop_visited)",
+            "err": "must not be greater than number of shops visited"
+          }
+        ]
       },
       {
         "key": "number_of_restaurants_that_Met_the_Standards",
@@ -5193,7 +5304,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_restaurants_visited)",
+            "err": "must not be greater than number of restaurants visited"
+          }
+        ]
       },
       {
         "key": "number_of_butcheries_that_Met_the_Standards",
@@ -5223,7 +5341,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_butcheries_visited)",
+            "err": "must not be greater than number of butcheries visited"
+          }
+        ]
       },
       {
         "key": "number_of_bar_and_clubs_that_Met_the_Standards",
@@ -5253,7 +5378,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_bar_and_clubs_visited)",
+            "err": "must not be greater than number of bar and clubs visited"
+          }
+        ]
       },
       {
         "key": "number_of_guest_house_that_Met_the_Standards",
@@ -5283,7 +5415,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_guest_house_visited)",
+            "err": "must not be greater than number of guest house visited"
+          }
+        ]
       },
       {
         "key": "number_of_loca_food_vendors_that_Met_the_Standards",
@@ -5313,7 +5452,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_loca_food_vendors_visited)",
+            "err": "must not be greater than number of local food vendors visited"
+          }
+        ]
       },
       {
         "key": "number_of_markets_that_Met_the_Standards",
@@ -5343,7 +5489,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_markets_visited)",
+            "err": "must not be greater than number of markets visited"
+          }
+        ]
       },
       {
         "key": "number_of_public_toilets_that_Met_the_Standards",
@@ -5373,7 +5526,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_public_toilets_visited)",
+            "err": "must not be greater than number of public toilets visited"
+          }
+        ]
       },
       {
         "key": "number_of_bus_stations_that_Met_the_Standards",
@@ -5403,7 +5563,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_bus_stations_visited)",
+            "err": "must not be greater than number of bus stations visited"
+          }
+        ]
       },
       {
         "key": "number_of_primary_schools_that_Met_the_Standards",
@@ -5433,7 +5600,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_primary_schools_visited)",
+            "err": "must not be greater than number of primary schools visited"
+          }
+        ]
       },
       {
         "key": "number_of_secondary_schools_that_Met_the_Standards",
@@ -5463,7 +5637,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_secondary_schools_visited)",
+            "err": "must not be greater than number of secondary schools visited"
+          }
+        ]
       },
       {
         "key": "number_of_hospital_that_Met_the_Standards",
@@ -5493,7 +5674,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_hospital_visited)",
+            "err": "must not be greater than number of hospital visited"
+          }
+        ]
       },
       {
         "key": "number_of_health_centers_that_Met_the_Standards",
@@ -5523,7 +5711,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_health_centers_visited)",
+            "err": "must not be greater than number of health centers visited"
+          }
+        ]
       },
       {
         "key": "number_of_dispensaries_that_Met_the_Standards",
@@ -5553,7 +5748,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_dispensaries_visited)",
+            "err": "must not be greater than number of dispensaries visited"
+          }
+        ]
       },
       {
         "key": "number_of_offices_that_Met_the_Standards",
@@ -5583,7 +5785,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_offices_visited)",
+            "err": "must not be greater than number of offices visited"
+          }
+        ]
       },
       {
         "key": "number_of_universities_college_that_Met_the_Standards",
@@ -5613,7 +5822,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step7:number_of_universities_college_visited)",
+            "err": "must not be greater than number of universities/college visited"
+          }
+        ]
       }
     ]
   },
@@ -5859,7 +6075,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_agriculture_areas)",
+            "err": "must not be greater than number of inspected agriculture areas"
+          }
+        ]
       },
       {
         "key": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
@@ -5889,7 +6112,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_livestock_keeping_areas)",
+            "err": "must not be greater than number of inspected livestock keeping areas"
+          }
+        ]
       },
       {
         "key": "number_of_fishing_areas_inspected_with_risk_indicators",
@@ -5919,7 +6149,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_fishing_areas)",
+            "err": "must not be greater than number of inspected fishing areas"
+          }
+        ]
       },
       {
         "key": "number_of_industries_areas_inspected_with_risk_indicators",
@@ -5949,7 +6186,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_industries_areas)",
+            "err": "must not be greater than number of inspected industries areas"
+          }
+        ]
       },
       {
         "key": "number_of_offices_areas_inspected_with_risk_indicators",
@@ -5979,7 +6223,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_offices_areas)",
+            "err": "must not be greater than number of inspected offices areas"
+          }
+        ]
       },
       {
         "key": "number_of_transportation_areas_inspected_with_risk_indicators",
@@ -6009,7 +6260,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_transportation_areas)",
+            "err": "must not be greater than number of inspected transportation areas"
+          }
+        ]
       },
       {
         "key": "number_of_other_areas_inspected_with_risk_indicators",
@@ -6039,7 +6297,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_other_inspected_areas)",
+            "err": "must not be greater than number of other inspected areas"
+          }
+        ]
       }
     ]
   },
@@ -6255,7 +6520,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_grains)",
+            "err": "must not be greater than number of inspected grains"
+          }
+        ]
       },
       {
         "key": "number_of_legumes_discarded",
@@ -6285,7 +6557,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_legumes)",
+            "err": "must not be greater than number of inspected legumes"
+          }
+        ]
       },
       {
         "key": "number_of_meat_discarded",
@@ -6315,7 +6594,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_meat)",
+            "err": "must not be greater than number of inspected meat"
+          }
+        ]
       },
       {
         "key": "number_of_fishing_discarded",
@@ -6345,7 +6631,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_fishing)",
+            "err": "must not be greater than number of inspected fishing"
+          }
+        ]
       },
       {
         "key": "number_of_alcoholic_beverage_discarded",
@@ -6375,7 +6668,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_alcoholic_beverages)",
+            "err": "must not be greater than number of inspected alcoholic beverages"
+          }
+        ]
       },
       {
         "key": "number_of_non_alcoholic_beverage_discarded",
@@ -6405,7 +6705,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_non_alcoholic_beverages)",
+            "err": "must not be greater than number of inspected non alcoholic beverages"
+          }
+        ]
       }
     ]
   },

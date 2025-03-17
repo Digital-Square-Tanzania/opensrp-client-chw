@@ -95,7 +95,11 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1));
+                if (ChwApplication.getApplicationFlavor().hasHps()) {
+                    navigationOptions.add(op25);
+                }
+                navigationOptions.addAll(Arrays.asList(op11, op12, op3, op5, op2, op13));
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }
@@ -121,9 +125,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);
                 }
-                if (ChwApplication.getApplicationFlavor().hasHps()) {
-                    navigationOptions.add(op25);
-                }
+//                if (ChwApplication.getApplicationFlavor().hasHps()) {
+//                    navigationOptions.add(op25);
+//                }
                 navigationOptions.addAll(Arrays.asList(op8, op15));
             }
         }

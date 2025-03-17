@@ -958,7 +958,7 @@
     <string name="hps_others_type_of_brochures">Others(Specify)</string>
     <string name="hps_number_of_brochures">Number of Brochures Distributed</string>
     <string name="hps_preventive_services_provided">Were preventive services offered to the client?</string>
-    <string name="hps_preventive_services">Preventive Services:</string>
+    <string name="hps_preventive_services">Preventive Services</string>
     <string name="hps_family_planning_pills">Family Planning Pills</string>
     <string name="hps_iron_folic_tablets">Iron and Folic Acid (IFA) Tablets</string>
     <string name="hps_deworming_medication">Deworming Medication</string>
@@ -1024,7 +1024,8 @@
     <string name="hps_psychological_counselling">Psychological counselling</string>
     <string name="hps_others">Others</string>
 
-    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services</string>
+    <string name="hps_client_consent_to_be_enrolled_in_hps_services">Does the client consent to be enrolled in HPS services?</string>
+    <string name="hps_household_consent_to_be_enrolled_in_hps_services">Does the household consent to be enrolled in HPS services?</string>
 
     <string name="hps_provide_referral_services">Are there referral services provided to the client?</string>
     <string name="hps_referral_provided">Select referral service provided to the client</string>
@@ -1103,6 +1104,9 @@
     <string name="hps_visit_type">Visit Type</string>
     <string name="hps_health_education_title">Health Education</string>
     <string name="hps_childcare_growth_and_early_childhood_development">Childcare, growth, and early childhood development</string>
+    
+    <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
+    <string name="hps_preventive_service_provided">Preventive services provided</string>
 
 
     <string name="hps_select_age_group">Select age group</string>
@@ -1124,6 +1128,7 @@
     <string name="hps_number_of_female_by_age_group_50_59">Number of female (50–59)</string>
     <string name="hps_number_of_male_by_age_group_equal_and_above_60">Number of male (60+)</string>
     <string name="number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
+    <string name="hps_number_of_house_hold">Number of house hold</string>
     <string name="hps_number_of_house_hold_with_road_access">Number of house hold with road access</string>
     <string name="hps_number_of_house_holds_with_at_least_one_landline_or_mobile_phone">Number of households with at least one mobile or landline phone</string>
     <string name="number_of_house_hold_with_basic_nutrition_source_vegetable">Number of houshold with basic nutrition source(Vegetable garden)</string>
@@ -1148,8 +1153,7 @@
     <string name="hps_number_of_cbecdc_rehabilitation_centre_government">Number of Community Based Early Child Development Centre (Rehabiliation centre) (government)</string>
     <string name="hps_number_of_day_care_centers_government">Number of day care centers (government)</string>
     <string name="hps_number_of_elderly_care_centers_government">Number of Elderly care centers (government)</string>
-    <string name="hps_number_of_pre_schools_faith_based_organisation">60+</string>
-    <string name="hps_age_group_above_60">Number of pre_school (Faith based organisation)</string>
+    <string name="hps_number_of_pre_schools_faith_based_organisation">Number of pre_school (Faith based organisation)</string>
     <string name="hps_number_of_primary_schools_faith_based_organisation">Number of primary schools (Faith based organisation)</string>
     <string name="hps_number_of_secondary_schools_faith_based_organisation">Number of secondary schools (Faith based organisation)</string>
     <string name="hps_number_of_universities_faith_based_organisation">Number of Universities (Faith based organisation)</string>
@@ -1221,7 +1225,10 @@
     <string name="hps_number_of_households_using_gas_as_source_of_cooking_energy">Number of households using gas as source of cooking energy</string>
     <string name="hps_number_of_households_using_charcoal_as_source_of_cooking_energy">Number of households using charcoal as source of cooking energy</string>
     <string name="hps_number_of_households_using_firewood_as_source_of_cooking_energy">Number of households using firewood as source of cooking energy</string>
-    <string name="hps_number_of_people_capable_of_engaging_in_economic_activities">Number of people capable of engaging in economic activities</string>
+    <string name="hps_number_of_male_capable_of_engaging_in_economic_activities">Number of male capable of engaging in economic activities</string>
+    <string name="hps_number_of_female_capable_of_engaging_in_economic_activities">Number of female capable of engaging in economic activities</string>
+    <string name="hps_number_of_male_engaged_in_economic_activities">Number of male engaged in economic activities</string>
+    <string name="hps_number_of_female_engaged_in_economic_activities">Number of female engaged in economic activities</string>
     <string name="hps_number_of_people_engaged_in_economic_activities">Number of people engaged in economic activities</string>
     <string name="hps_number_of_health_committee_members_for_effective_committee_meetings">Number of health committee members for effective committee meetings</string>
     <string name="hps_number_of_committee_members_attended_fisrt_quarter">Number of committee members attended fisrt quarter</string>
@@ -1232,17 +1239,17 @@
     <string name="hps_number_of_registered_traditional_medicine_service_providers">Number of registered traditional medicine service providers</string>
     <string name="hps_number_of_unregistered_alternative_medicine_service_providers">Number of unregistered alternative medicine service providers</string>
     <string name="hps_number_of_unregistered_traditional_medicine_service_providers">Number of unregistered traditional medicine service providers</string>
-    <string name="hps_number_of_housholds_inspected">Number of housholds inspected</string>
-    <string name="hps_number_of_housholds_with_good_latrine">Number of housholds with good latrine</string>
-    <string name="hps_number_of_housholds_without_good_latrine">Number of housholds without good latrine</string>
-    <string name="hps_number_of_housholds_with_no_latrine">Number of housholds with no latrine</string>
-    <string name="hps_number_of_housholds_with_waste_disposal_pits">Number of housholds with waste disposal pits</string>
-    <string name="hps_number_of_housholds_with_dish_racks_for_drying_utensils">Number of housholds with dish racks for drying utensils</string>
-    <string name="hps_number_of_housholds_near_clean_water_sources">Number of housholds near clean water sources</string>
-    <string name="hps_number_of_housholds_with_economic_problems">Number of housholds with economic problems</string>
-    <string name="hps_number_of_housholds_with_social_problems">Number of housholds with social problems</string>
-    <string name="hps_number_of_housholds_with_handwashing_facilities_after_using_the_toilet">Number of housholds with handwashing facilities after using the toilet</string>
-    <string name="hps_number_of_housholds_that_have_been_sprayed_with_insecticide">Number of housholds that have been sprayed with insecticide</string>
+    <string name="hps_number_of_households_inspected">Number of households inspected</string>
+    <string name="hps_number_of_households_with_good_latrine">Number of households with good latrine</string>
+    <string name="hps_number_of_households_without_good_latrine">Number of households without good latrine</string>
+    <string name="hps_number_of_households_with_no_latrine">Number of households with no latrine</string>
+    <string name="hps_number_of_households_with_waste_disposal_pits">Number of households with waste disposal pits</string>
+    <string name="hps_number_of_households_with_dish_racks_for_drying_utensils">Number of households with dish racks for drying utensils</string>
+    <string name="hps_number_of_households_near_clean_water_sources">Number of households near clean water sources</string>
+    <string name="hps_number_of_households_with_economic_problems">Number of households with economic problems</string>
+    <string name="hps_number_of_households_with_social_problems">Number of households with social problems</string>
+    <string name="hps_number_of_households_with_handwashing_facilities_after_using_the_toilet">Number of housholds with handwashing facilities after using the toilet</string>
+    <string name="hps_number_of_households_that_have_been_sprayed_with_insecticide">Number of housholds that have been sprayed with insecticide</string>
     <string name="hps_number_of_food_shop_visited">Number of food shop visited</string>
     <string name="hps_number_of_restaurants_visited">Number of restaurants visited</string>
     <string name="hps_number_of_butcheries_visited">Number of butcheries visited</string>
