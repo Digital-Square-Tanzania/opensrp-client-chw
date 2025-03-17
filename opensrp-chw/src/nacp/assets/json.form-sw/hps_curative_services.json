@@ -563,7 +563,7 @@
       {
         "key": "diastolic",
         "type": "edit_text",
-        "hint": "Shinikizo la chini la damu (mmHG)",
+        "hint": "Shinikizo la chini la damu (mmHg)",
         "openmrs_entity_id": "diastolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
