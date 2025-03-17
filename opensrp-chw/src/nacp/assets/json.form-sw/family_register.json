@@ -884,7 +884,7 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider",
@@ -956,7 +956,7 @@
         }
       },
       {
-        "key": "service_provider_other",
+        "key": "occupation_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider_other",

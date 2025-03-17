@@ -293,11 +293,11 @@
           }
         },
         {
-          "column_name": "service_provider",
+          "column_name": "occupation",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "service_provider"
+            "concept": "occupation"
           }
         },
         {
@@ -6423,6 +6423,14 @@
           "type": "Event",
           "json_mapping": {
             "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
           }
         },
         {
