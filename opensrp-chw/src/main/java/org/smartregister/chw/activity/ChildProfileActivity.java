@@ -34,6 +34,7 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
@@ -185,6 +186,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().hasMalaria())
@@ -193,7 +195,16 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(memberObject.getBaseEntityId())) {
             menu.findItem(R.id.action_iccm_registration).setVisible(true);
         }
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId())) {
+            menu.findItem(R.id.action_hps_enrollment).setVisible(true);
+        }
         return true;
+    }
+
+    @Override
+    protected  void startHpsEnrollment(){
+        HpsRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT);
     }
 
     @Override
