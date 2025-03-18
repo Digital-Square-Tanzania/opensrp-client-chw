@@ -110,13 +110,13 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jaza tarehe ya kuzaliwa"
         },
         "constraints": [
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Date of birth must be earlier than date of death"
+            "err": "Tarehe ya kuzaliwa ni lazima iwe kabla ya tarehe ya kifo"
           }
         ]
       },
