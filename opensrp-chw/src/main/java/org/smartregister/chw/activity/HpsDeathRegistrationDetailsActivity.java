@@ -311,7 +311,7 @@ public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryAc
                 Event event = getEditEvent(baseEntityId, Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION);
 
                 final List<Obs> observations = event.getObs();
-                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.FORMS.HPS_DEATH_REGISTRATION);
+                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION);
 
                 if (form != null) {
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);

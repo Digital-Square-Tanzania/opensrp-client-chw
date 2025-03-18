@@ -1108,5 +1108,7 @@
 <!--    <string name="treatment_supporter_prefix">Msaidizi wa Tiba: %s</string>-->
     <string name="treatment_supporter_prefix"><![CDATA[<font color="#218CC5"><small>Msaidizi wa Tiba:</small></font> %s]]></string>
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
+    <string name="manual_process_visit">Kamilisha tembeleo</string>
+    <string name="hps_view_visit_history">Angalia historia ya tembeleo</string>
 
 </resources>

@@ -36,14 +36,6 @@ condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') > 10) || (step1
 actions:
   - "isRelevant = true"
 ---
-name: step1_preg_1yr
-description: pregnance 1yr relevance
-priority: 1
-condition: "step1_wra == 1"
-actions:
-  - "isRelevant = true"
-
----
 name: step1_insurance_provider_other
 description: insurance_provider_other relevance
 priority: 1
@@ -67,23 +59,16 @@ condition: "step1_disabilities.equals('Yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_preg_1yr
-description: pregnance 1yr relevance
-priority: 1
-condition: "step1_wra == 1"
-actions:
-  - "isRelevant = true"
----
-name: step1_service_provider
+name: step1_occupation
 description: service provider relevance
 priority: 1
 condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 10) || (step1_age != '' && step1_age >= 10)"
 actions:
   - "isRelevant = true"
 ---
-name: step1_service_provider_other
+name: step1_occupation_other
 description: service provider relevance
 priority: 1
-condition: "step1_service_provider_other.equals('chk_other')"
+condition: "step1_occupation_other.equals('chk_other')"
 actions:
   - "isRelevant = true"

@@ -498,4 +498,5 @@
     <string name="child_name_label">Child Name</string>
     <string name="client_details">Client Details</string>
     <string name="chw_details">CHW Details</string>
+    <string name="multiselect_msg_on_item_added">Added</string>
 </resources>

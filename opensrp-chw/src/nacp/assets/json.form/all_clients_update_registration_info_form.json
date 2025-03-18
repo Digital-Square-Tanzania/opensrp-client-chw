@@ -292,6 +292,11 @@
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "Client phone number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -742,6 +747,11 @@
         "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
         "hint": "Primary caregiver phone number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -759,10 +769,10 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider",
+        "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Occupation of the Client",
         "label_text_style": "normal",
@@ -831,10 +841,10 @@
         }
       },
       {
-        "key": "service_provider_other",
+        "key": "occupation_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
+        "openmrs_entity_id": "occupation_other",
         "type": "edit_text",
         "hint": "Other Occupation",
         "v_required": {

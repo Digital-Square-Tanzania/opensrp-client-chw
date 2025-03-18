@@ -118,6 +118,9 @@ public class ChwRepositoryFlv {
                 case 28:
                     upgradeToVersion28(db);
                     break;
+                case 29:
+                    upgradeToVersion29(db);
+                    break;
                 default:
                     break;
             }
@@ -495,14 +498,42 @@ public class ChwRepositoryFlv {
             String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
             String cecapOtherMonthlyReportsIndicatorsConfigFile = "config/cecap-other-monthly-report.yml";
             String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
-            String hpsIndicatorsConfigFile = "config/hps-monthly-report.yml";
-            String hpsAnnualIndicatorsConfigFile = "config/hps-annual-report.yml";
-            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile, hpsIndicatorsConfigFile, hpsAnnualIndicatorsConfigFile))) {
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion28");
+        }
+    }
+
+
+    private static void upgradeToVersion29(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_hps_client_register", "ec_hps_household_register", "ec_hps_client_services", "ec_hps_household_services", "ec_hps_mobilization", "ec_hps_death_register", "ec_hps_annual_census_register")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member ADD COLUMN occupation VARCHAR; ";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String hpsIndicatorsConfigFile = "config/hps-monthly-report.yml";
+            String hpsAnnualIndicatorsConfigFile = "config/hps-annual-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(hpsIndicatorsConfigFile, hpsAnnualIndicatorsConfigFile))) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
         }
     }
 }

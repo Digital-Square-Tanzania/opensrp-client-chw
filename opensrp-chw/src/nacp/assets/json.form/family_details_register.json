@@ -103,6 +103,11 @@
         "type": "edit_text",
         "hint": "Village/Street Chairperson Phone",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -129,6 +134,11 @@
         "type": "edit_text",
         "hint": "Ten House Cell Leader Phone",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"

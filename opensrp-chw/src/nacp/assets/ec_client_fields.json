@@ -293,11 +293,11 @@
           }
         },
         {
-          "column_name": "service_provider",
+          "column_name": "occupation",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "service_provider"
+            "field": "obs.formSubmissionField",
+            "concept": "occupation"
           }
         },
         {
@@ -6426,6 +6426,14 @@
           }
         },
         {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
+          }
+        },
+        {
           "column_name": "client_criteria",
           "type": "Event",
           "json_mapping": {
@@ -8450,6 +8458,46 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "amount_of_pesticide_used_coconut_shells"
+          }
+        },
+        {
+          "column_name": "number_of_house_hold",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_house_hold"
+          }
+        },
+        {
+          "column_name": "number_of_male_capable_of_engaging_in_economic_activities",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_capable_of_engaging_in_economic_activities"
+          }
+        },
+        {
+          "column_name": "number_of_female_capable_of_engaging_in_economic_activities",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_capable_of_engaging_in_economic_activities"
+          }
+        },
+        {
+          "column_name": "number_of_male_engaged_in_economic_activities",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_engaged_in_economic_activities"
+          }
+        },
+        {
+          "column_name": "number_of_female_engaged_in_economic_activities",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_engaged_in_economic_activities"
           }
         },
         {

@@ -811,10 +811,10 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider",
+        "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
@@ -883,10 +883,10 @@
         }
       },
       {
-        "key": "service_provider_other",
+        "key": "occupation_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
+        "openmrs_entity_id": "occupation_other",
         "type": "edit_text",
         "hint": "Kazi nyinginezo (Taja)",
         "v_required": {
