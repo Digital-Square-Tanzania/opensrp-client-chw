@@ -186,6 +186,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().hasMalaria())
