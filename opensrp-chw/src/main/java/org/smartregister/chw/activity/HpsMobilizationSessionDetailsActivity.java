@@ -311,7 +311,7 @@ public class HpsMobilizationSessionDetailsActivity extends CoreAncMedicalHistory
                 Event event = getEditEvent(baseEntityId, Constants.EVENT_TYPE.HPS_MOBILIZATION);
 
                 final List<Obs> observations = event.getObs();
-                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.FORMS.HPS_MOBILIZATION);
+                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.EVENT_TYPE.HPS_MOBILIZATION);
 
                 if (form != null) {
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);

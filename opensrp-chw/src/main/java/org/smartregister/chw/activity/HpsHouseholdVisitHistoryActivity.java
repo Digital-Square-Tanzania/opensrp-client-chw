@@ -116,7 +116,7 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
                 JSONObject form = new JSONObject(jsonString);
                 String baseEntityId = form.getString("entity_id");
                 String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
-                if (encounterType.equals(HPS_HOUSEHOLD_VISIT)) {
+                if (encounterType.equals(Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT)) {
                     if (form.has(VISIT_ID)) {
                         String deletedVisitId = form.getString(VISIT_ID);
                         form.remove(VISIT_ID);
@@ -203,7 +203,7 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
 
 
         protected void processVisit(List<LinkedHashMap<String, String>> community_visits, Context context, List<Visit> visits) {
-            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             if (community_visits != null && !community_visits.isEmpty()) {
                 linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
 
@@ -310,10 +310,10 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
         public void startFormForEdit(Integer title_resource, String formName, String baseEntityId, String deletedVisitId, Context context) {
             try {
 
-                Event event = getEditEvent(baseEntityId, HPS_HOUSEHOLD_VISIT);
+                Event event = getEditEvent(baseEntityId, Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
 
                 final List<Obs> observations = event.getObs();
-                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, HPS_HOUSEHOLD_VISIT);
+                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
 
                 if (form != null) {
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
