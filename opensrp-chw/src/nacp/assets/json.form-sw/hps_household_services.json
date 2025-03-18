@@ -116,11 +116,11 @@
       {
         "key": "health_education_title",
         "type": "label",
-        "text": "Elimu ya afya",
+        "text": "Elimu ya Afya iliyotolewa",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
+        "openmrs_entity_id": "health_education_title"
       },
       {
         "key": "education_provided",
