@@ -116,11 +116,11 @@
       {
         "key": "health_education_title",
         "type": "label",
-        "text": "Health Educations",
+        "text": "Health Education provided",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
+        "openmrs_entity_id": "health_education_title"
       },
       {
         "key": "education_provided",
@@ -464,7 +464,7 @@
         "key": "was_preventive_service_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "was_preventive_service_provided",
+        "openmrs_entity_id": "was_preventive_service_provided?",
         "type": "native_radio",
         "label": "Was preventive service provided",
         "options": [

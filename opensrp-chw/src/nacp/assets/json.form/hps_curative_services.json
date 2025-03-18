@@ -464,7 +464,7 @@
           },
           {
             "key": "malaria_mrdt",
-            "text": "Malaria (mRDT)",
+            "text": "Malaria (mrDT)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria_mrdt"
@@ -604,26 +604,10 @@
         ]
       },
       {
-        "key": "prompt_for_management_of_hypertension",
+        "key": "prompt_for_management_of_blood_pressure",
         "type": "toaster_notes",
-        "text": "Manage the hypertension according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_management_of_hypertension",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_curative_services.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_for_management_of_hypotension",
-        "type": "toaster_notes",
-        "text": "Give IV fluids, identify the cause of hypotension and manage according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_management_of_hypotension",
+        "text": "Refer the client to the health centre for further observation.",
+        "openmrs_entity_id": "prompt_for_management_of_blood_pressure",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
         "toaster_type": "problem",
@@ -707,29 +691,13 @@
         }
       },
       {
-        "key": "prompt_for_gestational_diabetes_mellitus",
+        "key": "prompt_for_rbg",
         "type": "toaster_notes",
-        "text": "Manage the gestational diabetes mellitus according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_gestational_diabetes_mellitus",
+        "text": "Refer the client to the health centre for further observation.",
+        "openmrs_entity_id": "prompt_for_rbg",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_curative_services.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_for_hypoglycaemia",
-        "type": "toaster_notes",
-        "text": "Manage the hypoglycaemia according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_hypoglycaemia",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -779,6 +747,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "body_temperature_result",
         "type": "edit_text",
+        "edit_type": "number",
         "hint": "Body Temperature (\u2103)",
         "v_required": {
           "value": "true",
@@ -789,7 +758,7 @@
           "err": "Please enter the body temperature value"
         },
         "v_max_length": {
-          "value": "2",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
         },
@@ -800,6 +769,10 @@
         "v_max": {
           "value": "45",
           "err": "Temperature must be equal or less than 45 (\u2103)"
+        },
+        "v_regex": {
+          "value": "^(\\d{2}|\\d{2}\\.\\d)$",
+          "err": "Please enter a valid input, eg: 36 or 37.5"
         },
         "relevance": {
           "rules-engine": {
@@ -812,7 +785,7 @@
       {
         "key": "notify_client_has_fever",
         "type": "toaster_notes",
-        "text": "Conduct relevant laboratory tests to elicit the cause of fever and manage according to standard guidelines",
+        "text": "Refer the client to the health centre for further observation.",
         "openmrs_entity_id": "notify_client_has_fever",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -827,7 +800,7 @@
       {
         "key": "notify_client_has_hypothermia",
         "type": "toaster_notes",
-        "text": "Manage the hypothermia according to standard guidelines",
+        "text": "Refer the client to the health centre for further observation.",
         "openmrs_entity_id": "notify_client_has_hypothermia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
