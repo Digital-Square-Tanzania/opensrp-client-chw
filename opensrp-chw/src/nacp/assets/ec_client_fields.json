@@ -296,7 +296,7 @@
           "column_name": "occupation",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "occupation"
           }
         },

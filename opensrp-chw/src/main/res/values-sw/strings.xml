@@ -780,6 +780,7 @@
     <string name="child_name_label">Jina la mtoto</string>
     <string name="client_details">Taarifa za mteja</string>
     <string name="chw_details">Taarifa za mja</string>
+    <string name="multiselect_msg_on_item_added">Imeongezwa</string>
 
 
 </resources>
