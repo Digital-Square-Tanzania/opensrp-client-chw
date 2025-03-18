@@ -814,7 +814,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "Una jukumu lolote la uongozi kwenye ngazi ya jamii?",
+        "label": "Nafasi ya uongozi katika jamii",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

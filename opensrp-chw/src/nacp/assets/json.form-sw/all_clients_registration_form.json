@@ -241,7 +241,7 @@
     ]
   },
   "step2": {
-    "title": "Taarifa ya Mteja",
+    "title": "Taarifa za Mteja",
     "fields": [
       {
         "key": "unique_id",
@@ -679,7 +679,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Mtoa huduma ya bima ya afya",
+        "hint": "Bima ya Afya",
         "values": [
           "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
@@ -1071,7 +1071,7 @@
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Una nafasi yoyote ya uongozi katika jamii?",
+        "label": "Nafasi ya uongozi katika jamii",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

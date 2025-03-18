@@ -4,7 +4,7 @@
 
     <string name="title_family_detail">Taarifa za kaya</string>
     <string name="not_done">Haujafanyika</string>
-    <string name="done">Umefanyika</string>
+    <string name="done">hifadhi</string>
     <string name="subtask_not_done">Haujafanyika</string>
     <string name="not_provided">Haijatolewa</string>
 
@@ -415,7 +415,7 @@
     <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
     <string name="select_communities">Chagua jamii</string>
 
-    <string name="created">Imeumbwa: %s</string>
+    <string name="created">Imesajiliwa: %s</string>
     <string name="anc_health_facility_counselling_subtitle">Ushauri katika Kituo cha Afya</string>
     <string name="anc_nutrition_status_normal">Kawaida/Kijani</string>
     <string name="anc_nutrition_status_moderate">Wastani/Njano</string>
