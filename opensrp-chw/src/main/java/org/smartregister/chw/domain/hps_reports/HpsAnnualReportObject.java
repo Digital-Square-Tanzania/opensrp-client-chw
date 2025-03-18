@@ -20,7 +20,7 @@ import timber.log.Timber;
 
 public class HpsAnnualReportObject extends ReportObject {
     private final String[] simpleKeys = new String[]{
-            "hps-M-<1" ,"hps-F-<1" ,"hps-M-1-4" ,"hps-F-1-4" ,"hps-M-5-14" ,"hps-F-5-14" ,"hps-M-15-49" ,"hps-F-15-49" ,"hps-M-50-59" ,"hps-F-50-59" ,"hps-M-60-+" ,"hps-F-60-+",
+            "hps-M-<1" ,"hps-F-<1" ,"hps-M-1-4" ,"hps-F-1-4" ,"hps-M-5-14" ,"hps-F-5-14" ,"hps-M-15-49" ,"hps-F-15-49" ,"hps-M-50-59" ,"hps-F-50-59" ,"hps-M-60-+" ,"hps-F-60-+" ,"hps-total-households",
             "hps-a-1" ,"hps-a-2" ,"hps-b-1" ,"hps-b-2" ,"hps-b-3", "hps-u-1","hps-u-2","hps-u-3","hps-u-4","hps-u-5" ,"hps-u-6","hps-u-7","hps-u-8","hps-u-9","hps-u-10","hps-u-11",
             "hps-u-12","hps-u-13","hps-u-14","hps-u-15","hps-u-16","hps-u-17","hps-u-18" ,"hps-v-1" ,"hps-vv-1" ,"hps-v-2" ,"hps-vv-2" ,"hps-x-1" ,"hps-x-2", "hps-y-1" ,"hps-y-2","hps-z-1" ,"hps-z-2",
     };
@@ -41,11 +41,15 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_female_by_age_group_50_59",
             "number_of_male_by_age_group_60_plus",
             "number_of_female_by_age_group_60_plus",
+            "number_of_house_hold",
             "number_of_house_hold_with_road_access",
             "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
             "number_of_house_hold_with_basic_nutrition_source_vegetable",
             "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
             "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
+
+//          ******************************** BOX HERE (Down) ****************************     //
+
             "number_of_households_most_commonly_use_tap_as_sources_of_water",
             "number_of_households_most_commonly_use_river_as_sources_of_water",
             "number_of_households_most_commonly_use_shallow_well_as_sources_of_water",
@@ -64,10 +68,10 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_households_using_gas_as_source_of_cooking_energy",
             "number_of_households_using_charcoal_as_source_of_cooking_energy",
             "number_of_households_using_firewood_as_source_of_cooking_energy",
-            "number_of_people_capable_of_engaging_in_economic_activities",
-            "number_of_people_engaged_in_economic_activities",
-            "number_of_people_capable_of_engaging_in_economic_activities",
-            "number_of_people_engaged_in_economic_activities",
+            "number_of_male_capable_of_engaging_in_economic_activities",
+            "number_of_male_engaged_in_economic_activities",
+            "number_of_female_capable_of_engaging_in_economic_activities",
+            "number_of_female_engaged_in_economic_activities",
             "number_of_health_committee_members_for_effective_committee_meetings",
             "number_of_committee_members_attended_fisrt_quarter",
             "number_of_registered_alternative_medicine_service_providers",
@@ -173,7 +177,7 @@ public class HpsAnnualReportObject extends ReportObject {
     public JSONObject getIndicatorData() throws JSONException {
         // Request values from the Dyanamic Tables
         List<Map<String, String>> getHpsDynamicTablesList = ReportDao.getHpsAnnualDynamicTablesreports(reportDate, simpleKeys, selectorsForSimpleKeys);
-        List<Map<String, String>> getHpsDynamicTablesListWithClause = ReportDao.getHpsAnnualDynamicTablesreports(reportDate, generateCombinedArrayKeys(), selectorsForComplexKeys, whereClauses);
+        List<Map<String, String>> getHpsDynamicTablesListWithClause = ReportDao.getHpsAnnualDynamicTablesreports(reportDate, generateCombinedArrayKeys(), selectorsForComplexKeys);  // ****** BOX kuu ******
         // get values from the Dyanamic Tables
         excuteDynamicTables(getHpsDynamicTablesList);
         excuteDynamicTables(getHpsDynamicTablesListWithClause);
@@ -288,6 +292,14 @@ public class HpsAnnualReportObject extends ReportObject {
         if (tableKey.contains("hps-t")){
             totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-t-total", totalOfhpst);
+        }
+        if (tableKey.contains("hps-v")){
+            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            jsonObject.put("hps-v-total", totalOfhpst);
+        }
+        if (tableKey.contains("hps-vv")){
+            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            jsonObject.put("hps-vv-total", totalOfhpst);
         }
 
     }

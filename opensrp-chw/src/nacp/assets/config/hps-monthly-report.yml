@@ -22564,7 +22564,7 @@ indicators:
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
-					  WHERE ehhs.preventive_services_provided like '%others_specify%'
+					  WHERE ehhs.preventive_services_provided like '%others%'
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
