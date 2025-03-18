@@ -464,7 +464,7 @@
           },
           {
             "key": "malaria_mrdt",
-            "text": "Malaria (mRDT)",
+            "text": "Malaria (mrDT)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria_mrdt"
@@ -604,26 +604,10 @@
         ]
       },
       {
-        "key": "prompt_for_management_of_hypertension",
+        "key": "prompt_for_management_of_blood_pressure",
         "type": "toaster_notes",
-        "text": "Dhibiti shinikizo la damu la juu kulingana na miongozo.",
-        "openmrs_entity_id": "prompt_for_management_of_hypertension",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_curative_services.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_for_management_of_hypotension",
-        "type": "toaster_notes",
-        "text": "Toa maji kwa njia ya mshipa (IV fluids), baini chanzo cha shinikizo la chini la damu na udhibiti kulingana na miongozo",
-        "openmrs_entity_id": "prompt_for_management_of_hypotension",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "prompt_for_management_of_blood_pressure",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
         "toaster_type": "problem",
@@ -686,9 +670,9 @@
           "err": "Tafadhali ingiza majibu"
         },
         "v_max_length": {
-          "value": "2",
+          "value": "4",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "0",
@@ -698,6 +682,10 @@
           "value": "45",
           "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kidogo kuliko 45 (mmol/L)"
         },
+        "v_regex": {
+          "value": "^(\\d{1,2}|\\d{1,2}\\.\\d{1})$",
+          "err": "Tafadhali ingiza namba sahihi, mfano: 4 au 10.9"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -707,29 +695,13 @@
         }
       },
       {
-        "key": "prompt_for_gestational_diabetes_mellitus",
+        "key": "prompt_for_rbg",
         "type": "toaster_notes",
-        "text": "Manage the gestational diabetes mellitus according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_gestational_diabetes_mellitus",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "prompt_for_rbg",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_curative_services.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_for_hypoglycaemia",
-        "type": "toaster_notes",
-        "text": "Manage the hypoglycaemia according to standard guidelines",
-        "openmrs_entity_id": "prompt_for_hypoglycaemia",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -789,9 +761,9 @@
           "err": "Tafadhali ingiza joto la mwili"
         },
         "v_max_length": {
-          "value": "2",
+          "value": "4",
           "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+          "err": "Tafadhali ingiza namba sahihi"
         },
         "v_min": {
           "value": "35",
@@ -800,6 +772,10 @@
         "v_max": {
           "value": "45",
           "err": "Joto la mwili linatakiwa liwe sawa au dogo kuliko 45 (℃)"
+        },
+        "v_regex": {
+          "value": "^(\\d{2}|\\d{2}\\.\\d)$",
+          "err": "Tafadhali ingiza namba sahihi, mfano: 36 au 37.5"
         },
         "relevance": {
           "rules-engine": {
@@ -812,11 +788,11 @@
       {
         "key": "notify_client_has_fever",
         "type": "toaster_notes",
-        "text": "Fanya vipimo husika vya maabara ili kubaini chanzo cha homa na utibu kulingana na miongozo.",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
         "openmrs_entity_id": "notify_client_has_fever",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "warning",
+        "toaster_type": "problem",
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",
@@ -827,11 +803,11 @@
       {
         "key": "notify_client_has_hypothermia",
         "type": "toaster_notes",
-        "text": "Dhibiti joto la chini la mwili kulingana na miongozo.",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
         "openmrs_entity_id": "notify_client_has_hypothermia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "warning",
+        "toaster_type": "problem",
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",

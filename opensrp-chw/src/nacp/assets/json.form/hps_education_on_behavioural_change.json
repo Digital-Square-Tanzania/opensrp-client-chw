@@ -74,6 +74,22 @@
         }
       },
       {
+        "key": "type_of_education_title",
+        "type": "label",
+        "text": "Health Education provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_education_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_education_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
