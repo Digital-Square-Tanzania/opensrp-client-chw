@@ -620,7 +620,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:number_of_house_hold)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya"
+          }
+        ]
       },
       {
         "key": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
@@ -650,7 +657,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:number_of_house_hold)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya"
+          }
+        ]
       }
     ]
   },
@@ -759,7 +773,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "select_centers_category",
-        "label": "Select center category",
+        "label": "Chagua Kitengo cha kituo",
         "text_color": "#000000",
         "type": "check_box",
         "options": [
@@ -3282,7 +3296,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_orphan_care_centers_private",
-        "hint": "Idadi ya vituo vya kulea watoto yatima(Binafsi)",
+        "hint": "Idadi ya vituo vya kulelea watoto yatima(Binafsi)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4138,7 +4152,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step4:number_of_female_capable_of_engaging_in_economic_activities)",
-            "err": "must be not greater than number of male capable_of_engaging_in_economic_activities"
+            "err": "Namba haitakiwi kuwa kubwa kuliko idadi ya wanawake wanaoweza kushiriki katika shughuli za kiuchumi"
           }
         ]
       }
@@ -4206,7 +4220,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_second_quarter",
@@ -4236,7 +4257,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_third_quarter",
@@ -4266,14 +4294,21 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_fourth_quarter",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_committee_members_attended_fourth_quarter",
-        "hint": "Wajumbe waliohudhuria katika robo ya tano ya mwaka",
+        "hint": "Wajumbe waliohudhuria katika robo ya nne ya mwaka",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4296,7 +4331,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
+          }
+        ]
       },
       {
         "key": "number_of_registered_alternative_medicine_service_providers",
@@ -4421,7 +4463,7 @@
     ]
   },
   "step6": {
-    "title": "Taarifa ya Ukaguzi na safi wa Mazingira ",
+    "title": "Taarifa ya Ukaguzi na Usafi wa Mazingira ",
     "next": "step7",
     "fields": [
       {
@@ -4452,7 +4494,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:number_of_house_hold)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zote"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_good_latrine",
@@ -4482,7 +4531,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_without_good_latrine",
@@ -4512,7 +4568,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_no_latrine",
@@ -4542,7 +4605,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_waste_disposal_pits",
@@ -4572,7 +4642,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_dish_racks_for_drying_utensils",
@@ -4602,7 +4679,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_near_clean_water_sources",
@@ -4632,7 +4716,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_economic_problems",
@@ -4662,7 +4753,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_social_problems",
@@ -4692,7 +4790,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_with_handwashing_facilities_after_using_the_toilet",
@@ -4722,7 +4827,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_housholds_that_have_been_sprayed_with_insecticide",
@@ -4752,7 +4864,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
+          }
+        ]
       }
     ]
   },
@@ -4825,7 +4944,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_butcheries_visited",
-        "hint": "Idadi ya machinjio ya bucha yaliyombelewa",
+        "hint": "Idadi ya machinjio ya bucha yaliyotembelewa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
