@@ -797,7 +797,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "A leadership position in the community",
+        "label": "A leadership role in the community",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
