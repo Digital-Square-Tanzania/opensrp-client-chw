@@ -690,7 +690,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Health insurance provider",
+        "hint": "Health insurance",
         "values": [
           "Community Health Fund (CHF)/(iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
@@ -1000,7 +1000,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "Any leadership role in the community?",
+        "label": "A leadership position in the community",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
