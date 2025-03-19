@@ -145,12 +145,21 @@
         }
       },
       {
+        "key": "type_of_message_leaflets_title",
+        "type": "label",
+        "text": "Aina ya ujumbe katika vielelezo",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_leaflets_title"
+      },
+      {
         "key":"type_of_message_leaflets",
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"type_of_message_leaflets",
         "type": "multi_select_list",
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika vielelezo",
         "sort": true,
         "dialogTitle": "Chagua aina ya  ujumbe katika vielelezo",
@@ -570,6 +579,22 @@
           "rules-engine":{
             "ex-rules":{
               "rules-file":"hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_of_message_posters_title",
+        "type": "label",
+        "text": "Aina ya ujumbe katika Mabango",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_posters_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
             }
           }
         }
@@ -1000,6 +1025,22 @@
           "rules-engine":{
             "ex-rules":{
               "rules-file":"hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_of_message_brochures_title",
+        "type": "label",
+        "text": "Aina ya ujumbe katika Vijarida",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_brochures_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
             }
           }
         }
@@ -1497,6 +1538,22 @@
         }
       },
       {
+        "key": "preventive_services_above_5_below_18_title",
+        "type": "label",
+        "text": "Aina ya huduma kinga iliyotolewa",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_5_below_18_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key":"preventive_services_above_5_years_below_18_years",
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
@@ -1715,6 +1772,22 @@
           "rules-engine":{
             "ex-rules":{
               "rules-file":"hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_18_title",
+        "type": "label",
+        "text": "Aina ya huduma kinga iliyotolewa",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_18_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
             }
           }
         }

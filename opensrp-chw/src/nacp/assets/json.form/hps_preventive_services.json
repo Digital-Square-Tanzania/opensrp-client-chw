@@ -145,6 +145,22 @@
         }
       },
       {
+        "key": "type_of_message_leaflets_title",
+        "type": "label",
+        "text": "Type of message in Leaflets",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_leaflets_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_leaflets",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -567,12 +583,28 @@
         }
       },
       {
+        "key": "type_of_message_posters_title",
+        "type": "label",
+        "text": "Type of message in Posters",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_posters_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_posters",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_posters",
         "type": "multi_select_list",
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Add type of message in posters",
         "sort": true,
         "dialogTitle": "Select Type of Message in Posters",
@@ -989,12 +1021,28 @@
         }
       },
       {
+        "key": "type_of_message_brochures_title",
+        "type": "label",
+        "text": "Type of message in Brochures",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_brochures_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_brochures",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_brochures",
         "type": "multi_select_list",
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Add type of message in brochures",
         "sort": true,
         "dialogTitle": "Select Type of Message in Brochures",
@@ -1473,6 +1521,22 @@
         }
       },
       {
+        "key": "preventive_services_above_5_below_18_title",
+        "type": "label",
+        "text": "Preventive services provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_5_below_18_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "preventive_services_above_5_years_below_18_years",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1696,6 +1760,22 @@
           "value": "true",
           "err": "Please select an answer"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_18_title",
+        "type": "label",
+        "text": "Preventive services provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_18_title",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
