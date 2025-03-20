@@ -591,7 +591,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Mtoa huduma ya bima ya afya",
+        "hint": "Bima ya Afya",
         "values": [
           "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
@@ -814,7 +814,7 @@
         "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider",
+        "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
@@ -886,7 +886,7 @@
         "key": "occupation_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
+        "openmrs_entity_id": "occupation_other",
         "type": "edit_text",
         "hint": "Kazi nyinginezo (Taja)",
         "v_required": {
@@ -908,7 +908,7 @@
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Una nafasi yoyote ya uongozi katika jamii?",
+        "label": "Nafasi ya uongozi katika jamii",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

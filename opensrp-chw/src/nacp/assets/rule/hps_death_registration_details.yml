@@ -22,17 +22,10 @@ condition: "step1_cause_of_death_female.equalsIgnoreCase('other_reason') ||
 actions:
   - "isRelevant = true"
 ---
-name: step1_cause_of_death_male_dob_dod
-description: Rule to control the visibility of (step1_cause_of_death_male_dob_dod)
+name: step1_cause_of_death_dob_dod
+description: Rule to control the visibility of (step1_cause_of_death_dob_dod)
 priority: 1
-condition: "step1_sex.equalsIgnoreCase('male') && step1_dod.equals(step1_dob)"
-actions:
-  - "isRelevant = true"
----
-name: step1_cause_of_death_female_dob_dod
-description: Rule to control the visibility of (step1_cause_of_death_female_dob_dod)
-priority: 1
-condition: "step1_sex.equalsIgnoreCase('female') && step1_dod.equals(step1_dob)"
+condition: "(step1_sex.equalsIgnoreCase('male') || step1_sex.equalsIgnoreCase('female')) && step1_dod.equals(step1_dob)"
 actions:
   - "isRelevant = true"
 ---
@@ -42,8 +35,7 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = if (!step1_cause_of_death_male.isEmpty()) { return step1_cause_of_death_male } 
-                   else if (!step1_cause_of_death_male_dob_dod.isEmpty()) { return step1_cause_of_death_male_dob_dod }
+                   else if (!step1_cause_of_death_dob_dod.isEmpty()) { return step1_cause_of_death_dob_dod }
                    else if (!step1_cause_of_death_female.isEmpty()) { return step1_cause_of_death_female }
-                   else if (!step1_cause_of_death_female_dob_dod.isEmpty()) { return step1_cause_of_death_female_dob_dod }
                    else {return '' }
     "

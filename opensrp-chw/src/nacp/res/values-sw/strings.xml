@@ -11,7 +11,7 @@
     <string name="gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
     <string name="vmmc_referral">Huduma ya tohara kwa wanaume</string>
     <string name="child_gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
-    <string name="created">Imeumbwa: %s</string>
+    <string name="created">Imesajiliwa: %s</string>
     <string name="menu_hiv">HUWANYU (CBHS)</string>
     <string name="hiv_return_to_previous_page">Rudi kwenye wateja wa HUWANYU</string>
     <string name="hiv_clients">Wateja wa HUWANYU</string>
@@ -821,18 +821,21 @@
     <string name="hps_other_method">Njia nyingine</string>
     <string name="hps_other_method_specify">Taja njia nyingine iliyotumika kutoa rufaaa</string>
 
+   <string name="hps_dod">Tarehe ya kifo</string>
     <string name="hps_first_name">Jina la kwanza</string>
     <string name="hps_middle_name">Jina la kati</string>
     <string name="hps_last_name">Jina la mwisho</string>
-    <string name="hps_date_of_birth">Tarehe ya kuzaliwa</string>
+    <string name="hps_dob">Tarehe ya kuzaliwa</string>
     <string name="hps_sex">Jinsi</string>
-    <string name="hps_cause_of_death">Sababu ya kifo</string>
+    <string name="hps_cause_of_death_male">Sababu ya kifo</string>
     <string name="hps_pnc_death_within_42_days_after_delivery">Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)</string>
     <string name="hps_macerated_still_births_msb">Watoto waliofia tumboni (MSB)</string>
-    <string name="hps_death_occured_during_births_fsb">Vifo vya watoto wakati wa kuzaliwa (FSB)</string>
-    <string name="hps_matenal_deaths_anc_matenal_pnc">Ajali</string>
-    <string name="hps_accidents">Matenal Deaths (ANC, Matenal)</string>
+    <string name="hps_death_occurred_during_births_fsb">Vifo vya watoto wakati wa kuzaliwa (FSB)</string>
+    <string name="hps_cause_of_death_female">Sababu ya kifo</string>
+    <string name="hps_accidents">Ajali</string>
+    <string name="hps_matenal_deaths_anc_matenal_pnc">Matenal Deaths (ANC, Matenal)</string>
     <string name="hps_other_reason">Sababu nyinginezo</string>
+    <string name="hps_cause_of_death_dob_dod">Sababu ya kifo</string>
     <string name="hps_cause_of_death_specify">Specify</string>
     <string name="hps_comments">Comments</string>
 
@@ -1105,5 +1108,7 @@
 <!--    <string name="treatment_supporter_prefix">Msaidizi wa Tiba: %s</string>-->
     <string name="treatment_supporter_prefix"><![CDATA[<font color="#218CC5"><small>Msaidizi wa Tiba:</small></font> %s]]></string>
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
+    <string name="manual_process_visit">Kamilisha tembeleo</string>
+    <string name="hps_view_visit_history">Angalia historia ya tembeleo</string>
 
 </resources>

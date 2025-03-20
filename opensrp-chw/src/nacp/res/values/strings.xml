@@ -828,17 +828,22 @@
     <string name="hps_other_educations">Other Educations</string>
     <string name="hps_other_education_provided">Other(Specify)</string>
 
+    <string name="hps_dod">Date of Death</string>
     <string name="hps_first_name">First name</string>
     <string name="hps_middle_name">Middle name</string>
     <string name="hps_last_name">Last name</string>
-    <string name="hps_date_of_birth">Date of birth</string>
+    <string name="hps_dob">Date of birth</string>
     <string name="hps_sex">Sex</string>
+    <string name="hps_male">Male</string>
+    <string name="hps_female">Female</string>
+    <string name="hps_cause_of_death_male">Cause of death</string>
     <string name="hps_cause_of_death">Cause of death</string>
+    <string name="hps_cause_of_death_female">Cause of death</string>
     <string name="hps_pnc_death_within_42_days_after_delivery">PNC Death within (42 days after delivery)</string>
     <string name="hps_macerated_still_births_msb">Macerated Still Births (MSB)</string>
     <string name="hps_death_occured_during_births_fsb">Death Occured during Births (FSB)</string>
-    <string name="hps_matenal_deaths_anc_matenal_pnc">Accidents</string>
-    <string name="hps_accidents">Matenal Deaths (ANC, Matenal)</string>
+    <string name="hps_accidents">Accidents</string>
+    <string name="hps_matenal_deaths_anc_matenal_pnc">Matenal Deaths (ANC, Matenal)</string>
     <string name="hps_other_reason">Other reason</string>
     <string name="hps_cause_of_death_specify">Specify</string>
     <string name="hps_comments">Comments</string>
@@ -1345,4 +1350,7 @@
 
     <string name="treatment_supporter_prefix">Treatment Supporter: %s</string>
     <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>
+    <string name="manual_process_visit">Process Visit</string>
+    <string name="hps_view_visit_history">View visit history</string>
+
 </resources>

@@ -57,7 +57,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Please select the date"
         }
       },
       {
@@ -70,7 +70,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Please write your first name"
         }
       },
       {
@@ -83,7 +83,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Please write your middle name"
         }
       },
       {
@@ -96,7 +96,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Please write your last name"
         }
       },
       {
@@ -111,7 +111,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Please select date of birth"
         },
         "constraints": [
           {
@@ -188,27 +188,27 @@
         }
       },
       {
-        "key": "cause_of_death_male_dob_dod",
+        "key": "cause_of_death_dob_dod",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "cause_of_death_male_dob_dod",
+        "openmrs_entity_id": "cause_of_death_dob_dod",
         "label": "Cause of death",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "msb",
+            "key": "macerated_still_births_msb",
             "text": "Macerated Still Births (MSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "msb"
+            "openmrs_entity_id": "macerated_still_births_msb"
           },
           {
-            "key": "fsb",
+            "key": "death_occurred_during_births_fsb",
             "text": "Death Occurred during Births (FSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "fsb"
+            "openmrs_entity_id": "death_occurred_during_births_fsb"
           }
         ],
         "v_required": {
@@ -233,7 +233,7 @@
         "type": "native_radio",
         "options": [
           {
-            "key": "pnc_death",
+            "key": "pnc_death_within_42_days_after_delivery",
             "text": "PNC Death within (42 days after delivery)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -247,7 +247,7 @@
             "openmrs_entity_id": "accidents"
           },
           {
-            "key": "maternal_death",
+            "key": "hps_matenal_deaths_anc_matenal_pnc",
             "text": "Maternal Deaths (ANC, Matenal)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -259,42 +259,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_reason"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_death_registration_details.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "cause_of_death_female_dob_dod",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "cause_of_death_female_dob_dod",
-        "label": "Cause of death",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "msb",
-            "text": "Macerated Still Births (MSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "msb"
-          },
-          {
-            "key": "fsb",
-            "text": "Death Occured during Births (FSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "fsb"
           }
         ],
         "v_required": {
