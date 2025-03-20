@@ -293,6 +293,11 @@
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "Namba ya simu ya mteja",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -736,6 +741,11 @@
         "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
         "hint": "Namba ya simu ya mlezi",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe na jumla ya tarakimu 10 kwa urefu"

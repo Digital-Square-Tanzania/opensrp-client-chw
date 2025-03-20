@@ -151,6 +151,11 @@
         "type": "edit_text",
         "hint": "Namba ya simu ya mwenyekiti wa mtaa",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -177,9 +182,14 @@
         "type": "edit_text",
         "hint": "Namba ya simu ya mjumbe wa nyumba kumi",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
           "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
@@ -231,7 +241,7 @@
     ]
   },
   "step2": {
-    "title": "Taarifa ya Mteja",
+    "title": "Taarifa za Mteja",
     "fields": [
       {
         "key": "unique_id",
@@ -487,6 +497,11 @@
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "Namba ya simu ya mteja",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -664,7 +679,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Mtoa huduma ya bima ya afya",
+        "hint": "Bima ya Afya",
         "values": [
           "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
@@ -937,6 +952,11 @@
         "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
         "hint": "Namba ya simu ya mlezi",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -1051,7 +1071,7 @@
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Una nafasi yoyote ya uongozi katika jamii?",
+        "label": "Nafasi ya uongozi katika jamii",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

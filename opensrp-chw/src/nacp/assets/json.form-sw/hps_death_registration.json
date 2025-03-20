@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Death Registration",
+  "encounter_type": "HPS Death Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -41,9 +41,24 @@
     },
     "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Taarifa za vifo vilivyotokea kwenye jamii",
     "fields": [
+      {
+        "key": "dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dod",
+        "hint": "Tarehe ya kifo",
+        "text_color": "#000000",
+        "type": "date_picker",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza tarehe ya kifo"
+        }
+      },
       {
         "key": "first_name",
         "openmrs_entity_parent": "",
@@ -54,7 +69,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jaza jina la kwanza"
         }
       },
       {
@@ -67,7 +82,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jaza jina la kati"
         }
       },
       {
@@ -80,20 +95,22 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jaza jina la mwisho"
         }
       },
       {
-        "key": "tarehe_ya_kuzaliwa",
+        "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "tarehe_ya_kuzaliwa",
+        "openmrs_entity_id": "dob",
         "hint": "Tarehe ya kuzaliwa",
         "text_color": "#000000",
         "type": "date_picker",
+        "expanded": false,
+        "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please select an answer"
+          "err": "Tafadhali jaza tarehe ya kuzaliwa"
         },
         "constraints": [
           {
@@ -114,14 +131,14 @@
         "options": [
           {
             "key": "male",
-            "text": "ME",
+            "text": "Mwanaume",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "Pmale"
+            "openmrs_entity_id": "male"
           },
           {
             "key": "female",
-            "text": "KE",
+            "text": "Mwanamke",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
@@ -137,7 +154,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "cause_of_death_male",
-        "label": "Cause of death",
+        "label": "Sababu ya kifo",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -147,20 +164,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "accidents"
-          },
-          {
-            "key": "msb",
-            "text": "Watoto waliofia tumboni (MSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "msb"
-          },
-          {
-            "key": "fsb",
-            "text": "Vifo vya watoto wakati wa kuzaliwa (FSB)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "fsb"
           },
           {
             "key": "other_reason",
@@ -183,34 +186,56 @@
         }
       },
       {
-        "key": "cause_of_death_female",
+        "key": "cause_of_death_dob_dod",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "cause_of_death_female",
-        "label": "Cause of death",
+        "openmrs_entity_id": "cause_of_death_dob_dod",
+        "label": "Sababu ya kifo",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "pnc_death",
-            "text": "Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pnc_death"
-          },
-          {
-            "key": "msb",
+            "key": "macerated_still_births_msb",
             "text": "Watoto waliofia tumboni (MSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "msb"
+            "openmrs_entity_id": "macerated_still_births_msb"
           },
           {
-            "key": "fsb",
-            "text": "Vifo vya watoto wakati wa kuzaliwa (FSB)",
+            "key": "death_occurred_during_births_fsb",
+            "text": "Kifo Kilichotokea Wakati wa Kuzaliwa (FSB)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "fsb"
+            "openmrs_entity_id": "death_occurred_during_births_fsb"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death_female",
+        "label": "Sababu ya kifo",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "pnc_death_within_42_days_after_delivery",
+            "text": "Kifo cha Baada ya Kujifungua (ndani ya siku 42 baada ya kujifungua)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pnc_death"
           },
           {
             "key": "accidents",
@@ -220,8 +245,8 @@
             "openmrs_entity_id": "accidents"
           },
           {
-            "key": "maternal_death",
-            "text": "Vifo vya Akina Mama Wajawazito (ANC, Wajawazito, PNC)",
+            "key": "hps_matenal_deaths_anc_matenal_pnc",
+            "text": "Vifo vya Akina Mama (Wakati wa Ujauzito na Kujifungua)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "maternal_death"

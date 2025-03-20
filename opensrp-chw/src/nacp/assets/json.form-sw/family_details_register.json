@@ -103,6 +103,11 @@
         "type": "edit_text",
         "hint": "Namba ya simu ya mwenyekiti wa mtaa",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -129,6 +134,11 @@
         "type": "edit_text",
         "hint": "Namba ya simu ya mjumbe wa nyumba kumi",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"

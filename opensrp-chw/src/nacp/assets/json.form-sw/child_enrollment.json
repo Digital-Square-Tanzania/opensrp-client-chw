@@ -255,7 +255,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "insurance_provider",
         "type": "spinner",
-        "hint": "Mtoa huduma ya bima ya afya",
+        "hint": "Bima ya Afya",
         "values": [
           "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
