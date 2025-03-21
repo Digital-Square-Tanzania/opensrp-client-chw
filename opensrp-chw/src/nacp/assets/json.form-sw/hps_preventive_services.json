@@ -167,9 +167,6 @@
         "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
-        "exclusive":[
-          "none"
-        ],
         "options":[
           {
             "key":"hiv_aids",
@@ -617,9 +614,6 @@
         "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
-        "exclusive":[
-          "none"
-        ],
         "options":[
           {
             "key":"hiv_aids",
