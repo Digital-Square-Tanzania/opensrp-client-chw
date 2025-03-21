@@ -537,7 +537,7 @@ public class HpsAnnualCensusRegistrationDetailsActivity extends CoreAncMedicalHi
                 Event event = getEditEvent(baseEntityId, Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS);
 
                 final List<Obs> observations = event.getObs();
-                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.FORMS.HPS_ANNUAL_CENSUS);
+                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS);
 
                 if (form != null) {
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
