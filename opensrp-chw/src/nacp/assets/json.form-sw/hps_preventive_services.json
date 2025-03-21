@@ -164,7 +164,6 @@
         "buttonText": "+ Ongeza aina ya ujumbe katika vielelezo",
         "sort": true,
         "dialogTitle": "Chagua aina ya  ujumbe katika vielelezo",
-        "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
         "options":[
@@ -611,7 +610,6 @@
         "buttonText": "+ Ongeza aina ya ujumbe katika mabango",
         "sort": true,
         "dialogTitle": "Chagua aina ya ujumbe katika mabango",
-        "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
         "options":[
@@ -1058,7 +1056,6 @@
         "buttonText": "+ Ongeza aina ya ujumbe katika vijarida",
         "sort": true,
         "dialogTitle": "Chagua aina ya ujumbe katika vijarida",
-        "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
         "options":[
@@ -1567,7 +1564,6 @@
         "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
         "sort": true,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
-        "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
         "options":[
@@ -1807,7 +1803,6 @@
         "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
         "sort": true,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
-        "searchHint": "Aina ya ujumbe",
         "text_color":"#000000",
         "combine_checkbox_option_values":"true",
         "options":[
