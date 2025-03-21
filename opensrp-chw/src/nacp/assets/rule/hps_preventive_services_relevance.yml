@@ -135,13 +135,6 @@ actions:
 name: step1_preventive_services_above_5_below_18_title
 description: Rule to control the visibility of (step1_preventive_services_above_5_below_18_title)
 priority: 1
-condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5 && global_age < 18"
-actions:
-  - "isRelevant = true "
----
-name: step1_preventive_services_above_18_title
-description: Rule to control the visibility of (step1_preventive_services_above_18_title)
-priority: 1
-condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 18"
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5 && global_age < 18 && global_age >= 18"
 actions:
   - "isRelevant = true "
