@@ -171,7 +171,6 @@
         "buttonText": "+ Add type of message in leaflets",
         "sort": true,
         "dialogTitle": "Select Type of Message in Leaflets",
-        "searchHint": "Type of message",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
@@ -610,7 +609,6 @@
         "buttonText": "+ Add type of message in posters",
         "sort": true,
         "dialogTitle": "Select Type of Message in Posters",
-        "searchHint": "Type of message",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
@@ -1049,7 +1047,6 @@
         "buttonText": "+ Add type of message in brochures",
         "sort": true,
         "dialogTitle": "Select Type of Message in Brochures",
-        "searchHint": "Type of message",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
@@ -1550,7 +1547,6 @@
         "buttonText": "+ Add preventive services provided",
         "sort": true,
         "dialogTitle": "Select preventive services provided",
-        "searchHint": "Type of preventive services",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
@@ -1799,7 +1795,6 @@
         "buttonText": "+ Add preventive services provided",
         "sort": true,
         "dialogTitle": "Select preventive services provided",
-        "searchHint": "Type of preventive services",
         "text_color": "#000000",
         "combine_checkbox_option_values": "true",
         "options": [
