@@ -3503,6 +3503,15 @@
     "next": "step5",
     "fields": [
       {
+        "key": "social_services",
+        "type": "label",
+        "text": "Social services",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id":"social_services"
+      },
+      {
         "key": "number_of_households_most_commonly_use_tap_as_sources_of_water",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4169,6 +4178,15 @@
         ]
       },
       {
+        "key": "economic_activities",
+        "type": "label",
+        "text": "Economic activities",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id":"economic_activities"
+      },
+      {
         "key": "number_of_male_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4308,6 +4326,15 @@
     "title": "Committee meetings & Traditional medicine",
     "next": "step6",
     "fields": [
+      {
+        "key": "committee_meetings",
+        "type": "label",
+        "text": "Committee meetings",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id":"committee_meetings"
+      },
       {
         "key": "number_of_health_committee_members_for_effective_committee_meetings",
         "openmrs_entity_parent": "",
@@ -4485,6 +4512,15 @@
             "err": "must not be greater than number of health committee members for effective committee meetings"
           }
         ]
+      },
+      {
+        "key": "traditional_medicine",
+        "type": "label",
+        "text": "Traditional medicine",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id":"traditional_medicine"
       },
       {
         "key": "number_of_registered_alternative_medicine_service_providers",
