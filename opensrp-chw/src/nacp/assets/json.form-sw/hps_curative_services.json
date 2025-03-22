@@ -610,7 +610,7 @@
         "openmrs_entity_id": "prompt_for_management_of_blood_pressure",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -792,7 +792,7 @@
         "openmrs_entity_id": "notify_client_has_fever",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",
@@ -807,7 +807,7 @@
         "openmrs_entity_id": "notify_client_has_hypothermia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",
