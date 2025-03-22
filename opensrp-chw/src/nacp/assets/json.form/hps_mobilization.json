@@ -352,188 +352,350 @@
         }
       },
       {
+        "key": "type_of_education_title",
+        "type": "label",
+        "text": "Education provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_education_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "education_provided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "education_provided",
         "openmrs_data_type": "select one",
-        "type": "check_box",
+        "type": "multi_select_list",
         "combine_checkbox_option_values": "true",
-        "label": "Education provided",
-        "hint": "Education provided",
+        "save_obs_as_array": true,
+        "maxSelectable": 6,
+        "buttonText": "+ Add education provided",
+        "sort": false,
+        "dialogTitle": "Add education provided",
+        "searchHint": "Education provided",
         "options": [
           {
             "key": "nutrition",
             "text": "Nutrition",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "nutrition"
+            "openmrs_entity_id": "nutrition",
+            "property": {
+              "presumed-id": "nutrition",
+              "confirmed-id": "nutrition"
+            }
           },
           {
             "key": "danger_signs_of_pregnancy",
             "text": "Danger signs during pregnancy",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "danger_signs_of_pregnancy"
+            "openmrs_entity_id": "danger_signs_of_pregnancy",
+            "property": {
+              "presumed-id": "danger_signs_of_pregnancy",
+              "confirmed-id": "danger_signs_of_pregnancy"
+            }
           },
           {
             "key": "family_planning",
             "text": "Family Planning",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "family_planning"
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning",
+              "confirmed-id": "family_planning"
+            }
           },
           {
             "key": "malaria",
             "text": "Malaria",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "malaria"
+            "openmrs_entity_id": "malaria",
+            "property": {
+              "presumed-id": "malaria",
+              "confirmed-id": "malaria"
+            }
           },
           {
             "key": "tuberculosis_leprosy_and_testing",
             "text": "Tuberculosis, leprosy, and testing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis_leprosy_and_testing"
+            "openmrs_entity_id": "tuberculosis_leprosy_and_testing",
+            "property": {
+              "presumed-id": "tuberculosis_leprosy_and_testing",
+              "confirmed-id": "tuberculosis_leprosy_and_testing"
+            }
           },
           {
             "key": "hiv_hepatitis_and_testing",
             "text": "HIV, hepatitis and testing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_hepatitis_and_testing"
+            "openmrs_entity_id": "hiv_hepatitis_and_testing",
+            "property": {
+              "presumed-id": "hiv_hepatitis_and_testing",
+              "confirmed-id": "hiv_hepatitis_and_testing"
+            }
           },
           {
             "key": "epidemic_diseases",
             "text": "Epidemic diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "epidemic_diseases"
+            "openmrs_entity_id": "epidemic_diseases",
+            "property": {
+              "presumed-id": "epidemic_diseases",
+              "confirmed-id": "epidemic_diseases"
+            }
           },
           {
             "key": "neglected_tropical_diseases",
             "text": "Neglected tropical diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "neglected_tropical_diseases"
+            "openmrs_entity_id": "neglected_tropical_diseases",
+            "property": {
+              "presumed-id": "neglected_tropical_diseases",
+              "confirmed-id": "neglected_tropical_diseases"
+            }
           },
           {
             "key": "oral_and_dental_health",
             "text": "Oral and dental health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "oral_and_dental_health"
+            "openmrs_entity_id": "oral_and_dental_health",
+            "property": {
+              "presumed-id": "oral_and_dental_health",
+              "confirmed-id": "oral_and_dental_health"
+            }
           },
           {
             "key": "non_communicable_diseases",
             "text": "Non-communicable diseases",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "non_communicable_diseases"
+            "openmrs_entity_id": "non_communicable_diseases",
+            "property": {
+              "presumed-id": "non_communicable_diseases",
+              "confirmed-id": "non_communicable_diseases"
+            }
           },
           {
             "key": "eye_diseases_and_testing",
             "text": "Eye diseases and testing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "eye_diseases_and_testing"
+            "openmrs_entity_id": "eye_diseases_and_testing",
+            "property": {
+              "presumed-id": "eye_diseases_and_testing",
+              "confirmed-id":"eye_diseases_and_testing"
+            }
           },
           {
             "key": "environmental_sanitation_and_care",
             "text": "Environmental sanitation and care",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "environmental_sanitation_and_care"
+            "openmrs_entity_id": "environmental_sanitation_and_care",
+            "property": {
+              "presumed-id": "environmental_sanitation_and_care",
+              "confirmed-id": "environmental_sanitation_and_care"
+            }
           },
           {
             "key": "health_insurance_fund",
             "text": "Health insurance fund",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "health_insurance_fund"
+            "openmrs_entity_id": "health_insurance_fund",
+            "property": {
+              "presumed-id": "health_insurance_fund",
+              "confirmed-id": "health_insurance_fund"
+            }
           },
           {
             "key": "gender_based_violence",
             "text": "Gender based violence",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_based_violence"
+            "openmrs_entity_id": "gender_based_violence",
+            "property": {
+              "presumed-id": "gender_based_violence",
+              "confirmed-id": "gender_based_violence"
+            }
           },
           {
             "key": "harmful_effects_of_substance_abuse",
             "text": "Harmful effects of substance abuse",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "harmful_effects_of_substance_abuse"
+            "openmrs_entity_id": "harmful_effects_of_substance_abuse",
+            "property": {
+              "presumed-id": "harmful_effects_of_substance_abuse",
+              "confirmed-id": "harmful_effects_of_substance_abuse"
+            }
           },
           {
             "key": "mental_health",
             "text": "Mental health",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "mental_health"
+            "openmrs_entity_id": "mental_health",
+            "property": {
+              "presumed-id": "mental_health",
+              "confirmed-id": "mental_health"
+            }
           },
           {
             "key": "rights_of_the_elderly_and_family_responsibilities",
             "text": "Rights of the elderly and family responsibilities",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities"
+            "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities",
+            "property": {
+              "presumed-id": "rights_of_the_elderly_and_family_responsibilities",
+              "confirmed-id": "rights_of_the_elderly_and_family_responsibilities"
+            }
           },
           {
             "key": "childrens_rights_and_protection",
             "text": "Children's rights and protection",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "childrens_rights_and_protection"
+            "openmrs_entity_id": "childrens_rights_and_protection",
+            "property": {
+              "presumed-id": "childrens_rights_and_protection",
+              "confirmed-id": "childrens_rights_and_protection"
+            }
           },
           {
             "key": "sexually_transmitted_diseases",
             "text": "Sexually transmitted diseases (STDs)",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sexually_transmitted_diseases"
+            "openmrs_entity_id": "sexually_transmitted_diseases",
+            "property": {
+              "presumed-id": "sexually_transmitted_diseases",
+              "confirmed-id": "sexually_transmitted_diseases"
+            }
           },
           {
             "key": "effects_of_child_marriage_and_teenage_pregnancies",
             "text": "Effects of child marriage and teenage pregnancies",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies"
+            "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies",
+            "property": {
+              "presumed-id": "effects_of_child_marriage_and_teenage_pregnancies",
+              "confirmed-id": "effects_of_child_marriage_and_teenage_pregnancies"
+            }
           },
           {
             "key": "immunization_services",
             "text": "Immunization services",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "immunization_services"
+            "openmrs_entity_id": "immunization_services",
+            "property": {
+              "presumed-id": "immunization_services",
+              "confirmed-id": "immunization_services"
+            }
           },
           {
             "key": "childcare_growth_and_early_childhood",
             "text": "Childcare, growth, and early childhood",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "childcare_growth_and_early_childhood"
+            "openmrs_entity_id": "childcare_growth_and_early_childhood",
+            "property": {
+              "presumed-id": "childcare_growth_and_early_childhood",
+              "confirmed-id": "childcare_growth_and_early_childhood"
+            }
           },
           {
             "key": "importance_of_birth_certificates",
             "text": "Importance of birth certificates",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "importance_of_birth_certificates"
+            "openmrs_entity_id": "importance_of_birth_certificates",
+            "property": {
+              "presumed-id": "importance_of_birth_certificates",
+              "confirmed-id": "importance_of_birth_certificates"
+            }
           },
           {
             "key": "entrepreneurship",
             "text": "Entrepreneurship",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "entrepreneurship"
+            "openmrs_entity_id": "entrepreneurship",
+            "property": {
+              "presumed-id": "entrepreneurship",
+              "confirmed-id": "entrepreneurship"
+            }
           },
           {
             "key": "first_aid",
             "text": "First aid",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "first_aid"
+            "openmrs_entity_id": "first_aid",
+            "property": {
+              "presumed-id": "first_aid",
+              "confirmed-id": "first_aid"
+            }
           },
           {
             "key": "violence_against_children",
             "text": "Violence against children",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "violence_against_children"
+            "openmrs_entity_id": "violence_against_children",
+            "property": {
+              "presumed-id": "violence_against_children",
+              "confirmed-id": "violence_against_children"
+            }
           },
           {
             "key": "medication_adherence",
             "text": "Medication adherence",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "medication_adherence"
+            "openmrs_entity_id": "medication_adherence",
+            "property": {
+              "presumed-id": "medication_adherence",
+              "confirmed-id": "medication_adherence"
+            }
           },
           {
             "key": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
             "text": "Education on the M-Mama system and proper use of the toll-free number 115",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115"
+            "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
+            "property": {
+              "presumed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
+              "confirmed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115"
+            }
+          },
+          {
+            "key": "other_educations",
+            "text": "Other Educations",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_educations",
+            "property": {
+              "presumed-id": "other_educations",
+              "confirmed-id": "other_educations"
+            }
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_education_provided",
+        "type": "edit_text",
+        "hint": "Other(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
         },
         "relevance": {
           "rules-engine": {
@@ -727,7 +889,8 @@
       {
         "key": "other_brochure_materials",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "other_brochure_materials",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_brochure_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Specify other Information, Education, and Communication Materials (Brochure)",
