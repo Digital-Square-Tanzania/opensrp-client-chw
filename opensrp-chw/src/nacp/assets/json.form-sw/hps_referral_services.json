@@ -344,7 +344,7 @@
       {
         "key": "prompt_for_referral_system_used",
         "type": "toaster_notes",
-        "text": "Tafadhali tumia Mfumo huu kumpatia mteja rufaa kwenda kituo husika",
+        "text": "Hakikisha fomu za rufaa za mteja zimejazwa katika mfumo huu",
         "openmrs_entity_id": "prompt_for_referral_system_used",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
