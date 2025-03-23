@@ -610,7 +610,7 @@
         "openmrs_entity_id": "prompt_for_management_of_blood_pressure",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -682,7 +682,11 @@
           "value": "45",
           "err": "Blood sugar must be equal or less than 45 (mmol/L)"
         },
-        "relevance": {
+        "v_regex": {
+          "value": "^(\\d{1,2}|\\d{1,2}\\.\\d{1})$",
+          "err": "Please enter valid input, eg: 4 or 10.9"
+        },
+      "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_curative_services.yml"
@@ -747,7 +751,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "body_temperature_result",
         "type": "edit_text",
-        "edit_type": "number",
         "hint": "Body Temperature (\u2103)",
         "v_required": {
           "value": "true",
