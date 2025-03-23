@@ -104,6 +104,9 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.aysrh_referral), CoreConstants.JSON_FORM.getMaleAysrhFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.AYSRH_FRIENDLY_SERVICES));
             else
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.aysrh_referral), CoreConstants.JSON_FORM.getFemaleAysrhFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.AYSRH_FRIENDLY_SERVICES));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral), CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+
         }
 
     }
@@ -114,7 +117,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void initializeFloatingMenu() {
-        baseHpsFloatingMenu = new HpsFloatingMenu(this, memberObject);
+        baseHpsFloatingMenu = new HpsFloatingMenu(this, memberObject, true);
         baseHpsFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(baseHpsFloatingMenu, linearLayoutParams);
@@ -138,7 +141,6 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                     Timber.d("Unknown fab action");
                     break;
             }
-
         };
 
         ((HpsFloatingMenu) baseHpsFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
@@ -316,7 +318,6 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                 if (form != null) {
                     form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_ANC_REGISTRATION);
                 }
-
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
                 String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
@@ -330,7 +331,6 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
-
                 form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
             }
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -342,7 +342,6 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
         form.setWizard(false);
-
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.chw.cecap.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
