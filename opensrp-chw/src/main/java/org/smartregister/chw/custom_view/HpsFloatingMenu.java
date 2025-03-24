@@ -50,6 +50,7 @@ public class HpsFloatingMenu extends BaseHpsFloatingMenu {
         super(context, MEMBER_OBJECT);
         this.MEMBER_OBJECT = MEMBER_OBJECT;
         this.enableReferral = enableReferral;
+        initUi();
     }
 
     public void setFloatMenuClickListener(OnClickFloatingMenu onClickFloatingMenu) {
@@ -75,12 +76,14 @@ public class HpsFloatingMenu extends BaseHpsFloatingMenu {
         callLayout.setOnClickListener(this);
         callLayout.setClickable(false);
 
-        if (!enableReferral) {
-            findViewById(R.id.refer_to_facility_layout).setVisibility(View.GONE);
+        referLayout = findViewById(R.id.refer_to_facility_layout);
+        referLayout.setOnClickListener(this);
+        referLayout.setClickable(false);
+
+        if (enableReferral) {
+            referLayout.setVisibility(View.VISIBLE);
         } else {
-            referLayout = findViewById(R.id.refer_to_facility_layout);
-            referLayout.setOnClickListener(this);
-            referLayout.setClickable(false);
+            referLayout.setVisibility(View.GONE);
         }
 
 
