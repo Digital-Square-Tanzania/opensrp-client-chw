@@ -33,3 +33,10 @@ priority: 1
 condition: "step1_referral_system_used.contains('ucs')"
 actions:
   - "isRelevant = true "
+---
+name: step1_referral_system
+description: if step1_referral_provided
+priority: 1
+condition: "step1_provide_referral_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
