@@ -546,6 +546,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
@@ -961,6 +965,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
@@ -1375,6 +1383,10 @@
         "v_max": {
           "value": "1000",
           "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
         },
         "v_max_length": {
           "value": "3",
