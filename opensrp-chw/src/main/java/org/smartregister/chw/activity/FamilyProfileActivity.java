@@ -196,7 +196,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected void startHpsHouseholdEnrollment(String s) {
-        HpsRegisterActivity.startRegistration(FamilyProfileActivity.this, s, org.smartregister.chw.hps.util.Constants.FORMS.HPS_HOUSEHOLD_ENROLLMENT);
+        HpsRegisterActivity.startRegistration(FamilyProfileActivity.this, s, org.smartregister.chw.hps.util.Constants.FORMS.HPS_HOUSEHOLD_ENROLLMENT, 1);
     }
 
     @Override
