@@ -60,10 +60,10 @@
             "openmrs_entity_id": "yes"
           },
           {
-            "key": "no_provide_iec_materials",
+            "key": "no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no_provide_iec_materials"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
