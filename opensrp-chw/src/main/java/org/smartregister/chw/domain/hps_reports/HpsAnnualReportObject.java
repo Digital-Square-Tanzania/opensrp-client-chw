@@ -81,77 +81,77 @@ public class HpsAnnualReportObject extends ReportObject {
     };
     public static String[] selectorsForComplexKeys = {
             "number_of_pre_schools_government",
-            "number_of_pre_schools_government",
-            "number_of_pre_schools_government",
-            "number_of_pre_schools_government",
+            "number_of_pre_schools_faith_based_organisation",
+            "number_of_pre_schools_public",
+            "number_of_pre_schools_private",
             "number_of_primary_schools_government",
-            "number_of_primary_schools_government",
-            "number_of_primary_schools_government",
-            "number_of_primary_schools_government",
+            "number_of_primary_schools_faith_based_organisation",
+            "number_of_primary_schools_public",
+            "number_of_primary_schools_private",
             "number_of_secondary_schools_government",
-            "number_of_secondary_schools_government",
-            "number_of_secondary_schools_government",
-            "number_of_secondary_schools_government",
+            "number_of_secondary_schools_faith_based_organisation",
+            "number_of_secondary_schools_public",
+            "number_of_secondary_schools_private",
             "number_of_universities_government",
-            "number_of_universities_government",
-            "number_of_universities_government",
-            "number_of_universities_government",
+            "number_of_universities_faith_based_organisation",
+            "number_of_universities_public",
+            "number_of_universities_private",
             "number_of_special_needs_schools_government",
-            "number_of_special_needs_schools_government",
-            "number_of_special_needs_schools_government",
-            "number_of_special_needs_schools_government",
+            "number_of_special_needs_schools_faith_based_organisation",
+            "number_of_special_needs_schools_public",
+            "number_of_special_needs_schools_private",
             "number_of_dispensary_government",
-            "number_of_dispensary_government",
-            "number_of_dispensary_government",
-            "number_of_dispensary_government",
+            "number_of_dispensary_faith_based_organisation",
+            "number_of_dispensary_public",
+            "number_of_dispensary_private",
             "number_of_health_centers_government",
-            "number_of_health_centers_government",
-            "number_of_health_centers_government",
-            "number_of_health_centers_government",
+            "number_of_health_centers_faith_based_organisation",
+            "number_of_health_centers_public",
+            "number_of_health_centers_private",
             "number_of_hospital_government",
-            "number_of_hospital_government",
-            "number_of_hospital_government",
-            "number_of_hospital_government",
+            "number_of_hospital_faith_based_organisation",
+            "number_of_hospital_public",
+            "number_of_hospital_private",
             "number_of_special_clinics_government",
-            "number_of_special_clinics_government",
-            "number_of_special_clinics_government",
-            "number_of_special_clinics_government",
+            "number_of_special_clinics_faith_based_organisation",
+            "number_of_special_clinics_public",
+            "number_of_special_clinics_private",
             "number_of_laboratory_government",
-            "number_of_laboratory_government",
-            "number_of_laboratory_government",
-            "number_of_laboratory_government",
+            "number_of_laboratory_faith_based_organisation",
+            "number_of_laboratory_public",
+            "number_of_laboratory_private",
             "number_of_pharmacy_government",
-            "number_of_pharmacy_government",
-            "number_of_pharmacy_government",
-            "number_of_pharmacy_government",
+            "number_of_pharmacy_faith_based_organisation",
+            "number_of_pharmacy_public",
+            "number_of_pharmacy_private",
             "number_of_ADDO_government",
-            "number_of_ADDO_government",
-            "number_of_ADDO_government",
-            "number_of_ADDO_government",
+            "number_of_ADDO_faith_based_organisation",
+            "number_of_ADDO_public",
+            "number_of_ADDO_private",
             "number_of_maternity_home_government",
-            "number_of_maternity_home_government",
-            "number_of_maternity_home_government",
-            "number_of_maternity_home_government",
+            "number_of_maternity_home_faith_based_organisation",
+            "number_of_maternity_home_public",
+            "number_of_maternity_home_private",
             "number_of_orphan_care_centers_government",
-            "number_of_orphan_care_centers_government",
-            "number_of_orphan_care_centers_government",
-            "number_of_orphan_care_centers_government",
+            "number_of_orphan_care_centers_faith_based_organisation",
+            "number_of_orphan_care_centers_public",
+            "number_of_orphan_care_centers_private",
             "number_of_centers_for_children_with_disabilities_government",
-            "number_of_centers_for_children_with_disabilities_government",
-            "number_of_centers_for_children_with_disabilities_government",
-            "number_of_centers_for_children_with_disabilities_government",
+            "number_of_centers_for_children_with_disabilities_faith_based_organisation",
+            "number_of_centers_for_children_with_disabilities_public",
+            "number_of_centers_for_children_with_disabilities_private",
             "number_of_cbecdc_rehabilitation_centre_government",
-            "number_of_cbecdc_rehabilitation_centre_government",
-            "number_of_cbecdc_rehabilitation_centre_government",
-            "number_of_cbecdc_rehabilitation_centre_government",
+            "number_of_cbecdc_rehabilitation_centre_faith_based_organisation",
+            "number_of_cbecdc_rehabilitation_centre_public",
+            "number_of_cbecdc_rehabilitation_centre_private",
             "number_of_day_care_centers_government",
-            "number_of_day_care_centers_government",
-            "number_of_day_care_centers_government",
-            "number_of_day_care_centers_government",
+            "number_of_day_care_centers_faith_based_organisation",
+            "number_of_day_care_centers_public",
+            "number_of_day_care_centers_private",
             "number_of_elderly_care_centers_government",
-            "number_of_elderly_care_centers_government",
-            "number_of_elderly_care_centers_government",
-            "number_of_elderly_care_centers_government",
+            "number_of_elderly_care_centers_faith_based_organisation",
+            "number_of_elderly_care_centers_public",
+            "number_of_elderly_care_centers_private",
     };
     private final String[] whereClauses = new String[]{"government","faith_based_organisation","public","private"};
 
@@ -165,7 +165,7 @@ public class HpsAnnualReportObject extends ReportObject {
     private int totalOfhpsc,totalOfhpsd,totalOfhpse,totalOfhpsf,
             totalOfhpsg,totalOfhpsh,totalOfhpsi,totalOfhpsj,totalOfhpsk,
             totalOfhpsl,totalOfhpsm,totalOfhpsn,totalOfhpso,totalOfhpsp,
-            totalOfhpsq,totalOfhpsr,totalOfhpss,totalOfhpst = 0;
+            totalOfhpsq,totalOfhpsr,totalOfhpss,totalOfhpst,totalOfhpsv,totalOfhpsvv = 0;
 
     public HpsAnnualReportObject(Date reportDate) {
         super(reportDate);
@@ -226,80 +226,80 @@ public class HpsAnnualReportObject extends ReportObject {
             jsonObject.put("hps-c-total", totalOfhpsc);
         }
         if (tableKey.contains("hps-d")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsd += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-d-total", totalOfhpsd);
         }
         if (tableKey.contains("hps-e")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpse += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-e-total", totalOfhpse);
         }
         if (tableKey.contains("hps-f")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsf += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-f-total", totalOfhpsf);
         }
         if (tableKey.contains("hps-g")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsg += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-g-total", totalOfhpsg);
         }
         if (tableKey.contains("hps-h")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsh += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-h-total", totalOfhpsh);
         }
         if (tableKey.contains("hps-i")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsi += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-i-total", totalOfhpsi);
         }
         if (tableKey.contains("hps-j")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsj += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-j-total", totalOfhpsj);
         }
         if (tableKey.contains("hps-k")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsk += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-k-total", totalOfhpsk);
         }
         if (tableKey.contains("hps-l")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsl += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-l-total", totalOfhpsl);
         }
         if (tableKey.contains("hps-m")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsm += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-m-total", totalOfhpsm);
         }
         if (tableKey.contains("hps-n")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsn += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-n-total", totalOfhpsn);
         }
         if (tableKey.contains("hps-o")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpso += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-o-total", totalOfhpso);
         }
         if (tableKey.contains("hps-p")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsp += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-p-total", totalOfhpsp);
         }
         if (tableKey.contains("hps-q")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsq += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-q-total", totalOfhpsq);
         }
         if (tableKey.contains("hps-r")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpsr += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-r-total", totalOfhpsr);
         }
         if (tableKey.contains("hps-s")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpss += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-s-total", totalOfhpss);
         }
         if (tableKey.contains("hps-t")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            totalOfhpst += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
             jsonObject.put("hps-t-total", totalOfhpst);
         }
         if (tableKey.contains("hps-v")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
-            jsonObject.put("hps-v-total", totalOfhpst);
+            totalOfhpsv += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            jsonObject.put("hps-v-total", totalOfhpsv);
         }
         if (tableKey.contains("hps-vv")){
-            totalOfhpsc += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
-            jsonObject.put("hps-vv-total", totalOfhpst);
+            totalOfhpsvv += Integer.parseInt(getHpsDynamicTable(getHpsDynamicTables, tableKey));
+            jsonObject.put("hps-vv-total", totalOfhpsvv);
         }
 
     }

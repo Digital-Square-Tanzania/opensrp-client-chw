@@ -11,7 +11,7 @@
     <string name="gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
     <string name="vmmc_referral">Huduma ya tohara kwa wanaume</string>
     <string name="child_gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
-    <string name="created">Imeumbwa: %s</string>
+    <string name="created">Imesajiliwa: %s</string>
     <string name="menu_hiv">HUWANYU (CBHS)</string>
     <string name="hiv_return_to_previous_page">Rudi kwenye wateja wa HUWANYU</string>
     <string name="hiv_clients">Wateja wa HUWANYU</string>
@@ -490,7 +490,7 @@
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">Taarifa za Kikao cha mobilizesheni SBC</string>
     <string name="sbc_mobilization_session">Kikao cha mobilizesheni cha SBC</string>
-    <string name="sbc_back_to_all_mobilization_sessions">Rudi kwenye vikao vyote vya mobilizesheni</string>
+    <string name="sbc_back_to_all_mobilization_sessions">Rudi kwenye vikao vyote vya uhamasishaji</string>
     <string name="sbc_visit">SBC Uliyoshiriki</string>
     <string name="sbc_followup_visit">SBC Ziara ya Kufuatilia</string>
     <string name="sbc_activity_type">Aina ya shughuli ya SBC iliyotolewa:</string>

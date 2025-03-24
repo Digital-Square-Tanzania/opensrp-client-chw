@@ -115,7 +115,7 @@ actions:
 name: step1_occupation_other
 description: service provider relevance
 priority: 1
-condition: "step1_occupation_other.equals('chk_other')"
+condition: "step1_occupation.equals('chk_other')"
 actions:
   - "isRelevant = true"
 

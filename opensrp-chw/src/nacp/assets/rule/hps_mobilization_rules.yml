@@ -131,3 +131,18 @@ priority: 1
 condition: "step1_method_of_education_and_awareness_used.equalsIgnoreCase('loud_speakers') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('drumming_public_announcements') || step1_method_of_education_and_awareness_used.equalsIgnoreCase('face_to_face')"
 actions:
   - "isRelevant = true"
+---
+name: step1_other_education_provided
+description: hps other education provided
+priority: 1
+condition: "step1_education_provided.contains('other_educations')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_type_of_education_title
+description: hps type of education provided
+priority: 1
+condition: "step1_was_education_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
