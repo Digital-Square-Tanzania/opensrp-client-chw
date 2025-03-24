@@ -267,6 +267,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
         }
       },
       {
