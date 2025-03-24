@@ -6195,7 +6195,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_agriculture_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya kilimo yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
@@ -6225,7 +6232,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_livestock_keeping_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya ufugaji yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_fishing_areas_inspected_with_risk_indicators",
@@ -6255,7 +6269,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_fishing_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya uvuvi yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_industries_areas_inspected_with_risk_indicators",
@@ -6285,7 +6306,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_industries_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya viwanda yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_offices_areas_inspected_with_risk_indicators",
@@ -6315,7 +6343,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_offices_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya ofisi zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_transportation_areas_inspected_with_risk_indicators",
@@ -6345,7 +6380,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_inspected_transportation_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya usafiri yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_other_areas_inspected_with_risk_indicators",
@@ -6375,7 +6417,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step8:number_of_other_inspected_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo mengine yaliyokaguliwa"
+          }
+        ]
       }
     ]
   },
