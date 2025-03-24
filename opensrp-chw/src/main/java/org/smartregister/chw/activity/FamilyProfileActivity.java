@@ -30,6 +30,7 @@ import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.hiv.dao.HivDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
@@ -271,7 +272,9 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_hps_enrollment).setVisible(ChwApplication.getApplicationFlavor().hasHps());
+        if (ChwApplication.getApplicationFlavor().hasHps()) {
+            menu.findItem(R.id.action_hps_enrollment).setVisible(!HpsDao.isHouseholdRegisteredForHps(familyHead));
+        }
         return true;
     }
 }
