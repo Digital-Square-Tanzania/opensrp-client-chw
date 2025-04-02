@@ -39,11 +39,19 @@ actions:
                    else if (!step1_cause_of_death_female.isEmpty()) { return step1_cause_of_death_female }
                    else {return '' }
     "
+
 ---
 name: step1_dob
-description: Rule to validate that Date of Birth (dob) is not after Date of Death (dod)
+description: Ensure Date of Birth (DOB) is before Date of Death (DOD)
 priority: 1
-condition: "true"
+condition: "step1_dob > step1_dod"
 actions:
-  - "calculation = if (step1_dob.isAfter(step1_dod)) { return 'Date of Birth cannot be after Date of Death' } 
-                   else { return '' }"
+  - "isValid = false"
+  - "errorMessage = 'Date of Birth must be earlier than Date of Death'"
+---
+name: step1_dob_validation_toaster
+description: Display toaster error message when DOB is greater than or equal to DOD
+priority: 1
+condition: "step1_dob > step1_dod"
+actions:
+  - "isRelevant = true"
