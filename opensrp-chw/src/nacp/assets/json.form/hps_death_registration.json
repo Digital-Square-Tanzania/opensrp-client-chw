@@ -122,6 +122,23 @@
         ]
       },
       {
+        "key": "dob_validation_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "dob_validation_toaster",
+        "type": "toaster_notes",
+        "text": "Date of birth must be earlier than date of death",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
