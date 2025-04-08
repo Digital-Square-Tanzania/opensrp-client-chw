@@ -41,6 +41,9 @@
     },
     "encounter_location": ""
   },
+  "global": {
+    "gender": "female"
+  },
   "step1": {
     "title": "Curative Services",
     "fields": [
@@ -687,10 +690,10 @@
         }
       },
       {
-        "key": "diseases_signs_and_symptoms",
+        "key": "diseases_signs_and_symptoms_calculation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "diseases_signs_and_symptoms",
+        "openmrs_entity_id": "diseases_signs_and_symptoms_calculation",
         "type": "edit_text",
         "hidden": "true",
         "calculation": {
