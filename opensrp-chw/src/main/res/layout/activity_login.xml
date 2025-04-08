@@ -164,7 +164,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:textSize="10sp"
-                android:text="Forgot your password?"
+                android:text="@string/forgot_your_password"
                 android:textAlignment="textEnd"
                 android:textColor="#585858" />
 
