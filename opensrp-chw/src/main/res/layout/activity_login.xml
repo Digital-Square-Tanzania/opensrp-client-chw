@@ -156,6 +156,18 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:textSize="10sp"
+                android:text="Forgot your password?"
+                android:textAlignment="textEnd"
+                android:textColor="#585858" />
+
         </LinearLayout>
         <!-- Bottom section -->
 
