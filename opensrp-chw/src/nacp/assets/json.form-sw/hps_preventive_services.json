@@ -165,15 +165,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_leaflets",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika vielelezo",
         "sort": true,
         "dialogTitle": "Chagua aina ya  ujumbe katika vielelezo",
         "searchHint": "Aina ya ujumbe",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -546,6 +545,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba"
+        },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
@@ -580,15 +583,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_posters",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika mabango",
         "sort": true,
         "dialogTitle": "Chagua aina ya ujumbe katika mabango",
         "searchHint": "Aina ya ujumbe",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -961,6 +963,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba"
+        },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
@@ -995,15 +1001,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_brochures",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika vijarida",
         "sort": true,
         "dialogTitle": "Chagua aina ya ujumbe katika vijarida",
         "searchHint": "Aina ya ujumbe",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -1376,6 +1381,10 @@
           "value": "1000",
           "err": "Number must be three digits"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba"
+        },
         "v_max_length": {
           "value": "3",
           "is_fixed_size": "true",
@@ -1472,15 +1481,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preventive_services_above_5_years_below_18_years",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
         "sort": true,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
         "searchHint": "Aina ya ujumbe",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "counselling",
@@ -1690,6 +1698,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preventive_services_above_18_years",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
         "maxSelectable": 5,
@@ -1697,8 +1706,6 @@
         "sort": true,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
         "searchHint": "Aina ya ujumbe",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "counselling",

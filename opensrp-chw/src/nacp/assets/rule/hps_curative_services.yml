@@ -136,7 +136,7 @@ condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes') && glob
 actions:
   - "isRelevant = true"
 ---
-name: step1_diseases_signs_and_symptoms_calculation
+name: step1_diseases_signs_and_symptoms
 description: hps diseases signs and symptoms
 priority: 1
 condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"

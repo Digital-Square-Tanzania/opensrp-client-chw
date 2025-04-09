@@ -42,7 +42,6 @@
     "encounter_location": ""
   },
   "global": {
-    "gender": "female"
   },
   "step1": {
     "title": "Curative Services",
@@ -80,7 +79,7 @@
         "key": "diseases_signs_and_symptoms_male",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "diseases_signs_and_symptoms",
+        "openmrs_entity_id": "diseases_signs_and_symptoms_male",
         "label": "Diseases Signs and Symptoms",
         "text_color": "#000000",
         "type": "check_box",
@@ -383,7 +382,7 @@
         "key": "diseases_signs_and_symptoms_female",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "diseases_signs_and_symptoms",
+        "openmrs_entity_id": "diseases_signs_and_symptoms_female",
         "label": "Diseases Signs and Symptoms",
         "text_color": "#000000",
         "type": "check_box",
@@ -690,10 +689,10 @@
         }
       },
       {
-        "key": "diseases_signs_and_symptoms_calculation",
+        "key": "diseases_signs_and_symptoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "diseases_signs_and_symptoms_calculation",
+        "openmrs_entity_id": "diseases_signs_and_symptoms",
         "type": "edit_text",
         "hidden": "true",
         "calculation": {

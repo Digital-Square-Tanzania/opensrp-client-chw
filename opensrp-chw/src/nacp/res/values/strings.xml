@@ -924,6 +924,7 @@
     <string name="hps_malaria_drugs">Malaria drugs (ALu)</string>
     <string name="hps_anti_pain">Anti-pain (panadol)</string>
     <string name="hps_food_supplements">Food Supplements (RUTF)</string>
+    <string name="hps_first_aid_services">First Aid</string>
 
 
     <string name="hps_provide_iec_materials">Were the IEC materials provided to the client?</string>
