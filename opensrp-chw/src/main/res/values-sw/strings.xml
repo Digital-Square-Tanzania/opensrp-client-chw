@@ -781,6 +781,7 @@
     <string name="client_details">Taarifa za mteja</string>
     <string name="chw_details">Taarifa za mja</string>
     <string name="multiselect_msg_on_item_added">Imeongezwa</string>
+    <string name="forgot_your_password">Je, umesahau nenosiri lako?</string>
 
 
 </resources>
