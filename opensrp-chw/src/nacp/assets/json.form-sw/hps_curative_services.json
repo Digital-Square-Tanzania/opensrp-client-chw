@@ -143,7 +143,7 @@
           },
           {
             "key": "soft_and_coloured_hair",
-            "text": "Nywele kuwa laini na kubadilika rangi.",
+            "text": "Nywele kuwa laini na kubadilika rangi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "soft_and_coloured_hair"

@@ -147,7 +147,7 @@
       {
         "key": "type_of_message_leaflets_title",
         "type": "label",
-        "text": "Aina ya ujumbe katika vielelezo",
+        "text": "Aina ya ujumbe katika Vipeperushi",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -170,7 +170,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika vielelezo",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua aina ya  ujumbe katika vielelezo",
         "searchHint": "Aina ya ujumbe",
         "options": [
@@ -588,7 +588,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika mabango",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua aina ya ujumbe katika mabango",
         "searchHint": "Aina ya ujumbe",
         "options": [
@@ -1006,7 +1006,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya ujumbe katika vijarida",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua aina ya ujumbe katika vijarida",
         "searchHint": "Aina ya ujumbe",
         "options": [
@@ -1486,7 +1486,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
         "searchHint": "Aina ya ujumbe",
         "options": [
@@ -1703,7 +1703,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
         "searchHint": "Aina ya ujumbe",
         "options": [
