@@ -132,7 +132,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 6,
         "buttonText": "+ Ongeza elimu iliyotolewa",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Chagua elimu iliyotolewa",
         "searchHint": "Elimu iliyotolewa",
         "options": [
