@@ -485,6 +485,8 @@ public class ReportDao extends AbstractDao {
             String selector = selectors[i];
             String key = keys[i];
 
+            Log.d("anga_q",key+" : "+selector);
+
             String sql = "SELECT COALESCE(ehacr." + selector + ", '0') as count " +
                     "FROM ec_hps_annual_census_register ehacr " +
                     "WHERE substr('%s', 1, 4) = ehacr.year " +
@@ -494,7 +496,6 @@ public class ReportDao extends AbstractDao {
                     "LIMIT 1";
 
             sql = sql.replace("%s", queryDate); // Simple replacement
-            Log.d("anga_q",sql);
 
             DataMap<Map<String, String>> map = cursor -> {
                 Map<String, String> data = new HashMap<>();

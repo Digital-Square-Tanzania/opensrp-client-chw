@@ -145,19 +145,34 @@
         }
       },
       {
+        "key": "type_of_message_leaflets_title",
+        "type": "label",
+        "text": "Type of message in Leaflets",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_leaflets_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_leaflets",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_leaflets",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Add type of message in leaflets",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Select Type of Message in Leaflets",
         "searchHint": "Type of message",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -167,7 +182,6 @@
             "property": {
               "presumed-id": "hiv_aids",
               "confirmed-id": "hiv_aids"
-
             }
           },
           {
@@ -178,7 +192,6 @@
             "property": {
               "presumed-id": "epidemic_diseases",
               "confirmed-id": "epidemic_diseases"
-
             }
           },
           {
@@ -189,7 +202,6 @@
             "property": {
               "presumed-id": "oral_dental_health",
               "confirmed-id": "oral_dental_health"
-
             }
           },
           {
@@ -200,7 +212,6 @@
             "property": {
               "presumed-id": "neaurological_disorders",
               "confirmed-id": "neaurological_disorders"
-
             }
           },
           {
@@ -211,7 +222,6 @@
             "property": {
               "presumed-id": "skin_health",
               "confirmed-id": "skin_health"
-
             }
           },
           {
@@ -222,7 +232,6 @@
             "property": {
               "presumed-id": "infectious_diseases",
               "confirmed-id": "infectious_diseases"
-
             }
           },
           {
@@ -233,7 +242,6 @@
             "property": {
               "presumed-id": "tb_and_leprosy",
               "confirmed-id": "tb_and_leprosy"
-
             }
           },
           {
@@ -244,7 +252,6 @@
             "property": {
               "presumed-id": "ear_throat_nose_health",
               "confirmed-id": "ear_throat_nose_health"
-
             }
           },
           {
@@ -255,7 +262,6 @@
             "property": {
               "presumed-id": "neglected_tropical_diseases",
               "confirmed-id": "neglected_tropical_diseases"
-
             }
           },
           {
@@ -266,7 +272,6 @@
             "property": {
               "presumed-id": "eye_health",
               "confirmed-id": "eye_health"
-
             }
           },
           {
@@ -277,7 +282,6 @@
             "property": {
               "presumed-id": "malaria",
               "confirmed-id": "malaria"
-
             }
           },
           {
@@ -288,7 +292,6 @@
             "property": {
               "presumed-id": "non_communicable_diseases",
               "confirmed-id": "non_communicable_diseases"
-
             }
           },
           {
@@ -299,7 +302,6 @@
             "property": {
               "presumed-id": "family_planning",
               "confirmed-id": "family_planning"
-
             }
           },
           {
@@ -310,7 +312,6 @@
             "property": {
               "presumed-id": "reproductive_maternal_adolescent_health",
               "confirmed-id": "reproductive_maternal_adolescent_health"
-
             }
           },
           {
@@ -321,7 +322,6 @@
             "property": {
               "presumed-id": "nutrition",
               "confirmed-id": "nutrition"
-
             }
           },
           {
@@ -332,7 +332,6 @@
             "property": {
               "presumed-id": "public_health_emergencies",
               "confirmed-id": "public_health_emergencies"
-
             }
           },
           {
@@ -343,7 +342,6 @@
             "property": {
               "presumed-id": "one_health",
               "confirmed-id": "one_health"
-
             }
           },
           {
@@ -354,7 +352,6 @@
             "property": {
               "presumed-id": "poisoning",
               "confirmed-id": "poisoning"
-
             }
           },
           {
@@ -365,7 +362,6 @@
             "property": {
               "presumed-id": "antimicrobial_resistance",
               "confirmed-id": "antimicrobial_resistance"
-
             }
           },
           {
@@ -376,7 +372,6 @@
             "property": {
               "presumed-id": "safe_clean_water_sanitation",
               "confirmed-id": "safe_clean_water_sanitation"
-
             }
           },
           {
@@ -568,19 +563,34 @@
         }
       },
       {
+        "key": "type_of_message_posters_title",
+        "type": "label",
+        "text": "Type of message in Posters",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_posters_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_posters",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_posters",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Add type of message in posters",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Select Type of Message in Posters",
         "searchHint": "Type of message",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -590,7 +600,6 @@
             "property": {
               "presumed-id": "hiv_aids",
               "confirmed-id": "hiv_aids"
-
             }
           },
           {
@@ -601,7 +610,6 @@
             "property": {
               "presumed-id": "epidemic_diseases",
               "confirmed-id": "epidemic_diseases"
-
             }
           },
           {
@@ -612,7 +620,6 @@
             "property": {
               "presumed-id": "oral_dental_health",
               "confirmed-id": "oral_dental_health"
-
             }
           },
           {
@@ -623,7 +630,6 @@
             "property": {
               "presumed-id": "neaurological_disorders",
               "confirmed-id": "neaurological_disorders"
-
             }
           },
           {
@@ -634,7 +640,6 @@
             "property": {
               "presumed-id": "skin_health",
               "confirmed-id": "skin_health"
-
             }
           },
           {
@@ -645,7 +650,6 @@
             "property": {
               "presumed-id": "infectious_diseases",
               "confirmed-id": "infectious_diseases"
-
             }
           },
           {
@@ -656,7 +660,6 @@
             "property": {
               "presumed-id": "tb_and_leprosy",
               "confirmed-id": "tb_and_leprosy"
-
             }
           },
           {
@@ -667,7 +670,6 @@
             "property": {
               "presumed-id": "ear_throat_nose_health",
               "confirmed-id": "ear_throat_nose_health"
-
             }
           },
           {
@@ -678,7 +680,6 @@
             "property": {
               "presumed-id": "neglected_tropical_diseases",
               "confirmed-id": "neglected_tropical_diseases"
-
             }
           },
           {
@@ -689,7 +690,6 @@
             "property": {
               "presumed-id": "eye_health",
               "confirmed-id": "eye_health"
-
             }
           },
           {
@@ -700,7 +700,6 @@
             "property": {
               "presumed-id": "malaria",
               "confirmed-id": "malaria"
-
             }
           },
           {
@@ -711,7 +710,6 @@
             "property": {
               "presumed-id": "non_communicable_diseases",
               "confirmed-id": "non_communicable_diseases"
-
             }
           },
           {
@@ -722,7 +720,6 @@
             "property": {
               "presumed-id": "family_planning",
               "confirmed-id": "family_planning"
-
             }
           },
           {
@@ -733,7 +730,6 @@
             "property": {
               "presumed-id": "reproductive_maternal_adolescent_health",
               "confirmed-id": "reproductive_maternal_adolescent_health"
-
             }
           },
           {
@@ -744,7 +740,6 @@
             "property": {
               "presumed-id": "nutrition",
               "confirmed-id": "nutrition"
-
             }
           },
           {
@@ -755,7 +750,6 @@
             "property": {
               "presumed-id": "public_health_emergencies",
               "confirmed-id": "public_health_emergencies"
-
             }
           },
           {
@@ -766,7 +760,6 @@
             "property": {
               "presumed-id": "one_health",
               "confirmed-id": "one_health"
-
             }
           },
           {
@@ -777,7 +770,6 @@
             "property": {
               "presumed-id": "poisoning",
               "confirmed-id": "poisoning"
-
             }
           },
           {
@@ -788,7 +780,6 @@
             "property": {
               "presumed-id": "antimicrobial_resistance",
               "confirmed-id": "antimicrobial_resistance"
-
             }
           },
           {
@@ -799,7 +790,6 @@
             "property": {
               "presumed-id": "safe_clean_water_sanitation",
               "confirmed-id": "safe_clean_water_sanitation"
-
             }
           },
           {
@@ -991,19 +981,34 @@
         }
       },
       {
+        "key": "type_of_message_brochures_title",
+        "type": "label",
+        "text": "Type of message in Brochures",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_message_brochures_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "type_of_message_brochures",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_brochures",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
-        "maxSelectable": 6,
+        "maxSelectable": 5,
         "buttonText": "+ Add type of message in brochures",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Select Type of Message in Brochures",
         "searchHint": "Type of message",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "hiv_aids",
@@ -1013,7 +1018,6 @@
             "property": {
               "presumed-id": "hiv_aids",
               "confirmed-id": "hiv_aids"
-
             }
           },
           {
@@ -1024,7 +1028,6 @@
             "property": {
               "presumed-id": "epidemic_diseases",
               "confirmed-id": "epidemic_diseases"
-
             }
           },
           {
@@ -1035,7 +1038,6 @@
             "property": {
               "presumed-id": "oral_dental_health",
               "confirmed-id": "oral_dental_health"
-
             }
           },
           {
@@ -1046,7 +1048,6 @@
             "property": {
               "presumed-id": "neaurological_disorders",
               "confirmed-id": "neaurological_disorders"
-
             }
           },
           {
@@ -1057,7 +1058,6 @@
             "property": {
               "presumed-id": "skin_health",
               "confirmed-id": "skin_health"
-
             }
           },
           {
@@ -1068,7 +1068,6 @@
             "property": {
               "presumed-id": "infectious_diseases",
               "confirmed-id": "infectious_diseases"
-
             }
           },
           {
@@ -1079,7 +1078,6 @@
             "property": {
               "presumed-id": "tb_and_leprosy",
               "confirmed-id": "tb_and_leprosy"
-
             }
           },
           {
@@ -1090,7 +1088,6 @@
             "property": {
               "presumed-id": "ear_throat_nose_health",
               "confirmed-id": "ear_throat_nose_health"
-
             }
           },
           {
@@ -1101,7 +1098,6 @@
             "property": {
               "presumed-id": "neglected_tropical_diseases",
               "confirmed-id": "neglected_tropical_diseases"
-
             }
           },
           {
@@ -1112,7 +1108,6 @@
             "property": {
               "presumed-id": "eye_health",
               "confirmed-id": "eye_health"
-
             }
           },
           {
@@ -1123,7 +1118,6 @@
             "property": {
               "presumed-id": "malaria",
               "confirmed-id": "malaria"
-
             }
           },
           {
@@ -1134,7 +1128,6 @@
             "property": {
               "presumed-id": "non_communicable_diseases",
               "confirmed-id": "non_communicable_diseases"
-
             }
           },
           {
@@ -1145,7 +1138,6 @@
             "property": {
               "presumed-id": "family_planning",
               "confirmed-id": "family_planning"
-
             }
           },
           {
@@ -1156,7 +1148,6 @@
             "property": {
               "presumed-id": "reproductive_maternal_adolescent_health",
               "confirmed-id": "reproductive_maternal_adolescent_health"
-
             }
           },
           {
@@ -1167,7 +1158,6 @@
             "property": {
               "presumed-id": "nutrition",
               "confirmed-id": "nutrition"
-
             }
           },
           {
@@ -1178,7 +1168,6 @@
             "property": {
               "presumed-id": "public_health_emergencies",
               "confirmed-id": "public_health_emergencies"
-
             }
           },
           {
@@ -1189,7 +1178,6 @@
             "property": {
               "presumed-id": "one_health",
               "confirmed-id": "one_health"
-
             }
           },
           {
@@ -1200,7 +1188,6 @@
             "property": {
               "presumed-id": "poisoning",
               "confirmed-id": "poisoning"
-
             }
           },
           {
@@ -1211,7 +1198,6 @@
             "property": {
               "presumed-id": "antimicrobial_resistance",
               "confirmed-id": "antimicrobial_resistance"
-
             }
           },
           {
@@ -1222,7 +1208,6 @@
             "property": {
               "presumed-id": "safe_clean_water_sanitation",
               "confirmed-id": "safe_clean_water_sanitation"
-
             }
           },
           {
@@ -1476,19 +1461,34 @@
         }
       },
       {
+        "key": "preventive_services_title",
+        "type": "label",
+        "text": "Preventive services provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "preventive_services_above_5_years_below_18_years",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preventive_services_above_5_years_below_18_years",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Add preventive services provided",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Select preventive services provided",
-        "searchHint": "Type of preventive services",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
+        "searchHint": "Type of message",
         "options": [
           {
             "key": "counselling",
@@ -1498,7 +1498,6 @@
             "property": {
               "presumed-id": "counselling",
               "confirmed-id": "counselling"
-
             }
           },
           {
@@ -1509,7 +1508,6 @@
             "property": {
               "presumed-id": "family_planning_pills",
               "confirmed-id": "family_planning_pills"
-
             }
           },
           {
@@ -1520,7 +1518,6 @@
             "property": {
               "presumed-id": "iron_folic_tablets",
               "confirmed-id": "iron_folic_tablets"
-
             }
           },
           {
@@ -1531,7 +1528,6 @@
             "property": {
               "presumed-id": "deworming_medication",
               "confirmed-id": "deworming_medication"
-
             }
           },
           {
@@ -1542,7 +1538,6 @@
             "property": {
               "presumed-id": "male_condoms",
               "confirmed-id": "male_condoms"
-
             }
           },
           {
@@ -1553,7 +1548,6 @@
             "property": {
               "presumed-id": "female_condoms",
               "confirmed-id": "female_condoms"
-
             }
           },
           {
@@ -1564,7 +1558,6 @@
             "property": {
               "presumed-id": "post_exposure_prophylaxis",
               "confirmed-id": "post_exposure_prophylaxis"
-
             }
           },
           {
@@ -1575,7 +1568,6 @@
             "property": {
               "presumed-id": "pre_exposure_prophylaxis",
               "confirmed-id": "pre_exposure_prophylaxis"
-
             }
           },
           {
@@ -1586,7 +1578,6 @@
             "property": {
               "presumed-id": "fortified_foods",
               "confirmed-id": "fortified_foods"
-
             }
           },
           {
@@ -1597,7 +1588,6 @@
             "property": {
               "presumed-id": "distribution_mosquito_nets",
               "confirmed-id": "distribution_mosquito_nets"
-
             }
           },
           {
@@ -1608,7 +1598,6 @@
             "property": {
               "presumed-id": "distribution_water_purification_tablets",
               "confirmed-id": "distribution_water_purification_tablets"
-
             }
           },
           {
@@ -1619,7 +1608,6 @@
             "property": {
               "presumed-id": "psychological_counselling",
               "confirmed-id": "psychological_counselling"
-
             }
           },
           {
@@ -1630,7 +1618,6 @@
             "property": {
               "presumed-id": "preliminary_screening_tb",
               "confirmed-id": "preliminary_screening_tb"
-
             }
           },
           {
@@ -1641,7 +1628,6 @@
             "property": {
               "presumed-id": "gender_based_violence_screening",
               "confirmed-id": "gender_based_violence_screening"
-
             }
           },
           {
@@ -1652,7 +1638,6 @@
             "property": {
               "presumed-id": "collection_sputum_stool_samples",
               "confirmed-id": "collection_sputum_stool_samples"
-
             }
           },
           {
@@ -1713,15 +1698,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preventive_services_above_18_years",
+        "openmrs_data_type": "select one",
         "type": "multi_select_list",
         "save_obs_as_array": true,
         "maxSelectable": 5,
         "buttonText": "+ Add preventive services provided",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Select preventive services provided",
-        "searchHint": "Type of preventive services",
-        "text_color": "#000000",
-        "combine_checkbox_option_values": "true",
+        "searchHint": "Type of message",
         "options": [
           {
             "key": "counselling",
@@ -1731,7 +1715,6 @@
             "property": {
               "presumed-id": "counselling",
               "confirmed-id": "counselling"
-
             }
           },
           {
@@ -1742,7 +1725,6 @@
             "property": {
               "presumed-id": "family_planning_pills",
               "confirmed-id": "family_planning_pills"
-
             }
           },
           {
@@ -1753,7 +1735,6 @@
             "property": {
               "presumed-id": "iron_folic_tablets",
               "confirmed-id": "iron_folic_tablets"
-
             }
           },
           {
@@ -1764,7 +1745,6 @@
             "property": {
               "presumed-id": "deworming_medication",
               "confirmed-id": "deworming_medication"
-
             }
           },
           {
@@ -1775,7 +1755,6 @@
             "property": {
               "presumed-id": "male_condoms",
               "confirmed-id": "male_condoms"
-
             }
           },
           {
@@ -1786,7 +1765,6 @@
             "property": {
               "presumed-id": "female_condoms",
               "confirmed-id": "female_condoms"
-
             }
           },
           {
@@ -1797,7 +1775,6 @@
             "property": {
               "presumed-id": "post_exposure_prophylaxis",
               "confirmed-id": "post_exposure_prophylaxis"
-
             }
           },
           {
@@ -1808,7 +1785,6 @@
             "property": {
               "presumed-id": "pre_exposure_prophylaxis",
               "confirmed-id": "pre_exposure_prophylaxis"
-
             }
           },
           {
@@ -1819,7 +1795,6 @@
             "property": {
               "presumed-id": "fortified_foods",
               "confirmed-id": "fortified_foods"
-
             }
           },
           {
@@ -1830,7 +1805,6 @@
             "property": {
               "presumed-id": "distribution_mosquito_nets",
               "confirmed-id": "distribution_mosquito_nets"
-
             }
           },
           {
@@ -1841,7 +1815,6 @@
             "property": {
               "presumed-id": "hiv_self_test_kits",
               "confirmed-id": "hiv_self_test_kits"
-
             }
           },
           {
@@ -1852,7 +1825,6 @@
             "property": {
               "presumed-id": "distribution_water_purification_tablets",
               "confirmed-id": "distribution_water_purification_tablets"
-
             }
           },
           {
@@ -1863,7 +1835,6 @@
             "property": {
               "presumed-id": "psychological_counselling",
               "confirmed-id": "psychological_counselling"
-
             }
           },
           {
@@ -1874,7 +1845,6 @@
             "property": {
               "presumed-id": "preliminary_screening_tb",
               "confirmed-id": "preliminary_screening_tb"
-
             }
           },
           {
@@ -1885,7 +1855,6 @@
             "property": {
               "presumed-id": "gender_based_violence_screening",
               "confirmed-id": "gender_based_violence_screening"
-
             }
           },
           {
@@ -1896,7 +1865,6 @@
             "property": {
               "presumed-id": "collection_sputum_stool_samples",
               "confirmed-id": "collection_sputum_stool_samples"
-
             }
           },
           {

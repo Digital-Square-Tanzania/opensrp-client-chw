@@ -132,7 +132,7 @@
         "save_obs_as_array": true,
         "maxSelectable": 6,
         "buttonText": "+ Add education provided",
-        "sort": true,
+        "sort": false,
         "dialogTitle": "Add education provided",
         "searchHint": "Education provided",
         "options": [
