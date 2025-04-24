@@ -571,6 +571,15 @@
             }
           }
         }
+      },
+
+      {
+        "key": "comments",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comments",
+        "type": "edit_text",
+        "hint": "Maoni"
       }
     ]
   }
