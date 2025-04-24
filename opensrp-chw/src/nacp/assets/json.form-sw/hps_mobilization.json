@@ -282,17 +282,24 @@
           "err": "Namba inatakiwa iwe kubwa kuliko must 0"
         },
         "v_max": {
-          "value": "1000",
-          "err": "Namba inatakiwa iwe ndogo kuliko must 1000"
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
         },
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
-          "value": "3",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -312,17 +319,24 @@
           "err": "Namba inatakiwa iwe kubwa kuliko must 0"
         },
         "v_max": {
-          "value": "1000",
-          "err": "Namba inatakiwa iwe ndogo kuliko must 1000"
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
         },
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza nambari"
         },
         "v_max_length": {
-          "value": "3",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -489,7 +503,7 @@
             "openmrs_entity_id": "eye_diseases_and_testing",
             "property": {
               "presumed-id": "eye_diseases_and_testing",
-              "confirmed-id":"eye_diseases_and_testing"
+              "confirmed-id": "eye_diseases_and_testing"
             }
           },
           {
@@ -1377,6 +1391,14 @@
             }
           }
         }
+      },
+      {
+        "key": "comments",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comments",
+        "type": "edit_text",
+        "hint": "Maoni"
       }
     ]
   }

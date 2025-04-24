@@ -76,10 +76,10 @@
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"client_criteria_below_12",
-        "type":"native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label":"Chagua kigezo cha mteja",
         "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
         "options":[
           {
             "key":"person_living_with_hiv",
@@ -159,10 +159,10 @@
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"client_criteria_above_12_male_above_15",
-        "type":"native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label":"Chagua kigezo cha mteja",
         "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
         "options": [
           {
             "key":"parent_child_under_five",
@@ -254,10 +254,10 @@
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"client_criteria_above_12_male_below_15",
-        "type":"native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label":"Chagua kigezo cha mteja",
         "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
         "options": [
           {
             "key":"parent_child_under_five",
@@ -355,10 +355,10 @@
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"client_criteria_above_12_female_above_15",
-        "type":"native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label":"Chagua kigezo cha mteja",
         "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
         "options": [
           {
             "key":"pregnant_woman",
@@ -468,10 +468,10 @@
         "openmrs_entity_parent":"",
         "openmrs_entity":"concept",
         "openmrs_entity_id":"client_criteria_above_12_female_below_15",
-        "type":"native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label":"Chagua kigezo cha mteja",
         "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
         "options": [
           {
             "key":"pregnant_woman",

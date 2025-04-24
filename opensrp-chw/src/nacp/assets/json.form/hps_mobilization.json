@@ -282,17 +282,24 @@
           "err": "Number must be equal or greater than 0"
         },
         "v_max": {
-          "value": "1000",
-          "err": "Number must be three digits"
+          "value": "10000",
+          "err": "Number must be four digits"
         },
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
         },
         "v_max_length": {
-          "value": "3",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -312,17 +319,24 @@
           "err": "Number must be equal or greater than 0"
         },
         "v_max": {
-          "value": "1000",
-          "err": "Number must be three digits"
+          "value": "10000",
+          "err": "Number must be four digits"
         },
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
         },
         "v_max_length": {
-          "value": "3",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
         }
       },
       {
@@ -489,7 +503,7 @@
             "openmrs_entity_id": "eye_diseases_and_testing",
             "property": {
               "presumed-id": "eye_diseases_and_testing",
-              "confirmed-id":"eye_diseases_and_testing"
+              "confirmed-id": "eye_diseases_and_testing"
             }
           },
           {
@@ -1377,6 +1391,14 @@
             }
           }
         }
+      },
+      {
+        "key": "comments",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comments",
+        "type": "edit_text",
+        "hint": "Remarks/Comments"
       }
     ]
   }

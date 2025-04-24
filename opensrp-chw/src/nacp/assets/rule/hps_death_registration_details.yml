@@ -17,7 +17,8 @@ name: step1_cause_of_death_specify
 description: Rule to control the visibility of (step1_cause_of_death_specify)
 priority: 1
 condition: "step1_cause_of_death_female.equalsIgnoreCase('other_reason') ||
-            step1_cause_of_death_male.equalsIgnoreCase('other_reason')
+            step1_cause_of_death_male.equalsIgnoreCase('other_reason') ||
+            step1_cause_of_death_dob_dod.equalsIgnoreCase('other_reason')
             "
 actions:
   - "isRelevant = true"
