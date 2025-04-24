@@ -572,7 +572,6 @@
           }
         }
       },
-
       {
         "key": "comments",
         "openmrs_entity_parent": "",

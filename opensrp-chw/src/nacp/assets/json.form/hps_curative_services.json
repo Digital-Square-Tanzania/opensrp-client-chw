@@ -727,7 +727,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_disease_test_conducted",
-        "label": "Did the client undergo disease tests?",
+        "label": "Did the client undergo medical tests?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -763,7 +763,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_test_conducted",
-        "label": "Disease Test Conducted",
+        "label": "Tests Conducted",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -1228,7 +1228,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_treatment_provided",
-        "label": "Was the client provided with treatment?",
+        "label": "Has the client been provided with treatment?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

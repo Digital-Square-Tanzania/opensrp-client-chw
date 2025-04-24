@@ -226,6 +226,20 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "death_occurred_during_births_fsb"
+          },
+          {
+            "key": "accidents",
+            "text": "Accidents",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents"
+          },
+          {
+            "key": "other_reason",
+            "text": "Other reason",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
           }
         ],
         "v_required": {
@@ -332,11 +346,7 @@
         "openmrs_entity_id": "comments",
         "hint": "Comments",
         "text_color": "#000000",
-        "type": "edit_text",
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        }
+        "type": "edit_text"
       }
     ]
   }
