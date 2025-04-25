@@ -3509,7 +3509,7 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id":"social_services"
+        "openmrs_entity_id": "social_services"
       },
       {
         "key": "number_of_households_most_commonly_use_tap_as_sources_of_water",
@@ -4184,7 +4184,7 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id":"economic_activities"
+        "openmrs_entity_id": "economic_activities"
       },
       {
         "key": "number_of_male_capable_of_engaging_in_economic_activities",
@@ -4320,7 +4320,7 @@
           }
         ]
       }
-      ]
+    ]
   },
   "step5": {
     "title": "Committee meetings & Traditional medicine",
@@ -4333,7 +4333,7 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id":"committee_meetings"
+        "openmrs_entity_id": "committee_meetings"
       },
       {
         "key": "number_of_health_committee_members_for_effective_committee_meetings",
@@ -4520,7 +4520,7 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id":"traditional_medicine"
+        "openmrs_entity_id": "traditional_medicine"
       },
       {
         "key": "number_of_registered_alternative_medicine_service_providers",

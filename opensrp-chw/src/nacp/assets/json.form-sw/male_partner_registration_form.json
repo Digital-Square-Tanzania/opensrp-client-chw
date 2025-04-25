@@ -464,7 +464,7 @@
           },
           {
             "key": "chk_none",
-            "text": "Hakuna",
+            "text": "Hana",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -605,7 +605,7 @@
           "Bima ya afya ya Resolutions",
           "Bima ya afya ya Reliance",
           "Nyinginezo",
-          "Hakuna"
+          "Hana"
         ],
         "keys": [
           "Community Health Fund (CHF)",
