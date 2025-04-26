@@ -624,7 +624,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step1:number_of_house_hold)",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya"
           }
         ]
@@ -661,7 +661,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step1:number_of_house_hold)",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya"
           }
         ]
@@ -700,7 +700,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
@@ -730,7 +737,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
@@ -760,7 +774,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       }
     ]
   },
@@ -2179,7 +2200,6 @@
             }
           }
         }
-
       },
       {
         "key": "number_of_primary_schools_public",
@@ -3483,6 +3503,15 @@
     "next": "step5",
     "fields": [
       {
+        "key": "social_services",
+        "type": "label",
+        "text": "Huduma za kijamii",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_services"
+      },
+      {
         "key": "number_of_households_most_commonly_use_tap_as_sources_of_water",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4023,6 +4052,15 @@
         }
       },
       {
+        "key": "economic_activities",
+        "type": "label",
+        "text": "Shughuli za kiuchumi",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "economic_activities"
+      },
+      {
         "key": "number_of_male_capable_of_engaging_in_economic_activities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4163,6 +4201,15 @@
     "next": "step6",
     "fields": [
       {
+        "key": "committee_meetings",
+        "type": "label",
+        "text": "Mikutano ya kamati ya afya kwa ajili ya mikutano ya kamati yenye ufanisi",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "committee_meetings"
+      },
+      {
         "key": "number_of_health_committee_members_for_effective_committee_meetings",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4224,7 +4271,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
           }
         ]
@@ -4261,7 +4308,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
           }
         ]
@@ -4298,7 +4345,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
           }
         ]
@@ -4335,10 +4382,19 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi wajumbe waliohudhuria katika robo ya kwanza ya mwaka"
           }
         ]
+      },
+      {
+        "key": "traditional_medicine",
+        "type": "label",
+        "text": "Tiba mbadala na Tiba Asili",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "traditional_medicine"
       },
       {
         "key": "number_of_registered_alternative_medicine_service_providers",
@@ -4498,7 +4554,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step1:number_of_house_hold)",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zote"
           }
         ]
@@ -4535,7 +4591,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4572,7 +4628,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4609,7 +4665,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4646,7 +4702,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4683,7 +4739,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4720,7 +4776,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4757,7 +4813,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4794,7 +4850,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4831,7 +4887,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -4868,7 +4924,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step6:number_of_housholds_inspected)",
+            "ex": "lessThanEqualTo(., step6:number_of_housholds_inspected)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya kaya zilizokaguliwa"
           }
         ]
@@ -5391,7 +5447,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_food_shop_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_food_shop_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maduka  yaliyotembelewa"
           }
         ]
@@ -5428,7 +5484,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_restaurants_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_restaurants_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya hoteli au migahawa iliyotembelewa"
           }
         ]
@@ -5465,7 +5521,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_butcheries_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_butcheries_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya bucha zilizotembelewa"
           }
         ]
@@ -5502,7 +5558,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_bar_and_clubs_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_bar_and_clubs_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya klabu au baa zilizotembelewa"
           }
         ]
@@ -5539,7 +5595,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_guest_house_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_guest_house_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya nyumba zilizotembelewa"
           }
         ]
@@ -5576,7 +5632,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_loca_food_vendors_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_loca_food_vendors_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi iliyotembelewa"
           }
         ]
@@ -5613,7 +5669,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_markets_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_markets_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya masoko yaliyotembelewa"
           }
         ]
@@ -5650,7 +5706,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_public_toilets_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_public_toilets_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya vyoo vilivyotembelewa"
           }
         ]
@@ -5687,7 +5743,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_bus_stations_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_bus_stations_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya vituo vilivyotembelewa"
           }
         ]
@@ -5724,7 +5780,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_primary_schools_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_primary_schools_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya shule zilizotembelewa"
           }
         ]
@@ -5761,7 +5817,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_secondary_schools_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_secondary_schools_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya shule zilizotembelewa"
           }
         ]
@@ -5798,7 +5854,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_hospital_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_hospital_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya hospitali zilizotembelewa"
           }
         ]
@@ -5835,7 +5891,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_health_centers_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_health_centers_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya vituo vya afya vilivyotembelewa"
           }
         ]
@@ -5872,7 +5928,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_dispensaries_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_dispensaries_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya zahanati zilizotembelewa"
           }
         ]
@@ -5909,7 +5965,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_offices_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_offices_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ofisi zilizotembelewa"
           }
         ]
@@ -5946,7 +6002,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step7:number_of_universities_college_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_universities_college_visited)",
             "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya vyuo vilivyotembelewa"
           }
         ]
@@ -6195,7 +6251,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_agriculture_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya kilimo yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
@@ -6225,7 +6288,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_livestock_keeping_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya ufugaji yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_fishing_areas_inspected_with_risk_indicators",
@@ -6255,7 +6325,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_fishing_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya uvuvi yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_industries_areas_inspected_with_risk_indicators",
@@ -6285,7 +6362,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_industries_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya viwanda yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_offices_areas_inspected_with_risk_indicators",
@@ -6315,7 +6399,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_offices_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya ofisi zilizokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_transportation_areas_inspected_with_risk_indicators",
@@ -6345,7 +6436,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_inspected_transportation_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo ya usafiri yaliyokaguliwa"
+          }
+        ]
       },
       {
         "key": "number_of_other_areas_inspected_with_risk_indicators",
@@ -6375,7 +6473,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step8:number_of_other_inspected_areas)",
+            "err": "Namba haitakiwi kuwa sawa au kuzidi idadi ya maeneo mengine yaliyokaguliwa"
+          }
+        ]
       }
     ]
   },
@@ -6591,7 +6696,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_grains)",
+            "err": "must not be greater than number of inspected grains"
+          }
+        ]
       },
       {
         "key": "number_of_legumes_discarded",
@@ -6621,7 +6733,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_legumes)",
+            "err": "must not be greater than number of inspected legumes"
+          }
+        ]
       },
       {
         "key": "number_of_meat_discarded",
@@ -6651,7 +6770,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_meat)",
+            "err": "must not be greater than number of inspected meat"
+          }
+        ]
       },
       {
         "key": "number_of_fishing_discarded",
@@ -6681,7 +6807,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_fishing)",
+            "err": "must not be greater than number of inspected fishing"
+          }
+        ]
       },
       {
         "key": "number_of_alcoholic_beverage_discarded",
@@ -6711,7 +6844,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_alcoholic_beverages)",
+            "err": "must not be greater than number of inspected alcoholic beverages"
+          }
+        ]
       },
       {
         "key": "number_of_non_alcoholic_beverage_discarded",
@@ -6741,7 +6881,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step9:number_of_inspected_non_alcoholic_beverages)",
+            "err": "must not be greater than number of inspected non alcoholic beverages"
+          }
+        ]
       }
     ]
   },

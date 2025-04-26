@@ -41,7 +41,8 @@
     },
     "encounter_location": ""
   },
-  "global": {},
+  "global": {
+  },
   "step1": {
     "title": "Referral Services",
     "fields": [
@@ -60,10 +61,10 @@
             "openmrs_entity_id": "yes"
           },
           {
-            "key": "no_provide_iec_materials",
+            "key": "no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no_provide_iec_materials"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
@@ -72,10 +73,10 @@
         }
       },
       {
-        "key": "referral_provided",
+        "key": "referral_provided_male",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_provided",
+        "openmrs_entity_id": "referral_provided_male",
         "type": "check_box",
         "label": "Select referral service provided to the client",
         "text_color": "#000000",
@@ -84,12 +85,6 @@
           "none"
         ],
         "options": [
-          {
-            "key": "anc_services",
-            "text": "ANC Services",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "anc_services"
-          },
           {
             "key": "family_planning",
             "text": "Family Planning",
@@ -115,22 +110,10 @@
             "openmrs_entity_id": "vaccination"
           },
           {
-            "key": "pnc_care",
-            "text": "Postnatal Mother and Child Care (PNC)",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pnc_care"
-          },
-          {
             "key": "child_investigation_treatment",
             "text": "Child Investigation and Treatment",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "child_investigation_treatment"
-          },
-          {
-            "key": "cervical_breast_cancer",
-            "text": "Cervical and Breast Cancer Test",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cervical_breast_cancer"
           },
           {
             "key": "low_blood",
@@ -224,6 +207,167 @@
         }
       },
       {
+        "key": "referral_provided_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_provided_female",
+        "type": "check_box",
+        "label": "Select referral service provided to the client",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "anc_services",
+            "text": "ANC Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anc_services"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "sexually_transmitted",
+            "text": "HIV, Hepatitis,Sexually Transmitted Infections(STI) Testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexually_transmitted"
+          },
+          {
+            "key": "client_engagement_treatment",
+            "text": "Client Re-engagement to treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_engagement_treatment"
+          },
+          {
+            "key": "vaccination",
+            "text": "Vaccination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaccination"
+          },
+          {
+            "key": "pnc_care",
+            "text": "Postnatal Mother and Child Care (PNC)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pnc_care"
+          },
+          {
+            "key": "child_investigation_treatment",
+            "text": "Child Investigation and Treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_investigation_treatment"
+          },
+          {
+            "key": "cervical_breast_cancer",
+            "text": "Cervical and Breast Cancer Test",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_breast_cancer"
+          },
+          {
+            "key": "low_blood",
+            "text": "Low blood test",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "low_blood"
+          },
+          {
+            "key": "malnutrition_treatment",
+            "text": "Malnutrition Treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malnutrition_treatment"
+          },
+          {
+            "key": "other_malaria",
+            "text": "Other Malaria Treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_malaria"
+          },
+          {
+            "key": "tuberculosis_test",
+            "text": "Tuberculosis Test",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_test"
+          },
+          {
+            "key": "oral_health_care",
+            "text": "Oral Health Care",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_health_care"
+          },
+          {
+            "key": "eye_health_care",
+            "text": "Eye Health Care",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_health_care"
+          },
+          {
+            "key": "social_welfare",
+            "text": "Social Welfare Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "social_welfare"
+          },
+          {
+            "key": "ntd_services",
+            "text": "Neglected Tropical Diseases Services (NTDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ntd_services"
+          },
+          {
+            "key": "ncd_services",
+            "text": "Non-Communicable Diseases Services (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ncd_services"
+          },
+          {
+            "key": "mental_health_services",
+            "text": "Mental Health Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_services"
+          },
+          {
+            "key": "animal_bites_services",
+            "text": "Animal bites Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "animal_bites_services"
+          },
+          {
+            "key": "other_referral_services",
+            "text": "Other Referrals services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_referral_services"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_provided",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "others_referrals_specify",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -267,6 +411,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
         }
       },
       {

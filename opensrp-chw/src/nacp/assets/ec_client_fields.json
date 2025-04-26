@@ -8501,6 +8501,198 @@
           }
         },
         {
+          "column_name": "number_of_households_most_commonly_use_tap_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_tap_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_river_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_river_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_shallow_well_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_shallow_well_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_water_pond_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_water_pond_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_small_dam_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_small_dam_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_lake_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_lake_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_most_commonly_use_spring_as_sources_of_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_most_commonly_use_spring_as_sources_of_water"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_electricity_as_source_of_energy_for_lighting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_electricity_as_source_of_energy_for_lighting"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_solar_as_source_of_energy_for_lighting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_solar_as_source_of_energy_for_lighting"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_kerosine_as_source_of_energy_for_lighting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_kerosine_as_source_of_energy_for_lighting"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_koroboi_as_source_of_energy_for_lighting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_koroboi_as_source_of_energy_for_lighting"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_other_source_of_energy_for_lighting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_other_source_of_energy_for_lighting"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_electricity_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_electricity_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_solar_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_solar_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_kerosine_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_kerosine_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_gas_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_gas_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_charcoal_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_charcoal_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_households_using_firewood_as_source_of_cooking_energy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_households_using_firewood_as_source_of_cooking_energy"
+          }
+        },
+        {
+          "column_name": "number_of_health_committee_members_for_effective_committee_meetings",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_health_committee_members_for_effective_committee_meetings"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_fisrt_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_fisrt_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_registered_alternative_medicine_service_providers",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_registered_alternative_medicine_service_providers"
+          }
+        },
+        {
+          "column_name": "number_of_registered_traditional_medicine_service_providers",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_registered_traditional_medicine_service_providers"
+          }
+        },
+        {
+          "column_name": "number_of_unregistered_alternative_medicine_service_providers",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_unregistered_alternative_medicine_service_providers"
+          }
+        },
+        {
+          "column_name": "number_of_unregistered_traditional_medicine_service_providers",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_unregistered_traditional_medicine_service_providers"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

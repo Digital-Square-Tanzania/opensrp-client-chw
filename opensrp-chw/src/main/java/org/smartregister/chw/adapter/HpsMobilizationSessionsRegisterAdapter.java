@@ -107,7 +107,11 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
             clientsReached.setVisibility(View.VISIBLE);
 
             sbccSessionDate.setText(Html.fromHtml(context.getString(R.string.hps_session_date, hpsMobilizationSessionModel.getDateOfGathering())));
-            clientsReached.setText(Html.fromHtml(context.getString(R.string.hps_clients_reached, hpsMobilizationSessionModel.getNumberOfMalesWhoAttended() + hpsMobilizationSessionModel.getNumberOfFemalesWhoAttended())));
+
+            int malesAttended = Integer.parseInt(hpsMobilizationSessionModel.getNumberOfMalesWhoAttended());
+            int femalesAttended = Integer.parseInt(hpsMobilizationSessionModel.getNumberOfFemalesWhoAttended());
+            int totalClientsReached = malesAttended + femalesAttended;
+            clientsReached.setText(Html.fromHtml(context.getString(R.string.hps_clients_reached, totalClientsReached)));
 
             if (StringUtils.isNotBlank(hpsMobilizationSessionModel.getEducationProvided()) && !hpsMobilizationSessionModel.getEducationProvided().equalsIgnoreCase("null")) {
                 evaluateView(typeOfCommunitySbcActivity, context, hpsMobilizationSessionModel.getEducationProvided());

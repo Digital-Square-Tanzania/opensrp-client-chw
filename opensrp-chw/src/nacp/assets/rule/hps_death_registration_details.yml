@@ -17,7 +17,8 @@ name: step1_cause_of_death_specify
 description: Rule to control the visibility of (step1_cause_of_death_specify)
 priority: 1
 condition: "step1_cause_of_death_female.equalsIgnoreCase('other_reason') ||
-            step1_cause_of_death_male.equalsIgnoreCase('other_reason')
+            step1_cause_of_death_male.equalsIgnoreCase('other_reason') ||
+            step1_cause_of_death_dob_dod.equalsIgnoreCase('other_reason')
             "
 actions:
   - "isRelevant = true"
@@ -39,3 +40,19 @@ actions:
                    else if (!step1_cause_of_death_female.isEmpty()) { return step1_cause_of_death_female }
                    else {return '' }
     "
+
+---
+name: step1_dob
+description: Ensure Date of Birth (DOB) is before Date of Death (DOD)
+priority: 1
+condition: "step1_dob > step1_dod"
+actions:
+  - "isValid = false"
+  - "errorMessage = 'Date of Birth must be earlier than Date of Death'"
+---
+name: step1_dob_validation_toaster
+description: Display toaster error message when DOB is greater than or equal to DOD
+priority: 1
+condition: "step1_dob > step1_dod"
+actions:
+  - "isRelevant = true"

@@ -269,7 +269,7 @@
           "Bima ya afya ya Resolutions",
           "Bima ya afya ya Reliance",
           "Nyingine",
-          "Hakuna"
+          "Hana"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -370,7 +370,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilities",
         "type": "spinner",
-        "hint": "Ulemavu wa kimwili",
+        "hint": "Ulemavu",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -395,7 +395,7 @@
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Aina ya ulemavu wa kimwili",
+        "label": "Aina ya Ulemavu",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -463,7 +463,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingiza aina ya ulemavu wa kimwili"
+          "err": "Tafadhali ingiza aina ya Ulemavu"
         }
       },
       {

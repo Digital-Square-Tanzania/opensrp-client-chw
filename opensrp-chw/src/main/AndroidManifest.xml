@@ -31,6 +31,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:parentActivityName=".activity.LoginActivity"/>
+        <activity
             android:name=".activity.KvpPrEPRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
