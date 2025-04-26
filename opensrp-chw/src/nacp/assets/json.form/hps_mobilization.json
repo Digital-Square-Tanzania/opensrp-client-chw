@@ -882,6 +882,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1027,6 +1033,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1170,6 +1182,12 @@
             "text": "Cervical Cancer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "others",

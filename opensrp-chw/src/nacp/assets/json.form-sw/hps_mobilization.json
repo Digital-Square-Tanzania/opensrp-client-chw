@@ -882,6 +882,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Mengineyo",
             "openmrs_entity": "concept",
@@ -1027,6 +1033,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Mengineyo",
             "openmrs_entity": "concept",
@@ -1170,6 +1182,12 @@
             "text": "Saratani ya shingo ya kizazi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "others",
