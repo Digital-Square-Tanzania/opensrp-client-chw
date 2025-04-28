@@ -243,11 +243,11 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Facility", "Health Facility", "Village", "Village Sublocations"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "Facility", "Health Facility", "Village", "Village Sublocations"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward","Council","Health Facility", "Village", "Hamlet"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Facility", "Health Facility", "Village", "Hamlet"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "Facility", "Health Facility", "Village", "Hamlet"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
             buildConfigField "int", "DATABASE_VERSION", '29'
         }
@@ -270,7 +270,8 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-ALPHA17-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-ALPHA22-MOH-SNAPSHOT@aar') {
+
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

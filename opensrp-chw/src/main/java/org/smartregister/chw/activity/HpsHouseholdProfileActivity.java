@@ -89,7 +89,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     public void setProfileViewWithData() {
         super.setProfileViewWithData();
         findViewById(R.id.family_hps_head).setVisibility(View.VISIBLE);
-        ((TextView)findViewById(R.id.family_hps_head)).setText(getString(R.string.family, memberObject.getFamilyName()));
+        ((TextView) findViewById(R.id.family_hps_head)).setText(getString(R.string.family, memberObject.getFamilyName()));
     }
 
 
@@ -136,7 +136,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void initializeFloatingMenu() {
-        baseHpsFloatingMenu = new HpsFloatingMenu(this, memberObject);
+        baseHpsFloatingMenu = new HpsFloatingMenu(this, memberObject, false);
         baseHpsFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(baseHpsFloatingMenu, linearLayoutParams);
@@ -372,9 +372,9 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
         JSONArray fieldsArray = null;
         try {
             fieldsArray = jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS);
-            JSONObject visitType = org.smartregister.chw.hps.util.JsonFormUtils.getFieldJSONObject(fieldsArray,"visit_type");
-            visitType.put(VALUE,visitTypeValue);
-            visitType.put(READ_ONLY,true);
+            JSONObject visitType = org.smartregister.chw.hps.util.JsonFormUtils.getFieldJSONObject(fieldsArray, "visit_type");
+            visitType.put(VALUE, visitTypeValue);
+            visitType.put(READ_ONLY, true);
             visitType.put(EDITABLE, false);
         } catch (JSONException e) {
             Timber.e(e);

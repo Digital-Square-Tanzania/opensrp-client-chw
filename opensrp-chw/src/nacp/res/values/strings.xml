@@ -924,13 +924,14 @@
     <string name="hps_malaria_drugs">Malaria drugs (ALu)</string>
     <string name="hps_anti_pain">Anti-pain (panadol)</string>
     <string name="hps_food_supplements">Food Supplements (RUTF)</string>
+    <string name="hps_first_aid_services">First Aid</string>
 
 
     <string name="hps_provide_iec_materials">Were the IEC materials provided to the client?</string>
     <string name="hps_type_of_iec_material">Select type of IEC materials</string>
     <string name="hps_leaflets">Leaflets</string>
     <string name="hps_posters">Posters</string>
-    <string name="hps_brochures">Brochures</string>
+    <string name="hps_brochure">Brochures</string>
     <string name="hps_others_type_of_iec_material">Other IEC material(Specify)</string>
     <string name="hps_type_of_message_leaflets">Select Type of Message in Leaflets</string>
     <string name="hps_hiv_aids">HIV/AIDS</string>
@@ -970,7 +971,7 @@
     <string name="hps_male_condoms">Male Condoms</string>
     <string name="hps_female_condoms">Female Condoms</string>
     <string name="hps_post_exposure_prophylaxis">Post-Exposure Prophylaxis (PEP)</string>
-    <string name="pre_exposure_prophylaxis">Pre-Exposure Prophylaxis (PrEP)</string>
+    <string name="hps_pre_exposure_prophylaxis">Pre-Exposure Prophylaxis (PrEP)</string>
     <string name="hps_vitamin_a_supplements">Vitamin A Supplements</string>
     <string name="hps_fortified_foods">Fortified Foods</string>
     <string name="hps_distribution_mosquito_nets">Distribution of Mosquito Nets</string>
@@ -988,6 +989,7 @@
     <string name="hps_visit_type_label">Select visit type</string>
     <string name="hps_new_visit">New Visit</string>
     <string name="hps_return_visit">Return</string>
+    <string name="hps_cervical_cancer">Crevical Cancer</string>
 
     <string name="hps_number_of_household_members_reached">Number of household members reached</string>
 
@@ -1113,6 +1115,11 @@
     <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
     <string name="hps_preventive_service_provided">Preventive services provided</string>
 
+    <string name="hps_client_criteria_below_12">Select the criteria</string>
+    <string name="hps_client_criteria_above_12_male_above_15">Select the criteria</string>
+    <string name="hps_client_criteria_above_12_male_below_15">Select the criteria</string>
+    <string name="hps_client_criteria_above_12_female_above_15">Select the criteria</string>
+    <string name="hps_client_criteria_above_12_female_below_15">Select the criteria</string>
 
     <string name="hps_select_age_group">Select age group</string>
     <string name="hps_age_group_less_1">&lt;1</string>
@@ -1132,14 +1139,19 @@
     <string name="hps_number_of_male_by_age_group_50_59">Number of male (50–59)</string>
     <string name="hps_number_of_female_by_age_group_50_59">Number of female (50–59)</string>
     <string name="hps_number_of_male_by_age_group_equal_and_above_60">Number of male (60+)</string>
+    <string name="hps_number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
     <string name="number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
     <string name="hps_number_of_house_hold">Number of house hold</string>
     <string name="hps_number_of_house_hold_with_road_access">Number of house hold with road access</string>
     <string name="hps_number_of_house_holds_with_at_least_one_landline_or_mobile_phone">Number of households with at least one mobile or landline phone</string>
-    <string name="number_of_house_hold_with_basic_nutrition_source_vegetable">Number of houshold with basic nutrition source(Vegetable garden)</string>
+    <string name="hps_number_of_house_hold_with_basic_nutrition_source_vegetable">Number of houshold with basic nutrition source(Vegetable garden)</string>
     <string name="hps_number_of_house_hold_with_basic_nutrition_source_fruit_trees">Number of houshold with basic nutrition source(Fruit trees)</string>
     <string name="hps_number_of_house_hold_with_basic_nutrition_source_domestic_animal">Number of houshold with basic nutrition source(Domestic animal)</string>
     <string name="hps_select_centers_category">Select center category</string>
+    <string name="hps_government">Government</string>
+    <string name="hps_public">Public</string>
+    <string name="hps_private">Private</string>
+    <string name="hps_faith_based_organisation">Faith Based Organization</string>
     <string name="hps_number_of_pre_schools_government">Number of pre_school (government)</string>
     <string name="hps_number_of_primary_schools_government">Number of primary schools (government)</string>
     <string name="hps_number_of_secondary_schools_government">Number of secondary schools (government)</string>
@@ -1177,6 +1189,7 @@
     <string name="hps_number_of_day_care_centers_faith_based_organisation">Number of day care centers (Faith based organisation)</string>
     <string name="hps_number_of_elderly_care_centers_faith_based_organisation">Number of Elderly care centers (Faith based organisation)</string>
     <string name="hps_number_of_pre_schools_public">Number of pre_school (Public)</string>
+    <string name="hps_number_of_people_capable_of_engaging_in_economic_activities">Number of people capable of engaging in economic activities</string>
     <string name="hps_number_of_primary_schools_public">Number of primary schools (Public)</string>
     <string name="hps_number_of_secondary_schools_public">Number of secondary schools (Public)</string>
     <string name="hps_number_of_universities_public">Number of Universities (Public)</string>
@@ -1260,7 +1273,7 @@
     <string name="hps_number_of_butcheries_visited">Number of butcheries visited</string>
     <string name="hps_number_of_bar_and_clubs_visited">Number of Bar and clubs visited</string>
     <string name="hps_number_of_guest_house_visited">Number of guest house visited</string>
-    <string name="hps_number_of_loca_food_vendors_visited">Number of loca food vendors visited</string>
+    <string name="hps_number_of_local_food_vendors_visited">Number of loca food vendors visited</string>
     <string name="hps_number_of_markets_visited">Number of Markets visited</string>
     <string name="hps_number_of_public_toilets_visited">Number of public toilets visited</string>
     <string name="hps_number_of_bus_stations_visited">Number of bus stations visited</string>
@@ -1347,6 +1360,10 @@
     <string name="hps_amount_of_pesticide_used_barrels">Amount of pesticide used (barrels)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
     <string name="hps_none">None</string>
+
+    <string name="hps_preventive_services_below_5_years">Select the preventive services provided</string>
+    <string name="hps_preventive_services_above_5_years_below_18_years">Select the preventive services provided</string>
+    <string name="hps_preventive_services_above_18_years">Select the preventive services provided</string>
 
     <string name="treatment_supporter_prefix">Treatment Supporter: %s</string>
     <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>

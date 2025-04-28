@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,14 +19,24 @@ import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HpsRegisterActivity extends CoreHpsRegisterActivity {
+    public static final String DESTINATION_FRAGMENT = "DESTINATION_FRAGMENT";
 
-    public static void startRegistration(Activity activity, String baseEntityId, String formName) {
+    public static void startRegistration(Activity activity, String baseEntityId, String formName, Integer fragmentPosition) {
         Intent intent = new Intent(activity, HpsRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.HPS_FORM_NAME, formName);
-
+        if (fragmentPosition != null) {
+            intent.putExtra(DESTINATION_FRAGMENT, fragmentPosition);
+        }
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        int fragmentPosition = getIntent().getIntExtra(DESTINATION_FRAGMENT, 0);
+        switchToFragment(fragmentPosition);
     }
 
     @Override
