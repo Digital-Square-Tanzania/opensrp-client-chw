@@ -341,7 +341,7 @@
           },
           {
             "key": "chk_none",
-            "text": "Hakuna",
+            "text": "Hana",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -482,7 +482,7 @@
           "Bima ya afya Resolutions",
           "Bima ya afya Reliance",
           "Nyingine",
-          "Hakuna"
+          "Hana"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -591,7 +591,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilities",
         "type": "spinner",
-        "hint": "Ulemavu wa kimwili",
+        "hint": "Ulemavu",
         "values": [
           "Ndiyo ",
           "Hapana"
@@ -616,13 +616,13 @@
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Aina ya ulemavu wa kimwili",
+        "label": "Aina ya Ulemavu",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "physical_impairments",
-            "text": "Uhamaji na Ulemavu wa Kimwili",
+            "text": "Uhamaji na Ulemavu",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },

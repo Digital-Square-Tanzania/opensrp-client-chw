@@ -116,7 +116,7 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Date of birth must be earlier than date of death"
+            "err": "Tarehe ya kuzaliwa ni lazima iwe kabla ya tarehe ya kifo"
           }
         ]
       },

@@ -42,6 +42,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo_ba));
         }
+
+        findViewById(R.id.forgot_password).setOnClickListener(view -> {
+            Intent forgotPassword = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(forgotPassword);
+        });
     }
 
     @Override

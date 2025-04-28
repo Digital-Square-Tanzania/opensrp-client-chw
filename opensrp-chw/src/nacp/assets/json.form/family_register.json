@@ -231,7 +231,7 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Street/Hamlet",
+        "hint": "Mtaa/Hamlet",
         "tree": [],
         "v_required": {
           "value": true,
