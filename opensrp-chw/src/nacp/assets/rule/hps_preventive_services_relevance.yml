@@ -117,3 +117,31 @@ actions:
                     else if(global_age >= 18) { return step1_preventive_services_above_18_years }
                     else {return '' }
    "
+---
+name: step1_type_of_message_leaflets_title
+description: if step1_type_of_message_leaflets_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('leaflets')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_posters_title
+description: if step1_type_of_message_posters_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('posters')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_brochures_title
+description: if step1_type_of_message_brochures_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('brochure')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services_title
+description: Rule to control the visibility of (preventive_services_title)
+priority: 1
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5"
+actions:
+  - "isRelevant = true "

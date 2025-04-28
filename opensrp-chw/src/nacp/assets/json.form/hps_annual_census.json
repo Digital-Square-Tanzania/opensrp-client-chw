@@ -620,7 +620,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
@@ -650,7 +657,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       }
     ]
   },
@@ -663,7 +677,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_vegetable",
-        "hint": "Number of houshold with basic nutrition source(Vegetable garden)",
+        "hint": "Number of household with basic nutrition source(Vegetable garden)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -686,14 +700,21 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
-        "hint": "Number of houshold with basic nutrition source(Fruit trees)",
+        "hint": "Number of household with basic nutrition source(Fruit trees)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -716,14 +737,21 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
-        "hint": "Number of houshold with basic nutrition source(Domestic animal)",
+        "hint": "Number of household with basic nutrition source(Domestic animal)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -746,7 +774,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       }
     ]
   },
@@ -802,7 +837,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_pre_schools_government",
-        "hint": "Number of pre_school (government)",
+        "hint": "Number of pre_school (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -839,7 +874,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_primary_schools_government",
-        "hint": "Number of primary schools (government)",
+        "hint": "Number of primary schools (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -876,7 +911,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_secondary_schools_government",
-        "hint": "Number of secondary schools (government)",
+        "hint": "Number of secondary schools (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -913,7 +948,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_universities_government",
-        "hint": "Number of Universities (government)",
+        "hint": "Number of Universities (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -950,7 +985,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_special_needs_schools_government",
-        "hint": "Number of Special needs schools (government)",
+        "hint": "Number of Special needs schools (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -987,7 +1022,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_dispensary_government",
-        "hint": "Number of Dispensary (government)",
+        "hint": "Number of Dispensary (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1024,7 +1059,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_health_centers_government",
-        "hint": "Number of health centers (government)",
+        "hint": "Number of health centers (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1061,7 +1096,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_hospital_government",
-        "hint": "Number of hospital (government)",
+        "hint": "Number of hospital (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1098,7 +1133,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_special_clinics_government",
-        "hint": "Number of special clinics (government)",
+        "hint": "Number of special clinics (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1135,7 +1170,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_laboratory_government",
-        "hint": "Number of laboratory (government)",
+        "hint": "Number of laboratory (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1172,7 +1207,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_pharmacy_government",
-        "hint": "Number of pharmacy (government)",
+        "hint": "Number of pharmacy (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1209,7 +1244,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_ADDO_government",
-        "hint": "Number of ADDO (government)",
+        "hint": "Number of ADDO (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1246,7 +1281,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_maternity_home_government",
-        "hint": "Number of maternity home (government)",
+        "hint": "Number of maternity home (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1283,7 +1318,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_orphan_care_centers_government",
-        "hint": "Number of orphan care centers (government)",
+        "hint": "Number of orphan care centers (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1320,7 +1355,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_centers_for_children_with_disabilities_government",
-        "hint": "Number of centers for children with disabilities (government)",
+        "hint": "Number of centers for children with disabilities (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1357,7 +1392,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_cbecdc_rehabilitation_centre_government",
-        "hint": "Number of Community Based Early Child Development Centre (Rehabiliation centre) (government)",
+        "hint": "Number of Community Based Early Child Development Centre (Rehabilitation centre) (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1394,7 +1429,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_day_care_centers_government",
-        "hint": "Number of day care centers (government)",
+        "hint": "Number of day care centers (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -1431,7 +1466,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_elderly_care_centers_government",
-        "hint": "Number of Elderly care centers (government)",
+        "hint": "Number of Elderly care centers (Government)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -2023,7 +2058,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_cbecdc_rehabilitation_centre_government",
-        "hint": "Number of Community Based Early Child Development Centre (Rehabiliation centre) (Faith based organisation)",
+        "hint": "Number of Community Based Early Child Development Centre (Rehabilitation centre) (Faith based organisation)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -2689,7 +2724,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_cbecdc_rehabilitation_centre_government",
-        "hint": "Number of Community Based Early Child Development Centre (Rehabiliation centre) (public)",
+        "hint": "Number of Community Based Early Child Development Centre (Rehabilitation centre) (public)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -3355,7 +3390,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_cbecdc_rehabilitation_centre_government",
-        "hint": "Number of Community Based Early Child Development Centre (Rehabiliation centre) (Private)",
+        "hint": "Number of Community Based Early Child Development Centre (Rehabilitation centre) (Private)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -3468,6 +3503,15 @@
     "next": "step5",
     "fields": [
       {
+        "key": "social_services",
+        "type": "label",
+        "text": "Social services",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_services"
+      },
+      {
         "key": "number_of_households_most_commonly_use_tap_as_sources_of_water",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3495,7 +3539,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_river_as_sources_of_water",
@@ -3525,7 +3576,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_shallow_well_as_sources_of_water",
@@ -3555,7 +3613,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_water_pond_as_sources_of_water",
@@ -3585,7 +3650,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_small_dam_as_sources_of_water",
@@ -3615,7 +3687,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_lake_as_sources_of_water",
@@ -3645,7 +3724,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_most_commonly_use_spring_as_sources_of_water",
@@ -3675,7 +3761,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_electricity_as_source_of_energy_for_lighting",
@@ -3705,7 +3798,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_solar_as_source_of_energy_for_lighting",
@@ -3735,7 +3835,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_kerosine_as_source_of_energy_for_lighting",
@@ -3765,7 +3872,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_koroboi_as_source_of_energy_for_lighting",
@@ -3795,7 +3909,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_other_source_of_energy_for_lighting",
@@ -3825,7 +3946,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_electricity_as_source_of_cooking_energy",
@@ -3855,7 +3983,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_solar_as_source_of_cooking_energy",
@@ -3885,7 +4020,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_kerosine_as_source_of_cooking_energy",
@@ -3915,7 +4057,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_gas_as_source_of_cooking_energy",
@@ -3945,7 +4094,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_charcoal_as_source_of_cooking_energy",
@@ -3975,7 +4131,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_using_firewood_as_source_of_cooking_energy",
@@ -4005,7 +4168,23 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
+      },
+      {
+        "key": "economic_activities",
+        "type": "label",
+        "text": "Economic activities",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "economic_activities"
       },
       {
         "key": "number_of_male_capable_of_engaging_in_economic_activities",
@@ -4141,12 +4320,21 @@
           }
         ]
       }
-      ]
+    ]
   },
   "step5": {
     "title": "Committee meetings & Traditional medicine",
     "next": "step6",
     "fields": [
+      {
+        "key": "committee_meetings",
+        "type": "label",
+        "text": "Committee meetings",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "committee_meetings"
+      },
       {
         "key": "number_of_health_committee_members_for_effective_committee_meetings",
         "openmrs_entity_parent": "",
@@ -4178,11 +4366,11 @@
         }
       },
       {
-        "key": "number_of_committee_members_attended_fisrt_quarter",
+        "key": "number_of_committee_members_attended_first_quarter",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_committee_members_attended_fisrt_quarter",
-        "hint": "Number of committee members attended fisrt quarter ",
+        "openmrs_entity_id": "number_of_committee_members_attended_first_quarter",
+        "hint": "Number of committee members attended first quarter ",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4205,7 +4393,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "must not be greater than number of health committee members for effective committee meetings"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_second_quarter",
@@ -4235,7 +4430,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "must not be greater than number of health committee members for effective committee meetings"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_third_quarter",
@@ -4265,7 +4467,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "must not be greater than number of health committee members for effective committee meetings"
+          }
+        ]
       },
       {
         "key": "number_of_committee_members_attended_fourth_quarter",
@@ -4295,7 +4504,23 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step5:number_of_health_committee_members_for_effective_committee_meetings)",
+            "err": "must not be greater than number of health committee members for effective committee meetings"
+          }
+        ]
+      },
+      {
+        "key": "traditional_medicine",
+        "type": "label",
+        "text": "Traditional medicine",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "traditional_medicine"
       },
       {
         "key": "number_of_registered_alternative_medicine_service_providers",
@@ -4451,7 +4676,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_good_latrine",
@@ -4481,7 +4713,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_without_good_latrine",
@@ -4511,7 +4750,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_no_latrine",
@@ -4541,7 +4787,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_waste_disposal_pits",
@@ -4571,7 +4824,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_dish_racks_for_drying_utensils",
@@ -4601,7 +4861,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_near_clean_water_sources",
@@ -4631,7 +4898,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_economic_problems",
@@ -4661,7 +4935,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_social_problems",
@@ -4691,14 +4972,21 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_with_handwashing_facilities_after_using_the_toilet",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_households_with_handwashing_facilities_after_using_the_toilet",
-        "hint": "Number of households with handwashing facilities after using the toilet",
+        "hint": "Number of households with hand washing facilities after using the toilet",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4721,7 +5009,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       },
       {
         "key": "number_of_households_that_have_been_sprayed_with_insecticide",
@@ -4751,7 +5046,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "must not be greater than number of house hold"
+          }
+        ]
       }
     ]
   },
@@ -4910,11 +5212,11 @@
         }
       },
       {
-        "key": "number_of_loca_food_vendors_visited",
+        "key": "number_of_local_food_vendors_visited",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_loca_food_vendors_visited",
-        "hint": "Number of loca food vendors visited",
+        "openmrs_entity_id": "number_of_local_food_vendors_visited",
+        "hint": "Number of local food vendors visited",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5456,7 +5758,7 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThanEqualTo(., step7:number_of_loca_food_vendors_visited)",
+            "ex": "lessThanEqualTo(., step7:number_of_local_food_vendors_visited)",
             "err": "must not be greater than number of local food vendors visited"
           }
         ]
@@ -6725,7 +7027,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_respiratory_diseases",
-        "hint": "Health reports affecting people in workplaces (respiratory diseases)",
+        "hint": "Health reports affecting people in workplaces (Respiratory diseases)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6755,7 +7057,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_toxic_chemicals",
-        "hint": "Health reports affecting people in workplaces (toxic chemicals)",
+        "hint": "Health reports affecting people in workplaces (Toxic chemicals)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6785,7 +7087,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_burns",
-        "hint": "Health reports affecting people in workplaces (burns)",
+        "hint": "Health reports affecting people in workplaces (Burns)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6815,7 +7117,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_hearing_loss",
-        "hint": "Health reports affecting people in workplaces (hearing loss)",
+        "hint": "Health reports affecting people in workplaces (Hearing loss)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6845,7 +7147,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_eye_problems",
-        "hint": "Health reports affecting people in workplaces (eye problems)",
+        "hint": "Health reports affecting people in workplaces (Eye problems)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6875,7 +7177,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_other_effects",
-        "hint": "Health reports affecting people in workplaces (other effects)",
+        "hint": "Health reports affecting people in workplaces (Other effects)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6971,7 +7273,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_waste_collection_equipment_vehicles",
-        "hint": "Number of waste collection equipment (vehicles)",
+        "hint": "Number of waste collection equipment (Vehicles)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7001,7 +7303,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_waste_collection_equipment_tractors",
-        "hint": "Number of waste collection equipment (tractors)",
+        "hint": "Number of waste collection equipment (Tractors)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7031,7 +7333,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_waste_collection_equipment_carts",
-        "hint": "Number of waste collection equipment (carts)",
+        "hint": "Number of waste collection equipment (Carts)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7061,7 +7363,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_waste_collection_equipment_wheelbarrows",
-        "hint": "Number of waste collection equipment (wheelbarrows)",
+        "hint": "Number of waste collection equipment (Wheelbarrows)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7091,7 +7393,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_waste_collection_equipment_others",
-        "hint": "Number of waste collection equipment (others)",
+        "hint": "Number of waste collection equipment (Others)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7126,7 +7428,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_ponds",
-        "hint": "Number of Areas Sprayed with Pesticides (ponds)",
+        "hint": "Number of Areas Sprayed with Pesticides (Ponds)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7156,7 +7458,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_cans",
-        "hint": "Number of Areas Sprayed with Pesticides (cans)",
+        "hint": "Number of Areas Sprayed with Pesticides (Cans)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7186,7 +7488,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_drums",
-        "hint": "Number of Areas Sprayed with Pesticides (drums)",
+        "hint": "Number of Areas Sprayed with Pesticides (Drums)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7216,7 +7518,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_barrels",
-        "hint": "Number of Areas Sprayed with Pesticides (barrels)",
+        "hint": "Number of Areas Sprayed with Pesticides (Barrels)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7246,7 +7548,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_coconut_shells",
-        "hint": "Number of Areas Sprayed with Pesticides (coconut shells)",
+        "hint": "Number of Areas Sprayed with Pesticides (Coconut shells)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7276,7 +7578,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_times_spraying_was_done_ponds",
-        "hint": "Number of Times Spraying Was Done (ponds)",
+        "hint": "Number of Times Spraying Was Done (Ponds)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7306,7 +7608,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_times_spraying_was_done_cans",
-        "hint": "Number of Times Spraying Was Done (cans)",
+        "hint": "Number of Times Spraying Was Done (Cans)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7336,7 +7638,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_times_spraying_was_done_drums",
-        "hint": "Number of Times Spraying Was Done (drums)",
+        "hint": "Number of Times Spraying Was Done (Drums)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7366,7 +7668,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_times_spraying_was_done_barrels",
-        "hint": "Number of Times Spraying Was Done (barrels)",
+        "hint": "Number of Times Spraying Was Done (Barrels)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7396,7 +7698,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_times_spraying_was_done_coconut_shells",
-        "hint": "Number of Times Spraying Was Done (coconut shells)",
+        "hint": "Number of Times Spraying Was Done (Coconut shells)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7426,7 +7728,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "types_of_pesticides_used_ponds",
-        "hint": "Types of pesticides used (ponds)",
+        "hint": "Types of pesticides used (Ponds)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7439,7 +7741,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "types_of_pesticides_used_cans",
-        "hint": "Types of pesticides used (cans)",
+        "hint": "Types of pesticides used (Cans)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7452,7 +7754,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "types_of_pesticides_used_drums",
-        "hint": "Types of pesticides used (drums)",
+        "hint": "Types of pesticides used (Drums)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7465,7 +7767,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "types_of_pesticides_used_barrels",
-        "hint": "Types of pesticides used (barrels)",
+        "hint": "Types of pesticides used (Barrels)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7478,7 +7780,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "types_of_pesticides_used_coconut_shells",
-        "hint": "Types of pesticides used (coconut shells)",
+        "hint": "Types of pesticides used (Coconut shells)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7491,7 +7793,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_ponds",
-        "hint": "Amount of pesticide used (ponds)",
+        "hint": "Amount of pesticide used (Ponds)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7516,7 +7818,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_cans",
-        "hint": "Amount of pesticide used (cans)",
+        "hint": "Amount of pesticide used (Cans)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7541,7 +7843,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_drums",
-        "hint": "Amount of pesticide used (drums)",
+        "hint": "Amount of pesticide used (Drums)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7566,7 +7868,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_barrels",
-        "hint": "Amount of pesticide used (barrels)",
+        "hint": "Amount of pesticide used (Barrels)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7591,7 +7893,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_coconut_shells",
-        "hint": "Amount of pesticide used (coconut shells)",
+        "hint": "Amount of pesticide used (Coconut shells)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {

@@ -37,11 +37,11 @@ actions:
 name: step1_other_criteria_specify
 description: Rule to control the visibility of (step1_other_criteria_specify)
 priority: 1
-condition: "step1_client_criteria_below_12.equalsIgnoreCase('other') ||
-            step1_client_criteria_above_12_male_above_15.equalsIgnoreCase('other') ||
-            step1_client_criteria_above_12_male_below_15.equalsIgnoreCase('other') ||
-            step1_client_criteria_above_12_female_above_15.equalsIgnoreCase('other') ||
-            step1_client_criteria_above_12_female_below_15.equalsIgnoreCase('other')
+condition: "step1_client_criteria_below_12.contains('other') ||
+            step1_client_criteria_above_12_male_above_15.contains('other') ||
+            step1_client_criteria_above_12_male_below_15.contains('other') ||
+            step1_client_criteria_above_12_female_above_15.contains('other') ||
+            step1_client_criteria_above_12_female_below_15.contains('other')
             "
 actions:
   - "isRelevant = true "

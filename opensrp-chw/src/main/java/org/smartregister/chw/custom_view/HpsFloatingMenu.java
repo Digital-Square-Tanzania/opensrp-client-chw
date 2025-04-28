@@ -12,11 +12,11 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.smartregister.chw.hps.domain.MemberObject;
-import org.smartregister.chw.hps.fragment.BaseHpsCallDialogFragment;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.hps.custom_views.BaseHpsFloatingMenu;
+import org.smartregister.chw.hps.domain.MemberObject;
+import org.smartregister.chw.hps.fragment.BaseHpsCallDialogFragment;
 
 public class HpsFloatingMenu extends BaseHpsFloatingMenu {
     public FloatingActionButton fab;
@@ -43,10 +43,14 @@ public class HpsFloatingMenu extends BaseHpsFloatingMenu {
 
     private MemberObject MEMBER_OBJECT;
 
+    private boolean enableReferral;
 
-    public HpsFloatingMenu(Context context, MemberObject MEMBER_OBJECT) {
+
+    public HpsFloatingMenu(Context context, MemberObject MEMBER_OBJECT, boolean enableReferral) {
         super(context, MEMBER_OBJECT);
         this.MEMBER_OBJECT = MEMBER_OBJECT;
+        this.enableReferral = enableReferral;
+        initUi();
     }
 
     public void setFloatMenuClickListener(OnClickFloatingMenu onClickFloatingMenu) {
@@ -55,7 +59,7 @@ public class HpsFloatingMenu extends BaseHpsFloatingMenu {
 
     @Override
     protected void initUi() {
-        inflate(getContext(), R.layout.view_asrh_floating_menu, this);
+        inflate(getContext(), R.layout.view_hps_floating_menu, this);
 
         fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
@@ -65,16 +69,22 @@ public class HpsFloatingMenu extends BaseHpsFloatingMenu {
         activityMain = findViewById(R.id.activity_main);
         menuBar = findViewById(R.id.menu_bar);
 
-        fab = findViewById(R.id.asrh_fab);
+        fab = findViewById(R.id.hps_fab);
         fab.setOnClickListener(this);
 
-        callLayout = findViewById(R.id.asrh_call_layout);
+        callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);
         callLayout.setClickable(false);
 
-        referLayout = findViewById(R.id.asrh_refer_to_facility_layout);
+        referLayout = findViewById(R.id.refer_to_facility_layout);
         referLayout.setOnClickListener(this);
         referLayout.setClickable(false);
+
+        if (enableReferral) {
+            referLayout.setVisibility(View.VISIBLE);
+        } else {
+            referLayout.setVisibility(View.GONE);
+        }
 
 
         menuBar.setVisibility(GONE);

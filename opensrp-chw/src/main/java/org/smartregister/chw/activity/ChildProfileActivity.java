@@ -166,7 +166,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
                 return true;
             case R.id.action_iccm_registration:
-                    startIntegratedCommunityCaseManagementEnrollment();
+                startIntegratedCommunityCaseManagementEnrollment();
                 return true;
             default:
                 break;
@@ -203,8 +203,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
-    protected  void startHpsEnrollment(){
-        HpsRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT);
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     @Override
