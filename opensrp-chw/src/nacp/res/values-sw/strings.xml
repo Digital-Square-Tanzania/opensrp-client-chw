@@ -788,6 +788,8 @@
     <string name="hps_dispensing_arv_medication">Kuwachukulia WAVIU dawa za ARV</string>
     <string name="hps_preventive_medication_ntd">Ugawaji wa dawa kinga za magonjwa yaliokuwa hayapewi kipaumbele</string>
     <string name="hps_first_aid_services">Huduma ya kwanza</string>
+    <string name="hps_environment_hygiene_sanitation">Usafi na Utunzaji wa Mazingira</string>
+    <string name="hps_food_hygiene_safety">Lishe na Usalama wa Chakula</string>
     <string name="hps_other_services">Huduma nyinginezo</string>
     <string name="hps_others_services_specify">Taja huduma nyinginezo</string>
     <string name="hps_provide_referral_services">Kuna huduma za rufaa zimetolewa kwa mteja?</string>

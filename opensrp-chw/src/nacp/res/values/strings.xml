@@ -982,6 +982,9 @@
     <string name="hps_collection_sputum_stool_samples">Collection of Sputum/Stool Samples</string>
     <string name="hps_dispensing_arv_medication">Dispensing ARV Medication to People Living with HIV (PLHIV)</string>
     <string name="hps_preventive_medication_ntd">Distribution of Preventive Medication for Neglected Tropical Diseases</string>
+    <string name="hps_environment_hygiene_sanitation">Environment Hygiene and Sanitation</string>
+    <string name="hps_food_hygiene_safety">Food Hygiene and Safety</string>
+
     <string name="hps_other_services">Other Services</string>
     <string name="hps_others_services_specify">Others services(Specify)</string>
     <string name="hps_name_of_hamlet">Name of hamlet</string>
