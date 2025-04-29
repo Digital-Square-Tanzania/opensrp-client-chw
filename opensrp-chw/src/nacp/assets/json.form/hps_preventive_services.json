@@ -642,6 +642,23 @@
             }
           }
         }
+      },
+      {
+        "key": "record_hivst_details_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Use the HIVST Module to Record HIVST Kits Details and Test Results",
+        "toaster_info_text": "The HIV Self-Testing (HIVST) Module allows users to register clients who have been provided with HIV self-testing kits and to document their subsequent test results. Through the module, users can ensure accurate tracking of kit distribution and timely follow-up on testing outcomes. The HIVST Module is accessible from the system’s navigation menu.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

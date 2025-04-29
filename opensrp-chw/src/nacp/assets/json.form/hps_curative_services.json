@@ -51,7 +51,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provision_of_curative_services",
-        "label": "Did the client provided with curative services?",
+        "label": "Was the client provided with curative services?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
