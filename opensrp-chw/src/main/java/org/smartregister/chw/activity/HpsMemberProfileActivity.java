@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
@@ -26,6 +28,7 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
+import org.smartregister.chw.dao.ChwHpsDao;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -43,11 +46,15 @@ import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -68,6 +75,52 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             VisitUtils.processVisits(HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository(), memberObject.getBaseEntityId());
         } catch (Exception e) {
             Timber.e(e);
+        }
+
+        if (ChwHpsDao.wereSelfTestingKitsDistributed(memberObject.getBaseEntityId())) {
+            if (HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId())) {
+                boolean shouldIssueHivSelfTestingKits = false;
+                String lastSelfTestingFollowupDateString = HivstDao.clientLastFollowup(memberObject.getBaseEntityId());
+                if (lastSelfTestingFollowupDateString == null) {
+                    shouldIssueHivSelfTestingKits = true;
+                } else {
+                    try {
+                        Date lastSelfTestingFollowupDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(lastSelfTestingFollowupDateString);
+                        Visit lastVisit = getServiceVisit();
+                        if (truncateTimeFromDate(lastSelfTestingFollowupDate).before(truncateTimeFromDate(lastVisit.getDate())) && lastVisit.getProcessed()) {
+                            shouldIssueHivSelfTestingKits = true;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+
+                if (shouldIssueHivSelfTestingKits) {
+                    textViewRecordHps.setVisibility(View.GONE);
+                    visitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setText(R.string.issue_selft_testing_kits);
+                    textViewVisitDone.setText(getContext().getString(R.string.pending_hivst_followup));
+                    textViewVisitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setOnClickListener(view -> HivstProfileActivity.startProfile(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), true));
+                    imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+                } else {
+                    textViewRecordHps.setVisibility(View.VISIBLE);
+                    visitDone.setVisibility(View.GONE);
+                    textViewVisitDone.setVisibility(View.GONE);
+                    if (isVisitOnProgress(getServiceVisit())) {
+                        textViewRecordHps.setVisibility(View.GONE);
+                        visitInProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else {
+                textViewRecordHps.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText(R.string.register_client);
+                textViewVisitDone.setText(getContext().getString(R.string.pending_hivst_registration));
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setOnClickListener(v -> startHivstRegistration());
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            }
         }
     }
 
@@ -350,7 +403,14 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startHivstRegistration() {
+        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
 
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+
+        HivstRegisterActivity.startHivstRegistrationActivity(this, memberObject.getBaseEntityId(), gender);
     }
 
     protected void removeIndividualProfile() {
