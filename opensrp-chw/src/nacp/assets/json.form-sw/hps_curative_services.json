@@ -727,7 +727,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_disease_test_conducted",
-        "label": "Je vipimo vya ugonjwa vimefanyika?",
+        "label": "Je vipimo vimefanyika?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -763,7 +763,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_test_conducted",
-        "label": "Vipimo vya ugonjwa vilivyofanyika",
+        "label": "Vipimo vilivyofanyika",
         "text_color": "#000000",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
@@ -1228,7 +1228,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "is_treatment_provided",
-        "label": "Je mteja alipata matibabu?",
+        "label": "Je matibabu yametolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

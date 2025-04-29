@@ -146,3 +146,17 @@ priority: 1
 condition: "step1_was_education_provided.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
+---
+name: step1_number_of_females_who_attended
+description: number_of_females_who_attended
+priority: 1
+condition: "!step1_method_of_education_and_awareness_used.contains('radio_tv_etc')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_males_who_attended
+description: number_of_males_who_attended
+priority: 1
+condition: "!step1_method_of_education_and_awareness_used.contains('radio_tv_etc')"
+actions:
+  - "isRelevant = true"
