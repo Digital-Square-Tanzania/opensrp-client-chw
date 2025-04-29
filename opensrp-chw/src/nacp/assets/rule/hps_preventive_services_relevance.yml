@@ -145,3 +145,10 @@ priority: 1
 condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5"
 actions:
   - "isRelevant = true "
+---
+name: step1_record_hivst_details_note
+description: Rule to control the visibility of (record_hivst_details_note)
+priority: 1
+condition: "step1_preventive_services.contains('hiv_self_test_kits')"
+actions:
+  - "isRelevant = true "

@@ -602,6 +602,23 @@
             }
           }
         }
+      },
+      {
+        "key": "record_hivst_details_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Use the HIVST Module to Record HIVST Kits Details and Test Results",
+        "toaster_info_text": "Moduli ya JIPIME inawawezesha watumiaji kusajili wateja waliopatiwa vitepe vya kujipima VVU na kurekodi matokeo yao ya vipimo. Kupitia moduli hii, watumiaji wanaweza kuhakikisha ufuatiliaji sahihi wa usambazaji wa vitepe na ufuatiliaji wa haraka wa matokeo ya vipimo. Moduli ya JIPIME inapatikana kupitia menyu ya mfumo.\n",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }
