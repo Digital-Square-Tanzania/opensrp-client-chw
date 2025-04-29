@@ -253,54 +253,29 @@
         "key": "insurance_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "insurance_provider",
+        "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Bima ya Afya",
-        "values": [
-          "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
-          "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
-          "Mfuko wa Taifa wa Bima ya Afya (NHIF)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Huduma ya Afya",
-          "Bima ya afya Strategies",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Bima ya afya ya Britam Tanzania",
-          "Bima ya afya Jubilee",
-          "Bima ya afya ya Resolutions",
-          "Bima ya afya ya Reliance",
-          "Nyingine",
-          "Hana"
+        "hint": "Chagua bima ya afya ambayo mteja anayo",
+        "options": [
+          {
+            "key": "public_insurance",
+            "text": "Bima ya Afya ya Umma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_insurance"
+          },
+          {
+            "key": "private_insurance",
+            "text": "Bima ya Afya Binafsi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "private_insurance"
+          },
+          {
+            "key": "not_insured",
+            "text": "Hana Bima",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_insured"
+          }
         ],
-        "keys": [
-          "Community Health Fund (CHF)",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "National Health Insurance Fund (NHIF)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
-        ],
-        "openmrs_choice_ids": {
-          "Community Health Fund (CHF)": "Community_Health_Fund",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
-          "National Health Insurance Fund (NHIF)": "National_Health_Insurance_Fund",
-          "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
-          "AAR Healthcare": "AAR_Healthcare",
-          "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
-          "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
-          "Jubilee Insurance": "Jubilee_Insurance",
-          "Resolutions Insurance": "Resolutions_Insurance",
-          "Reliance Insurance": "Reliance_Insurance",
-          "Other": "Other_Health_Insurance_Type",
-          "None": "No_Health_Insurance"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza mtoa huduma ya bima"
@@ -316,25 +291,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza mtoa huduma ya bima"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "insurance_provider_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Health_Insurance_Number",
-        "type": "edit_text",
-        "hint": "Namba ya bima ya afya ya mteja",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali jaza namba ya bima ya afya ya mteja"
         },
         "relevance": {
           "rules-engine": {
@@ -452,6 +408,12 @@
             "text": "Ualbino",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "albinism"
+          },
+          {
+            "key": "other_disabilities",
+            "text": "Other Disabilities",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_disabilities"
           }
         ],
         "relevance": {
@@ -464,6 +426,25 @@
         "v_required": {
           "value": true,
           "err": "Tafadhali ingiza aina ya Ulemavu"
+        }
+      },
+      {
+        "key": "specify_other_disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_disabilities",
+        "type": "edit_text",
+        "hint": "Other Disabilities",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify disabilities"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       },
       {
@@ -498,8 +479,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "birth_regist_number",
-        "type": "edit_text",
-        "hint": "Namba ya cheti cha kuzaliwa cha mtoto",
+        "type": "mask_edit_text",
+        "mask": "#-####-####-###-#",
+        "mask_hint": "T234567891234",
+        "allowed_chars": "0123456789",
+        "hint": "Cheti cha kuzaliwa mf. T-1234-5678-123-0",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d$",
+          "err": "Cheti cha kuzaliwa kinatakiwa muundo huu (X-XXXX-XXXX-XXX-X)"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

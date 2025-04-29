@@ -87,12 +87,30 @@
         }
       },
       {
-        "key": "chairperson_name",
+        "key": "chairperson_first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "chairperson_name",
+        "openmrs_entity_id": "chairperson_first_name",
         "type": "edit_text",
-        "hint": "Village/Street Chairperson Name",
+        "hint": "Village/Street Chairperson First Name",
+        "edit_type": "name"
+      },
+      {
+        "key": "chairperson_middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_middle_name",
+        "type": "edit_text",
+        "hint": "Village/Street Chairperson Middle Name",
+        "edit_type": "name"
+      },
+      {
+        "key": "chairperson_last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_last_name",
+        "type": "edit_text",
+        "hint": "Village/Street Chairperson Last Name",
         "edit_type": "name"
       },
       {
