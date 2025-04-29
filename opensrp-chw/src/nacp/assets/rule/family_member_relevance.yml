@@ -79,3 +79,31 @@ priority: 1
 condition: "step1_type_of_disability.contains('other_disabilities')"
 actions:
   - "isRelevant = true"
+---
+name: step1_national_id
+description: specify national id
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_national_id')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_voter_id
+description: specify voter id
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_voters_id')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_driver_license
+description: specify driver licence
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_drivers_license')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_passport
+description: specify passport
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_passport_number')"
+actions:
+  - "isRelevant = true"

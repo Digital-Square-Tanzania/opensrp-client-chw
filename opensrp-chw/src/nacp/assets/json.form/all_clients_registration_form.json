@@ -541,18 +541,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Do you have any of the following IDs?",
-        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none",
-          "chk_national_id",
-          "chk_voters_id",
-          "chk_drivers_license",
-          "chk_passport_number"
-        ],
         "options": [
           {
             "key": "chk_national_id",
@@ -618,14 +610,10 @@
           "err": "Please enter a valid national ID"
         },
         "relevance": {
-          "step2:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_national_id"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
           }
         }
       },
@@ -654,14 +642,10 @@
           "err": "Please enter a valid voters registration number"
         },
         "relevance": {
-          "step2:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_voters_id"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
           }
         }
       },
@@ -690,14 +674,10 @@
           "err": "Please enter a valid driver's license number"
         },
         "relevance": {
-          "step2:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_drivers_license"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
           }
         }
       },
@@ -726,14 +706,10 @@
           "err": "Please enter a valid driver's license number"
         },
         "relevance": {
-          "step2:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_passport_number"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
           }
         }
       },
@@ -747,13 +723,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public",
+            "text": "Public Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private",
+            "text": "Private Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
