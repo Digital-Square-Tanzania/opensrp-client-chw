@@ -88,9 +88,15 @@
           },
           {
             "key": "radio_tv_etc",
-            "text": "Radio, TV, etc.",
+            "text": "Radio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "radio_tv_etc"
+          },
+          {
+            "key": "television",
+            "text": "Television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "television"
           },
           {
             "key": "social_media_eg_whatsapp",
@@ -122,7 +128,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_radio_tv_used_for_education",
         "type": "native_radio",
-        "label": "Select the type of Radio/TV used for education and awareness",
+        "label": "Select the type of Radio used for education and awareness",
         "options": [
           {
             "key": "national_radio",
@@ -135,6 +141,39 @@
             "text": "Community Radio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_radio"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Select the type of TV used for education and awareness",
+        "options": [
+          {
+            "key": "national_television",
+            "text": "National television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_television"
+          },
+          {
+            "key": "community_television",
+            "text": "Community Television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_television"
           }
         ],
         "v_required": {
@@ -882,6 +921,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1027,6 +1072,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1170,6 +1221,12 @@
             "text": "Cervical Cancer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "others",

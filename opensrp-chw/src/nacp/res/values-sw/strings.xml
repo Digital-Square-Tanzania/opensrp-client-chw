@@ -788,6 +788,8 @@
     <string name="hps_dispensing_arv_medication">Kuwachukulia WAVIU dawa za ARV</string>
     <string name="hps_preventive_medication_ntd">Ugawaji wa dawa kinga za magonjwa yaliokuwa hayapewi kipaumbele</string>
     <string name="hps_first_aid_services">Huduma ya kwanza</string>
+    <string name="hps_environment_hygiene_sanitation">Usafi na Utunzaji wa Mazingira</string>
+    <string name="hps_food_hygiene_safety">Lishe na Usalama wa Chakula</string>
     <string name="hps_other_services">Huduma nyinginezo</string>
     <string name="hps_others_services_specify">Taja huduma nyinginezo</string>
     <string name="hps_provide_referral_services">Kuna huduma za rufaa zimetolewa kwa mteja?</string>
@@ -845,10 +847,17 @@
     <string name="hps_method_of_education_and_awareness_used">Chagua njia ya ueleimishaji na uhamasishaji iliyotumika</string>
     <string name="hps_loud_speakers">Vipaza sauti</string>
     <string name="hps_drumming_public_announcements">Kupiga mbiu</string>
-    <string name="hps_radio_tv_etc">Radio, TV, etc</string>
+    <string name="hps_radio_tv_etc">Redio</string>
+    <string name="hps_television">Televisheni</string>
     <string name="hps_social_media_eg_whatsapp">Mitandao ya kijamii mfano: whatsapp</string>
     <string name="hps_face_to_face">Ana kwa ana</string>
     <string name="hps_others_specify">Nyinginezo (Taja)</string>
+    <string name="hps_type_radio_tv_used_for_education">Chagua aina ya Redio iliyotumika kwatika uselimishaji na uhamasishaji</string>
+    <string name="hps_national_radio">Redio ya kitaifa</string>
+    <string name="hps_community_radio">Redio ya kijamii</string>
+    <string name="hps_type_tv_used_for_education">Chagua aina ya TV iliyotumika katika uselimishaji na uhamasishaji</string>
+    <string name="hps_national_television">Televisheni ya kitaifa</string>
+    <string name="hps_community_television">Televisheni ya kijamii</string>
     <string name="hps_other_method_of_education_and_awareness_used">Taja njia nyinginezo za ueleimishaji na uhamasishaji zilizotumika</string>
     <string name="hps_area_where_mobilization_took_place">Eneo uhamasishaji ulipofanyika</string>
     <string name="hps_at_the_market_or_stalls">Sokoni/Gulioni</string>

@@ -321,6 +321,26 @@
             }
           },
           {
+            "key": "environment_hygiene_sanitation",
+            "text": "Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
             "key": "other_services",
             "text": "Other Services",
             "openmrs_entity": "concept",
@@ -545,6 +565,26 @@
             "property": {
               "presumed-id": "first_aid_services",
               "confirmed-id": "first_aid_services"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
             }
           },
           {
