@@ -96,3 +96,10 @@ priority: 1
 condition: "step2_has_primary_caregiver == 'Yes'"
 actions:
   - "isRelevant = true"
+---
+name: step2_specify_other_disabilities
+description: specify other disabilities
+priority: 1
+condition: "step2_type_of_disability.contains('other_disabilities')"
+actions:
+  - "isRelevant = true"
