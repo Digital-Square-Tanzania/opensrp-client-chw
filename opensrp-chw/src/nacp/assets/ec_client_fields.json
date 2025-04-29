@@ -40,6 +40,30 @@
           }
         },
         {
+          "column_name": "chairperson_first_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson_first_name"
+          }
+        },
+        {
+          "column_name": "chairperson_middle_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson_middle_name"
+          }
+        },
+        {
+          "column_name": "chairperson_last_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson_last_name"
+          }
+        },
+        {
           "column_name": "chairperson_phone",
           "type": "Event",
           "json_mapping": {
