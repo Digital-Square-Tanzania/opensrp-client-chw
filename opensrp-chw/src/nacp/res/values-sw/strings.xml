@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AfyaJamii</string>
-    <string name="login_title">Wizara ya Afya  \n Mfumo wa CHW Afya Jamii</string>
-    <string name="nav_logo">Mfumo wa Jamii wa Wizara ya Afya</string>
+    <string name="login_title">Serikali ya Tanzania  \n CHW Afya Jamii</string>
+    <string name="nav_logo">CHW Afya Jamii</string>
     <string name="menu_anc">Wajawazito</string>
     <string name="menu_pnc">Baada ya Kujifungua</string>
     <string name="hiv_referral">Kliniki ya Tiba na matunzo (CTC)</string>

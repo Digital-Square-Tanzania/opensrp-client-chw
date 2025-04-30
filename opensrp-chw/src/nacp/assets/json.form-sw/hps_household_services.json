@@ -608,7 +608,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "comments",
         "type": "edit_text",
-        "hint": "Maoni"
+        "hint": "Maoni ya huduma za kaya",
+        "v_max_length": {
+          "value": "500",
+          "is_fixed_size": "true",
+          "err": "Limit exceeded"
+        }
       }
     ]
   }
