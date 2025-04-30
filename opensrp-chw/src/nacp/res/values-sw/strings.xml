@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">WAJA</string>
-    <string name="login_title">Wizara ya Afya  \n Mfumo wa WAJA</string>
+    <string name="app_name">AfyaJamii</string>
+    <string name="login_title">Wizara ya Afya  \n Mfumo wa CHW Afya Jamii</string>
     <string name="nav_logo">Mfumo wa Jamii wa Wizara ya Afya</string>
     <string name="menu_anc">Wajawazito</string>
     <string name="menu_pnc">Baada ya Kujifungua</string>
