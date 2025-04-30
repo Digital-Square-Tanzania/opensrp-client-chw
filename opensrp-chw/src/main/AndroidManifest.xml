@@ -12,18 +12,18 @@
         tools:replace="android:theme">
         <activity
             android:name=".activity.LoginActivity"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_launcher_afya_jamii_splash"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:roundIcon="@drawable/ic_launcher_round"
+            android:roundIcon="@mipmap/ic_launcher_afya_jamii_round"
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".activity.RequestPhoneNumberCollectionPermission"
             android:exported="true"
-            android:icon="@drawable/ic_launcher"
-            android:roundIcon="@drawable/ic_launcher_round"
+            android:icon="@mipmap/ic_launcher_afya_jamii_round"
+            android:roundIcon="@mipmap/ic_launcher_afya_jamii_round"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

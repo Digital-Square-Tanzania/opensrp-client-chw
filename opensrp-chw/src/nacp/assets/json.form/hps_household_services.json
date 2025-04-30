@@ -608,7 +608,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "comments",
         "type": "edit_text",
-        "hint": "Remarks/Comments"
+        "hint": "Remarks/Comments on the services provided",
+        "v_max_length": {
+          "value": "500",
+          "is_fixed_size": "true",
+          "err": "Limit exceeded"
+        }
       }
     ]
   }

@@ -330,7 +330,7 @@ public class AllClientsUtils {
         }
 
         // Handle HPS menu items
-        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+        if (ChwApplication.getApplicationFlavor().hasHps()) {
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
         }
     }

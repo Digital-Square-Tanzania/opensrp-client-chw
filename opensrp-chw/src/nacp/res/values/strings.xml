@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WAJA</string>
-    <string name="login_title">Ministry of Health  \n WAJA app</string>
-    <string name="nav_logo">Ministry of Health Community App</string>
+    <string name="app_name">AfyaJamii</string>
+    <string name="login_title">Government of Tanzania  \n CHW Afya Jamii</string>
+    <string name="nav_logo">Government of Tanzania CHW Afya Jamii</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
     <string name="sick_child_title">SICK CHILD FORM</string>
