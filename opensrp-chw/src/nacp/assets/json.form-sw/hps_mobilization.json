@@ -437,7 +437,7 @@
         "options": [
           {
             "key": "nutrition",
-            "text": "Lishe",
+            "text": "1.Lishe",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "nutrition",
             "property": {
@@ -447,7 +447,7 @@
           },
           {
             "key": "danger_signs_of_pregnancy",
-            "text": "Vidokezo vya hatari wakati wa ujauzito",
+            "text": "2.Vidokezo vya hatari wakati wa ujauzito",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "danger_signs_of_pregnancy",
             "property": {
@@ -457,7 +457,7 @@
           },
           {
             "key": "family_planning",
-            "text": "Uzazi wa Mpango",
+            "text": "3.Uzazi wa Mpango",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "family_planning",
             "property": {
@@ -467,7 +467,7 @@
           },
           {
             "key": "malaria",
-            "text": "Malaria ",
+            "text": "4.Malaria ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria",
             "property": {
@@ -477,7 +477,7 @@
           },
           {
             "key": "tuberculosis_leprosy_and_testing",
-            "text": "Ugonjwa wa kifua kikuu, ukoma na upimaji.",
+            "text": "5.Ugonjwa wa kifua kikuu, ukoma na upimaji.",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tuberculosis_leprosy_and_testing",
             "property": {
@@ -487,7 +487,7 @@
           },
           {
             "key": "hiv_hepatitis_and_testing",
-            "text": "VVU, homa ya ini na upimaji",
+            "text": "6.VVU, homa ya ini na upimaji",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_hepatitis_and_testing",
             "property": {
@@ -497,7 +497,7 @@
           },
           {
             "key": "epidemic_diseases",
-            "text": "Magonjwa ya Mlipuko ",
+            "text": "7.Magonjwa ya Mlipuko ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "epidemic_diseases",
             "property": {
@@ -507,7 +507,7 @@
           },
           {
             "key": "neglected_tropical_diseases",
-            "text": "Magonjwa yaliokuwa hayapewi kipaumbele ",
+            "text": "8.Magonjwa yaliokuwa hayapewi kipaumbele ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "neglected_tropical_diseases",
             "property": {
@@ -517,7 +517,7 @@
           },
           {
             "key": "oral_and_dental_health",
-            "text": "Afya ya kinywa na meno",
+            "text": "9.Afya ya kinywa na meno",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "oral_and_dental_health",
             "property": {
@@ -527,7 +527,7 @@
           },
           {
             "key": "non_communicable_diseases",
-            "text": "Magonjwa yasioyo ya kuambikizwa ",
+            "text": "10.Magonjwa yasioyo ya kuambikizwa ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "non_communicable_diseases",
             "property": {
@@ -537,7 +537,7 @@
           },
           {
             "key": "eye_diseases_and_testing",
-            "text": "Magonjwa ya macho na upimaji",
+            "text": "11.Magonjwa ya macho na upimaji",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "eye_diseases_and_testing",
             "property": {
@@ -547,7 +547,7 @@
           },
           {
             "key": "environmental_sanitation_and_care",
-            "text": "Usafi na Utunzaji wa mazingira",
+            "text": "12.Usafi na Utunzaji wa mazingira",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "environmental_sanitation_and_care",
             "property": {
@@ -557,7 +557,7 @@
           },
           {
             "key": "health_insurance_fund",
-            "text": "Mfuko wa bima ya afya",
+            "text": "13.Mfuko wa bima ya afya",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "health_insurance_fund",
             "property": {
@@ -567,7 +567,7 @@
           },
           {
             "key": "gender_based_violence",
-            "text": "Ukatili wa kijinsia",
+            "text": "14.Ukatili wa kijinsia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gender_based_violence",
             "property": {
@@ -577,7 +577,7 @@
           },
           {
             "key": "harmful_effects_of_substance_abuse",
-            "text": "Madhara ya matumizi ya mihadarati",
+            "text": "15.Madhara ya matumizi ya mihadarati",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "harmful_effects_of_substance_abuse",
             "property": {
@@ -587,7 +587,7 @@
           },
           {
             "key": "mental_health",
-            "text": "Afya ya akili ",
+            "text": "16.Afya ya akili ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mental_health",
             "property": {
@@ -597,7 +597,7 @@
           },
           {
             "key": "rights_of_the_elderly_and_family_responsibilities",
-            "text": "Haki za wazee na wajibu wa familia ",
+            "text": "17.Haki za wazee na wajibu wa familia ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities",
             "property": {
@@ -607,7 +607,7 @@
           },
           {
             "key": "childrens_rights_and_protection",
-            "text": "Haki na ulinzi wa watoto",
+            "text": "18.Haki na ulinzi wa watoto",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "childrens_rights_and_protection",
             "property": {
@@ -617,7 +617,7 @@
           },
           {
             "key": "sexually_transmitted_diseases",
-            "text": "Magonjwa ya ngono",
+            "text": "19.Magonjwa ya ngono",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sexually_transmitted_diseases",
             "property": {
@@ -627,7 +627,7 @@
           },
           {
             "key": "effects_of_child_marriage_and_teenage_pregnancies",
-            "text": "Madhara ya ndoa na mimba za utotoni",
+            "text": "20.Madhara ya ndoa na mimba za utotoni",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies",
             "property": {
@@ -637,7 +637,7 @@
           },
           {
             "key": "immunization_services",
-            "text": "Huduma za chanjo ",
+            "text": "21.Huduma za chanjo ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "immunization_services",
             "property": {
@@ -647,7 +647,7 @@
           },
           {
             "key": "childcare_growth_and_early_childhood",
-            "text": "Malezi, makuzi na maendeleo ya awali ya mtoto ",
+            "text": "22.Malezi, makuzi na maendeleo ya awali ya mtoto ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "childcare_growth_and_early_childhood",
             "property": {
@@ -657,7 +657,7 @@
           },
           {
             "key": "importance_of_birth_certificates",
-            "text": "Umuhimu wa cheti cha kuzaliwa ",
+            "text": "23.Umuhimu wa cheti cha kuzaliwa ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "importance_of_birth_certificates",
             "property": {
@@ -667,7 +667,7 @@
           },
           {
             "key": "entrepreneurship",
-            "text": "Ujasiriamali ",
+            "text": "24.Ujasiriamali ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship",
             "property": {
@@ -677,7 +677,7 @@
           },
           {
             "key": "first_aid",
-            "text": "Huduma ya kwanza",
+            "text": "25.Huduma ya kwanza",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "first_aid",
             "property": {
@@ -687,7 +687,7 @@
           },
           {
             "key": "violence_against_children",
-            "text": "Ukatili dhidi ya watoto",
+            "text": "26.Ukatili dhidi ya watoto",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "violence_against_children",
             "property": {
@@ -697,7 +697,7 @@
           },
           {
             "key": "medication_adherence",
-            "text": "Ufuasi wa dawa",
+            "text": "27.Ufuasi wa dawa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "medication_adherence",
             "property": {
@@ -707,7 +707,7 @@
           },
           {
             "key": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
-            "text": "Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115",
+            "text": "28.Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
             "property": {
@@ -717,7 +717,7 @@
           },
           {
             "key": "other_educations",
-            "text": "Elimu Nyinginezo",
+            "text": "29.Elimu Nyinginezo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_educations",
