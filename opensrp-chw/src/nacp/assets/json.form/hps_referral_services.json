@@ -358,7 +358,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided",
         "type": "edit_text",
-        "hidden": "true",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -421,10 +420,10 @@
         }
       },
       {
-        "key": "referral_system_used",
+        "key": "referral_system_including_ucs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_system_used",
+        "openmrs_entity_id": "referral_system_including_ucs",
         "type": "check_box",
         "label": "Select type of Referral system used",
         "text_color": "#000000",
@@ -469,6 +468,58 @@
             }
           }
         }
+      },
+      {
+        "key": "referral_system_excluding_ucs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_excluding_ucs",
+        "type": "check_box",
+        "label": "Select type of Referral system used",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "m_mama",
+            "text": "M-Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "m_mama"
+          },
+          {
+            "key": "referral_form",
+            "text": "Referral Form",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Referral Form"
+          },
+          {
+            "key": "other_method",
+            "text": "Other Method (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_method"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_provided",
+        "type": "edit_text",
+        "hidden": "true"
       },
       {
         "key": "other_method_specify",

@@ -48,6 +48,41 @@ condition: "step1_provide_referral_services.equalsIgnoreCase('yes') && global_ge
 actions:
   - "isRelevant = true"
 ---
+name: step1_referral_system_including_ucs
+description: referral system including ucs
+priority: 1
+condition: " step1_referral_system.contains('family_planning') ||
+             step1_referral_system.contains('sexually_transmitted') ||
+             step1_referral_system.contains('male_circumcision') ||
+             step1_referral_system.contains('other_malaria') ||
+             step1_referral_system.contains('anc_services') ||
+             step1_referral_system.contains('pnc_care') ||
+             step1_referral_system.contains('cervical_breast_cancer')
+           "
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_system_excluding_ucs
+description: referral system excluding ucs
+priority: 1
+condition: " !(step1_referral_system.contains('family_planning') ||
+             step1_referral_system.contains('sexually_transmitted') ||
+             step1_referral_system.contains('male_circumcision') ||
+             step1_referral_system.contains('other_malaria') ||
+             step1_referral_system.contains('anc_services') ||
+             step1_referral_system.contains('pnc_care') ||
+             step1_referral_system.contains('cervical_breast_cancer'))
+           "
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_system_provided
+description: referral system provided
+priority: 1
+condition: "true"
+actions:
+  - "calculations = 'no'"
+---
 name: step1_referral_provided
 description: hps referrals provided
 priority: 1
