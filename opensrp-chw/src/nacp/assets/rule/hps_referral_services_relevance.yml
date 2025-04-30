@@ -2,7 +2,7 @@
 name: step1_other_method_specify
 description: if step1_other_method_specify
 priority: 1
-condition: "step1_referral_system_used.contains('other_method')"
+condition: "step1_referral_system_including_ucs.contains('other_method') || step1_referral_system_excluding_ucs.contains('other_method')"
 actions:
   - "isRelevant = true "
 ---
@@ -27,10 +27,10 @@ condition: "step1_referral_system_used.contains('ucs')"
 actions:
   - "isRelevant = true "
 ---
-name: step1_referral_system
+name: step1_was_there_any_referral_system_used
 description: if step1_referral_provided
 priority: 1
-condition: "step1_provide_referral_services.equalsIgnoreCase('yes')"
+condition: "step1_provide_referral_services.contains('yes')"
 actions:
   - "isRelevant = true "
 ---
@@ -51,13 +51,14 @@ actions:
 name: step1_referral_system_including_ucs
 description: referral system including ucs
 priority: 1
-condition: " step1_referral_system.contains('family_planning') ||
-             step1_referral_system.contains('sexually_transmitted') ||
-             step1_referral_system.contains('male_circumcision') ||
-             step1_referral_system.contains('other_malaria') ||
-             step1_referral_system.contains('anc_services') ||
-             step1_referral_system.contains('pnc_care') ||
-             step1_referral_system.contains('cervical_breast_cancer')
+condition: " step1_was_there_any_referral_system_used.contains('yes') 
+&& (step1_referral_provided.contains('family_planning') ||
+             step1_referral_provided.contains('sexually_transmitted') ||
+             step1_referral_provided.contains('male_circumcision') ||
+             step1_referral_provided.contains('other_malaria') ||
+             step1_referral_provided.contains('anc_services') ||
+             step1_referral_provided.contains('pnc_care') ||
+             step1_referral_provided.contains('cervical_breast_cancer'))
            "
 actions:
   - "isRelevant = true"
@@ -65,13 +66,13 @@ actions:
 name: step1_referral_system_excluding_ucs
 description: referral system excluding ucs
 priority: 1
-condition: " !(step1_referral_system.contains('family_planning') ||
-             step1_referral_system.contains('sexually_transmitted') ||
-             step1_referral_system.contains('male_circumcision') ||
-             step1_referral_system.contains('other_malaria') ||
-             step1_referral_system.contains('anc_services') ||
-             step1_referral_system.contains('pnc_care') ||
-             step1_referral_system.contains('cervical_breast_cancer'))
+condition: " step1_was_there_any_referral_system_used.contains('yes') && !(step1_referral_provided.contains('family_planning') ||
+             step1_referral_provided.contains('sexually_transmitted') ||
+             step1_referral_provided.contains('male_circumcision') ||
+             step1_referral_provided.contains('other_malaria') ||
+             step1_referral_provided.contains('anc_services') ||
+             step1_referral_provided.contains('pnc_care') ||
+             step1_referral_provided.contains('cervical_breast_cancer'))
            "
 actions:
   - "isRelevant = true"
@@ -81,7 +82,25 @@ description: referral system provided
 priority: 1
 condition: "true"
 actions:
-  - "calculations = 'no'"
+  - "calculations = if (step1_was_there_any_referral_system_used.contains('yes') 
+                        && (step1_referral_provided.contains('family_planning') ||
+                                     step1_referral_provided.contains('sexually_transmitted') ||
+                                     step1_referral_provided.contains('male_circumcision') ||
+                                     step1_referral_provided.contains('other_malaria') ||
+                                     step1_referral_provided.contains('anc_services') ||
+                                     step1_referral_provided.contains('pnc_care') ||
+                                     step1_referral_provided.contains('cervical_breast_cancer'))) {return step1_referral_system_including_ucs }
+                    else if(step1_was_there_any_referral_system_used.contains('yes') && !(step1_referral_provided.contains('family_planning') ||
+                                         step1_referral_provided.contains('sexually_transmitted') ||
+                                         step1_referral_provided.contains('male_circumcision') ||
+                                         step1_referral_provided.contains('other_malaria') ||
+                                         step1_referral_provided.contains('anc_services') ||
+                                         step1_referral_provided.contains('pnc_care') ||
+                                         step1_referral_provided.contains('cervical_breast_cancer'))){
+                       return step1_referral_system_excluding_ucs
+                    }
+                    else {return '' }
+    "
 ---
 name: step1_referral_provided
 description: hps referrals provided
