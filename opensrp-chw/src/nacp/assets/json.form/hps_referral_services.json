@@ -352,6 +352,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided",
         "type": "edit_text",
+        "hidden": "true",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -513,6 +514,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_system_provided",
         "type": "edit_text",
+        "hidden": "true",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
