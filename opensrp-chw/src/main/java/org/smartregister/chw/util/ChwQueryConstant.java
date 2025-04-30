@@ -84,7 +84,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                      AS dob,\n" +
             "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
             "       ec_family_member.id                       as _id,\n" +
-            "       'HPS'                                     AS register_type,\n" +
+            "       'iCCHW'                                     AS register_type,\n" +
             "       ec_family_member.relational_id            as relationalid,\n" +
             "       ec_family.village_town                    as home_address,\n" +
             "       ec_hps_client_register.last_interacted_with      AS last_interacted_with,\n" +
