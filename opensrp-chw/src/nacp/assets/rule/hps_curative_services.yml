@@ -6,13 +6,6 @@ condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_is_treatment_provided
-description: hps diseases tests conducted
-priority: 1
-condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
-actions:
-  - "isRelevant = true"
----
 name: step1_specify_signs_and_symptoms_provided
 description: hps other education provided
 priority: 1
@@ -118,7 +111,7 @@ actions:
 name: step1_prompt_for_rbg
 description: prompt for random blood sugar
 priority: 1
-condition: "(Float.parseFloat(step1_blood_sugar_result) < 3.9 || Float.parseFloat(step1_blood_sugar_result) > 11.1)"
+condition: "(Float.parseFloat(step1_blood_sugar_result) <= 7 || Float.parseFloat(step1_blood_sugar_result) >= 11)"
 actions:
   - "isRelevant = true"
 ---
@@ -133,6 +126,31 @@ name: step1_diseases_signs_and_symptoms_female
 description: validate diseases and symptoms for female
 priority: 1
 condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes') && global_gender.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_is_treatment_provided
+description: show treatment provided
+priority: 1
+condition: "step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt')
+            || step1_diseases_signs_and_symptoms_male.contains('fever')
+            || step1_diseases_signs_and_symptoms_female.contains('fever') 
+            || step1_diseases_signs_and_symptoms_male.contains('nausea_and_vomiting') 
+            || step1_diseases_signs_and_symptoms_female.contains('nausea_and_vomiting')
+            || step1_diseases_signs_and_symptoms_male.contains('headache') 
+            || step1_diseases_signs_and_symptoms_female.contains('headache') 
+            || step1_diseases_signs_and_symptoms_male.contains('diarrhoea') 
+            || step1_diseases_signs_and_symptoms_female.contains('diarrhoea') 
+            || step1_diseases_signs_and_symptoms_male.contains('body_malaise')
+            || step1_diseases_signs_and_symptoms_female.contains('body_malaise')
+            || step1_diseases_signs_and_symptoms_male.contains('body_convulsion') 
+            || step1_diseases_signs_and_symptoms_female.contains('body_convulsion') 
+            || step1_diseases_signs_and_symptoms_male.contains('cough') 
+            || step1_diseases_signs_and_symptoms_female.contains('cough') 
+            || step1_diseases_signs_and_symptoms_male.contains('body_injury') 
+            || step1_diseases_signs_and_symptoms_female.contains('body_injury') 
+            || step1_diseases_signs_and_symptoms_male.contains('other_signs_and_symptoms') 
+            || step1_diseases_signs_and_symptoms_female.contains('other_signs_and_symptoms')"
 actions:
   - "isRelevant = true"
 ---

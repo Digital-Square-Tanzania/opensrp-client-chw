@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WAJA</string>
-    <string name="login_title">Ministry of Health  \n WAJA app</string>
-    <string name="nav_logo">Ministry of Health Community App</string>
+    <string name="app_name">AfyaJamii</string>
+    <string name="login_title">Government of Tanzania  \n CHW Afya Jamii</string>
+    <string name="nav_logo">Government of Tanzania CHW Afya Jamii</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
     <string name="sick_child_title">SICK CHILD FORM</string>
@@ -982,6 +982,9 @@
     <string name="hps_collection_sputum_stool_samples">Collection of Sputum/Stool Samples</string>
     <string name="hps_dispensing_arv_medication">Dispensing ARV Medication to People Living with HIV (PLHIV)</string>
     <string name="hps_preventive_medication_ntd">Distribution of Preventive Medication for Neglected Tropical Diseases</string>
+    <string name="hps_environment_hygiene_sanitation">Environment Hygiene and Sanitation</string>
+    <string name="hps_food_hygiene_safety">Food Hygiene and Safety</string>
+
     <string name="hps_other_services">Other Services</string>
     <string name="hps_others_services_specify">Others services(Specify)</string>
     <string name="hps_name_of_hamlet">Name of hamlet</string>
@@ -1070,10 +1073,17 @@
     <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
     <string name="hps_loud_speakers">Loudspeakers</string>
     <string name="hps_drumming_public_announcements">Drumming (public announcements)</string>
-    <string name="hps_radio_tv_etc">Radio, TV, etc.</string>
+    <string name="hps_radio_tv_etc">Radio</string>
+    <string name="hps_television">Television</string>
     <string name="hps_social_media_eg_whatsapp">Social media (e.g., WhatsApp)</string>
     <string name="hps_face_to_face">Face to face</string>
     <string name="hps_others_specify">Others (Specify)</string>
+    <string name="hps_type_radio_tv_used_for_education">Select the type of Radio used for education and awareness</string>
+    <string name="hps_national_radio">National radio</string>
+    <string name="hps_community_radio">Community Radio</string>
+    <string name="hps_type_tv_used_for_education">Select the type of TV used for education and awareness</string>
+    <string name="hps_national_television">National television</string>
+    <string name="hps_community_television">Community Television</string>
     <string name="hps_other_method_of_education_and_awareness_used">Specify other method of education and awareness</string>
     <string name="hps_area_where_mobilization_took_place">Area where the mobilization took place</string>
     <string name="hps_at_the_market_or_stalls">At the market/stalls</string>

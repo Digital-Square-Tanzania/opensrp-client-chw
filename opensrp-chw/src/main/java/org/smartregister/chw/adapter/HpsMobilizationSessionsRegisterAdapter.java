@@ -100,6 +100,14 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
             this.context = context;
         }
 
+        private int safeParse(String value) {
+            try {
+                return (value != null && !value.isEmpty()) ? Integer.parseInt(value) : 0;
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+
         public void bindData(HpsMobilizationSessionModel hpsMobilizationSessionModel) {
             sbccSessionDate = itemView.findViewById(R.id.sbc_session_date);
             typeOfCommunitySbcActivity = itemView.findViewById(R.id.sbc_activity_provided);
@@ -108,8 +116,9 @@ public class HpsMobilizationSessionsRegisterAdapter extends RecyclerView.Adapter
 
             sbccSessionDate.setText(Html.fromHtml(context.getString(R.string.hps_session_date, hpsMobilizationSessionModel.getDateOfGathering())));
 
-            int malesAttended = Integer.parseInt(hpsMobilizationSessionModel.getNumberOfMalesWhoAttended());
-            int femalesAttended = Integer.parseInt(hpsMobilizationSessionModel.getNumberOfFemalesWhoAttended());
+            int malesAttended = safeParse(hpsMobilizationSessionModel.getNumberOfMalesWhoAttended());
+            int femalesAttended = safeParse(hpsMobilizationSessionModel.getNumberOfFemalesWhoAttended());
+
             int totalClientsReached = malesAttended + femalesAttended;
             clientsReached.setText(Html.fromHtml(context.getString(R.string.hps_clients_reached, totalClientsReached)));
 
