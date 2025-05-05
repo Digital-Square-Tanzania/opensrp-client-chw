@@ -52,8 +52,52 @@
     }
   },
   "step1": {
-    "title": "Remove Child Under 5",
+    "title": "Mark as deceased",
     "fields": [
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kwanza"
+        }
+      },
+      {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "middle_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kati"
+        }
+      },
+      {
+        "key": "last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la mwisho"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
@@ -90,35 +134,25 @@
         "key": "remove_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Reason",
-        "values": [
-          "Died",
-          "Moved away",
-          "Other"
-        ],
-        "keys": [
-          "Died",
-          "Moved away",
-          "Other"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Select the reason for removing the child's record."
-        },
-        "openmrs_choice_ids": {
-          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
+        "openmrs_entity_id": "remove_reason",
+        "type": "hidden",
+        "value": "Death"
       },
       {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
+        "type": "spacer",
+        "expanded": false,
+        "read_only": "true",
+        "hidden": "false"
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dob",
         "type": "spacer",
         "expanded": false,
         "read_only": "true",
