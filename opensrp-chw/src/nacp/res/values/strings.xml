@@ -25,6 +25,7 @@
     <string name="menu_independent">Independent</string>
     <string name="menu_cecap">Reproductive Cancers</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
+    <string name="remove_client">Mark Client as Deceased</string>
 
 
     <!-- Reports View Strings   -->
@@ -1379,5 +1380,8 @@
     <string name="treatment_supporter_phone">Treatment Supporter Phone Number</string>
     <string name="manual_process_visit">Process Visit</string>
     <string name="hps_view_visit_history">View visit history</string>
+    <string name="confirm_remove_text">Verify the death information of %s. Completing this step will remove all information about this client from your phone. Once saved, you cannot undo this action.</string>
+
+    <string name="remove">SAVE</string>
 
 </resources>

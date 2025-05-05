@@ -169,45 +169,6 @@
         }
       },
       {
-        "key": "cause_of_death_male",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "cause_of_death_male",
-        "label": "Cause of death",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "accidents",
-            "text": "Accidents",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "accidents"
-          },
-          {
-            "key": "other_reason",
-            "text": "Other reason",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_reason"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_death_registration_details.yml"
-            }
-          }
-        }
-      },
-
-
-
-      {
         "key": "comments",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

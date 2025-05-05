@@ -1232,5 +1232,8 @@
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
     <string name="manual_process_visit">Kamilisha tembeleo</string>
     <string name="hps_view_visit_history">Angalia historia ya tembeleo</string>
+    <string name="remove_client">Rekodi kifo cha mteja</string>
+    <string name="confirm_remove_text">Hakiki taarifa za kifo cha %s. Kukamilisha hatua hii itaondoa taarifa zote za mteja huyu toka kwenye simu yako. Baada ya kuhifadhi huwezi kutendua hatua hii.</string>
+    <string name="remove">HIFADHI</string>
 
 </resources>
