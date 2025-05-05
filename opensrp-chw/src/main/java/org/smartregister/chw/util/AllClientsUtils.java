@@ -230,7 +230,7 @@ public class AllClientsUtils {
         if (tbRegistration != null) tbRegistration.setVisible(false);
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);
-        if (removeMember != null) removeMember.setVisible(false);
+        if (removeMember != null) removeMember.setVisible(true);
 
         // Get shared preferences once
         AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();

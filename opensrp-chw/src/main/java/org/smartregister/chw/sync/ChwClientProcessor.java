@@ -106,7 +106,23 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
-
+                case CoreConstants.EventType.REMOVE_MEMBER:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case CoreConstants.EventType.REMOVE_CHILD:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
                 case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
                 case DELETE_EVENT:
                     processDeleteEvent(eventClient.getEvent());

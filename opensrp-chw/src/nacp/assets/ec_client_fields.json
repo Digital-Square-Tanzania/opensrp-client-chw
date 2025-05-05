@@ -6934,7 +6934,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "formSubmissionId"
+            "field": "baseEntityId"
           }
         },
         {
