@@ -143,7 +143,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_remove_member).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(true);
         menu.findItem(R.id.action_issue_pmtct_followup_referral).setVisible(false);
         return true;
     }

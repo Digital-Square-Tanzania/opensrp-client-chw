@@ -12,6 +12,7 @@ import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.core.CoreBaseAncMedicalHistoryInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.hps.util.Constants;
 
@@ -54,10 +55,10 @@ public class HpsDeathRegistrationDetailsInteractor extends CoreBaseAncMedicalHis
     public void getMemberHistory(final String memberID, final Context context, final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
         final Runnable runnable = () -> {
 
-            String[] eventTypes = new String[]{Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION};
+            String[] eventTypes = new String[]{Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION, CoreConstants.EventType.REMOVE_MEMBER, CoreConstants.EventType.REMOVE_CHILD};
             List<SortableVisit> visits = getVisits(memberID, eventTypes);
             final List<Visit> all_visits = new ArrayList<>(visits);
-            appExecutors.mainThread().execute(() -> callBack.onDataFetched(Collections.singletonList(all_visits.get(all_visits.size() - 1))));
+            appExecutors.mainThread().execute(() -> callBack.onDataFetched(!all_visits.isEmpty() ? Collections.singletonList(all_visits.get(all_visits.size() - 1)) : new ArrayList<>()));
         };
 
         appExecutors.diskIO().execute(runnable);
