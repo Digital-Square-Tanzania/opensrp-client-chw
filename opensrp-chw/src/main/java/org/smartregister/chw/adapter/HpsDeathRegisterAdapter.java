@@ -89,8 +89,6 @@ public class HpsDeathRegisterAdapter extends RecyclerView.Adapter<HpsDeathRegist
             } else {
                 nameOfClient.setText(Html.fromHtml(context.getString(R.string.hps_death_register_name_of_the_client, hpsMobilizationSessionModel.getFullName())));
             }
-            causeOfDeath.setText(Html.fromHtml(context.getString(R.string.hps_death_register_cause_of_death, getStringResource(context, "hps_", hpsMobilizationSessionModel.getCauseOfDeath()))));
-
             itemView.setOnClickListener(view -> HpsDeathRegistrationDetailsActivity.startMe(((Activity) context), hpsMobilizationSessionModel.getDeathId()));
         }
     }

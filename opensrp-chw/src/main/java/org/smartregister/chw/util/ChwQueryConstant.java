@@ -19,7 +19,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_interacted_with AS last_interacted_with\n" +
             "FROM ec_family_member\n" +
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
-            "where ec_family_member.date_removed is null\n" +
+            "where ec_family_member.dod is null\n" +
             "  AND ec_family.entity_type = 'ec_independent_client'\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
