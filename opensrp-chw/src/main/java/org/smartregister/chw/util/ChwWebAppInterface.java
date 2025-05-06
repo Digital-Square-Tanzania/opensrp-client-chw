@@ -133,4 +133,9 @@ public class ChwWebAppInterface {
     public String getReportingFacility() {
         return getAllSharedPreferences().fetchCurrentLocality();
     }
+    @JavascriptInterface
+    public String getReportingChw() {
+        return getAllSharedPreferences().getPreference("dfltTeam-"+getAllSharedPreferences().fetchPioneerUser());
+    }
+
 }
