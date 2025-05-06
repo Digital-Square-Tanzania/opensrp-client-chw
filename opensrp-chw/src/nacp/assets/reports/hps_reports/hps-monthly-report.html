@@ -200,7 +200,7 @@ ul li > * {
     </style>
 </head>
 
-<body onload="loadData('hps-monthly-report')">
+<body onload="loadData('hps-monthly-report','')">
 <!--<div class="show-on-print" style="font-size:12px;">-->
 <!--    <h1>TAARIFA YA HUDUMA JUMUISHI ZA AFYA NGAZI YA JAMII</h1>-->
 <!--    <h2>Taarifa ya Mwezi: <span id="report_period"></span></h2>-->
@@ -6190,64 +6190,5 @@ ul li > * {
         </tbody>
     </table>
 </div>
-
-<!--<script>-->
-<!--    function loadData(reportKey, reportType) {-->
-<!--  const data = JSON.parse(Android.getData("hps-monthly-report"));-->
-<!--  const keys = Object.keys(data.nameValuePairs);-->
-<!--  const reportPeriod = document.getElementById("report_period");-->
-<!--  const reportingFacility = document.getElementById("reporting_facility");-->
-<!--  keys.forEach((key) => {-->
-<!--    let element;-->
-<!--    if(reportType!== null && reportType === "pnc"){-->
-<!--      element = document.getElementById(key.replace("pnc-",""));-->
-<!--    }else{-->
-<!--      element = document.getElementById(key);-->
-<!--    }-->
-<!--    if (element !== null && typeof element !== "undefined") {-->
-<!--      element.innerHTML = data.nameValuePairs[key];-->
-<!--    }-->
-<!--  });-->
-<!--  reportPeriod.innerHTML = Android.getDataPeriod();-->
-<!--  reportingFacility.innerHTML = Android.getReportingFacility();-->
-<!--}-->
-<!--</script>-->
-<!--<script>-->
-<!--    // Function to load and update data-->
-<!--    function loadData(reportKey, reportType) {-->
-<!--      const data = JSON.parse(Android.getData("hps-monthly-report")); // Fetch data-->
-<!--      const keys = Object.keys(data.nameValuePairs); // Get keys from the data-->
-<!--      const reportPeriod = document.getElementById("report_period");-->
-<!--      const reportingFacility = document.getElementById("reporting_facility");-->
-
-<!--      // Update elements with new data-->
-<!--      keys.forEach((key) => {-->
-<!--        let element;-->
-<!--        if (reportType !== null && reportType === "pnc") {-->
-<!--          element = document.getElementById(key.replace("pnc-", ""));-->
-<!--        } else {-->
-<!--          element = document.getElementById(key);-->
-<!--        }-->
-<!--        if (element !== null && typeof element !== "undefined") {-->
-<!--          element.innerHTML = data.nameValuePairs[key]; // Update element content-->
-<!--        }-->
-<!--      });-->
-
-<!--      // Update report period and reporting facility-->
-<!--      reportPeriod.innerHTML = Android.getDataPeriod();-->
-<!--      reportingFacility.innerHTML = Android.getReportingFacility();-->
-<!--    }-->
-
-<!--    // Function to start polling for updates-->
-<!--    function startPolling(reportKey, reportType, interval = 5000) {-->
-<!--      setInterval(() => {-->
-<!--        console.log("Polling for new data...");-->
-<!--        loadData(reportKey, reportType); // Call loadData to fetch and update data-->
-<!--      }, interval);-->
-<!--    }-->
-
-<!--    // Start polling when the page loads-->
-<!--    startPolling(reportKey, reportTyp);-->
-<!--</script>-->
 </body>
 </html>

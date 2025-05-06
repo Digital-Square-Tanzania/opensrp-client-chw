@@ -8,16 +8,17 @@ function loadData(reportKey, reportType) {
   reportingFacility.innerHTML = Android.getReportingChw();
   keys.forEach((key) => {
     let element;
-    if(reportType!== null && reportType === "pnc"){
-      element = document.getElementById(key.replace("pnc-",""));
-    }else{
+    if(reportType !== null && reportType === "pnc"){
+      element = document.getElementById(key.replace("pnc-", ""));
+    }
+    else {
       element = document.getElementById(key);
     }
     if (element !== null && typeof element !== "undefined") {
       element.innerHTML = data.nameValuePairs[key];
     }
   });
-    if(typeof data!== undefined && data !== ""){
+    if(typeof data !== undefined && data !== ""){
       const reportData = data.nameValuePairs.reportData.values;
 
       reportData.forEach((dataPoint) => {

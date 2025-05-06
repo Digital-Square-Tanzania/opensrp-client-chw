@@ -5,9 +5,10 @@ function loadData(reportKey, reportType) {
   const reportingFacility = document.getElementById("reporting_facility");
   keys.forEach((key) => {
     let element;
-    if(reportType!== null && reportType === "pnc"){
-      element = document.getElementById(key.replace("pnc-",""));
-    }else{
+    if(reportType !== null && reportType === "pnc"){
+      element = document.getElementById(key.replace("pnc-", ""));
+    }
+    else {
       element = document.getElementById(key);
     }
     if (element !== null && typeof element !== "undefined") {
