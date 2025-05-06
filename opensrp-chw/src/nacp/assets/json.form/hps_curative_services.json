@@ -790,13 +790,6 @@
             "openmrs_entity_id": "blood_sugar"
           },
           {
-            "key": "hiv_testing_kits",
-            "text": "HIV testing kits",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_testing_kits"
-          },
-          {
             "key": "body_temperature",
             "text": "Body Temperature (℃)",
             "openmrs_entity_parent": "",
@@ -1024,41 +1017,6 @@
         }
       },
       {
-        "key": "hiv_testing_kits_result",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "hiv_testing_kits_result",
-        "type": "native_radio",
-        "label": "Select HIV Testing Kits Results",
-        "options": [
-          {
-            "key": "reactive",
-            "text": "Reactive",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "reactive"
-          },
-          {
-            "key": "non_reactive",
-            "text": "Non-Reactive",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "non_reactive"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_curative_services.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "body_temperature_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1088,7 +1046,7 @@
         },
         "v_regex": {
           "value": "^(\\d{2}|\\d{2}\\.\\d)$",
-          "err": "Please enter a valid input, eg: 36 or 37.5"
+          "err": "Please enter a valid input, eg: 35 or 37.4"
         },
         "relevance": {
           "rules-engine": {
@@ -1109,7 +1067,7 @@
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",
-            "ex": "greaterThan(.,\"37.8\")"
+            "ex": "greaterThanEqualTo(.,\"37.5\")"
           }
         }
       },
@@ -1124,7 +1082,7 @@
         "relevance": {
           "step1:body_temperature_result": {
             "type": "numeric",
-            "ex": "lessThan(.,\"36.5\")"
+            "ex": "lessThanEqualTo(.,\"35\")"
           }
         }
       },

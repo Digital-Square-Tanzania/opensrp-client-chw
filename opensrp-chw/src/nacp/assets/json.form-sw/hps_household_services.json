@@ -428,7 +428,7 @@
           },
           {
             "key": "education_on_importance_of_children_vaccinations",
-            "text": "38.Elimu ya umuhimu wa chanjo za watoto",
+            "text": "30.Elimu ya umuhimu wa chanjo za watoto",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_importance_of_children_vaccinations",
             "property": {
@@ -438,7 +438,7 @@
           },
           {
             "key": "education_on_symptoms_of_measles",
-            "text": "39.Elimu ya dalili za ugonjwa wa surua (homa na vipele)",
+            "text": "31.Elimu ya dalili za ugonjwa wa surua (homa na vipele)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_symptoms_of_measles",
             "property": {
@@ -448,7 +448,7 @@
           },
           {
             "key": "education_on_symptoms_of_polio",
-            "text": "40.Elimu ya dalili za ugonjwa wa polio (ulemavu wa ghafla)",
+            "text": "32.Elimu ya dalili za ugonjwa wa polio (ulemavu wa ghafla)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_symptoms_of_polio",
             "property": {
@@ -608,7 +608,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "comments",
         "type": "edit_text",
-        "hint": "Maoni"
+        "hint": "Maoni ya huduma za kaya",
+        "v_max_length": {
+          "value": "500",
+          "is_fixed_size": "true",
+          "err": "Limit exceeded"
+        }
       }
     ]
   }

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WAJA</string>
-    <string name="login_title">Wizara ya Afya  \n Mfumo wa WAJA</string>
-    <string name="nav_logo">Mfumo wa Jamii wa Wizara ya Afya</string>
+    <string name="app_name">AfyaJamii</string>
+    <string name="login_title">Serikali ya Tanzania  \n CHW Afya Jamii</string>
+    <string name="nav_logo">CHW Afya Jamii</string>
     <string name="menu_anc">Wajawazito</string>
     <string name="menu_pnc">Baada ya Kujifungua</string>
     <string name="hiv_referral">Kliniki ya Tiba na matunzo (CTC)</string>
@@ -1232,5 +1232,8 @@
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
     <string name="manual_process_visit">Kamilisha tembeleo</string>
     <string name="hps_view_visit_history">Angalia historia ya tembeleo</string>
+    <string name="remove_client">Rekodi kifo cha mteja</string>
+    <string name="confirm_remove_text">Hakiki taarifa za kifo cha %s. Kukamilisha hatua hii itaondoa taarifa zote za mteja huyu toka kwenye simu yako. Baada ya kuhifadhi huwezi kutendua hatua hii.</string>
+    <string name="remove">HIFADHI</string>
 
 </resources>
