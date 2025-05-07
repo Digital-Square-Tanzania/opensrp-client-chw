@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <script src="../report-script.js"></script>
+    <script src="hps-monthly-report-script.js"></script>
     <style>
 *{
     box-sizing: border-box;
@@ -14,7 +13,7 @@
 }
 
 .show-on-print {
-  display: none;
+  display: none !important;
 }
 body{
     font-family: Helvetica;
@@ -78,6 +77,39 @@ table, th, td {
     color: white;
 }
 
+.fixed-width {
+  min-width: 50px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.report-title {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.header-logo {
+    width: 80px;
+    height: auto;
+}
+
+.left-logo {
+    margin-right: 10px;
+}
+
+.right-logo {
+    margin-left: 10px;
+}
+
 /* Specific width for the "MAELEZO" column */
 .fl-table th.description-data,
 .fl-table td.description-data {
@@ -120,9 +152,16 @@ ul li > * {
   font-weight: 700;
 }
 
+@page {
+/* To fit all the columns on printing*/
+  size: landscape;
+}
+
 @media print {
   .show-on-print {
-    display: block;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .child-table {
@@ -144,6 +183,10 @@ ul li > * {
     color: white;
 }
 
+.table-wrapper {
+    overflow: visible !important;
+}
+
 /* Specific width for the "MAELEZO" column */
 .fl-table th.description-data,
 .fl-table td.description-data {
@@ -161,11 +204,20 @@ ul li > * {
     </style>
 </head>
 
-<body onload="loadData('monthly', 'anc')">
-<div class="show-on-print" style="font-size:12px;">
-    <h1>TAARIFA ZA MWEZI KUTOKA KATIKA JAMII (ELIMU yA AFYA KWA UMMA)</h1>
-    <h2>Taarifa ya Mwezi: <span id="report_period"></span></h2>
-    <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>
+<body onload="loadData('hps-monthly-report','')">
+<!--<div class="show-on-print" style="font-size:12px;">-->
+<!--    <h1>TAARIFA YA HUDUMA JUMUISHI ZA AFYA NGAZI YA JAMII</h1>-->
+<!--    <h2>Taarifa ya Mwezi: <span id="report_period"></span></h2>-->
+<!--    <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>-->
+<!--</div>-->
+<div class="show-on-print report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo left-logo" alt="Left Logo">
+    <div class="report-title" style="font-size:12px;">
+        <h1>TAARIFA YA HUDUMA JUMUISHI ZA AFYA NGAZI YA JAMII</h1>
+        <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>
+        <h2>Taarifa ya Mwezi: <span id="report_period"></span></h2>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/ic_launcher_afya_jamii_logo.png" class="header-logo right-logo" alt="Right Logo">
 </div>
 <div class="table-wrapper">
     <table class="fl-table">
@@ -178,28 +230,28 @@ ul li > * {
             <th rowspan="2" class="description-data-total">Jumla (ME+KE)</th>
         </tr>
         <tr>
-            <th>Chini ya mwezi 1</th>
-            <th>Mwezi 1 hadi 11</th>
-            <th>Miezi 12 hadi 23</th>
-            <th>2 - 4</th>
-            <th>5 - 9</th>
-            <th>10 - 14</th>
-            <th>15 - 19</th>
-            <th>20 - 24</th>
-            <th>25 - 59</th>
-            <th>60+</th>
-            <th>Jumla (ME)</th>
-            <th>Chini ya mwezi 1</th>
-            <th>Mwezi 1 hadi 11</th>
-            <th>Miezi 12 hadi 23</th>
-            <th>2 - 4</th>
-            <th>5 - 9</th>
-            <th>10 - 14</th>
-            <th>15 - 19</th>
-            <th>20 - 24</th>
-            <th>25 - 59</th>
-            <th>60+</th>
-            <th>Jumla (KE)</th>
+            <th class="fixed-width">Chini ya mwezi 1</th>
+            <th class="fixed-width">Mwezi 1 hadi 11</th>
+            <th class="fixed-width">Miezi 12 hadi 23</th>
+            <th class="fixed-width">2 - 4</th>
+            <th class="fixed-width">5 - 9</th>
+            <th class="fixed-width">10 - 14</th>
+            <th class="fixed-width">15 - 19</th>
+            <th class="fixed-width">20 - 24</th>
+            <th class="fixed-width">25 - 59</th>
+            <th class="fixed-width">60+</th>
+            <th class="fixed-width">Jumla (ME)</th>
+            <th class="fixed-width">Chini ya mwezi 1</th>
+            <th class="fixed-width">Mwezi 1 hadi 11</th>
+            <th class="fixed-width">Miezi 12 hadi 23</th>
+            <th class="fixed-width">2 - 4</th>
+            <th class="fixed-width">5 - 9</th>
+            <th class="fixed-width">10 - 14</th>
+            <th class="fixed-width">15 - 19</th>
+            <th class="fixed-width">20 - 24</th>
+            <th class="fixed-width">25 - 59</th>
+            <th class="fixed-width">60+</th>
+            <th class="fixed-width">Jumla (KE)</th>
         </tr>
         </thead>
         <tbody>
@@ -6142,64 +6194,5 @@ ul li > * {
         </tbody>
     </table>
 </div>
-
-<!--<script>-->
-<!--    function loadData(reportKey, reportType) {-->
-<!--  const data = JSON.parse(Android.getData("hps-monthly-report"));-->
-<!--  const keys = Object.keys(data.nameValuePairs);-->
-<!--  const reportPeriod = document.getElementById("report_period");-->
-<!--  const reportingFacility = document.getElementById("reporting_facility");-->
-<!--  keys.forEach((key) => {-->
-<!--    let element;-->
-<!--    if(reportType!== null && reportType === "pnc"){-->
-<!--      element = document.getElementById(key.replace("pnc-",""));-->
-<!--    }else{-->
-<!--      element = document.getElementById(key);-->
-<!--    }-->
-<!--    if (element !== null && typeof element !== "undefined") {-->
-<!--      element.innerHTML = data.nameValuePairs[key];-->
-<!--    }-->
-<!--  });-->
-<!--  reportPeriod.innerHTML = Android.getDataPeriod();-->
-<!--  reportingFacility.innerHTML = Android.getReportingFacility();-->
-<!--}-->
-<!--</script>-->
-<script>
-    // Function to load and update data
-    function loadData(reportKey, reportType) {
-      const data = JSON.parse(Android.getData("hps-monthly-report")); // Fetch data
-      const keys = Object.keys(data.nameValuePairs); // Get keys from the data
-      const reportPeriod = document.getElementById("report_period");
-      const reportingFacility = document.getElementById("reporting_facility");
-
-      // Update elements with new data
-      keys.forEach((key) => {
-        let element;
-        if (reportType !== null && reportType === "pnc") {
-          element = document.getElementById(key.replace("pnc-", ""));
-        } else {
-          element = document.getElementById(key);
-        }
-        if (element !== null && typeof element !== "undefined") {
-          element.innerHTML = data.nameValuePairs[key]; // Update element content
-        }
-      });
-
-      // Update report period and reporting facility
-      reportPeriod.innerHTML = Android.getDataPeriod();
-      reportingFacility.innerHTML = Android.getReportingFacility();
-    }
-
-    // Function to start polling for updates
-    function startPolling(reportKey, reportType, interval = 5000) {
-      setInterval(() => {
-        console.log("Polling for new data...");
-        loadData(reportKey, reportType); // Call loadData to fetch and update data
-      }, interval);
-    }
-
-    // Start polling when the page loads
-    startPolling(reportKey, reportTyp);
-</script>
 </body>
 </html>
