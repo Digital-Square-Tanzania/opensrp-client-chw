@@ -823,6 +823,20 @@
             "creates_case": [
               "ec_hps_household_services"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Remove Family Member",
+            "creates_case": [
+              "ec_hps_death_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Remove Child Under 5",
+            "creates_case": [
+              "ec_hps_death_register"
+            ]
           }
         ]
       }

@@ -39,6 +39,7 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -255,5 +256,14 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
     }
 
+    public static Date truncateTimeFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 
 }

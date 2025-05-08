@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TAARIFA ZA MWAKA KUTOKA KATIKA JAMII (ELIMU YA AFYA KWA UMMA)</title>
     <style>
         body {
             font-family: 'Times New Roman', sans-serif;
@@ -71,27 +70,93 @@
            box-sizing: border-box; /* Ensures padding doesn't overflow */
         }
 
-
-        .show-on-print {
-            display: none;
+        #reporting_facility {
+          font-weight: 700;
+        }
+        #report_period {
+          font-weight: 700;
         }
 
-        @media print {
-            .show-on-print {
-                display: block;
-            }
-        }
+.show-on-print {
+  display: none !important;
+}
 
+.report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+}
 
+.report-title {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.header-logo {
+    width: 80px;
+    height: auto;
+}
+
+.left-logo {
+    margin-right: 10px;
+}
+
+.right-logo {
+    margin-left: 10px;
+}
+
+@media print {
+
+  .show-on-print {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .child-table {
+    width: 50%;
+  }
+
+  .description-data{
+    background-color: #231F20;
+    color: white;
+}
+
+.description-data-total{
+    background-color: #231F20;
+    color: white;
+}
+
+.description-data-total{
+    background-color: #231F20;
+    color: white;
+}
+
+.table-wrapper {
+    overflow: visible !important;
+}
+}
 
     </style>
-    <script src="../hps-annual-report-script.js"></script>
+    <script src="hps-annual-report-script.js"></script>
 </head>
 
-<div class="show-on-print" style="font-size:12px;">
-    <h1>TAARIFA ZA MWAKA KUTOKA KATIKA JAMII (ELIMU yA AFYA KWA UMMA)</h1>
-    <h2>Taarifa ya Mwaka: <span id="hps-report_period"></span></h2>
-    <h2>Jina la Kijiji/Mtaa: <span id="hps-reporting_facility"></span></h2>
+<!--<div class="show-on-print" style="font-size:12px;">-->
+<!--    <h1>TAARIFA YA HUDUMA JUMUISHI ZA AFYA NGAZI YA JAMII</h1>-->
+<!--    <h2>Taarifa ya Mwaka: <span id="report_period"></span></h2>-->
+<!--    <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>-->
+<!--</div>-->
+<div class="show-on-print report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo left-logo" alt="Left Logo">
+    <div class="report-title" style="font-size:12px;">
+        <h1>TAARIFA YA HUDUMA JUMUISHI ZA AFYA NGAZI YA JAMII</h1>
+        <h2>Jina la Kijiji/Mtaa: <span id="reporting_facility"></span></h2>
+        <h2>Taarifa ya Mwaka: <span id="report_period"></span></h2>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/ic_launcher_afya_jamii_logo.png" class="header-logo right-logo" alt="Right Logo">
 </div>
 <body onload="loadData('hps-annual-report')">
 
@@ -433,18 +498,18 @@
     </tbody>
 </table>
 
-<div class="divider"></div>
-<h1><b>Idadi na Aina ya Wahudumu wa Afya Ngazi ya jamii Waliopo na Waliopatiwa Mafunzo</b></h1>
-<ol>
-    <li>
-        Idadi ya Wahudumu Waliopo. (CHW)
-        <span class="underline dataItem" id="hps-w-1"></span>
-    </li>
-    <li>
-        Wahudumu Waliopatiwa Mafunzo. (CHW) <span
-        class="underline dataItem" id="hps-w-2"></span>
-    </li>
-</ol>
+<!--<div class="divider"></div>-->
+<!--<h1><b>Idadi na Aina ya Wahudumu wa Afya Ngazi ya jamii Waliopo na Waliopatiwa Mafunzo</b></h1>-->
+<!--<ol>-->
+<!--    <li>-->
+<!--        Idadi ya Wahudumu Waliopo. (CHW)-->
+<!--        <span class="underline dataItem" id="hps-w-1"></span>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--        Wahudumu Waliopatiwa Mafunzo. (CHW) <span-->
+<!--        class="underline dataItem" id="hps-w-2"></span>-->
+<!--    </li>-->
+<!--</ol>-->
 
 <div class="divider"></div>
 <h1><b>Ufanisi wa Vikao vya Kamati ya Afya ya Msingi ya Kijiji</b></h1>

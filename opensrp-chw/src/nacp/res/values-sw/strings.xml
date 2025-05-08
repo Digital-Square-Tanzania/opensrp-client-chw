@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WAJA</string>
-    <string name="login_title">Wizara ya Afya  \n Mfumo wa WAJA</string>
-    <string name="nav_logo">Mfumo wa Jamii wa Wizara ya Afya</string>
+    <string name="app_name">AfyaJamii</string>
+    <string name="login_title">Serikali ya Tanzania  \n CHW Afya Jamii</string>
+    <string name="nav_logo">CHW Afya Jamii</string>
     <string name="menu_anc">Wajawazito</string>
     <string name="menu_pnc">Baada ya Kujifungua</string>
     <string name="hiv_referral">Kliniki ya Tiba na matunzo (CTC)</string>
@@ -518,10 +518,10 @@
     <string name="sbc_reports">Ripoti za SBC</string>
     <string name="kvp_reports">Ripoti za KVP</string>
     <string name="kvp_reports_subtitle">Tazama Ripoti za KVP</string>
-    <string name="hps_reports_title">Ripoti za mwezi za HPS</string>
-    <string name="hps_annual_reports_title">Ripoti za mwaka za HPS</string>
-    <string name="hps_reports">Ripoti za HPS</string>
-    <string name="hps_reports_subtitle">Tazama Ripoti za HPS</string>
+    <string name="hps_reports_title">Ripoti za mwezi za iCCHW</string>
+    <string name="hps_annual_reports_title">Ripoti za mwaka za iCCHW</string>
+    <string name="hps_reports">Ripoti za iCCHW</string>
+    <string name="hps_reports_subtitle">Tazama Ripoti za iCCHW</string>
     <string name="sbc_reports_subtitle">Tazama Ripoti za SBC</string>
     <string name="sbc_campaign">Kampeni</string>
     <string name="sbc_religious_events">Uelimishaji katika nyumba za ibada</string>
@@ -788,6 +788,8 @@
     <string name="hps_dispensing_arv_medication">Kuwachukulia WAVIU dawa za ARV</string>
     <string name="hps_preventive_medication_ntd">Ugawaji wa dawa kinga za magonjwa yaliokuwa hayapewi kipaumbele</string>
     <string name="hps_first_aid_services">Huduma ya kwanza</string>
+    <string name="hps_environment_hygiene_sanitation">Usafi na Utunzaji wa Mazingira</string>
+    <string name="hps_food_hygiene_safety">Lishe na Usalama wa Chakula</string>
     <string name="hps_other_services">Huduma nyinginezo</string>
     <string name="hps_others_services_specify">Taja huduma nyinginezo</string>
     <string name="hps_provide_referral_services">Kuna huduma za rufaa zimetolewa kwa mteja?</string>
@@ -845,10 +847,17 @@
     <string name="hps_method_of_education_and_awareness_used">Chagua njia ya ueleimishaji na uhamasishaji iliyotumika</string>
     <string name="hps_loud_speakers">Vipaza sauti</string>
     <string name="hps_drumming_public_announcements">Kupiga mbiu</string>
-    <string name="hps_radio_tv_etc">Radio, TV, etc</string>
+    <string name="hps_radio_tv_etc">Redio</string>
+    <string name="hps_television">Televisheni</string>
     <string name="hps_social_media_eg_whatsapp">Mitandao ya kijamii mfano: whatsapp</string>
     <string name="hps_face_to_face">Ana kwa ana</string>
     <string name="hps_others_specify">Nyinginezo (Taja)</string>
+    <string name="hps_type_radio_tv_used_for_education">Chagua aina ya Redio iliyotumika kwatika uselimishaji na uhamasishaji</string>
+    <string name="hps_national_radio">Redio ya kitaifa</string>
+    <string name="hps_community_radio">Redio ya kijamii</string>
+    <string name="hps_type_tv_used_for_education">Chagua aina ya TV iliyotumika katika uselimishaji na uhamasishaji</string>
+    <string name="hps_national_television">Televisheni ya kitaifa</string>
+    <string name="hps_community_television">Televisheni ya kijamii</string>
     <string name="hps_other_method_of_education_and_awareness_used">Taja njia nyinginezo za ueleimishaji na uhamasishaji zilizotumika</string>
     <string name="hps_area_where_mobilization_took_place">Eneo uhamasishaji ulipofanyika</string>
     <string name="hps_at_the_market_or_stalls">Sokoni/Gulioni</string>
@@ -1223,5 +1232,8 @@
     <string name="treatment_supporter_phone">Namba ya simu ya msaidizi wa Tiba</string>
     <string name="manual_process_visit">Kamilisha tembeleo</string>
     <string name="hps_view_visit_history">Angalia historia ya tembeleo</string>
+    <string name="remove_client">Rekodi kifo cha mteja</string>
+    <string name="confirm_remove_text">Hakiki taarifa za kifo cha %s. Kukamilisha hatua hii itaondoa taarifa zote za mteja huyu toka kwenye simu yako. Baada ya kuhifadhi huwezi kutendua hatua hii.</string>
+    <string name="remove">HIFADHI</string>
 
 </resources>

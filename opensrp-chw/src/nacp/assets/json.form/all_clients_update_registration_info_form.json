@@ -142,6 +142,7 @@
         "duration": {
           "label": "Age"
         },
+        "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -318,14 +319,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Do you have any of the following IDs?",
-        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_national_id",
@@ -344,6 +341,12 @@
             "text": "Driver's license",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_drivers_license"
+          },
+          {
+            "key": "chk_passport_number",
+            "text": "Passport",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport_number"
           },
           {
             "key": "chk_none",
@@ -385,14 +388,10 @@
           "err": "Please enter a valid national ID"
         },
         "relevance": {
-          "step1:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_national_id"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
           }
         }
       },
@@ -421,14 +420,10 @@
           "err": "Please enter a valid voters registration number"
         },
         "relevance": {
-          "step1:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_voters_id"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
           }
         }
       },
@@ -457,14 +452,42 @@
           "err": "Please enter a valid driver's license number"
         },
         "relevance": {
-          "step1:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_drivers_license"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "passport",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "passport",
+        "type": "mask_edit_text",
+        "mask": "##########",
+        "mask_hint": "1234567891",
+        "allowed_chars": "0123456789",
+        "hint": "Passport's number e.g 1234567891",
+        "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid driver's license number"
+        },
+        "v_regex": {
+          "value": "^([0-9]{10})",
+          "err": "Driver's license number should be of the format (XXXXXXXXXX)"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid driver's license number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
           }
         }
       },
@@ -474,52 +497,27 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Health insurance",
-        "values": [
-          "Community Health Fund (CHF)/(iCHF)",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "National Health Insurance Fund (NHIF)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
+        "hint": "Select type of health insurance that the client has",
+        "options": [
+          {
+            "key": "public_insurance",
+            "text": "Public Health Insurance",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_insurance"
+          },
+          {
+            "key": "private_insurance",
+            "text": "Private Health Insurance",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "private_insurance"
+          },
+          {
+            "key": "not_insured",
+            "text": "Not Insured",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_insured"
+          }
         ],
-        "keys": [
-          "Community Health Fund (CHF)",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "National Health Insurance Fund (NHIF)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
-        ],
-        "openmrs_choice_ids": {
-          "Community Health Fund (CHF)": "Community_Health_Fund",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
-          "National Health Insurance Fund (NHIF)": "National_Health_Insurance_Fund",
-          "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
-          "AAR Healthcare": "AAR_Healthcare",
-          "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
-          "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
-          "Jubilee Insurance": "Jubilee_Insurance",
-          "Resolutions Insurance": "Resolutions_Insurance",
-          "Reliance Insurance": "Reliance_Insurance",
-          "Other": "Other_Health_Insurance_Type",
-          "None": "No_Health_Insurance"
-        },
         "v_required": {
           "value": "true",
           "err": "Please enter the insurance provider"
@@ -535,25 +533,6 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the insurance provider"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "insurance_provider_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Health_Insurance_Number",
-        "type": "edit_text",
-        "hint": "Health insurance provider number",
-        "v_required": {
-          "value": "true",
-          "err": "Please add the health insurance provider iD Number"
         },
         "relevance": {
           "rules-engine": {
@@ -679,11 +658,36 @@
             "text": "Albinism",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "albinism"
+          },
+          {
+            "key": "other_disabilities",
+            "text": "Other Disabilities",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_disabilities"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please enter type of disability"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_disabilities",
+        "type": "edit_text",
+        "hint": "Other Disabilities",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify disabilities"
         },
         "relevance": {
           "rules-engine": {

@@ -601,9 +601,9 @@
                     android:id="@+id/iv_hps"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:contentDescription="HPS Report Icon"
+                    android:contentDescription="iCCHW Report Icon"
                     android:padding="20dp"
-                    android:src="@drawable/ic_cbhs_summary"
+                    android:src="@mipmap/ic_launcher_afya_jamii_round"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

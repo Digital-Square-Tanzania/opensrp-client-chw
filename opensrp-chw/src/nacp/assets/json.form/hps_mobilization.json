@@ -88,9 +88,15 @@
           },
           {
             "key": "radio_tv_etc",
-            "text": "Radio, TV, etc.",
+            "text": "Radio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "radio_tv_etc"
+          },
+          {
+            "key": "television",
+            "text": "Television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "television"
           },
           {
             "key": "social_media_eg_whatsapp",
@@ -122,7 +128,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_radio_tv_used_for_education",
         "type": "native_radio",
-        "label": "Select the type of Radio/TV used for education and awareness",
+        "label": "Select the type of Radio used for education and awareness",
         "options": [
           {
             "key": "national_radio",
@@ -135,6 +141,39 @@
             "text": "Community Radio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_radio"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Select the type of TV used for education and awareness",
+        "options": [
+          {
+            "key": "national_television",
+            "text": "National television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_television"
+          },
+          {
+            "key": "community_television",
+            "text": "Community Television",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_television"
           }
         ],
         "v_required": {
@@ -398,7 +437,7 @@
         "options": [
           {
             "key": "nutrition",
-            "text": "Nutrition",
+            "text": "1.Nutrition",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "nutrition",
             "property": {
@@ -408,7 +447,7 @@
           },
           {
             "key": "danger_signs_of_pregnancy",
-            "text": "Danger signs during pregnancy",
+            "text": "2.Danger signs during pregnancy",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "danger_signs_of_pregnancy",
             "property": {
@@ -418,7 +457,7 @@
           },
           {
             "key": "family_planning",
-            "text": "Family Planning",
+            "text": "3.Family Planning",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "family_planning",
             "property": {
@@ -428,7 +467,7 @@
           },
           {
             "key": "malaria",
-            "text": "Malaria",
+            "text": "4.Malaria",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "malaria",
             "property": {
@@ -438,7 +477,7 @@
           },
           {
             "key": "tuberculosis_leprosy_and_testing",
-            "text": "Tuberculosis, leprosy, and testing",
+            "text": "5.Tuberculosis, leprosy, and testing",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tuberculosis_leprosy_and_testing",
             "property": {
@@ -448,7 +487,7 @@
           },
           {
             "key": "hiv_hepatitis_and_testing",
-            "text": "HIV, hepatitis and testing",
+            "text": "6.HIV, hepatitis and testing",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hiv_hepatitis_and_testing",
             "property": {
@@ -458,7 +497,7 @@
           },
           {
             "key": "epidemic_diseases",
-            "text": "Epidemic diseases",
+            "text": "7.Epidemic diseases",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "epidemic_diseases",
             "property": {
@@ -468,7 +507,7 @@
           },
           {
             "key": "neglected_tropical_diseases",
-            "text": "Neglected tropical diseases",
+            "text": "8.Neglected tropical diseases",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "neglected_tropical_diseases",
             "property": {
@@ -478,7 +517,7 @@
           },
           {
             "key": "oral_and_dental_health",
-            "text": "Oral and dental health",
+            "text": "9.Oral and dental health",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "oral_and_dental_health",
             "property": {
@@ -488,7 +527,7 @@
           },
           {
             "key": "non_communicable_diseases",
-            "text": "Non-communicable diseases",
+            "text": "10.Non-communicable diseases",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "non_communicable_diseases",
             "property": {
@@ -498,7 +537,7 @@
           },
           {
             "key": "eye_diseases_and_testing",
-            "text": "Eye diseases and testing",
+            "text": "11.Eye diseases and testing",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "eye_diseases_and_testing",
             "property": {
@@ -508,7 +547,7 @@
           },
           {
             "key": "environmental_sanitation_and_care",
-            "text": "Environmental sanitation and care",
+            "text": "12.Environmental sanitation and care",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "environmental_sanitation_and_care",
             "property": {
@@ -518,7 +557,7 @@
           },
           {
             "key": "health_insurance_fund",
-            "text": "Health insurance fund",
+            "text": "13.Health insurance fund",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "health_insurance_fund",
             "property": {
@@ -528,7 +567,7 @@
           },
           {
             "key": "gender_based_violence",
-            "text": "Gender based violence",
+            "text": "14.Gender based violence",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gender_based_violence",
             "property": {
@@ -538,7 +577,7 @@
           },
           {
             "key": "harmful_effects_of_substance_abuse",
-            "text": "Harmful effects of substance abuse",
+            "text": "15.Harmful effects of substance abuse",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "harmful_effects_of_substance_abuse",
             "property": {
@@ -548,7 +587,7 @@
           },
           {
             "key": "mental_health",
-            "text": "Mental health",
+            "text": "16.Mental health",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mental_health",
             "property": {
@@ -558,7 +597,7 @@
           },
           {
             "key": "rights_of_the_elderly_and_family_responsibilities",
-            "text": "Rights of the elderly and family responsibilities",
+            "text": "17.Rights of the elderly and family responsibilities",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities",
             "property": {
@@ -568,7 +607,7 @@
           },
           {
             "key": "childrens_rights_and_protection",
-            "text": "Children's rights and protection",
+            "text": "18.Children's rights and protection",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "childrens_rights_and_protection",
             "property": {
@@ -578,7 +617,7 @@
           },
           {
             "key": "sexually_transmitted_diseases",
-            "text": "Sexually transmitted diseases (STDs)",
+            "text": "19.Sexually transmitted diseases (STDs)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sexually_transmitted_diseases",
             "property": {
@@ -588,7 +627,7 @@
           },
           {
             "key": "effects_of_child_marriage_and_teenage_pregnancies",
-            "text": "Effects of child marriage and teenage pregnancies",
+            "text": "20.Effects of child marriage and teenage pregnancies",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies",
             "property": {
@@ -598,7 +637,7 @@
           },
           {
             "key": "immunization_services",
-            "text": "Immunization services",
+            "text": "21.Immunization services",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "immunization_services",
             "property": {
@@ -608,7 +647,7 @@
           },
           {
             "key": "childcare_growth_and_early_childhood",
-            "text": "Childcare, growth, and early childhood",
+            "text": "22.Childcare, growth, and early childhood",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "childcare_growth_and_early_childhood",
             "property": {
@@ -618,7 +657,7 @@
           },
           {
             "key": "importance_of_birth_certificates",
-            "text": "Importance of birth certificates",
+            "text": "23.Importance of birth certificates",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "importance_of_birth_certificates",
             "property": {
@@ -628,7 +667,7 @@
           },
           {
             "key": "entrepreneurship",
-            "text": "Entrepreneurship",
+            "text": "24.Entrepreneurship",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship",
             "property": {
@@ -638,7 +677,7 @@
           },
           {
             "key": "first_aid",
-            "text": "First aid",
+            "text": "25.First aid",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "first_aid",
             "property": {
@@ -648,7 +687,7 @@
           },
           {
             "key": "violence_against_children",
-            "text": "Violence against children",
+            "text": "26.Violence against children",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "violence_against_children",
             "property": {
@@ -658,7 +697,7 @@
           },
           {
             "key": "medication_adherence",
-            "text": "Medication adherence",
+            "text": "27.Medication adherence",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "medication_adherence",
             "property": {
@@ -668,7 +707,7 @@
           },
           {
             "key": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
-            "text": "Education on the M-Mama system and proper use of the toll-free number 115",
+            "text": "28.Education on the M-Mama system and proper use of the toll-free number 115",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
             "property": {
@@ -678,7 +717,7 @@
           },
           {
             "key": "other_educations",
-            "text": "Other Educations",
+            "text": "29.Other Educations",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_educations",
@@ -882,6 +921,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1027,6 +1072,12 @@
             "openmrs_entity_id": "cervical_cancer"
           },
           {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
             "key": "others",
             "text": "Others",
             "openmrs_entity": "concept",
@@ -1170,6 +1221,12 @@
             "text": "Cervical Cancer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Non-communicable diseases (NCDs)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
           },
           {
             "key": "others",
