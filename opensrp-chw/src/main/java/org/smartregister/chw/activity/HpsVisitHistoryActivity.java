@@ -119,7 +119,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                             "others_type_of_posters", "type_of_message_brochures", "others_type_of_brochures", "number_of_brochures", "preventive_services_provided", "preventive_services",
                             "others_services_specify", "provision_of_curative_services","diseases_signs_and_symptoms","specify_signs_and_symptoms_provided","is_disease_test_conducted",
                             "diseases_test_conducted","systolic","diastolic","malaria_mrdt_result", "blood_sugar_result","hiv_testing_kits_result","body_temperature_result","arm_circumference_result",
-                            "body_weight_result","body_height_result","is_treatment_provided","treatment_provided", "provide_referral_services", "referral_provided", "others_referrals_specify", "referral_system", "referral_system_used", "other_method_specify"};
+                            "body_weight_result","body_height_result","is_treatment_provided","treatment_provided", "provide_referral_services", "referral_provided", "others_referrals_specify", "referral_system", "referral_system_used", "other_method_specify","comments"};
                     extractVisitDetails(visits, visitTypeParams, visitDetails, x, context);
                     hf_visits.add(visitDetails);
 
