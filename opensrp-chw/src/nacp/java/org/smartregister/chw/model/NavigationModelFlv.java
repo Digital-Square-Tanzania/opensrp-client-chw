@@ -95,6 +95,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(2, op25);
                         }
 
+                        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                            navigationOptions.add(op6);
+                        }
+
                         navigationOptions.addAll(Arrays.asList(op8, op15));
                         break;
                 }
@@ -127,6 +131,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 }
                 if (ChwApplication.getApplicationFlavor().hasHps()) {
                     navigationOptions.add(2, op25);
+                }
+                if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                    navigationOptions.add(op6);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op15));
             }

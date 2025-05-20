@@ -11,6 +11,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHpsRegisterActivity;
 import org.smartregister.chw.fragment.HpsAnnualCensusRegisterFragment;
+import org.smartregister.chw.fragment.HpsAdvertisementFeedbackRegisterFragment;
 import org.smartregister.chw.fragment.HpsDeathRegisterFragment;
 import org.smartregister.chw.fragment.HpsHouseholdRegisterFragment;
 import org.smartregister.chw.fragment.HpsMobilizationRegisterFragment;
@@ -63,7 +64,8 @@ public class HpsRegisterActivity extends CoreHpsRegisterActivity {
                 new HpsHouseholdRegisterFragment(),
                 new HpsMobilizationRegisterFragment(),
                 new HpsDeathRegisterFragment(),
-                new HpsAnnualCensusRegisterFragment()
+                new HpsAnnualCensusRegisterFragment(),
+                new HpsAdvertisementFeedbackRegisterFragment()
         };
     }
 }

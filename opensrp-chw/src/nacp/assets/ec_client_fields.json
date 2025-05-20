@@ -6928,6 +6928,201 @@
       ]
     },
     {
+      "name": "ec_hps_advertisement_feedback",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "base_entity_id"
+          }
+        },
+        {
+          "column_name": "date_of_advertisement_feedback",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_of_advertisement_feedback"
+          }
+        },
+        {
+          "column_name": "area_where_advertisement_feedback_took_place",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "area_where_advertisement_feedback_took_place"
+          }
+        },
+        {
+          "column_name": "number_of_females_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_females_who_attended"
+          }
+        },
+        {
+          "column_name": "number_of_males_who_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_males_who_attended"
+          }
+        },
+        {
+          "column_name": "owns_radio_station",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "owns_radio_station"
+          }
+        },
+        {
+          "column_name": "number_of_radio_owners",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_radio_owners"
+          }
+        },
+        {
+          "column_name": "mobile_phone_radio_listeners",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mobile_phone_radio_listeners"
+          }
+        },
+        {
+          "column_name": "number_of_who_listens_radio_via_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_who_listens_radio_via_phone"
+          }
+        },
+        {
+          "column_name": "radio_channel_listened",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "radio_channel_listened"
+          }
+        },
+        {
+          "column_name": "selected_health_education_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "selected_health_education_topics"
+          }
+        },
+        {
+          "column_name": "health_education_heard",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_education_heard"
+          }
+        },
+        {
+          "column_name": "do_watch_television",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "do_watch_television"
+          }
+        },
+        {
+          "column_name": "number_watches_television",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_watches_television"
+          }
+        },
+        {
+          "column_name": "channel_watched",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "channel_watched"
+          }
+        },
+        {
+          "column_name": "other_tv_channels",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_tv_channels"
+          }
+        },
+        {
+          "column_name": "heard_program_advetised",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "heard_program_advetised"
+          }
+        },
+        {
+          "column_name": "stories_heard",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stories_heard"
+          }
+        },
+        {
+          "column_name": "instructions_followed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "instructions_followed"
+          }
+        },
+        {
+          "column_name": "who_and_why_they_follow_instruction",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "who_and_why_they_follow_instruction"
+          }
+        },
+        {
+          "column_name": "people_behaviour_change",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "people_behaviour_change"
+          }
+        },
+        {
+          "column_name": "who_and_why_they_change_behaviour",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "who_and_why_they_change_behaviour"
+          }
+        },
+        {
+          "column_name": "reasons_people_dont_change",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reasons_people_dont_change"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_hps_death_register",
       "columns": [
         {
