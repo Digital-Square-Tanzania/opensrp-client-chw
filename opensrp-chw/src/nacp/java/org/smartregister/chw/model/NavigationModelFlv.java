@@ -1,5 +1,6 @@
 package org.smartregister.chw.model;
 
+import static org.smartregister.AllConstants.CHECK_BOX;
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 
 import android.content.SharedPreferences;
@@ -50,6 +51,8 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op23 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.asrh, CoreConstants.DrawerMenu.AYSRH, 0);
             NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
 
+            NavigationOption op25 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
+
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
             String teamRoleIdentifier = "";
@@ -67,6 +70,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                     case "iccm_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op20, op8));
+                        break;
+                    case "rmncah_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8));
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
@@ -88,6 +94,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         if (ChwApplication.getApplicationFlavor().hasSbc()) {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasADDO()){
+                            navigationOptions.add(op25);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op15));
@@ -120,6 +129,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
 //                    navigationOptions.add(op22);
                     navigationOptions.add(op21);
+                }
+                if (ChwApplication.getApplicationFlavor().hasADDO()){
+                    navigationOptions.add(op23);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op15));
             }

@@ -691,5 +691,9 @@
     <string name="referral_problem_opportunistic_infections">Magonjwa nyemelezi</string>
     <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
+    <string name="pnc_child_home_visit_facility_referral">Rufaa ya mtoto kwenda Kituoni</string>
+    <string name="pnc_mother_home_visit_facility_referral">Rufaa ya mama kwenda kituoni</string>
+
+    <string name="nav_menu_linkage">Miunganisho</string>
 
 </resources>

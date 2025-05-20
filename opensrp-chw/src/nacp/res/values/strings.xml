@@ -778,7 +778,10 @@
     <string name="referral_problem_opportunistic_infections">Opportunistic infections</string>
     <string name="referral_problem_symptoms_of_stis">Symptoms of STI\’s</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Symptoms Abortion/Miscarriages</string>
+    <string name="pnc_child_home_visit_facility_referral">Refer Child to facility</string>
+    <string name="pnc_mother_home_visit_facility_referral">Refer Mother to facility</string>
 
+    <string name="nav_menu_linkage">Linkage</string>
 
 
 </resources>

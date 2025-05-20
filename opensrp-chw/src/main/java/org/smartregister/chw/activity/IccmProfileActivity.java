@@ -159,7 +159,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
 
                     updateProblemsAndServicesBeforeReferral(referralFormFields, removePneumoniaAndDiarrheSigns, removeRectalArtesunate, isFemaleOfReproductiveAge);
 
-                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false);
+                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false, false);
                 } else {
                     startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
                 }

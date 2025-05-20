@@ -308,6 +308,27 @@
           },
           {
             "field": "eventType",
+            "field_value": "Child Minor Ailments",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Minor Ailments",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Minor Ailments",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "FP Home Visit",
             "creates_case": [
               "ec_family_planning"

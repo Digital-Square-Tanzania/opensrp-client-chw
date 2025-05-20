@@ -158,7 +158,11 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
+    <string name="home_visit_facility_referral">Referral to facility</string>
     <string name="anc_home_visit_facility_visit">ANC health facility visit</string>
+    <string name="anc_home_visit_minor_ailment">ANC Minor Ailment</string>
+    <string name="child_home_visit_minor_ailment">Child Minor Ailment</string>
+    <string name="pnc_home_visit_minor_ailment">PNC Minor Ailment</string>
     <string name="anc_home_visit_family_planning">Family planning</string>
     <string name="anc_home_visit_nutrition_status">Nutrition status</string>
     <string name="anc_home_visit_counselling_task">Counselling</string>
@@ -309,6 +313,10 @@
     <string name="pnc_danger_signs_mama">Danger signs - Mama</string>
     <string name="pnc_danger_signs_baby_task">Danger signs - Baby</string>
 
+    <string name="pnc_minor_ailment_mama"> Minor Ailment - Mama </string>
+
+    <string name="child_minor_illness"> Minor Ailment - Baby ({0}) </string>
+
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
     <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
@@ -333,6 +341,16 @@
     <string name="fp_post_partum">FP post-partum</string>
     <string name="anc_danger_signs">ANC danger signs</string>
     <string name="suspected_malaria">Suspected Malaria</string>
+
+    <!--Addo Minor Ailments-->
+    <string name="child_minor_ailments"> Child Minor Ailments</string>
+    <string name="anc_minor_ailments"> ANC Minor Ailments </string>
+    <string name="pnc_minor_ailments"> PNC Minor Ailments </string>
+    <string name="adolescent_minor_ailments"> Adolescent Minor Ailments </string>
+
+    <string name="linked_to_addo_message"> Linked to ADDO Successfully </string>
+
+    <string name="child_minor_ailment_action"> Child Minor Ailment </string>
 
     <string name="jobs_aid_failed_download">Jobs aid video \"%s\" failed to download.</string>
 
@@ -492,4 +510,7 @@
 
 
     <string name="cecap_referral">Reproductive Cancers Services</string>
+
+    <string name="successful_linkages">Successful Linkages</string>
+
 </resources>
