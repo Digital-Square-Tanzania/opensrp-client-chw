@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 
 public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
@@ -21,6 +22,13 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
         flavor = new FamilyMemberFloatingMenuFlv();
         super.initUi();
         flavor.prepareFab(this, fab);
+
+        if (ChwApplication.getApplicationFlavor().hasADDO()) {
+            addoLayout.setVisibility(VISIBLE);
+        } else {
+            addoLayout.setVisibility(GONE);
+        }
+
     }
 
     @Override

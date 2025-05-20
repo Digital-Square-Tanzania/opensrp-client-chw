@@ -58,6 +58,7 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -92,6 +93,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     private Flavor flavor = new PncMemberProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
+    private List<ReferralTypeModel> linkageTypeModels = new ArrayList<>();
+
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -264,8 +268,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected void onCreation() {
         super.onCreation();
-        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+        ChwApplication app = (ChwApplication) ChwApplication.getInstance();
+        if (app.hasReferrals()) {
             addPncReferralTypes();
+        }
+        if (app.hasADDO()) {
+            addPncLinkageTypes();
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
@@ -305,6 +313,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                     pncMemberProfilePresenter().referToFacility();
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
+                case R.id.link_to_addo_layout:
+                    ((PncMemberProfilePresenter) pncMemberProfilePresenter()).linkToADDO();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                 default:
                     Timber.d("Unknown fab action");
                     break;
@@ -455,6 +466,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         return referralTypeModels;
     }
 
+    public List<ReferralTypeModel> getLinkageTypeModels() {
+        return linkageTypeModels;
+    }
+
     private void addPncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_referral),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
@@ -464,6 +479,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                     CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
+    }
+    private void addPncLinkageTypes() {
+        linkageTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_minor_ailments),
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedLinkageForm()
+                        : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.ADDO.PNC_MINOR_AILMENTS));
     }
 
     @Override

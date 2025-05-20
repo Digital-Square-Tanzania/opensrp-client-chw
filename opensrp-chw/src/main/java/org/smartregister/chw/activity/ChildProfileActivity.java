@@ -51,6 +51,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private List<ReferralTypeModel> linkageTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public List<ReferralTypeModel> getReferralTypeModels() {
@@ -193,7 +194,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
 
         if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(memberObject.getBaseEntityId())) {
-            menu.findItem(R.id.action_iccm_registration).setVisible(true);
+//            menu.findItem(R.id.action_iccm_registration).setVisible(true);
         }
 
         if (ChwApplication.getApplicationFlavor().hasHps() && !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId())) {
@@ -247,6 +248,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     private void addChildReferralTypes() {
+
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getChildUnifiedReferralForm()
                         : JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.SICK_CHILD));
@@ -256,10 +258,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                     BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? CoreConstants.JSON_FORM.getMalariaReferralForm()
                             : MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
         }
+
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
                     JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
+
+        linkageTypeModels.add(new ReferralTypeModel(getString(R.string.child_minor_ailments),
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getChildUnifiedLinkageForm()
+                        : JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.ADDO.CHILD_MINOR_AILMENTS));
     }
 
     @Override
@@ -321,5 +328,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
         String getToolbarTitleName(MemberObject memberObject);
+    }
+
+    public List<ReferralTypeModel> getLinkageTypeModels() {
+        return linkageTypeModels;
     }
 }
