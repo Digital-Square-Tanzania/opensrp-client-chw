@@ -259,7 +259,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasADDO() {
-        return true;
+        return false;
     }
 
     @Override

@@ -25,6 +25,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.core.utils.Utils;
@@ -411,7 +412,9 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     }
 
     private void evaluateActions() throws Exception{
-        evaluateMinorAilments(memberObject);
+        if (ChwApplication.getApplicationFlavor().hasADDO()) {
+            evaluateMinorAilments(memberObject);
+        }
         evaluateImmunization();
         evaluateExclusiveBreastFeeding(serviceWrapperMap);
         evaluateVitaminA(serviceWrapperMap);

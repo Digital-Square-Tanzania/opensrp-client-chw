@@ -21,6 +21,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.core.utils.Utils;
@@ -107,22 +108,22 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
     }
 
-    private void evaluateFacilityReferral(String referralPayload,Map<String, List<VisitDetail>> details,
+    private void evaluateFacilityReferral(String referralPayload, Map<String, List<VisitDetail>> details,
                                           final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        String formName="referral_facility_selection";
+        String formName = "referral_facility_selection";
         JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
-        Map<String,String> facilityOptions= LocationUtils.INSTANCE.getFacilitiesKeyAndName();
-        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf",facilityOptions, jsonForm);
+        Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
+        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, jsonForm);
 
         if (details != null) ChwAncJsonFormUtils.populateForm(jsonForm, details);
 
-        JSONObject referralProblem=FacilitySelectionActionHelper.copyReferralProblem(referralPayload,"danger_signs_present");
-        FacilitySelectionActionHelper helper=new FacilitySelectionActionHelper(
+        JSONObject referralProblem = FacilitySelectionActionHelper.copyReferralProblem(referralPayload, "danger_signs_present");
+        FacilitySelectionActionHelper helper = new FacilitySelectionActionHelper(
                 referralProblem,
                 ANC_DANGER_SIGNS,
                 memberObject.getBaseEntityId());
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context,context.getString(R.string.home_visit_facility_referral) )
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.home_visit_facility_referral))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(formName)
@@ -133,9 +134,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateMinorAilment(Map<String, List<VisitDetail>> details,
-                                             final MemberObject memberObject,
-                                             Map<Integer, LocalDate> dateMap,
-                                             final Context context) throws BaseAncHomeVisitAction.ValidationException {
+                                      final MemberObject memberObject,
+                                      Map<Integer, LocalDate> dateMap,
+                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
         String formName = "linkages/native/anc_linkage_form";
         visit_title = context.getString(R.string.anc_home_visit_minor_ailment);
         JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Utils.getLocalForm(formName, CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager));
@@ -301,7 +302,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             try {
                 if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
                     actionList.remove(context.getString(R.string.home_visit_facility_referral));
-                    evaluateMinorAilment(details, memberObject, dateMap, context);
+
+                    if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                        evaluateMinorAilment(details, memberObject, dateMap, context);
+                    }
+
                     evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateFamilyPlanning(details, context);
                     // evaluateNutritionStatus(details, context);
@@ -312,7 +317,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                 } else {
                     Timber.d(actionList.toString());
-                    evaluateFacilityReferral(s,details,context);
+                    evaluateFacilityReferral(s, details, context);
                     actionList.remove(context.getString(R.string.anc_home_visit_minor_ailment));
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
                     actionList.remove(context.getString(R.string.anc_home_visit_nutrition_status));
