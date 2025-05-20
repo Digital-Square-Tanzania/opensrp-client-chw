@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
+import static org.smartregister.family.util.Utils.metadata;
+import static org.smartregister.util.Utils.getValue;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -207,7 +209,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     protected boolean isClientEligibleForAnc(MemberObject hivMemberObject) {
         if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
             //Obtaining the clients CommonPersonObjectClient used for checking is the client is Of Reproductive Age
-            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+            CommonRepository commonRepository = Utils.context().commonrepository(metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(hivMemberObject.getBaseEntityId());
             final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
@@ -373,14 +375,14 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                 }
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
-                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+                String eventName = metadata().familyMemberRegister.updateEventType;
 
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
 
                 form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
             } else if (formName.equals(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm())) {
-                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+                String eventName = metadata().familyMemberRegister.updateEventType;
 
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getUniqueId()));
@@ -395,7 +397,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
         form.setWizard(false);
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        Intent intent = new Intent(this, metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.chw.cecap.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, org.smartregister.chw.cecap.util.Constants.REQUEST_CODE_GET_JSON);
@@ -403,18 +405,18 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startHivstRegistration() {
-        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonRepository commonRepository = context().commonrepository(metadata().familyMemberRegister.tableName);
 
         final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
         final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());
-        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String gender = getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         HivstRegisterActivity.startHivstRegistrationActivity(this, memberObject.getBaseEntityId(), gender);
     }
 
     protected void removeIndividualProfile() {
-        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        CommonRepository commonRepository = Utils.context().commonrepository(metadata().familyMemberRegister.tableName);
         final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
         final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());

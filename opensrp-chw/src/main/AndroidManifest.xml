@@ -545,6 +545,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.HpsAdvertisementFeedbackDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.HpsDeathRegistrationDetailsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
