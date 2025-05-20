@@ -22,12 +22,12 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getSyncFilterParam() {
-        return SyncFilter.LOCATION;
+        return SyncFilter.PROVIDER;
     }
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getSyncFilterValue();
+        return Utils.getAllSharedPreferences().fetchRegisteredANM();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return Arrays.asList("MOH Jhpiego Facility Name", "Health Facility", "Facility");
+        return Arrays.asList("MOH Jhpiego Facility Name", "Health Facility", "Facility", "Ward", "Village");
     }
 
     @Override

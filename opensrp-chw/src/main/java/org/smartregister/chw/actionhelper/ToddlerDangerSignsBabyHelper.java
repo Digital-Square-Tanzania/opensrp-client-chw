@@ -18,11 +18,15 @@ import java.text.MessageFormat;
 import timber.log.Timber;
 
 public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
+    private  static final String NONE="(?i)hakuna|none";
+    private  static final String YES_OR_EMPTY="(?i)yes|ndio|ndiyo|";
     private String danger_signs_present_child;
 
     private final Context context;
 
     private final Alert alert;
+
+    private ToddlerDangerSignsConsumer dangerSignConsumer;
 
     public ToddlerDangerSignsBabyHelper(Context context, Alert alert){
         this.context = context;
@@ -53,11 +57,19 @@ public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
         return MessageFormat.format("{0}: {1}", context.getString(R.string.child_danger_signs_baby_task), danger_signs_present_child);
     }
 
+
+
     @Override
     public String postProcess(String jsonPayload) {
+        try {
+            if(dangerSignConsumer==null){return super.postProcess(jsonPayload);}
+            JSONObject form=new JSONObject(jsonPayload);
+            boolean noDangerSigns = danger_signs_present_child.matches(NONE);
+            boolean goFacility = !noDangerSigns && getCheckBoxValue(form,"toddler_referral_health_facility").matches(YES_OR_EMPTY);
+            dangerSignConsumer.take(form,danger_signs_present_child,goFacility);
+        } catch (Exception e) {Timber.e(e);}
         return super.postProcess(jsonPayload);
     }
-
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
         if (StringUtils.isBlank(danger_signs_present_child)) {
@@ -70,4 +82,9 @@ public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
+
+    public void setDangerSignsResultsListener(ToddlerDangerSignsConsumer c){
+        dangerSignConsumer=c;
+    }
+    public interface ToddlerDangerSignsConsumer { void take(JSONObject dangerSignPayload, String dangerSigns, boolean goFacility);}
 }

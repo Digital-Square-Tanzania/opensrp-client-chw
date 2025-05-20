@@ -85,6 +85,7 @@ import timber.log.Timber;
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private List<ReferralTypeModel> addoReferralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -120,6 +121,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
         }
+
+        if (((ChwApplication) ChwApplication.getInstance()).hasADDO()){
+            addAncADDOReferralTypes();
+        }
+
     }
 
     @Override
@@ -157,6 +163,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     ((AncMemberProfilePresenter) ancMemberProfilePresenter()).referToFacility();
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
+                case R.id.link_to_addo_layout:
+                    ((AncMemberProfilePresenter) ancMemberProfilePresenter()).linkToADDO();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                 default:
                     Timber.d("Unknown fab action");
                     break;
@@ -187,6 +196,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
         if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null, null));
+        }
+    }
+
+    private void addAncADDOReferralTypes(){
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            addoReferralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_minor_ailments),
+                    BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedLinkageForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(),
+                    CoreConstants.TASKS_FOCUS.ADDO.ANC_MINOR_AILMENTS));
         }
     }
 
@@ -498,6 +515,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    public List<ReferralTypeModel> getAddoReferralTypeModels() {
+        return addoReferralTypeModels;
     }
 
     @Override

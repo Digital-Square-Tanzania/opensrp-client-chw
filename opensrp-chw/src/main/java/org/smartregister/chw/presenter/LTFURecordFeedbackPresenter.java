@@ -71,7 +71,7 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
     }
 
     @Override
-    public void onRegistrationSaved(boolean saveSuccessful) {
+    public void onRegistrationSaved(boolean saveSuccessful, boolean isAdoLinkage) {
         NavigationMenu navigationMenu = NavigationMenu.getInstance((Activity) getView(),
                 null, null);
         if (navigationMenu != null) {

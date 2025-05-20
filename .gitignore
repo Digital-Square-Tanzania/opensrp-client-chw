@@ -27,5 +27,5 @@ daemon
 build-scan-data
 kotlin-profile
 wrapper
-native
+native/
 /opensrp-chw/libs/

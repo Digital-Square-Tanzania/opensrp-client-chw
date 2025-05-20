@@ -20,6 +20,8 @@ public class Constants extends CoreConstants {
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
 
+    public static final String ADDO_LINKAGE_PLAN_ID = "6270285b-5a3b-4647-b772-c0b3c52e2b72";
+
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}
@@ -40,6 +42,7 @@ public class Constants extends CoreConstants {
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
+        public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
     }
 
     public static class ChildIllnessViewType {
@@ -131,11 +134,11 @@ public class Constants extends CoreConstants {
         public static String getPncHvLocation() {
             return PNC_HV_LOCATION;
         }
-      
+
         public static String getChildHvBreastfeedingForm() {
             return CHILD_HV_BREASTFEEDING_FORM;
         }
-      
+
         public static String getChildHomeVisitDangerSignForm() {
             return CHILD_HOME_VISIT_DANGER_SIGN_FORM;
         }
@@ -292,4 +295,29 @@ public class Constants extends CoreConstants {
             String CECAP_OTHER_REPORT_PATH = "cecap_reports/cecap-other-report";
         }
     }
+
+    public static final class HomeVisitActions {
+
+        public interface ChildHomeVisitActions {
+            String CHILD_MINOR_AILMENT = "child_minor_ailment";
+        }
+
+        public interface AncHomeVisitActions {
+
+        }
+
+        public interface PncHomeVisitActions {
+
+        }
+    }
+
+    public interface AddoLinkage {
+        String BUSINESS_STATUS = "Linked";
+        String CODE = "Linkage";
+
+        String CHILD_TASK_FOCUS = "Child Minor Ailments";
+        String ANC_TASK_FOCUS = "ANC Minor Ailments";
+        String PNC_TASK_FOCUS = "PNC Minor Ailments";
+    }
+
 }

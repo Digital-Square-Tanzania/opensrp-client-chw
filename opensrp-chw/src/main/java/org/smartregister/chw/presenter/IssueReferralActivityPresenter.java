@@ -35,8 +35,8 @@ public class IssueReferralActivityPresenter extends BaseIssueReferralPresenter {
     }
 
     @Override
-    public void onRegistrationSaved(boolean saveSuccessful) {
-        super.onRegistrationSaved(saveSuccessful);
+    public void onRegistrationSaved(boolean saveSuccessful, boolean isAdoLinkage) {
+        super.onRegistrationSaved(saveSuccessful, isAdoLinkage);
         NavigationMenu navigationMenu = NavigationMenu.getInstance((Activity) getView(),
                 null, null);
         if (navigationMenu != null) {
