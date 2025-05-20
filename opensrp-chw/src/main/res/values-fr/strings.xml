@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="login_title">Appli CFC</string>
     <string name="logo">logo</string>
 
@@ -144,9 +144,13 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Signes de danger</string>
+    <string name="home_visit_facility_referral">Orientation vers un établissement de santé</string>
     <string name="anc_home_visit_facility_visit">Visite CPN {0} à la structure sanitaire</string>
     <string name="anc_home_visit_family_planning">Planification familiale</string>
     <string name="anc_home_visit_nutrition_status">État nutritionnel</string>
+    <string name="anc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="child_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="pnc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
     <string name="anc_home_visit_counselling_task">Consultation</string>
     <string name="anc_home_visit_malaria_prevention">Prévention du paludisme</string>
     <string name="anc_home_visit_observations_n_illnes">En Cas de maladie</string>
@@ -294,6 +298,10 @@
     <string name="pnc_danger_signs_mama">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby_task">Signes de danger - enfant</string>
     <string name="pnc_skin_to_skin">KMC skin-to-skin counselling</string>
+
+    <string name="pnc_minor_ailment_mama"> Minor Ailment - Mama </string>
+
+    <string name="child_minor_ailment" tools:ignore="ExtraTranslation"> Minor Ailment - Baby </string>
 
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">Visit CPoN au centre de santé - dans les 48 heures</string>
     <string name="pnc_health_facility_visit_days_three_to_seven">Visit CPoN au centre de santé - jours 3-7</string>

@@ -67,7 +67,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return Arrays.asList("Facility", "Hamlet");
+        return Arrays.asList("Ward", "Facility", "Hamlet");
     }
 
     @Override
