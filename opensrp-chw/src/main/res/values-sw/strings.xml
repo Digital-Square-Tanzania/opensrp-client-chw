@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="login_title">Boresha Afya App</string>
     <string name="logo">Nembo</string>
 
     <string name="title_family_detail">Taarifa za kaya</string>
     <string name="not_done">Haujafanyika</string>
-    <string name="done">hifadhi</string>
-    <string name="subtask_not_done">Haujafanyika</string>
+    <string name="done" tools:ignore="ExtraTranslation">Hifadhi</string>
+    <string name="subtask_not_done" tools:ignore="ExtraTranslation">Haujafanyika</string>
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
@@ -21,7 +21,7 @@
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
     <string name="upcoming_services">Huduma zinazokaribia</string>
-    <string name="delivery_kit">Kitanda cha utoaji</string>
+    <string name="delivery_kit" tools:ignore="ExtraTranslation">Kitanda cha utoaji</string>
     <string name="overdue_3_oct">Imepita(3 oct)</string>
     <string name="view_medical_history">Angalia historia ya matibabu</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s iliyopita</string>
@@ -181,7 +181,11 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
+    <string name="home_visit_facility_referral">Rufaa Kwenda kituo cha afya</string>
     <string name="anc_home_visit_facility_visit">Hudhurio la kliniki ya wajawazito katika kituo cha afya</string>
+    <string name="anc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="child_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="pnc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
     <string name="anc_home_visit_family_planning">Uzazi wa Mpango</string>
     <string name="anc_home_visit_nutrition_status">Hali ya lishe</string>
     <string name="anc_home_visit_counselling_task">Ushauri</string>
@@ -190,7 +194,7 @@
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
-    <string name="anc_woman_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
+    <string name="anc_woman_delivery_kit_received" tools:ignore="ExtraTranslation">Vifaa vya kujifungua vimepokelewa</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Analala kwenye chandarua chenye viuwatilifu cha muda mrefu</string>
     <string name="anc_home_visit_counseling">Ushauri kuhusu kliniki ya wajawazito</string>
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
@@ -335,6 +339,10 @@
     <string name="pnc_danger_signs_baby_task">Dalili za hatari - Mtoto </string>
     <string name="pnc_skin_to_skin">Ushauri juu ya matunzo ya ngozi kwa ngozi (KMC)</string>
 
+    <string name="pnc_minor_ailment_mama"> Maradhi ya mama </string>
+
+    <string name="child_minor_illness"> Maradhi ya mtoto ({0}) </string>
+
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - ndani ya masaa 48</string>
     <string name="pnc_health_facility_visit_days_three_to_seven">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - siku 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - siku 8 - 28</string>
@@ -361,6 +369,16 @@
     <string name="suspected_malaria">Malaria inayodhaniwa</string>
     <string name="cecap_referral">Huduma ya saratani ya via vya uzazi</string>
 
+
+    <!--Addo Minor Ailments-->
+    <string name="child_minor_ailments"> Maradhi ya mtoto</string>
+    <string name="anc_minor_ailments"> Maradhi ya mama mjamzito </string>
+    <string name="pnc_minor_ailments"> Maradhi ya mama liyejifungua </string>
+    <string name="adolescent_minor_ailments"> Maradhi ya kijana balehe </string>
+
+    <string name="linked_to_addo_message"> Ameunganishwa kwa DLDM</string>
+
+    <string name="child_minor_ailment_action"> Maradhi ya mtoto </string>
 
     <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 
@@ -624,6 +642,9 @@
     <string name="map_cue">Alama ya eneo la makazi</string>
     <string name="street_name">Jina la mtaa au Kitongoji</string>
 
+    <string name="successful_linkages">Miunganisho iliyofanikiwa</string>
+
+
     <!--    HPS   -->
 
     <string name="hps_provision_of_preventive_services">Je elimu imetolewa?</string>
@@ -735,7 +756,7 @@
     <string name="hps_malaria_drugs">Dawa mseto za malaria (ALu)</string>
     <string name="hps_anti_pain">Dawa za kutuliza maumivu (panadol)</string>
     <string name="hps_food_supplements">Chakula dawa (RUTF)</string>
-    
+
     <string name="hps_household_consent_to_be_enrolled_in_hps_services">"Je kaya imeridhia kujiandikisha katika Elimu ya Afya kwa Umma?</string>
 
     <string name="hps_was_preventive_service_provided">Je huduma za kinga zilitolewa?</string>

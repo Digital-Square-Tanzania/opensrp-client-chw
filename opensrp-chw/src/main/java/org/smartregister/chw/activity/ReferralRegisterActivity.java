@@ -86,7 +86,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity imple
         //Implement
     }
 
-    private void startRegisterActivity() {
+    protected void startRegisterActivity() {
         Intent intent = new Intent(this, ReferralRegisterActivity.class);
         this.startActivity(intent);
         this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);

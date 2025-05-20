@@ -783,7 +783,10 @@
     <string name="referral_problem_opportunistic_infections">Opportunistic infections</string>
     <string name="referral_problem_symptoms_of_stis">Symptoms of STI\’s</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Symptoms Abortion/Miscarriages</string>
+    <string name="pnc_child_home_visit_facility_referral">Refer Child to facility</string>
+    <string name="pnc_mother_home_visit_facility_referral">Refer Mother to facility</string>
 
+    <string name="nav_menu_linkage">Linkage</string>
     <!--    HPS -->
     <string name="hps_client_criteria">Client Criteria:</string>
     <string name="hps_person_living_with_hiv">Person living with HIV (PLHIV)</string>
@@ -1122,7 +1125,7 @@
     <string name="hps_visit_type">Visit Type</string>
     <string name="hps_health_education_title">Health Education</string>
     <string name="hps_childcare_growth_and_early_childhood_development">Childcare, growth, and early childhood development</string>
-    
+
     <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
     <string name="hps_preventive_service_provided">Preventive services provided</string>
 

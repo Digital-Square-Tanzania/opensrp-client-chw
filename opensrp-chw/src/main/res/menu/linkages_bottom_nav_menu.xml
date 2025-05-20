@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_completed_linkages"
+        android:enabled="true"
+        android:icon="@drawable/ic_done_grey"
+        android:title="@string/successful_linkages"
+        app:showAsAction="ifRoom" />
+
+</menu>

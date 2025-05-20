@@ -282,6 +282,7 @@ dependencies {
         exclude group: 'com.github.chivorns.androidx', module: 'smartmaterialspinner'
         exclude group: 'com.github.stephenc.jcip', module: 'jcip-annotations'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
+        exclude group: 'com.ibm.fhir', module: 'fhir-path'
         exclude group: 'com.emredavarci', module: 'circleprogressbar'
         exclude group: 'org.koin'
         exclude group: "com.google.guava", module: 'listenablefuture'

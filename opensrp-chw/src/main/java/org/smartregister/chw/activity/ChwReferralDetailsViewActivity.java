@@ -60,7 +60,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         setupViews();
     }
 
-    private void createCancelReferral(Task task) {
+    protected void createCancelReferral(Task task) {
         LinearLayout referralVisitBar = findViewById(R.id.record_visit_bar);
         referralVisitBar.setVisibility(View.VISIBLE);
 
@@ -76,7 +76,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
     }
 
-    private void cancelReferral(Task task) {
+    protected void cancelReferral(Task task) {
         MemberObject memberObject = getMemberObject();
         assert memberObject != null;
         task.setForEntity(memberObject.getBaseEntityId());
@@ -84,7 +84,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         CoreReferralUtils.cancelTask(task);
     }
 
-    private void closeReferralDialog(Task task) {
+    protected void closeReferralDialog(Task task) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.cancel_referral_title));
         builder.setMessage(getString(R.string.cancel_referral_message));
@@ -104,7 +104,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         alertDialog.show();
     }
 
-    private void setupViews() {
+    protected void setupViews() {
         LocationRepository locationRepository = new LocationRepository();
         Location location = locationRepository.getLocationById(getMemberObject().getChwReferralHf());
         ((CustomFontTextView) findViewById(R.id.referral_facility)).setText(location.getProperties().getName());
@@ -121,7 +121,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         }
     }
 
-    private void showFeedBackView(Task task) {
+    protected void showFeedBackView(Task task) {
 
 
         if (getMemberObject().getChwReferralService().equals(CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST)) {
