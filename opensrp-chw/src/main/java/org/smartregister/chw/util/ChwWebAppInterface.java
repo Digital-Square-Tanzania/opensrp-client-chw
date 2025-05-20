@@ -135,7 +135,7 @@ public class ChwWebAppInterface {
     }
     @JavascriptInterface
     public String getReportingChw() {
-        return getAllSharedPreferences().getPreference("userLocName-"+getAllSharedPreferences().fetchRegisteredANM());
+        return getAllSharedPreferences().fetchUserLocalityName(getAllSharedPreferences().fetchRegisteredANM());
     }
 
 }
