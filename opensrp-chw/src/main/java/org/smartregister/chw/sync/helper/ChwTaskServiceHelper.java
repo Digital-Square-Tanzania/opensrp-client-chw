@@ -8,7 +8,7 @@ import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.helper.TaskServiceHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +40,10 @@ public class ChwTaskServiceHelper extends TaskServiceHelper {
 
     @Override
     protected Set<String> getPlanDefinitionIds() {
-        return Collections.singleton(CoreConstants.REFERRAL_PLAN_ID);
+        Set<String> planDefinitionIds = new HashSet<>();
+        planDefinitionIds.add(CoreConstants.REFERRAL_PLAN_ID);
+        planDefinitionIds.add(CoreConstants.ADDO_LINKAGE_PLAN_ID);
+        return planDefinitionIds;
     }
 
     @Override

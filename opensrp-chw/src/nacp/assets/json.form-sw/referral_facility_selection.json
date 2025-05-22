@@ -1,0 +1,132 @@
+{
+  "count": "1",
+  "encounter_type": "Referral Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Fomu ya rufaa kituo cha afya",
+    "fields": [
+      {
+        "key": "service_before_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_before_referral",
+        "type": "check_box",
+        "label": "Huduma aliyopewa kabla ya rufaa.",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "ORS",
+            "text": "ORS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "ORS",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Panadol",
+            "text": "Panado",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Panadol",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Other_treatment",
+            "text": "Matibabu mengine",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Other_treatment",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "chk_none",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linatakiwa"
+        }
+      },
+      {
+        "key": "chw_referral_hf",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_referral_hf",
+        "openmrs_data_type": "select one",
+        "openmrs_entity_parent": "",
+        "hint": "Chagua Kituo cha Afya",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "hint": "Tafadhali chagua tarehe ya kuhudhuria hospitali",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter date"
+        }
+      }
+    ]
+  }
+}
+

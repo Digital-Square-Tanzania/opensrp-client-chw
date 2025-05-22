@@ -51,6 +51,8 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
             NavigationOption op25 = new NavigationOption(R.drawable.hps_disactive, R.drawable.hps_active, R.string.hps, CoreConstants.DrawerMenu.HPS, 0);
 
+            NavigationOption op26 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
+
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
             String teamRoleIdentifier = "";
@@ -68,6 +70,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                     case "iccm_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op20, op8));
+                        break;
+                    case "rmncah_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8));
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
@@ -90,8 +95,11 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
                         }
+                        if (ChwApplication.getApplicationFlavor().hasADDO()){
+                            navigationOptions.add(op25);
+                        }
 
-                        if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
                             navigationOptions.add(2, op25);
                         }
 
@@ -128,6 +136,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);
+                }
+                if (ChwApplication.getApplicationFlavor().hasADDO()){
+                    navigationOptions.add(op26);
                 }
                 if (ChwApplication.getApplicationFlavor().hasHps()) {
                     navigationOptions.add(2, op25);

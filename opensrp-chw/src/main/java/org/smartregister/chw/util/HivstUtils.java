@@ -17,7 +17,7 @@ public class HivstUtils {
             formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(context, org.smartregister.chw.hivst.util.Constants.FORMS.HIVST_REFERRAL_FORM);
             if (formJsonObject != null) {
                 formJsonObject.put(Constants.REFERRAL_TASK_FOCUS, CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST);
-                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context, baseEntityId, formJsonObject, false);
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context, baseEntityId, formJsonObject, false, false);
             }
         } catch (JSONException e) {
             e.printStackTrace();

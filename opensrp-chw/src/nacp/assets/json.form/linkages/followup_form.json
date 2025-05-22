@@ -1,0 +1,461 @@
+{
+  "count": "1",
+  "encounter_type": "Linkage Followup",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Linkage Follow-up Visit",
+    "fields": [
+      {
+        "key": "date_chw_followup",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Did the client visit an ADDO?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        }
+      },
+      {
+        "key": "services_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Did they receive the services or attended to at the ADDO?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "get_all_meds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "get_all_meds",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Were you able to get all the medicines you needed?",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "yes",
+          "no"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_get_all_meds_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "not_get_all_meds_reason",
+        "type": "check_box",
+        "label": "If 'No' why were you not able to get the medicines you need?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "too_expensive",
+            "text": "Too expensive",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "too_expensive"
+          },
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "other_reason",
+            "text": "Other reasons (mention)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_get_all_meds_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "not_get_all_meds_reason_other",
+        "type": "edit_text",
+        "hint": "Outline other reason why client did not get all the medicines",
+        "edit_type": "text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the person's name"
+        }
+      },
+      {
+        "key": "reminder_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Remind the client or caretaker to adhere to medications or conseling received at the ADDO",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "noservices_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Why did they not get any services at the ADDO?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_many_people",
+            "text": "There were too many people",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_changed_mind",
+            "text": "They changed their mind",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_no_medication",
+            "text": "ADDO didn't have the medication needed",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unavailable_service",
+            "text": "There were no skilled service providers",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_reason",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "No service reason is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "What other reason?",
+        "v_required": {
+          "value": "true",
+          "err": "Describe the other reason"
+        },
+        "relevance": {
+          "step1:noservices_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "novisit_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Why they did not go to the ADDO?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_visit_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_no_time",
+            "text": "I did not have time",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_too_far",
+            "text": "It's too far",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_forgot",
+            "text": "I forgot",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_changed_mind",
+            "text": "I changed my mind",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_visit_reason",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "No visit reason is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reason_novisit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "What other reason?",
+        "v_required": {
+          "value": "true",
+          "err": "Describe the other reason"
+        },
+        "relevance": {
+          "step1:novisit_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_visit_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "encourage_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Advise and encourage the client or caretaker to complete the linkage",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+          "key": "complete_linkage",
+          "type": "native_radio",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "",
+          "label": "Would they like to try to complete the linkage at an ADDO?",
+          "options": [
+            {
+              "key": "Yes",
+              "openmrs_entity": "concept",
+              "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "openmrs_entity_parent": "",
+              "text": "Yes"
+            },
+            {
+              "key": "No",
+              "openmrs_entity": "concept",
+              "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "openmrs_entity_parent": "",
+              "text": "No"
+            }
+          ],
+          "v_required": {
+            "value": "true",
+            "err": null
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "linkage_followup_relevance.yml"
+              }
+            }
+          }
+        }
+      ]
+  }
+}
