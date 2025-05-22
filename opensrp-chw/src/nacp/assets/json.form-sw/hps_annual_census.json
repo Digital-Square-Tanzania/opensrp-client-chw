@@ -3499,13 +3499,13 @@
     ]
   },
   "step4": {
-    "title": "Vyanzo vya maji vinavyotumiwa zaidi na kaya",
+    "title": "Vyanzo vinavyotumiwa zaidi na kaya",
     "next": "step5",
     "fields": [
       {
         "key": "social_services",
         "type": "label",
-        "text": "Huduma za Kijamii",
+        "text": "Vyanzo vya maji",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3771,6 +3771,15 @@
         ]
       },
       {
+        "key": "social_services",
+        "type": "label",
+        "text": "Nishati ya mwanga",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_services"
+      },
+      {
         "key": "number_of_households_using_electricity_as_source_of_energy_for_lighting",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3954,6 +3963,15 @@
             "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
           }
         ]
+      },
+      {
+        "key": "social_services",
+        "type": "label",
+        "text": "Nishati ya Kupikia",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_services"
       },
       {
         "key": "number_of_households_using_electricity_as_source_of_cooking_energy",
