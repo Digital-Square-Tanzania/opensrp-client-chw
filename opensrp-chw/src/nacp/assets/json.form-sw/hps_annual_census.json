@@ -597,7 +597,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_road_access",
-        "hint": "Idadi ya kaya zenye upatikanaji wa barabara",
+        "hint": "Idadi ya kaya zinazofikiwa na usafiri wa gari bila matatizo",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -634,7 +634,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
-        "hint": "Idadi ya kaya zenye angalau simu moja ya mkononi au simu ya mezani",
+        "hint": "Idadi ya kaya yenye angalau simu moja ya kiganjani au mezani",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -677,7 +677,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_vegetable",
-        "hint": "Idadi ya kaya zenye chanzo cha lishe (Bustani ya mboga)",
+        "hint": "Idadi ya kaya zenye chanzo cha lishe (Bustani za mbogamboga)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -751,7 +751,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
-        "hint": "Idadi ya kaya zenye chanzo cha lishe(Ufugaji wa wanyama)",
+        "hint": "Idadi ya kaya zenye chanzo cha lishe(Wanyama wakufugwa)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4329,7 +4329,7 @@
       {
         "key": "committee_meetings",
         "type": "label",
-        "text": "Mikutano ya kamati ya afya kwa ajili ya mikutano ya kamati yenye ufanisi",
+        "text": "Ufanisi wa Vikao vya Kamati vya Afya",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4340,7 +4340,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_health_committee_members_for_effective_committee_meetings",
-        "hint": "Idadi ya wanachama wa kamati ya afya kwa ajili ya mikutano ya kamati yenye ufanisi",
+        "hint": "Idadi ya wanachama wa Vikao vya Kamati vya Afya",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4516,7 +4516,7 @@
       {
         "key": "traditional_medicine",
         "type": "label",
-        "text": "Tiba mbadala na Tiba Asili",
+        "text": "Huduma za Tiba Mbadala na Tiba Asili Zinazotolewa",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4527,7 +4527,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_registered_alternative_medicine_service_providers",
-        "hint": "Number of registered alternative medicine service providers",
+        "hint": "Idadi ya wahudumu wa tiba mbadala waliosajiliwa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4557,7 +4557,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_registered_traditional_medicine_service_providers",
-        "hint": "Number of registered traditional medicine service providers",
+        "hint": "Idadi ya wahudumu wa tiba asili waliosajiliwa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4587,7 +4587,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_unregistered_alternative_medicine_service_providers",
-        "hint": "Number of unregistered alternative medicine service providers",
+        "hint": "Idadi ya wahudumu wa tiba mbadala wasiosajiliwa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4617,7 +4617,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_unregistered_traditional_medicine_service_providers",
-        "hint": "Number of unregistered traditional medicine service providers",
+        "hint": "Idadi ya wahudumu wa tiba mbadala wasiosajiliwa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5126,7 +5126,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_butcheries_visited",
-        "hint": "Idadi ya maduka ya nyama (Mabucha)",
+        "hint": "Idadi ya Machinjio ya bucha",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5156,7 +5156,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_bar_and_clubs_visited",
-        "hint": "Idadi ya baa na kumbi za starehe zilizotembelewa",
+        "hint": "Idadi ya vilabu vya pombe na baa zilizotembelewa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5186,7 +5186,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_guest_house_visited",
-        "hint": "Idadi ya nyumba za wageni zilizotembelewa",
+        "hint": "Idadi ya nyumba za kulala wageni zilizotembelewa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5216,7 +5216,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_local_food_vendors_visited",
-        "hint": "Idadi ya baba/mama lishe waliotembelewa",
+        "hint": "Idadi ya mama lishe na baba lishe waliotembelewa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5276,7 +5276,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_public_toilets_visited",
-        "hint": "Idadi ya vyoo vya umma",
+        "hint": "Idadi ya vyoo vya umma vilivyotembelewa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5546,7 +5546,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_food_shop_that_Met_the_Standards",
-        "hint": "Idadi ya maduka ya chakula yaliyokidhi vigezo",
+        "hint": "Idadi ya maduka ya chakula yaliyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5583,7 +5583,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_restaurants_that_Met_the_Standards",
-        "hint": "Idadi ya hoteli/migahawa zilizokidhi vigezo",
+        "hint": "Idadi ya hoteli/migahawa zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5620,7 +5620,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_butcheries_that_Met_the_Standards",
-        "hint": "Idadi ya maduka ya manyama(mabucha) yaliyokidhi vigezo",
+        "hint": "Idadi ya maduka ya manyama(mabucha) yaliyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5657,7 +5657,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_bar_and_clubs_that_Met_the_Standards",
-        "hint": "Idadi ya baa na kumbi za starehe zilizokidhi vigezo",
+        "hint": "Idadi ya baa na kumbi za starehe zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5694,7 +5694,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_guest_house_that_Met_the_Standards",
-        "hint": "Idadi ya nyumba za kulala wageni zilizokidhi vigezo",
+        "hint": "Idadi ya nyumba za kulala wageni zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5731,7 +5731,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_loca_food_vendors_that_Met_the_Standards",
-        "hint": "Idadi ya baba/mama lishe waliokidhi vigezo",
+        "hint": "Idadi ya mama lishe na baba lishe waliokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5768,7 +5768,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_markets_that_Met_the_Standards",
-        "hint": "Idadi ya Masoko/Genge yaliokidhi vigezo",
+        "hint": "Idadi ya Masoko/Genge yaliokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5805,7 +5805,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_public_toilets_that_Met_the_Standards",
-        "hint": "Idadi ya vyoo vya umma vilivyokidhi vigezo",
+        "hint": "Idadi ya vyoo vya umma vilivyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5842,7 +5842,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_bus_stations_that_Met_the_Standards",
-        "hint": "Idadi Vituo vya Mabasi vilivyokidhi vigezo",
+        "hint": "Idadi Vituo vya Mabasi vilivyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5879,7 +5879,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_primary_schools_that_Met_the_Standards",
-        "hint": "Idadi ya shule za msingi zilizokidhi vigezo",
+        "hint": "Idadi ya shule za msingi zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5916,7 +5916,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_secondary_schools_that_Met_the_Standards",
-        "hint": "Idadi ya shule za sekondari zilizokidhi vigezo",
+        "hint": "Idadi ya shule za sekondari zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5953,7 +5953,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_hospital_that_Met_the_Standards",
-        "hint": "Idadi ya hospitali zilizokidhi vigezo",
+        "hint": "Idadi ya hospitali zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -5990,7 +5990,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_health_centers_that_Met_the_Standards",
-        "hint": "Idadi ya vituo vya afya vilivyokidhi vigezo",
+        "hint": "Idadi ya vituo vya afya vilivyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6027,7 +6027,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_dispensaries_that_Met_the_Standards",
-        "hint": "Idadi ya zahanati zilizokidhi vigezo",
+        "hint": "Idadi ya zahanati zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6064,7 +6064,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_offices_that_Met_the_Standards",
-        "hint": "Idadi ya ofisi zilizokidhi vigezo",
+        "hint": "Idadi ya ofisi zilizokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6101,7 +6101,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_universities_college_that_Met_the_Standards",
-        "hint": "Idadi ya vyuo vilivyokidhi vigezo",
+        "hint": "Idadi ya vyuo vilivyokidhi hadhi",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6294,7 +6294,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_inspected_transportation_areas",
-        "hint": "Idadi ya maeneo ya usafiri yaliyokaguliwa",
+        "hint": "Idadi ya maeneo ya usafirishaji yaliyokaguliwa",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6539,7 +6539,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_transportation_areas_inspected_with_risk_indicators",
-        "hint": "Idadi ya maeneo ya usafiri yaliyokaguliwa yenye viashiria vya hatari",
+        "hint": "Idadi ya maeneo ya usafirishaji yaliyokaguliwa yenye viashiria vya hatari",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6739,7 +6739,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_inspected_alcoholic_beverages",
-        "hint": "Kiasi cha vinywaji vikali vilivyokaguliwa (Lt)",
+        "hint": "Kiasi cha vinywaji(vileo) vilivyokaguliwa (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6769,7 +6769,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_inspected_non_alcoholic_beverages",
-        "hint": "Kiasi cha vinywaji visivyo na kileo vilivyokaguliwa (Lt)",
+        "hint": "Kiasi cha vinywaji(bila kileo) vilivyokaguliwa (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6799,7 +6799,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_grains_discarded",
-        "hint": "Kiasi cha nafaka zilizozuiliwa (Kg)",
+        "hint": "Kiasi cha nafaka zilizotupwa (Kg)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6836,7 +6836,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_legumes_discarded",
-        "hint": "Kiasi cha mazao jamii ya kunde yaliozuiliwa (Kg)",
+        "hint": "Kiasi cha mazao jamii ya kunde yaliyotupwa (Kg)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6873,7 +6873,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_meat_discarded",
-        "hint": "Kiasi cha nyama zilizozuiliwa (Kg)",
+        "hint": "Kiasi cha nyama zilizotupwa (Kg)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6910,7 +6910,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_fishing_discarded",
-        "hint": "Kiasi cha samaki zilizozuiliwa (Kg)",
+        "hint": "Kiasi cha samaki zilizotupwa (Kg)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6947,7 +6947,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_alcoholic_beverage_discarded",
-        "hint": "Kiasi cha pombe kali zilizozuiliwa (Lt)",
+        "hint": "Kiasi cha vinywaji(kileo) kilichotupwa (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -6984,7 +6984,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_non_alcoholic_beverage_discarded",
-        "hint": "Kiasi cha vinywaji visivyo na kileo vilivyozuiliwa (Lt)",
+        "hint": "Kiasi cha vinywaji(bila kileo) kilichotupwa (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
