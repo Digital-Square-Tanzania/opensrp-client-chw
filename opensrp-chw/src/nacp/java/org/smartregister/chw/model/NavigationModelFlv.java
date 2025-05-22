@@ -99,7 +99,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op25);
                         }
 
-                        if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
                             navigationOptions.add(2, op25);
                         }
 
