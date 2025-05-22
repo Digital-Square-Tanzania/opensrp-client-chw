@@ -95,7 +95,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Jina la katikati",
+        "hint": "Jina la kati",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
@@ -103,7 +103,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali andika jina la katikati"
+          "err": "Tafadhali andika jina la kati"
         }
       },
       {
