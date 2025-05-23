@@ -1,0 +1,32 @@
+---
+name: step1_specify_signs_and_symptoms_provided
+description: hps other education provided
+priority: 1
+condition: "step1_diseases_signs_and_symptoms_male.contains('other_signs_and_symptoms') || step1_diseases_signs_and_symptoms_female.contains('other_signs_and_symptoms')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_diseases_signs_and_symptoms_male
+description: validate diseases and symptoms for male
+priority: 1
+condition: "step1_has_diseases_signs_and_symptoms.equalsIgnoreCase('yes') && global_gender.equalsIgnoreCase('male')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diseases_signs_and_symptoms_female
+description: validate diseases and symptoms for female
+priority: 1
+condition: "step1_has_diseases_signs_and_symptoms.equalsIgnoreCase('yes') && global_gender.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diseases_signs_and_symptoms
+description: hps diseases signs and symptoms
+priority: 1
+condition: "step1_has_diseases_signs_and_symptoms.equalsIgnoreCase('yes')"
+actions:
+  - "calculation = if (global_gender.equalsIgnoreCase('male')) { return step1_diseases_signs_and_symptoms_male}
+                   else if (global_gender.equalsIgnoreCase('female')) { return step1_diseases_signs_and_symptoms_female}
+                   else {return '' }
+    "

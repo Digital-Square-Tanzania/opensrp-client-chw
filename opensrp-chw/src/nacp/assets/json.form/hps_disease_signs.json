@@ -1,0 +1,735 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Disease Signs and Symptoms",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {
+  },
+  "step1": {
+    "title": "Diseases Signs and Symptoms",
+    "fields": [
+      {
+          "key": "has_diseases_signs_and_symptoms",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "has_diseases_signs_and_symptoms",
+          "label": "Did the client have any signs or symptoms of disease?",
+          "text_color": "#000000",
+          "type": "check_box",
+          "combine_checkbox_option_values": "true",
+          "options": [
+            {
+              "key": "yes",
+              "text": "Yes",
+              "openmrs_entity_parent": "",
+              "openmrs_entity": "concept",
+              "openmrs_entity_id": "yes"
+            },
+            {
+              "key": "no",
+              "text": "No",
+              "openmrs_entity_parent": "",
+              "openmrs_entity": "concept",
+              "openmrs_entity_id": "no"
+            }
+          ],
+          "v_required": {
+            "value": "true",
+            "err": "Please select an answer"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_disease_signs.yml"
+              }
+            }
+        }
+      },
+      {
+        "key": "diseases_signs_and_symptoms_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_signs_and_symptoms_male",
+        "label": "Diseases Signs and Symptoms",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "fever",
+            "text": "Fever",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "nausea_and_vomiting",
+            "text": "Nausea and Vomiting",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nausea_and_vomiting"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dizziness"
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "headache"
+          },
+          {
+            "key": "child_excessive_crying",
+            "text": "Child excessive crying",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_excessive_crying"
+          },
+          {
+            "key": "loss_of_appetite",
+            "text": "Loss of appetite",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "loss_of_appetite"
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diarrhoea"
+          },
+          {
+            "key": "lower_limb",
+            "text": "Lower limb Edema",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lower_limb"
+          },
+          {
+            "key": "soft_and_coloured_hair",
+            "text": "Soft & Coloured Hair",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "soft_and_coloured_hair"
+          },
+          {
+            "key": "palm_parror",
+            "text": "Palm Parror",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "palm_parror"
+          },
+          {
+            "key": "body_malaise",
+            "text": "Body malaise",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_malaise,"
+          },
+          {
+            "key": "body_convulsion",
+            "text": "Body Convulsion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_convulsion"
+          },
+          {
+            "key": "unconsciousness",
+            "text": "Unconsciousness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unconsciousness"
+          },
+          {
+            "key": "mental_confusion",
+            "text": "Mental Confusion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_confusion"
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cough"
+          },
+          {
+            "key": "blood_sputum",
+            "text": "Blood Sputum",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_sputum"
+          },
+          {
+            "key": "difficult_in_breathing",
+            "text": "Difficult in breathing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "difficult_in_breathing"
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight Loss",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight_loss"
+          },
+          {
+            "key": "obesity",
+            "text": "Obesity",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "obesity"
+          },
+          {
+            "key": "excessive_sweating",
+            "text": "Excessive Sweating",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_sweating"
+          },
+          {
+            "key": "skin_loss_of_sense",
+            "text": "Skin Loss of Sense",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_loss_of_sense"
+          },
+          {
+            "key": "skin_nodules",
+            "text": "Skin nodules",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_nodules"
+          },
+          {
+            "key": "arm_and_limb_numbness",
+            "text": "Arm and Limb numbness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_and_limb_numbness"
+          },
+          {
+            "key": "disability_chronic_wounds",
+            "text": "Disability/ Chronic wounds",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "disability_chronic_wounds"
+          },
+          {
+            "key": "arm_limp_swelling_breast_enlargement",
+            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"
+          },
+          {
+            "key": "scrotal_swelling",
+            "text": "Scrotal Swelling",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "scrotal_swelling"
+          },
+          {
+            "key": "eye_lashes_scratching_eyelid",
+            "text": "Eye lashes scratching eyelid",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_lashes_scratching_eyelid"
+          },
+          {
+            "key": "skin_itching_seborrhea",
+            "text": "Skin itching/Seborrhea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_itching_seborrhea"
+          },
+          {
+            "key": "bloody_stool",
+            "text": "Bloody stool",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_stool"
+          },
+          {
+            "key": "bloody_urine",
+            "text": "Bloody urine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_urine"
+          },
+          {
+            "key": "skin_blood_discharge",
+            "text": "Skin blood discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_blood_discharge"
+          },
+          {
+            "key": "eye_itching",
+            "text": "Eye itching",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_itching"
+          },
+          {
+            "key": "red_eyes",
+            "text": "Red Eyes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "red_eyes"
+          },
+          {
+            "key": "low_vision",
+            "text": "Low vision",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "low_vision"
+          },
+          {
+            "key": "swelling",
+            "text": "Swelling",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "swelling"
+          },
+          {
+            "key": "body_injury",
+            "text": "Body Injury",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_injury"
+          },
+          {
+            "key": "puss_body_lashes",
+            "text": "Puss body lashes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puss_body_lashes"
+          },
+          {
+            "key": "blood_vomit",
+            "text": "Blood Vomit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_vomit"
+          },
+          {
+            "key": "gum_swelling_and_tooth_ache",
+            "text": "Gum swelling and tooth ache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gum_swelling_and_tooth_ache"
+          },
+          {
+            "key": "other_signs_and_symptoms",
+            "text": "Other signs and symptoms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_signs_and_symptoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_disease_signs.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diseases_signs_and_symptoms_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_signs_and_symptoms_female",
+        "label": "Diseases Signs and Symptoms",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "fever",
+            "text": "Fever",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "vaginal_blood_discharge",
+            "text": "Vaginal Blood Discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaginal_blood_discharge"
+          },
+          {
+            "key": "nausea_and_vomiting",
+            "text": "Nausea and Vomiting",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nausea_and_vomiting"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dizziness"
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "headache"
+          },
+          {
+            "key": "child_excessive_crying",
+            "text": "Child excessive crying",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_excessive_crying"
+          },
+          {
+            "key": "loss_of_appetite",
+            "text": "Loss of appetite",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "loss_of_appetite"
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diarrhoea"
+          },
+          {
+            "key": "vaginal_watery_discharge",
+            "text": "Vaginal Watery Discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vaginal_watery_discharge"
+          },
+          {
+            "key": "lower_limb",
+            "text": "Lower limb Edema",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lower_limb"
+          },
+          {
+            "key": "soft_and_coloured_hair",
+            "text": "Soft & Coloured Hair",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "soft_and_coloured_hair"
+          },
+          {
+            "key": "palm_parror",
+            "text": "Palm Parror",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "palm_parror"
+          },
+          {
+            "key": "body_malaise",
+            "text": "Body malaise",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_malaise,"
+          },
+          {
+            "key": "body_convulsion",
+            "text": "Body Convulsion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_convulsion"
+          },
+          {
+            "key": "unconsciousness",
+            "text": "Unconsciousness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unconsciousness"
+          },
+          {
+            "key": "mental_confusion",
+            "text": "Mental Confusion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_confusion"
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cough"
+          },
+          {
+            "key": "blood_sputum",
+            "text": "Blood Sputum",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_sputum"
+          },
+          {
+            "key": "difficult_in_breathing",
+            "text": "Difficult in breathing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "difficult_in_breathing"
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight Loss",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight_loss"
+          },
+          {
+            "key": "obesity",
+            "text": "Obesity",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "obesity"
+          },
+          {
+            "key": "excessive_sweating",
+            "text": "Excessive Sweating",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_sweating"
+          },
+          {
+            "key": "skin_loss_of_sense",
+            "text": "Skin Loss of Sense",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_loss_of_sense"
+          },
+          {
+            "key": "skin_nodules",
+            "text": "Skin nodules",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_nodules"
+          },
+          {
+            "key": "arm_and_limb_numbness",
+            "text": "Arm and Limb numbness",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_and_limb_numbness"
+          },
+          {
+            "key": "disability_chronic_wounds",
+            "text": "Disability/ Chronic wounds",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "disability_chronic_wounds"
+          },
+          {
+            "key": "arm_limp_swelling_breast_enlargement",
+            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"
+          },
+          {
+            "key": "eye_lashes_scratching_eyelid",
+            "text": "Eye lashes scratching eyelid",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_lashes_scratching_eyelid"
+          },
+          {
+            "key": "skin_itching_seborrhea",
+            "text": "Skin itching/Seborrhea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_itching_seborrhea"
+          },
+          {
+            "key": "bloody_stool",
+            "text": "Bloody stool",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_stool"
+          },
+          {
+            "key": "bloody_urine",
+            "text": "Bloody urine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bloody_urine"
+          },
+          {
+            "key": "skin_blood_discharge",
+            "text": "Skin blood discharge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skin_blood_discharge"
+          },
+          {
+            "key": "eye_itching",
+            "text": "Eye itching",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_itching"
+          },
+          {
+            "key": "red_eyes",
+            "text": "Red Eyes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "red_eyes"
+          },
+          {
+            "key": "low_vision",
+            "text": "Low vision",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "low_vision"
+          },
+          {
+            "key": "swelling",
+            "text": "Swelling",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "swelling"
+          },
+          {
+            "key": "body_injury",
+            "text": "Body Injury",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_injury"
+          },
+          {
+            "key": "puss_body_lashes",
+            "text": "Puss body lashes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puss_body_lashes"
+          },
+          {
+            "key": "blood_vomit",
+            "text": "Blood Vomit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_vomit"
+          },
+          {
+            "key": "gum_swelling_and_tooth_ache",
+            "text": "Gum swelling and tooth ache",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gum_swelling_and_tooth_ache"
+          },
+          {
+            "key": "other_signs_and_symptoms",
+            "text": "Other signs and symptoms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_signs_and_symptoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_disease_signs.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diseases_signs_and_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_signs_and_symptoms",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_disease_signs.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_signs_and_symptoms_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_signs_and_symptoms_provided",
+        "type": "edit_text",
+        "hint": "Other(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_disease_signs.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
