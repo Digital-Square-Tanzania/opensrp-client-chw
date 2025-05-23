@@ -1799,7 +1799,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_special_clinics_government",
-        "hint": "Namba ya kliniki maalumu (Mashirika ya kidini)",
+        "hint": "Idadi ya kliniki maalumu (Mashirika ya kidini)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -4550,7 +4550,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4558,11 +4558,11 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
           "value": "100000",
-          "err": "Number must be five digits"
+          "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
@@ -4580,7 +4580,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4588,11 +4588,11 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
           "value": "100000",
-          "err": "Number must be five digits"
+          "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
@@ -4610,7 +4610,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4618,11 +4618,11 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
           "value": "100000",
-          "err": "Number must be five digits"
+          "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
@@ -4640,7 +4640,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Tafadhali jaza jibu sahihi"
         },
         "v_numeric": {
           "value": "true",
@@ -4648,11 +4648,11 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
         },
         "v_max": {
           "value": "100000",
-          "err": "Number must be five digits"
+          "err": "Namba lazima ziwe na tarakimu tano"
         },
         "v_max_length": {
           "value": "5",
@@ -7811,7 +7811,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_ponds",
-        "hint": "Kiasi cha viuatilifu kilichotumika (Madimbwi)",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Madimbwi (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7836,7 +7836,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_cans",
-        "hint": "Kiasi cha viuatilifu kilichotumika (Makopo)",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Makopo (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7861,7 +7861,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_drums",
-        "hint": "Kiasi cha viuatilifu kilichotumika (Madebe)",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Madebe (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7886,7 +7886,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_barrels",
-        "hint": "Kiasi cha viuatilifu kilichotumika (Mapipa)",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Mapipa (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -7911,7 +7911,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "amount_of_pesticide_used_coconut_shells",
-        "hint": "Kiasi cha viuatilifu kilichotumika (Vifuu vya nazi)",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Vifuu vya nazi (Lt)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
