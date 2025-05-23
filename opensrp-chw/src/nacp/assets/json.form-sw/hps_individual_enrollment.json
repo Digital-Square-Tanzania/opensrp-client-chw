@@ -61,7 +61,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "does_the_client_consent_to_be_enrolled_in_hps_services",
         "type": "native_radio",
-        "label": "Je mteja amekubali kujiandikisha katika Elimu ya Afya kwa Umma?",
+        "label": "Je Mteja Amekubali Kujiandikisha Kupata Elimu na Uhamasishaji wa Afya?",
         "options": [
           {
             "key": "yes",
