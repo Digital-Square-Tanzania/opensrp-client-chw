@@ -387,30 +387,30 @@
         }
       },
       {
-        "key":"referral_system",
-        "openmrs_entity_parent":"",
-        "openmrs_entity":"concept",
-        "openmrs_entity_id":"referral_system",
-        "type":"native_radio",
-        "label":"Je,kuna mfumo wa rufaa umetumika?",
-        "label_text_size":"18px",
+        "key": "was_there_any_referral_system_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_there_any_referral_system_used",
+        "type": "native_radio",
+        "label": "Je,kuna mfumo wa rufaa umetumika?",
+        "label_text_size": "18px",
         "options": [
           {
-            "key":"yes",
-            "text":"Ndio",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"yes"
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
           },
           {
-            "key":"no",
-            "text":"Hapana",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"no"
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
-          "value":"true",
-          "err":"Tafadhali chagua jibu sahihi"
+          "value": "true",
+          "err": "Please select an answer"
         },
         "relevance": {
           "rules-engine": {
@@ -421,51 +421,110 @@
         }
       },
       {
-        "key":"referral_system_used",
-        "openmrs_entity_parent":"",
-        "openmrs_entity":"concept",
-        "openmrs_entity_id":"referral_system_used",
-        "type":"check_box",
-        "label":"Chagua mfumo wa rufaa uliotumika",
-        "text_color":"#000000",
-        "combine_checkbox_option_values":"true",
+        "key": "referral_system_including_ucs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_including_ucs",
+        "type": "check_box",
+        "label": "Chagua mfumo wa rufaa uliotumika",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
         ],
         "options": [
           {
-            "key":"m_mama",
-            "text":"M-mama",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"m_mama"
+            "key": "m_mama",
+            "text": "M-Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "m_mama"
           },
           {
-            "key":"ucs",
-            "text":"UCS",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"ucs"
+            "key": "ucs",
+            "text": "UCS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ucs"
           },
           {
-            "key":"referral_form",
-            "text":"Fomu ya Rufaa",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"Referral Form"
+            "key": "referral_form",
+            "text": "Fomu ya Rufaa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Referral Form"
           },
           {
-            "key":"other_method",
-            "text":"Njia nyingine",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"other_method"
+            "key": "other_method",
+            "text": "Mfumo mwingine(elezea)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_method"
           }
         ],
         "v_required": {
-          "value":"true",
-          "err":"Tafadhali chagua jibu sahihi"
+          "value": "true",
+          "err": "Chagua jibu sahihi"
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file":"hps_referral_services_relevance.yml"
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_excluding_ucs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_excluding_ucs",
+        "type": "check_box",
+        "label": "Chagua mfumo wa rufaa uliotumika",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "m_mama",
+            "text": "M-Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "m_mama"
+          },
+          {
+            "key": "referral_form",
+            "text": "Fomu ya Rufaa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Referral Form"
+          },
+          {
+            "key": "other_method",
+            "text": "Mfumo mwingine(elezea)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_method"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_provided",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
             }
           }
         }
