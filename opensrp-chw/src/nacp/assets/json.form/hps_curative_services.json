@@ -75,7 +75,6 @@
           "err": "Please select an answer"
         }
       },
-
       {
         "key": "is_disease_test_conducted",
         "openmrs_entity_parent": "",

@@ -53,8 +53,7 @@
         "openmrs_entity_id": "has_diseases_signs_and_symptoms",
         "label": "Je, mteja alikuwa na dalili au ishara zozote za ugonjwa?",
         "text_color": "#000000",
-        "type": "check_box",
-        "combine_checkbox_option_values": "true",
+        "type": "native_radio",
         "options": [
           {
             "key": "yes",
@@ -74,13 +73,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua jibu"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_disease_signs.yml"
-            }
-          }
         }
       },
       {

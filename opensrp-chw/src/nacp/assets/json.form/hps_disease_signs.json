@@ -53,8 +53,7 @@
           "openmrs_entity_id": "has_diseases_signs_and_symptoms",
           "label": "Did the client have any signs or symptoms of disease?",
           "text_color": "#000000",
-          "type": "check_box",
-          "combine_checkbox_option_values": "true",
+          "type": "native_radio",
           "options": [
             {
               "key": "yes",
@@ -74,14 +73,7 @@
           "v_required": {
             "value": "true",
             "err": "Please select an answer"
-          },
-          "relevance": {
-            "rules-engine": {
-              "ex-rules": {
-                "rules-file": "hps_disease_signs.yml"
-              }
-            }
-        }
+          }
       },
       {
         "key": "diseases_signs_and_symptoms_male",

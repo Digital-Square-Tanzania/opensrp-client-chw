@@ -5,7 +5,13 @@ priority: 1
 condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
-
+---
+name: step1_is_treatment_provided
+description: hps treatment provided
+priority: 1
+condition: "step1_provision_of_curative_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
 ---
 name: step1_systolic
 description: hps blood pressure measurement result

@@ -1,12 +1,4 @@
 ---
-name: step1_specify_signs_and_symptoms_provided
-description: hps other education provided
-priority: 1
-condition: "step1_diseases_signs_and_symptoms_male.contains('other_signs_and_symptoms') || step1_diseases_signs_and_symptoms_female.contains('other_signs_and_symptoms')"
-actions:
-  - "isRelevant = true"
-
----
 name: step1_diseases_signs_and_symptoms_male
 description: validate diseases and symptoms for male
 priority: 1
@@ -30,3 +22,10 @@ actions:
                    else if (global_gender.equalsIgnoreCase('female')) { return step1_diseases_signs_and_symptoms_female}
                    else {return '' }
     "
+---
+name: step1_specify_signs_and_symptoms_provided
+description: hps other education provided
+priority: 1
+condition: "step1_diseases_signs_and_symptoms_male.contains('other_signs_and_symptoms') || step1_diseases_signs_and_symptoms_female.contains('other_signs_and_symptoms')"
+actions:
+  - "isRelevant = true"
