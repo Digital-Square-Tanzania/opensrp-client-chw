@@ -1,7 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.EventType;
 import static org.smartregister.chw.util.Constants.JSON_FORM;
 import static org.smartregister.chw.util.Constants.ProfileActivityResults;
@@ -13,6 +15,7 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -51,6 +54,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
@@ -58,7 +62,6 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -103,6 +106,33 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
+    }
+
+    public static void closePncMemberVisits(String baseEntityId) {
+        AllSharedPreferences sharedPreferences = getAllSharedPreferences();
+        Event baseEvent = (Event) new Event()
+                .withBaseEntityId(baseEntityId)
+                .withEventDate(new Date())
+                .withEventType(CLOSE_PNC_VISITS)
+                .withFormSubmissionId(org.smartregister.util.JsonFormUtils.generateRandomUUIDString())
+                .withEntityType(CoreConstants.TABLE_NAME.PNC_MEMBER)
+                .withProviderId(sharedPreferences.fetchRegisteredANM())
+                .withLocationId(ChwNotificationDao.getSyncLocationId(baseEntityId))
+                .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
+                .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
+                .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                .withDateCreated(new Date());
+        try {
+            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), baseEvent);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        try {
+            NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -208,7 +238,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
     }
 
-
     private void refreshOnHomeVisitResult() {
         Observable<Visit> observable = Observable.create(e -> {
             Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
@@ -265,6 +294,16 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         return PncRegisterActivity.class;
     }
 
+//    @Override
+//    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+//        findViewById(R.id.rlUpcomingServices).setVisibility(GONE);
+//    }
+//
+//    @Override
+//    public void setFamilyStatus(AlertStatus status) {
+//        findViewById(R.id.view_family_row).setVisibility(GONE);
+//    }
+
     @Override
     protected void onCreation() {
         super.onCreation();
@@ -278,16 +317,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
-
-//    @Override
-//    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
-//        findViewById(R.id.rlUpcomingServices).setVisibility(GONE);
-//    }
-//
-//    @Override
-//    public void setFamilyStatus(AlertStatus status) {
-//        findViewById(R.id.view_family_row).setVisibility(GONE);
-//    }
 
     @Override
     public void registerPresenter() {
@@ -346,9 +375,18 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             int age = memberObject.getAge();
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age >= 15);
         }
-        if(ChwApplication.getApplicationFlavor().hasKvp()){
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityID));
         }
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityID) && memberObject.getAge() >= 10);
+        }
+
         return true;
     }
 
@@ -364,19 +402,24 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                         CoreConstants.JSON_FORM.getFamilyMemberRegister());
             }
             return true;
-        }
-        if (itemId == R.id.action_hivst_registration) {
+        } else if (itemId == R.id.action_hivst_registration) {
             CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
             String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false);
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
-        }
-        if(itemId == R.id.action_kvp_prep_registration){
+        } else if (itemId == R.id.action_kvp_prep_registration) {
             String gender = getClientGender(baseEntityID);
             int age = memberObject.getAge();
             KvpPrEPRegisterActivity.startRegistration(PncMemberProfileActivity.this, baseEntityID, gender, age);
             return true;
+        } else if (itemId == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, baseEntityID, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     public void startFormForEdit(Integer title_resource, String formName) {
@@ -480,6 +523,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
 
     }
+
     private void addPncLinkageTypes() {
         linkageTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_minor_ailments),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedLinkageForm()
@@ -493,7 +537,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startFpRegister() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(),  CoreConstants.JSON_FORM.getFpRegistrationForm("Female"));
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"));
     }
 
     @Override
@@ -528,7 +572,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
     }
 
-
     @Override
     protected void startMalariaFollowUpVisit() {
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, memberObject.getBaseEntityId());
@@ -555,33 +598,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
-    }
-
-    public static void closePncMemberVisits(String baseEntityId) {
-        AllSharedPreferences sharedPreferences = getAllSharedPreferences();
-        Event baseEvent = (Event) new Event()
-                .withBaseEntityId(baseEntityId)
-                .withEventDate(new Date())
-                .withEventType(CLOSE_PNC_VISITS)
-                .withFormSubmissionId(org.smartregister.util.JsonFormUtils.generateRandomUUIDString())
-                .withEntityType(CoreConstants.TABLE_NAME.PNC_MEMBER)
-                .withProviderId(sharedPreferences.fetchRegisteredANM())
-                .withLocationId(ChwNotificationDao.getSyncLocationId(baseEntityId))
-                .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
-                .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
-                .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
-                .withClientApplicationVersion(BuildConfig.VERSION_CODE)
-                .withDateCreated(new Date());
-        try {
-            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), baseEvent);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        try {
-            NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
-        } catch (Exception e) {
-            Timber.e(e);
-        }
     }
 
     public interface Flavor {

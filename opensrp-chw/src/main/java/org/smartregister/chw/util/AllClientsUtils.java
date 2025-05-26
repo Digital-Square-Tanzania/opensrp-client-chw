@@ -250,6 +250,14 @@ public class AllClientsUtils {
                 case "iccm_provider":
                     updateIccmMenu(menu, baseEntityId, flavor);
                     break;
+                case "icchw": {
+                    // Handle HPS menu items
+                    if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
+                    }
+                    updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
+                    break;
+                }
                 default:
                     updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
                     break;
@@ -328,14 +336,9 @@ public class AllClientsUtils {
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
-
-        // Handle HPS menu items
-        if (ChwApplication.getApplicationFlavor().hasHps()) {
-            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
-        }
     }
 
-    private static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
+    public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
         MenuItem item = menu.findItem(itemId);
         if (item != null) {
             item.setVisible(visible);
