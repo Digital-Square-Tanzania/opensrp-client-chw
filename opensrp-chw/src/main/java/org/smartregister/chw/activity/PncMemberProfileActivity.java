@@ -379,7 +379,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityID));
         }
 
-        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
         SharedPreferences preferences = allSharedPreferences.getPreferences();
         String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
 
