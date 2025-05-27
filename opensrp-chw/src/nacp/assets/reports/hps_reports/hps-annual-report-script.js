@@ -8,7 +8,7 @@ function loadData(reportKey, reportType) {
   reportingFacility.innerHTML = Android.getReportingChw();
   keys.forEach((key) => {
     let element;
-    if(reportType !== null && reportType === "pnc"){
+    if (reportType !== null && reportType === "pnc") {
       element = document.getElementById(key.replace("pnc-", ""));
     }
     else {
@@ -18,21 +18,21 @@ function loadData(reportKey, reportType) {
       element.innerHTML = data.nameValuePairs[key];
     }
   });
-    if(typeof data !== undefined && data !== ""){
-      const reportData = data.nameValuePairs.reportData.values;
+    if (typeof data !== undefined && data !== "") {
+    const reportData = data.nameValuePairs.reportData.values;
 
-      reportData.forEach((dataPoint) => {
-          //append to the table body a row with data
-          const row = document.createElement("tr");
-          const dataPointKeys = Object.keys(dataPoint.nameValuePairs);
-          dataPointKeys.forEach((key) => {
-              const cell = document.createElement("td");
-              cell.innerHTML = dataPoint.nameValuePairs[key];
-              row.appendChild(cell);
+    reportData.forEach((dataPoint) => {
+      //append to the table body a row with data
+      const row = document.createElement("tr");
+      const dataPointKeys = Object.keys(dataPoint.nameValuePairs);
+      dataPointKeys.forEach((key) => {
+        const cell = document.createElement("td");
+        cell.innerHTML = dataPoint.nameValuePairs[key];
+        row.appendChild(cell);
           }
           );
-          tableBody.appendChild(row);
-      });
+      tableBody.appendChild(row);
+    });
     }
 
 

@@ -56,6 +56,7 @@ import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -388,7 +389,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startHivstRegistration() {
-
+        HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityId, memberObject.getGender());
     }
 
     protected void removeIndividualProfile() {
