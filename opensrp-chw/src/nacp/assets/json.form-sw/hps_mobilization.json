@@ -764,7 +764,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "iec_materials_provided",
         "type": "native_radio",
-        "label": "Je,vifaa vya  taarifa, elimu na mawasiliano vimetolewa?",
+        "label": "Je,vielelezo vya  taarifa, elimu na mawasiliano vimetolewa?",
         "options": [
           {
             "key": "yes",
@@ -791,8 +791,8 @@
         "openmrs_entity_id": "information_education_and_communication_materials",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano",
-        "hint": "Chagua  aina ya vifaa vya  taarifa, elimu na mawasiliano",
+        "label": "Chagua  aina ya vielelezo vya  taarifa, elimu na mawasiliano",
+        "hint": "Chagua  aina ya vielelezo vya  taarifa, elimu na mawasiliano",
         "options": [
           {
             "key": "brochures",
@@ -838,10 +838,10 @@
         "openmrs_entity_id": "specify_other_iec_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Taja vifaa vinginevyo vya taarifa, elimu na mawasiliano",
+        "hint": "Taja vielelezo vinginevyo vya taarifa, elimu na mawasiliano",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja vifaa vinginenvyo vya taarifa,elimu na mawasiliano kwenye vijarida"
+          "err": "Tafadhali taja vielelezo vinginenvyo vya taarifa,elimu na mawasiliano kwenye vijarida"
         },
         "relevance": {
           "rules-engine": {
@@ -858,7 +858,7 @@
         "openmrs_entity_id": "brochure_materials",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Vifaa vya taarifa, elimu na mawasiliano (Vijarida)",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vijarida)",
         "options": [
           {
             "key": "malaria",
@@ -952,10 +952,10 @@
         "openmrs_entity_id": "other_brochure_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (Vijarida)",
+        "hint": "Taja (Vijarida)",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vijarida"
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye vijarida"
         },
         "relevance": {
           "rules-engine": {
@@ -1009,7 +1009,7 @@
         "openmrs_entity_id": "poster_materials",
         "combine_checkbox_option_values": "true",
         "type": "check_box",
-        "label": "Vifaa vya taarifa, elimu na mawasiliano (Mabango)",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Mabango)",
         "options": [
           {
             "key": "malaria",
@@ -1103,10 +1103,10 @@
         "openmrs_entity_id": "other_poster_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (mabango)",
+        "hint": "Taja (mabango)",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye mabango"
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye mabango"
         },
         "relevance": {
           "rules-engine": {
@@ -1122,7 +1122,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_posters_provided",
         "type": "edit_text",
-        "hint": "Idadi ya mabango vilivyotolewa",
+        "hint": "Idadi ya mabango yalivyotolewa",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -1160,7 +1160,7 @@
         "type": "check_box",
         "openmrs_entity_id": "leaflet_materials",
         "combine_checkbox_option_values": "true",
-        "label": "Vifaa vya taarifa, elimu na mawasiliano (Vipeperushi)",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vipeperushi)",
         "options": [
           {
             "key": "malaria",
@@ -1254,10 +1254,10 @@
         "openmrs_entity_id": "other_leaflet_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Taja vifaa vinginevyo vya taaarifa, elimu na mawasiliano (vipeperushi)",
+        "hint": "Taja (vipeperushi)",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vipeperushi"
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye vipeperushi"
         },
         "relevance": {
           "rules-engine": {
@@ -1311,7 +1311,7 @@
         "type": "check_box",
         "openmrs_entity_id": "others_iec_materials",
         "combine_checkbox_option_values": "true",
-        "label": "Vifaa vya taarifa, elimu na mawasiliano (Vinginevyo)",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vinginevyo)",
         "options": [
           {
             "key": "malaria",
@@ -1399,10 +1399,10 @@
         "openmrs_entity_id": "specify_other_other_iec_materials",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Taja aina ya vifaa  vinginenvyo vya  taarifa, elimu na mawasiliano vilivyotolewa",
+        "hint": "Taja aina ya vielelezo  vinginenvyo vya  taarifa, elimu na mawasiliano vilivyotolewa",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja aina ya vifaa vinginevyo vya taarifa,elimu na mawasiliano kwenye vielelzo"
+          "err": "Tafadhali taja aina ya vielelezo vinginevyo vya taarifa,elimu na mawasiliano"
         },
         "relevance": {
           "rules-engine": {
@@ -1418,7 +1418,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_other_iec_provided",
         "type": "edit_text",
-        "hint": "Idadi ya vifaa vinginenvyo vya taarifa, elimu na mawasiliano vilivyotolewa",
+        "hint": "Idadi ya vielelezo vinginenvyo vya taarifa, elimu na mawasiliano vilivyotolewa",
         "edit_type": "number",
         "v_required": {
           "value": "true",
