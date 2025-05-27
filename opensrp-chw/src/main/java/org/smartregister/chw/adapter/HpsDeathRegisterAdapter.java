@@ -3,9 +3,7 @@ package org.smartregister.chw.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.text.Html;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,6 @@ import java.util.List;
 import timber.log.Timber;
 
 public class HpsDeathRegisterAdapter extends RecyclerView.Adapter<HpsDeathRegisterAdapter.HpsMobilizationViewHolder> {
-    private static final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
 
     private final Context context;
 

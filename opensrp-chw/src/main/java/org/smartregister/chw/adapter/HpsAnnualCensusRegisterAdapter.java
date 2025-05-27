@@ -16,13 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsAnnualCensusRegistrationDetailsActivity;
-import org.smartregister.chw.activity.HpsDeathRegistrationDetailsActivity;
 import org.smartregister.chw.hps.domain.HpsAnnualCensusRegisterModel;
-import org.smartregister.chw.hps.domain.HpsDeathRegisterModel;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnualCensusRegisterAdapter.HpsAnnualCensusViewHolder> {
     private static final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
@@ -35,17 +31,6 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
     public HpsAnnualCensusRegisterAdapter(List<HpsAnnualCensusRegisterModel> hpsAnnualCensusRegisterModels, Context context) {
         this.hpsAnnualCensusRegisterModels = hpsAnnualCensusRegisterModels;
         this.context = context;
-    }
-
-    private static String getStringResource(Context context, String prefix, String resourceName) {
-        int resourceId = context.getResources().
-                getIdentifier(prefix + resourceName.trim(), "string", context.getPackageName());
-        try {
-            return context.getString(resourceId);
-        } catch (Exception e) {
-            Timber.e(e);
-            return resourceName;
-        }
     }
 
     @NonNull

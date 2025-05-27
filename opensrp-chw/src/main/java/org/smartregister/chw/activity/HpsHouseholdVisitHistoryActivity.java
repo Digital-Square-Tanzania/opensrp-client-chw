@@ -116,7 +116,7 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
                 JSONObject form = new JSONObject(jsonString);
                 String baseEntityId = form.getString("entity_id");
                 String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
-                if (encounterType.equals(Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT)) {
+                if (encounterType.equals(HPS_HOUSEHOLD_VISIT)) {
                     if (form.has(VISIT_ID)) {
                         String deletedVisitId = form.getString(VISIT_ID);
                         form.remove(VISIT_ID);
