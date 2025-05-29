@@ -25,4 +25,5 @@ jobs:
     - name: Run unit tests with Gradle
       run: ./gradlew :opensrp-chw:clean :opensrp-chw:build  --stacktrace
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
