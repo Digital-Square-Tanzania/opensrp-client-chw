@@ -340,7 +340,7 @@ flavors.each { productFlavorName ->
 
 // task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testNacpDebugUnitTest', 'createNacpDebugCoverageReport'
+        'testNacpDebugUnitTest'
 ]) {
 
     reports {
