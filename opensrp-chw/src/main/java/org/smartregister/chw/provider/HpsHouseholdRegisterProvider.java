@@ -45,7 +45,6 @@ public class HpsHouseholdRegisterProvider extends CoreRegisterProvider {
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
-        CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         viewHolder.dueWrapper.setVisibility(View.GONE);
     }
 
