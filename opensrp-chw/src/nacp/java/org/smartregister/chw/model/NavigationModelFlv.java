@@ -140,9 +140,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasADDO()){
                     navigationOptions.add(op26);
                 }
-                if (ChwApplication.getApplicationFlavor().hasHps()) {
-                    navigationOptions.add(2, op25);
-                }
                 if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                     navigationOptions.add(op6);
                 }
