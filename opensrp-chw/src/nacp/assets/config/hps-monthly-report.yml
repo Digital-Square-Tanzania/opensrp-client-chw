@@ -2,6 +2,7 @@ indicators:
   # Indicators for Form 1
   - key: "hps-1a-ME-under-month"
     grouping: "HPS"
+		expectedIndicators: ["ZG4Rt0GKtAq","Fb2Xis54K99"]
     description: "Idadi ya wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <month"
     indicatorQuery: " SELECT count(DISTINCT efm.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
