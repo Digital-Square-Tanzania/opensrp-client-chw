@@ -4163,6 +4163,7 @@ indicators:
 
   - key: "hps-1B13-ME-under-month"
     grouping: "HPS"
+		expectedIndicators: ["Fb2Xis54K99", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <month"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4174,6 +4175,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-1-11-months"
     grouping: "HPS"
+		expectedIndicators: ["ysbmaKHIDmC", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 1-11 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4185,6 +4187,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-12-23-months"
     grouping: "HPS"
+		expectedIndicators: ["wVkRrCaJPzS", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 12-23 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4196,6 +4199,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-2-4"
     grouping: "HPS"
+		expectedIndicators: ["nCT3qckKoki", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 2-4 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4207,6 +4211,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-5-9"
     grouping: "HPS"
+		expectedIndicators: ["VyaqHwmwO3n", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4218,6 +4223,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-10-14"
     grouping: "HPS"
+		expectedIndicators: ["JrPHmw5zZg1", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4229,6 +4235,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-15-19"
     grouping: "HPS"
+		expectedIndicators: ["OWB5jeWPjBj", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4240,6 +4247,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-20-24"
     grouping: "HPS"
+		expectedIndicators: ["Y2RRa3t1LD6", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4251,6 +4259,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-25-59"
     grouping: "HPS"
+		expectedIndicators: ["xBtqS8hDKlP", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4262,6 +4271,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-ME-60+"
     grouping: "HPS"
+		expectedIndicators: ["MFBrTRp3fqs", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4273,6 +4283,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-under-month"
     grouping: "HPS"
+		expectedIndicators: ["f3yun5BvpVu", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <month"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4284,6 +4295,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-1-11-months"
     grouping: "HPS"
+		expectedIndicators: ["N065VLz4Msp", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 1-11 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4295,6 +4307,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-12-23-months"
     grouping: "HPS"
+		expectedIndicators: ["jo7hCYAAEeE", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 12-23 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4306,6 +4319,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-2-4"
     grouping: "HPS"
+		expectedIndicators: ["dpzeDjlLRoT", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 2-4 months"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4317,6 +4331,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-5-9"
     grouping: "HPS"
+		expectedIndicators: ["TnZ79ugXQXt", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4328,6 +4343,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-10-14"
     grouping: "HPS"
+		expectedIndicators: ["MqHtWHVr4MC", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4339,6 +4355,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-15-19"
     grouping: "HPS"
+		expectedIndicators: ["UkYxKtSH7kp", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4350,6 +4367,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-20-24"
     grouping: "HPS"
+		expectedIndicators: ["NZR8fZAv4Qs", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4361,6 +4379,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-25-59"
     grouping: "HPS"
+		expectedIndicators: ["sIzg9tYqVJ5", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -4372,6 +4391,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1B13-KE-60+"
     grouping: "HPS"
+		expectedIndicators: ["VPTxnZp2atu", "AwJrznWEUmy"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21129,6 +21149,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-under-month"
     grouping: "HPS"
+		expectedIndicators: ["f3yun5BvpVu", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21139,7 +21160,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-1-11-months"
-    grouping: "HPS"
+    grouping: "HPS"expectedIndicators: ["N065VLz4Msp", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21151,6 +21172,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-12-23-months"
     grouping: "HPS"
+		expectedIndicators: ["jo7hCYAAEeE", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21162,6 +21184,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-2-4"
     grouping: "HPS"
+		expectedIndicators: ["dpzeDjlLRoT", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21173,6 +21196,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-5-9"
     grouping: "HPS"
+		expectedIndicators: ["TnZ79ugXQXt", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21184,6 +21208,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-10-14"
     grouping: "HPS"
+		expectedIndicators: ["MqHtWHVr4MC", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21195,6 +21220,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-15-19"
     grouping: "HPS"
+		expectedIndicators: ["UkYxKtSH7kp", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21206,6 +21232,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-20-24"
     grouping: "HPS"
+		expectedIndicators: ["NZR8fZAv4Qs", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21217,6 +21244,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-25-59"
     grouping: "HPS"
+		expectedIndicators: ["sIzg9tYqVJ5", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 25-59"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
@@ -21228,6 +21256,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1H12-KE-60+"
     grouping: "HPS"
+		expectedIndicators: ["VPTxnZp2atu", "JrKUhuwTMMO"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
