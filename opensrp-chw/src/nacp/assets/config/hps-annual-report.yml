@@ -4,10 +4,4 @@ indicators:
     grouping: "HPS"
     expectedIndicators: [ "Fb2Xis54K99", "fkcCuN3W89f" ]
     description: "Shule za awali Serikali"
-    indicatorQuery: " SELECT COALESCE(ehacr.number_of_pre_schools_government, '0') as count 
-                      FROM ec_hps_annual_census_register ehacr 
-                      WHERE substr('%s', 1, 4) = ehacr.year 
-                      UNION ALL
-                      SELECT '0' as count 
-                      WHERE NOT EXISTS (SELECT 1 FROM ec_hps_annual_census_register WHERE substr('%s', 1, 4) = year) 
-                      LIMIT 1"
+    indicatorQuery: " 	SELECT COALESCE((SELECT SUM(number_of_pre_schools_government) FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;"
