@@ -4622,6 +4622,18 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-1C2-ME-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["VyaqHwmwO3n", "DgRSqwGhOGZ"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+					  WHERE efm.gender='Male' AND ehcs.type_of_education_provided like '%anc_danger_signs%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1C2-ME-10-14"
     grouping: "HPS"
     expectedIndicators: ["JrPHmw5zZg1", "DgRSqwGhOGZ"]
@@ -4682,6 +4694,19 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hps-1C2-KE-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["TnZ79ugXQXt", "DgRSqwGhOGZ"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+    				  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+    				  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+    				  WHERE efm.gender='Female' AND ehcs.type_of_education_provided like '%anc_danger_signs%'
+    				  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+    				  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+    				  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+    				  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1C2-KE-10-14"
     grouping: "HPS"
     expectedIndicators: ["MqHtWHVr4MC", "DgRSqwGhOGZ"]
@@ -4742,6 +4767,18 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-1C3-ME-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["VyaqHwmwO3n", "K3lxQu27gnu"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+              INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+              INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+              WHERE efm.gender='Male' AND ehcs.type_of_education_provided like '%family_planning%'
+              AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+              datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+              datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1C3-ME-10-14"
     grouping: "HPS"
     expectedIndicators: ["JrPHmw5zZg1", "K3lxQu27gnu"]
@@ -4802,6 +4839,18 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-1C3-KE-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["TnZ79ugXQXt", "K3lxQu27gnu"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+                      INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+                      WHERE efm.gender='Female' AND ehcs.type_of_education_provided like '%family_planning%'
+                      AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1C3-KE-10-14"
     grouping: "HPS"
     expectedIndicators: ["MqHtWHVr4MC", "K3lxQu27gnu"]
@@ -8546,6 +8595,19 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-1D1-ME-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["VyaqHwmwO3n", "DgRSqwGhOGZ"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+  			  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+  			  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+  			  WHERE efm.gender='Male' AND ehcs.preventive_services_provided like '%counselling%'
+  			  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
+  			  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+  			  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+  			  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
   - key: "hps-1D1-ME-10-14"
     grouping: "HPS"
     expectedIndicators: ["JrPHmw5zZg1", "CtjeFlkR6UA"]
@@ -8603,6 +8665,18 @@ indicators:
 					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
 					  WHERE efm.gender='Male' AND ehcs.preventive_services_provided like '%counselling%'
 					  AND (date('now')-date(efm.dob))>=60
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hps-1D1-KE-5-9"
+    grouping: "HPS"
+    expectedIndicators: ["TnZ79ugXQXt", "DgRSqwGhOGZ"]
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 5-9"
+    indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr
+					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
+					  INNER JOIN ec_hps_client_services ehcs ON ehcr.base_entity_id = ehcs.entity_id
+					  WHERE efm.gender='Female' AND ehcs.preventive_services_provided like '%counselling%'
+					  AND (date(efm.dob, '+5 years') <= date('now')) AND (date(efm.dob, '+10 years') > date('now'))
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
