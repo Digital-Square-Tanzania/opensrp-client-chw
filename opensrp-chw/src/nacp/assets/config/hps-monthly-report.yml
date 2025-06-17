@@ -6998,7 +6998,7 @@ indicators:
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-1C19-KE-10-14"
-  expectedIndicators: ["MqHtWHVr4MC", "oj6LSuRsnKn"]
+    expectedIndicators: ["MqHtWHVr4MC", "oj6LSuRsnKn"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT ehcr.base_entity_id) as count FROM ec_hps_client_register ehcr 
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ehcr.base_entity_id
