@@ -23132,7 +23132,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C2-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "VFb6nEO3irN"]
+    description: "Idadi ya kaya zilizopata elimu ya vidokezo vya hatari wakati wa ujauzito."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%danger_signs_of_pregnancy%'
@@ -23141,7 +23142,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C3-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "JkmXXuHtgue"]
+    description: "Idadi ya kaya zilizopata elimu ya uzazi wa mpango."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%family_planning%'
@@ -23150,7 +23152,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C4-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "EpNGWJXesKx"]
+    description: "Idadi ya kaya zilizopata elimu ya malaria"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%malaria%'
@@ -23159,7 +23162,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C5-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "D0ibTom44SM"]
+    description: "Idadi ya kaya ziliopata elimu ya ugonjwa wa kifua kikuu, ukoma na upimaji."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%tuberculosis_leprosy_and_testing%'
@@ -23188,6 +23192,7 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C8-grand-total"
     grouping: "HPS"
+    expectedIndicators: ["uGIJ6IdkP7Q", "ZJKGTVvHum8"]
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
@@ -23207,7 +23212,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C10-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "LthJ505XmPz"]
+    description: "Idadi ya kaya zilizopata elimu ya magonjwa yasiyo ya kuambikizwa"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%non_communicable_diseases%'
@@ -23226,7 +23232,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C12-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "VXOsRHsrhz0"]
+    description: "Idadi ya kaya zilizopata elimu ya usafi na utunzaji wa mazingira."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%environmental_sanitation_and_care%'
@@ -23235,7 +23242,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C13-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "ZndRK2vXCiV"]
+    description: "Idadi ya kaya zilizopata elimu ya mfuko wa bima ya afya"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%health_insurance_fund%'
@@ -23244,7 +23252,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C14-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "yaxRHwTKLCf"]
+    description: "Idadi ya kaya zilizopata elimu ya ukatili wa kijinsia"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%gender_based_violence%'
@@ -23323,7 +23332,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C22-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "Hkv0GL1BVT3"]
+    description: "Idadi ya kaya zilizopata elimu ya malezi, makuzi na maendeleo ya awali ya mtoto"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%childcare_growth_and_early_childhood%'
@@ -23332,7 +23342,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C23-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "Bfg0T4riSqY"]
+    description: "Idadi ya kaya zilizopata elimu ya umuhimu wa cheti cha kuzaliwa."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%importance_of_birth_certificates%'
@@ -23341,7 +23352,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C24-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "BnyAsNlWFhE"]
+    description: "Idadi ya kaya zilizopata elimu ya ujasiriamali."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%entrepreneurship%'
@@ -23360,7 +23372,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C26-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "JCC54Ox43M0"]
+    description: "Idadi ya kaya zilizopata elimu ya ukatili dhidi ya watoto."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%violence_against_children%'
@@ -23369,7 +23382,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2C27-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "QozxfHMmkNG"]
+    description: "Idadi ya kaya zilizopata elimu ya ufuasi wa dawa"
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.education_provided like '%medication_adherence%'
@@ -23399,7 +23413,8 @@ indicators:
 
   - key: "hps-2D1-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "uLR1BbuDzmV"]
+    description: "Idadi ya kaya zilizopata ushauri nasaha."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.preventive_services_provided like '%counselling%'
@@ -23408,7 +23423,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2D10-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "GpzYuqpqBvP"]
+    description: "Idadi ya kaya zilizopata vyakula vilivyoongezewa virutubisho (MNP)."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.preventive_services_provided like '%multi_nutrient_powder%'
@@ -23417,7 +23433,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2D11-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "JRDnh7PICuT"]
+    description: "Idadi ya kaya zilizopata vyandarua."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.preventive_services_provided like '%llins%'
@@ -23436,7 +23453,8 @@ indicators:
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
   - key: "hps-2D14-grand-total"
     grouping: "HPS"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
+    expectedIndicators: ["uGIJ6IdkP7Q", "hnSQVEq3yVF"]
+    description: "Idadi ya kaya zilizopata ushauri wa kisaikolojia."
     indicatorQuery: " SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
 					  WHERE ehhs.preventive_services_provided like '%psychological_counselling%'
