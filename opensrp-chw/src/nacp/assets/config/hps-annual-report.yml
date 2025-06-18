@@ -506,205 +506,205 @@ indicators:
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-total-households
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "QtjlOSyN9PD"]
     description: Number of house hold
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold) FROM ec_hps_annual_census_register
       WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-a-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "oD3MixMgWOF"]
     description: Number of house hold with road access
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_road_access)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-a-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "P8HP59gjO57"]
     description: Number of house holds with at least one landline or mobile phone
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_holds_with_at_least_one_landline_or_mobile_phone)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-b-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "IYIpX8Cut5t"]
     description: Number of house hold with basic nutrition source vegetable
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_vegetable)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-b-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "coTQLOCsgau"]
     description: Number of house hold with basic nutrition source fruit trees
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_fruit_trees)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-b-3
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "FQ25tIfXPH7"]
     description: Number of house hold with basic nutrition source domestic animal
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_domestic_animal)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "UJHbI2KVGXZ"]
     description: Number of households most commonly use tap as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_tap_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "a5UbzESzz0r"]
     description: Number of households most commonly use river as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_river_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-3
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "y30UnUggCsI"]
     description: Number of households most commonly use shallow well as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_shallow_well_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-4
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "DFCJPp5paOQ"]
     description: Number of households most commonly use water pond as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_water_pond_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-5
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "VTiKESXnz21"]
     description: Number of households most commonly use small dam as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_small_dam_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-6
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "oRbhVgf29GY"]
     description: Number of households most commonly use lake as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_lake_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-7
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "w502600cuPy"]
     description: Number of households most commonly use spring as sources of water
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_spring_as_sources_of_water)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-8
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "d2qpOeusFqf"]
     description: Number of households using electricity as source of energy for lighting
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_electricity_as_source_of_energy_for_lighting)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-9
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "rmCVSbgKpXK"]
     description: Number of households using solar as source of energy for lighting
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_solar_as_source_of_energy_for_lighting)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-10
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "WAsF3DrybjB"]
     description: Number of households using kerosine as source of energy for lighting
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_kerosine_as_source_of_energy_for_lighting)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-11
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "CTM3W8nOPW3"]
     description: Number of households using koroboi as source of energy for lighting
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_koroboi_as_source_of_energy_for_lighting)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-12
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "TZdX58iDSpJ"]
     description: Number of households using other source of energy for lighting
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_other_source_of_energy_for_lighting)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-13
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "PLSTiQkPjKg"]
     description: Number of households using electricity as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_electricity_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-14
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "PsMaEBewRz3"]
     description: Number of households using solar as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_solar_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-15
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "W1zPJ3eEtG5"]
     description: Number of households using kerosine as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_kerosine_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-16
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "hsNnRhisVpQ"]
     description: Number of households using gas as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_gas_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-17
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "bk2RDob4mM6"]
     description: Number of households using charcoal as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_charcoal_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-u-18
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "hymnvGO7Heb"]
     description: Number of households using firewood as source of cooking energy
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_firewood_as_source_of_cooking_energy)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-v-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["X0Me7ygpiUT", "oOsobB7whiz"]
     description: Number of male capable of engaging in economic activities
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_capable_of_engaging_in_economic_activities)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-vv-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["X0Me7ygpiUT", "DrbhOfdwDyW"]
     description: Number of male engaged in economic activities
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_engaged_in_economic_activities)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-v-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["MqMQnGOqLuY", "oOsobB7whiz"]
     description: Number of female capable of engaging in economic activities
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_capable_of_engaging_in_economic_activities)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-vv-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["MqMQnGOqLuY", "DrbhOfdwDyW"]
     description: Number of female engaged in economic activities
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_engaged_in_economic_activities)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-x-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["uGIJ6IdkP7Q", "znnhAgXsusu"]
     description: Number of health committee members for effective committee meetings
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_committee_members_for_effective_committee_meetings)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-x-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["YyK8KfOzUJ6", "tZQlx5nnp5t"]
     description: Number of committee members attended fisrt quarter
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_committee_members_attended_fisrt_quarter)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-y-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["VNBYtEPDtdp", "YJZ5tpfzaiP"]
     description: Number of registered alternative medicine service providers
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_registered_alternative_medicine_service_providers)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-y-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["mc6BUdIzrOu", "YJZ5tpfzaiP"]
     description: Number of registered traditional medicine service providers
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_registered_traditional_medicine_service_providers)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-z-1
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["VNBYtEPDtdp", "yGjrELYAPoc"]
     description: Number of unregistered alternative medicine service providers
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_unregistered_alternative_medicine_service_providers)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-z-2
     grouping: HPS
-    expectedIndicators: null
+    expectedIndicators: ["mc6BUdIzrOu", "yGjrELYAPoc"]
     description: Number of unregistered traditional medicine service providers
     indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_unregistered_traditional_medicine_service_providers)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
