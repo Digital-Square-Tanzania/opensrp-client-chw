@@ -479,15 +479,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "birth_regist_number",
-        "type": "mask_edit_text",
-        "mask": "#-####-####-###-#",
-        "mask_hint": "T234567891234",
+        "type": "edit_text",
         "allowed_chars": "0123456789",
-        "hint": "Cheti cha kuzaliwa mf. T-1234-5678-123-0",
+        "hint": "Namba ya cheti cha kuzaliwa e.g. 1234567890",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba ya cheti cha kuzaliwa sahihi"
+        },
         "v_regex": {
-          "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d$",
-          "err": "Cheti cha kuzaliwa kinatakiwa muundo huu (X-XXXX-XXXX-XXX-X)"
+          "value": "^\\d{10}$",
+          "err": "Namba ya cheti cha kuzaliwa lazima kiwe na tarakimu 10"
         },
         "relevance": {
           "rules-engine": {

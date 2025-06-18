@@ -479,15 +479,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "birth_regist_number",
-        "type": "mask_edit_text",
-        "mask": "T-####-####-###-#",
-        "mask_hint": "1234567891234",
+        "type": "edit_text",
         "allowed_chars": "0123456789",
-        "hint": "Birth registration number e.g. T-1234-5678-123-0",
+        "hint": "Birth registration number e.g. 1234567890",
         "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid birth registration number"
+        },
         "v_regex": {
-          "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d$",
-          "err": "Birth registration number should be of the format (X-XXXX-XXXX-XXX-X)"
+          "value": "^\\d{10}$",
+          "err": "Birth registration number must be exactly 10 digits"
         },
         "relevance": {
           "rules-engine": {

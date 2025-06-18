@@ -81,7 +81,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_household_members_reached",
         "type": "edit_text",
-        "hint": "Idadi ya wanakaya ",
+        "hint": "Idadi ya wanakaya wanaopatiwa huduma katika tembeleo",
         "edit_type": "number",
         "v_required": {
           "value": true,
@@ -608,7 +608,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "comments",
         "type": "edit_text",
-        "hint": "Maoni ya huduma za kaya",
+        "hint": "Maoni ya mtoa huduma",
         "v_max_length": {
           "value": "500",
           "is_fixed_size": "true",

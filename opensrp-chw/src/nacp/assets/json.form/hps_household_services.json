@@ -81,7 +81,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_household_members_reached",
         "type": "edit_text",
-        "hint": "Number of household members reached",
+        "hint": "Number of household members provided with services during the visit",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -608,7 +608,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "comments",
         "type": "edit_text",
-        "hint": "Remarks/Comments on the services provided",
+        "hint": "Comments by the service provider",
         "v_max_length": {
           "value": "500",
           "is_fixed_size": "true",
