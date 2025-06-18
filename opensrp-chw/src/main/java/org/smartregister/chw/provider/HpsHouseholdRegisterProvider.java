@@ -36,18 +36,15 @@ import java.util.Set;
  */
 public class HpsHouseholdRegisterProvider extends CoreRegisterProvider {
     protected final Context context;
-    private final View.OnClickListener onClickListener;
 
     public HpsHouseholdRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
         this.context = context;
-        this.onClickListener = onClickListener;
     }
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
-        CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         viewHolder.dueWrapper.setVisibility(View.GONE);
     }
 

@@ -151,8 +151,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         if (resultCode == Activity.RESULT_OK && requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
             Runnable runnable = () -> {
                 try {
-                    JSONObject json = new JSONObject(data.getStringExtra(org.smartregister.chw.hps.util.Constants.JSON_FORM_EXTRA.JSON));
-
+//                    JSONObject json = new JSONObject(data.getStringExtra(org.smartregister.chw.hps.util.Constants.JSON_FORM_EXTRA.JSON));
 //                    JSONArray fields = json.getJSONObject(STEP1).getJSONArray(FIELDS);
 ////                    JSONObject chw_referral_hf = JsonFormUtils.getFieldJSONObject(fields, "chw_referral_hf");
 ////

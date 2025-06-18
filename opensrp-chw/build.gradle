@@ -243,6 +243,8 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
+            buildConfigField "String", 'reset_password_url', '"https://ucs.moh.go.tz/backend/api/v1/user/chw/forgot/"'
+            buildConfigField "String", 'reset_password_url_debug', '"http://170.187.199.69:3035/api/v1/user/chw/forgot/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward","Council","Health Facility", "Village", "Hamlet"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Facility", "Health Facility", "Village", "Hamlet"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "Facility", "Health Facility", "Village", "Hamlet"}'
@@ -270,7 +272,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-ALPHA29-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-ALPHA30-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -340,7 +342,7 @@ flavors.each { productFlavorName ->
 
 // task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testNacpDebugUnitTest', 'createNacpDebugCoverageReport'
+        'testNacpDebugUnitTest'
 ]) {
 
     reports {

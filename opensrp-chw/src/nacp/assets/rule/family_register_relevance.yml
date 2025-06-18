@@ -36,30 +36,6 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step2_national_id
-description: national_id relevance
-priority: 1
-condition: "step2_id_avail.equals('National ID')"
-actions:
-  - "isRelevant = true"
-
----
-name: step2_voter_id
-description: voter_id relevance
-priority: 1
-condition: "step2_id_avail.equals('Voter\\'s registration ID')"
-actions:
-  - "isRelevant = true"
-
----
-name: step2_driver_license
-description: driver_license relevance
-priority: 1
-condition: "step2_id_avail.equals('Driver\\'s license')"
-actions:
-  - "isRelevant = true"
-
----
 name: step2_insurance_provider_other
 description: insurance_provider_other relevance
 priority: 1

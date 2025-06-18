@@ -236,10 +236,8 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age >= 15);
         }
 
-        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
-            if (gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(memberObject.getBaseEntityId())) {
-                menu.findItem(R.id.action_agyw_screening).setVisible(true);
-            }
+        if (ChwApplication.getApplicationFlavor().hasAGYW() && gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(memberObject.getBaseEntityId())) {
+            menu.findItem(R.id.action_agyw_screening).setVisible(true);
         }
 
         if (ChwApplication.getApplicationFlavor().hasKvp()) {
@@ -388,7 +386,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startHivstRegistration() {
-
+        HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityId, memberObject.getGender());
     }
 
     protected void removeIndividualProfile() {

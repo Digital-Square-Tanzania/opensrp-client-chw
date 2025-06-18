@@ -4,7 +4,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getEditEvent;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getFormWithMetaData;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.updateValues;
-import static org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT;
 import static org.smartregister.chw.util.PmtctVisitUtils.deleteProcessedVisit;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.VISIT_ID;
 
@@ -233,7 +232,7 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
 
                     String visitType;
 
-                    if (HPS_HOUSEHOLD_VISIT.equals(visits.get(x).getVisitType())) {
+                    if (Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT.equals(visits.get(x).getVisitType())) {
                         visitType = context.getString(R.string.hps_visit);
                     } else {
                         visitType = visits.get(x).getVisitType();
