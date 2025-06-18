@@ -1,7 +1,710 @@
+# Indicators for Form HPS Annual Report
 indicators:
-  # Indicators for Form HPS Annual Report
-  - key: "hps-c-1"
-    grouping: "HPS"
-    expectedIndicators: ["Fb2Xis54K99", "fkcCuN3W89f"]
-    description: "Shule za awali Serikali"
-    indicatorQuery: "SELECT COALESCE((SELECT SUM(number_of_pre_schools_government) FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;"
+  - key: hps-c-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pre schools government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pre_schools_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-c-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pre schools faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pre_schools_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-c-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pre schools public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pre_schools_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-c-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pre schools private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pre_schools_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-d-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of primary schools government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_primary_schools_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-d-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of primary schools faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_primary_schools_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-d-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of primary schools public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_primary_schools_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-d-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of primary schools private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_primary_schools_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-e-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of secondary schools government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_secondary_schools_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-e-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of secondary schools faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_secondary_schools_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-e-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of secondary schools public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_secondary_schools_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-e-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of secondary schools private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_secondary_schools_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-f-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of universities government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_universities_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-f-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of universities faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_universities_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-f-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of universities public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_universities_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-f-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of universities private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_universities_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-g-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special needs schools government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_needs_schools_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-g-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special needs schools faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_needs_schools_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-g-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special needs schools public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_needs_schools_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-g-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special needs schools private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_needs_schools_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-h-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of dispensary government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_dispensary_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-h-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of dispensary faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_dispensary_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-h-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of dispensary public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_dispensary_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-h-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of dispensary private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_dispensary_private) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-i-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of health centers government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_centers_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-i-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of health centers faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_centers_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-i-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of health centers public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_centers_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-i-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of health centers private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_centers_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-j-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of hospital government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_hospital_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-j-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of hospital faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_hospital_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-j-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of hospital public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_hospital_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-j-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of hospital private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_hospital_private) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-k-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special clinics government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_clinics_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-k-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special clinics faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_clinics_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-k-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special clinics public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_clinics_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-k-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of special clinics private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_special_clinics_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-l-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of laboratory government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_laboratory_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-l-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of laboratory faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_laboratory_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-l-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of laboratory public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_laboratory_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-l-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of laboratory private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_laboratory_private) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-m-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pharmacy government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pharmacy_government) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-m-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pharmacy faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pharmacy_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-m-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pharmacy public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pharmacy_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-m-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of pharmacy private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_pharmacy_private) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-n-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of addo government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_government) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-n-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of addo faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-n-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of addo public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_public) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-n-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of addo private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_private) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-o-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of maternity home government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_maternity_home_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-o-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of maternity home faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_maternity_home_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-o-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of maternity home public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_maternity_home_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-o-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of maternity home private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_maternity_home_private) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-p-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of orphan care centers government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_orphan_care_centers_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-p-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of orphan care centers faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_orphan_care_centers_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-p-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of orphan care centers public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_orphan_care_centers_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-p-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of orphan care centers private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_orphan_care_centers_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-q-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of centers for children with disabilities government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_centers_for_children_with_disabilities_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-q-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of centers for children with disabilities faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_centers_for_children_with_disabilities_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-q-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of centers for children with disabilities public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_centers_for_children_with_disabilities_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-q-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of centers for children with disabilities private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_centers_for_children_with_disabilities_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-r-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of cbecdc rehabilitation centre government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_cbecdc_rehabilitation_centre_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-r-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of cbecdc rehabilitation centre faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_cbecdc_rehabilitation_centre_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-r-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of cbecdc rehabilitation centre public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_cbecdc_rehabilitation_centre_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-r-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of cbecdc rehabilitation centre private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_cbecdc_rehabilitation_centre_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-s-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of day care centers government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_day_care_centers_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-s-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of day care centers faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_day_care_centers_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-s-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of day care centers public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_day_care_centers_public) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-s-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of day care centers private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_day_care_centers_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-t-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of elderly care centers government
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_elderly_care_centers_government)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-t-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of elderly care centers faith based organisation
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_elderly_care_centers_faith_based_organisation)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-t-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of elderly care centers public
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_elderly_care_centers_public)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-t-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of elderly care centers private
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_elderly_care_centers_private)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-<1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group under1
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_under1)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-<1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group under1
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_under1)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-1-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group 1 4
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_1_4) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-1-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group 1 4
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_1_4) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-5-14
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group 5 14
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_5_14) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-5-14
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group 5 14
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_5_14)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-15-49
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group 15 49
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_15_49) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-15-49
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group 15 49
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_15_49)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-50-59
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group 50 59
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_50_59) FROM
+      ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-50-59
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group 50 59
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_50_59)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-M-60-+
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male by age group 60 plus
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_by_age_group_60_plus)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-F-60-+
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female by age group 60 plus
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_by_age_group_60_plus)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-total-households
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house hold
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold) FROM ec_hps_annual_census_register
+      WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-a-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house hold with road access
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_road_access)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-a-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house holds with at least one landline or mobile phone
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_holds_with_at_least_one_landline_or_mobile_phone)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-b-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house hold with basic nutrition source vegetable
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_vegetable)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-b-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house hold with basic nutrition source fruit trees
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_fruit_trees)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-b-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of house hold with basic nutrition source domestic animal
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_house_hold_with_basic_nutrition_source_domestic_animal)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use tap as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_tap_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use river as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_river_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-3
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use shallow well as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_shallow_well_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-4
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use water pond as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_water_pond_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-5
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use small dam as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_small_dam_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-6
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use lake as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_lake_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-7
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households most commonly use spring as sources of water
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_most_commonly_use_spring_as_sources_of_water)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-8
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using electricity as source of energy for lighting
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_electricity_as_source_of_energy_for_lighting)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-9
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using solar as source of energy for lighting
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_solar_as_source_of_energy_for_lighting)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-10
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using kerosine as source of energy for lighting
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_kerosine_as_source_of_energy_for_lighting)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-11
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using koroboi as source of energy for lighting
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_koroboi_as_source_of_energy_for_lighting)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-12
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using other source of energy for lighting
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_other_source_of_energy_for_lighting)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-13
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using electricity as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_electricity_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-14
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using solar as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_solar_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-15
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using kerosine as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_kerosine_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-16
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using gas as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_gas_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-17
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using charcoal as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_charcoal_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-u-18
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of households using firewood as source of cooking energy
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_households_using_firewood_as_source_of_cooking_energy)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-v-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male capable of engaging in economic activities
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_capable_of_engaging_in_economic_activities)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-vv-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of male engaged in economic activities
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_male_engaged_in_economic_activities)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-v-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female capable of engaging in economic activities
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_capable_of_engaging_in_economic_activities)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-vv-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of female engaged in economic activities
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_female_engaged_in_economic_activities)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-x-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of health committee members for effective committee meetings
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_health_committee_members_for_effective_committee_meetings)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-x-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of committee members attended fisrt quarter
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_committee_members_attended_fisrt_quarter)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-y-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of registered alternative medicine service providers
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_registered_alternative_medicine_service_providers)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-y-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of registered traditional medicine service providers
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_registered_traditional_medicine_service_providers)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-z-1
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of unregistered alternative medicine service providers
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_unregistered_alternative_medicine_service_providers)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
+  - key: hps-z-2
+    grouping: HPS
+    expectedIndicators: null
+    description: Number of unregistered traditional medicine service providers
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_unregistered_traditional_medicine_service_providers)
+      FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
