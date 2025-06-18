@@ -1,7 +1,7 @@
 indicators:
-  # Indicators for Form 1
+  # Indicators for Form HPS Annual Report
   - key: "hps-c-1"
     grouping: "HPS"
-    expectedIndicators: [ "Fb2Xis54K99", "fkcCuN3W89f" ]
+    expectedIndicators: ["Fb2Xis54K99", "fkcCuN3W89f"]
     description: "Shule za awali Serikali"
-    indicatorQuery: " 	SELECT COALESCE((SELECT SUM(number_of_pre_schools_government) FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;"
+    indicatorQuery: "SELECT COALESCE((SELECT SUM(number_of_pre_schools_government) FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;"
