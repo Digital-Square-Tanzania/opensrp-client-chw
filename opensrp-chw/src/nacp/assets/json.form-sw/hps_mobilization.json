@@ -128,7 +128,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_radio_tv_used_for_education",
         "type": "native_radio",
-        "label": "Chagua aina ya Redio iliyotumika kwatika uselimishaji na uhamasishaji",
+        "label": "Chagua aina ya Redio iliyotumika katika uelimishaji na uhamasishaji",
         "options": [
           {
             "key": "national_radio",

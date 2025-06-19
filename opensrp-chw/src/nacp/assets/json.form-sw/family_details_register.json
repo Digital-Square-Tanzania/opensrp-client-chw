@@ -92,7 +92,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chairperson_first_name",
         "type": "edit_text",
-        "hint": "Jina la kwanza la mwenyekiti wa mtaa",
+        "hint": "Jina la kwanza la mwenyekiti wa kitongoji/mtaa",
         "edit_type": "name"
       },
       {
@@ -101,7 +101,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chairperson_middle_name",
         "type": "edit_text",
-        "hint": "Jina la kati la mwenyekiti wa mtaa",
+        "hint": "Jina la kati la mwenyekiti wa kitongoji/mtaa",
         "edit_type": "name"
       },
       {
@@ -110,7 +110,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chairperson_last_name",
         "type": "edit_text",
-        "hint": "Jina la mwisho la mwenyekiti wa mtaa",
+        "hint": "Jina la mwisho la mwenyekiti wa kitongoji/mtaa",
         "edit_type": "name"
       },
       {
@@ -119,7 +119,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chairperson_phone",
         "type": "edit_text",
-        "hint": "Namba ya simu ya mwenyekiti wa mtaa",
+        "hint": "Namba ya simu ya mwenyekiti wa kitongoji/mtaa",
         "edit_type": "number",
         "v_max_length": {
           "value": "10",
