@@ -206,7 +206,20 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
-
+    private void evaluatePartnerEngagement(Map<String, List<VisitDetail>> details, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject partnerEngagementForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getAncHvPartnerEngagement());
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(partnerEngagementForm, details);
+        }
+        BaseAncHomeVisitAction partner_engagement = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_partner_engagement))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_partner_engagement")
+                .withHelper(new PartnerEngagementAction())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_partner_engagement), partner_engagement);
+    }
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
         private String danger_signs_present;
@@ -254,6 +267,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+                    evaluatePartnerEngagement(details, context);
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -262,6 +276,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_partner_engagement));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
@@ -771,5 +786,66 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
     }
 
+    private class PartnerEngagementAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+        private String partner_presence;
+        private Context context;
+
+        @Override
+        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                partner_presence = JsonFormUtils.getCheckBoxValue(jsonObject, "partner_head_of_household");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String s) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format(context.getString(R.string.partner_engagement_evaluate_sub_title), partner_presence);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (!StringUtils.isBlank(partner_presence))
+                if(partner_presence.equalsIgnoreCase("yes") || partner_presence.equalsIgnoreCase("ndio")){
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                }else{
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                }
+            else
+                return BaseAncHomeVisitAction.Status.PENDING;
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
+            Timber.v("onPayloadReceived");
+        }
+    }
 }
 

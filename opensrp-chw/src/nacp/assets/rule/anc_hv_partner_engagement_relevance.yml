@@ -1,0 +1,14 @@
+---
+name: step1_partner_head_of_household_stay_visit
+description: Partner head of household stay visit
+priority: 1
+condition: "step1_partner_head_of_household.contains('partner_head_of_household_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_partner_head_of_households_interaction
+description: Partner head of households interaction
+priority: 1
+condition: "step1_partner_head_of_household.contains('partner_head_of_household_yes')"
+actions:
+  - "isRelevant = true"

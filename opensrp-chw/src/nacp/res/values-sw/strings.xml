@@ -728,4 +728,8 @@
     <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
 
+    <!-- ANC ECD -->
+    <string name="partner_engagement_evaluate_sub_title">Uwepo wa mwenza: {0}</string>
+    <string name="anc_home_visit_partner_engagement">Ushiriki wa Mwenza</string>
+
 </resources>
