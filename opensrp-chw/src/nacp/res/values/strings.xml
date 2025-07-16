@@ -813,5 +813,8 @@
     <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_hiv_aids_general_information">HIV/AIDS General Information</string>
+
 
 </resources>
