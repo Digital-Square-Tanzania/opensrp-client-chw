@@ -206,6 +206,23 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
+    private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
+                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
+//        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+
+            BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new BreastFeedingActionHelper())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_breastfeeding")
+                    .build();
+
+            actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
+//        }
+
+    }
+
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -254,6 +271,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+                    evaluateBreastFeeding(details, memberObject, context);
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -262,6 +280,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_breast_feeding));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
@@ -771,5 +790,70 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
     }
 
+private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+
+    private String preg_woman_other_children;
+    private String preg_woman_breastfeed;
+
+
+    @Override
+    public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+
+    }
+
+    @Override
+    public String getPreProcessed() {
+        return null;
+    }
+
+    @Override
+    public void onPayloadReceived(String s) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            preg_woman_other_children = JsonFormUtils.getValue(jsonObject, "preg_woman_other_children");
+            preg_woman_breastfeed = JsonFormUtils.getValue(jsonObject, "preg_woman_breastfeed");
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+
+    }
+
+    @Override
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return null;
+    }
+
+    @Override
+    public String getPreProcessedSubTitle() {
+        return null;
+    }
+
+    @Override
+    public String postProcess(String s) {
+        return null;
+    }
+
+    @Override
+    public String evaluateSubTitle() {
+        return null;
+    }
+
+    @Override
+    public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+        if (StringUtils.isBlank(preg_woman_other_children) || StringUtils.isBlank(preg_woman_breastfeed)) {
+            return BaseAncHomeVisitAction.Status.PENDING;
+        } else if (preg_woman_breastfeed.contains("chk_no")) {
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+        } else {
+            return BaseAncHomeVisitAction.Status.COMPLETED;
+        }
+    }
+
+    @Override
+    public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
+
+    }
+}
 }
 
