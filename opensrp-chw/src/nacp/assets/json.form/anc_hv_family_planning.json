@@ -50,6 +50,24 @@
     "title": "Family planning",
     "fields": [
       {
+        "key": "family_planning_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Now we will be discussing Postpartum family planning and its benefits.",
+        "text_color": "#000000",
+        "has_bg": true
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "8dp"
+      },
+      {
         "key": "fam_planning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -88,6 +106,27 @@
             "ex": "equalTo(.,\"No\")"
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "16dp"
+      },
+      {
+        "key": "family_planning_flip_book_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_flip_book_reference",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i>Please refer to Topic</i><b> 18</b> <i>in Bango Kitita to continue with the discussion</i>",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
       }
     ]
   }
