@@ -814,4 +814,6 @@
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
 
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
 </resources>
