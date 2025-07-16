@@ -728,4 +728,7 @@
     <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_hiv_exposed_infant_follow_up">Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU</string>
+
 </resources>

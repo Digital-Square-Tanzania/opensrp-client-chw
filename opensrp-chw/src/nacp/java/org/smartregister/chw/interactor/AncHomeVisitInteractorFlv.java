@@ -41,10 +41,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
     private String visit_title;
+    protected Context context;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        Context context = view.getContext();
+        context = view.getContext();
         this.memberObject = memberObject;
         this.callBack = callBack;
         // get the preloaded data
@@ -206,6 +207,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
+    private void evaluateHIVExposedInfantFollowUp() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_hiv_exposed_infant_follow_up")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
+    }
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -254,6 +264,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+                    evaluateHIVExposedInfantFollowUp();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -262,6 +273,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
