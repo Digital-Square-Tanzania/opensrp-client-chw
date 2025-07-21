@@ -813,5 +813,14 @@
     <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
 
+    <!--ANC ECD-->
+    <string name="anc_home_visit_birth_preparedness">Birth Preparedness</string>
+    <string name="birth_preparedness_summary">
+    Location of nearest health facility: {0}\n
+    Savings preparedness: {1}\n
+    Birth companion preparedness: {2}\n
+    Family member/individual to stay home preparedness: {3}\n
+    Transportation preparedness: {4}
+    </string>
 
 </resources>

@@ -41,10 +41,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
     private String visit_title;
+    protected Context context;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        Context context = view.getContext();
+        context = view.getContext();
         this.memberObject = memberObject;
         this.callBack = callBack;
         // get the preloaded data
@@ -206,6 +207,19 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
+    private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details, final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
+        String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
+        BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new BirthPreparednessAction())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withFormName("anc_hv_birth_preparedness")
+                .build();
+
+        actionList.put(visit_title, birth_preparedness);
+    }
+
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -254,6 +268,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+                    evaluateBirthPreparedness(details, memberObject);
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -262,6 +277,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_birth_preparedness));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
@@ -768,6 +784,92 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.v("onPayloadReceived");
+        }
+    }
+
+    private class BirthPreparednessAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+
+        private Context context;
+        private String location_nearest_health_facility = "";
+        private String savings_preparedness = "";
+        private String birth_companion_preparedness = "";
+        private String family_member_individual_stay_home_preparedness = "";
+        private String transportation_preparedness = "";
+
+        @Override
+        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try{
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                location_nearest_health_facility = JsonFormUtils.getValue(jsonObject, "location_nearest_health_facility");
+                savings_preparedness = JsonFormUtils.getValue(jsonObject, "savings_preparedness");
+                birth_companion_preparedness = JsonFormUtils.getValue(jsonObject, "birth_companion_preparedness");
+                family_member_individual_stay_home_preparedness = JsonFormUtils.getValue(jsonObject, "family_member_individual_stay_home_preparedness");
+                transportation_preparedness = JsonFormUtils.getValue(jsonObject, "transportation_preparedness");
+            }catch (Exception e){
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String jsonPayload) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format(
+                    context.getString(R.string.birth_preparedness_summary),
+                    location_nearest_health_facility,
+                    savings_preparedness,
+                    birth_companion_preparedness,
+                    family_member_individual_stay_home_preparedness,
+                    transportation_preparedness
+            );
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (location_nearest_health_facility.equalsIgnoreCase("yes") &&
+                    savings_preparedness.equalsIgnoreCase("yes") &&
+                    birth_companion_preparedness.equalsIgnoreCase("yes") &&
+                    family_member_individual_stay_home_preparedness.equalsIgnoreCase("yes") &&
+                    transportation_preparedness.equalsIgnoreCase("yes")){
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+            else if (location_nearest_health_facility.equalsIgnoreCase("yes") ||
+                    savings_preparedness.equalsIgnoreCase("yes") ||
+                    birth_companion_preparedness.equalsIgnoreCase("yes") ||
+                    family_member_individual_stay_home_preparedness.equalsIgnoreCase("yes") ||
+                    transportation_preparedness.equalsIgnoreCase("yes")){
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+            else
+                return BaseAncHomeVisitAction.Status.PENDING;
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction ancHomeVisitAction) {
+
         }
     }
 

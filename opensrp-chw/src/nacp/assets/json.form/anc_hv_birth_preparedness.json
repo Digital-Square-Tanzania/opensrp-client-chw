@@ -1,0 +1,231 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Birth Preparedness",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Birth Preparedness",
+    "fields": [
+      {
+        "key": "delivery_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Ask the pregnant woman and her partner if they have already made the below preparations as she awaits her delivery",
+        "label_info_text": "Ask the pregnant woman and her partner if they have already made the below preparations as she awaits her delivery",
+        "text_color": "#000000"
+      },
+      {
+        "key": "location_nearest_health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the pregnant woman and her partner know the Location of the closest appropriate health care facility?",
+        "label_info_text": "Does the pregnant woman and her partner know the Location of the closest appropriate health care facility?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "savings_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the the family have savings to cover delivery costs such as: transport, necessary clothing for you and the baby and emergency?",
+        "label_info_text": "Does the the family have savings to cover delivery costs such as: transport, necessary clothing for you and the baby and emergency?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "birth_companion_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the woman have a birth companion who will accompany you to the health facility?",
+        "label_info_text": "Does the woman have a birth companion who will accompany you to the health facility?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "family_member_individual_stay_home_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the woman have a family member/ individual to stay at home when you have gone for deliver?",
+        "label_info_text": "Does the woman have a family member/ individual to stay at home when you have gone for deliver?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "transportation_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the woman have transportation to the facility prepared?",
+        "label_info_text": "Does the woman have transportation to the facility prepared?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "praise_preparedness_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Congratulate the pregnant woman and her partner for the things that they have already prepared!",
+        "label_info_text": "Congratulate the pregnant woman and her partner for the things that they have already prepared!",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "early_signs_labour_counselling_bango_kitita",
+        "type": "label",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "text": "Please refer to Topic 3 in Bango Kitita to continue with the discussion",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "early_signs_labour_counselling_title",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "REMINDER TO CHW: Go through each sign with the pregnant woman. Remember that Early Signs of Labor could be",
+        "text_color": "#000000"
+      },
+      {
+        "key": "early_signs_labour_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "label",
+        "text": "\n• Tiredness \n•  Light Stool/Diarrhoea\n• A feeling of pressure in the pelvis or lower belly.\n•  Vaginal spotting or light bleeding\n• Labor Contractions - Strong and regular contractions \n• A gush or an ongoing trickle of fluid from the vagina\n• Frequent Urination"
+      },
+      {
+        "key": "early_signs_labour_counselling_memo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Indicate why it’s important to get to the facility as early as possible after she has shown any of the early signs of labour: \n",
+        "text_color": "#000000"
+      }
+    ]
+  }
+}

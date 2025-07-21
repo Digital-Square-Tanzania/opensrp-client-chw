@@ -1,0 +1,8 @@
+---
+name: step1_praise_preparedness_toaster
+description: Praise the woman for having things prepared for delivery
+priority: 1
+condition: "step1_transportation_preparedness.contains('Yes')||step1_family_member_individual_stay_home_preparedness.contains('Yes')
+  ||step1_birth_companion_preparedness.contains('Yes')||step1_savings_preparedness.contains('Yes')||step1_location_nearest_health_facility"
+actions:
+  - "isRelevant = true"
