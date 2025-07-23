@@ -41,10 +41,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
     private String visit_title;
+    protected Context context;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        Context context = view.getContext();
+        context = view.getContext();
         this.memberObject = memberObject;
         this.callBack = callBack;
         // get the preloaded data
@@ -254,6 +255,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+                    evaluateNutritionCounselling();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -306,6 +308,19 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.v("onPayloadReceived");
         }
+    }
+
+    private void evaluateNutritionCounselling() throws BaseAncHomeVisitAction.ValidationException {
+        String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
+        BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new NutritionCounsellingAction())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withFormName("anc_hv_nutrition_counselling")
+                .build();
+
+        actionList.put(visit_title, nutrition_counselling);
     }
 
     private class HealthFacilityAction extends HealthFacilityVisitAction {
@@ -763,6 +778,65 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
+            Timber.v("onPayloadReceived");
+        }
+    }
+
+    private class NutritionCounsellingAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+        private Context context;
+        private String available_foods = "";
+
+        @Override
+        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                available_foods = JsonFormUtils.getCheckBoxValue(jsonObject, "foods_available");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String s) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", context.getString(R.string.foods_available), available_foods);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (available_foods.isEmpty()){
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }else {
+                return  BaseAncHomeVisitAction.Status.COMPLETED;
+            }
         }
 
         @Override
