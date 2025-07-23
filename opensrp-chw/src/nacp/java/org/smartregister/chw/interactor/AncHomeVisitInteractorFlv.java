@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.AncMinorAilmentActionHelper;
 import org.smartregister.chw.actionhelper.HealthFacilityVisitAction;
+import org.smartregister.chw.actionhelper.PNCVisitLocationActionHelper;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -85,10 +86,21 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
 
+        evaluateVisitLocation(details, context);
         evaluateDangerSigns(details, context);
 
 
         return actionList;
+    }
+
+    private void evaluateVisitLocation(Map<String, List<VisitDetail>> details, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JsonForm.getPncHvLocation())
+                .withHelper(new PNCVisitLocationActionHelper())
+                .build();
+        actionList.put(context.getString(R.string.pnc_hv_location), action);
     }
 
     private void evaluateDangerSigns(Map<String, List<VisitDetail>> details,

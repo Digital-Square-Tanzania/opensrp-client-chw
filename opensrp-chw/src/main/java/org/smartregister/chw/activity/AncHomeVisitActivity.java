@@ -34,8 +34,10 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -143,12 +145,10 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     @Override
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
-        //Necessary evil to rearrange the actions according to a specific arrangement
-        if (map.containsKey(getString(R.string.anc_home_visit_danger_signs))) {
-            BaseAncHomeVisitAction dangerSignsAction = map.get(getString(R.string.anc_home_visit_danger_signs));
-            actionList.put(getString(R.string.anc_home_visit_danger_signs), dangerSignsAction);
-        }
-        //====================End of Necessary evil ====================================
+
+        List<String> keys = Arrays.asList(getString(org.smartregister.chw.R.string.pnc_hv_location), getString(R.string.anc_home_visit_danger_signs));
+
+        reorderKeysFirst(actionList, map, keys);
 
         for (Map.Entry<String, BaseAncHomeVisitAction> entry : map.entrySet()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -164,4 +164,14 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
         displayProgressBar(false);
         redrawVisitUI();
     }
+
+    public void reorderKeysFirst(Map<String, org.smartregister.chw.anc.model.BaseAncHomeVisitAction> result, LinkedHashMap<String, BaseAncHomeVisitAction> linkedHashMap, List<String> orderedKeys) {
+        for (String key : orderedKeys) {
+            if (linkedHashMap.containsKey(key)) {
+                BaseAncHomeVisitAction action = linkedHashMap.get(key);
+                result.put(key, action);
+            }
+        }
+    }
 }
+

@@ -4,6 +4,7 @@ import static org.smartregister.chw.anc.model.BaseAncHomeVisitAction.Status.COMP
 import static org.smartregister.chw.core.utils.CoreConstants.TASKS_FOCUS.SICK_CHILD;
 import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ import org.smartregister.chw.actionhelper.ChildHVProblemSolvingHelper;
 import org.smartregister.chw.actionhelper.ChildMinorAilmentsActionHelper;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.MalnutritionScreeningActionHelper;
+import org.smartregister.chw.actionhelper.PNCVisitLocationActionHelper;
 import org.smartregister.chw.actionhelper.ToddlerDangerSignsBabyHelper;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
@@ -58,11 +60,23 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         try {
             this.serviceWrapperMap = serviceWrapperMap;
             //isToddler function needs needs to be confirmed
+            evaluateVisitLocation(details, context);
             if( isToddler() )  evaluateToddlerDanger();
             else evaluateChildDangerSigns();
         }
         catch (BaseAncHomeVisitAction.ValidationException e) {throw (e);}
         catch (Exception e) {Timber.e(e);}
+    }
+
+    private void evaluateVisitLocation(Map<String, List<VisitDetail>> details, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JsonForm.getPncHvLocation())
+                .withHelper(new PNCVisitLocationActionHelper())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.pnc_hv_location), action);
     }
 
     private void evaluateChildDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
