@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ClientReferralActivity;
+import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -40,8 +41,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
@@ -253,6 +256,15 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     private static String getDBFormatedDate(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
+    }
+
+    public static void reorderKeysFirst(Map<String, BaseAncHomeVisitAction> result, LinkedHashMap<String, BaseAncHomeVisitAction> linkedHashMap, List<String> orderedKeys) {
+        for (String key : orderedKeys) {
+            if (linkedHashMap.containsKey(key)) {
+                BaseAncHomeVisitAction action = linkedHashMap.get(key);
+                result.put(key, action);
+            }
+        }
     }
 
 

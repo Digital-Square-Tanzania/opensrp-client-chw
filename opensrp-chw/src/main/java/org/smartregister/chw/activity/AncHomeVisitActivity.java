@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.reorderKeysFirst;
 import static org.smartregister.util.JsonFormUtils.createEvent;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
@@ -165,13 +166,5 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
         redrawVisitUI();
     }
 
-    public void reorderKeysFirst(Map<String, org.smartregister.chw.anc.model.BaseAncHomeVisitAction> result, LinkedHashMap<String, BaseAncHomeVisitAction> linkedHashMap, List<String> orderedKeys) {
-        for (String key : orderedKeys) {
-            if (linkedHashMap.containsKey(key)) {
-                BaseAncHomeVisitAction action = linkedHashMap.get(key);
-                result.put(key, action);
-            }
-        }
-    }
 }
 

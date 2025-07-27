@@ -90,8 +90,12 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_HOME_VISIT);
 
         JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JsonForm.getChildHomeVisitDangerSignForm());
-        JsonFormUtilsFlv.overwriteQuestionOptions("referral_facility", LocationUtils.INSTANCE.getFacilitiesKeyAndName(), dangerSignsForm);
 
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
+        }
+
+        JsonFormUtilsFlv.overwriteQuestionOptions("referral_facility", LocationUtils.INSTANCE.getFacilitiesKeyAndName(), dangerSignsForm);
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context,title)
                 .withHelper(helper)
                 .withDetails(details)
@@ -246,10 +250,17 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             }
         };
 
+        JSONObject counselling = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING());
+
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(counselling, details);
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_counselling))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING())
+                .withJsonPayload(counselling.toString())
                 .withHelper(counsellingHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_counselling), action);
@@ -392,7 +403,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.child_problem_solving))
                 .withOptional(false)
                 .withDetails(details)
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName(Constants.JsonForm.getChildHvProblemSolvingForm())
                 .withHelper(new ChildHVProblemSolvingHelper())
                 .build();
@@ -402,10 +413,19 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     private void evaluateMinorAilments(MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException{
         ChildMinorAilmentsActionHelper minorAilmentHelper = new ChildMinorAilmentsActionHelper(context, memberObject);
         String title = MessageFormat.format(context.getString(R.string.child_minor_ailments), memberObject.getFullName());
+        String formName = "linkages/native/child_linkage_form";
+
+        JSONObject minorAilments = FormUtils.getFormUtils().getFormJson(formName);
+
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(minorAilments, details);
+        }
+
         BaseAncHomeVisitAction childMinorAilmentAction = new BaseAncHomeVisitAction.Builder(context, title)
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Utils.getLocalForm("linkages/native/child_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager))
+                .withFormName(formName)
+                .withJsonPayload(minorAilments.toString())
                 .withHelper(minorAilmentHelper)
                 .build();
 
@@ -418,7 +438,8 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         while(keys.hasNext()){
             String key=keys.next();
             String dangerSign=context.getString(R.string.child_danger_signs_baby);
-            if(!key.equals(dangerSign)){
+            String location=context.getString(R.string.pnc_hv_location);
+            if(!key.equals(dangerSign) && !key.equals(location)){
                 keys.remove();
             }
         }
