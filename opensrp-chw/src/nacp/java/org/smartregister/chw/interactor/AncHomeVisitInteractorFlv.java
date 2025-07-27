@@ -246,10 +246,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateObservation(Map<String, List<VisitDetail>> details,
                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject observationForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness());
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(observationForm, details);
+        }
         BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                .withJsonPayload(observationForm.toString())
                 .withHelper(new ObservationAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), remark_ba);
