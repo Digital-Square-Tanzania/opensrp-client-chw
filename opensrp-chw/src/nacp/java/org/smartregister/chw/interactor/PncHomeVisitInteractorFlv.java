@@ -304,7 +304,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withDetails(details)
                 .withFormName(Constants.JsonForm.getPncHvLocation())
                 .withHelper(new PNCVisitLocationActionHelper())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .build();
         actionList.put(context.getString(R.string.pnc_hv_location), action);
     }
@@ -811,7 +810,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
                     .withOptional(false)
                     .withDetails(details)
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getMalariaPrevention())
                     .withHelper(new PNCMalariaPreventionActionHelper())
                     .build();
@@ -917,6 +915,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                     .withOptional(true)
                     .withDetails(details)
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
                     .withHelper(new ObsIllnessBabyHelper())
                     .build();
