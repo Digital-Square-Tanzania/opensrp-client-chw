@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Observations",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -53,7 +53,7 @@
         "key": "date_of_illness_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "date_of_illness_child",
         "type": "date_picker",
         "hint": "Date ",
         "expanded": false,
@@ -68,7 +68,7 @@
         "key": "illness_description_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "illness_description_child",
         "type": "edit_text",
         "hint": "Description",
         "v_required": {
@@ -80,8 +80,9 @@
         "key": "action_taken_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "action_taken_child",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Action taken",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -93,19 +94,19 @@
             "key": "chk_ors",
             "text": "ORS",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_ors"
           },
           {
             "key": "chk_zinc",
             "text": "Zinc",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_zinc"
           },
           {
             "key": "chk_paracetamol",
             "text": "Panadol",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_paracetamol"
           },
           {
             "key": "chk_traditional_medicine",
@@ -123,13 +124,13 @@
             "key": "chk_other_treatment",
             "text": "Other treatment",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_other_treatment"
           },
           {
             "key": "chk_none",
             "text": "No treatment given",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ]
       },
@@ -137,7 +138,7 @@
         "key": "other_treatment_illness_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "other_treatment_illness_child",
         "type": "edit_text",
         "hint": "Other treatment",
         "v_required": {

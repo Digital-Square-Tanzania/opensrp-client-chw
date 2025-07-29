@@ -80,7 +80,7 @@
         "key": "action_taken_mama",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "action_taken_mama",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Action taken",
@@ -94,7 +94,7 @@
             "key": "chk_ors",
             "text": "ORS",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_ors"
           },
           {
             "key": "chk_traditional_medicine",
@@ -106,7 +106,7 @@
             "key": "chk_paracetamol",
             "text": "Panadol",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_paracetamol"
           },
           {
             "key": "chk_attended_health_facility",
@@ -118,13 +118,13 @@
             "key": "chk_other_treatment",
             "text": "Other treatment",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_other_treatment"
           },
           {
             "key": "chk_none",
             "text": "No treatment given",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ]
       },

@@ -32,6 +32,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.domain.Person;
@@ -239,10 +240,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
            }
         };
 
+        String formName = "pnc_hygiene_observation";
+
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+
+        if(details!=null)
+            ChwAncJsonFormUtils.populateForm(jsonForm,details);
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
             .withOptional(false)
             .withDetails(details)
-            .withFormName(Utils.getLocalForm("pnc_hygiene_observation"))//"pnc_hygiene_observation")
+            .withFormName(formName)
+            .withJsonPayload(jsonForm.toString())
             .withHelper(helper)
             .build();
         actionList.put(title, action);
@@ -257,17 +266,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void refreshActionList() {
-        new Handler().postDelayed(()->{
+        try {
             boolean noDangerSigns = noDangerSignsAfterFillingActions();
             boolean hasOtherAction =  actionList.containsKey(context.getString(R.string.pnc_counselling));
 
             if (noDangerSigns) {
-                try {evaluateOtherActions();}
-                catch (Exception e) {Timber.e(e);}
+                evaluateOtherActions();
                 actionList.remove(context.getString(R.string.home_visit_facility_referral));
-            }
-
-            else{
+            }else{
                 evaluateFacilityReferral();
                 if (hasOtherAction) {
                     for (String actionTitle : otherActionTitles) {
@@ -275,8 +281,11 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     }
                 }
             }
-           callBack.preloadActions(actionList);
-        },100);
+
+            new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void evaluateFacilityReferral(){
@@ -361,6 +370,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return super.postProcess(jsonPayload);
             }
         };
+
         String formName=Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother();
         JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
         if(details!=null)ChwAncJsonFormUtils.populateForm(jsonForm,details);
@@ -581,10 +591,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(jsonForm, details);
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_family_planning))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning())
+                .withJsonPayload(jsonForm.toString())
                 .withHelper(helper)
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
@@ -593,12 +609,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateExclusiveBreastFeeding(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvBreastfeedingForm());
         if (getAgeInDays(baby.getDob()) <= DURATION_OF_CHILD_IN_PNC) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Home Visit - Essential New Born Care: Breastfeeding");
                 if (lastVisit != null) {
                     details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                }
+                if(details != null){
+                    ChwAncJsonFormUtils.populateForm(jsonForm, details);
                 }
             }
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()))
@@ -606,7 +626,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withFormName(org.smartregister.chw.util.Constants.JsonForm.getChildHvBreastfeedingForm())
+                    .withFormName(Constants.JsonForm.getChildHvBreastfeedingForm())
+                    .withJsonPayload(jsonForm.toString())
                     .withHelper(new ExclusiveBreastFeedingAction(context, visitID))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
@@ -644,10 +665,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(jsonForm, details);
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_counselling))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING())
+                .withJsonPayload(jsonForm.toString())
                 .withHelper(counsellingHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_counselling), action);
@@ -860,10 +887,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessMother());
+
+        if(details!=null)
+            ChwAncJsonFormUtils.populateForm(jsonForm, details);
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
                 .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessMother())
+                .withJsonPayload(jsonForm.toString())
                 .withHelper(obsIllnessMotherHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
@@ -911,12 +944,27 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
         }
+        Map<String, List<VisitDetail>> details = null;
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant());
+
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Observations");
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+            if(details != null){
+                ChwAncJsonFormUtils.populateForm(jsonForm, details);
+            }
+        }
+
         if (getAgeInDays(baby.getDob()) <= DURATION_OF_CHILD_IN_PNC) {
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                     .withOptional(true)
                     .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
+                    .withJsonPayload(jsonForm.toString())
                     .withHelper(new ObsIllnessBabyHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
@@ -1184,10 +1232,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateNewBornCareIntroduction(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
+        Map<String, List<VisitDetail>> newBornDetails = null;
+
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Newborn Care Introduction");
+            if (lastVisit != null) {
+                newBornDetails = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_newborn_care_introduction), baby.getFullName()))
                 .withOptional(false)
-                .withDetails(details)
+                .withDetails(newBornDetails)
                 .withBaseEntityID(baby.getBaseEntityID())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withFormName(Constants.JsonForm.getChildHvNewBornCareIntroForm())
