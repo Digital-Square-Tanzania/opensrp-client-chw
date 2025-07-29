@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static android.view.View.VISIBLE;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
@@ -43,6 +45,7 @@ import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private LinearLayout layoutRecordNCDScreening;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     @Override
@@ -50,6 +53,26 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreation();
         setIndependentClient(false);
         updateToolbarTitle(this, R.id.toolbar_title, familyName);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        if (Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false)) >= 40) {
+            this.layoutRecordNCDScreening = findViewById(R.id.record_visit_panel_container);
+            this.layoutRecordNCDScreening.setVisibility(VISIBLE);
+            this.layoutRecordNCDScreening.setOnClickListener(v -> {
+                if (presenter() != null) {
+                    presenter().recordNCDScreening(commonPersonObject);
+                    try {
+                        JSONObject screeningForm = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JsonForm.getDiabetesScreeningForm());
+                        startFormActivity(screeningForm);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
     }
 
     @Override

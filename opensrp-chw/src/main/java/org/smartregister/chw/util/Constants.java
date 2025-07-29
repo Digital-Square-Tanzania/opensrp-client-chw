@@ -111,6 +111,12 @@ public class Constants extends CoreConstants {
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
 
+        public static final String DIABETES_SCREENING_FORM = "diabetes_hypertension_screening_form";
+
+        public static String getDiabetesScreeningForm() {
+            return DIABETES_SCREENING_FORM;
+        }
+
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
         }

@@ -1,11 +1,16 @@
 package org.smartregister.chw.presenter;
 
+import android.app.Activity;
+import android.widget.Toast;
+
+import org.smartregister.chw.activity.NcdHomeVisitActivity;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.contract.FamilyProfileContract;
 
@@ -36,5 +41,11 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
         if (familyInteractor == null) {
             familyInteractor = new FamilyInteractor();
         }
+    }
+
+    public void recordNCDScreening(CommonPersonObjectClient client) {
+        Toast.makeText(getView().getContext(), "NCD Screening feature is not implemented yet", Toast.LENGTH_SHORT).show();
+        startFormForEdit(client);
+        //NcdHomeVisitActivity.startMe((Activity) getView().getContext(), baseEntityId, false);
     }
 }
