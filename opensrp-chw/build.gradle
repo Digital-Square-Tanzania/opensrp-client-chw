@@ -230,6 +230,7 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
+            exclude group: 'com.google.guava', module: 'listenablefuture'
         }
     }
 
@@ -270,7 +271,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.6.1-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.6.6-MOH-ALPHA-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -287,6 +288,7 @@ dependencies {
         exclude group: 'org.koin'
     }
 
+    implementation "io.insert-koin:koin-android:2.0.1" // Or the specific Koin artifact needed
     implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT@aar'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
