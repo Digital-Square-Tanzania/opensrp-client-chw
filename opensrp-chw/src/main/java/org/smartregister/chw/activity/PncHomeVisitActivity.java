@@ -128,7 +128,7 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
                                 ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
                                         memberObject.getBaseEntityId(), event.getFormSubmissionId(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.PNC_TASK_FOCUS);
 
-                                Toast.makeText(getContext(), getContext().getString(R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                                showToastMessage(getContext().getString(R.string.linked_to_addo_message));
                             }catch (Exception e){
                                 Timber.e(e);
                             }
@@ -146,10 +146,10 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
                                 String minorAilments = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(minorAilmentObject, "child_minor_ailment").toLowerCase();
                                 ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
                                         memberObject.getBaseEntityId(), generateRandomUUIDString(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.CHILD_TASK_FOCUS);
-                                Toast.makeText(getContext(), getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                                showToastMessage(getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message));
                             }
                             catch (Exception e){
-
+                                Timber.e(e);
                             }
                         }
                     }
@@ -157,6 +157,12 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
             }
         }
 
+    }
+
+    private void showToastMessage(String message) {
+        if (getContext() != null && getContext() instanceof Activity) {
+            ((Activity) getContext()).runOnUiThread(() -> Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show());
+        }
     }
 
     @Override
