@@ -239,8 +239,8 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".moh"
-            versionCode 15
-            versionName "1.2.0"
+            versionCode 34
+            versionName "1.3.1"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
@@ -278,6 +278,7 @@ dependencies {
         exclude group: 'androidx.appcompat', module: 'appcompat'
         exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
         exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.google.guava', module: 'listenablefuture'
         exclude group: 'com.mcxiaoke.volley', module: 'library'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.github.chivorns.androidx', module: 'smartmaterialspinner'

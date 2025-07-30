@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
-        android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
             android:name=".activity.LoginActivity"
