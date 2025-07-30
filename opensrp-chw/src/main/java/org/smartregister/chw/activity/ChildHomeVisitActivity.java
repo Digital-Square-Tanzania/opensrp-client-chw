@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import static org.smartregister.util.JsonFormUtils.createEvent;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
+import android.app.Activity;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -62,7 +63,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
 
                     String referralProblems = JsonFormUtils.getCheckBoxValue(dangerSignsJsonObject, "toddler_danger_signs_present");
                     ReferralUtils.processReferral(facilitySelectionForm, this.memberObject.getBaseEntityId(), CoreConstants.TASKS_FOCUS.SICK_CHILD, referralProblems);
-                    Toast.makeText(this, R.string.referral_submitted, Toast.LENGTH_SHORT).show();
+                    showToastMessage(getContext().getString(R.string.referral_submitted));
                 } catch (Exception e) {
                     Timber.e(e);
                 }
@@ -105,7 +106,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
                             ReferralUtils.createLinkageTask(Context.getInstance().allSharedPreferences(),
                                     memberObject.getBaseEntityId(), event.getFormSubmissionId(), childAilments, Constants.AddoLinkage.CHILD_TASK_FOCUS);
 
-                            Toast.makeText(getContext(), getContext().getString(R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                            showToastMessage(getContext().getString(R.string.linked_to_addo_message));
                         }catch (Exception e){
                             Timber.e(e);
                         }
@@ -114,6 +115,12 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
             }
         }
 
+    }
+
+    private void showToastMessage(String message) {
+        if (getContext() != null && getContext() instanceof Activity) {
+            ((Activity) getContext()).runOnUiThread(() -> Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show());
+        }
     }
 
     @Override
