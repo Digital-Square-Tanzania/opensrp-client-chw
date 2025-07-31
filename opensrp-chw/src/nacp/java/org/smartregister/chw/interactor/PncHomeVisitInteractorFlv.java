@@ -948,7 +948,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant());
 
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Observations");
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Observations & Illness - Child");
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
