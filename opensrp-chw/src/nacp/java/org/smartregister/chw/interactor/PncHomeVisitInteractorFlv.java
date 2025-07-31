@@ -613,9 +613,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         if (getAgeInDays(baby.getDob()) <= DURATION_OF_CHILD_IN_PNC) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Home Visit - Essential New Born Care: Breastfeeding");
+                Visit lastVisit = getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Home Visit - Essential New Born Care: Breastfeeding");
                 if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    details = VisitUtils.getVisitGroups(getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
                 if(details != null){
                     ChwAncJsonFormUtils.populateForm(jsonForm, details);
@@ -948,9 +948,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant());
 
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Observations & Illness - Child");
+            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Observations & Illness - Child");
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
             if(details != null){
                 ChwAncJsonFormUtils.populateForm(jsonForm, details);
@@ -1235,9 +1235,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         Map<String, List<VisitDetail>> newBornDetails = null;
 
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Newborn Care Introduction");
+            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), "Newborn Care Introduction");
             if (lastVisit != null) {
-                newBornDetails = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                newBornDetails = VisitUtils.getVisitGroups(getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
