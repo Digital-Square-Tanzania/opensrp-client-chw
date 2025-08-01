@@ -728,4 +728,9 @@
     <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
 
+    <!-- ANC ECD-->
+    <string name="anc_hv_clinic_attendance_sub_title">Kuhudhuria Kliniki ya Wajawaito kwa mara ya mwisho</string>
+    <string name="anc_hv_clinic_attendance">Kuhudhuria Kliniki kwa wajawazito mapema</string>
+    <string name="yes">Ndio</string>
+    <string name="no">Hapana</string>
 </resources>

@@ -813,5 +813,11 @@
     <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
 
+    <!-- ANC ECD-->
+    <string name="anc_hv_clinic_attendance_sub_title">Attend the last ANC clinic visit</string>
+    <string name="anc_hv_clinic_attendance">ANC clinic visit attendance</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 
 </resources>
