@@ -813,5 +813,8 @@
     <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
 
+    <!--ANC ECD -->
+    <string name="anc_home_visit_pmtct">Prevention of mother-to-child HIV transmission (PMTCT)</string>
+
 
 </resources>
