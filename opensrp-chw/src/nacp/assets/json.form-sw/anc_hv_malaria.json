@@ -50,6 +50,137 @@
     "title": "Kinga dhidi ya Malaria",
     "fields": [
       {
+        "key": "malaria_prevention_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_prevention_counselling_intro",
+        "type": "label",
+        "text": "Tunahitaji pia kujadili kuhusu kujikinga na Malaria.",
+        "label_info_text": "We also need to discuss about Malaria.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, unachukua hatua gani kujikinga wewe na mtoto wako aliye tumboni dhidi ya Malaria?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_use_llin",
+            "text": "Anatumia chandarua chenye dawa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_use_llin"
+          },
+          {
+            "key": "chk_intermittent_preventive",
+            "text": "Anatumia vidonge vya SP",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_intermittent_preventive"
+          },
+          {
+            "key": "chk_household_spraying",
+            "text": "Anapulizia nyumba dawa ya mbu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_household_spraying"
+          },
+          {
+            "key": "chk_use_mesh",
+            "text": "Kuweka nyavu kwenye milango na madirisha kuzuia mbu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_use_mesh"
+          },
+          {
+            "key": "chk_destroying_mosquito_breeds",
+            "text": "Kuharibu mazalia ya mbu kwa kufukia mashimo na madimbwi yaliyo karibu na nyumba",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_destroying_mosquito_breeds"
+          },
+          {
+            "key": "chk_other",
+            "text": "Nyingine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "malaria_protective_measure_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measure_other",
+        "type": "edit_text",
+        "hint": "Hatua nyingine unachukua ili kujilinda dhidi ya Malaria?",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "praise_malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "praise_malaria_protective_measures",
+        "type": "toaster_notes",
+        "text": "Mpongeze kwa hatua ambazo tayari anachukua.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_protective_measures_reminder",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures_reminder",
+        "type": "toaster_notes",
+        "text": "Msisitize kuchukua hatua za kujikinga kwa ajili yake na mtoto wake.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "fam_llin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -104,6 +235,74 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "sleep_under_mosquito_net",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sleep_under_mosquito_net",
+        "type": "label",
+        "text": "Ukilala chini ya chandarua cha LLIN unaweza kujikinga wewe na mtoto wako ambaye hajazaliwa kutokana na athari zilizo hapo juu.",
+        "label_info_text": "We also need to discuss about Malaria.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "reminder_caretaker_llin",
+        "openmrs_entity_parent": "reminder_caretaker_llin",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reminder_caretaker_llin",
+        "type": "toaster_notes",
+        "text": "Mkumbushe mama mjamzito na mwenza wake kuwa anaweza kupata chandarua kwenye kituo cha kutolea huduma za afya na pia umshauri kuhusu utumiaji wa chandarua kwaajili ya kujikinga na Malaria.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_cause",
+        "type": "toaster_notes",
+        "text": "Malaria inaweza kusababisha:\n- Kuzaa kabla ya muda- kabla ya wiki 37 za ujauzito\n- Uzito mdogo kwa mtoto anayezaliwa\n- Kuzuia ukuaji wa mtoto tumboni\n- Kujifungua mtoto aliyefariki\n- Kuharibika kwa mimba\n- Kifo cha mama\n- Upungufu wa damu",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_bango_kitita_reference",
+        "type": "label",
+        "text": "Tafadhali fungua kitendea kazi namba 7 kwenye bango kitita ili kuendelea na mazungumzo",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "hf_testing_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hf_testing_malaria",
+        "type": "toaster_notes",
+        "text": "Kuwa na tabia ya kwenda katika kituo cha kutolea huduma za afya kupima ukihisi homa, uchovu na kichwa kuuma ili kupata matibabu  ndani ya saa 24.  Kama ukiitambulika kuwa na malaria,  hakikisha kuwa unamaliza dozi iliyotolewa.",
+        "text_color": "#000000",
+        "toaster_type": "info"
       },
       {
         "key": "prompt_for_llin",

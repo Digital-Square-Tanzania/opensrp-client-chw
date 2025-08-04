@@ -50,6 +50,137 @@
     "title": "Malaria prevention",
     "fields": [
       {
+        "key": "malaria_prevention_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_prevention_counselling_intro",
+        "type": "label",
+        "text": "We also need to discuss about Malaria.",
+        "label_info_text": "We also need to discuss about Malaria.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "What measures do you take to protect yourself and your unborn child from Malaria?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_use_llin",
+            "text": "Use of Long Lasting Insecticide Net (LLIN)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_use_llin"
+          },
+          {
+            "key": "chk_intermittent_preventive",
+            "text": "Intermitent Preventive Treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_intermittent_preventive"
+          },
+          {
+            "key": "chk_household_spraying",
+            "text": "Household spraying of insecticide",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_household_spraying"
+          },
+          {
+            "key": "chk_use_mesh",
+            "text": "Covering the doors and windows with mesh",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_use_mesh"
+          },
+          {
+            "key": "chk_destroying_mosquito_breeds",
+            "text": "Household spraying of insecticide",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_destroying_mosquito_breeds"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "malaria_protective_measure_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measure_other",
+        "type": "edit_text",
+        "hint": "Enter other measure",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "praise_malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "praise_malaria_protective_measures",
+        "type": "toaster_notes",
+        "text": "Praise her for the measures that she is already taking.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_protective_measures_reminder",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures_reminder",
+        "type": "toaster_notes",
+        "text": "Encourage her to use protective measures.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "fam_llin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -104,6 +235,74 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "sleep_under_mosquito_net",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sleep_under_mosquito_net",
+        "type": "label",
+        "text": "If you sleep under a LLIN net you can protect yourself and your  unborn child from the above effects.",
+        "label_info_text": "We also need to discuss about Malaria.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "reminder_caretaker_llin",
+        "openmrs_entity_parent": "reminder_caretaker_llin",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reminder_caretaker_llin",
+        "type": "toaster_notes",
+        "text": "Remind the pregnant woman and her partner that they can get a free LLIN from the health facility and counsel them on the usage of LLIN and malaria prevention.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_cause",
+        "type": "toaster_notes",
+        "text": "Malaria can cause:\n- Premature Birth-birth before 37 weeks of pregnancy\n- Low birth weight\n- Restricted growth of the baby in the womb\n- Stillbirth\n- Miscarriage\n- Death of the mother\n- Anemia",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_bango_kitita_reference",
+        "type": "label",
+        "text": "Please refer to Topic 7 in Bango Kitita to continue with the discussion",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "hf_testing_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hf_testing_malaria",
+        "type": "toaster_notes",
+        "text": "Have the habit of going to the health facility for malaria testing when you experience symptoms such as: fever, tiredness and headaches for treatment within 24 hours of experiencing these symptoms. If you are diagnosed with Malaria, make sure to complete the full dosage.",
+        "text_color": "#000000",
+        "toaster_type": "info"
       },
       {
         "key": "prompt_for_llin",
