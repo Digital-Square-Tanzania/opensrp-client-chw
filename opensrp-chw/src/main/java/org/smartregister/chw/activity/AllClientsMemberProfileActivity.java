@@ -83,6 +83,18 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    protected void startDiabetesRiskAssessment() {
+        try {
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(AllClientsMemberProfileActivity.this, Constants.JsonForm.getDiabetesScreeningForm());
+            startFormActivity(formJsonObject);
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
     protected void startIntegratedCommunityCaseManagementEnrollment() {
         IccmRegisterActivity.startIccmRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
     }

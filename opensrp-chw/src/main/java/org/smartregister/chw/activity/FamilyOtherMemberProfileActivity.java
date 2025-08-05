@@ -94,6 +94,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startDiabetesRiskAssessment() {
+        try {
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(FamilyOtherMemberProfileActivity.this, Constants.JsonForm.getDiabetesScreeningForm());
+            startFormActivity(formJsonObject);
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
     protected void startPncRegister() {
         PncRegisterActivity.startPncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
                 CoreConstants.JSON_FORM.getPregnancyOutcome(), null, familyBaseEntityId, familyName, null);
