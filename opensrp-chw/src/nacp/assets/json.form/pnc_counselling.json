@@ -53,7 +53,7 @@
         "key": "couselling_pnc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "couselling_pnc",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Counselling provided",
@@ -67,121 +67,121 @@
             "key": "chk_maternal_nutrition",
             "text": "Maternal nutrition during breastfeeding",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_maternal_nutrition"
           },
           {
             "key": "chk_hiv_aids",
             "text": "HIV/AIDS general information",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_hiv_aids"
           },
           {
             "key": "chk_pmtct",
             "text": "PMTCT for the mother",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_pmtct"
           },
           {
             "key": "chk_malaria_prevention",
             "text": "Malaria prevention",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_malaria_prevention"
           },
           {
             "key": "chk_pnc_care_for_mother",
             "text": "PNC care for mother",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_pnc_care_for_mother"
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "Follow-up for the HIV-exposed Infant",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_hiv_exposed_infant"
           },
           {
             "key": "chk_pnc_danger_signs",
             "text": "PNC danger signs",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_pnc_danger_signs"
           },
           {
             "key": "chk_care_of_infant_after_birth",
             "text": "Care of infant after birth",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_care_of_infant_after_birth"
           },
           {
             "key": "chk_care_of_premature_baby",
             "text": "Care of a premature baby",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_care_of_premature_baby"
           },
           {
             "key": "chk_care_of_new_born",
             "text": "Care of a newborn",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_care_of_new_born"
           },
           {
             "key": "chk_new_born_danger_signs",
             "text": "Newborn danger signs",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "161071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_new_born_danger_signs"
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "Follow-up for the HIV-exposed infant",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_hiv_exposed_infant"
           },
           {
             "key": "chk_breastfeeding",
             "text": "Breastfeeding",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_breastfeeding"
           },
           {
             "key": "chk_lam",
             "text": "LAM as a natural FP method, which includes exclusive breastfeeding six months after delivery",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_lam"
           },
           {
             "key": "chk_family_planning",
             "text": "Family planning",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_family_planning"
           },
           {
             "key": "chk_birth_registration",
             "text": "Birth registration",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_birth_registration"
           },
           {
             "key": "chk_immunisation",
             "text": "Immunisation",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_immunisation"
           },
           {
             "key": "chk_infection_prevention",
             "text": "Infection prevention and control",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_infection_prevention"
           },
           {
             "key": "chk_gender_issues",
             "text": "Gender issues",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_gender_issues"
           },
           {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

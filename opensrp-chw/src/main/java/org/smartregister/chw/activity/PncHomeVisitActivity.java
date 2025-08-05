@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.reorderKeysFirst;
 import static org.smartregister.util.JsonFormUtils.createEvent;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
@@ -19,8 +20,10 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.interactor.PncHomeVisitInteractor;
 import org.smartregister.chw.pnc.activity.BasePncHomeVisitActivity;
 import org.smartregister.chw.referral.ReferralLibrary;
@@ -33,9 +36,12 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -162,6 +168,22 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
     @Override
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
+
+        List<String> keys = new ArrayList<>(Arrays.asList(
+                getString(org.smartregister.chw.R.string.pnc_hv_location),
+                getString(org.smartregister.chw.R.string.pnc_danger_signs_mother)
+        ));
+
+        List<Person> children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
+        if (children == null) {
+            children = new ArrayList<>();
+        }
+        for (Person baby : children) {
+            keys.add(MessageFormat.format(getContext().getString(R.string.pnc_danger_signs_baby), baby.getFullName()));
+        }
+
+        reorderKeysFirst(actionList, map, keys);
+
         actionList.putAll(map);
 
         if (mAdapter != null) {

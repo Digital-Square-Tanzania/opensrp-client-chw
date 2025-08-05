@@ -62,6 +62,7 @@
         "type": "check_box",
         "label": "Sababu ya kuunganishwa na Huduma za Duka la Dawa Muhimu",
         "exclusive": ["chk_none"],
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "mild_pain",
@@ -109,7 +110,7 @@
             "key": "chk_other",
             "text": "Sababu nyingine",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",

@@ -28,6 +28,8 @@ public class FacilitySelectionActionHelper extends HomeVisitActionHelper {
     private final Map<String, ReferralHelperInfo> referralsInfo = new LinkedHashMap<>();
     private BaseAncHomeVisitAction.Status status;
 
+    private String jsonString;
+
     FacilitySelectionActionHelper(JSONObject referralProblem, String referralType, String baseEntityId) {
         ReferralHelperInfo info = new ReferralHelperInfo(referralType, baseEntityId, referralProblem);
         referralsInfo.put(info.stepName, info);
@@ -75,8 +77,9 @@ public class FacilitySelectionActionHelper extends HomeVisitActionHelper {
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-        super.onJsonFormLoaded(jsonString, context, details);
+        this.jsonString = jsonString;
         this.context = context;
+        super.onJsonFormLoaded(this.jsonString, context, details);
     }
 
     @Override
@@ -84,7 +87,7 @@ public class FacilitySelectionActionHelper extends HomeVisitActionHelper {
         try {
             Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
             String formName = "referral_facility_selection";
-            JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+            JSONObject jsonForm = new JSONObject(this.jsonString);
             jsonForm.put("count", referralsInfo.size());
             String step1 = jsonForm.getJSONObject("step1").toString();
 

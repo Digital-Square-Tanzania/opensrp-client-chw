@@ -149,7 +149,7 @@
         "key": "fp_period_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_period_received",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Alishauriwa katika kipindi gani?",

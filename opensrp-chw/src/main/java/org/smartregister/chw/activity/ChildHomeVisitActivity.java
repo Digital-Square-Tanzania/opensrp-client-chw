@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.reorderKeysFirst;
 import static org.smartregister.util.JsonFormUtils.createEvent;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
@@ -25,7 +26,9 @@ import org.smartregister.chw.util.LinkageUtils;
 import org.smartregister.chw.util.ReferralUtils;
 import org.smartregister.clientandeventmodel.Event;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -119,6 +122,11 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
     @Override
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
+
+        List<String> keys = Arrays.asList(getString(org.smartregister.chw.R.string.pnc_hv_location), getString(org.smartregister.chw.R.string.child_danger_signs_baby));
+
+       reorderKeysFirst(actionList, map, keys);
+
         actionList.putAll(map);
 
         if (mAdapter != null) {
