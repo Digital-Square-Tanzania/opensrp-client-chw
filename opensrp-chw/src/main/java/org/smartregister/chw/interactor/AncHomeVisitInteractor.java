@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -12,6 +13,8 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ReferralUtils;
 
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class AncHomeVisitInteractor extends CoreAncHomeVisitInteractor {
 
@@ -42,9 +45,13 @@ public class AncHomeVisitInteractor extends CoreAncHomeVisitInteractor {
 
                         // Here pass the  dangerSignsSelectedObject to the processReferral method and then add the problems to the referralProblems
                         ReferralUtils.processReferral(facilitySelectionForm, memberID, CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS, referralProblems);
-                        Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                        if (context != null && context instanceof Activity) {
+                            ((Activity) context).runOnUiThread(() -> {
+                                Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                            });
+                        }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e, "SubmitVisit Error processing referral");
                     }
 
                 }

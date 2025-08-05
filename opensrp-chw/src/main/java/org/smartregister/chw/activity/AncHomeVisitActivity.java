@@ -133,7 +133,12 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
                         ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
                                 memberObject.getBaseEntityId(), event.getFormSubmissionId(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.ANC_TASK_FOCUS);
 
-                        Toast.makeText(getContext(), getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                        if (getContext() != null && getContext() instanceof Activity) {
+                            ((Activity) getContext()).runOnUiThread(() -> {
+                                Toast.makeText(getContext(), getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                            });
+                        }
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

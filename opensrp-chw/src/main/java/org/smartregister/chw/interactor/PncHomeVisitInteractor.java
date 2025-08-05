@@ -1,6 +1,8 @@
 package org.smartregister.chw.interactor;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -99,6 +101,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                         // If count is 1 then only mother had danger signs and requires referral otherwise baby/babies had danger signs and require referral
                         if (facilitySelectionStepCount == 1) {
                             ReferralUtils.processReferral(facilitySelectionForm, memberID, CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS, referralProblems);
+                            showReferralSentNotification();
                         } else {
 
                             for (Map.Entry<String, BaseAncHomeVisitAction> actionEntry: map.entrySet()) {
@@ -111,6 +114,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                                                 facilitySelectionStepCount,
                                                 actionEntry.getKey());
                                         ReferralUtils.processReferral(motherReferralFacilitySelection, memberID, CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS, referralProblems);
+                                        showReferralSentNotification();
 
                                     } else {
                                         // Process baby referral
@@ -123,6 +127,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                                                 actionEntry.getKey());
 
                                         ReferralUtils.processReferral(babyReferralFacilitySelection, babyBaseEntityId, CoreConstants.TASKS_FOCUS.SICK_CHILD, babyReferralProblems);
+                                        showReferralSentNotification();
                                     }
                                 }
                             }
@@ -139,6 +144,15 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         }
 
         super.submitVisit(editMode, memberID, map, callBack);
+    }
+
+    private void showReferralSentNotification() {
+        if (context != null && context instanceof Activity) {
+            ((Activity) context).runOnUiThread(() -> {
+                Timber.i("Referral sent notification displayed");
+                Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+            });
+        }
     }
 
     private String getReferralFacilitySelection(JSONObject facilitySelectionJsonObject, int stepCount, String actionTitle) throws JSONException {
