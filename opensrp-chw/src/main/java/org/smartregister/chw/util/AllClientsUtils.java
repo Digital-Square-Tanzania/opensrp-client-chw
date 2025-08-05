@@ -322,6 +322,10 @@ public class AllClientsUtils {
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
+
+        if (age >= 40) {
+            setMenuItemVisibility(menu, R.id.action_diabetes_risk, true);
+        }
     }
 
     private static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
