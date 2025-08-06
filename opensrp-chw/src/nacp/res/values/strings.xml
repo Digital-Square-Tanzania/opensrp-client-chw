@@ -815,6 +815,6 @@
 
     <!-- ANC ECD -->
     <string name="anc_home_visit_postpartum_care_for_mother">Postpartum Care for Mother</string>
-
-
+    <string name="anc_home_visit_early_stimulation">Early Stimulation</string>
+    <string name="anc_home_visit_postpartum_danger_signs">Postpartum Danger Signs</string>
 </resources>

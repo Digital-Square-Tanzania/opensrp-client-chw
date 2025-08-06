@@ -217,6 +217,25 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_postpartum_care_for_mother), earlyStimulation);
     }
 
+    private void evaluateEarlyStimulation() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_early_stimulation))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_early_stimulation")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_early_stimulation), earlyStimulation);
+    }
+  
+    private void evaluatePostpartumDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_postpartum_danger_signs")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_postpartum_danger_signs), earlyStimulation);
+    }
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -266,6 +285,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
                     evaluatePostpartumCareForMother();
+                    evaluateEarlyStimulation();
+                    evaluatePostpartumDangerSigns();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -275,6 +296,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_care_for_mother));
+                    actionList.remove(context.getString(R.string.anc_home_visit_early_stimulation));
+                    actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {

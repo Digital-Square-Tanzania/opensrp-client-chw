@@ -142,6 +142,24 @@
             "openmrs_entity_id": "chk_fgm"
           },
           {
+            "key": "chk_pallor",
+            "text": "Pallor (palms, tongue, and conjuctiva)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_dizziness",
+            "text": "Dizziness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_dizziness"
+          },
+          {
+            "key": "chk_malaria_signs",
+            "text": "Signs of malaria (feeling cold, fever, vomiting)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_malaria_signs"
+          },
+          {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",

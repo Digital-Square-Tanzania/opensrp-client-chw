@@ -730,5 +730,6 @@
 
     <!-- ANC ECD -->
     <string name="anc_home_visit_postpartum_care_for_mother">Huduma ya mama baada ya kujifungua</string>
-
+    <string name="anc_home_visit_early_stimulation">Mawasiliano na Mtoto akiwa Tumboni</string>
+    <string name="anc_home_visit_postpartum_danger_signs">Dalili za Hatari mara baada ya kujifungua</string>
 </resources>
