@@ -1,0 +1,35 @@
+---
+name: step1_risk
+description: Risk calculated for diabetes and hypertension screening
+priority: 1
+condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
+            step1_age != '' && 
+            step1_waist_circumference != '' && 
+            step1_systolic_bp != '' && 
+            step1_diastolic_bp != ''"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_risk_present_toaster
+description: Risk toaster for diabetes and hypertension screening
+priority: 1
+condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
+            step1_age != '' && 
+            step1_waist_circumference != '' && 
+            step1_systolic_bp != '' && 
+            step1_diastolic_bp != '' && step1_risk != 'no_risk'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_no_risk_present_toaster
+description: No risk toaster
+priority: 1
+condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
+            step1_age != '' && 
+            step1_waist_circumference != '' && 
+            step1_systolic_bp != '' && 
+            step1_diastolic_bp != '' && step1_risk == 'no_risk'"
+actions:
+  - "isRelevant = true"
