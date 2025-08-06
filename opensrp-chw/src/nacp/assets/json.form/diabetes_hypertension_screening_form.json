@@ -1,0 +1,197 @@
+{
+  "count": "1",
+  "encounter_type": "Diabetes and Hypertension Screening",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Diabetes and Hypertension Screening",
+    "fields": [
+      {
+        "key": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "read_only": true,
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "openmrs_entity_parent": ""
+      },
+      {
+        "key": "family_history_diabetes",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "hint": "Family history of diabetes?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "waist_circumference",
+        "type": "edit_text",
+        "hint": "Waist Circumference (cm)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "waist_circumference",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the temperature"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "This waist circumference is very small, waist circumference can not be lower than 30"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "The waist circumference can not be greater than 300"
+        }
+      },
+      {
+        "key": "systolic_bp",
+        "type": "edit_text",
+        "hint": "Systolic blood pressure (mmHg)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "systolic_bp",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the systolic value"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Systolic value must be equal or greater than 50"
+        },
+        "v_max": {
+          "value": "320",
+          "err": "Systolic value must be equal or less than 320"
+        }
+      },
+      {
+        "key": "diastolic_bp",
+        "type": "edit_text",
+        "hint": "Diastolic blood pressure (mmHg)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diastolic_bp",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the diastolic value"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Diastolic value must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Diastolic value must be equal or less than 200"
+        }
+      },
+      {
+        "key": "risk",
+        "type": "edit_text",
+        "hint": "Patient risk",
+        "read_only": true,
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "risk_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The patient might be at risk of {condition}, please refer to the health facility to rule out.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_risk_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The patient neither a risk for diabetes nor hypertension, advice them on the importance of maintaining a good and health life style.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
