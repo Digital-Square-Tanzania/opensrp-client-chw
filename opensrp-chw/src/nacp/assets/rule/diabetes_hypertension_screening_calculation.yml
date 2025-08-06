@@ -1,0 +1,61 @@
+---
+name: step1_risk
+description: Risk calculated for diabetes and hypertension screening
+priority: 1
+condition: "true"
+actions:
+  - "def getDiabetesRisk(age, waist_circumference, family_history, systolic_blood_pressure, diastolic_blood_pressure) {
+        import java.lang.Double;
+        import java.lang.Math;
+        String risk_type = '';
+        double calculation_intercept = 12.092196283;
+        double age_diastolic_bp_coefficient = 0.001217652;
+        double age_coefficient = 0.122336374;
+        double waist_circumference_coefficient = 0.034389303;
+        double family_history_coefficient = 0.604930794;
+        double systolic_blood_pressure_coefficient = 0.002469807;
+        double diastolic_blood_pressure_coefficient = 0.061461351;
+        double diabetes_risk_cutoff = 0.07624573;
+        int family_history_value = (family_history != 'Family history of diabetes?' && family_history.contains('Yes'))  ? 1 : 0;
+        double wc = waist_circumference != null && waist_circumference != '' ? Double.parseDouble(waist_circumference) : 0;
+        double sbp = systolic_blood_pressure != null && systolic_blood_pressure != '' ? Double.parseDouble(systolic_blood_pressure) : 0;
+        double dbp = diastolic_blood_pressure != null && diastolic_blood_pressure != '' ? Double.parseDouble(diastolic_blood_pressure) : 0;
+        double linear = (age * age_coefficient) + 
+          (family_history_value * family_history_coefficient) + 
+          (waist_circumference_coefficient * wc) + 
+          (sbp * systolic_blood_pressure_coefficient) + 
+          (dbp * diastolic_blood_pressure_coefficient) - 
+          (age_diastolic_bp_coefficient * age * dbp) - calculation_intercept;
+        double risk = Math.exp(linear) / (1 + Math.exp(linear));
+        
+        if (risk > diabetes_risk_cutoff) {
+          risk_type = 'diabetes_risk';
+        } else if (sbp > 140 || dbp > 90) {
+          risk_type = 'hypertension_risk';
+        } else {
+          risk_type = 'no_risk';
+        }
+        
+        return risk_type;
+  }"
+  - "calculation = getDiabetesRisk(step1_age, step1_waist_circumference, step1_family_history_diabetes, step1_systolic_bp, step1_diastolic_bp)"
+
+---
+name: step1_risk_present_toaster
+description: Risk display text
+priority: 1
+condition: "true"
+actions:
+  - "def getDisplayText(risk_detected) {
+        String condition = '';
+        if (risk_detected == 'diabetes_risk') {
+          condition = 'Diabetes';
+        } else if (risk_detected == 'hypertension_risk') {
+          condition = 'Hypertension';
+        } else {
+          condition = 'Risk calculation not performed';
+        }
+        return condition;
+  }"
+  - "calculation = ['condition': getDisplayText(step1_risk)]"
+
