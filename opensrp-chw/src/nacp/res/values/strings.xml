@@ -812,9 +812,8 @@
     <string name="started_refreshing_reports">Started Refreshing Reports</string>
     <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
     <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
-
-    <!-- ANC ECD -->
+  
+    <!-- ANC ECD CONTENT -->
+    <string name="anc_home_visit_early_stimulation">Early Stimulation</string>
     <string name="anc_home_visit_postpartum_danger_signs">Postpartum Danger Signs</string>
-
-
 </resources>

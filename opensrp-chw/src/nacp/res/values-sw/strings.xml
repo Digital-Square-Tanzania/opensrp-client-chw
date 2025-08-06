@@ -728,7 +728,7 @@
     <string name="referral_problem_symptoms_of_stis">Dalili za magonjwa ya ngono</string>
     <string name="referral_problem_abortion_miscarriages_symptoms">Dalili za mimba kuharibika</string>
 
-    <!-- ANC ECD -->
+    <!-- ANC ECD CONTENT -->
+    <string name="anc_home_visit_early_stimulation">Mawasiliano na Mtoto akiwa Tumboni</string>
     <string name="anc_home_visit_postpartum_danger_signs">Dalili za Hatari mara baada ya kujifungua</string>
-
 </resources>
