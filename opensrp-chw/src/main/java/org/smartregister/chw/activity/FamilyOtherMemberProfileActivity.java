@@ -1,9 +1,11 @@
 package org.smartregister.chw.activity;
 
 import static android.view.View.VISIBLE;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.family.util.JsonFormUtils.fields;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,6 +35,7 @@ import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -96,7 +99,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startDiabetesRiskAssessment() {
         try {
+            int age = Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
             JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(FamilyOtherMemberProfileActivity.this, Constants.JsonForm.getDiabetesScreeningForm());
+
+
+            JSONArray field = fields(formJsonObject, "step1");
+            JSONObject ageField = getFieldJSONObject(field, "age");
+
+            if (ageField != null) {
+                ageField.put("value", age);
+            }
             startFormActivity(formJsonObject);
         } catch (JSONException e) {
             Timber.e(e);
