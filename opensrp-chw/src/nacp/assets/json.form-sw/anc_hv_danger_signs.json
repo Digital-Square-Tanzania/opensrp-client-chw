@@ -142,6 +142,24 @@
             "openmrs_entity_id": "chk_fgm"
           },
           {
+            "key": "chk_pallor",
+            "text": "Weupe mkubwa (viganja, ulimi, macho)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_dizziness",
+            "text": "Kizunguzungu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_dizziness"
+          },
+          {
+            "key": "chk_malaria_signs",
+            "text": "Dalili za malaria (Kuhisi baridi, Homa, Kutapika)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_malaria_signs"
+          },
+          {
             "key": "chk_none",
             "text": "Hakuna",
             "openmrs_entity": "concept",
