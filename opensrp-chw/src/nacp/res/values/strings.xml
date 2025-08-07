@@ -839,6 +839,6 @@
     <string name="anc_home_visit_new_born_danger_signs">New Born Danger Signs</string>
     <string name="partner_engagement_evaluate_sub_title">Partner presence: {0}</string>
     <string name="anc_home_visit_partner_engagement">Partner Engagement</string>
-
+    <string name="anc_home_visit_lam">Lactational Amenorrhea Method</string>
 
 </resources>

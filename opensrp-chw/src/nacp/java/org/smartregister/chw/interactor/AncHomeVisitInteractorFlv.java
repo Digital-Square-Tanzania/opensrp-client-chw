@@ -265,9 +265,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         //Check if first and second visit had already been conducted
 //        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject))
 //            return;
-
-
-
 //        String visit_title = MessageFormat.format(context.getString(R.string.anc_hv_clinic_attendance), allVisits.size() + 1);
         String visit_title = context.getString(R.string.anc_hv_clinic_attendance);
         BaseAncHomeVisitAction anc_clinic_attendance = new BaseAncHomeVisitAction.Builder(context, visit_title)
@@ -277,10 +274,17 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .withFormName("anc_hv_clinic_attendance")
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .build();
-
         actionList.put(visit_title, anc_clinic_attendance);
     }
-
+    private void evaluateLAM() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction lam = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_lam))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_lam")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_lam), lam);
+    }
     private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
                                        final Context context) throws BaseAncHomeVisitAction.ValidationException {
 //        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
@@ -414,6 +418,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateBreastFeeding(details, memberObject, context);
                     evaluateNewBornDangerSign();
                     evaluatePartnerEngagement(details, context);
+                    evaluateLAM();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -433,6 +438,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_breast_feeding));
                     actionList.remove(context.getString(R.string.anc_home_visit_new_born_danger_signs));
                     actionList.remove(context.getString(R.string.anc_home_visit_partner_engagement));
+                    actionList.remove(context.getString(R.string.anc_home_visit_lam));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
