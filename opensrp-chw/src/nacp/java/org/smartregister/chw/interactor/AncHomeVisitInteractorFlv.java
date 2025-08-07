@@ -292,10 +292,18 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName("anc_hv_breastfeeding")
                 .build();
-
         actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
 //        }
 
+    }
+    private void evaluateNewBornDangerSign() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_new_born_danger_signs")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
     }
 
     private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
@@ -307,7 +315,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_hiv_aids_general_information), earlyStimulation);
     }
-
 
     private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details, final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
         String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
@@ -321,7 +328,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         actionList.put(visit_title, birth_preparedness);
     }
-
 
     private void evaluateVisitLocation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
@@ -392,6 +398,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateBirthPreparedness(details, memberObject);
                     evaluateHIVAIDSGeneralInformation();
                     evaluateBreastFeeding(details, memberObject, context);
+                    evaluateNewBornDangerSign();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -409,6 +416,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_birth_preparedness));
                     actionList.remove(context.getString(R.string.anc_home_visit_hiv_aids_general_information));
                     actionList.remove(context.getString(R.string.anc_home_visit_breast_feeding));
+                    actionList.remove(context.getString(R.string.anc_home_visit_new_born_danger_signs));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
