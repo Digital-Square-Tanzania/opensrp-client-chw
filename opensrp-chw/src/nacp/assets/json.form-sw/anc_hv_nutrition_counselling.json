@@ -1,0 +1,384 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Nutrition counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Lishe ya Mama wakati wa Ujauzito na Kunyonyesha",
+    "fields": [
+      {
+        "key": "nutrition_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_counselling_intro",
+        "type": "label",
+        "text": "Sasa tutazungumza juu ya lishe. Kama unavyojua, lishe ni muhimu sana kwa mama mjamzito na anaenyonyesha. Lishe duni inaweza kuwa na athari mbaya kwa afya yako, na afya ya mtoto wako.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "foods_available",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "foods_available",
+        "type": "check_box",
+        "label": "Je, vyakula hivi vinapatikana katika eneo lako?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_protein_meat",
+            "text": "Vyakula vyenye asili ya wanyama kwa mfano samaki, mayai, kuku, nyama ya ng'ombe",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_meat"
+          },
+          {
+            "key": "chk_protein_veg",
+            "text": "Jamii ya kunde, karanga na mbegu zenye mafuta",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_veg"
+          },
+          {
+            "key": "chk_carbohydrates",
+            "text": "Nafaka, mizizi yenye wanga na ndizi za kupikwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_carbohydrates"
+          },
+          {
+            "key": "chk_fruits",
+            "text": "Matunda kwa mfano: parachichi, embe, chungwa, zabibu, nanasi, pera",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fruits"
+          },
+          {
+            "key": "chk_vegetables",
+            "text": "Mboga mboga kwa mfano mchicha, matembele, kisamvu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vegetables"
+          },
+          {
+            "key": "chk_oil_or_fats",
+            "text": "Mafuta (yenye asili ya wanyama na mimea)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oil_or_fats"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "foods_consumed_last_week",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "foods_consumed_last_week",
+        "type": "check_box",
+        "label": "Katika siku ya kawaida katika wiki iliyopita ulikula aina gani ya vyakula?",
+        "label_text_style": "normal",
+        "combine_checkbox_option_values": "true",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_protein_meat",
+            "text": "Vyakula vyenye asili ya wanyama kwa mfano samaki, mayai, kuku, nyama ya ng'ombe",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_meat"
+          },
+          {
+            "key": "chk_protein_veg",
+            "text": "Jamii ya kunde, karanga na mbegu zenye mafuta",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_veg"
+          },
+          {
+            "key": "chk_carbohydrates",
+            "text": "Nafaka, mizizi yenye wanga na ndizi za kupikwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_carbohydrates"
+          },
+          {
+            "key": "chk_fruits",
+            "text": "Matunda kwa mfano: parachichi, embe, chungwa, zabibu, nanasi, pera",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fruits"
+          },
+          {
+            "key": "chk_vegetables",
+            "text": "Mboga mboga kwa mfano mchicha, matembele, kisamvu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vegetables"
+          },
+          {
+            "key": "chk_oil_or_fats",
+            "text": "Mafuta (yenye asili ya wanyama na mimea)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oil_or_fats"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "nutrition_counselling_flip_book_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "continue_bango_kitita",
+        "text": "Tafadhali fungua kitendea kazi namba 3 kwenye bango kitita ili kuendelea na mazungumzo",
+        "type": "label",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "nutrition_restrictions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions",
+        "type": "check_box",
+        "label": "Je, kwenye jamii yako, ni vyakula gani ambavyo umezuiliwa kula wakati wa ujauzito?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_egg",
+            "text": "Mayai",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_egg"
+          },
+          {
+            "key": "chk_liver",
+            "text": "Maini",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_liver"
+          },
+          {
+            "key": "chk_fish",
+            "text": "Samaki",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fish"
+          },
+          {
+            "key": "chk_gizzard",
+            "text": "Firigisi",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gizzard"
+          },
+          {
+            "key": "chk_other",
+            "text": "Nyingine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "nutrition_restrictions_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "UJUMBE WA MJA: Mshauri mama mjamzito kuhusu umuhimu wa kutumia vyakula hivyo kwa maendeleo na ukuaji wa mtoto wake.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "folic_acid_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "folic_acid_tablets",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "Je, ulipata vidonge vya folik asidi kutoka kwenye kituo cha huduma za afya?",
+        "label_info_text": "Je, ulipata vidonge vya folik asidi kutoka kwenye kituo cha huduma za afya?",
+        "hint": "Je, ulipata vidonge vya folik asidi kutoka kwenye kituo cha huduma za afya?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "folic_acid_tablets_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "folic_acid_tablets_note",
+        "type": "toaster_notes",
+        "text": "Mshauri mama mjamzito kufika kwenye kituo cha huduma za afya kilichopo karibu ili kupata vidonge vya folik asidi.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anaemia_tablets",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "Je, ulipewa vidonge vya kuzuia upungufu wa damu (FEFO) katika kituo cha afya?",
+        "label_info_text": "Je, ulipewa vidonge vya kuzuia upungufu wa damu (FEFO) katika kituo cha afya?",
+        "hint": "Je, ulipewa vidonge vya kuzuia upungufu wa damu (FEFO) katika kituo cha afya?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "no_anaemia_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_anaemia_tablets",
+        "type": "toaster_notes",
+        "text": "UJUMBE WA MJA: Mshauri mama mjamzito kufika kwenye kituo cha huduma za afya kilichopo karibu ili kupata vidonge vya kuzuia upungufu wa damu.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "meals_per_day",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "meals_per_day",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "Unakula milo mingapi kwa siku?",
+        "label_info_text": "Unakula milo mingapi kwa siku?",
+        "hint": "Unakula milo mingapi kwa siku?",
+        "values": [
+          "Milo mitatu",
+          "Milo miwili",
+          "Mlo mmoja"
+        ],
+        "keys": [
+          "three",
+          "two",
+          "one"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "meals_per_day_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "meals_per_day_note",
+        "type": "toaster_notes",
+        "text": "Muulize sababu za kutokula milo mitatu kwa siku. Jaribu kushauriana na mama ni jinsi gani ya kutatua hii changamoto.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

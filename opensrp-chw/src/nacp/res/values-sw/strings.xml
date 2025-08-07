@@ -739,4 +739,7 @@
     <string name="anc_hv_clinic_attendance">Kuhudhuria Kliniki kwa wajawazito mapema</string>
     <string name="yes">Ndio</string>
     <string name="no">Hapana</string>
+    <string name="anc_hv_nutrition_counselling">Lishe ya Mama wakati wa Ujauzito na Kunyonyesha</string>
+    <string name="foods_available">Vyakula vinavyopatikana</string>
+
 </resources>

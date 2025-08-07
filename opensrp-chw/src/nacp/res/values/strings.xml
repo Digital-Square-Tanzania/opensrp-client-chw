@@ -824,4 +824,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
+    <string name="anc_hv_nutrition_counselling">Nutrition Counselling</string>
+    <string name="foods_available">Foods available</string>
+
+
 </resources>

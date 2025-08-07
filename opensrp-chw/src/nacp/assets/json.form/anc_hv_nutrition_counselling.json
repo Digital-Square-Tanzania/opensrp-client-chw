@@ -1,0 +1,391 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Nutrition counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Nutrition Counselling",
+    "fields": [
+      {
+        "key": "nutrition_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_counselling_intro",
+        "type": "label",
+        "text": "Now we will be discussing about Nutrition. As you may know, nutrition is very important for a pregnant and post-partum woman during breastfeeding. Poor nutrition can have a negative effect on your health, and the health of your baby.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "foods_available",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "foods_available",
+        "type": "check_box",
+        "label": "Are these foods available in your area?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_protein_meat",
+            "text": "Protein e.g. fish, egg, chicken, meat",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_meat"
+          },
+          {
+            "key": "chk_protein_veg",
+            "text": "Protein e.g. beans, cow peas",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_veg"
+          },
+          {
+            "key": "chk_carbohydrates",
+            "text": "Carbohydrates eg bananas, potatoes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_carbohydrates"
+          },
+          {
+            "key": "chk_fruits",
+            "text": "Fruits e.g. avocados, mangoes. oranges, grapes, pineapples, guava",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fruits"
+          },
+          {
+            "key": "chk_vegetables",
+            "text": "Vegetables e.g. spinach",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vegetables"
+          },
+          {
+            "key": "chk_oil_or_fats",
+            "text": "Oils/fats i.e. nuts, avocados",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oil_or_fats"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "foods_consumed_last_week",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "foods_consumed_last_week",
+        "type": "check_box",
+        "label": "In a typical day in the last week what food groups did you consume?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_protein_meat",
+            "text": "Protein e.g. fish, egg, chicken, meat",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_meat"
+          },
+          {
+            "key": "chk_protein_veg",
+            "text": "Protein e.g. beans, cow peas",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_protein_veg"
+          },
+          {
+            "key": "chk_carbohydrates",
+            "text": "Carbohydrates eg bananas, potatoes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_carbohydrates"
+          },
+          {
+            "key": "chk_fruits",
+            "text": "Fruits e.g. avocados, mangoes. oranges, grapes, pineapples, guava",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fruits"
+          },
+          {
+            "key": "chk_vegetables",
+            "text": "Vegetables e.g. spinach",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vegetables"
+          },
+          {
+            "key": "chk_oil_or_fats",
+            "text": "Oils/fats i.e. nuts, avocados",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oil_or_fats"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "nutrition_counselling_flip_book_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "continue_bango_kitita",
+        "text": "Please refer to Topic 3 in Bango Kitita to continue with the discussion",
+        "type": "label",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "nutrition_restrictions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions",
+        "type": "check_box",
+        "label": "Do you follow any nutrition restrictions while pregnant?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_egg",
+            "text": "Eggs",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_egg"
+          },
+          {
+            "key": "chk_liver",
+            "text": "Liver",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_liver"
+          },
+          {
+            "key": "chk_fish",
+            "text": "Fish",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fish"
+          },
+          {
+            "key": "chk_gizzard",
+            "text": "Gizzard",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gizzard"
+          },
+          {
+            "key": "chk_gizzard",
+            "text": "Gizzard",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gizzard"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "nutrition_restrictions_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "MESSAGE FOR CHW: Advice the pregnant woman on the importance of these foods for the development and growth of her child.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "folic_acid_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "folic_acid_tablets",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "Did you receive folic acid tablets from the health facility?",
+        "label_info_text": "Did you receive folic acid tablets from the health facility?",
+        "hint": "Did you receive folic acid tablets from the health facility?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "folic_acid_tablets_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "folic_acid_tablets_note",
+        "type": "toaster_notes",
+        "text": "Advise the pregnant woman to visit the nearest health facility to receive folic acid tablets.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anaemia_tablets",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "Were you given tablets to prevent anemia (FEFO) at the health facility?",
+        "label_info_text": "Were you given tablets to prevent anemia (FEFO) at the health facility?",
+        "hint": "Were you given tablets to prevent anemia (FEFO) at the health facility?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "no_anaemia_tablets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_anaemia_tablets",
+        "type": "toaster_notes",
+        "text": "MESSAGE TO CHW: Advise the pregnant woman to visit the nearest health facility to receive anemia tablets.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "meals_per_day",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "meals_per_day",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label": "How many meals are you consuming in a day?",
+        "label_info_text": "How many meals are you consuming in a day?",
+        "hint": "How many meals are you consuming in a day?",
+        "values": [
+          "Three meals",
+          "Two meals",
+          "One meal"
+        ],
+        "keys": [
+          "three",
+          "two",
+          "one"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "meals_per_day_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "meals_per_day_note",
+        "type": "toaster_notes",
+        "text": "Ask the pregnant woman the reasons she is not consuming three meals a day and advise accordingly on how to resolve the challenges.",
+        "text_color": "#2C0000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
