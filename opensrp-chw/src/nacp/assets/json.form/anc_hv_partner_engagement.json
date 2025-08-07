@@ -1,0 +1,198 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Partner Engagement",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Partner Engagement",
+    "fields": [
+      {
+        "key": "partner_engagement_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "partner_engagement_note",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<b>REMINDER TO CHW:</b> Remember to observe partner engagement throughout the visit duration",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "partner_head_of_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "partner_head_of_household",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "Was the partner present during the home visit?",
+        "text_color": "#000000",
+        "exclusive": [
+          "partner_head_of_household_yes",
+          "partner_head_of_household_no"
+        ],
+        "options": [
+          {
+            "key": "partner_head_of_household_yes",
+            "text": "Yes",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner_head_of_household_yes"
+          },
+          {
+            "key": "partner_head_of_household_no",
+            "text": "No",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_hv_partner_engagement.step1.v_required.err}}"
+        }
+      },
+      {
+        "key": "partner_head_of_household_stay_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Did the partner stay for the entire visit?",
+        "text_color": "#000000",
+        "exclusive": [
+          "partner_head_of_household_yes",
+          "partner_head_of_household_no"
+        ],
+        "options": [
+          {
+            "key": "partner_head_of_household_yes",
+            "text": "Yes",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "partner_head_of_household_no",
+            "text": "No",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_partner_engagement_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "partner_head_of_households_interaction",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "How would you define the partner/male head of household's interaction during the visit?",
+        "text_color": "#000000",
+        "exclusive": [
+          "chk_frustrated",
+          "chk_minimal_questions",
+          "chk_many_questions"
+        ],
+        "options": [
+          {
+            "key": "chk_frustrated",
+            "text": "Partner seemed frustrated or aggressive",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_minimal_questions",
+            "text": "Partner asked minimal questions; seemed somewhat concerned or interested in the material",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_many_questions",
+            "text": "Partner asked many questions; seemed very concerned and interested in the material",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_partner_engagement_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
