@@ -742,4 +742,15 @@
     <string name="anc_hv_nutrition_counselling">Lishe ya Mama wakati wa Ujauzito na Kunyonyesha</string>
     <string name="foods_available">Vyakula vinavyopatikana</string>
 
+    <!--ANC ECD-->
+    <string name="anc_home_visit_birth_preparedness">Mpango binafsi wa Kujifungua</string>
+    <string name="birth_preparedness_summary">
+    Mahali pa karibu pa kupata huduma za afya: {0}\n
+    Maandalizi ya akiba: {1}\n
+    Maandalizi ya mwenza wa kujifungua: {2}\n
+    Maandalizi ya mwanafamilia/mtu binafsi wa kubaki nyumbani: {3}\n
+    Maandalizi ya usafiri: {4}
+    </string>
+
+
 </resources>

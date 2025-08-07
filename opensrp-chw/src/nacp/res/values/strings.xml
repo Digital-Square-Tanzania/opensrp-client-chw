@@ -826,6 +826,13 @@
     <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
     <string name="anc_hv_nutrition_counselling">Nutrition Counselling</string>
     <string name="foods_available">Foods available</string>
-
+    <string name="anc_home_visit_birth_preparedness">Birth Preparedness</string>
+    <string name="birth_preparedness_summary">
+    Location of nearest health facility: {0}\n
+    Savings preparedness: {1}\n
+    Birth companion preparedness: {2}\n
+    Family member/individual to stay home preparedness: {3}\n
+    Transportation preparedness: {4}
+    </string>
 
 </resources>

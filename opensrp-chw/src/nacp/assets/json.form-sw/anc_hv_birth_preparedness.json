@@ -1,0 +1,231 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Birth Preparedness",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Mpango binafsi wa Kujifungua",
+    "fields": [
+      {
+        "key": "delivery_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Muulize mama mjamzito na mwenzi wake kama wameshafanya maandalizii yaliyotajwa hapa chini akisubiria kujifungua",
+        "label_info_text": "Muulize mama mjamzito na mwenzi wake kama wameshafanya maandalizii yaliyotajwa hapa chini akisubiria kujifungua",
+        "text_color": "#000000"
+      },
+      {
+        "key": "location_nearest_health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je mama mjamzito na mwenza wake  wanajua eneo la kituo cha kutolea huduma za afya walichoshauriwa na mtoa huduma?",
+        "label_info_text": "Je mama mjamzito na mwenza wake  wanajua eneo la kituo cha kutolea huduma za afya walichoshauriwa na mtoa huduma?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "savings_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je familia ina akiba kwa ajili ya kugharimia mahitaji ya kujifungua kwa mfano usafiri, nguo kwa ajili yako na mtoto, na dharura?",
+        "label_info_text": "Je familia ina akiba kwa ajili ya kugharimia mahitaji ya kujifungua kwa mfano usafiri, nguo kwa ajili yako na mtoto, na dharura?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "birth_companion_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je mama mjamzito ana mtu wa karibu wa kumsindikiza kwenda kituo cha afya?",
+        "label_info_text": "Je mama mjamzito ana mtu wa karibu wa kumsindikiza kwenda kituo cha afya?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "family_member_individual_stay_home_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je mama mjamzito ana mtu wa karibu wa kubaki nyumbani pale atakapokwenda kujifungua?",
+        "label_info_text": "Je mama mjamzito ana mtu wa karibu wa kubaki nyumbani pale atakapokwenda kujifungua?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "transportation_preparedness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je mama mjamzito ameanda usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
+        "label_info_text": "Je mama mjamzito ameanda usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "praise_preparedness_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mpongeze mama na mwenza kwa maandalizi ambayo wameshakamilisha.",
+        "label_info_text": "Mpongeze mama na mwenza kwa maandalizi ambayo wameshakamilisha.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "early_signs_labour_counselling_bango_kitita",
+        "type": "label",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "text": "Tafadhali fungua kitendea kazi namba 3 kwenye bango kitita ili kuendelea na mazungumzo",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "early_signs_labour_counselling_title",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "KUMBUSHO KWA WAJA: Pitia kila dalili pamoja na mama mjamzito.\nKumbuka kuwa dalili za awali za uchungu wa kujifungua zinaweza kuwa",
+        "text_color": "#000000"
+      },
+      {
+        "key": "early_signs_labour_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "label",
+        "text": "\n• Kujiskia kuchoka \n• Kupata choo kilaini/chepesi\n• Mtoto kushuka \n•  Kutokwa na damu kidogo ukeni \n• Kupata uchungu wa mara kwa mara \n• Kutokwa na maji maji ukeni (utelezi kuongezeka) \n• Kukojoa mara kwa mara"
+      },
+      {
+        "key": "early_signs_labour_counselling_memo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Eleza kwa nini ni muhimu kufika kituo cha afya mapema iwezekanavyo akianza kuziona hizi dalili.  \n",
+        "text_color": "#000000"
+      }
+    ]
+  }
+}
