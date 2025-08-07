@@ -759,5 +759,6 @@
     <string name="anc_home_visit_lam">Njia ya uzazi wa mpango kwa unyonyeshaji wa maziwa ya mama pekee chini ya miezi sita (LAM) </string>
     <string name="anc_home_visit_hiv_exposed_infant_follow_up">Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="anc_home_visit_postpartum_physiological_changes">Mabadiliko ya kimwili kwa Mama aliyejifungua</string>
+    <string name="anc_home_visit_gender_issues">Jinsia</string>
 
 </resources>

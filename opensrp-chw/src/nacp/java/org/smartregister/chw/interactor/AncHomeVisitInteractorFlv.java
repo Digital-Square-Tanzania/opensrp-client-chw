@@ -300,6 +300,16 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 //        }
 
     }
+
+    private void evaluateGenderIssues() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_gender_issues))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_gender_issues")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_gender_issues), earlyStimulation);
+    }
     private void evaluateNewBornDangerSign() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
                 .withOptional(false)
@@ -440,6 +450,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateLAM();
                     evaluateHIVExposedInfantFollowUp();
                     evaluatePostpartumPhysiologicalChanges();
+                    evaluateGenderIssues();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -448,6 +459,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_gender_issues));
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_care_for_mother));
                     actionList.remove(context.getString(R.string.anc_home_visit_early_stimulation));
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
