@@ -1,0 +1,175 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit: Breast Feeding",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Unyonyeshaji wa Maziwa ya Mama",
+    "fields": [
+      {
+        "key": "breastfeeding_counselling_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Sasa tutazungumza kuhusu kunyonyesha",
+        "text_color": "#000000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "preg_woman_other_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_woman_other_children",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Je, mama mjamzito ana watoto wengine?",
+        "options": [
+          {
+            "key": "chk_yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "chk_no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "preg_woman_breastfeed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_woman_breastfeed",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Ikiwa ndiyo, aliwanyonyesha?",
+        "options": [
+          {
+            "key": "chk_yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_yes"
+          },
+          {
+            "key": "chk_no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        },
+        "relevance": {
+          "step1:preg_woman_other_children": {
+            "type": "string",
+            "ex": "equalTo(., \"chk_yes\")"
+          }
+        }
+      },
+      {
+        "key": "preg_woman_challenges_breastfeed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_woman_challenges_breastfeed",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Did she experience any challenges while breastfeeding?",
+        "options": [
+          {
+            "key": "chk_yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_yes"
+          },
+          {
+            "key": "chk_no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        },
+        "relevance": {
+          "step1:preg_woman_breastfeed": {
+            "type": "string",
+            "ex": "equalTo(., \"chk_yes\")"
+          }
+        }
+      },
+      {
+        "key": "breast_feeding_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breast_feeding_bango_kitita",
+        "type": "label",
+        "text": "Tafadhali fungua kitendea kazi namba  16 kwenye bango kitita ili kuendelea na mazungumzo",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      }
+    ]
+  }
+}
