@@ -265,22 +265,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         //Check if first and second visit had already been conducted
 //        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject))
 //            return;
-    private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
-                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
-//        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
 
-            BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withHelper(new BreastFeedingActionHelper())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                    .withFormName("anc_hv_breastfeeding")
-                    .build();
-
-            actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
-//        }
-
-    }
 
 
 //        String visit_title = MessageFormat.format(context.getString(R.string.anc_hv_clinic_attendance), allVisits.size() + 1);
@@ -295,6 +280,24 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         actionList.put(visit_title, anc_clinic_attendance);
     }
+
+    private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
+                                       final Context context) throws BaseAncHomeVisitAction.ValidationException {
+//        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+
+        BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new BreastFeedingActionHelper())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withFormName("anc_hv_breastfeeding")
+                .build();
+
+        actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
+//        }
+
+    }
+
     private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
                 .withOptional(false)
