@@ -1,0 +1,42 @@
+---
+name: step1_malaria_protective_measure_other
+description: Other protective measure taken
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_praise_malaria_protective_measures
+description: Praise the mother for malaria protective measures
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_use_llin') || step1_malaria_protective_measures.contains('chk_intermittent_preventive') || step1_malaria_protective_measures.contains('chk_household_spraying') || step1_malaria_protective_measures.contains('chk_use_mesh') || step1_malaria_protective_measures.contains('chk_destroying_mosquito_breeds') || step1_malaria_protective_measures.contains('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_protective_measures_reminder
+description: remind woman to use malaria protective measures
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_llin_last_night
+description: Determine if a mother has used LLIN last night
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_use_llin')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_llin_condition
+description: Determine if a mother has used LLIN last night
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_use_llin')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reminder_caretaker_llin
+description: Remind caretaker to get a free LLIN
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_use_llin')"
+actions:
+  - "isRelevant = true"
