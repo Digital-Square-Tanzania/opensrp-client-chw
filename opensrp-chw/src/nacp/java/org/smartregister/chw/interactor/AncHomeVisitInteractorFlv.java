@@ -246,6 +246,16 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_community_health_worker_observations), chw_observations);
     }
+    private void evaluateImmediateNewBornCare() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_immediate_newborn_care")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
+    }
+
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -298,6 +308,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateEarlyStimulation();
                     evaluatePostpartumDangerSigns();
                     evaluateCommunityHealthWorkerObservation(details, context);
+                    evaluateImmediateNewBornCare();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -310,6 +321,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_early_stimulation));
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
                     actionList.remove(context.getString(R.string.anc_home_visit_community_health_worker_observations));
+                    actionList.remove(context.getString(R.string.anc_home_visit_immediate_newborn_care));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {

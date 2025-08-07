@@ -821,4 +821,6 @@
     <string name="community_health_worker_observations_evaluate_sub_title">Anyone else Present: {0}</string>
 
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
 </resources>

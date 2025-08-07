@@ -734,5 +734,6 @@
     <string name="anc_home_visit_postpartum_danger_signs">Dalili za Hatari mara baada ya kujifungua</string>
     <string name="anc_home_visit_community_health_worker_observations">Uchunguzi wa mhudumu wa afya ngazi ya jamii (MJAA)</string>
     <string name="community_health_worker_observations_evaluate_sub_title">Uwepo wa mtu yeyote: {0}</string>
+    <string name="anc_home_visit_immediate_newborn_care">Huduma kwa mtoto mchanga mara baada ya kuzaliwa</string>
 
 </resources>
