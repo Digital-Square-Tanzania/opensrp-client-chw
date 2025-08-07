@@ -817,4 +817,8 @@
     <string name="anc_home_visit_postpartum_care_for_mother">Postpartum Care for Mother</string>
     <string name="anc_home_visit_early_stimulation">Early Stimulation</string>
     <string name="anc_home_visit_postpartum_danger_signs">Postpartum Danger Signs</string>
+    <string name="anc_home_visit_community_health_worker_observations">Community Health Worker Observations</string>
+    <string name="community_health_worker_observations_evaluate_sub_title">Anyone else Present: {0}</string>
+
+
 </resources>

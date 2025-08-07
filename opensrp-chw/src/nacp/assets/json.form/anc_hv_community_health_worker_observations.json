@@ -1,0 +1,147 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Community Health Worker Observations",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Community Health Worker Observations",
+    "fields": [
+      {
+        "key": "anyone_else_present_during_visit",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anyone_else_present_during_visit",
+        "openmrs_entity_parent": "",
+        "label": "Was anyone else other than the mother/father present during the discussion?",
+        "options": [
+          {
+            "key": "anyone_present_during_visit_yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "anyone_present_during_visit_yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "anyone_present_during_visit_no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "anyone_present_during_visit_no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "8dp"
+      },
+      {
+        "key": "who_present_during_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "who_present_during_visit",
+        "type": "check_box",
+        "label": "Who was present?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_child_under_18_present",
+            "text": "Children under the age of 18 years living in household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_child_under_18_present"
+          },
+          {
+            "key": "chk_close_relatives_in_household_present",
+            "text": "Blood relatives aged 18-65 living in household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_close_relatives_in_household"
+          },
+          {
+            "key": "chk_elderly_living_in_household_present",
+            "text": "Elderly living in household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_elderly_living_in_household_present"
+          },
+          {
+            "key": "chk_people_outside_of_the_household_present",
+            "text": "Person/people from outside of the household",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_people_outside_of_the_household_present"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_community_health_worker_observation_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
