@@ -819,8 +819,9 @@
     <string name="anc_home_visit_postpartum_danger_signs">Postpartum Danger Signs</string>
     <string name="anc_home_visit_community_health_worker_observations">Community Health Worker Observations</string>
     <string name="community_health_worker_observations_evaluate_sub_title">Anyone else Present: {0}</string>
-
-
-    <!-- ANC ECD -->
+    <string name="anc_hv_clinic_attendance_sub_title">Attend the last ANC clinic visit</string>
+    <string name="anc_hv_clinic_attendance">ANC clinic visit attendance</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
 </resources>

@@ -260,6 +260,25 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
     }
 
+    private void evaluateAncClinicAttendance() throws BaseAncHomeVisitAction.ValidationException {
+
+        //Check if first and second visit had already been conducted
+//        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject))
+//            return;
+
+//        String visit_title = MessageFormat.format(context.getString(R.string.anc_hv_clinic_attendance), allVisits.size() + 1);
+        String visit_title = context.getString(R.string.anc_hv_clinic_attendance);
+        BaseAncHomeVisitAction anc_clinic_attendance = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new ClinicAttendanceAction())
+                .withFormName("anc_hv_clinic_attendance")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+
+        actionList.put(visit_title, anc_clinic_attendance);
+    }
+
 
     private void evaluateVisitLocation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
@@ -325,6 +344,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluatePostpartumDangerSigns();
                     evaluateCommunityHealthWorkerObservation(details, context);
                     evaluateImmediateNewBornCare();
+                    evaluateAncClinicAttendance();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -338,6 +358,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
                     actionList.remove(context.getString(R.string.anc_home_visit_community_health_worker_observations));
                     actionList.remove(context.getString(R.string.anc_home_visit_immediate_newborn_care));
+                    actionList.remove(context.getString(R.string.anc_hv_clinic_attendance));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
@@ -913,6 +934,69 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.v("onPayloadReceived");
+        }
+    }
+    private class ClinicAttendanceAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+
+        private Context context;
+        private String clinic_attendance;
+
+        @Override
+        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                clinic_attendance = JsonFormUtils.getValue(jsonObject, "attend_anc_clinic_visit");
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String s) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (clinic_attendance.equalsIgnoreCase("Yes")) {
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.yes));
+            } else {
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.no));
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(clinic_attendance)){
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }else{
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
+
         }
     }
 }

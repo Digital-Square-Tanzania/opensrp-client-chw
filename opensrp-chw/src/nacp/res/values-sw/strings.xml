@@ -735,5 +735,8 @@
     <string name="anc_home_visit_community_health_worker_observations">Uchunguzi wa mhudumu wa afya ngazi ya jamii (MJAA)</string>
     <string name="community_health_worker_observations_evaluate_sub_title">Uwepo wa mtu yeyote: {0}</string>
     <string name="anc_home_visit_immediate_newborn_care">Huduma kwa mtoto mchanga mara baada ya kuzaliwa</string>
-
+    <string name="anc_hv_clinic_attendance_sub_title">Kuhudhuria Kliniki ya Wajawaito kwa mara ya mwisho</string>
+    <string name="anc_hv_clinic_attendance">Kuhudhuria Kliniki kwa wajawazito mapema</string>
+    <string name="yes">Ndio</string>
+    <string name="no">Hapana</string>
 </resources>
