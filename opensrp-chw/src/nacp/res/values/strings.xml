@@ -841,4 +841,6 @@
     <string name="anc_home_visit_partner_engagement">Partner Engagement</string>
     <string name="anc_home_visit_lam">Lactational Amenorrhea Method</string>
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_hiv_exposed_infant_follow_up">Follow-Up for the HIV-Exposed Infant</string>
 </resources>

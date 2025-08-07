@@ -309,6 +309,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
     }
+    private void evaluateHIVExposedInfantFollowUp() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_hiv_exposed_infant_follow_up")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
+    }
 
     private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
@@ -419,6 +428,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateNewBornDangerSign();
                     evaluatePartnerEngagement(details, context);
                     evaluateLAM();
+                    evaluateHIVExposedInfantFollowUp();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -439,6 +449,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_new_born_danger_signs));
                     actionList.remove(context.getString(R.string.anc_home_visit_partner_engagement));
                     actionList.remove(context.getString(R.string.anc_home_visit_lam));
+                    actionList.remove(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up));
                     actionList.remove(visit_title);
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
