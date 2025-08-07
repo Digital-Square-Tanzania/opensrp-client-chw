@@ -834,5 +834,7 @@
     Family member/individual to stay home preparedness: {3}\n
     Transportation preparedness: {4}
     </string>
+    <string name="anc_home_visit_hiv_aids_general_information">HIV/AIDS General Information</string>
+
 
 </resources>
