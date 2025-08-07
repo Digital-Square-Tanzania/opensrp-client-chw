@@ -2,8 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.sun.xml.bind.v2.TODO;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -141,17 +139,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
     }
 
-//    private void evaluateNutritionStatus(Map<String, List<VisitDetail>> details,
-//                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
-//        BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
-//                .withOptional(true)
-//                .withDetails(details)
-//                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
-//                .withHelper(new NutritionAction())
-//                .build();
-//        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), nutrition_ba);
-//    }
-
     private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
                                            final Context context) throws BaseAncHomeVisitAction.ValidationException {
         JSONObject counsellingForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getCOUNSELLING());
@@ -210,6 +197,18 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
+    private void evaluatePMTCT() throws BaseAncHomeVisitAction.ValidationException {
+        String visitTitle  = context.getString(R.string.anc_home_visit_pmtct);
+        BaseAncHomeVisitAction pmtctAction = new BaseAncHomeVisitAction.Builder(context, visitTitle)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new PmtctActionHelper())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withFormName("anc_hv_pmctc")
+                .build();
+        actionList.put(visitTitle, pmtctAction);
+
+    }
 
     private void evaluatePostpartumCareForMother() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_care_for_mother))
@@ -240,7 +239,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_postpartum_danger_signs), earlyStimulation);
     }
-    private void evaluateCommunityHealthWorkerObservation(Map<String, List<VisitDetail>> details, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+    private void evaluateCommunityHealthWorkerObservation(Map<String, List<VisitDetail>> details,
+                                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction chw_observations = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_community_health_worker_observations))
                 .withOptional(false)
                 .withDetails(details)
@@ -250,6 +251,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_community_health_worker_observations), chw_observations);
     }
+
     private void evaluateImmediateNewBornCare() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
                 .withOptional(false)
@@ -276,6 +278,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(visit_title, anc_clinic_attendance);
     }
+
     private void evaluateLAM() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction lam = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_lam))
                 .withOptional(false)
@@ -285,6 +288,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_lam), lam);
     }
+
     private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
                                        final Context context) throws BaseAncHomeVisitAction.ValidationException {
 //        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
@@ -310,6 +314,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_gender_issues), earlyStimulation);
     }
+
     private void evaluateNewBornDangerSign() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
                 .withOptional(false)
@@ -319,6 +324,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
     }
+
     private void evaluateHIVExposedInfantFollowUp() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
                 .withOptional(false)
@@ -328,6 +334,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
     }
+
     private void evaluatePostpartumPhysiologicalChanges() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_physiological_changes))
                 .withOptional(false)
@@ -337,7 +344,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_postpartum_physiological_changes), earlyStimulation);
     }
-
 
     private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
@@ -349,7 +355,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_hiv_aids_general_information), earlyStimulation);
     }
 
-    private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details, final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details,
+                                           final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
         String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
         BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
                 .withOptional(false)
@@ -358,7 +365,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName("anc_hv_birth_preparedness")
                 .build();
-
         actionList.put(visit_title, birth_preparedness);
     }
 
@@ -373,8 +379,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.pnc_hv_location), action);
     }
 
-    // TODO: 7/16/25 Below Action Helepers Needs to be Moved to Individual files as other Action Helper
-    private void evaluatePartnerEngagement(Map<String, List<VisitDetail>> details, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluatePartnerEngagement(Map<String, List<VisitDetail>> details,
+                                           final Context context) throws BaseAncHomeVisitAction.ValidationException {
         JSONObject partnerEngagementForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getAncHvPartnerEngagement());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(partnerEngagementForm, details);
@@ -388,6 +394,20 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_partner_engagement), partner_engagement);
     }
+
+    private void evaluateNutritionCounselling() throws BaseAncHomeVisitAction.ValidationException {
+        String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
+        BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new NutritionCounsellingAction())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withFormName("anc_hv_nutrition_counselling")
+                .build();
+
+        actionList.put(visit_title, nutrition_counselling);
+    }
+
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
         private String danger_signs_present;
@@ -451,6 +471,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateHIVExposedInfantFollowUp();
                     evaluatePostpartumPhysiologicalChanges();
                     evaluateGenderIssues();
+                    evaluatePMTCT();
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
@@ -518,19 +539,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.v("onPayloadReceived");
         }
-    }
-
-    private void evaluateNutritionCounselling() throws BaseAncHomeVisitAction.ValidationException {
-        String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
-        BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new NutritionCounsellingAction())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .withFormName("anc_hv_nutrition_counselling")
-                .build();
-
-        actionList.put(visit_title, nutrition_counselling);
     }
 
     private class HealthFacilityAction extends HealthFacilityVisitAction {
@@ -656,69 +664,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             } else {
                 return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
             }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class NutritionAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private Context context;
-        private String nutrition_status;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                nutrition_status = JsonFormUtils.getValue(jsonObject, "nutrition_status");
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            if (nutrition_status.equalsIgnoreCase("Normal"))
-                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_normal));
-            else if (nutrition_status.equalsIgnoreCase("Moderate"))
-                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_normal));
-            else
-                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_severe));
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(nutrition_status)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-            return BaseAncHomeVisitAction.Status.COMPLETED;
         }
 
         @Override
@@ -1166,9 +1111,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         @Override
         public String evaluateSubTitle() {
             if (clinic_attendance.equalsIgnoreCase("Yes")) {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.yes));
+                return MessageFormat.format("{0}: {1}", context.getString(
+                        R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.yes));
             } else {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.no));
+                return MessageFormat.format("{0}: {1}", context.getString(
+                        R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.no));
             }
         }
 
@@ -1272,7 +1219,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
     }
 
-private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+    private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
 
     private String preg_woman_other_children;
     private String preg_woman_breastfeed;
@@ -1337,6 +1284,7 @@ private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHom
 
     }
 }
+
     private class PartnerEngagementAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String partner_presence;
         private Context context;
@@ -1396,6 +1344,90 @@ private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHom
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.v("onPayloadReceived");
+        }
+    }
+
+    private class PmtctActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+
+        private Context context;
+        String hiv_test;
+        String disclose_status;
+        String taking_art;
+        String hiv_status;
+
+        @Override
+        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                hiv_test = JsonFormUtils.getValue(jsonObject, "hiv_test").toLowerCase();
+                disclose_status = JsonFormUtils.getValue(jsonObject, "disclose_status").toLowerCase();
+                taking_art = JsonFormUtils.getValue(jsonObject, "taking_art").toLowerCase();
+                hiv_status = JsonFormUtils.getValue(jsonObject, "hiv_status").toLowerCase();
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String jsonPayload) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return null;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+
+            if (hiv_test.contains("chk_hiv_test_no")){
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+
+            if (hiv_test.contains("chk_hiv_test_yes") && disclose_status.contains("chk_disclose_status_no")){
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+
+            if (hiv_test.contains("chk_hiv_test_yes") && disclose_status.contains("chk_disclose_status_yes") && taking_art.contains("chk_taking_art_no")){
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+
+            if (hiv_test.contains("chk_hiv_test_yes") && hiv_status.contains("chk_hiv_status_negative")){
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+
+            if (hiv_test.contains("chk_hiv_test_yes") && hiv_status.contains("chk_hiv_status_positive") && taking_art.contains("chk_taking_art_yes")){
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+
+            return BaseAncHomeVisitAction.Status.PENDING;
+
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction ancHomeVisitAction) {
+
         }
     }
 }

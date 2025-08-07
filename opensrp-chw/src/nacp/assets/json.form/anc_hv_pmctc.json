@@ -1,0 +1,322 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Home Visit - PMCTC",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Prevention of mother-to-child HIV transmission (PMTCT)",
+    "fields": [
+      {
+        "key": "hiv_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Have you been tested for HIV during this pregnancy?",
+        "exclusive": [
+          "chk_hiv_test_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_test_yes"
+          },
+          {
+            "key": "chk_hiv_test_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_test_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "disclose_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "disclose_status",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Are you comfortable with disclosing your HIV status?",
+        "exclusive": [
+          "chk_disclose_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_disclose_status_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_disclose_status_yes"
+          },
+          {
+            "key": "chk_disclose_status_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_disclose_status_no"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_status",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Enter HIV status",
+        "exclusive": [
+          "chk_hiv_status_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_status_positive",
+            "text": "HIV-positive",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_status_positive"
+          },
+          {
+            "key": "chk_hiv_status_negative",
+            "text": "HIV-negative",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_status_negative"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        }
+      },
+      {
+        "key": "discuss_further_next_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "discuss_further_next_visit",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "I understand. If you would like, we can discuss further at my next visit.\n\nWould you like that?",
+        "exclusive": [
+          "chk_discuss_further_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_discuss_further_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_discuss_further_yes"
+          },
+          {
+            "key": "chk_discuss_further_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_discuss_further_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file" : "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "safe_sex_reminder",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "safe_sex_reminder",
+        "type": "toaster_notes",
+        "text": "Remind client of the importance of safe sex practices, and ensuring both she and her partner are tested and know their status so they can protect themselves and their unborn child.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "taking_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "taking_art",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Are you already taking ART?",
+        "exclusive": [
+          "chk_taking_art_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_taking_art_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_taking_art_yes"
+          },
+          {
+            "key": "chk_taking_art_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_taking_art_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file" : "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "encourage_client_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "encourage_client_treatment",
+        "type": "toaster_notes",
+        "text": "Encourage client to continue treatment.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "encourage_client_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "encourage_client_clinic",
+        "type": "toaster_notes",
+        "text": "Encourage client to go to the nearest ART clinic.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pmtct_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_bango_kitita_reference",
+        "type": "label",
+        "has_bg": true,
+        "text": "Please refer to Topic 6 in Bango Kitita to continue with the discussion.",
+        "bg_color": "#f595df",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "hiv_positive_women_support_group_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_positive_women_support_group_note",
+        "type": "toaster_notes",
+        "text": "As you visit the health facility there are some support groups for HIV+ mothers who can help you/guide you on how you can take care of your self during pregnancy and after delivery so that you can give birth safely and to a healthy HIV free baby. Please ask the medical worker in order to connect you and give you more information on this. These are HIV positive women who managed to follow and complete PMTCT care cascade and they gave birth to a healthy and free HIV baby, they will help you throughout your journey so that you can give birth to an HIV free baby.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

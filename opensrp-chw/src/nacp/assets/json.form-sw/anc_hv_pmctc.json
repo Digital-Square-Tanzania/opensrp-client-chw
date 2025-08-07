@@ -1,0 +1,322 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Home Visit - PMCTC",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kuzuia maambukizi ya VVU kutoka kwa mama kwenda kwa mtoto",
+    "fields": [
+      {
+        "key": "hiv_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, umeshapata vipimo vya VVU wakati wa ujauzito huu?",
+        "exclusive": [
+          "chk_hiv_test_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_test_yes"
+          },
+          {
+            "key": "chk_hiv_test_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_test_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "disclose_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "disclose_status",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Upo tayari kunijulisha/kuniambia hali yako ya VVU?",
+        "exclusive": [
+          "chk_disclose_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_disclose_status_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_disclose_status_yes"
+          },
+          {
+            "key": "chk_disclose_status_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_disclose_status_no"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_status",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Ingiza hali ya VVU",
+        "exclusive": [
+          "chk_hiv_status_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_status_positive",
+            "text": "Ana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_status_positive"
+          },
+          {
+            "key": "chk_hiv_status_negative",
+            "text": "Hana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_status_negative"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        }
+      },
+      {
+        "key": "discuss_further_next_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "discuss_further_next_visit",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Naelewa. Ikiwa ungependa, tunaweza kujadili zaidi katika ziara yangu inayofuata.\n\nJe ungependa tufanye hivyo?",
+        "exclusive": [
+          "chk_discuss_further_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_discuss_further_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_discuss_further_yes"
+          },
+          {
+            "key": "chk_discuss_further_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_discuss_further_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file" : "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "safe_sex_reminder",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "safe_sex_reminder",
+        "type": "toaster_notes",
+        "text": "Mkumbushe mteja umuhimu wa ngono salama, na uhakikishe kuwa yeye na mwenzi wake wamepimwa na kujua hali zao ili waweze kujilinda wao wenyewe na mtoto wao ambaye hajazaliwa.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "taking_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "taking_art",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, unafata matibabu ya kufubaza virusi vya ukimwi?",
+        "exclusive": [
+          "chk_taking_art_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_taking_art_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_taking_art_yes"
+          },
+          {
+            "key": "chk_taking_art_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_taking_art_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu Linahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file" : "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "encourage_client_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "encourage_client_treatment",
+        "type": "toaster_notes",
+        "text": "Mhamasishe mteja kuendelea na matibabu",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "encourage_client_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "encourage_client_clinic",
+        "type": "toaster_notes",
+        "text": "Mhimize mteja kufuata huduma za VVU katika kliniki iliyopo karibu na yeye.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pmtct_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_bango_kitita_reference",
+        "type": "label",
+        "has_bg": true,
+        "text": "Tafadhali fungua kitendea kazi namba 6 kwenye bango kitita ili kuendelea na majadiliano.",
+        "bg_color": "#f595df",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "hiv_positive_women_support_group_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_positive_women_support_group_note",
+        "type": "toaster_notes",
+        "text": "Unapotembelea kituo cha afya kuna baadhi ya vikundi vya msaada kwa akina mama wenye VVU+ ambao wanaweza kukusaidia/kukuongoza jinsi unavyoweza kujitunza wakati wa ujauzito na baada ya kujifungua ili uweze kujifungua salama na kwa mtoto mwenye afya njema asiye na VVU. Tafadhali muulize mtoa huduma wa afya  ili akuunganishe na kukupa maelezo zaidi kuhusu hili. Hawa ni wanawake wenye VVU ambao walifanikiwa kufuata na kukamilisha mtiririko wa huduma ya kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto na wakajifungua mtoto mwenye afya na asiye na VVU, watakusaidia katika safari yako yote ili uweze kujifungua mtoto asiye na VVU.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_pmctc_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

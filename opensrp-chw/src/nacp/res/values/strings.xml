@@ -843,6 +843,7 @@
     <string name="anc_home_visit_postpartum_physiological_changes">Postpartum Physiological Changes</string>
     <string name="anc_home_visit_hiv_exposed_infant_follow_up">Follow-Up for the HIV-Exposed Infant</string>
     <string name="anc_home_visit_gender_issues">Gender Issues</string>
+    <string name="anc_home_visit_pmtct">Prevention of mother-to-child HIV transmission (PMTCT)</string>
 
 
 </resources>
