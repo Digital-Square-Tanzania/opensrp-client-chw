@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "4",
   "encounter_type": "Diabetes and Hypertension Screening",
   "entity_id": "",
   "metadata": {
@@ -47,7 +47,241 @@
     "encounter_location": ""
   },
   "step1": {
+    "title": "Client consent",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "consent_message",
+        "type": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "We are here today to conduct a health screening for high blood pressure and diabetes. This screening is free, does not involve blood or injections, and is aimed at early detection of preventable health problems.",
+        "toaster_type": "info",
+        "text_color": "#1199F9"
+      },
+      {
+        "key": "aggree_with_screening_procedure",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "hint": "Do you agree with proceedings?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "reasons_for_declining",
+        "type": "check_box",
+        "label": "Reasons for declining",
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_declining",
+        "openmrs_entity_parent": "",
+        "exclusive": [],
+        "options": [
+          {
+            "key": "not_well",
+            "text": "Not feeling well or not ready",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_well"
+          },
+          {
+            "key": "in_hurry",
+            "text": "They are in a hurry",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "in_hurry"
+          },
+          {
+            "key": "need_permission",
+            "text": "Need to consult someone first before screening (permission from spouse/relative)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "need_permission"
+          },
+          {
+            "key": "privacy_trust",
+            "text": "Privacy and trust issues (fear of misuse of personal health information)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "privacy_trust"
+          },
+          {
+            "key": "lack_trust_chw",
+            "text": "Lack of trust in CHW (uncomfortable with CHW or opposite sex)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lack_trust_chw"
+          },
+          {
+            "key": "feel_healthy",
+            "text": "Don't feel the need (feel healthy and no need for screening)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "feel_healthy"
+          },
+          {
+            "key": "confusion_process",
+            "text": "Confusion about the screening process (fear of pain, unfamiliar procedures)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "confusion_process"
+          },
+          {
+            "key": "fear_anxiety",
+            "text": "Fear and anxiety (worry about diagnosis or consequences)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fear_anxiety"
+          },
+          {
+            "key": "fear_referral",
+            "text": "Fear of referral or hospitalization",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fear_referral"
+          },
+          {
+            "key": "religious_reasons",
+            "text": "Religious reasons (strong belief against medical intervention)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "religious_reasons"
+          },
+          {
+            "key": "fear_technology",
+            "text": "Discomfort or fear of technology",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fear_technology"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please provide the reason(s) for declining"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Self-reported Medical History",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "diagnosed_diabetes",
+        "type": "spinner",
+        "hint": "Are you diagnosed with diabetes?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnosed_diabetes",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "medicines_diabetes",
+        "type": "spinner",
+        "hint": "Are you taking medicines for diabetes?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medicines_diabetes",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "screened_hypertension_12m",
+        "type": "spinner",
+        "hint": "Have you been screened for hypertension in the last 12 months?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screened_hypertension_12m",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "medicines_hypertension",
+        "type": "spinner",
+        "hint": "Are you taking medicines for hypertension?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medicines_hypertension",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "screened_hypertension_last12m",
+        "type": "spinner",
+        "hint": "Have you been screened for hypertension in the last 12 months?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screened_hypertension_last12m",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "routine_clinic_visits",
+        "type": "spinner",
+        "hint": "Are you attending or enrolled in any routine clinic visits?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "routine_clinic_visits",
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      }
+    ]
+  },
+  "step3": {
     "title": "Diabetes and Hypertension Screening",
+    "next": "step4",
     "fields": [
       {
         "key": "age",
@@ -136,12 +370,12 @@
         }
       },
       {
-        "key": "risk",
+        "key": "diabetes_risk_score_output",
         "type": "edit_text",
         "hint": "Patient risk",
         "read_only": true,
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age",
+        "openmrs_entity_id": "risk",
         "openmrs_entity_parent": "",
         "calculation": {
           "rules-engine": {
@@ -150,14 +384,19 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step4": {
+    "title": "Facility Referral",
+    "fields": [
       {
         "key": "risk_present_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "The patient might be at risk of {condition}, please refer to the health facility to rule out.",
+        "text": "You may be at risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
         "text_color": "#000000",
         "toaster_type": "problem",
         "calculation": {
@@ -184,6 +423,124 @@
         "text": "The patient neither a risk for diabetes nor hypertension, advice them on the importance of maintaining a good and health life style.",
         "text_color": "#000000",
         "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_before_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_before_referral",
+        "type": "check_box",
+        "label": "Pre-referral management given.",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "ORS",
+            "text": "ORS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "ORS",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Panadol",
+            "text": "Panadol",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Panadol",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Other_treatment",
+            "text": "Other treatment",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Other_treatment",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "chk_none",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chw_referral_hf",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_referral_hf",
+        "openmrs_data_type": "select one",
+        "openmrs_entity_parent": "",
+        "hint": "Select which facility to send the referral to",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "hint": "Please specify the appointment date",
+        "expanded": false,
+        "min_date": "today",
+        "max_date": "today+30d",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "save_n_refer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "button",
+        "hint": "Save and Refer to Health Facility",
+        "btn_bg_color": "#FF840952",
+        "action": {
+          "behaviour": "refer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
