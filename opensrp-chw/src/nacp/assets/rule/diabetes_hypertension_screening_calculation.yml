@@ -1,5 +1,5 @@
 ---
-name: step1_risk
+name: step3_diabetes_risk_score_output
 description: Risk calculated for diabetes and hypertension screening
 priority: 1
 condition: "true"
@@ -15,7 +15,7 @@ actions:
         double family_history_coefficient = 0.604930794;
         double systolic_blood_pressure_coefficient = 0.002469807;
         double diastolic_blood_pressure_coefficient = 0.061461351;
-        double diabetes_risk_cutoff = 0.07624573;
+        double diabetes_risk_cutoff = 0.09175944;
         int family_history_value = (family_history != 'Family history of diabetes?' && family_history.contains('Yes'))  ? 1 : 0;
         double wc = waist_circumference != null && waist_circumference != '' ? Double.parseDouble(waist_circumference) : 0;
         double sbp = systolic_blood_pressure != null && systolic_blood_pressure != '' ? Double.parseDouble(systolic_blood_pressure) : 0;
@@ -28,34 +28,35 @@ actions:
           (age_diastolic_bp_coefficient * age * dbp) - calculation_intercept;
         double risk = Math.exp(linear) / (1 + Math.exp(linear));
         
-        if (risk > diabetes_risk_cutoff) {
-          risk_type = 'diabetes_risk';
-        } else if (sbp > 140 || dbp > 90) {
-          risk_type = 'hypertension_risk';
-        } else {
-          risk_type = 'no_risk';
-        }
-        
-        return risk_type;
+        return risk;
   }"
-  - "calculation = getDiabetesRisk(step1_age, step1_waist_circumference, step1_family_history_diabetes, step1_systolic_bp, step1_diastolic_bp)"
+  - "calculation = getDiabetesRisk(step3_age, step3_waist_circumference, step3_family_history_diabetes, step3_systolic_bp, step3_diastolic_bp)"
 
 ---
-name: step1_risk_present_toaster
+name: step4_risk_present_toaster
 description: Risk display text
 priority: 1
 condition: "true"
 actions:
-  - "def getDisplayText(risk_detected) {
+  - "def getDisplayText(risk_str, sbp_str, dbp_str) {
+        import java.lang.Double;
+        double risk = risk_str != null && !risk_str.isEmpty() ? Double.parseDouble(risk_str) : 0.0;
+        double sbp = sbp_str != null && !sbp_str.isEmpty() ? Double.parseDouble(sbp_str) : 0.0;
+        double dbp = dbp_str != null && !dbp_str.isEmpty() ? Double.parseDouble(dbp_str) : 0.0;
+        if (risk < 0 || sbp < 0 || dbp < 0) {
+          return 'Invalid input values';
+        }
+        double diabetes_risk_cutoff = 0.09175944;
         String condition = '';
-        if (risk_detected == 'diabetes_risk') {
-          condition = 'Diabetes';
-        } else if (risk_detected == 'hypertension_risk') {
-          condition = 'Hypertension';
+        if (risk >= diabetes_risk_cutoff && (sbp >= 140 || dbp >= 90)) {
+          condition = 'both diabetes and  hypertension';
+        } else if (risk >= diabetes_risk_cutoff) {
+          condition = 'diabetes';
+        } else if (sbp >= 140 || dbp >= 90) {
+          condition = 'hypertension';
         } else {
-          condition = 'Risk calculation not performed';
+          condition = 'no_risk';
         }
         return condition;
   }"
-  - "calculation = ['condition': getDisplayText(step1_risk)]"
-
+  - "calculation = ['condition': getDisplayText(step3_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"
