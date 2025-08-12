@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,9 +35,11 @@ import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -43,6 +47,8 @@ import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
+
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -99,22 +105,53 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startDiabetesRiskAssessment() {
         try {
-            int age = Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(FamilyOtherMemberProfileActivity.this, Constants.JsonForm.getDiabetesScreeningForm());
-
-
-            JSONArray field = fields(formJsonObject, "step1");
-            JSONObject ageField = getFieldJSONObject(field, "age");
-
-            if (ageField != null) {
-                ageField.put("value", age);
-            }
-            startFormActivity(formJsonObject);
-        } catch (JSONException e) {
-            Timber.e(e);
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
+                    FamilyOtherMemberProfileActivity.this,
+                    Constants.JsonForm.getDiabetesScreeningForm()
+            );
+            prepopulateDiabetesScreeningForm(formJsonObject);
+            assert formJsonObject != null;
+            startNcdFormActivity(formJsonObject);
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private void prepopulateDiabetesScreeningForm(JSONObject formJsonObject) throws JSONException {
+
+        int age = Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
+        Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
+
+        // Populate Client age
+        JSONArray step3Fields = fields(formJsonObject, "step3");
+        JSONObject ageField = getFieldJSONObject(step3Fields, "age");
+
+        if (ageField != null) {
+            ageField.put("value", age);
+        }
+
+        // Populate referral facilities
+        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
+
+    }
+
+
+    public void startNcdFormActivity(JSONObject jsonForm) {
+        Form form = new Form();
+        String formTitle = getString(R.string.diabetes_and_hypertension_screening_form_title);
+        form.setName(formTitle);
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setWizard(true);
+
+        Intent intent = new Intent(this, NcdFormWizardActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
