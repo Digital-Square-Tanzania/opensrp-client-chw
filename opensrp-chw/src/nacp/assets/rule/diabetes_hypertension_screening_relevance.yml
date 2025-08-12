@@ -1,35 +1,85 @@
 ---
-name: step1_risk
+name: step3_risk
 description: Risk calculated for diabetes and hypertension screening
 priority: 1
-condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
-            step1_age != '' && 
-            step1_waist_circumference != '' && 
-            step1_systolic_bp != '' && 
-            step1_diastolic_bp != ''"
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != ''"
 actions:
   - "isRelevant = true"
 
 ---
-name: step1_risk_present_toaster
+name: step4_risk_present_toaster
 description: Risk toaster for diabetes and hypertension screening
 priority: 1
-condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
-            step1_age != '' && 
-            step1_waist_circumference != '' && 
-            step1_systolic_bp != '' && 
-            step1_diastolic_bp != '' && step1_risk != 'no_risk'"
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            (step3_systolic_bp >= 140 || step3_diastolic_bp >= 90 || step3_diabetes_risk_score_output > 0.09175944)"
 actions:
   - "isRelevant = true"
 
 ---
-name: step1_no_risk_present_toaster
+name: step4_no_risk_present_toaster
 description: No risk toaster
 priority: 1
-condition: "step1_family_history_diabetes != 'Family history of diabetes?' && 
-            step1_age != '' && 
-            step1_waist_circumference != '' && 
-            step1_systolic_bp != '' && 
-            step1_diastolic_bp != '' && step1_risk == 'no_risk'"
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            step3_systolic_bp < 140 && step3_diastolic_bp < 90 && step3_diabetes_risk_score_output < 0.09175944"
+actions:
+  - "isRelevant = true"
+---
+name: step4_service_before_referral
+description: Service before referral relevancy
+priority: 1
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            (step3_systolic_bp >= 140 || step3_diastolic_bp >= 90 || step3_diabetes_risk_score_output > 0.09175944)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_chw_referral_hf
+description: Chw referral facility
+priority: 1
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            (step3_systolic_bp >= 140 || step3_diastolic_bp >= 90 || step3_diabetes_risk_score_output > 0.09175944)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_referral_appointment_date
+description: Referral appointment date
+priority: 1
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            (step3_systolic_bp >= 140 || step3_diastolic_bp >= 90 || step3_diabetes_risk_score_output > 0.09175944)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_save_n_refer
+description: Save and refer
+priority: 1
+condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+            step3_age != '' && 
+            step3_waist_circumference != '' && 
+            step3_systolic_bp != '' && 
+            step3_diastolic_bp != '' && 
+            (step3_systolic_bp >= 140 || step3_diastolic_bp >= 90 || step3_diabetes_risk_score_output > 0.09175944)"
 actions:
   - "isRelevant = true"
