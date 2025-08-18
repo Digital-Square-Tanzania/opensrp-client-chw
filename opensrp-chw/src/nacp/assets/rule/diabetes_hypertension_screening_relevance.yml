@@ -1,12 +1,80 @@
 ---
-name: step3_risk
+name: step2_diagnosed_diabetes
+description: Age relevance based on the pre-screening questions
+priority: 1
+condition: "step1_aggree_with_screening_procedure == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_family_history_diabetes
+description: Family history diabetes relevance based on the pre-screening questions
+priority: 1
+condition: "step2_diagnosed_diabetes == 'No' && 
+            step2_medicines_diabetes == 'No' && 
+            step2_screened_hypertension_12m == 'No' && 
+            step2_medicines_hypertension == 'No' && 
+            step2_screened_hypertension_last12m == 'No' &&
+            step2_routine_clinic_visits == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_waist_circumference
+description: WC relevance based on the pre-screening questions
+priority: 1
+condition: "step2_diagnosed_diabetes == 'No' && 
+            step2_medicines_diabetes == 'No' && 
+            step2_screened_hypertension_12m == 'No' && 
+            step2_medicines_hypertension == 'No' && 
+            step2_screened_hypertension_last12m == 'No' &&
+            step2_routine_clinic_visits == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_systolic_bp
+description: SBP relevance based on the pre-screening questions
+priority: 1
+condition: "step2_diagnosed_diabetes == 'No' && 
+            step2_medicines_diabetes == 'No' && 
+            step2_screened_hypertension_12m == 'No' && 
+            step2_medicines_hypertension == 'No' && 
+            step2_screened_hypertension_last12m == 'No' &&
+            step2_routine_clinic_visits == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_diastolic_bp
+description: DBP relevance based on the pre-screening questions
+priority: 1
+condition: "step2_diagnosed_diabetes == 'No' && 
+            step2_medicines_diabetes == 'No' && 
+            step2_screened_hypertension_12m == 'No' && 
+            step2_medicines_hypertension == 'No' && 
+            step2_screened_hypertension_last12m == 'No' &&
+            step2_routine_clinic_visits == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_diabetes_risk_score_output
 description: Risk calculated for diabetes and hypertension screening
 priority: 1
-condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+condition: "(step3_family_history_diabetes != 'Family history of diabetes?' && 
             step3_age != '' && 
             step3_waist_circumference != '' && 
             step3_systolic_bp != '' && 
-            step3_diastolic_bp != ''"
+            step3_diastolic_bp != '') || 
+            (step2_diagnosed_diabetes == 'No' && 
+            step2_medicines_diabetes == 'No' && 
+            step2_screened_hypertension_12m == 'No' && 
+            step2_medicines_hypertension == 'No' && 
+            step2_screened_hypertension_last12m == 'No' &&
+            step2_routine_clinic_visits == 'No')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_client_refused_assessment
+description: Risk toaster for diabetes and hypertension screening
+priority: 1
+condition: "step1_aggree_with_screening_procedure == 'No'"
 actions:
   - "isRelevant = true"
 
@@ -14,7 +82,8 @@ actions:
 name: step4_risk_present_toaster
 description: Risk toaster for diabetes and hypertension screening
 priority: 1
-condition: "step3_family_history_diabetes != 'Family history of diabetes?' && 
+condition: "step1_aggree_with_screening_procedure == 'Yes' &&
+            step3_family_history_diabetes != 'Family history of diabetes?' && 
             step3_age != '' && 
             step3_waist_circumference != '' && 
             step3_systolic_bp != '' && 

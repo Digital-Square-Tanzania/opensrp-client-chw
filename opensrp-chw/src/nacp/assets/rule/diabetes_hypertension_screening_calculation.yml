@@ -20,6 +20,7 @@ actions:
         double wc = waist_circumference != null && waist_circumference != '' ? Double.parseDouble(waist_circumference) : 0;
         double sbp = systolic_blood_pressure != null && systolic_blood_pressure != '' ? Double.parseDouble(systolic_blood_pressure) : 0;
         double dbp = diastolic_blood_pressure != null && diastolic_blood_pressure != '' ? Double.parseDouble(diastolic_blood_pressure) : 0;
+        age = age != null && age != '' ? Double.parseDouble(age) : 0;
         double linear = (age * age_coefficient) + 
           (family_history_value * family_history_coefficient) + 
           (waist_circumference_coefficient * wc) + 

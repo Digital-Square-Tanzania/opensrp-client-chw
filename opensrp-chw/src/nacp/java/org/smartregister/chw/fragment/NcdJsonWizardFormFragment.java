@@ -10,14 +10,13 @@ import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
-import org.apache.commons.collections.KeyValue;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.presenter.NcdJsonWizardFormFragmentPresenter;
-import org.smartregister.chw.referral.util.LocationUtils;
 
-import java.util.List;
-import java.util.Map;
+import timber.log.Timber;
 
 public class NcdJsonWizardFormFragment extends JsonWizardFormFragment {
 
@@ -31,17 +30,56 @@ public class NcdJsonWizardFormFragment extends JsonWizardFormFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            String stepName = getArguments().getString(JsonFormConstants.STEPNAME);
-            String medicineSelectedString = getArguments().getString("medicine_selected");
-            if (StringUtils.isNotBlank(medicineSelectedString) && "step4".equalsIgnoreCase(stepName)) {
-                JSONObject step = getStep(stepName);
-                Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
-                //checkForMedsDispensedAndModifyForm(step, selectedMeds);
-            }
-
-        }
         super.onViewCreated(view, savedInstanceState);
+    }
+
+/*    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getJsonApi().isPreviousPressed()) {
+            skipStepsOnNextPressed();
+        }
+    }*/
+
+    /**
+     * Skips blank by relevance steps when next is clicked on the json wizard forms.
+     */
+    public void skipStepsOnNextPressed() {
+        if (skipBlankSteps()) {
+            JSONObject formStep = getStep(getArguments().getString(JsonFormConstants.STEPNAME));
+            String next = formStep.optString(JsonFormConstants.NEXT, "");
+            if (StringUtils.isNotEmpty(next)) {
+                checkIfStepIsBlank(formStep);
+                if (shouldSkipStep()) {
+                    next();
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if a given step is blank due to relevance hidding all the widgets
+     *
+     * @param formStep {@link JSONObject}
+     */
+    private void checkIfStepIsBlank(JSONObject formStep) {
+        try {
+            if (formStep.has(JsonFormConstants.FIELDS)) {
+                JSONArray fields = formStep.getJSONArray(JsonFormConstants.FIELDS);
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject field = fields.getJSONObject(i);
+                    if (field.has(JsonFormConstants.TYPE) && !JsonFormConstants.HIDDEN.equals(field.getString(JsonFormConstants.TYPE))) {
+                        boolean isVisible = field.optBoolean(JsonFormConstants.IS_VISIBLE, true);
+                        if (isVisible) {
+                            setShouldSkipStep(false);
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, "%s --> checkIfStepIsBlank", this.getClass().getCanonicalName());
+        }
     }
 
     @Override

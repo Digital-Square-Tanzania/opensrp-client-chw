@@ -1,6 +1,7 @@
 {
   "count": "4",
   "encounter_type": "Diabetes and Hypertension Screening",
+  "skip_blank_steps": true,
   "entity_id": "",
   "metadata": {
     "start": {
@@ -73,8 +74,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
@@ -184,12 +185,19 @@
         "openmrs_entity_id": "diagnosed_diabetes",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -201,12 +209,18 @@
         "openmrs_entity_id": "medicines_diabetes",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -218,12 +232,18 @@
         "openmrs_entity_id": "screened_hypertension_12m",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -235,12 +255,18 @@
         "openmrs_entity_id": "medicines_hypertension",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -252,12 +278,18 @@
         "openmrs_entity_id": "screened_hypertension_last12m",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -269,12 +301,18 @@
         "openmrs_entity_id": "routine_clinic_visits",
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": true,
           "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step1:aggree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       }
     ]
@@ -290,7 +328,14 @@
         "read_only": true,
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
-        "openmrs_entity_parent": ""
+        "openmrs_entity_parent": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "family_history_diabetes",
@@ -305,8 +350,19 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -327,6 +383,17 @@
         "v_max": {
           "value": "300",
           "err": "The waist circumference can not be greater than 300"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -347,6 +414,17 @@
         "v_max": {
           "value": "320",
           "err": "Systolic value must be equal or less than 320"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -367,6 +445,17 @@
         "v_max": {
           "value": "200",
           "err": "Diastolic value must be equal or less than 200"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -374,13 +463,21 @@
         "type": "edit_text",
         "hint": "Patient risk",
         "read_only": true,
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "risk",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diabetes_risk_score_output",
+        "hidden": true,
         "openmrs_entity_parent": "",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
             }
           }
         }
@@ -399,6 +496,30 @@
         "text": "You may be at risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
         "text_color": "#000000",
         "toaster_type": "problem",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_refused_assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "This client does not consent on diabetes assessment, please proceed with the visit.",
+        "text_color": "#000000",
+        "toaster_type": "warning",
         "calculation": {
           "rules-engine": {
             "ex-rules": {

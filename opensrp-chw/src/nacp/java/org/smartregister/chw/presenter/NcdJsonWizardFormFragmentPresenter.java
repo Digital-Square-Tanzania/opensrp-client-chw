@@ -17,23 +17,25 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
     }
 
 
-    @Override
+/*    @Override
     public boolean onNextClick(LinearLayout mainView) {
         validateAndWriteValues();
         checkAndStopCountdownAlarm();
         boolean validateOnSubmit = validateOnSubmit();
         if (validateOnSubmit && getIncorrectlyFormattedFields().isEmpty()) {
-            return moveToNextWizardStep();
+            boolean isSkipped = this.executeRefreshLogicForNextStep();
+            return !isSkipped && moveToNextWizardStep();
         } else if (isFormValid()) {
-            return moveToNextWizardStep();
+            boolean isSkipped = this.executeRefreshLogicForNextStep();
+            return !isSkipped && moveToNextWizardStep();
         } else {
             getView().showSnackBar(getView().getContext().getResources()
                     .getString(com.vijay.jsonwizard.R.string.json_form_on_next_error_msg));
         }
         return false;
-    }
+    }*/
 
-    protected boolean moveToNextWizardStep() {
+/*    protected boolean moveToNextWizardStep() {
         String nextStep = this.getFormFragment().getJsonApi().nextStep();
         if ("step4".equals(nextStep)) {
             NcdJsonWizardFormFragment next = NcdJsonWizardFormFragment.getFormFragment(nextStep);
@@ -41,5 +43,5 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
             ((JsonFormFragmentView<?>)this.getView()).transactThis(next);
         }
         return super.moveToNextWizardStep();
-    }
+    }*/
 }
