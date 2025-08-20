@@ -47,6 +47,7 @@
     },
     "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Client consent",
     "next": "step2",
@@ -323,19 +324,10 @@
     "fields": [
       {
         "key": "age",
-        "type": "edit_text",
-        "hint": "Age",
-        "read_only": true,
-        "openmrs_entity": "person_attribute",
+        "type": "hidden",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "age",
-        "openmrs_entity_parent": "",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_hypertension_screening_relevance.yml"
-            }
-          }
-        }
+        "openmrs_entity_parent": ""
       },
       {
         "key": "family_history_diabetes",
@@ -457,7 +449,12 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step4": {
+    "title": "Facility Referral",
+    "fields": [
       {
         "key": "diabetes_risk_score_output",
         "type": "edit_text",
@@ -465,7 +462,6 @@
         "read_only": true,
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diabetes_risk_score_output",
-        "hidden": true,
         "openmrs_entity_parent": "",
         "calculation": {
           "rules-engine": {
@@ -473,20 +469,8 @@
               "rules-file": "diabetes_hypertension_screening_calculation.yml"
             }
           }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_hypertension_screening_relevance.yml"
-            }
-          }
         }
-      }
-    ]
-  },
-  "step4": {
-    "title": "Facility Referral",
-    "fields": [
+      },
       {
         "key": "risk_present_toaster",
         "openmrs_entity_parent": "",

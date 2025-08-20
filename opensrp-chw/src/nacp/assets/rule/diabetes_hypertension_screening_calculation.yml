@@ -1,37 +1,10 @@
 ---
-name: step3_diabetes_risk_score_output
+name: step4_diabetes_risk_score_output
 description: Risk calculated for diabetes and hypertension screening
 priority: 1
 condition: "true"
 actions:
-  - "def getDiabetesRisk(age, waist_circumference, family_history, systolic_blood_pressure, diastolic_blood_pressure) {
-        import java.lang.Double;
-        import java.lang.Math;
-        String risk_type = '';
-        double calculation_intercept = 12.092196283;
-        double age_diastolic_bp_coefficient = 0.001217652;
-        double age_coefficient = 0.122336374;
-        double waist_circumference_coefficient = 0.034389303;
-        double family_history_coefficient = 0.604930794;
-        double systolic_blood_pressure_coefficient = 0.002469807;
-        double diastolic_blood_pressure_coefficient = 0.061461351;
-        double diabetes_risk_cutoff = 0.09175944;
-        int family_history_value = (family_history != 'Family history of diabetes?' && family_history.contains('Yes'))  ? 1 : 0;
-        double wc = waist_circumference != null && waist_circumference != '' ? Double.parseDouble(waist_circumference) : 0;
-        double sbp = systolic_blood_pressure != null && systolic_blood_pressure != '' ? Double.parseDouble(systolic_blood_pressure) : 0;
-        double dbp = diastolic_blood_pressure != null && diastolic_blood_pressure != '' ? Double.parseDouble(diastolic_blood_pressure) : 0;
-        age = age != null && age != '' ? Double.parseDouble(age) : 0;
-        double linear = (age * age_coefficient) + 
-          (family_history_value * family_history_coefficient) + 
-          (waist_circumference_coefficient * wc) + 
-          (sbp * systolic_blood_pressure_coefficient) + 
-          (dbp * diastolic_blood_pressure_coefficient) - 
-          (age_diastolic_bp_coefficient * age * dbp) - calculation_intercept;
-        double risk = Math.exp(linear) / (1 + Math.exp(linear));
-        
-        return risk;
-  }"
-  - "calculation = getDiabetesRisk(step3_age, step3_waist_circumference, step3_family_history_diabetes, step3_systolic_bp, step3_diastolic_bp)"
+  - "calculation = helper.getDiabesityRiskScore(global_age, step3_family_history_diabetes, step3_waist_circumference, step3_systolic_bp, step3_diastolic_bp)"
 
 ---
 name: step4_risk_present_toaster
@@ -60,4 +33,4 @@ actions:
         }
         return condition;
   }"
-  - "calculation = ['condition': getDisplayText(step3_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"
+  - "calculation = ['condition': getDisplayText(step4_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"
