@@ -71,17 +71,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false)) >= 40) {
             this.layoutRecordNCDScreening = findViewById(R.id.record_visit_panel_container);
             this.layoutRecordNCDScreening.setVisibility(VISIBLE);
-            this.layoutRecordNCDScreening.setOnClickListener(v -> {
-                if (presenter() != null) {
-                    presenter().recordNCDScreening(commonPersonObject);
-                    try {
-                        JSONObject screeningForm = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JsonForm.getDiabetesScreeningForm());
-                        startFormActivity(screeningForm);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+            this.layoutRecordNCDScreening.setOnClickListener(v -> startDiabetesRiskAssessment());
         }
     }
 
@@ -130,6 +120,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (ageField != null) {
             ageField.put("value", age);
         }
+        formJsonObject.getJSONObject(JsonFormConstants.GLOBAL).put("age", age);
 
         // Populate referral facilities
         JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
@@ -145,8 +136,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         form.setWizard(true);
+        form.setHideNextButton(true);
 
-        Intent intent = new Intent(this, FamilyWizardFormActivity.class);
+        Intent intent = new Intent(this, NcdFormWizardActivity.class);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
