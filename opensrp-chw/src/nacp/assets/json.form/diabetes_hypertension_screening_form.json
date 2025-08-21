@@ -636,6 +636,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
         "key": "save_n_refer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -645,6 +653,25 @@
         "btn_bg_color": "#FF840952",
         "action": {
           "behaviour": "refer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "save",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "button",
+        "hint": "Save",
+        "btn_bg_color": "#3596c0",
+        "action": {
+          "behaviour": "save"
         },
         "relevance": {
           "rules-engine": {
