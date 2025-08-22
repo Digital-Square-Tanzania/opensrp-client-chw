@@ -137,6 +137,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         form.setWizard(true);
         form.setHideNextButton(true);
+        form.setHidePreviousButton(true);
+        form.setSaveLabel("");
+        form.setHideSaveLabel(true);
 
         Intent intent = new Intent(this, NcdFormWizardActivity.class);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());

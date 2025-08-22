@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.NcdJsonWizardFormFragmentPresenter;
 
 import timber.log.Timber;
@@ -85,5 +86,14 @@ public class NcdJsonWizardFormFragment extends JsonWizardFormFragment {
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
         return new NcdJsonWizardFormFragmentPresenter(this, JsonFormInteractor.getInstance());
+    }
+
+    @Override
+    public void updateVisibilityOfNextAndSave(boolean next, boolean save) {
+        super.updateVisibilityOfNextAndSave(next, save);
+        final String nextStep = getJsonApi().nextStep();
+        if ("step4".equals(nextStep)) {
+            getMenu().findItem(R.id.action_save).setVisible(false);
+        }
     }
 }
