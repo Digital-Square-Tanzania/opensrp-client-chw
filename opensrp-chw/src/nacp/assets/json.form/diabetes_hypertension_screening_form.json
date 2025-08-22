@@ -520,6 +520,30 @@
         }
       },
       {
+        "key": "prescreening_client_has_condition_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The prescreening shows that this client already has a condition advice the client on the importance of medicine adherence if they are using any medication and emphasize the importance of maintaining a good and health lifestyle for example keeping active and eating a balanced diet.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "no_risk_present_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
