@@ -3,10 +3,10 @@ package org.smartregister.chw.presenter;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
+import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
 import org.smartregister.chw.fragment.NcdJsonWizardFormFragment;
 
@@ -68,7 +68,11 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
                         for (int i = 0; i < fields.length(); i++) {
                             org.json.JSONObject field = fields.optJSONObject(i);
                             if (field != null) {
-                                field.remove("value");
+                                getView().writeValue(stepName, field.optString("key"), "",
+                                        field.optString("openmrs_entity_parent", ""),
+                                        field.optString("openmrs_entity", ""),
+                                        field.optString("openmrs_entity_id", ""),
+                                        field.optBoolean("popup", false));
                             }
                         }
                     }
@@ -80,6 +84,12 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
     }
 
     protected boolean moveToNextWizardStep() {
-        return super.moveToNextWizardStep();
+        final String nextStep = getFormFragment().getJsonApi().nextStep();
+        if (!"".equals(nextStep)) {
+            JsonFormFragment next = NcdJsonWizardFormFragment.getFormFragment(nextStep);
+            getView().hideKeyBoard();
+            getView().transactThis(next);
+        }
+        return false;
     }
 }
