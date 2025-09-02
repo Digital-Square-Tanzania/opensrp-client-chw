@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep1PopulationActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep2NutritionSourcesActionHelper;
+import org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.hps.contract.BaseHpsVisitContract;
@@ -102,7 +103,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Healthcare services, education, child and elder care centers")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Healthcare services, education, child and elder care centers", action);
@@ -113,7 +114,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Social services and economic activities")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Social services and economic activities", action);
@@ -124,7 +125,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Committee meetings & Traditional medicine")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Committee meetings & Traditional medicine", action);
@@ -135,7 +136,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Environmental and sanitation Inspection report")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Environmental and sanitation Inspection report", action);
@@ -146,7 +147,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Building Inspection Report")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Building Inspection Report", action);
@@ -157,7 +158,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Workplace Inspection Report")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Workplace Inspection Report", action);
@@ -168,7 +169,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Food and Beverage Inspection Report")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Food and Beverage Inspection Report", action);
@@ -179,7 +180,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Health Reports Affecting People in Workplaces")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Health Reports Affecting People in Workplaces", action);
@@ -190,7 +191,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Solid waste & waste collection equipments")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Solid waste & waste collection equipments", action);
@@ -201,7 +202,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         BaseHpsVisitAction action = getBuilder("Identification and Control of Insect Breeding Sites")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper())
+                .withHelper(new HpsSimpleFormActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put("Identification and Control of Insect Breeding Sites", action);
