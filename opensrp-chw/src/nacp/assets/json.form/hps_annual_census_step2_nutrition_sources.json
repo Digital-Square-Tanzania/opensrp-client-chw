@@ -1,0 +1,71 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "metadata": {
+    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "encounter_location": ""
+  },
+  "global": {
+    "household_max": ""
+  },
+  "step1": {
+    "title": "Number of household with basic nutrition source",
+    "fields": [
+      {
+        "key": "number_of_house_hold_with_basic_nutrition_source_vegetable",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_vegetable",
+        "hint": "Number of household with basic nutrition source(Vegetable garden)",
+        "type": "edit_text",
+        "v_required": {"value": "true", "err": "Please enter the correct answer"},
+        "v_numeric": {"value": "true", "err": ""},
+        "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
+        "v_max": {"value": "100000", "err": "Number must be five digits"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "constraints": [
+          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+        ]
+      },
+      {
+        "key": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
+        "hint": "Number of household with basic nutrition source(Fruit trees)",
+        "type": "edit_text",
+        "v_required": {"value": "true", "err": "Please enter the correct answer"},
+        "v_numeric": {"value": "true", "err": ""},
+        "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
+        "v_max": {"value": "100000", "err": "Number must be five digits"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "constraints": [
+          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+        ]
+      },
+      {
+        "key": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
+        "hint": "Number of household with basic nutrition source(Domestic animal)",
+        "type": "edit_text",
+        "v_required": {"value": "true", "err": "Please enter the correct answer"},
+        "v_numeric": {"value": "true", "err": ""},
+        "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
+        "v_max": {"value": "100000", "err": "Number must be five digits"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "constraints": [
+          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+        ]
+      }
+    ]
+  }
+}
+
