@@ -18,6 +18,20 @@
     "title": "Number of household with basic nutrition source",
     "fields": [
       {
+        "key": "household_max",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_households_with_basic_nutrition_source.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "number_of_house_hold_with_basic_nutrition_source_vegetable",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -30,7 +44,7 @@
         "v_max": {"value": "100000", "err": "Number must be five digits"},
         "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
         ]
       },
       {
@@ -46,7 +60,7 @@
         "v_max": {"value": "100000", "err": "Number must be five digits"},
         "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
         ]
       },
       {
@@ -62,7 +76,7 @@
         "v_max": {"value": "100000", "err": "Number must be five digits"},
         "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., global:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
         ]
       }
     ]
