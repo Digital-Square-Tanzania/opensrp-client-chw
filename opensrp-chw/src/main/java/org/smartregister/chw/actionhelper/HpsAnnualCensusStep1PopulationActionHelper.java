@@ -4,7 +4,7 @@ import android.content.Context;
 
 import org.json.JSONObject;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
-import org.smartregister.chw.kvp.domain.VisitDetail;
+import org.smartregister.chw.hps.domain.VisitDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class HpsAnnualCensusStep1PopulationActionHelper implements BaseHpsVisitA
     }
 
     @Override
-    public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<org.smartregister.chw.hps.domain.VisitDetail>> details) {
+    public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
         this.jsonPayload = jsonPayload;
     }
 
@@ -69,4 +69,3 @@ public class HpsAnnualCensusStep1PopulationActionHelper implements BaseHpsVisitA
     public void onPayloadReceived(BaseHpsVisitAction baseHpsVisitAction) { /* no-op */ }
 
 }
-

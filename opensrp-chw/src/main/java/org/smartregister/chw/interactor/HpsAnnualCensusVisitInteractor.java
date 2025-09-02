@@ -79,8 +79,11 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
     }
 
     private void evaluateStep2Nutrition(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+            // Defer adding step 2 until household count is known (after step 1)
+            return;
+        }
         HpsAnnualCensusStep2NutritionSourcesActionHelper actionHelper = new HpsAnnualCensusStep2NutritionSourcesActionHelper(householdCountValue);
-
 
         String formName = Utils.getLocalForm("hps_annual_census_step2_nutrition_sources", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
 
