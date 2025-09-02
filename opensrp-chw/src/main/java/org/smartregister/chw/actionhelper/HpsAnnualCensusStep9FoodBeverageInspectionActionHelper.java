@@ -7,7 +7,6 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
 
-import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;

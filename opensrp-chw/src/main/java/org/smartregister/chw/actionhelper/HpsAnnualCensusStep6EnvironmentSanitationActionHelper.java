@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
+import org.smartregister.client.utils.constants.JsonFormConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,13 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class HpsAnnualCensusStep6EnvironmentSanitationActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
-
+    private final String householdMax;
     private String jsonPayload;
     private String submittedPayload;
+
+    public HpsAnnualCensusStep6EnvironmentSanitationActionHelper(String householdMax) {
+        this.householdMax = householdMax;
+    }
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
@@ -24,7 +29,18 @@ public class HpsAnnualCensusStep6EnvironmentSanitationActionHelper implements Ba
 
     @Override
     public String getPreProcessed() {
-        return jsonPayload;
+        try {
+            if (jsonPayload == null) return null;
+            JSONObject json = new JSONObject(jsonPayload);
+            if (householdMax != null && !householdMax.trim().isEmpty()) {
+                json.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL)
+                        .put("household_max", householdMax);
+            }
+            return json.toString();
+        } catch (Exception e) {
+            Timber.e(e);
+            return jsonPayload;
+        }
     }
 
     @Override
@@ -104,4 +120,3 @@ public class HpsAnnualCensusStep6EnvironmentSanitationActionHelper implements Ba
     @Override
     public void onPayloadReceived(BaseHpsVisitAction baseHpsVisitAction) { /* no-op */ }
 }
-

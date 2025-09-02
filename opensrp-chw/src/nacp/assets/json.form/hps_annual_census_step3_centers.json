@@ -13,7 +13,7 @@
   },
   "global": {},
   "step1": {
-    "title": "SHealthcare services, education, child and elder care centers",
+    "title": "Healthcare services, education, child and elder care centers",
     "fields": [
       {
         "key": "select_centers_category",

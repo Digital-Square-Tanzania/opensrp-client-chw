@@ -9,7 +9,7 @@ Forms
 - Step 1: `json.form/hps_annual_census_step1_population.json`
 - Step 2: `json.form/hps_annual_census_step2_nutrition_sources.json`
 - Step 3: `json.form/hps_annual_census_step3_centers.json` / `json.form-sw/hps_annual_census_step3_centers.json`
-  - Title: EN "SHealthcare services, education, child and elder care centers" / SW "Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee"
+  - Title: EN "Healthcare services, education, child and elder care centers" / SW "Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee"
   - Extracted fields from aggregated step3; relevance preserved via `hps_annual_census.yml` rules; cross-step references normalized to `step1:` context where applicable.
 - Step 4: `json.form/hps_annual_census_step4_social_economic.json` / `json.form-sw/hps_annual_census_step4_social_economic.json`
   - Title: EN "Social services and economic activities" / SW "Vyanzo vinavyotumiwa zaidi na kaya"
