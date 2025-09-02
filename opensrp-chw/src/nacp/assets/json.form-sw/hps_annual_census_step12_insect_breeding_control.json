@@ -2,21 +2,499 @@
   "count": "1",
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
-  "metadata": {
-    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "encounter_location": ""
-  },
-  "global": {},
   "step1": {
-    "title": "Identification and Control of Insect Breeding Sites",
+    "title": "Utambuzi wa Mazalia ya Wadudu na Udhibiti",
     "fields": [
-      {"key": "placeholder_info", "type": "label", "text": "This step will be implemented as an action", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "placeholder_info"}
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_ponds",
+        "hint": "Idadi ya maeneo yaliyopuliziwa dawa (Madimbwi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_cans",
+        "hint": "Idadi ya maeneo yaliyopuliziwa dawa (Makopo)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_drums",
+        "hint": "Idadi ya maeneo yaliyopuliziwa dawa (Madebe)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_barrels",
+        "hint": "Idadi ya maeneo yaliyopuliziwa dawa (Mapipa)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_coconut_shells",
+        "hint": "Idadi ya maeneo yaliyopuliziwa dawa (Vifuu vya nazi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_ponds",
+        "hint": "Mara ngapi dawa imepuliziwa (Madimbwi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_cans",
+        "hint": "Mara ngapi dawa imepuliziwa (Makopo)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_drums",
+        "hint": "Mara ngapi dawa imepuliziwa (Madebe)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_barrels",
+        "hint": "Mara ngapi dawa imepuliziwa (Mapipa)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_coconut_shells",
+        "hint": "Mara ngapi dawa imepuliziwa (Vifuu vya nazi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_ponds",
+        "hint": "Aina ya viuatilifu vilivyotumika (Madimbwi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_cans",
+        "hint": "Aina ya viuatilifu vilivyotumika (Makopo)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_drums",
+        "hint": "Aina ya viuatilifu vilivyotumika (Madebe)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_barrels",
+        "hint": "Aina ya viuatilifu vilivyotumika (Mapipa)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_coconut_shells",
+        "hint": "Aina ya viuatilifu vilivyotumika (Vifuu vya nazi)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_ponds",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Madimbwi (Lt)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_cans",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Makopo (Lt)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_drums",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Madebe (Lt)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_barrels",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Mapipa (Lt)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_coconut_shells",
+        "hint": "Kiasi cha viuatilifu kilichotumika kwenye Vifuu vya nazi (Lt)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        }
+      }
     ]
   }
 }
-

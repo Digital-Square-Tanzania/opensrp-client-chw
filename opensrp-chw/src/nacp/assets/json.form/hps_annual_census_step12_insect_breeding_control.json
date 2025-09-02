@@ -2,21 +2,499 @@
   "count": "1",
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
-  "metadata": {
-    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "encounter_location": ""
-  },
-  "global": {},
   "step1": {
     "title": "Identification and Control of Insect Breeding Sites",
     "fields": [
-      {"key": "placeholder_info", "type": "label", "text": "This step will be implemented as an action", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "placeholder_info"}
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_ponds",
+        "hint": "Number of Areas Sprayed with Pesticides (Ponds)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_cans",
+        "hint": "Number of Areas Sprayed with Pesticides (Cans)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_drums",
+        "hint": "Number of Areas Sprayed with Pesticides (Drums)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_barrels",
+        "hint": "Number of Areas Sprayed with Pesticides (Barrels)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_areas_sprayed_with_pesticides_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_areas_sprayed_with_pesticides_coconut_shells",
+        "hint": "Number of Areas Sprayed with Pesticides (Coconut shells)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_ponds",
+        "hint": "Number of Times Spraying Was Done (Ponds)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_cans",
+        "hint": "Number of Times Spraying Was Done (Cans)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_drums",
+        "hint": "Number of Times Spraying Was Done (Drums)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_barrels",
+        "hint": "Number of Times Spraying Was Done (Barrels)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_times_spraying_was_done_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_times_spraying_was_done_coconut_shells",
+        "hint": "Number of Times Spraying Was Done (Coconut shells)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_ponds",
+        "hint": "Types of pesticides used (Ponds)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_cans",
+        "hint": "Types of pesticides used (Cans)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_drums",
+        "hint": "Types of pesticides used (Drums)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_barrels",
+        "hint": "Types of pesticides used (Barrels)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        }
+      },
+      {
+        "key": "types_of_pesticides_used_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "types_of_pesticides_used_coconut_shells",
+        "hint": "Types of pesticides used (Coconut shells)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_ponds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_ponds",
+        "hint": "Amount of pesticide used (Ponds)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_cans",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_cans",
+        "hint": "Amount of pesticide used (Cans)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_drums",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_drums",
+        "hint": "Amount of pesticide used (Drums)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_barrels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_barrels",
+        "hint": "Amount of pesticide used (Barrels)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        }
+      },
+      {
+        "key": "amount_of_pesticide_used_coconut_shells",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_pesticide_used_coconut_shells",
+        "hint": "Amount of pesticide used (Coconut shells)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        }
+      }
     ]
   }
 }
-

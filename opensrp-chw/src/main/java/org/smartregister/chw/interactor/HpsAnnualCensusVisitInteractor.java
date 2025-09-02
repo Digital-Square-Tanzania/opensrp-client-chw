@@ -3,6 +3,9 @@ package org.smartregister.chw.interactor;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep1PopulationActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep2NutritionSourcesActionHelper;
 import org.smartregister.chw.actionhelper.HpsSimpleFormActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep4SocialEconomicActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep3CentersActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep6EnvironmentSanitationActionHelper;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.hps.contract.BaseHpsVisitContract;
@@ -58,10 +61,14 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
     private void evaluateStep1Population(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
         HpsAnnualCensusStep1PopulationActionHelper actionHelper = new HpsAnnualCensusStep1PopulationActionHelper(households -> {
             householdCountValue = households;
-            // Recreate step 2 using the newly captured household value
+            // Recreate steps dependent on household value
             actionList.remove("Number of households with basic nutrition source");
+            actionList.remove("Social services and economic activities");
+            actionList.remove("Committee meetings & Traditional medicine");
             try {
                 evaluateStep2Nutrition(details);
+                evaluateStep4SocialEconomic(details);
+                evaluateStep5CommitteesTraditionalMedicine(details);
             } catch (BaseHpsVisitAction.ValidationException e) {
                 throw new RuntimeException(e);
             }
@@ -100,43 +107,52 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
 
     private void evaluateStep3Centers(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
         String formName = Utils.getLocalForm("hps_annual_census_step3_centers", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        BaseHpsVisitAction action = getBuilder("Healthcare services, education, child and elder care centers")
+        BaseHpsVisitAction action = getBuilder("SHealthcare services, education, child and elder care centers")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new HpsSimpleFormActionHelper())
+                .withHelper(new HpsAnnualCensusStep3CentersActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put("Healthcare services, education, child and elder care centers", action);
+        actionList.put("SHealthcare services, education, child and elder care centers", action);
     }
 
     private void evaluateStep4SocialEconomic(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+            return;
+        }
         String formName = Utils.getLocalForm("hps_annual_census_step4_social_economic", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
         BaseHpsVisitAction action = getBuilder("Social services and economic activities")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new HpsSimpleFormActionHelper())
+                .withHelper(new HpsAnnualCensusStep4SocialEconomicActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
         actionList.put("Social services and economic activities", action);
     }
 
     private void evaluateStep5CommitteesTraditionalMedicine(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+            return;
+        }
         String formName = Utils.getLocalForm("hps_annual_census_step5_committees_traditional_medicine", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
         BaseHpsVisitAction action = getBuilder("Committee meetings & Traditional medicine")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new HpsSimpleFormActionHelper())
+                .withHelper(new HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
         actionList.put("Committee meetings & Traditional medicine", action);
     }
 
     private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+            return;
+        }
         String formName = Utils.getLocalForm("hps_annual_census_step6_environment_sanitation", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
         BaseHpsVisitAction action = getBuilder("Environmental and sanitation Inspection report")
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new HpsSimpleFormActionHelper())
+                .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
         actionList.put("Environmental and sanitation Inspection report", action);

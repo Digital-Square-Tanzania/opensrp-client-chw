@@ -2,21 +2,478 @@
   "count": "1",
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
-  "metadata": {
-    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "encounter_location": ""
-  },
-  "global": {},
   "step1": {
-    "title": "Workplace Inspection Report",
+    "title": "Taarifa ya ukaguzi Sehemu ya Kazi",
     "fields": [
-      {"key": "placeholder_info", "type": "label", "text": "This step will be implemented as an action", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "placeholder_info"}
+      {
+        "key": "number_of_inspected_agriculture_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_agriculture_areas",
+        "hint": "Idadi ya maeneo ya kilimo yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_inspected_livestock_keeping_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_agriculture_areas",
+        "hint": "Idadi ya maeneo ya ufugaji yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_inspected_fishing_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_fishing_areas",
+        "hint": "Idadi ya maeneo ya uvuvi yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_inspected_industries_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_industries_areas",
+        "hint": "Idadi ya maeneo ya viwanda yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_inspected_offices_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_offices_areas",
+        "hint": "Idadi ya maeneo ya ofisi yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_inspected_transportation_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_transportation_areas",
+        "hint": "Idadi ya maeneo ya usafirishaji yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_other_inspected_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_inspected_areas",
+        "hint": "Idadi ya maeneo mengine yaliyokaguliwa",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_agriculture_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_agriculture_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya kilimo yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_agriculture_areas)",
+            "err": "must not be greater than number of inspected agriculture areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya ufugaji yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_livestock_keeping_areas)",
+            "err": "must not be greater than number of inspected livestock keeping areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_fishing_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_fishing_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya uvuvi yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_fishing_areas)",
+            "err": "must not be greater than number of inspected fishing areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_industries_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_industries_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya viwanda yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_industries_areas)",
+            "err": "must not be greater than number of inspected industries areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_offices_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_offices_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya ofisi yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_offices_areas)",
+            "err": "must not be greater than number of inspected offices areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_transportation_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_transportation_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo ya usafirishaji yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_transportation_areas)",
+            "err": "must not be greater than number of inspected transportation areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_other_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_areas_inspected_with_risk_indicators",
+        "hint": "Idadi ya maeneo mengine yaliyokaguliwa yenye viashiria vya hatari",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_other_inspected_areas)",
+            "err": "must not be greater than number of other inspected areas"
+          }
+        ]
+      }
     ]
   }
 }
-

@@ -2,21 +2,189 @@
   "count": "1",
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
-  "metadata": {
-    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "encounter_location": ""
-  },
-  "global": {},
   "step1": {
-    "title": "Health Reports Affecting People in Workplaces",
+    "title": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi",
     "fields": [
-      {"key": "placeholder_info", "type": "label", "text": "This step will be implemented as an action", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "placeholder_info"}
+      {
+        "key": "health_reports_affecting_people_in_workplaces_respiratory_diseases",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_respiratory_diseases",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Magonjwa ya njia ya hewa)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "health_reports_affecting_people_in_workplaces_toxic_chemicals",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_toxic_chemicals",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Kemikali zenye sumu)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "health_reports_affecting_people_in_workplaces_burns",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_burns",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Kuungua)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "health_reports_affecting_people_in_workplaces_hearing_loss",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_hearing_loss",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Kupoteza usikivu)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "health_reports_affecting_people_in_workplaces_eye_problems",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_eye_problems",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Matatizo ya macho)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "health_reports_affecting_people_in_workplaces_other_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_reports_affecting_people_in_workplaces_other_effects",
+        "hint": "Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi (Athari nyinginezo)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      }
     ]
   }
 }
-

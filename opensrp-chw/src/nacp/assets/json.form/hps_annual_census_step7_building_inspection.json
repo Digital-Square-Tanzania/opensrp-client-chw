@@ -2,21 +2,1081 @@
   "count": "1",
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
-  "metadata": {
-    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-    "encounter_location": ""
-  },
-  "global": {},
   "step1": {
     "title": "Building Inspection Report",
     "fields": [
-      {"key": "placeholder_info", "type": "label", "text": "This step will be implemented as an action", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "placeholder_info"}
+      {
+        "key": "number_of_food_shop_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_food_shop_visited",
+        "hint": "Number of food shop visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_restaurants_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_restaurants_visited",
+        "hint": "Number of restaurants visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_butcheries_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_butcheries_visited",
+        "hint": "Number of butcheries visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_bar_and_clubs_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_bar_and_clubs_visited",
+        "hint": "Number of Bar and clubs visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_guest_house_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_guest_house_visited",
+        "hint": "Number of guest house visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_local_food_vendors_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_local_food_vendors_visited",
+        "hint": "Number of local food vendors visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_markets_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_markets_visited",
+        "hint": "Number of Markets visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_public_toilets_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_public_toilets_visited",
+        "hint": "Number of public toilets visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_bus_stations_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_bus_stations_visited",
+        "hint": "Number of bus stations visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_primary_schools_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_primary_schools_visited",
+        "hint": "Number of primary schools visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_secondary_schools_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_secondary_schools_visited",
+        "hint": "Number of secondary schools visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_hospital_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_hospital_visited",
+        "hint": "Number of hospital visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_health_centers_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_health_centers_visited",
+        "hint": "Number of health centers visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_dispensaries_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_dispensaries_visited",
+        "hint": "Number of dispensaries visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_offices_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_offices_visited",
+        "hint": "Number of offices visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_universities_college_visited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_universities_college_visited",
+        "hint": "Number of universities/college visited",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_food_shop_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_food_shop_that_Met_the_Standards",
+        "hint": "Number of food shop that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_food_shop_visited)",
+            "err": "must not be greater than number of shops visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_restaurants_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_restaurants_that_Met_the_Standards",
+        "hint": "Number of restaurants that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_restaurants_visited)",
+            "err": "must not be greater than number of restaurants visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_butcheries_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_butcheries_that_Met_the_Standards",
+        "hint": "Number of butcheries that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_butcheries_visited)",
+            "err": "must not be greater than number of butcheries visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_bar_and_clubs_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_bar_and_clubs_that_Met_the_Standards",
+        "hint": "Number of Bar and clubs that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_bar_and_clubs_visited)",
+            "err": "must not be greater than number of bar and clubs visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_guest_house_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_guest_house_that_Met_the_Standards",
+        "hint": "Number of guest house that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_guest_house_visited)",
+            "err": "must not be greater than number of guest house visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_loca_food_vendors_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_loca_food_vendors_that_Met_the_Standards",
+        "hint": "Number of loca food vendors that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_local_food_vendors_visited)",
+            "err": "must not be greater than number of local food vendors visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_markets_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_markets_that_Met_the_Standards",
+        "hint": "Number of Markets that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_markets_visited)",
+            "err": "must not be greater than number of markets visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_public_toilets_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_public_toilets_that_Met_the_Standards",
+        "hint": "Number of public toilets that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_public_toilets_visited)",
+            "err": "must not be greater than number of public toilets visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_bus_stations_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_bus_stations_that_Met_the_Standards",
+        "hint": "Number of bus stations that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_bus_stations_visited)",
+            "err": "must not be greater than number of bus stations visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_primary_schools_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_primary_schools_that_Met_the_Standards",
+        "hint": "Number of primary schools that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_primary_schools_visited)",
+            "err": "must not be greater than number of primary schools visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_secondary_schools_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_secondary_schools_that_Met_the_Standards",
+        "hint": "Number of secondary schools that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_secondary_schools_visited)",
+            "err": "must not be greater than number of secondary schools visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_hospital_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_hospital_that_Met_the_Standards",
+        "hint": "Number of hospital that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_hospital_visited)",
+            "err": "must not be greater than number of hospital visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_health_centers_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_health_centers_that_Met_the_Standards",
+        "hint": "Number of health centers that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_health_centers_visited)",
+            "err": "must not be greater than number of health centers visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_dispensaries_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_dispensaries_that_Met_the_Standards",
+        "hint": "Number of dispensaries that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_dispensaries_visited)",
+            "err": "must not be greater than number of dispensaries visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_offices_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_offices_that_Met_the_Standards",
+        "hint": "Number of offices that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_offices_visited)",
+            "err": "must not be greater than number of offices visited"
+          }
+        ]
+      },
+      {
+        "key": "number_of_universities_college_that_Met_the_Standards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_universities_college_that_Met_the_Standards",
+        "hint": "Number of universities/college that met the standards",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_universities_college_visited)",
+            "err": "must not be greater than number of universities/college visited"
+          }
+        ]
+      }
     ]
   }
 }
-
