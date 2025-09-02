@@ -222,15 +222,10 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
             syncButton.setPadding(0, 0, 10, 0);
             syncButton.setImageDrawable(context().getDrawable(R.drawable.ic_add_white_24));
             syncButton.setOnClickListener(view -> {
-                JSONObject form;
                 try {
-                    form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireActivity(), Constants.FORMS.HPS_ANNUAL_CENSUS);
-                    if (form != null) {
-                        String randomId = generateRandomUUIDString();
-                        form.put(ENTITY_ID, randomId);
-                        requireActivity().startActivityForResult(getStartEditFormIntent(form, requireActivity().getString(R.string.hps_annual_census_register_title), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
-                    }
-                } catch (JSONException e) {
+                    String randomId = generateRandomUUIDString();
+                    org.smartregister.chw.activity.HpsAnnualCensusVisitActivity.startMe(requireActivity(), randomId, false);
+                } catch (Exception e) {
                     Timber.e(e);
                 }
             });
