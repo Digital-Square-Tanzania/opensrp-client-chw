@@ -16,8 +16,8 @@ import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.interactor.HpsAnnualCensusVisitInteractor;
 import org.smartregister.family.util.Utils;
 
-import java.util.LinkedHashMap;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,10 +58,40 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
 
     @Override
     public void initializeActions(LinkedHashMap<String, BaseHpsVisitAction> map) {
-        //Clearing the action List before recreation
-        actionList.clear();
+        // Maintain canonical order based on interactor step sequence
+        List<String> orderedKeys = Arrays.asList(
+                "Population",
+                "Number of households with basic nutrition source",
+                "Healthcare services, education, child and elder care centers",
+                "Social services and economic activities",
+                "Committee meetings & Traditional medicine",
+                "Environmental and sanitation Inspection report",
+                "Building Inspection Report",
+                "Workplace Inspection Report",
+                "Food and Beverage Inspection Report",
+                "Health Reports Affecting People in Workplaces",
+                "Solid waste & waste collection equipments",
+                "Identification and Control of Insect Breeding Sites"
+        );
 
-        actionList.putAll(map);
+        LinkedHashMap<String, BaseHpsVisitAction> ordered = new LinkedHashMap<>();
+        // First, add known actions in the defined order (skipping missing ones)
+        for (String key : orderedKeys) {
+            BaseHpsVisitAction action = map.get(key);
+            if (action != null) {
+                ordered.put(key, action);
+            }
+        }
+        // Then, append any remaining actions that may not be in the canonical list
+        for (Map.Entry<String, BaseHpsVisitAction> entry : map.entrySet()) {
+            if (!ordered.containsKey(entry.getKey())) {
+                ordered.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        // Clear and repopulate the UI action list in the computed order
+        actionList.clear();
+        actionList.putAll(ordered);
 
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
@@ -74,4 +104,3 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
         tvTitle.setText(R.string.annual_census);
     }
 }
-
