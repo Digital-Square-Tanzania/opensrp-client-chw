@@ -69,10 +69,19 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
             nameOfClient = itemView.findViewById(R.id.client_name);
             causeOfDeath = itemView.findViewById(R.id.cause_of_death);
 
+            // This card layout is shared; hide unrelated fields by default
             nameOfClient.setVisibility(View.GONE);
-            causeOfDeath.setVisibility(View.GONE);
 
+            // Year label
             dateOfDeath.setText(Html.fromHtml(context.getString(R.string.hps_annual_census_year, hpsAnnualCensusRegisterModel.getYear())));
+
+            // Show a small status line when the latest visit is incomplete/partially filled
+            if (hpsAnnualCensusRegisterModel.isIncomplete()) {
+                causeOfDeath.setVisibility(View.VISIBLE);
+                causeOfDeath.setText(context.getString(R.string.hps_annual_census_status_partial));
+            } else {
+                causeOfDeath.setVisibility(View.GONE);
+            }
 
             itemView.setOnClickListener(view -> HpsAnnualCensusRegistrationDetailsActivity.startMe(((Activity) context), hpsAnnualCensusRegisterModel.getBaseEntityId()));
         }

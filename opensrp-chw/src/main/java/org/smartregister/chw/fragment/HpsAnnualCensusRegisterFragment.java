@@ -2,7 +2,6 @@ package org.smartregister.chw.fragment;
 
 import static android.view.View.GONE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 import android.content.Context;
@@ -19,7 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -28,19 +26,17 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsAnnualCensusVisitActivity;
 import org.smartregister.chw.adapter.HpsAnnualCensusRegisterAdapter;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.interactor.HpsAnnualCensusRegisterInteractor;
 import org.smartregister.chw.hps.fragment.BaseHpsRegisterFragment;
 import org.smartregister.chw.hps.util.Constants;
+import org.smartregister.chw.interactor.HpsAnnualCensusRegisterInteractor;
 import org.smartregister.chw.model.HpsDeathRegisterFragmentModel;
 import org.smartregister.chw.presenter.HpsAnnualCensusRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;

@@ -804,5 +804,11 @@
     <string name="multiselect_msg_on_item_added">Imeongezwa</string>
     <string name="forgot_your_password">Je, umesahau nenosiri lako?</string>
 
+      <!-- HPS Annual Census register labels (Kiswahili) -->
+    <string name="hps_annual_census_register_title">Sensa ya Mwaka ya HPS</string>
+    <string name="hps_annual_census_year"><![CDATA[<b>Mwaka:</b> %1$s]]></string>
+    <string name="hps_annual_census_status_incomplete">Haijakamilika</string>
+    <string name="hps_annual_census_status_partial">Imejazwa sehemu</string>
+
 
 </resources>

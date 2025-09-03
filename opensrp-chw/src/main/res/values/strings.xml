@@ -156,6 +156,12 @@
     <string name="no">No</string>
     <string name="device_to_device_sync">Device-to-device Sync</string>
 
+    <!-- HPS Annual Census register labels -->
+    <string name="hps_annual_census_register_title">HPS Annual Census</string>
+    <string name="hps_annual_census_year"><![CDATA[<b>Year:</b> %1$s]]></string>
+    <string name="hps_annual_census_status_incomplete">Incomplete</string>
+    <string name="hps_annual_census_status_partial">Partially filled</string>
+
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
     <string name="home_visit_facility_referral">Referral to facility</string>

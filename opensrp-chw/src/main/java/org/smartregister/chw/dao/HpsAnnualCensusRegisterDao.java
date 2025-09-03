@@ -21,15 +21,25 @@ public class HpsAnnualCensusRegisterDao extends AbstractDao {
         // Using the literal to avoid cross-module compile issues if constants are relocated.
         final String EVENT_TYPE = "HPS Annual Census";
 
-        String sql = "SELECT base_entity_id, MAX(visit_date) AS latestEventDate " +
-                "FROM visits WHERE visit_type = '" + EVENT_TYPE + "' " +
-                "GROUP BY base_entity_id ORDER BY visit_date DESC";
+        // Pick the latest visit per base_entity_id (by visit_date, tie-broken by visit_id when possible),
+        // and surface its processed flag to determine incomplete/partial state on the register list.
+        String sql = "SELECT v.base_entity_id, v.visit_date AS latestEventDate, " +
+                "COALESCE(v.processed, 0) AS processed " +
+                "FROM visits v " +
+                "INNER JOIN (" +
+                "  SELECT base_entity_id, MAX(visit_date) AS max_date " +
+                "  FROM visits WHERE visit_type = '" + EVENT_TYPE + "' GROUP BY base_entity_id" +
+                ") mv ON mv.base_entity_id = v.base_entity_id AND mv.max_date = v.visit_date " +
+                "WHERE v.visit_type = '" + EVENT_TYPE + "' " +
+                "ORDER BY v.visit_date DESC";
 
         DataMap<HpsAnnualCensusListItem> dataMap = c -> {
             String baseEntityId = getCursorValue(c, "base_entity_id");
             String eventDateStr = getCursorValue(c, "latestEventDate");
             String year = deriveYear(eventDateStr);
-            return new HpsAnnualCensusListItem(baseEntityId, year);
+            int processed = getCursorIntValue(c, "processed");
+            boolean incomplete = processed == 0; // unprocessed implies partially saved / incomplete
+            return new HpsAnnualCensusListItem(baseEntityId, year, incomplete);
         };
 
         List<HpsAnnualCensusListItem> res = readData(sql, dataMap);
@@ -61,4 +71,3 @@ public class HpsAnnualCensusRegisterDao extends AbstractDao {
         return "";
     }
 }
-

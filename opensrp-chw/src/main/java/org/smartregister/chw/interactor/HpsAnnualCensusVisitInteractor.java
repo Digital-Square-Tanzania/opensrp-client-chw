@@ -280,7 +280,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
 //            processExternalVisits(visit, externalVisits, memberID);
         }
 
-        if (HpsLibrary.isSubmitOnSave() && visit != null && allActionsFullyFilled(map, parentEventType)) {
+        if (visit != null && allActionsFullyFilled(map, parentEventType)) {
             List<Visit> visits = new ArrayList<>(1);
             visits.add(visit);
             VisitUtils.processVisits(visits, HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository());
