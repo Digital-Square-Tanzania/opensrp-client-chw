@@ -28,8 +28,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsAnnualCensusVisitActivity;
 import org.smartregister.chw.adapter.HpsAnnualCensusRegisterAdapter;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.hps.dao.HpsDao;
-import org.smartregister.chw.hps.domain.HpsAnnualCensusRegisterModel;
+import org.smartregister.chw.interactor.HpsAnnualCensusRegisterInteractor;
 import org.smartregister.chw.hps.fragment.BaseHpsRegisterFragment;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.model.HpsDeathRegisterFragmentModel;
@@ -152,14 +151,17 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
 
 
     protected void setUpAdapter() {
-        List<HpsAnnualCensusRegisterModel> hpsAnnualCensusRegisters = HpsDao.getHpsAnnualCensusRegisters();
-        if (hpsAnnualCensusRegisters != null && !hpsAnnualCensusRegisters.isEmpty()) {
-            adapter = new HpsAnnualCensusRegisterAdapter(hpsAnnualCensusRegisters, requireActivity());
-            clientsView.setAdapter(adapter);
-            showEmptyState();
-        } else {
-            showEmptyState();
-        }
+        new HpsAnnualCensusRegisterInteractor().fetchItems(items -> {
+            if (items != null && !items.isEmpty()) {
+                adapter = new HpsAnnualCensusRegisterAdapter(items, requireActivity());
+                clientsView.setAdapter(adapter);
+                showEmptyState();
+            } else {
+                // Clear adapter to show empty state
+                clientsView.setAdapter(null);
+                showEmptyState();
+            }
+        });
     }
 
     protected void showEmptyState() {

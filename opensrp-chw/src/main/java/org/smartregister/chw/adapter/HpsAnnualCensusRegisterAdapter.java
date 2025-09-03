@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsAnnualCensusRegistrationDetailsActivity;
-import org.smartregister.chw.hps.domain.HpsAnnualCensusRegisterModel;
+import org.smartregister.chw.domain.HpsAnnualCensusListItem;
 
 import java.util.List;
 
@@ -25,10 +25,10 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
 
     private final Context context;
 
-    private final List<HpsAnnualCensusRegisterModel> hpsAnnualCensusRegisterModels;
+    private final List<HpsAnnualCensusListItem> hpsAnnualCensusRegisterModels;
 
 
-    public HpsAnnualCensusRegisterAdapter(List<HpsAnnualCensusRegisterModel> hpsAnnualCensusRegisterModels, Context context) {
+    public HpsAnnualCensusRegisterAdapter(List<HpsAnnualCensusListItem> hpsAnnualCensusRegisterModels, Context context) {
         this.hpsAnnualCensusRegisterModels = hpsAnnualCensusRegisterModels;
         this.context = context;
     }
@@ -42,7 +42,7 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
 
     @Override
     public void onBindViewHolder(@NonNull HpsAnnualCensusViewHolder holder, int position) {
-        HpsAnnualCensusRegisterModel hpsSessionModel = hpsAnnualCensusRegisterModels.get(position);
+        HpsAnnualCensusListItem hpsSessionModel = hpsAnnualCensusRegisterModels.get(position);
         holder.bindData(hpsSessionModel);
     }
 
@@ -64,7 +64,7 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
             this.context = context;
         }
 
-        public void bindData(HpsAnnualCensusRegisterModel hpsAnnualCensusRegisterModel) {
+        public void bindData(HpsAnnualCensusListItem hpsAnnualCensusRegisterModel) {
             dateOfDeath = itemView.findViewById(R.id.hps_death_date);
             nameOfClient = itemView.findViewById(R.id.client_name);
             causeOfDeath = itemView.findViewById(R.id.cause_of_death);

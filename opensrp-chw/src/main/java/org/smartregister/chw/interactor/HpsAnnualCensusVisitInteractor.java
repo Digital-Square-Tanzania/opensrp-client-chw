@@ -277,7 +277,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         Visit visit = saveVisit(editMode, memberID, type, combinedJsons, parentEventType);
         if (visit != null) {
             saveVisitDetails(visit, payloadType, payloadDetails);
-            processExternalVisits(visit, externalVisits, memberID);
+//            processExternalVisits(visit, externalVisits, memberID);
         }
 
         if (HpsLibrary.isSubmitOnSave() && visit != null && allActionsFullyFilled(map, parentEventType)) {
@@ -384,11 +384,11 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 if (visit != null) {
                     saveVisitDetails(visit, payloadType, payloadDetails);
                     // Do not process visits here; this is a partial auto-save only
-                    processExternalVisits(visit, externalVisits, memberID);
+//                    processExternalVisits(visit, externalVisits, memberID);
                 }
-                List<Visit> visits = new ArrayList<>(1);
-                visits.add(visit);
-                VisitUtils.processVisits(visits, HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository());
+//                List<Visit> visits = new ArrayList<>(1);
+//                visits.add(visit);
+//                VisitUtils.processVisits(visits, HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository());
 
             } catch (Exception e) {
                 Timber.e(e);
