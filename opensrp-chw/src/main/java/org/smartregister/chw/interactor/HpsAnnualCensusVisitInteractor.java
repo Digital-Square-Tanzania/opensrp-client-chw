@@ -1,25 +1,31 @@
 package org.smartregister.chw.interactor;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep10WorkplaceHealthReportsActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep11SolidWasteActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep12InsectBreedingControlActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep1PopulationActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep2NutritionSourcesActionHelper;
-import org.smartregister.chw.actionhelper.HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper;
-import org.smartregister.chw.actionhelper.HpsAnnualCensusStep4SocialEconomicActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep3CentersActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep4SocialEconomicActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep6EnvironmentSanitationActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep7BuildingInspectionActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep8WorkplaceInspectionActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep9FoodBeverageInspectionActionHelper;
-import org.smartregister.chw.actionhelper.HpsAnnualCensusStep10WorkplaceHealthReportsActionHelper;
-import org.smartregister.chw.actionhelper.HpsAnnualCensusStep11SolidWasteActionHelper;
-import org.smartregister.chw.actionhelper.HpsAnnualCensusStep12InsectBreedingControlActionHelper;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.hps.contract.BaseHpsVisitContract;
+import org.smartregister.chw.hps.domain.Visit;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.interactor.BaseHpsServiceVisitInteractor;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
 import org.smartregister.chw.hps.util.Constants;
+import org.smartregister.chw.hps.util.VisitUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -228,5 +234,58 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withFormName(formName)
                 .build();
         actionList.put("Identification and Control of Insect Breeding Sites", action);
+    }
+
+    @Override
+    protected String submitVisit(final boolean editMode,
+                                 final String memberID,
+                                 final Map<String,
+                                         BaseHpsVisitAction> map,
+                                 String parentEventType) throws Exception {
+        // create a map of the different types
+        Map<String, BaseHpsVisitAction> externalVisits = new HashMap<>();
+        Map<String, String> combinedJsons = new HashMap<>();
+        String payloadType = null;
+        String payloadDetails = null;
+
+        // aggregate forms to be processed
+        for (Map.Entry<String, BaseHpsVisitAction> entry : map.entrySet()) {
+            String json = entry.getValue().getJsonPayload();
+            if (StringUtils.isNotBlank(json)) {
+                // do not process events that are meant to be in detached mode
+                // in a similar manner to the the aggregated events
+                BaseHpsVisitAction action = entry.getValue();
+                BaseHpsVisitAction.ProcessingMode mode = action.getProcessingMode();
+
+                if (mode == BaseHpsVisitAction.ProcessingMode.SEPARATE && StringUtils.isBlank(parentEventType)) {
+                    externalVisits.put(entry.getKey(), entry.getValue());
+                } else {
+                    combinedJsons.put(entry.getKey(), json);
+                }
+
+                payloadType = action.getPayloadType().name();
+                payloadDetails = action.getPayloadDetails();
+            }
+        }
+
+        String type = getEncounterType();
+
+        // persist to database
+        Visit visit = saveVisit(editMode, memberID, type, combinedJsons, parentEventType);
+        if (visit != null) {
+            saveVisitDetails(visit, payloadType, payloadDetails);
+            processExternalVisits(visit, externalVisits, memberID);
+        }
+
+        if (HpsLibrary.isSubmitOnSave()) {
+            List<Visit> visits = new ArrayList<>(1);
+            visits.add(visit);
+            VisitUtils.processVisits(visits, HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository());
+        }
+        return visit.getJson();
+    }
+
+    protected String getEncounterType() {
+        return Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS;
     }
 }
