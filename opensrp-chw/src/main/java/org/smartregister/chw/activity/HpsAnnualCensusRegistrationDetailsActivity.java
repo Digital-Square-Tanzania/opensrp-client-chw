@@ -451,10 +451,11 @@ public class HpsAnnualCensusRegistrationDetailsActivity extends CoreAncMedicalHi
 
                     tvEdit.setOnClickListener(view1 -> {
                         Visit visit = visits.get(0);
-
                         if (visit.getBaseEntityId() != null) {
-                            startFormForEdit(R.string.hps_annual_census_register_title, Constants.FORMS.HPS_ANNUAL_CENSUS, visit.getBaseEntityId(), visit.getVisitId(), context);
-
+                            // Launch the action-based annual census visit in edit mode
+                            HpsAnnualCensusVisitActivity.startMe((Activity) context, visit.getBaseEntityId(), true);
+                            // Close details screen to focus on the edit flow
+                            ((Activity) context).finish();
                         }
                     });
 
