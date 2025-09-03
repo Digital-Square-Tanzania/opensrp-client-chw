@@ -24,6 +24,7 @@ import org.smartregister.chw.hps.model.BaseHpsVisitAction;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.hps.util.VisitUtils;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -277,7 +278,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
             processExternalVisits(visit, externalVisits, memberID);
         }
 
-        if (HpsLibrary.isSubmitOnSave()) {
+        if (HpsLibrary.isSubmitOnSave() && visit != null && allActionsFullyFilled(map, parentEventType)) {
             List<Visit> visits = new ArrayList<>(1);
             visits.add(visit);
             VisitUtils.processVisits(visits, HpsLibrary.getInstance().visitRepository(), HpsLibrary.getInstance().visitDetailsRepository());
@@ -287,5 +288,60 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
 
     protected String getEncounterType() {
         return Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS;
+    }
+
+    /**
+     * Determines if all actions that are part of the aggregated (non-SEPARATE) visit are fully filled.
+     *
+     * An action is considered fully filled when either:
+     * - It reports an action status of COMPLETED (via getActionStatus when available), or
+     * - It has a non-blank JSON payload (fallback for older implementations).
+     *
+     * Actions configured with ProcessingMode.SEPARATE are excluded from this check
+     * when this interactor is creating the parent aggregated event (i.e., parentEventType is blank),
+     * since they are submitted independently.
+     */
+    private boolean allActionsFullyFilled(Map<String, BaseHpsVisitAction> actions, String parentEventType) {
+        if (actions == null || actions.isEmpty()) return false;
+        try {
+            for (Map.Entry<String, BaseHpsVisitAction> entry : actions.entrySet()) {
+                BaseHpsVisitAction action = entry.getValue();
+
+                // Skip actions configured to be processed separately when we are at the parent level
+                BaseHpsVisitAction.ProcessingMode mode = action.getProcessingMode();
+                if (mode == BaseHpsVisitAction.ProcessingMode.SEPARATE && StringUtils.isBlank(parentEventType)) {
+                    continue;
+                }
+
+                if (!isActionFullyFilled(action)) return false;
+            }
+            return true;
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+    /**
+     * Attempts to determine if a single action is fully filled.
+     * Prefers a reflective call to getActionStatus() == COMPLETED when available, otherwise
+     * falls back to checking for a non-blank JSON payload.
+     */
+    private boolean isActionFullyFilled(BaseHpsVisitAction action) {
+        if (action == null) return false;
+        try {
+            // Prefer using status when the API is available
+            Method m = action.getClass().getMethod("getActionStatus");
+            Object status = m.invoke(action);
+            if (status != null && "COMPLETED".equalsIgnoreCase(String.valueOf(status))) {
+                return true;
+            }
+        } catch (Exception ignored) {
+            // Method not present or invocation failed; fall back to payload check
+        }
+
+        // Fallback: treat any non-blank payload as fully filled
+        String json = action.getJsonPayload();
+        return StringUtils.isNotBlank(json);
     }
 }
