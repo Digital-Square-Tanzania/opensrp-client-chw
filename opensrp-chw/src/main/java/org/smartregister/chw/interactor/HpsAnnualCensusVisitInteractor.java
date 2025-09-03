@@ -344,4 +344,50 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         String json = action.getJsonPayload();
         return StringUtils.isNotBlank(json);
     }
+
+    /**
+     * Partially saves the current visit state without processing it. Intended for auto-save after
+     * each action completes. This will update (edit) the ongoing visit for the encounter type.
+     */
+    public void autoSavePartial(final String memberID, final Map<String, BaseHpsVisitAction> map) {
+        final Runnable runnable = () -> {
+            try {
+                if (map == null || map.isEmpty()) return;
+
+                Map<String, BaseHpsVisitAction> externalVisits = new HashMap<>();
+                Map<String, String> combinedJsons = new HashMap<>();
+                String payloadType = null;
+                String payloadDetails = null;
+
+                for (Map.Entry<String, BaseHpsVisitAction> entry : map.entrySet()) {
+                    BaseHpsVisitAction action = entry.getValue();
+                    String json = action.getJsonPayload();
+                    if (StringUtils.isNotBlank(json)) {
+                        BaseHpsVisitAction.ProcessingMode mode = action.getProcessingMode();
+                        if (mode == BaseHpsVisitAction.ProcessingMode.SEPARATE) {
+                            externalVisits.put(entry.getKey(), action);
+                        } else {
+                            combinedJsons.put(entry.getKey(), json);
+                        }
+                        payloadType = action.getPayloadType().name();
+                        payloadDetails = action.getPayloadDetails();
+                    }
+                }
+
+                if (combinedJsons.isEmpty() && externalVisits.isEmpty()) return; // nothing to save
+
+                String type = getEncounterType();
+                // Use editMode=true to update an ongoing/partial visit if present
+                Visit visit = saveVisit(true, memberID, type, combinedJsons, null);
+                if (visit != null) {
+                    saveVisitDetails(visit, payloadType, payloadDetails);
+                    // Do not process visits here; this is a partial auto-save only
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
 }

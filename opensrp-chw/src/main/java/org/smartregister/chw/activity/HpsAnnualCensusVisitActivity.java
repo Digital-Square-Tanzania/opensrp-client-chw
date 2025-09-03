@@ -100,6 +100,15 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // After each form saves successfully, auto-save the partial visit state
+        if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            new HpsAnnualCensusVisitInteractor().autoSavePartial(memberObject.getBaseEntityId(), actionList);
+        }
+    }
+
+    @Override
     public void redrawHeader(MemberObject memberObject) {
         tvTitle.setText(R.string.annual_census);
     }
