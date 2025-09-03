@@ -10,7 +10,11 @@ Forms
 - Step 2: `json.form/hps_annual_census_step2_nutrition_sources.json`
 - Step 3: `json.form/hps_annual_census_step3_centers.json` / `json.form-sw/hps_annual_census_step3_centers.json`
   - Title: EN "Healthcare services, education, child and elder care centers" / SW "Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee"
-  - Extracted fields from aggregated step3; relevance preserved via `hps_annual_census.yml` rules; cross-step references normalized to `step1:` context where applicable.
+  - Extracted the entire `step3.fields` into a single-step layout (`step1`). Relevance preserved via rules-engine.
+  - New rules file: `src/nacp/assets/rule/hps_annual_census_centers.yml` (extracted from `hps_annual_census.yml`, only step3 rules).
+    - Normalized rule names and conditions from `step3_*`/`step3_select_centers_category` to `step1_*`/`step1_select_centers_category` to match the single-step context.
+    - Both EN and SW forms now reference `hps_annual_census_centers.yml`.
+  - Note: Step 3 has no cross-step constraints; only visibility rules based on `select_centers_category`.
 - Step 4: `json.form/hps_annual_census_step4_social_economic.json` / `json.form-sw/hps_annual_census_step4_social_economic.json`
   - Title: EN "Social services and economic activities" / SW "Vyanzo vinavyotumiwa zaidi na kaya"
   - Extracted all step4 fields; added hidden `step1.household_max` fed via rules from `global.household_max` and injected by helper; normalized constraints:
