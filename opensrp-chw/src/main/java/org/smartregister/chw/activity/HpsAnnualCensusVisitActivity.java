@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Action-based HPS Annual Census visit flow.
@@ -28,7 +29,15 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
 
     public static void startMe(Activity activity, String baseEntityID, Boolean isEditMode) {
         Intent intent = new Intent(activity, HpsAnnualCensusVisitActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+
+        if (baseEntityID == null)
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, UUID.randomUUID().toString());
+        else
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+
+        MemberObject memberToPass = new MemberObject();
+        memberToPass.setBaseEntityId(baseEntityID);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.MEMBER_PROFILE_OBJECT, memberToPass);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, isEditMode);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
@@ -104,7 +113,7 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // After each form saves successfully, auto-save the partial visit state
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
-            new HpsAnnualCensusVisitInteractor().autoSavePartial(memberObject.getBaseEntityId(), actionList);
+            new HpsAnnualCensusVisitInteractor().autoSavePartial(baseEntityID, actionList);
         }
     }
 

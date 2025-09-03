@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.HpsAnnualCensusVisitActivity;
 import org.smartregister.chw.adapter.HpsAnnualCensusRegisterAdapter;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -224,7 +225,7 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
             syncButton.setOnClickListener(view -> {
                 try {
                     String randomId = generateRandomUUIDString();
-                    org.smartregister.chw.activity.HpsAnnualCensusVisitActivity.startMe(requireActivity(), randomId, false);
+                    HpsAnnualCensusVisitActivity.startMe(requireActivity(), randomId, false);
                 } catch (Exception e) {
                     Timber.e(e);
                 }
