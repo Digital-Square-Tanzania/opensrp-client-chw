@@ -3,6 +3,7 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
 import org.smartregister.chw.hps.domain.VisitDetail;
 
@@ -39,7 +40,7 @@ public class HpsAnnualCensusStep1PopulationActionHelper implements BaseHpsVisitA
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            householdCountValue = org.smartregister.chw.core.utils.CoreJsonFormUtils.getValue(jsonObject, "number_of_house_hold");
+            householdCountValue = CoreJsonFormUtils.getValue(jsonObject, "number_of_house_hold");
             if (callback != null) callback.onHouseholdCountCaptured(householdCountValue);
         } catch (Exception e) {
             Timber.e(e);

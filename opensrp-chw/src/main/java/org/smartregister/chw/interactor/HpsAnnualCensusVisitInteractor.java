@@ -341,10 +341,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         } catch (Exception ignored) {
             // Method not present or invocation failed; fall back to payload check
         }
-
-        // Fallback: treat any non-blank payload as fully filled
-        String json = action.getJsonPayload();
-        return StringUtils.isNotBlank(json);
+        return false;
     }
 
     /**
