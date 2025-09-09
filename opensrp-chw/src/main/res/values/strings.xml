@@ -166,6 +166,10 @@
     <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
     <string name="ayp_group_type_label">Type: %1$s</string>
     <string name="ayp_group_age_band_label">Age-band: %1$s</string>
+    <string name="filter_by_group_type">Filter by group type</string>
+    <string name="filter_all">All</string>
+    <string name="filter_group_type_age_band">Age band</string>
+    <string name="filter_group_type_classes">Classes</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
