@@ -1,0 +1,193 @@
+{
+  "count": "1",
+  "encounter_type": "gbv_screening",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Screening for GBV",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "screening_for_gbv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screening_for_gbv",
+        "type": "native_radio",
+        "label": "Screening for GBV:",
+        "options": [
+          {
+            "key": "encountered_gbv",
+            "text": "Encountered GBV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "encountered_gbv"
+          },
+          {
+            "key": "did_not_encounter_gbv",
+            "text": "Did not encounter GBV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "did_not_encounter_gbv"
+          },
+          {
+            "key": "not_screened",
+            "text": "Not Screened",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_screened"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select a screening outcome"
+        }
+      },
+      {
+        "key": "post_gbv_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "post_gbv_services_provided",
+        "type": "check_box",
+        "label": "Post-GBV services provided:",
+        "options": [
+          {
+            "key": "counselling_services",
+            "text": "Counselling services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_services",
+            "value": false
+          },
+          {
+            "key": "first_aid",
+            "text": "First Aid",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid",
+            "value": false
+          },
+          {
+            "key": "other_services",
+            "text": "Other services (mention)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_gbv-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_services_mention",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_services_mention",
+        "type": "edit_text",
+        "hint": "Mention other services",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_gbv-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "post_gbv_referrals",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "post_gbv_referrals",
+        "type": "check_box",
+        "label": "Post-GBV referrals:",
+        "options": [
+          {
+            "key": "biomedical_services",
+            "text": "Biomedical services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "biomedical_services",
+            "value": false
+          },
+          {
+            "key": "legal_services",
+            "text": "Legal services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "legal_services",
+            "value": false
+          },
+          {
+            "key": "psychosocial_services",
+            "text": "Psychosocial services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychosocial_services",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_gbv-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+

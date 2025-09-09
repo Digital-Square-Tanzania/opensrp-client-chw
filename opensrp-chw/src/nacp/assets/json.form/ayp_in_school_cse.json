@@ -1,0 +1,269 @@
+{
+  "count": "1",
+  "encounter_type": "cse_conducted",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Comprehensive Sexual Education",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "cse_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cse_conducted",
+        "type": "native_radio",
+        "label": "Comprehensive Sexual Education Conducted?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select Yes or No"
+        }
+      },
+      {
+        "key": "topics_covered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "topics_covered",
+        "type": "check_box",
+        "label": "Comprehensive Sexuality Education Topics Covered:",
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        },
+        "options": [
+          {
+            "key": "friendship_and_relationship_building",
+            "text": "Friendship and relationship building",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "friendship_and_relationship_building",
+            "value": false
+          },
+          {
+            "key": "coping_with_change_during_puberty_and_adolescence",
+            "text": "Coping with change during puberty and adolescence",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "coping_with_change_during_puberty_and_adolescence",
+            "value": false
+          },
+          {
+            "key": "gender_equality",
+            "text": "Gender equality",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_equality",
+            "value": false
+          },
+          {
+            "key": "child_rights_protection",
+            "text": "Child rights protection",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_rights_protection",
+            "value": false
+          },
+          {
+            "key": "protection_of_youths_sexual_reproductive_health_and_rights",
+            "text": "Protection of Youths’ sexual reproductive health and rights",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "protection_of_youths_sexual_reproductive_health_and_rights",
+            "value": false
+          },
+          {
+            "key": "youths_sexual_reproductive_health_and_rights_education",
+            "text": "Youths’ sexual reproductive health and rights education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "youths_sexual_reproductive_health_and_rights_education",
+            "value": false
+          },
+          {
+            "key": "prevention_of_stis_stds",
+            "text": "Prevention of STIs/STDs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_of_stis_stds",
+            "value": false
+          },
+          {
+            "key": "prevention_against_hiv",
+            "text": "Prevention against HIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_against_hiv",
+            "value": false
+          },
+          {
+            "key": "infection",
+            "text": "Infection",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "infection",
+            "value": false
+          },
+          {
+            "key": "prevention_of_stigma_and_discrimination_against_plhiv",
+            "text": "Prevention of Stigma and Discrimination against PLHIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_of_stigma_and_discrimination_against_plhiv",
+            "value": false
+          },
+          {
+            "key": "hiv_prevention_services",
+            "text": "HIV prevention services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_prevention_services",
+            "value": false
+          },
+          {
+            "key": "care_and_support_to_plhiv",
+            "text": "Care and support to PLHIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "care_and_support_to_plhiv",
+            "value": false
+          },
+          {
+            "key": "life_skills_education",
+            "text": "Life skills education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills_education",
+            "value": false
+          },
+          {
+            "key": "prevention_against_drugs_and_alcohol_abuse",
+            "text": "Prevention against Drugs and alcohol abuse",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_against_drugs_and_alcohol_abuse",
+            "value": false
+          },
+          {
+            "key": "self_responsibility",
+            "text": "Self-responsibility",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "self_responsibility",
+            "value": false
+          },
+          {
+            "key": "abuse_of_internet_and_social_media",
+            "text": "Abuse of internet and social media",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "abuse_of_internet_and_social_media",
+            "value": false
+          },
+          {
+            "key": "self_respect_and_respect_for_others",
+            "text": "Self-respect and respect for others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "self_respect_and_respect_for_others",
+            "value": false
+          },
+          {
+            "key": "appropriate_use_of_strengths_among_boys",
+            "text": "Appropriate use of strengths among boys",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "appropriate_use_of_strengths_among_boys",
+            "value": false
+          },
+          {
+            "key": "use_of_respectful_language",
+            "text": "Use of respectful language",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "use_of_respectful_language",
+            "value": false
+          },
+          {
+            "key": "signing_of_pledge_cbim",
+            "text": "Signing of pledge (CBIM)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "signing_of_pledge_cbim",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_cse-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

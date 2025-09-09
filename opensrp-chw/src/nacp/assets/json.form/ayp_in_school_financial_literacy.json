@@ -1,0 +1,173 @@
+{
+  "count": "1",
+  "encounter_type": "financial_literacy",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Financial Literacy Education",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "financial_literacy_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "financial_literacy_conducted",
+        "type": "native_radio",
+        "label": "Financial literacy Education Conducted?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select Yes or No"
+        }
+      },
+      {
+        "key": "financial_literacy_topics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "financial_literacy_topics",
+        "type": "check_box",
+        "label": "Financial literacy Topics:",
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        },
+        "options": [
+          {
+            "key": "financial_basics",
+            "text": "Financial basics",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_basics",
+            "value": false
+          },
+          {
+            "key": "budget_planning",
+            "text": "Budget planning",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "budget_planning",
+            "value": false
+          },
+          {
+            "key": "savings",
+            "text": "Savings",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "savings",
+            "value": false
+          },
+          {
+            "key": "financial_influence_for_ayp",
+            "text": "Financial influence for AYP",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_influence_for_ayp",
+            "value": false
+          },
+          {
+            "key": "business_innovation",
+            "text": "Business innovation",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "business_innovation",
+            "value": false
+          },
+          {
+            "key": "skills_and_talent",
+            "text": "Skills and Talent",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skills_and_talent",
+            "value": false
+          },
+          {
+            "key": "investment",
+            "text": "Investment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "investment",
+            "value": false
+          },
+          {
+            "key": "importance_of_school_for_ayp",
+            "text": "Importance of school for AYP",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "importance_of_school_for_ayp",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_financial-literacy-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
