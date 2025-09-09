@@ -66,6 +66,12 @@
             android:name=".activity.HivstRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HivstProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

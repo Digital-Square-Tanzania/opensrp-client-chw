@@ -158,6 +158,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasAyp() {
+        return true;
+    }
+
+    @Override
     public boolean hasKvp() {
         return true;
     }

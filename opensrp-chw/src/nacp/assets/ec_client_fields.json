@@ -8919,6 +8919,137 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_ayp_in_school_enrollment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "enrollment_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "enrollment_status"
+          }
+        },
+        {
+          "column_name": "date_enrolled",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_enrolled"
+          }
+        },
+        {
+          "column_name": "uic_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic_number"
+          }
+        },
+        {
+          "column_name": "parent_guardian_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parent_guardian_name"
+          }
+        },
+        {
+          "column_name": "parent_guardian_phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parent_guardian_phone_number"
+          }
+        },
+        {
+          "column_name": "current_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "current_class"
+          }
+        },
+        {
+          "column_name": "current_primary_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "current_primary_class"
+          }
+        },
+        {
+          "column_name": "current_secondary_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "current_secondary_class"
+          }
+        },
+        {
+          "column_name": "previous_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "previous_class"
+          }
+        },
+        {
+          "column_name": "previous_primary_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "previous_primary_class"
+          }
+        },
+        {
+          "column_name": "previous_secondary_class",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "previous_secondary_class"
+          }
+        },
+        {
+          "column_name": "project_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "project_name"
+          }
+        },
+        {
+          "column_name": "project_name_other_mention",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "project_name_other_mention"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }

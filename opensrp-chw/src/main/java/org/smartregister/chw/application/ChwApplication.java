@@ -28,6 +28,7 @@ import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.AddoLinkageRegisterActivity;
 import org.smartregister.chw.activity.AgywRegisterActivity;
+import org.smartregister.chw.activity.AypRegisterActivity;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.AsrhRegisterActivity;
@@ -58,6 +59,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.asrh.AsrhLibrary;
 import org.smartregister.chw.cdp.CdpLibrary;
+import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.cecap.CecapLibrary;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -319,6 +321,10 @@ public class ChwApplication extends CoreChwApplication {
             HpsLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
+        if (flavor.hasAyp()) {
+            AypLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -411,6 +417,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_REGISTER_ACTIVITY, AypRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
@@ -609,6 +616,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasCecap();
 
         boolean hasADDO();
+
+        boolean hasAyp();
 
         String[] getFTSTables();
 

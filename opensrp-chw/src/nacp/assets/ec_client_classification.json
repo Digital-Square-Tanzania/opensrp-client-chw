@@ -819,6 +819,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "AYP In-school Enrollment",
+            "creates_case": [
+              "ec_ayp_in_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "HPS Client Enrollment",
             "creates_case": [
               "ec_hps_client_register"
