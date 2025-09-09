@@ -72,6 +72,9 @@
             android:name=".activity.AypInSchoolMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypInSchoolClientServiceVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HivstProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
