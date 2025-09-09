@@ -813,7 +813,17 @@
     <!-- AYP In-school Groups register labels -->
     <string name="ayp_in_school_groups_register_title">Vikundi vya AYP Shuleni</string>
     <string name="ayp_group_type_label">Aina: %1$s</string>
-    <string name="ayp_group_age_band_label">Umri: %1$s</string>
+    <string name="ayp_group_age_band_label">Kundi la umri: %1$s</string>
+    <string name="ayp_group_type_title">Aina:</string>
+    <string name="ayp_group_age_band_title">Kundi la umri:</string>
+    <!-- Localized values for group_type -->
+    <string name="ayp_group_type_age_band">Kundi la umri</string>
+    <string name="ayp_group_type_classes">Darasa</string>
+    <!-- Localized values for age_band keys (numbers remain the same) -->
+    <string name="ayp_age_band_age_10_14">10-14</string>
+    <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Enabling DREAMS)</string>
+    <string name="ayp_age_band_age_15_19">15-19</string>
+    <string name="ayp_age_band_age_20_24">20-24</string>
     <string name="filter_by_group_type">Chuja kwa aina ya kikundi</string>
     <string name="filter_all">Zote</string>
     <string name="filter_group_type_age_band">Vikundi vya umri</string>
