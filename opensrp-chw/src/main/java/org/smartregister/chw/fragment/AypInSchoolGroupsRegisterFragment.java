@@ -26,17 +26,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.AypInSchoolGroupsRegisterAdapter;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.ayp.model.BaseAypRegisterFragmentModel;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.fragment.CoreAypRegisterFragment;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AypInSchoolGroupsRegisterInteractor;
 import org.smartregister.chw.presenter.AypInSchoolGroupRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
-import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -51,6 +47,7 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
     protected LinearLayout emptyViewLayout;
     private android.view.View view;
     private AypInSchoolGroupsRegisterAdapter adapter;
+    private String currentGroupTypeFilter = null; // null = all; else 'age_band' | 'classes'
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
@@ -91,6 +88,7 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
 
         android.view.View topRightLayout = view.findViewById(org.smartregister.hivst.R.id.top_right_layout);
         topRightLayout.setVisibility(android.view.View.VISIBLE);
+        topRightLayout.setOnClickListener(v -> showGroupTypeFilterDialog());
 
         android.view.View sortFilterBarLayout = view.findViewById(org.smartregister.hivst.R.id.register_sort_filter_bar_layout);
         sortFilterBarLayout.setVisibility(GONE);
@@ -146,16 +144,30 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
     }
 
     protected void setUpAdapter() {
-        new AypInSchoolGroupsRegisterInteractor().fetchItems(items -> {
-            if (items != null && !items.isEmpty()) {
-                adapter = new AypInSchoolGroupsRegisterAdapter(items, requireActivity());
-                clientsView.setAdapter(adapter);
-                showEmptyState();
-            } else {
-                clientsView.setAdapter(null);
-                showEmptyState();
-            }
-        });
+        AypInSchoolGroupsRegisterInteractor interactor = new AypInSchoolGroupsRegisterInteractor();
+        if (currentGroupTypeFilter == null || currentGroupTypeFilter.isEmpty()) {
+            interactor.fetchItems(items -> {
+                if (items != null && !items.isEmpty()) {
+                    adapter = new AypInSchoolGroupsRegisterAdapter(items, requireActivity());
+                    clientsView.setAdapter(adapter);
+                    showEmptyState();
+                } else {
+                    clientsView.setAdapter(null);
+                    showEmptyState();
+                }
+            });
+        } else {
+            interactor.fetchItemsByType(currentGroupTypeFilter, items -> {
+                if (items != null && !items.isEmpty()) {
+                    adapter = new AypInSchoolGroupsRegisterAdapter(items, requireActivity());
+                    clientsView.setAdapter(adapter);
+                    showEmptyState();
+                } else {
+                    clientsView.setAdapter(null);
+                    showEmptyState();
+                }
+            });
+        }
     }
 
     protected void showEmptyState() {
@@ -243,5 +255,29 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         return intent;
     }
-}
 
+    private void showGroupTypeFilterDialog() {
+        try {
+            final String[] display = new String[]{
+                    getString(R.string.filter_all),
+                    getString(R.string.filter_group_type_age_band),
+                    getString(R.string.filter_group_type_classes)
+            };
+            final String[] values = new String[]{
+                    "",
+                    "age_band",
+                    "classes"
+            };
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.filter_by_group_type)
+                    .setItems(display, (dialog, which) -> {
+                        String val = values[which];
+                        currentGroupTypeFilter = (val == null || val.isEmpty()) ? null : val;
+                        setUpAdapter();
+                    })
+                    .show();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+}
