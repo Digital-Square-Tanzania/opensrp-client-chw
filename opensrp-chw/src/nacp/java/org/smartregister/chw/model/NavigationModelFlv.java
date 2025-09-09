@@ -52,7 +52,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op25 = new NavigationOption(R.drawable.hps_disactive, R.drawable.hps_active, R.string.hps, CoreConstants.DrawerMenu.HPS, 0);
 
             NavigationOption op26 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
-            NavigationOption op27 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_inschool, CoreConstants.DrawerMenu.AYP, 0);
+            NavigationOption op27 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_inschool, CoreConstants.DrawerMenu.AYP_IN_SCHOOL, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
