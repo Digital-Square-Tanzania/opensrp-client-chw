@@ -66,10 +66,10 @@
             android:name=".activity.HivstRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AypRegisterActivity"
+            android:name=".activity.AypInSchoolRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AypMemberProfileActivity"
+            android:name=".activity.AypInSchoolMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.HivstProfileActivity"

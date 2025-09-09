@@ -100,9 +100,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_MOBILIZATION:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS:
-                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.ayp_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT:
-                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.ayp_SERVICES:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_SERVICES:
                     if (eventClient.getEvent() == null) {
                         return;
                     }

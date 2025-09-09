@@ -109,7 +109,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         }
 
                         if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                            navigationOptions.add(op26);
+                            navigationOptions.add(op27);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op15));
@@ -140,7 +140,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op23);
                 }
                 if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                    navigationOptions.add(op26);
+                    navigationOptions.add(op27);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);

@@ -39,6 +39,7 @@ import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.dao.AsrhDao;
+import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
@@ -335,6 +336,11 @@ public class AllClientsUtils {
         // Handle Asrh menu items
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
+        }
+
+        // Handle AYP menu items
+        if (ChwApplication.getApplicationFlavor().hasAyp()) {
+            setMenuItemVisibility(menu, R.id.action_ayp_in_school_enrollment, !AypDao.isRegisteredForAypInSchoolServices(baseEntityId) && age >= 10 && age < 25);
         }
     }
 
