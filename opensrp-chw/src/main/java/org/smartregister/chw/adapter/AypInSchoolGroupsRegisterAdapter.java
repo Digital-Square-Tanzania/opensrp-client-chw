@@ -32,7 +32,7 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.hps_death_register_card_view, parent, false);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ayp_group_list, parent, false);
         return new ViewHolder(row, context);
     }
 
@@ -50,14 +50,12 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
         private final Context context;
         private TextView title;
         private TextView subtitle;
-        private TextView extra;
 
         ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             this.context = context;
-            title = itemView.findViewById(R.id.client_name);
-            subtitle = itemView.findViewById(R.id.hps_death_date);
-            extra = itemView.findViewById(R.id.cause_of_death);
+            title = itemView.findViewById(R.id.tvGroupName);
+            subtitle = itemView.findViewById(R.id.tvGroupMeta);
         }
 
         void bind(AypInSchoolGroupListItem item) {
@@ -87,9 +85,6 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
                 ssb.setSpan(new StyleSpan(Typeface.BOLD), start, start + ageBandValue.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             subtitle.setText(ssb);
-
-            // No extra line for now
-            extra.setVisibility(View.GONE);
 
             // Future: navigate to group profile screen when clicked
             itemView.setOnClickListener(v -> {
