@@ -162,6 +162,11 @@
     <string name="hps_annual_census_status_incomplete">Incomplete</string>
     <string name="hps_annual_census_status_partial">Partially filled</string>
 
+    <!-- AYP In-school Groups register labels -->
+    <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
+    <string name="ayp_group_type_label">Type: %1$s</string>
+    <string name="ayp_group_age_band_label">Age-band: %1$s</string>
+
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
     <string name="home_visit_facility_referral">Referral to facility</string>

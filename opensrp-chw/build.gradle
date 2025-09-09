@@ -253,7 +253,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '29'
+            buildConfigField "int", "DATABASE_VERSION", '30'
         }
     }
 

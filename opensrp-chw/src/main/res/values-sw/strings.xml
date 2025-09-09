@@ -810,5 +810,10 @@
     <string name="hps_annual_census_status_incomplete">Haijakamilika</string>
     <string name="hps_annual_census_status_partial">Imejazwa sehemu</string>
 
+    <!-- AYP In-school Groups register labels -->
+    <string name="ayp_in_school_groups_register_title">Vikundi vya AYP Shuleni</string>
+    <string name="ayp_group_type_label">Aina: %1$s</string>
+    <string name="ayp_group_age_band_label">Umri: %1$s</string>
+
 
 </resources>

@@ -121,6 +121,9 @@ public class ChwRepositoryFlv {
                 case 29:
                     upgradeToVersion29(db);
                     break;
+                case 30:
+                    upgradeToVersion30(db);
+                    break;
                 default:
                     break;
             }
@@ -534,6 +537,17 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");
+        }
+    }
+
+
+    private static void upgradeToVersion30(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion30");
         }
     }
 }
