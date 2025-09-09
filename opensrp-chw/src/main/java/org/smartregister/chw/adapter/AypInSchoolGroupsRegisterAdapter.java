@@ -2,6 +2,10 @@ package org.smartregister.chw.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,16 +65,28 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
             title.setVisibility(View.VISIBLE);
             title.setText(item.getGroupName() == null ? "" : item.getGroupName());
 
-            // Show group type and/or age band
-            StringBuilder sb = new StringBuilder();
-            if (item.getGroupType() != null && !item.getGroupType().isEmpty()) {
-                sb.append(context.getString(R.string.ayp_group_type_label, item.getGroupType()));
+            // Localize values and style with bold labels and age band value
+            String typeValue = localizeGroupType(item.getGroupType());
+            String ageBandValue = localizeAgeBand(item.getAgeBand());
+
+            SpannableStringBuilder ssb = new SpannableStringBuilder();
+            // Type: <value>
+            String typeLabel = context.getString(R.string.ayp_group_type_title);
+            ssb.append(typeLabel, new StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+               .append(" ")
+               .append(typeValue == null ? "" : typeValue)
+               .append("\n");
+
+            // Age-band: <value> (value bold)
+            String ageLabel = context.getString(R.string.ayp_group_age_band_title);
+            ssb.append(ageLabel, new StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+               .append(" ");
+            if (ageBandValue != null && !ageBandValue.isEmpty()) {
+                int start = ssb.length();
+                ssb.append(ageBandValue);
+                ssb.setSpan(new StyleSpan(Typeface.BOLD), start, start + ageBandValue.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            if (item.getAgeBand() != null && !item.getAgeBand().isEmpty()) {
-                if (sb.length() > 0) sb.append("  ");
-                sb.append(context.getString(R.string.ayp_group_age_band_label, item.getAgeBand()));
-            }
-            subtitle.setText(sb.toString());
+            subtitle.setText(ssb);
 
             // No extra line for now
             extra.setVisibility(View.GONE);
@@ -80,6 +96,33 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
                 // Placeholder: hook group profile activity if/when available
             });
         }
+
+        private String localizeGroupType(String raw) {
+            if (raw == null) return null;
+            switch (raw) {
+                case "age_band":
+                    return context.getString(R.string.ayp_group_type_age_band);
+                case "classes":
+                    return context.getString(R.string.ayp_group_type_classes);
+                default:
+                    return raw;
+            }
+        }
+
+        private String localizeAgeBand(String raw) {
+            if (raw == null) return null;
+            switch (raw) {
+                case "age_10_14":
+                    return context.getString(R.string.ayp_age_band_age_10_14);
+                case "age_10_19_enabling_dreams":
+                    return context.getString(R.string.ayp_age_band_age_10_19_enabling_dreams);
+                case "age_15_19":
+                    return context.getString(R.string.ayp_age_band_age_15_19);
+                case "age_20_24":
+                    return context.getString(R.string.ayp_age_band_age_20_24);
+                default:
+                    return raw;
+            }
+        }
     }
 }
-
