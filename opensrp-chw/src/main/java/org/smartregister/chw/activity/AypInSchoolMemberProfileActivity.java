@@ -23,11 +23,6 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
     @Override
-    public void startServiceForm() {
-
-    }
-
-    @Override
     public void continueService() {
 
     }
@@ -35,6 +30,16 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     @Override
     public void continueDischarge() {
 
+    }
+
+    @Override
+    public void openFollowupVisit() {
+        AypInSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
+    }
+
+    @Override
+    public void startServiceForm() {
+        AypInSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
 
