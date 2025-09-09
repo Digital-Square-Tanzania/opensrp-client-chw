@@ -21,5 +21,12 @@ public class AypInSchoolGroupsRegisterInteractor {
         };
         appExecutors.diskIO().execute(runnable);
     }
-}
 
+    public void fetchItemsByType(String groupType, Callback callback) {
+        Runnable runnable = () -> {
+            List<AypInSchoolGroupListItem> items = AypInSchoolGroupsRegisterDao.getGroupsByType(groupType);
+            appExecutors.mainThread().execute(() -> callback.onData(items));
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+}

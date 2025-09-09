@@ -16,7 +16,7 @@ public class AypInSchoolGroupRegisterFragmentPresenter extends BaseAypRegisterFr
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + ".is_closed = 0 ";
+        return " 1=1 ";
     }
 
 }

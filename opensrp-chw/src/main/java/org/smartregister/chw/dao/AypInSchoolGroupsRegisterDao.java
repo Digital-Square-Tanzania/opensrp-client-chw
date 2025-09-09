@@ -12,9 +12,17 @@ import java.util.List;
 public class AypInSchoolGroupsRegisterDao extends AbstractDao {
 
     public static List<AypInSchoolGroupListItem> getGroups() {
-        String sql = "SELECT base_entity_id, group_name, group_type, age_band " +
-                "FROM ec_ayp_in_school_group_details " +
-                "ORDER BY COALESCE(last_interacted_with, 0) DESC";
+        return getGroupsByType(null);
+    }
+
+    public static List<AypInSchoolGroupListItem> getGroupsByType(String groupType) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT base_entity_id, group_name, group_type, age_band FROM ec_ayp_in_school_group_details ");
+        if (groupType != null && !groupType.isEmpty()) {
+            sb.append("WHERE group_type = '" + groupType.replace("'", "''") + "' ");
+        }
+        sb.append("ORDER BY COALESCE(last_interacted_with, 0) DESC");
+        String sql = sb.toString();
 
         DataMap<AypInSchoolGroupListItem> dataMap = c -> new AypInSchoolGroupListItem(
                 getCursorValue(c, "base_entity_id"),
@@ -27,4 +35,3 @@ public class AypInSchoolGroupsRegisterDao extends AbstractDao {
         return res != null ? res : new ArrayList<>();
     }
 }
-
