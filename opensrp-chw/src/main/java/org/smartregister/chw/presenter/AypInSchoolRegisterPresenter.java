@@ -1,79 +1,31 @@
-package org.smartregister.chw.ayp.presenter;
+package org.smartregister.chw.presenter;
 
-import android.util.Log;
+import org.smartregister.chw.ayp.contract.AypRegisterFragmentContract;
+import org.smartregister.chw.ayp.presenter.BaseAypRegisterFragmentPresenter;
+import org.smartregister.chw.ayp.util.Constants;
+import org.smartregister.chw.ayp.util.DBConstants;
 
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
-import org.smartregister.chw.ayp.contract.AypRegisterContract;
-import org.smartregister.chw.ayp.R;
+public class AypInSchoolRegisterPresenter extends BaseAypRegisterFragmentPresenter {
 
-import java.lang.ref.WeakReference;
-import java.util.List;
+    public static final String TAG = AypInSchoolRegisterPresenter.class.getName();
 
-public class BaseAypRegisterPresenter implements AypRegisterContract.Presenter, AypRegisterContract.InteractorCallBack {
-
-    public static final String TAG = BaseAypRegisterPresenter.class.getName();
-
-    protected WeakReference<AypRegisterContract.View> viewReference;
-    private AypRegisterContract.Interactor interactor;
-    protected AypRegisterContract.Model model;
-
-    public BaseAypRegisterPresenter(AypRegisterContract.View view, AypRegisterContract.Model model, AypRegisterContract.Interactor interactor) {
-        viewReference = new WeakReference<>(view);
-        this.interactor = interactor;
-        this.model = model;
+    public AypInSchoolRegisterPresenter(AypRegisterFragmentContract.View view, AypRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+        super(view, model, viewConfigurationIdentifier);
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
-        if (StringUtils.isBlank(entityId)) {
-            return;
-        }
-
-        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId);
-        getView().startFormActivity(form);
+    public String getMainCondition() {
+        return " " + getMainTable() + ".is_closed = 0 ";
     }
 
     @Override
-    public void saveForm(String jsonString) {
-        try {
-            getView().showProgressDialog(R.string.saving_dialog_title);
-            interactor.saveRegistration(jsonString, this);
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+    public String getDefaultSortQuery() {
+        return getMainTable() + "." + DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 
     @Override
-    public void onRegistrationSaved() {
-        getView().hideProgressDialog();
-
+    public String getMainTable() {
+        return Constants.TABLES.AYP_IN_SCHOOL_ENROLLMENT;
     }
 
-    @Override
-    public void registerViewConfigurations(List<String> list) {
-//        implement
-    }
-
-    @Override
-    public void unregisterViewConfiguration(List<String> list) {
-//        implement
-    }
-
-    @Override
-    public void onDestroy(boolean b) {
-//        implement
-    }
-
-    @Override
-    public void updateInitials() {
-//        implement
-    }
-
-    private AypRegisterContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
-    }
 }
