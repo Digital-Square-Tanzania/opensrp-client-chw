@@ -1,0 +1,8 @@
+---
+name: step1_financial_literacy_topics
+description: Show topics when financial literacy education conducted is Yes
+priority: 1
+condition: "step1_financial_literacy_conducted == 'yes'"
+actions:
+  - "isRelevant = true"
+

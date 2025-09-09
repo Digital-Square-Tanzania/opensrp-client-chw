@@ -1,0 +1,56 @@
+---
+name: step1_education_subsidies
+description: Show subsidies list when education_subsidies_provided is Yes
+priority: 1
+condition: "step1_education_subsidies_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_exercise_books_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('exercise_books')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pens_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('pens')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pencils_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('pencils')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_school_bag_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('school_bag')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_school_uniform_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('school_uniform')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_school_shoes_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('school_shoes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_others_count
+description: Show count when option selected
+priority: 1
+condition: "step1_education_subsidies != null && step1_education_subsidies.contains('others')"
+actions:
+  - "isRelevant = true"

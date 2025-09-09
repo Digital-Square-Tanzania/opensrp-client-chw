@@ -1,0 +1,64 @@
+---
+name: step1_sanitary_kits
+description: Show kits list when sanitary_kits_provided is Yes
+priority: 1
+condition: "step1_sanitary_kits_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sanitary_pads_count
+description: Show count when sanitary_pads selected
+priority: 1
+condition: "step1_sanitary_kits != null && step1_sanitary_kits.contains('sanitary_pads')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_underwear_count
+description: Show count when underwear selected
+priority: 1
+condition: "step1_sanitary_kits != null && step1_sanitary_kits.contains('underwear')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sanitary_cloth_bag_count
+description: Show count when sanitary_cloth_bag selected
+priority: 1
+condition: "step1_sanitary_kits != null && step1_sanitary_kits.contains('sanitary_cloth_bag')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_user_guide_manual_count
+description: Show count when user_guide_manual selected
+priority: 1
+condition: "step1_sanitary_kits != null && step1_sanitary_kits.contains('user_guide_manual')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_witness_name
+description: Show witness field when kits provided
+priority: 1
+condition: "step1_sanitary_kits_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_parent_guardian_name
+description: Show parent/guardian name when kits provided
+priority: 1
+condition: "step1_sanitary_kits_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_parent_guardian_phone_number
+description: Show parent/guardian phone when kits provided
+priority: 1
+condition: "step1_sanitary_kits_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_teachers_name
+description: Show teacher name when kits provided
+priority: 1
+condition: "step1_sanitary_kits_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+

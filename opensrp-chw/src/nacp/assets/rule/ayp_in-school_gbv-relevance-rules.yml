@@ -1,0 +1,22 @@
+---
+name: step1_post_gbv_services_provided
+description: Show services when GBV encountered
+priority: 1
+condition: "step1_screening_for_gbv == 'encountered_gbv'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_services_mention
+description: Show other services mention when 'other_services' selected
+priority: 1
+condition: "step1_post_gbv_services_provided != null && step1_post_gbv_services_provided.contains('other_services')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_post_gbv_referrals
+description: Show referrals when GBV encountered
+priority: 1
+condition: "step1_screening_for_gbv == 'encountered_gbv'"
+actions:
+  - "isRelevant = true"
+
