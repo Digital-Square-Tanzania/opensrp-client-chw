@@ -3,14 +3,17 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.annotation.MenuRes;
 import androidx.fragment.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.activity.CoreAypRegisterActivity;
+import org.smartregister.chw.fragment.AypInSchoolGroupsRegisterFragment;
 import org.smartregister.chw.fragment.AypInSchoolRegisterFragment;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -31,7 +34,12 @@ public class AypInSchoolRegisterActivity extends CoreAypRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{};
+        return new Fragment[]{ new AypInSchoolGroupsRegisterFragment() };
+    }
+
+    @MenuRes
+    public int getMenuResource() {
+        return R.menu.bottom_nav_ayp_in_school;
     }
 
     @Override
@@ -45,4 +53,3 @@ public class AypInSchoolRegisterActivity extends CoreAypRegisterActivity {
         startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 }
-
