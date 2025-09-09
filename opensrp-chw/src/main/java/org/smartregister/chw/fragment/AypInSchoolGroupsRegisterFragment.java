@@ -7,6 +7,7 @@ import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 import android.content.Context;
 import android.content.Intent;
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -23,6 +25,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.AypInSchoolGroupsRegisterAdapter;
@@ -34,11 +37,20 @@ import org.smartregister.chw.interactor.AypInSchoolGroupsRegisterInteractor;
 import org.smartregister.chw.presenter.AypInSchoolGroupRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
 import org.smartregister.configurableviews.model.View;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
+import com.google.gson.Gson;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.chw.ayp.AypLibrary;
+import org.smartregister.chw.ayp.domain.Visit;
+import org.smartregister.chw.ayp.util.AypVisitsUtil;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
+import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import timber.log.Timber;
 
@@ -256,6 +268,47 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
         return intent;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            try {
+                String json = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                if (json == null) {
+                    json = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                }
+                if (json == null) return;
+
+                JSONObject form = new JSONObject(json);
+                String encounterType = form.optString("encounter_type", "");
+                if (!"group_details".equalsIgnoreCase(encounterType)) return;
+
+                // Build Event from the JSON form
+                AllSharedPreferences prefs = Utils.getAllSharedPreferences();
+                Event baseEvent = org.smartregister.chw.ayp.util.JsonFormUtils.processJsonForm(prefs, json, org.smartregister.chw.ayp.util.Constants.TABLES.AYP_IN_SCHOOL_GROUP_DETAILS);
+                if (baseEvent != null) {
+                    // Convert Event to a Visit for AYP processing
+                    Visit visit = new Visit();
+                    visit.setVisitId(UUID.randomUUID().toString());
+                    visit.setVisitType(encounterType);
+                    visit.setBaseEntityId(baseEvent.getBaseEntityId());
+                    Date now = new Date();
+                    visit.setDate(now);
+                    visit.setUpdatedAt(now);
+                    visit.setProcessed(false);
+                    visit.setPreProcessedJson(new Gson().toJson(baseEvent));
+
+                    AypLibrary.getInstance().visitRepository().addVisit(visit);
+                    // Immediately process this visit into an Event and trigger client processing
+                    AypVisitsUtil.manualProcessVisit(visit);
+                    setUpAdapter();
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+    }
+
     private void showGroupTypeFilterDialog() {
         try {
             final String[] display = new String[]{
@@ -268,7 +321,7 @@ public class AypInSchoolGroupsRegisterFragment extends CoreAypRegisterFragment {
                     "age_band",
                     "classes"
             };
-            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            new AlertDialog.Builder(requireContext())
                     .setTitle(R.string.filter_by_group_type)
                     .setItems(display, (dialog, which) -> {
                         String val = values[which];
