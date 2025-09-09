@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import org.smartregister.chw.ayp.dao.AypDao;
+import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
 
@@ -33,6 +35,12 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     @Override
     public void continueDischarge() {
 
+    }
+
+
+    @Override
+    protected MemberObject getMemberObject(String baseEntityId) {
+        return AypDao.getInSchoolMember(baseEntityId);
     }
 }
 
