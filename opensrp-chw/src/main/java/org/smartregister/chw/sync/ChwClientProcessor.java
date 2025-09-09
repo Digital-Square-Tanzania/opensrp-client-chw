@@ -18,6 +18,8 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.domain.AypInSchoolGroupDetails;
+import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
@@ -108,6 +110,15 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group details");
+                    }
                     break;
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     if (eventClient.getClient() == null) {
@@ -211,5 +222,40 @@ public class ChwClientProcessor extends CoreClientProcessor {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private void saveAypGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypInSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private String getObsStringValue(Event event, String field) {
+        try {
+            if (event == null || event.getObs() == null) return null;
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null ? o.getFormSubmissionField() : o.getFieldCode();
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null && !vals.isEmpty()) {
+                        Object v = vals.get(0);
+                        return v != null ? String.valueOf(v) : null;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
     }
 }
