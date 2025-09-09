@@ -1,0 +1,48 @@
+package org.smartregister.chw.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+
+import androidx.fragment.app.Fragment;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONObject;
+import org.smartregister.chw.ayp.util.Constants;
+import org.smartregister.chw.core.activity.CoreAypRegisterActivity;
+import org.smartregister.chw.fragment.AypInSchoolRegisterFragment;
+import org.smartregister.family.util.Utils;
+import org.smartregister.view.fragment.BaseRegisterFragment;
+
+public class AypInSchoolRegisterActivity extends CoreAypRegisterActivity {
+
+    public static void startRegistration(Activity activity, String baseEntityId) {
+        Intent intent = new Intent(activity, AypInSchoolRegisterActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.AYP_FORM_NAME, Constants.FORMS.AYP_IN_SCHOOL_ENROLLMENT);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new AypInSchoolRegisterFragment();
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[]{};
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Form form = new Form();
+        form.setWizard(false);
+
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
+    }
+}
+
