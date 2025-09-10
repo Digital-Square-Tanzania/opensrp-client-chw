@@ -86,9 +86,9 @@ public class AypInSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypIn
             }
             subtitle.setText(ssb);
 
-            // Future: navigate to group profile screen when clicked
+            // Navigate to group profile on click
             itemView.setOnClickListener(v -> {
-                // Placeholder: hook group profile activity if/when available
+                org.smartregister.chw.activity.AypInSchoolGroupProfileActivity.start(context, item.getBaseEntityId(), item.getGroupName());
             });
         }
 
