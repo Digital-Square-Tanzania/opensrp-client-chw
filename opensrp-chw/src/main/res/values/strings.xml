@@ -176,6 +176,7 @@
     <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Enabling DREAMS)</string>
     <string name="ayp_age_band_age_15_19">15-19</string>
     <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="id_label">ID: %1$s</string>
     <string name="filter_by_group_type">Filter by group type</string>
     <string name="filter_all">All</string>
     <string name="filter_group_type_age_band">Age band</string>
