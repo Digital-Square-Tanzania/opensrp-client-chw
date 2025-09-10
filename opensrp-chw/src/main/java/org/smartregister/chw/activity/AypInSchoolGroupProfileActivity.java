@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -15,6 +18,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
+import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.GroupObject;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
@@ -28,7 +32,11 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.FormActivity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity {
@@ -64,7 +72,45 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
 
     @Override
     public void onAddMember() {
-        // Optional: navigate to a member enrollment flow; left as no-op for now
+        try {
+            String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
+            String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
+            if (groupId == null) return;
+
+            // Members already in this group
+            List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
+            Set<String> existing = new HashSet<>();
+            for (Visit v : groupVisits) {
+                if (v.getBaseEntityId() != null) existing.add(v.getBaseEntityId());
+            }
+
+            // All in-school members
+            List<MemberObject> all = AypDao.getInSchoolMembers();
+            List<MemberObject> eligible = new ArrayList<>();
+            for (MemberObject m : all) {
+                if (!existing.contains(m.getBaseEntityId())) eligible.add(m);
+            }
+
+            if (eligible.isEmpty()) {
+                Toast.makeText(this, org.smartregister.chw.R.string.no, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Build selection list
+            List<String> labels = new ArrayList<>();
+            for (MemberObject m : eligible) {
+                String name = (m.getFirstName() + " " + (m.getMiddleName() != null ? m.getMiddleName() + " " : "") + m.getLastName()).trim();
+                labels.add(name);
+            }
+            final String[] items = labels.toArray(new String[0]);
+            new AlertDialog.Builder(this)
+                    .setTitle(org.smartregister.chw.R.string.add_eligible_child)
+                    .setItems(items, (dialog, which) -> {
+                        MemberObject selected = eligible.get(which);
+                        AypInSchoolGroupVisitActivity.startAypInSchoolGroupVisitActivity(this, selected.getBaseEntityId(), false, groupId, groupName);
+                    })
+                    .show();
+        } catch (Exception ignored) { }
     }
 
     @Override
