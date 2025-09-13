@@ -120,6 +120,15 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         Timber.e(e, "Error saving AYP group details");
                     }
                     break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group membership");
+                    }
+                    break;
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     if (eventClient.getClient() == null) {
                         return;
@@ -235,6 +244,26 @@ public class ChwClientProcessor extends CoreClientProcessor {
             record.setAgeBand(getObsStringValue(event, "age_band"));
             record.setLastInteractedWith(System.currentTimeMillis());
             new AypInSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            String groupId = event.getDetails() != null ? event.getDetails().get("group_id") : null;
+            String membersCsv = event.getDetails() != null ? event.getDetails().get("members") : null;
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = new java.util.ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new org.smartregister.chw.repository.AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
