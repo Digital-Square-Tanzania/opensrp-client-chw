@@ -252,8 +252,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
     private void saveAypGroupMembership(Event event) {
         try {
             if (event == null) return;
-            String groupId = event.getDetails() != null ? event.getDetails().get("group_id") : null;
-            String membersCsv = event.getDetails() != null ? event.getDetails().get("members") : null;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
             if (groupId == null || membersCsv == null) return;
             String providerId = event.getProviderId();
             java.util.List<String> ids = new java.util.ArrayList<>();
