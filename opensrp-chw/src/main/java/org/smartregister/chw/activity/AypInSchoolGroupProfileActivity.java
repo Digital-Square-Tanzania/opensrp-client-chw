@@ -5,6 +5,7 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.ayp.util.JsonFormUtils;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
@@ -96,20 +98,75 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
                 return;
             }
 
-            // Build selection list
-            List<String> labels = new ArrayList<>();
-            for (MemberObject m : eligible) {
+            // Build multi-choice selection list
+            final String[] items = new String[eligible.size()];
+            final boolean[] checked = new boolean[eligible.size()];
+            for (int i = 0; i < eligible.size(); i++) {
+                MemberObject m = eligible.get(i);
                 String name = (m.getFirstName() + " " + (m.getMiddleName() != null ? m.getMiddleName() + " " : "") + m.getLastName()).trim();
-                labels.add(name);
+                items[i] = name;
+                checked[i] = false;
             }
-            final String[] items = labels.toArray(new String[0]);
+
             new AlertDialog.Builder(this)
                     .setTitle(org.smartregister.chw.R.string.add_eligible_child)
-                    .setItems(items, (dialog, which) -> {
-                        MemberObject selected = eligible.get(which);
-                        AypInSchoolGroupVisitActivity.startAypInSchoolGroupVisitActivity(this, selected.getBaseEntityId(), false, groupId, groupName);
-                    })
+                    .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> saveMembershipByEvent(groupId, collectSelectedIds(eligible, checked)))
+                    .setNegativeButton(android.R.string.cancel, null)
                     .show();
+        } catch (Exception ignored) { }
+    }
+
+    private List<String> collectSelectedIds(List<MemberObject> eligible, boolean[] checked) {
+        List<String> ids = new ArrayList<>();
+        for (int i = 0; i < eligible.size(); i++) if (checked[i]) ids.add(eligible.get(i).getBaseEntityId());
+        return ids;
+    }
+
+    private void saveMembershipByEvent(String groupId, List<String> memberIds) {
+        try {
+            if (memberIds == null || memberIds.isEmpty()) return;
+            // Build Event tagged to groupId with membership list in details
+            Event baseEvent = JsonFormUtils.createUntaggedEvent(groupId,
+                    org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP,
+                    "ec_ayp_in_school_group_members");
+            JsonFormUtils.tagEvent(Utils.getAllSharedPreferences(), baseEvent);
+            baseEvent.addDetails("group_id", groupId);
+            baseEvent.addDetails("members", TextUtils.join(",", memberIds));
+
+            // Wrap in a Visit and process
+            Visit visit = new Visit();
+            visit.setVisitId(UUID.randomUUID().toString());
+            visit.setVisitType(org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP);
+            visit.setBaseEntityId(groupId);
+            Date now = new Date();
+            visit.setDate(now);
+            visit.setUpdatedAt(now);
+            visit.setProcessed(false);
+            visit.setPreProcessedJson(new Gson().toJson(baseEvent));
+            AypLibrary.getInstance().visitRepository().addVisit(visit);
+            AypVisitsUtil.manualProcessVisit(visit);
+
+            refreshMembersFromSources(groupId);
+        } catch (Exception ignored) { }
+    }
+
+    private void refreshMembersFromSources(String groupId) {
+        try {
+            // From visits
+            List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
+            Set<String> ids = new HashSet<>();
+            for (Visit v : groupVisits) if (v.getBaseEntityId() != null) ids.add(v.getBaseEntityId());
+            // From membership table
+            List<String> extra = new AypInSchoolGroupMembersRepository().getMemberIds(groupId);
+            ids.addAll(extra);
+            // Build MemberObjects
+            List<MemberObject> members = new ArrayList<>();
+            for (String id : ids) {
+                MemberObject m = AypDao.getInSchoolMember(id);
+                if (m != null) members.add(m);
+            }
+            renderMembers(members);
         } catch (Exception ignored) { }
     }
 
