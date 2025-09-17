@@ -18,6 +18,7 @@ import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
@@ -223,9 +224,9 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
         super.onGroupLoaded(groupObject);
         // Populate group name, type and age-band from repository
         try {
-            TextView tvName = findViewById(org.smartregister.chw.ayp.R.id.textview_group_name);
-            TextView tvType = findViewById(org.smartregister.chw.ayp.R.id.textview_group_type);
-            TextView tvAge = findViewById(org.smartregister.chw.ayp.R.id.textview_group_age_band);
+            TextView tvName = findViewById(R.id.textview_group_name);
+            TextView tvType = findViewById(R.id.textview_group_type);
+            TextView tvAge = findViewById(R.id.textview_group_age_band);
 
             String groupId = groupObject.getGroupId();
             AypInSchoolGroupDetailsRepository repo = new AypInSchoolGroupDetailsRepository();
