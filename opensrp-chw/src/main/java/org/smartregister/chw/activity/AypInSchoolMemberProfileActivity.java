@@ -20,6 +20,12 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
     @Override
+    protected void onCreation() {
+        super.onCreation();
+        refreshMedicalHistory(false);
+    }
+
+    @Override
     public void refreshMedicalHistory(boolean hasHistory) {
         boolean showLastVisit = hasHistory || getLatestFollowUpVisit() != null;
         rlLastVisit.setVisibility(showLastVisit ? View.VISIBLE : View.GONE);
