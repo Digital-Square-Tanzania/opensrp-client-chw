@@ -44,8 +44,13 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
 
     @Override
+    public void openMedicalHistory() {
+        AypInSchoolMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+
+    @Override
     protected MemberObject getMemberObject(String baseEntityId) {
         return AypDao.getInSchoolMember(baseEntityId);
     }
 }
-
