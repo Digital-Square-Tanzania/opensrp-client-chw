@@ -120,12 +120,14 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> saveMembershipByEvent(groupId, collectSelectedIds(eligible, checked)))
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     private List<String> collectSelectedIds(List<MemberObject> eligible, boolean[] checked) {
         List<String> ids = new ArrayList<>();
-        for (int i = 0; i < eligible.size(); i++) if (checked[i]) ids.add(eligible.get(i).getBaseEntityId());
+        for (int i = 0; i < eligible.size(); i++)
+            if (checked[i]) ids.add(eligible.get(i).getBaseEntityId());
         return ids;
     }
 
@@ -163,7 +165,8 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             // From visits
             List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
             Set<String> ids = new HashSet<>();
-            for (Visit v : groupVisits) if (v.getBaseEntityId() != null) ids.add(v.getBaseEntityId());
+            for (Visit v : groupVisits)
+                if (v.getBaseEntityId() != null) ids.add(v.getBaseEntityId());
             // From membership table
             List<String> extra = new AypInSchoolGroupMembersRepository().getMemberIds(groupId);
             ids.addAll(extra);
@@ -174,7 +177,8 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
                 if (m != null) members.add(m);
             }
             renderMembers(members);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -188,7 +192,8 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                if (jsonString == null) jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                if (jsonString == null)
+                    jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 if (jsonString == null) return;
 
                 // Convert form JSON to Event and process via AYP visit pipeline
@@ -232,26 +237,35 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
                 if (tvType != null) tvType.setText(localizeGroupType(rec.getGroupType()));
                 if (tvAge != null) tvAge.setText(localizeAgeBand(rec.getAgeBand()));
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     private String localizeGroupType(String raw) {
         if (raw == null) return null;
         switch (raw) {
-            case "age_band": return getString(org.smartregister.chw.R.string.ayp_group_type_age_band);
-            case "classes": return getString(org.smartregister.chw.R.string.ayp_group_type_classes);
-            default: return raw;
+            case "age_band":
+                return getString(org.smartregister.chw.R.string.ayp_group_type_age_band);
+            case "classes":
+                return getString(org.smartregister.chw.R.string.ayp_group_type_classes);
+            default:
+                return raw;
         }
     }
 
     private String localizeAgeBand(String raw) {
         if (raw == null) return null;
         switch (raw) {
-            case "age_10_14": return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_14);
-            case "age_10_19_enabling_dreams": return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_19_enabling_dreams);
-            case "age_15_19": return getString(org.smartregister.chw.R.string.ayp_age_band_age_15_19);
-            case "age_20_24": return getString(org.smartregister.chw.R.string.ayp_age_band_age_20_24);
-            default: return raw;
+            case "age_10_14":
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_14);
+            case "age_10_19_enabling_dreams":
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_19_enabling_dreams);
+            case "age_15_19":
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_15_19);
+            case "age_20_24":
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_20_24);
+            default:
+                return raw;
         }
     }
 }
