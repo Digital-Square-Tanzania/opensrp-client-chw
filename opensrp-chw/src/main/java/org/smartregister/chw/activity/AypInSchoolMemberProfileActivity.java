@@ -2,9 +2,12 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 
+import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
+import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
 
@@ -14,6 +17,16 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
         Intent intent = new Intent(activity, AypInSchoolMemberProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        boolean showLastVisit = hasHistory || getLatestFollowUpVisit() != null;
+        rlLastVisit.setVisibility(showLastVisit ? View.VISIBLE : View.GONE);
+    }
+
+    private Visit getLatestFollowUpVisit() {
+        return AypLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT);
     }
 
     @Override
