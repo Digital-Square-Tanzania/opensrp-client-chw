@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.toList;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 import android.app.Activity;
@@ -23,13 +24,16 @@ import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.GroupObject;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
+import org.smartregister.chw.ayp.util.AypJsonFormUtils;
 import org.smartregister.chw.ayp.util.AypVisitsUtil;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.ayp.util.JsonFormUtils;
+import org.smartregister.chw.ayp.util.NCUtils;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
 import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.FormActivity;
@@ -40,6 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import timber.log.Timber;
 
 public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity {
 
@@ -130,25 +136,26 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             Event baseEvent = JsonFormUtils.createUntaggedEvent(groupId,
                     org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP,
                     "ec_ayp_in_school_group_members");
+            baseEvent.setFormSubmissionId(AypJsonFormUtils.generateRandomUUIDString());
             JsonFormUtils.tagEvent(Utils.getAllSharedPreferences(), baseEvent);
-            baseEvent.addDetails("group_id", groupId);
-            baseEvent.addDetails("members", TextUtils.join(",", memberIds));
 
-            // Wrap in a Visit and process
-            Visit visit = new Visit();
-            visit.setVisitId(UUID.randomUUID().toString());
-            visit.setVisitType(org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP);
-            visit.setBaseEntityId(groupId);
-            Date now = new Date();
-            visit.setDate(now);
-            visit.setUpdatedAt(now);
-            visit.setProcessed(false);
-            visit.setPreProcessedJson(new Gson().toJson(baseEvent));
+            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(org.smartregister.chw.util.Utils.context().allSharedPreferences(), baseEvent);
+
+            baseEvent.addObs(new Obs("concept", "text", "group_id", "",
+                    toList(groupId), new ArrayList<>(), null, "group_id"));
+
+            baseEvent.addObs(new Obs("concept", "text", "members", "",
+                    toList(TextUtils.join(",", memberIds)), new ArrayList<>(), null, "members"));
+
+            Visit visit = NCUtils.eventToVisit(baseEvent, AypJsonFormUtils.generateRandomUUIDString());
+
             AypLibrary.getInstance().visitRepository().addVisit(visit);
             AypVisitsUtil.manualProcessVisit(visit);
 
             refreshMembersFromSources(groupId);
-        } catch (Exception ignored) { }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     private void refreshMembersFromSources(String groupId) {
