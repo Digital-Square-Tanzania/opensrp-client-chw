@@ -1,242 +1,101 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.BulletSpan;
+import android.text.style.StyleSpan;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.chw.R;
-import org.smartregister.chw.ayp.AypLibrary;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.ayp.domain.MemberObject;
-import org.smartregister.chw.ayp.domain.Visit;
-import org.smartregister.chw.ayp.domain.VisitDetail;
-import org.smartregister.chw.ayp.repository.VisitDetailsRepository;
-import org.smartregister.chw.ayp.repository.VisitRepository;
-import org.smartregister.chw.ayp.util.AppExecutors;
 import org.smartregister.chw.ayp.util.Constants;
-import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
+import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.interactor.AypInSchoolMedicalHistoryInteractor;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
+import java.util.Map;
 
 import timber.log.Timber;
 
-public class AypInSchoolMedicalHistoryActivity extends AppCompatActivity {
+public class AypInSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
 
     private static MemberObject memberProfile;
 
-    private final AppExecutors appExecutors = new AppExecutors();
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    private final Flavor flavor = new AypInSchoolMedicalHistoryActivityFlv();
 
     private ProgressBar progressBar;
-    private LinearLayout historyContainer;
-    private TextView emptyStateView;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
-        memberProfile = memberObject;
         Intent intent = new Intent(activity, AypInSchoolMedicalHistoryActivity.class);
+        memberProfile = memberObject;
         activity.startActivity(intent);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(org.smartregister.chw.opensrp_chw_anc.R.layout.activity_base_anc_medical_history);
+    public void initializePresenter() {
+        if (memberProfile == null) {
+            Timber.w("AypInSchoolMedicalHistoryActivity launched without a member profile");
+            return;
+        }
+        presenter = new BaseAncMedicalHistoryPresenter(new AypInSchoolMedicalHistoryInteractor(), this, memberProfile.getBaseEntityId());
+    }
+
+    @Override
+    public void setUpView() {
         if (memberProfile == null) {
             Timber.w("AypInSchoolMedicalHistoryActivity launched without a member profile");
             finish();
             return;
         }
-        setupToolbar();
-        initialiseViews();
-        loadHistory();
-    }
-
-    private void setupToolbar() {
-        Toolbar toolbar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.collapsing_toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        toolbar.setNavigationOnClickListener(v -> finish());
-
-        TextView title = toolbar.findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        String displayName = !TextUtils.isEmpty(memberProfile.getFullName())
-                ? memberProfile.getFullName()
-                : getString(R.string.ayp_client);
-        title.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, displayName));
-    }
-
-    private void initialiseViews() {
-        TextView header = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.medical_history);
-        header.setText(R.string.ayp_visit_history);
+        linearLayout = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.linearLayoutMedicalHistory);
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
-        historyContainer = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.linearLayoutMedicalHistory);
-        emptyStateView = buildEmptyStateView();
+
+        TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
+        String displayName = StringUtils.isNotBlank(memberProfile.getFullName()) ? memberProfile.getFullName() : getString(R.string.ayp_client);
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, displayName));
+
+        ((TextView) findViewById(R.id.medical_history)).setText(R.string.ayp_visit_history);
     }
 
-    private TextView buildEmptyStateView() {
-        CustomFontTextView textView = new CustomFontTextView(this);
-        textView.setText(R.string.ayp_visit_history_empty);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        int verticalPadding = dpToPx(24);
-        int horizontalPadding = dpToPx(20);
-        textView.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.medical_sub_text_inner));
-        return textView;
+    @Override
+    public View renderView(List<Visit> visits) {
+        super.renderView(visits);
+        View view = flavor.bindViews(this);
+        displayLoadingState(true);
+        flavor.processViewData(visits, this);
+        displayLoadingState(false);
+        TextView visitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
+        visitTitle.setText(R.string.ayp_visit);
+        return view;
     }
 
-    private void loadHistory() {
-        progressBar.setVisibility(View.VISIBLE);
-        historyContainer.removeAllViews();
-        appExecutors.diskIO().execute(() -> {
-            List<VisitDisplay> items = fetchVisitHistory();
-            appExecutors.mainThread().execute(() -> {
-                progressBar.setVisibility(View.GONE);
-                renderHistory(items);
-            });
-        });
-    }
-
-    private List<VisitDisplay> fetchVisitHistory() {
-        List<VisitDisplay> results = new ArrayList<>();
-        try {
-            AypLibrary library = AypLibrary.getInstance();
-            if (library == null) {
-                Timber.w("AypLibrary instance not initialised when loading medical history");
-                return results;
-            }
-            VisitRepository visitRepository = library.visitRepository();
-            VisitDetailsRepository detailsRepository = library.visitDetailsRepository();
-
-            List<Visit> combined = new ArrayList<>();
-            List<Visit> serviceVisits = visitRepository.getVisits(memberProfile.getBaseEntityId(), Constants.EVENT_TYPE.AYP_SERVICES);
-            if (serviceVisits != null) {
-                combined.addAll(serviceVisits);
-            }
-            List<Visit> followUpVisits = visitRepository.getVisits(memberProfile.getBaseEntityId(), Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT);
-            if (followUpVisits != null) {
-                combined.addAll(followUpVisits);
-            }
-            Collections.sort(combined, (first, second) -> compareVisitsByDate(second, first));
-
-            for (Visit visit : combined) {
-                List<VisitDetail> details = detailsRepository.getVisits(visit.getVisitId());
-                results.add(new VisitDisplay(visit, extractDetailLines(details)));
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return results;
-    }
-
-    private int compareVisitsByDate(Visit newer, Visit older) {
-        Date newerDate = newer != null ? newer.getDate() : null;
-        Date olderDate = older != null ? older.getDate() : null;
-        if (newerDate == null && newer != null) {
-            newerDate = newer.getUpdatedAt();
-        }
-        if (olderDate == null && older != null) {
-            olderDate = older.getUpdatedAt();
-        }
-
-        if (newerDate == null && olderDate == null) {
-            return 0;
-        }
-        if (newerDate == null) {
-            return -1;
-        }
-        if (olderDate == null) {
-            return 1;
-        }
-        return newerDate.compareTo(olderDate);
-    }
-
-    private List<String> extractDetailLines(List<VisitDetail> details) {
-        Set<String> lines = new LinkedHashSet<>();
-        if (details != null) {
-            for (VisitDetail detail : details) {
-                String value = detail.getHumanReadable();
-                if (TextUtils.isEmpty(value)) {
-                    value = detail.getDetails();
-                }
-                if (!TextUtils.isEmpty(value)) {
-                    lines.add(value.trim());
-                }
-            }
-        }
-        return new ArrayList<>(lines);
-    }
-
-    private void renderHistory(List<VisitDisplay> items) {
-        historyContainer.removeAllViews();
-        if (items.isEmpty()) {
-            historyContainer.addView(emptyStateView);
-            return;
-        }
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        for (VisitDisplay item : items) {
-            View visitView = inflater.inflate(R.layout.medical_history_visit, historyContainer, false);
-
-            TextView titleView = visitView.findViewById(R.id.title);
-            titleView.setText(formatVisitDate(item.visit));
-
-            TextView typeView = visitView.findViewById(R.id.type_of_service);
-            typeView.setText(item.visit.getVisitType());
-
-            LinearLayout detailsLayout = visitView.findViewById(R.id.visit_details_layout);
-            bindDetails(detailsLayout, item.detailLines);
-
-            historyContainer.addView(visitView);
-        }
-    }
-
-    private void bindDetails(LinearLayout container, List<String> lines) {
-        container.removeAllViews();
-        if (lines.isEmpty()) {
-            container.setVisibility(View.GONE);
-            return;
-        }
-        container.setVisibility(View.VISIBLE);
-        for (String line : lines) {
-            CustomFontTextView detailView = new CustomFontTextView(this);
-            detailView.setText("\u2022 " + line);
-            detailView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            detailView.setTextColor(ContextCompat.getColor(this, R.color.medical_sub_text_inner));
-            detailView.setPadding(dpToPx(24), dpToPx(4), dpToPx(20), dpToPx(4));
-            container.addView(detailView);
-        }
-    }
-
-    private String formatVisitDate(Visit visit) {
-        Date date = visit != null ? visit.getDate() : null;
-        if (date == null) {
-            date = visit != null ? visit.getUpdatedAt() : null;
-        }
-        return date != null ? dateFormatter.format(date) : getString(R.string.ayp_visit_history_unknown_date);
-    }
-
-    private int dpToPx(int value) {
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics()));
+    @Override
+    public void displayLoadingState(boolean state) {
+        progressBar.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -245,13 +104,289 @@ public class AypInSchoolMedicalHistoryActivity extends AppCompatActivity {
         memberProfile = null;
     }
 
-    private static class VisitDisplay {
-        private final Visit visit;
-        private final List<String> detailLines;
+    private static class AypInSchoolMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
 
-        VisitDisplay(Visit visit, List<String> detailLines) {
-            this.visit = visit;
-            this.detailLines = detailLines;
+        private static final String[] FIELD_ORDER = new String[]{
+                "client_status", "transfer_remarks", "new_address",
+                "cse_conducted", "topics_covered",
+                "financial_literacy_conducted", "financial_literacy_topics",
+                "education_subsidies_provided", "education_subsidies",
+                "number_of_exercise_books_count", "number_of_pens_count", "number_of_pencils_count",
+                "school_bag_count", "school_uniform_count", "school_shoes_count", "others_count",
+                "sanitary_kits_provided", "sanitary_kits",
+                "sanitary_pads_count", "underwear_count", "sanitary_cloth_bag_count", "user_guide_manual_count",
+                "witness_name", "parent_guardian_name", "parent_guardian_phone_number", "teachers_name",
+                "screening_for_gbv", "post_gbv_services_provided", "other_services_mention", "post_gbv_referrals",
+                "members_present"
+        };
+
+        private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+
+        @Override
+        protected void processAncCard(String has_card, Context context) {
+            linearLayoutAncCard.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
+            // Hide default ANC-specific section
+        }
+
+        @Override
+        public void processViewData(List<Visit> visits, Context context) {
+            if (visits == null || visits.isEmpty()) {
+                return;
+            }
+
+            int days = 0;
+            List<LinkedHashMap<String, List<VisitDetail>>> visitDetailsList = new ArrayList<>();
+
+            for (int index = 0; index < visits.size(); index++) {
+                Visit visit = visits.get(index);
+                if (index == 0 && visits.get(visits.size() - 1).getDate() != null) {
+                    days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
+                }
+
+                LinkedHashMap<String, List<VisitDetail>> fieldMap = new LinkedHashMap<>();
+                extractVisitDetails(visit, fieldMap);
+                if (!fieldMap.isEmpty()) {
+                    visitDetailsList.add(fieldMap);
+                }
+            }
+
+//            processLastVisit(days, context);
+            processVisit(visitDetailsList, context, visits);
+        }
+
+        private void extractVisitDetails(Visit visit, LinkedHashMap<String, List<VisitDetail>> destination) {
+            if (visit == null || visit.getVisitDetails() == null) {
+                return;
+            }
+
+            Map<String, List<VisitDetail>> groupedDetails = visit.getVisitDetails();
+            for (String key : FIELD_ORDER) {
+                List<VisitDetail> details = groupedDetails.get(key);
+                if (details != null && !details.isEmpty()) {
+                    destination.put(key, new ArrayList<>(details));
+                }
+            }
+        }
+
+        protected void processVisit(List<LinkedHashMap<String, List<VisitDetail>>> visitsData, Context context, List<Visit> visits) {
+            if (visitsData == null || visitsData.isEmpty()) {
+                return;
+            }
+
+            linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
+
+            for (int index = 0; index < visitsData.size(); index++) {
+                LinkedHashMap<String, List<VisitDetail>> values = visitsData.get(index);
+                View view = inflater.inflate(R.layout.medical_history_visit, null);
+                view.findViewById(R.id.title).setVisibility(View.GONE);
+
+                TextView typeOfService = view.findViewById(R.id.type_of_service);
+                LinearLayout detailsLayout = view.findViewById(R.id.visit_details_layout);
+                TextView editView = view.findViewById(R.id.textview_edit);
+                editView.setVisibility(View.GONE);
+
+                Visit visit = visits.get(index);
+                typeOfService.setText(buildVisitHeader(context, visit));
+
+                populateVisitDetails(context, detailsLayout, values);
+
+                linearLayoutHealthFacilityVisitDetails.addView(view, 0);
+            }
+        }
+
+        private String buildVisitHeader(Context context, Visit visit) {
+            String visitType = visit != null ? visit.getVisitType() : null;
+            String visitDate = context.getString(R.string.ayp_visit_history_unknown_date);
+            if (visit != null) {
+                if (visit.getDate() != null) {
+                    visitDate = dateFormat.format(visit.getDate());
+                } else if (visit.getUpdatedAt() != null) {
+                    visitDate = dateFormat.format(visit.getUpdatedAt());
+                }
+            }
+
+            String label = resolveVisitTypeLabel(context, visitType);
+            return String.format(Locale.getDefault(), "%s - %s", label, visitDate);
+        }
+
+        private String resolveVisitTypeLabel(Context context, String visitType) {
+            if (StringUtils.equalsIgnoreCase(visitType, Constants.EVENT_TYPE.AYP_SERVICES)) {
+                return context.getString(R.string.ayp_services_visit_type);
+            }
+            if (StringUtils.equalsIgnoreCase(visitType, Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT)) {
+                return context.getString(R.string.ayp_in_school_follow_up_visit_type);
+            }
+            return StringUtils.isNotBlank(visitType) ? visitType : context.getString(R.string.ayp_visit);
+        }
+
+        private void populateVisitDetails(Context context, LinearLayout container, LinkedHashMap<String, List<VisitDetail>> values) {
+            container.removeAllViews();
+            for (Map.Entry<String, List<VisitDetail>> entry : values.entrySet()) {
+                TextView detailView = new TextView(context);
+                detailView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                detailView.setTextColor(ContextCompat.getColor(context, R.color.medical_sub_text_inner));
+                detailView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                float scale = context.getResources().getDisplayMetrics().density;
+                int padding = (int) (10 * scale + 0.5f);
+                detailView.setPadding(padding, 0, 0, 0);
+
+                evaluateView(context, values, detailView, entry.getKey());
+
+                if (detailView.getVisibility() == View.VISIBLE) {
+                    container.addView(detailView);
+                }
+            }
+        }
+
+        private void evaluateView(Context context, Map<String, List<VisitDetail>> values, TextView tv, String key) {
+            List<VisitDetail> details = values.get(key);
+            if (details == null || details.isEmpty()) {
+                tv.setVisibility(View.GONE);
+                return;
+            }
+
+            List<String> answers = deriveAnswerValues(context, key, details);
+            if (answers.isEmpty()) {
+                tv.setVisibility(View.GONE);
+                return;
+            }
+
+            SpannableStringBuilder builder = new SpannableStringBuilder();
+            builder.append(resolveQuestionLabel(context, key), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+
+            for (String answer : answers) {
+                builder.append(answer, new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+            }
+
+            tv.setText(builder);
+        }
+
+        private String resolveQuestionLabel(Context context, String key) {
+            int resId = context.getResources().getIdentifier("ayp_in_school_field_" + key, "string", context.getPackageName());
+            if (resId != 0) {
+                return context.getString(resId);
+            }
+            return StringUtils.capitalize(key.replace('_', ' '));
+        }
+
+        private List<String> deriveAnswerValues(Context context, String key, List<VisitDetail> details) {
+            List<String> answers = new ArrayList<>();
+            for (VisitDetail detail : details) {
+                answers.addAll(resolveDetailAnswers(context, key, detail));
+            }
+            return answers;
+        }
+
+        private List<String> resolveDetailAnswers(Context context, String key, VisitDetail detail) {
+            List<String> resolved = new ArrayList<>();
+            if (detail == null) {
+                return resolved;
+            }
+
+            List<String> rawValues = parseValues(detail.getDetails());
+            if (rawValues.isEmpty()) {
+                rawValues = parseValues(detail.getHumanReadable());
+            }
+
+            if (rawValues.isEmpty()) {
+                if (StringUtils.isNotBlank(detail.getHumanReadable())) {
+                    resolved.add(detail.getHumanReadable().trim());
+                } else if (StringUtils.isNotBlank(detail.getDetails())) {
+                    resolved.add(detail.getDetails().trim());
+                }
+                return resolved;
+            }
+
+            List<String> humanValues = parseValues(detail.getHumanReadable());
+            for (int i = 0; i < rawValues.size(); i++) {
+                String raw = rawValues.get(i);
+                String mapped = mapValueToResource(context, raw);
+                if (mapped == null && humanValues.size() == rawValues.size()) {
+                    mapped = humanValues.get(i);
+                }
+                if (mapped == null && StringUtils.isNotBlank(detail.getHumanReadable()) && rawValues.size() == 1) {
+                    mapped = detail.getHumanReadable().trim();
+                }
+                if (mapped == null) {
+                    mapped = raw;
+                }
+                resolved.add(mapped);
+            }
+
+            return resolved;
+        }
+
+        private List<String> parseValues(String raw) {
+            List<String> results = new ArrayList<>();
+            if (StringUtils.isBlank(raw)) {
+                return results;
+            }
+
+            String trimmed = raw.trim();
+            if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+                try {
+                    JSONArray array = new JSONArray(trimmed);
+                    for (int i = 0; i < array.length(); i++) {
+                        String value = array.optString(i);
+                        if (StringUtils.isNotBlank(value)) {
+                            results.add(value.trim());
+                        }
+                    }
+                    return results;
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            if (trimmed.contains(",")) {
+                String[] parts = trimmed.split(",");
+                for (String part : parts) {
+                    String candidate = part.trim();
+                    if (candidate.startsWith("[") && candidate.endsWith("]")) {
+                        candidate = candidate.substring(1, candidate.length() - 1).trim();
+                    }
+                    if (candidate.startsWith("\"") && candidate.endsWith("\"")) {
+                        candidate = candidate.substring(1, candidate.length() - 1);
+                    }
+                    if (StringUtils.isNotBlank(candidate)) {
+                        results.add(candidate);
+                    }
+                }
+                if (!results.isEmpty()) {
+                    return results;
+                }
+            }
+
+            String single = trimmed;
+            if (single.startsWith("\"") && single.endsWith("\"")) {
+                single = single.substring(1, single.length() - 1);
+            }
+            results.add(single);
+            return results;
+        }
+
+        private String mapValueToResource(Context context, String rawValue) {
+            if (StringUtils.isBlank(rawValue)) {
+                return null;
+            }
+            String normalized = rawValue.trim();
+            if (normalized.startsWith("\"") && normalized.endsWith("\"")) {
+                normalized = normalized.substring(1, normalized.length() - 1);
+            }
+            String resourceName = "ayp_in_school_option_" + normalized
+                    .replaceAll("[^A-Za-z0-9_]+", "_")
+                    .replaceAll("_{2,}", "_")
+                    .toLowerCase(Locale.US);
+            int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+            if (resId != 0) {
+                return context.getString(resId);
+            }
+            return null;
         }
     }
 }
