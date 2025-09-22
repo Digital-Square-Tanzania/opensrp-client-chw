@@ -162,6 +162,20 @@
     <string name="hps_annual_census_status_incomplete">Incomplete</string>
     <string name="hps_annual_census_status_partial">Partially filled</string>
 
+    <!-- HPS Annual Census visit action titles -->
+    <string name="hps_annual_census_population_action_title">Population</string>
+    <string name="hps_annual_census_basic_nutrition_action_title">Number of households with basic nutrition source</string>
+    <string name="hps_annual_census_centers_action_title">Healthcare services, education, child and elder care centers</string>
+    <string name="hps_annual_census_social_economic_action_title">Social services and economic activities</string>
+    <string name="hps_annual_census_committees_traditional_action_title">Committee meetings &amp; Traditional medicine</string>
+    <string name="hps_annual_census_environment_sanitation_action_title">Environmental and sanitation Inspection report</string>
+    <string name="hps_annual_census_building_inspection_action_title">Building Inspection Report</string>
+    <string name="hps_annual_census_workplace_inspection_action_title">Workplace Inspection Report</string>
+    <string name="hps_annual_census_food_beverage_action_title">Food and Beverage Inspection Report</string>
+    <string name="hps_annual_census_workplace_health_reports_action_title">Health Reports Affecting People in Workplaces</string>
+    <string name="hps_annual_census_solid_waste_action_title">Solid waste &amp; waste collection equipments</string>
+    <string name="hps_annual_census_insect_breeding_control_action_title">Identification and Control of Insect Breeding Sites</string>
+
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
     <string name="home_visit_facility_referral">Referral to facility</string>

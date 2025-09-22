@@ -810,5 +810,19 @@
     <string name="hps_annual_census_status_incomplete">Haijakamilika</string>
     <string name="hps_annual_census_status_partial">Imejazwa sehemu</string>
 
+    <!-- HPS Annual Census visit action titles -->
+    <string name="hps_annual_census_population_action_title">Taarifa za Kaya</string>
+    <string name="hps_annual_census_basic_nutrition_action_title">Vyanzo vya lishe</string>
+    <string name="hps_annual_census_centers_action_title">Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee</string>
+    <string name="hps_annual_census_social_economic_action_title">Vyanzo vinavyotumiwa zaidi na kaya</string>
+    <string name="hps_annual_census_committees_traditional_action_title">Ufanisi wa Vikao vya Kamati vya Afya &amp; Huduma za Tiba Mbadala Zinazotolewa</string>
+    <string name="hps_annual_census_environment_sanitation_action_title">Taarifa ya Ukaguzi na Usafi wa Mazingira</string>
+    <string name="hps_annual_census_building_inspection_action_title">Taarifa Ya Ukaguzi wa Majengo</string>
+    <string name="hps_annual_census_workplace_inspection_action_title">Taarifa ya ukaguzi Sehemu ya Kazi</string>
+    <string name="hps_annual_census_food_beverage_action_title">Taarifa za Ukaguzi wa Vyakula na Vinywaji</string>
+    <string name="hps_annual_census_workplace_health_reports_action_title">Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi</string>
+    <string name="hps_annual_census_solid_waste_action_title">Taarifa ya Taka Ngumu &amp; Idadi ya Vifaa vya kukusanyia Taka</string>
+    <string name="hps_annual_census_insect_breeding_control_action_title">Utambuzi wa Mazalia ya Wadudu na Udhibiti</string>
+
 
 </resources>
