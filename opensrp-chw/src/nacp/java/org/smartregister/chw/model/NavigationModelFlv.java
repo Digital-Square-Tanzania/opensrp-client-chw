@@ -1,6 +1,5 @@
 package org.smartregister.chw.model;
 
-import static org.smartregister.AllConstants.CHECK_BOX;
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 
 import android.content.SharedPreferences;
@@ -50,8 +49,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op22 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc_monthly_social_media_report, CoreConstants.DrawerMenu.SBC_MONTHLY_SOCIAL_MEDIA_REPORT, 0);
             NavigationOption op23 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.asrh, CoreConstants.DrawerMenu.AYSRH, 0);
             NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
+            NavigationOption op25 = new NavigationOption(R.drawable.hps_disactive, R.drawable.hps_active, R.string.hps, CoreConstants.DrawerMenu.HPS, 0);
 
-            NavigationOption op25 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
+            NavigationOption op26 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -99,6 +99,14 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op25);
                         }
 
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
+                            navigationOptions.add(2, op25);
+                        }
+
+                        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                            navigationOptions.add(op6);
+                        }
+
                         navigationOptions.addAll(Arrays.asList(op8, op15));
                         break;
                 }
@@ -127,11 +135,13 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op23);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
-//                    navigationOptions.add(op22);
                     navigationOptions.add(op21);
                 }
                 if (ChwApplication.getApplicationFlavor().hasADDO()){
-                    navigationOptions.add(op23);
+                    navigationOptions.add(op26);
+                }
+                if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                    navigationOptions.add(op6);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op15));
             }

@@ -28,6 +28,7 @@ import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivityFlv;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
@@ -46,6 +47,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.sbc.dao.SbcDao;
@@ -131,6 +133,10 @@ public class AllClientsUtils {
 
     public static void goToAsrhProfile(Activity activity, CommonPersonObjectClient client) {
         AsrhMemberProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToHpsProfile(Activity activity, CommonPersonObjectClient client) {
+        HpsMemberProfileActivity.startMe(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
@@ -224,7 +230,7 @@ public class AllClientsUtils {
         if (tbRegistration != null) tbRegistration.setVisible(false);
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);
-        if (removeMember != null) removeMember.setVisible(false);
+        if (removeMember != null) removeMember.setVisible(true);
 
         // Get shared preferences once
         AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
@@ -244,6 +250,14 @@ public class AllClientsUtils {
                 case "iccm_provider":
                     updateIccmMenu(menu, baseEntityId, flavor);
                     break;
+                case "icchw": {
+                    // Handle HPS menu items
+                    if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityId) && age >= 10);
+                    }
+                    updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
+                    break;
+                }
                 default:
                     updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
                     break;
@@ -324,7 +338,7 @@ public class AllClientsUtils {
         }
     }
 
-    private static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
+    public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
         MenuItem item = menu.findItem(itemId);
         if (item != null) {
             item.setVisible(visible);

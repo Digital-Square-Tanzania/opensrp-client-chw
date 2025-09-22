@@ -19,7 +19,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_interacted_with AS last_interacted_with\n" +
             "FROM ec_family_member\n" +
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
-            "where ec_family_member.date_removed is null\n" +
+            "where ec_family_member.dod is null\n" +
             "  AND ec_family.entity_type = 'ec_independent_client'\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
@@ -67,11 +67,38 @@ public interface ChwQueryConstant {
             "    FROM ec_cecap_register\n" +
             "    WHERE is_closed is 0 \n" +
             "    UNION ALL\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register\n" +
+            "    WHERE is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services = 'yes' \n" +
+            "    UNION ALL\n" +
             "    SELECT ec_asrh_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_asrh_register\n" +
             "    WHERE is_closed is 0 \n" +
             ")" +
             "UNION ALL" +
+            "/* HPS REGISTER */\n" +
+            "\n" +
+            "SELECT ec_family_member.first_name               AS first_name,\n" +
+            "       ec_family_member.middle_name              AS middle_name,\n" +
+            "       ec_family_member.last_name                AS last_name,\n" +
+            "       ec_family_member.gender                   AS gender,\n" +
+            "       ec_family_member.dob                      AS dob,\n" +
+            "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
+            "       ec_family_member.id                       as _id,\n" +
+            "       'iCCHW'                                     AS register_type,\n" +
+            "       ec_family_member.relational_id            as relationalid,\n" +
+            "       ec_family.village_town                    as home_address,\n" +
+            "       ec_hps_client_register.last_interacted_with      AS last_interacted_with,\n" +
+            "       NULL                                      AS mother_first_name,\n" +
+            "       NULL                                      AS mother_last_name,\n" +
+            "       NULL                                      AS mother_middle_name\n" +
+            "FROM ec_hps_client_register\n" +
+            "         inner join ec_family_member on ec_family_member.base_entity_id = ec_hps_client_register.base_entity_id\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services = 'yes' \n" +
+            "  AND ec_hps_client_register.base_entity_id IN (%s)\n" +
+            "\n" +"UNION ALL" +
             "/* CBHS REGISTER */\n" +
             "\n" +
             "SELECT ec_family_member.first_name               AS first_name,\n" +
@@ -95,6 +122,9 @@ public interface ChwQueryConstant {
             "  AND ec_cbhs_register.is_closed is 0\n" +
             "  AND ec_cbhs_register.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register where ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services='yes' \n" +
+            "    UNION ALL\n" +
             "    SELECT ec_agyw_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_agyw_register where ec_agyw_register.is_closed is 0\n" +
             "    UNION ALL\n" +
@@ -137,6 +167,9 @@ public interface ChwQueryConstant {
             "  AND (ec_family.entity_type = 'ec_family' OR ec_family.entity_type is null)\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register where ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services='yes' \n" +
+            "    UNION ALL\n" +
             "    SELECT ec_agyw_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_agyw_register where ec_agyw_register.is_closed is 0\n" +
             "    UNION ALL\n" +

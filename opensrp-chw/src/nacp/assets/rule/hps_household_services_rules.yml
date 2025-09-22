@@ -1,0 +1,22 @@
+---
+name: step1_preventive_services_provided
+description: relevance rule to control the visibility of (was_preventive_service_provided)
+priority: 1
+condition: "step1_was_preventive_service_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_others_specify
+description: relevance rule to control the visibility of (others_specify)
+priority: 1
+condition: "step1_preventive_services_provided.contains('others')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_other_education_provided
+description: relevance rule to control the visibility of (others_specify)
+priority: 1
+condition: "step1_education_provided.contains('others_education_specify')"
+actions:
+  - "isRelevant = true"

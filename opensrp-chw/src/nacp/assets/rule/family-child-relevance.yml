@@ -62,9 +62,9 @@ condition: "helper.formatDate(step1_dob,'m') < 6"
 actions:
   - "isRelevant = true"
 ---
-name: step1_nutrition_status
-description: nutrition_status when child has rhc_card
+name: step1_specify_other_disabilities
+description: specify other disabilities
 priority: 1
-condition: "step1_rhc_card.contains('Yes')"
+condition: "step1_type_of_disability.contains('other_disabilities')"
 actions:
   - "isRelevant = true"

@@ -11,24 +11,28 @@
         tools:replace="android:theme">
         <activity
             android:name=".activity.LoginActivity"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_launcher_afya_jamii_splash"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:roundIcon="@drawable/ic_launcher_round"
+            android:roundIcon="@mipmap/ic_launcher_afya_jamii_round"
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".activity.RequestPhoneNumberCollectionPermission"
             android:exported="true"
-            android:icon="@drawable/ic_launcher"
-            android:roundIcon="@drawable/ic_launcher_round"
+            android:icon="@mipmap/ic_launcher_afya_jamii_round"
+            android:roundIcon="@mipmap/ic_launcher_afya_jamii_round"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:parentActivityName=".activity.LoginActivity"/>
         <activity
             android:name=".activity.KvpPrEPRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -42,6 +46,17 @@
         <activity
             android:name=".activity.KvpReportsActivity"
             android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HpsReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HpsReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HpsAnnualCensusVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.KvpPrEPVisitActivity"
@@ -501,6 +516,46 @@
         <activity
             android:name=".activity.CecapReportsActivity"
             android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsClientServicesVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsHouseholdProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsHouseholdVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsMobilizationSessionDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsAdvertisementFeedbackDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsDeathRegistrationDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HpsAnnualCensusRegistrationDetailsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity

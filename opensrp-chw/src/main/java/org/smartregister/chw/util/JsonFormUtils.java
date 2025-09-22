@@ -1,8 +1,15 @@
 package org.smartregister.chw.util;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.EDITABLE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.READ_ONLY;
+
+import static org.smartregister.client.utils.constants.JsonFormConstants.STEP1;
+
 import android.content.Context;
 import android.util.Pair;
 
+import com.google.common.reflect.TypeToken;
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -25,15 +32,18 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
@@ -120,9 +130,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 lookUpBaseEntityId = getString(lookUpJSONObject, "value");
             }
             if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
-                Client ss = new Client(lookUpBaseEntityId);
+                ParentClient parentClient = new ParentClient(lookUpBaseEntityId);
+                parentClient.setMotherBaseEntityId(motherBaseEntityId(baseClient.getBaseEntityId()));
                 Context context = ChwApplication.getInstance().getContext().applicationContext();
-                addRelationship(context, ss, baseClient);
+                addRelationship(context, parentClient, baseClient);
                 SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
                 EventClientRepository eventClientRepository = new EventClientRepository();
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
@@ -133,6 +144,23 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
             Timber.e(e);
+            return null;
+        }
+    }
+
+    private static String motherBaseEntityId(String baseEntityId) {
+        try {
+            EventClientRepository eventClientRepository = new EventClientRepository();
+            ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
+            JSONObject object = eventClientRepository.getClientByBaseEntityId(baseEntityId);
+            Client client = syncHelper.convert(object, Client.class);
+            List<String> motherList = client.getRelationships().get("mother");
+            if (motherList != null) {
+                return motherList.get(0);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -664,10 +692,151 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
+
+    public static void addLocHierarchyQuestions(JSONObject form) {
+        try {
+            List<Pair<String, String>> locationFields = FamilyLibrary.getInstance().metadata().getLocationFields();
+            ArrayList<String> allowedLevels = FamilyLibrary.getInstance().metadata().getLocationHierarchy();
+            if (locationFields != null && locationFields.size() > 0) {
+                for (Pair<String, String> locationPair : locationFields) {
+                    List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(allowedLevels);
+                    List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, allowedLevels);
+                    String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, (new TypeToken<List<String>>() {
+                    }).getType());
+                    String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, (new TypeToken<List<FormLocation>>() {
+                    }).getType());
+                    JSONArray questions = form.getJSONObject((String) locationPair.first).getJSONArray("fields");
+
+                    // Count the number of innermost nodes.
+                    DepthResult innermostCount = countInnermostNodes(new JSONArray(upToFacilitiesString));
+
+
+                    JSONObject famVillage = org.smartregister.chw.hps.util.JsonFormUtils.getFieldJSONObject(form.getJSONObject(STEP1).getJSONArray(FIELDS),"fam_village");
+                    if (innermostCount.count < 2) {
+                        famVillage.put(VALUE, innermostCount.value);
+                        famVillage.put("type", "hidden");
+                    }
+
+                    for (int i = 0; i < questions.length(); ++i) {
+                        if (questions.getJSONObject(i).getString("key").equals(locationPair.second)) {
+
+
+                            if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                                questions.getJSONObject(i).put("tree", new JSONArray(upToFacilitiesString));
+                            }
+
+                            if (StringUtils.isNotBlank(defaultFacilityString)) {
+                                questions.getJSONObject(i).put("default", defaultFacilityString);
+                            }
+
+                            if (innermostCount.count < 2) {
+                                questions.getJSONObject(i).put(VALUE, innermostCount.defaultValue);
+                                questions.getJSONObject(i).put(EDITABLE, false);
+                                questions.getJSONObject(i).put(READ_ONLY,true);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+    }
+
+    public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId) throws Exception {
+        if (form == null) {
+            return null;
+        } else {
+            String entityId = id;
+            form.getJSONObject("metadata").put("encounter_location", currentLocationId);
+            if (!org.smartregister.family.util.Utils.metadata().familyRegister.formName.equals(formName) && !org.smartregister.family.util.Utils.metadata().familyMemberRegister.formName.equals(formName)) {
+                Timber.w("Unsupported form requested for launch " + formName, new Object[0]);
+            } else {
+                if (StringUtils.isNotBlank(id)) {
+                    entityId = id.replace("-", "");
+                }
+
+                JSONArray field = fields(form, "step1");
+                JSONObject uniqueId = getFieldJSONObject(field, "unique_id");
+                if (formName.equals(org.smartregister.family.util.Utils.metadata().familyRegister.formName)) {
+                    if (uniqueId != null) {
+                        uniqueId.remove("value");
+                        uniqueId.put("value", entityId + "_Family");
+                    }
+
+                    field = fields(form, "step2");
+                    uniqueId = getFieldJSONObject(field, "unique_id");
+                    if (uniqueId != null) {
+                        uniqueId.remove("value");
+                        uniqueId.put("value", entityId);
+                    }
+                } else if (uniqueId != null) {
+                    uniqueId.remove("value");
+                    uniqueId.put("value", entityId);
+                }
+
+                addLocHierarchyQuestions(form);
+            }
+
+            Timber.d("form is " + form.toString(), new Object[0]);
+            return form;
+        }
+    }
+
+    /**
+     * Returns the total number of nodes (leaf objects) found at the maximum depth
+     * in the JSON tree.
+     *
+     * @param jsonArray The root JSON array.
+     * @return The count of innermost nodes.
+     */
+    public static DepthResult countInnermostNodes(JSONArray jsonArray) throws JSONException {
+        DepthResult result = new DepthResult();
+        traverseNodes(jsonArray, 1, result);
+        return result;
+    }
+
+    /**
+     * Recursively traverses the JSON tree.
+     *
+     * @param nodes  The current JSON array to process.
+     * @param depth  The current depth in the tree.
+     * @param result The running result tracking the maximum depth and count.
+     */
+    private static void traverseNodes(JSONArray nodes, int depth, DepthResult result) throws JSONException {
+        for (int i = 0; i < nodes.length(); i++) {
+            JSONObject obj = nodes.getJSONObject(i);
+            // If this object has a "nodes" array, go deeper.
+            if (obj.has("nodes") && obj.get("nodes") instanceof JSONArray) {
+                JSONArray childNodes = obj.getJSONArray("nodes");
+                result.defaultValue.put(obj.getString(KEY));
+                traverseNodes(childNodes, depth + 1, result);
+            } else {
+                // This is a leaf node.
+                if (depth > result.maxDepth) {
+                    result.maxDepth = depth;
+                    result.count = 1;
+                    result.defaultValue.put(obj.getString(KEY));
+                    result.value = obj.getString(KEY);
+                } else if (depth == result.maxDepth) {
+                    result.count++;
+                }
+            }
+        }
+    }
+
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
         void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
+    }
+
+    private static class DepthResult {
+        int maxDepth = 0;
+        int count = 0;
+        String value = "";
+        JSONArray defaultValue = new JSONArray();
     }
 
 }

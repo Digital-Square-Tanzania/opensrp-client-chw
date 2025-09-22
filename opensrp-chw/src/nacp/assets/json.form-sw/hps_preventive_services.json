@@ -1,0 +1,665 @@
+{
+  "validate_on_submit": true,
+  "count": "1",
+  "encounter_type": "HPS Preventive Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {
+    "age": 5
+  },
+  "step1": {
+    "title": "Huduma Kinga Zilizotolewa",
+    "fields": [
+      {
+        "key": "preventive_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_provided",
+        "type": "native_radio",
+        "label": "Je, huduma kinga zimetolewa kwa mteja?",
+        "label_text_size": "18px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "preventive_services_below_5_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_below_5_years",
+        "type": "check_box",
+        "label": "Chagua aina ya huduma kinga iliyotolewa",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "vitamin_a_supplements",
+            "text": "Matone ya vitamini A",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vitamin_a_supplements"
+          },
+          {
+            "key": "other_services",
+            "text": "Huduma nyinginezo ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_title",
+        "type": "label",
+        "text": "Aina ya huduma kinga iliyotolewa",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_5_years_below_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_5_years_below_18_years",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "save_obs_as_array": true,
+        "maxSelectable": 5,
+        "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
+        "sort": false,
+        "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
+        "searchHint": "Aina ya ujumbe",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "1.Ushauri nasaha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling",
+            "property": {
+              "presumed-id": "counselling",
+              "confirmed-id": "counselling"
+            }
+          },
+          {
+            "key": "family_planning_pills",
+            "text": "2.Vidonge vya uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning_pills",
+              "confirmed-id": "family_planning_pills"
+            }
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "3.Vidonge vya madini chuma na foliki asidi (IFA)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets",
+            "property": {
+              "presumed-id": "iron_folic_tablets",
+              "confirmed-id": "iron_folic_tablets"
+            }
+          },
+          {
+            "key": "deworming_medication",
+            "text": "4.Dawa za minyoo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication",
+            "property": {
+              "presumed-id": "deworming_medication",
+              "confirmed-id": "deworming_medication"
+            }
+          },
+          {
+            "key": "male_condoms",
+            "text": "5.Kondomu za kiume",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms",
+            "property": {
+              "presumed-id": "male_condoms",
+              "confirmed-id": "male_condoms"
+            }
+          },
+          {
+            "key": "female_condoms",
+            "text": "6.Kondomu za kike",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms",
+            "property": {
+              "presumed-id": "female_condoms",
+              "confirmed-id": "female_condoms"
+            }
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "7.Dawa Kinga (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "post_exposure_prophylaxis",
+              "confirmed-id": "post_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "pre_exposure_prophylaxis",
+            "text": "8.Dawa Kinga (PrEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pre_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "pre_exposure_prophylaxis",
+              "confirmed-id": "pre_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "fortified_foods",
+            "text": "9.Vyakula vilivyoongezewa virutubisho (MNP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods",
+            "property": {
+              "presumed-id": "fortified_foods",
+              "confirmed-id": "fortified_foods"
+            }
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "10.Ugawaji wa vyandarua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets",
+            "property": {
+              "presumed-id": "distribution_mosquito_nets",
+              "confirmed-id": "distribution_mosquito_nets"
+            }
+          },
+          {
+            "key": "distribution_water_purification_tablets",
+            "text": "11.Ugawaji wa dawa za kutibu maji ya kunywa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_water_purification_tablets",
+            "property": {
+              "presumed-id": "distribution_water_purification_tablets",
+              "confirmed-id": "distribution_water_purification_tablets"
+            }
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "12.Ushauri wa Kisaikolojia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling",
+            "property": {
+              "presumed-id": "psychological_counselling",
+              "confirmed-id": "psychological_counselling"
+            }
+          },
+          {
+            "key": "preliminary_screening_tb",
+            "text": "13.Uchunguzi wa awali wa kifua kikuu/ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening_tb",
+            "property": {
+              "presumed-id": "preliminary_screening_tb",
+              "confirmed-id": "preliminary_screening_tb"
+            }
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "14.Uchunguzi wa awali wa ukatili",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening",
+            "property": {
+              "presumed-id": "gender_based_violence_screening",
+              "confirmed-id": "gender_based_violence_screening"
+            }
+          },
+          {
+            "key": "collection_sputum_stool_samples",
+            "text": "15.Kukusanya sampuli za makohozi/kinyesi na kusafirisha kwenda kituoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_sputum_stool_samples",
+            "property": {
+              "presumed-id": "collection_sputum_stool_samples",
+              "confirmed-id": "collection_sputum_stool_samples"
+            }
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "16.Kuwachukulia WAVIU dawa za ARV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication",
+            "property": {
+              "presumed-id": "dispensing_arv_medication",
+              "confirmed-id": "dispensing_arv_medication"
+            }
+          },
+          {
+            "key": "preventive_medication_ntd",
+            "text": "17.Ugawaji wa dawa kinga za magonjwa yaliokuwa hayapewi kipaumbele",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_medication_ntd",
+            "property": {
+              "presumed-id": "preventive_medication_ntd",
+              "confirmed-id": "preventive_medication_ntd"
+            }
+          },
+          {
+            "key": "first_aid_services",
+            "text": "18.Huduma ya kwanza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services",
+            "property": {
+              "presumed-id": "first_aid_services",
+              "confirmed-id": "first_aid_services"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "19.Usafi na Utunzaji wa Mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "20.Lishe na Usalama wa Chakula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "other_services",
+            "text": "21.Huduma nyinginezo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services",
+            "property": {
+              "presumed-id": "other_services",
+              "confirmed-id": "other_services"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_18_years",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "save_obs_as_array": true,
+        "maxSelectable": 5,
+        "buttonText": "+ Ongeza aina ya huduma kinga iliyotolewa",
+        "sort": false,
+        "dialogTitle": "Chagua aina ya huduma kinga iliyotolewa",
+        "searchHint": "Aina ya ujumbe",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "1.Ushauri nasaha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling",
+            "property": {
+              "presumed-id": "counselling",
+              "confirmed-id": "counselling"
+            }
+          },
+          {
+            "key": "family_planning_pills",
+            "text": "2.Vidonge vya uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning_pills",
+              "confirmed-id": "family_planning_pills"
+            }
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "3.Vidonge vya madini chuma na foliki asidi (IFA)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets",
+            "property": {
+              "presumed-id": "iron_folic_tablets",
+              "confirmed-id": "iron_folic_tablets"
+            }
+          },
+          {
+            "key": "deworming_medication",
+            "text": "4.Dawa za minyoo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication",
+            "property": {
+              "presumed-id": "deworming_medication",
+              "confirmed-id": "deworming_medication"
+            }
+          },
+          {
+            "key": "male_condoms",
+            "text": "5.Kondomu za kiume",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms",
+            "property": {
+              "presumed-id": "male_condoms",
+              "confirmed-id": "male_condoms"
+            }
+          },
+          {
+            "key": "female_condoms",
+            "text": "6.Kondomu za kike",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms",
+            "property": {
+              "presumed-id": "female_condoms",
+              "confirmed-id": "female_condoms"
+            }
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "7.Dawa Kinga (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "post_exposure_prophylaxis",
+              "confirmed-id": "post_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "pre_exposure_prophylaxis",
+            "text": "8.Dawa Kinga (PrEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pre_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "pre_exposure_prophylaxis",
+              "confirmed-id": "pre_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "fortified_foods",
+            "text": "9.Vyakula vilivyoongezewa virutubisho (MNP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods",
+            "property": {
+              "presumed-id": "fortified_foods",
+              "confirmed-id": "fortified_foods"
+            }
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "10.Ugawaji wa vyandarua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets",
+            "property": {
+              "presumed-id": "distribution_mosquito_nets",
+              "confirmed-id": "distribution_mosquito_nets"
+            }
+          },
+          {
+            "key": "hiv_self_test_kits",
+            "text": "11.Ugawaji wa vitepe vya jipime VVU (HIV Self Testing)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_self_test_kits",
+            "property": {
+              "presumed-id": "hiv_self_test_kits",
+              "confirmed-id": "hiv_self_test_kits"
+            }
+          },
+          {
+            "key": "distribution_water_purification_tablets",
+            "text": "12.Ugawaji wa dawa za kutibu maji ya kunywa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_water_purification_tablets",
+            "property": {
+              "presumed-id": "distribution_water_purification_tablets",
+              "confirmed-id": "distribution_water_purification_tablets"
+            }
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "13.Ushauri wa Kisaikolojia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling",
+            "property": {
+              "presumed-id": "psychological_counselling",
+              "confirmed-id": "psychological_counselling"
+            }
+          },
+          {
+            "key": "preliminary_screening_tb",
+            "text": "14.Uchunguzi wa awali wa kifua kikuu/ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening_tb",
+            "property": {
+              "presumed-id": "preliminary_screening_tb",
+              "confirmed-id": "preliminary_screening_tb"
+            }
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "15.Uchunguzi wa awali wa ukatili",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening",
+            "property": {
+              "presumed-id": "gender_based_violence_screening",
+              "confirmed-id": "gender_based_violence_screening"
+            }
+          },
+          {
+            "key": "collection_sputum_stool_samples",
+            "text": "16.Kukusanya sampuli za makohozi/kinyesi na kusafirisha kwenda kituoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_sputum_stool_samples",
+            "property": {
+              "presumed-id": "collection_sputum_stool_samples",
+              "confirmed-id": "collection_sputum_stool_samples"
+            }
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "17.Kuwachukulia WAVIU dawa za ARV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication",
+            "property": {
+              "presumed-id": "dispensing_arv_medication",
+              "confirmed-id": "dispensing_arv_medication"
+            }
+          },
+          {
+            "key": "preventive_medication_ntd",
+            "text": "18.Ugawaji wa dawa kinga za magonjwa yaliokuwa hayapewi kipaumbele",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_medication_ntd",
+            "property": {
+              "presumed-id": "preventive_medication_ntd",
+              "confirmed-id": "preventive_medication_ntd"
+            }
+          },
+          {
+            "key": "first_aid_services",
+            "text": "19.Huduma ya kwanza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services",
+            "property": {
+              "presumed-id": "first_aid_services",
+              "confirmed-id": "first_aid_services"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "20.Usafi na Utunzaji wa Mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "21.Lishe na Usalama wa Chakula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "other_services",
+            "text": "22.Huduma nyinginezo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services",
+            "property": {
+              "presumed-id": "other_services",
+              "confirmed-id": "other_services"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_services_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_services_specify",
+        "type": "edit_text",
+        "hint": "Taja huduma nyinginezo",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja huduma nyinginezo"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "record_hivst_details_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Use the HIVST Module to Record HIVST Kits Details and Test Results",
+        "toaster_info_text": "Moduli ya JIPIME inawawezesha watumiaji kusajili wateja waliopatiwa vitepe vya kujipima VVU na kurekodi matokeo yao ya vipimo. Kupitia moduli hii, watumiaji wanaweza kuhakikisha ufuatiliaji sahihi wa usambazaji wa vitepe na ufuatiliaji wa haraka wa matokeo ya vipimo. Moduli ya JIPIME inapatikana kupitia menyu ya mfumo.\n",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
