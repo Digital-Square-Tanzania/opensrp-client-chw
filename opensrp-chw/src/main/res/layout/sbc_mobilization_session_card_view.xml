@@ -24,9 +24,8 @@
             android:id="@+id/sbcc_session_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sbc_session_date"
+            android:layout_below="@id/sbc_clients_reached"
             android:layout_toEndOf="@id/iv_sbcc_session">
-
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/sbc_activity_provided"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -38,9 +37,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:visibility="visible"/>
-
-
-
         </LinearLayout>
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -60,6 +56,22 @@
             android:textSize="16sp"
             android:visibility="visible"
             tools:text="@string/sbcc_session_date" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/sbc_clients_reached"
+            android:layout_toEndOf="@id/iv_sbcc_session"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/sbc_session_date"
+            android:layout_marginTop="5dp"
+            android:ellipsize="none"
+            android:scrollHorizontally="false"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/sbcc_session_title"

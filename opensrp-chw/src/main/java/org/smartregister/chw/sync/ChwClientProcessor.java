@@ -95,13 +95,34 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HOME_VISIT:
                 case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HEALTH_EDUCATION_MOBILIZATION:
                 case org.smartregister.chw.asrh.util.Constants.EVENT_TYPE.ASRH_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_MOBILIZATION:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
-
+                case CoreConstants.EventType.REMOVE_MEMBER:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case CoreConstants.EventType.REMOVE_CHILD:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
                 case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
                 case DELETE_EVENT:
                     processDeleteEvent(eventClient.getEvent());

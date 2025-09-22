@@ -1,9 +1,12 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +20,14 @@ import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AboveFiveChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.family.util.Constants;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +48,16 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
+
+        AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        int age = memberObject.getAge();
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
+        }
+
         return true;
     }
 
@@ -56,6 +72,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addChildReferralTypes();
         }
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(AboveFiveChildProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     private void invisibleRecordVisitPanel() {
@@ -106,6 +126,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
                         ((AboveFiveChildProfilePresenter) presenter()).getFamilyID()
                         , ((AboveFiveChildProfilePresenter) presenter()).getFamilyHeadID(), ((AboveFiveChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
 
+                return true;
+
+            case R.id.action_hps_enrollment:
+                startHpsEnrollment();
                 return true;
             default:
                 break;

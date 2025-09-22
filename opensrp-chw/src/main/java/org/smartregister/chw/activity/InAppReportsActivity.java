@@ -47,6 +47,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout kvpReports;
 
+    protected ConstraintLayout hpsReports;
+
     @Override
     protected void onCreation() {
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
@@ -71,6 +73,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         asrhReports = findViewById(R.id.asrh_reports);
         cecapReports = findViewById(R.id.cecap_reports);
         kvpReports = findViewById(R.id.kvp_reports);
+        hpsReports = findViewById(R.id.hps_reports);
 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
         SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -103,12 +106,32 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                         agywReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasICCM()) {
+                        iccmReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasSbc()) {
                         sbcReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                        asrhReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                        cecapReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                        kvpReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasCdp()) {
                         condomDistributionReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        hpsReports.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -148,6 +171,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             if (ChwApplication.getApplicationFlavor().hasCdp()) {
                 condomDistributionReports.setVisibility(View.VISIBLE);
             }
+
+            if (ChwApplication.getApplicationFlavor().hasHps()) {
+                hpsReports.setVisibility(View.VISIBLE);
+            }
         }
 
 
@@ -160,6 +187,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         asrhReports.setOnClickListener(this);
         cecapReports.setOnClickListener(this);
         kvpReports.setOnClickListener(this);
+        hpsReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -224,6 +252,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.kvp_reports) {
             Intent intent = new Intent(this, KvpReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.hps_reports) {
+            Intent intent = new Intent(this, HpsReportsActivity.class);
             startActivity(intent);
         }
     }

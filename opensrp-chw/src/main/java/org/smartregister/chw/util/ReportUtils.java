@@ -21,6 +21,8 @@ import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
@@ -107,7 +109,6 @@ public class ReportUtils {
 
     @SuppressLint("SetJavaScriptEnabled")
     public static void loadReportView(String reportPath, WebView mWebView, Context context, String reportType) {
-
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         final WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder().addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(context)).build();
@@ -116,7 +117,11 @@ public class ReportUtils {
 
         if (reportType.equals(Constants.ReportConstants.ReportTypes.CONDOM_DISTRIBUTION_REPORT)) {
             mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/cdp_reports/" + reportPath + ".html");
-        } else {
+        }
+        else if (reportType.equals(Constants.ReportConstants.ReportTypes.HPS_REPORT)) {
+            mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/hps_reports/" + reportPath + ".html");
+        }
+        else {
             mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/" + reportPath + ".html");
         }
 
@@ -281,6 +286,27 @@ public class ReportUtils {
             KvpReportObject kvpReportObject = new KvpReportObject(startDate);
             try {
                 return kvpReportObject.getIndicatorDataAsGson(kvpReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class HpsReports {
+        public static String computeClientsReports(Date startDate) {
+            HpsMonthlyReportObject hpsMonthlyReportObject = new HpsMonthlyReportObject(startDate);
+            try {
+                return hpsMonthlyReportObject.getIndicatorDataAsGson(hpsMonthlyReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+        public static String computeClientsAnnualReports(Date startDate) {
+            HpsAnnualReportObject hpsAnnualReportObject = new HpsAnnualReportObject(startDate);
+            try {
+                return hpsAnnualReportObject.getIndicatorDataAsGson(hpsAnnualReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

@@ -87,12 +87,30 @@
         }
       },
       {
-        "key": "chairperson_name",
+        "key": "chairperson_first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "chairperson_name",
+        "openmrs_entity_id": "chairperson_first_name",
         "type": "edit_text",
-        "hint": "Village/Street Chairperson Name",
+        "hint": "Village/Street Chairperson First Name",
+        "edit_type": "name"
+      },
+      {
+        "key": "chairperson_middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_middle_name",
+        "type": "edit_text",
+        "hint": "Village/Street Chairperson Middle Name",
+        "edit_type": "name"
+      },
+      {
+        "key": "chairperson_last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_last_name",
+        "type": "edit_text",
+        "hint": "Village/Street Chairperson Last Name",
         "edit_type": "name"
       },
       {
@@ -103,32 +121,11 @@
         "type": "edit_text",
         "hint": "Village/Street Chairperson Phone",
         "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         },
-        "v_regex": {
-          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
-          "err": "Number must be 10 digits and must start with 06 or 07."
-        }
-      },
-      {
-        "key": "ten_house_cell_leader_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "ten_house_cell_leader_name",
-        "type": "edit_text",
-        "hint": "Ten House Cell Leader Name",
-        "edit_type": "name"
-      },
-      {
-        "key": "ten_house_cell_leader_phone",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "ten_house_cell_leader_phone",
-        "type": "edit_text",
-        "hint": "Ten House Cell Leader Phone",
-        "edit_type": "number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -173,11 +170,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Village/Street",
+        "hint": "Mtaa/Hamlet",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the village or street"
+          "err": "Please enter the hamlet or street"
         }
       }
     ]

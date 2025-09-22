@@ -1,0 +1,640 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Curative Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {
+  },
+  "step1": {
+    "title": "Huduma za Tiba",
+    "fields": [
+      {
+        "key": "provision_of_curative_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provision_of_curative_services",
+        "label": "Je mgonjwa amepata huduma za tiba?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "is_disease_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_disease_test_conducted",
+        "label": "Je vipimo vimefanyika?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diseases_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diseases_test_conducted",
+        "label": "Vipimo vilivyofanyika",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "blood_pressure_measurement",
+            "text": "Kipimo cha shinikizo la damu (BP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_pressure_measurement"
+          },
+          {
+            "key": "malaria_mrdt",
+            "text": "Malaria (mrDT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_mrdt"
+          },
+          {
+            "key": "blood_sugar",
+            "text": "Kipimo cha sukari kwenye damu (RBG)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_sugar"
+          },
+          {
+            "key": "body_temperature",
+            "text": "Joto la mwili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_temperature"
+          },
+          {
+            "key": "arm_circumference",
+            "text": "Mzingo wa Mkono (MUAC)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "arm_circumference"
+          },
+          {
+            "key": "body_weight",
+            "text": "Uzito ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_weight"
+          },
+          {
+            "key": "body_height",
+            "text": "Urefu ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "body_height"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "systolic",
+        "type": "edit_text",
+        "hint": "Shinikizo la juu la damu (mmHg)",
+        "openmrs_entity_id": "systolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza shinikizo la juu la damu"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Shinikizo la juu la damu linatakiwa liwe sawa au juu ya 0"
+        },
+        "v_max": {
+          "value": "320",
+          "err": "Shinikizo la juu la damu linatakiwa liwe sawa au chini ya 320"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza shinikizo la juu la damu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diastolic",
+        "type": "edit_text",
+        "hint": "Shinikizo la chini la damu (mmHg)",
+        "openmrs_entity_id": "diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza shinikizo la chini la damu"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au juu ya 0"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Shinikizo la chini la damu linatakiwa liwe sawa au chini ya 200"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza shinikizo la chini la damu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:systolic)",
+            "err": "Shinikizo la chini la damu linatikiwa liwe dogo kuliko shinikizo la juu la damu"
+          }
+        ]
+      },
+      {
+        "key": "prompt_for_management_of_blood_pressure",
+        "type": "toaster_notes",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "prompt_for_management_of_blood_pressure",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_mrdt_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_mrdt_result",
+        "type": "native_radio",
+        "label": "Chagua majibu ya Malaria (mrDT)",
+        "options": [
+          {
+            "key": "positive_mrdt",
+            "text": "Chanya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive_mrdt"
+          },
+          {
+            "key": "negative_mrdt",
+            "text": "Hasi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative_mrdt"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_sugar_result",
+        "type": "edit_text",
+        "hint": "Kipimo cha sukari kwenye damu (mmol/L)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza majibu"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kikubwa kuliko 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kidogo kuliko 45 (mmol/L)"
+        },
+        "v_regex": {
+          "value": "^(\\d{1,2}|\\d{1,2}\\.\\d{1})$",
+          "err": "Tafadhali ingiza namba sahihi, mfano: 4 au 10.9"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_rbg",
+        "type": "toaster_notes",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "prompt_for_rbg",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_temperature_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_temperature_result",
+        "type": "edit_text",
+        "hint": "Joto la mwili (℃)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza joto la mwili"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Joto la mwili linatakiwa liwe sawa au kubwa kuliko 35 (℃)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Joto la mwili linatakiwa liwe sawa au dogo kuliko 45 (℃)"
+        },
+        "v_regex": {
+          "value": "^(\\d{2}|\\d{2}\\.\\d)$",
+          "err": "Tafadhali ingiza namba sahihi, mfano: 36 au 37.5"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "notify_client_has_fever",
+        "type": "toaster_notes",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "notify_client_has_fever",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"37.8\")"
+          }
+        }
+      },
+      {
+        "key": "notify_client_has_hypothermia",
+        "type": "toaster_notes",
+        "text": "Toa rufaa kwa mteja kwenda kituo cha afya kwa uangalizi zaidi.",
+        "openmrs_entity_id": "notify_client_has_hypothermia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:body_temperature_result": {
+            "type": "numeric",
+            "ex": "lessThan(.,\"36.5\")"
+          }
+        }
+      },
+      {
+        "key": "arm_circumference_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "arm_circumference_result",
+        "type": "edit_text",
+        "hint": "Mzingo wa Mkono (CM)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza mzingo wa mkono"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_weight_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_weight_result",
+        "type": "edit_text",
+        "hint": "Uzito (KG)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Uzito unatakiwa uwe sawa au mkubwa kuliko 20 (KG)"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "Uzito unatakiwa uwe sawa au mdogo kuliko 500 (KG)"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza uzito"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_height_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "body_height_result",
+        "type": "edit_text",
+        "hint": "Urefu (CM)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza urefu"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "Urefu unatakiwa uwe sawa au mkubwa kuliko 5 (CM)"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Urefu unatakiwa uwe sawa au mdogo kuliko 250 (CM)"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_treatment_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_treatment_provided",
+        "label": "Je matibabu yametolewa?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_provided",
+        "label": "Matibabu yaliyotolewa",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "oral_rehydration_solutions",
+            "text": "Oral rehydration solutions (ORS)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_rehydration_solutions"
+          },
+          {
+            "key": "ped_zinc",
+            "text": "Ped Zinc ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ped_zinc"
+          },
+          {
+            "key": "amoxicillin_dt",
+            "text": "Amoxicillin DT",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "amoxicillin_dt"
+          },
+          {
+            "key": "malaria_drugs",
+            "text": "Dawa mseto za malaria (ALu)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_drugs"
+          },
+          {
+            "key": "anti_pain",
+            "text": "Dawa za kutuliza maumivu (panadol)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anti_pain"
+          },
+          {
+            "key": "food_supplements",
+            "text": "Chakula dawa (RUTF)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_supplements"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
