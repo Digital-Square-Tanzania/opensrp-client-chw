@@ -37,6 +37,7 @@ import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -151,12 +152,14 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
             if (items != null && !items.isEmpty()) {
                 adapter = new HpsAnnualCensusRegisterAdapter(items, requireActivity());
                 clientsView.setAdapter(adapter);
-                showEmptyState();
             } else {
                 // Clear adapter to show empty state
+                adapter = null;
                 clientsView.setAdapter(null);
-                showEmptyState();
             }
+
+            showEmptyState();
+            refreshSyncProgressSpinner();
         });
     }
 
@@ -216,7 +219,11 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
         if (syncProgressBar != null) {
             syncProgressBar.setVisibility(GONE);
         }
-        if (syncButton != null) {
+        if (syncButton == null) {
+            return;
+        }
+
+        if (shouldShowSyncButton()) {
             syncButton.setVisibility(android.view.View.VISIBLE);
             syncButton.setPadding(0, 0, 10, 0);
             syncButton.setImageDrawable(context().getDrawable(R.drawable.ic_add_white_24));
@@ -228,7 +235,14 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
                     Timber.e(e);
                 }
             });
+        } else {
+            syncButton.setVisibility(GONE);
         }
+    }
+
+    private boolean shouldShowSyncButton() {
+        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        return adapter == null || !adapter.containsYear(currentYear);
     }
 
 
