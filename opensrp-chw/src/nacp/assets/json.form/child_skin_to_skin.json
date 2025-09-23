@@ -1,0 +1,140 @@
+{
+  "count": "1",
+  "encounter_type": "Skin to skin counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Skin to skin counselling",
+    "fields": [
+      {
+        "key": "skin_to_skin_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "skin_to_skin_counselling",
+        "type": "native_radio",
+        "label": "Do you know why small babies need to stay extra warm in the first days of life? (Give the mother/father or caregiver a chance to respond)",
+        "label_text_style": "bold",
+        "label_info_title": "Skin to skin counselling",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Small babies have less fat than larger babies, so low body temperature can be a major issue. Make sure your baby is dry and warm all the time.",
+            "dynamic_label_image_src": ""
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Kangaroo mother care (KMC) is an excellent way for mothers/fathers or caregivers to keep these babies warm at all times. The skin-to-skin contact of KMC helps keep the baby's body temperature normal.\n",
+            "dynamic_label_image_src": ""
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Note to CHW: Emphasize that anyone can do KMC (including mother/father or caregiver)",
+            "dynamic_label_image_src": ""
+          }
+        ],
+        "label_is_dynamic": true,
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "message_spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
+        "key": "skin_to_skin_counselling_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "skin_to_skin_counselling_message",
+        "type": "label",
+        "text": "Review the steps for doing skin-to-skin with the baby as described in the instructions below, and observe the mother as she practices KMC",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "skin_to_skin_counselling_message_instructions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "skin_to_skin_counselling_message",
+        "type": "label",
+        "text": "Tap ⓘ icon on the right to see the instructions",
+        "label_info_title": "How to do skin to skin",
+        "label_text_style": "bold",
+        "label_text_color": "#000000",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Review the following steps in placing the baby skin-to-skin, and observe the mother as she practices KMC:\n\n\u2022 Undress the baby except for a nappy, hat and socks.\n\u2022 Place the baby upright between the caregiver's breasts or chest with the baby's chest.\n\u2022 Put the legs of the baby along the mother's ribs and turn his or her head to one side.\n\u2022 Secure the baby with a special blouse or cloth tied around the mother and the baby.\n\u2022 The mother can then wear a shirt, sweater or shawl if she wants.\n\u2022 Ask the mother to breastfeed the baby as often as the baby wants but at least every 2 hours.\n\u2022 It is very important that the baby receives the skin to skin contact for 20 hours every day",
+            "dynamic_label_image_src": ""
+          }
+        ],
+        "label_is_dynamic": true
+      }
+    ]
+  }
+}

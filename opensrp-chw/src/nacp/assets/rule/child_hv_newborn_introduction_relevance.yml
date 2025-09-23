@@ -1,0 +1,14 @@
+---
+name: step1_premature_baby
+description: Premature baby
+priority: 1
+condition: "step1_visit_1 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_premature_baby_bango_kitita_counseling
+description: No premature baby bango kitita counseling
+priority: 1
+condition: "step1_premature_baby == 'No' || step1_visit_1 == 'false'"
+actions:
+  - "isRelevant = true"

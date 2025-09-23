@@ -1,0 +1,349 @@
+{
+  "count": "1",
+  "encounter_type": "Danger signs - Baby",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Dalili za hatari - Mtoto",
+    "fields": [
+      {
+        "key": "toddler_danger_signs_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_danger_signs_note",
+        "type": "toaster_notes",
+        "text": "Sasa hivi tupo kwenye hatua ya kuchunguza dalili za hatari kwa mtoto wako.\n\nTafadhali epuka kumshika mtoto ili kuepuka maambukizi ya magonjwa mbalimbali kutoka kwa mtoto kwenda kwa MJA au kutoka kwa MJA kwenda kwa mtoto. Ikiwa kuna ulazima wa kumgusa ili kujua hali ya mtoto tafadhali muombe mama afanye hivyo kwa niaba yako.\n\nSasa ntamchunguza mtoto wako kama ana dalili za hatari. Kama mtoto ataonekana kuwa na  dalili zozote kati ya hizi basi ntatoa rufaa kwenda kituo cha kutolea huduma za afya ili apate matibabu sahihi.\n\nJe, mwanao ameonyesha dalili zozote kati ya hizi katika masaa 24 yaliyo pita?\n\nChagua dalili zote ambazo zimeripotiwa au umeziona",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toddler_danger_signs_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_danger_signs_present",
+        "type": "check_box",
+        "label": "Je, mtoto ana dalili zozote za hatari?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_vomits",
+            "text": "Anatapika kila kitu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vomits"
+          },
+          {
+            "key": "chk_fever",
+            "text": "Homa au joto kali",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fever"
+          },
+          {
+            "key": "chk_fast_breathing",
+            "text": "Kupumua kwa haraka",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fast_breathing"
+          },
+          {
+            "key": "chk_difficult_breathing",
+            "text": "Kupumua kwa shida",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_difficult_breathing"
+          },
+          {
+            "key": "chk_unable_to_breastfeed_eat_drink",
+            "text": "Kushindwa kunyonya, kunywa au kula chochote",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unable_to_breastfeed_eat_drink"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Degedege",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_convulsions"
+          },
+          {
+            "key": "chk_temperature",
+            "text": "Kuhisi baridi au joto la chini",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_temperature"
+          },
+          {
+            "key": "chk_diarrhea",
+            "text": "Kuharisha (kupata choo laini sana  cha maji maji zaidi ya mara 3 ndani ya masaa 24)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_diarrhea"
+          },
+          {
+            "key": "chk_blood_diarrhea",
+            "text": "Kuharisha kinyesi kilichochanganyika na damu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_diarrhea"
+          },
+          {
+            "key": "chk_lethargy",
+            "text": "Amelegea au kupoteza fahamu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_lethargy"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "toddler_danger_signs_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_danger_signs_present_toaster",
+        "type": "toaster_notes",
+        "text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
+        "toaster_info_text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:toddler_danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_vomits",
+                  "chk_fever",
+                  "chk_fast_breathing",
+                  "chk_difficult_breathing",
+                  "chk_unable_to_breastfeed_eat_drink",
+                  "chk_convulsions",
+                  "chk_temperature",
+                  "chk_diarrhea",
+                  "chk_blood_diarrhea",
+                  "chk_lethargy"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toddler_visited_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_visited_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Je, katika siku 3 zilizopita, umempeleka mtoto kwenye kituo cha afya kwa mojawapo ya hali hizi zilizotambuliwa?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "step1:toddler_danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_vomits",
+                  "chk_fever",
+                  "chk_fast_breathing",
+                  "chk_difficult_breathing",
+                  "chk_unable_to_breastfeed_eat_drink",
+                  "chk_convulsions",
+                  "chk_temperature",
+                  "chk_diarrhea",
+                  "chk_blood_diarrhea",
+                  "chk_lethargy"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo"
+        }
+      },
+      {
+        "key": "discuss_toddler_advice_health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "discuss_toddler_advice_health_facility",
+        "type": "toaster_notes",
+        "text": "Jadili na mama kuhusu ushauri alioupata kwa masharti haya alipompeleka Mtoto katika kituo cha Afya ikiwa ni pamoja na Ushauri Nasaha, matibabu wakati wa kufuatilia.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_signs_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "issue_referral_toddler",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "issue_referral_toddler",
+        "type": "toaster_notes",
+        "text": "Unapaswa kumpeleka Mtoto kwenye kituo cha afya haraka iwezekanavyo na ndani ya saa 24 kwa uchunguzi zaidi.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_signs_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toddler_referral_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_referral_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Kulingana na mazungumzo uliyofanya na Mama, unafikiri Mtoto anahitaji kurudi kwenye kituo kwa uchunguzi zaidi?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_sign_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo"
+        }
+      },
+      {
+        "key": "issue_referral_toddler_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "issue_referral_toddler_yes",
+        "type": "toaster_notes",
+        "text": "Dalili ya hatari! Mpatie rufaa kwenda kituo cha afya haraka",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_sign_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_issue_referral_toddler",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_issue_referral_toddler",
+        "type": "toaster_notes",
+        "text": "Endelea kufuata ushauri na maelekezo ya matibabu ya Mtoto uliyopokea katika kituo cha afya. ikiwa hali ya Mtoto inazidi kuwa mbaya, rudi kwenye kituo mara moja.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_sign_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toddler_danger_signs_present_no_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toddler_danger_signs_present_no_toaster",
+        "type": "toaster_notes",
+        "text": "Hakuna dalili yoyote ya hatari iliyogundulika, lakini iwapo mtoto ataonesha dalili yoyote kati ya tulizojadili, unapaswa kwenda kituo cha kutolea huduma za Afya haraka iwezekanavyo.",
+        "toaster_info_text": "Hakuna dalili yoyote ya hatari iliyogundulika, lakini iwapo mtoto ataonesha dalili yoyote kati ya tulizojadili, unapaswa kwenda kituo cha kutolea huduma za Afya haraka iwezekanavyo.",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:toddler_danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

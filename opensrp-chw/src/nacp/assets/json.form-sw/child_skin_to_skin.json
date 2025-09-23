@@ -1,0 +1,140 @@
+{
+  "count": "1",
+  "encounter_type": "Skin to skin counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Ushauri juu ya matunzo ya ngozi kwa ngozi",
+    "fields": [
+      {
+        "key": "skin_to_skin_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "skin_to_skin_counselling",
+        "type": "native_radio",
+        "label": "Je unajua kwa nini watoto njiti wanatakiwa kukaa sehemu yenye joto la ziada kwa siku zao za mwanzo baada ya kuzaliwa? (Mruhusu mama/mlezi/baba kujibu swali)",
+        "label_text_style": "bold",
+        "label_info_title": "Ushauri juu ya matunzo ya ngozi kwa ngozi",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Watoto njiti wana mafuta kidogo kuliko watoto wakubwa, kwa hiyo kuwa na joto lisilotosha linaweza kuwa ni tatizo. Hakikisha mtoto wako yuko mkavu na mwenye joto mda wote.",
+            "dynamic_label_image_src": ""
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Matunzo ya ngozi kwa ngozi  ni njia nzuri zaidi kwa mama kumfanya mtoto awe na joto stahiki mda wote. Muingiliano wa ngozi kwa ngozi unasaidia joto la mtoto kuwa la kawaida.\n",
+            "dynamic_label_image_src": ""
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Taarifa kwa MJA: Sisitiza kwamba mtu yoyote anaweza kufanya matunzo ya ngozi kwa ngozi (ikiwemo mama/baba au mlezi)",
+            "dynamic_label_image_src": ""
+          }
+        ],
+        "label_is_dynamic": true,
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        }
+      },
+      {
+        "key": "message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "message_spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
+        "key": "skin_to_skin_counselling_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "skin_to_skin_counselling_message",
+        "type": "label",
+        "text": "Pitia hatua zifuatazo zinazoelezea jinsi ya kumuweka mtoto ili kufanya matunzo kwa njia ya ngozi kwa ngozi na muangalie mama wakati anafanya KMC",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "skin_to_skin_counselling_message_instructions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "skin_to_skin_counselling_message",
+        "type": "label",
+        "text": "Bofya alama ⓘ upande wa kulia ili kuona maelezo ya hatua",
+        "label_info_title": "Jinsi ya kufanya matunzo ya ngozi kwa ngozi",
+        "label_text_style": "bold",
+        "label_text_color": "#000000",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "Pitia hatua zifuatazo zinazoelezea jinsi ya kumuweka mtoto ili kufanya matunzo kwa njia ya ngozi kwa ngozi na muangalie mama wakati anafanya KMC:\n\n\u2022 Mvue nguo mtoto isipokuwa nepi, kofia na soksi.\n\u2022 Muweke mtoto kwa kunyoka kati ya kifua cha mlezi pamoja na kifua cha mtoto.\n\u2022 Weka miguu ya mtoto sambamba na mbavu za mama na kilekeze kichwa cha mtoto upande mmoja.\n\u2022 Mfunike mtoto na nguo maalum itakayofungwa kumzunguka mama na mtoto.\n\u2022 Sasa mama anaweza kuvaa shati, au sweta akitaka.\n\u2022 Mwambie mama amnyonyeshe mtoto mara kwa mara kadri ya mtoto anavyotaka kunyonya lakini angalau kila baada ya masaa 2.\n\u2022 Ni muhimu sana mtoto kupata makutano ya ngozi kwa ngozi kwa jumla ya masaa 20 kila siku.",
+            "dynamic_label_image_src": ""
+          }
+        ],
+        "label_is_dynamic": true
+      }
+    ]
+  }
+}

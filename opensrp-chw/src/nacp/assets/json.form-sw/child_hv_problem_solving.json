@@ -1,0 +1,130 @@
+{
+  "count": "1",
+  "encounter_type": "Problem Solving",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kutatua Changamoto",
+    "fields": [
+      {
+        "key": "child_playing_challenge",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_playing_challenge",
+        "openmrs_entity_parent": "",
+        "label": "Taarifa kwa MJA: Sema, Je, unapata changamtoto yoyote kwenye kucheza na kuwasiliana na mtoto wako?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Watu wengi wanaweza kupata changamoto ikija swala la kucheza na kuwasiliana na mtoto kwenye uchangamshi wa awali",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Changamoto zipi?\nTaarifa kwa MJA: sikiliza changamoto anazotoa mama na msaidie kutambua mtu ambaye anaweza kumshirikisha changamoto yake ili kumsaidia yeye na mtoto\n\nWahamasishe wazazi/walezi na ndugu wa familia wawe pamoja kumsaidia mama/baba au mlezi kucheza na kuwasiliana na mtoto\nTaarifa kwa MJA : Wajengee  kujiamini kwa kuonesha uwezo walio nao kufanikisha jambo dogo",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA\"Tafadhali kuwa makini pindi unapomuacha mtoto na walezi wengine ili kupunguza mazingira hatarishi",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

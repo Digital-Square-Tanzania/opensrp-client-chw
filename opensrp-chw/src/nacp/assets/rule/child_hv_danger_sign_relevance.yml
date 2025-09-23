@@ -1,0 +1,42 @@
+---
+name: step1_issue_referral_toddler
+description: Toaster to issue referral to toddler if not visited health facility
+priority: 1
+condition: "step1_toddler_visited_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_discuss_toddler_advice_health_facility
+description: Toaster to Discuss with Mother on Advice She got from Health Facility
+priority: 1
+condition: "step1_toddler_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_issue_referral_toddler_yes
+description: Toaster to issue Referral for toddler
+priority: 1
+condition: "step1_toddler_referral_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_issue_referral_toddler
+description: Toaster for No Referral to Toddler
+priority: 1
+condition: "step1_toddler_referral_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toddler_referral_health_facility
+description: Toaster if Toddler needs Referral Again
+priority: 1
+condition: "step1_toddler_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_save_n_refer
+description: Issue Referral for Toddler
+priority: 1
+condition: "step1_toddler_referral_health_facility =='yes' || step1_toddler_visited_health_facility =='no'"
+actions:
+  - "isRelevant = true"

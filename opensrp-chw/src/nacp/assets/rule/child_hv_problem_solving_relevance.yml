@@ -1,0 +1,21 @@
+---
+name: step1_child_playing_challenge_yes_1
+description: Child Playing Challenge
+priority: 1
+condition: "step1_child_playing_challenge =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_playing_challenge_yes_2
+description: Child Playing Challenge
+priority: 1
+condition: "step1_child_playing_challenge =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_playing_challenge_yes_3
+description: Child Playing Challenge
+priority: 1
+condition: "step1_child_playing_challenge =='yes'"
+actions:
+  - "isRelevant = true"

@@ -1,0 +1,134 @@
+{
+  "count": "1",
+  "encounter_type": "Newborn Care Introduction",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Essential New Born Care: Introduction",
+    "fields": [
+      {
+        "key": "visit_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "introduction_new_born_baby",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "It is important that we also discuss the important things to consider when caring for your new born baby.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "premature_baby",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "premature_baby",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Is the baby pre-mature or born underweight?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_newborn_introduction_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_premature_baby_bango_kitita_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Please refer to Topic 11 in Bango Kitita to continue with the discussion",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_newborn_introduction_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "yes_premature_baby_bango_kitita_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "Please refer to Topic 12 in Bango Kitita to continue with the discussion",
+        "relevance": {
+          "step1:premature_baby": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      }
+    ]
+  }
+}
