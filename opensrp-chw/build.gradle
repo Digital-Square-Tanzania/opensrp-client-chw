@@ -240,6 +240,7 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
+            force 'net.zetetic:android-database-sqlcipher:4.5.4'
         }
     }
 
@@ -341,6 +342,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:20.0'
