@@ -75,6 +75,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Tatizo / hali ya kiafya",
         "label_text_style": "bold",
         "options": [
@@ -261,6 +262,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Usimamizi wa kabla ya kupewa rufaa iliyotolewa",
         "label_text_style": "bold",
         "is_problem": false,

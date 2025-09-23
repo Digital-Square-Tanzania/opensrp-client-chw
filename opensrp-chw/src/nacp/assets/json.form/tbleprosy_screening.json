@@ -53,6 +53,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anaishi_karibu_na_mgonjwa",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Anaishi na kaya/karibu na mgonjwa wa",
         "label_text_size": "18px",
         "exclusive": [
@@ -90,7 +91,7 @@
         "openmrs_entity_id": "namba_ya_mteja_tb",
         "type": "mask_edit_text",
         "mask": "##-##-##-######-#/KK/####/#",
-        "mask_hint":"020301100029820241" ,
+        "mask_hint": "020301100029820241",
         "allowed_chars": "0123456789",
         "hint": "Namba ya Mteja wa Kifua Kikuu",
         "v_regex": {
@@ -116,7 +117,7 @@
         "openmrs_entity_id": "namba_ya_mteja_ukoma",
         "type": "mask_edit_text",
         "mask": "##-##-##-######-#/UK/####/#",
-        "mask_hint":"020302200078980241" ,
+        "mask_hint": "020302200078980241",
         "allowed_chars": "0123456789",
         "hint": "Namba ya Mteja wa Ukoma",
         "v_regex": {
@@ -137,7 +138,6 @@
       }
     ]
   },
-
   "step2": {
     "title": "Aina Ya Mteja",
     "next": "step3",
@@ -437,7 +437,6 @@
           }
         }
       },
-
       {
         "key": "majibu_ya_uchunguzi_ukoma",
         "openmrs_entity_parent": "",
@@ -520,10 +519,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hapana"
           }
-
         ]
       }
-
     ]
   }
 }

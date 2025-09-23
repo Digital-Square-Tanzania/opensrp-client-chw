@@ -523,7 +523,7 @@
         "openmrs_entity_id": "preventive_services_provided",
         "openmrs_data_type": "select one",
         "type": "check_box",
-        "combine_checkbox_option_values": true,
+        "combine_checkbox_option_values": "true",
         "label": "Chagua huduma za kinga zilizotolewa",
         "hint": "Chagua huduma za kinga zilizotolewa",
         "options": [

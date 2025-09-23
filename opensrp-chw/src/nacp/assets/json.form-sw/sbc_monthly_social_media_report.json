@@ -201,6 +201,7 @@
         "openmrs_entity_id": "social_media_hiv_msg_distribution",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Chagua mitandao ya kijamii inayotumika kusambaza ujumbe wa VVU na UKIMWI ",
         "hint": "Chagua mitandao ya kijamii inayotumika kusambaza ujumbe wa VVU na UKIMW",
         "options": [

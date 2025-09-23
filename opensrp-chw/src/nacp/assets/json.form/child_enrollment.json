@@ -102,6 +102,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "exclusive": [
           "none"
@@ -187,7 +188,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-4y",
+        "min_date": "today-5y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -208,6 +209,7 @@
         "openmrs_entity_id": "birthdateApprox",
         "hidden": "false",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -350,8 +352,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
-        "label": "Type of disabilities",
         "combine_checkbox_option_values": "true",
+        "label": "Type of disabilities",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [

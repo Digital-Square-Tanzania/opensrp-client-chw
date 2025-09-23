@@ -310,6 +310,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -491,7 +492,7 @@
         "v_max_length": {
           "value": "23",
           "is_fixed_size": "true",
-          "err":"Tafadhali weka namba sahihi"
+          "err": "Tafadhali weka namba sahihi"
         },
         "v_regex": {
           "value": "^\\d{8}-\\d{5}-\\d{5}-\\d{2}$",
