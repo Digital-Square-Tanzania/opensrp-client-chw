@@ -75,6 +75,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Hali ya mteja / tatizo",
         "label_text_style": "bold",
         "options": [
@@ -293,6 +294,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "is_problem": false,
         "label": "Usimamizi wa kabla ya kutoa rufaa uliopewa",
         "label_text_style": "bold",

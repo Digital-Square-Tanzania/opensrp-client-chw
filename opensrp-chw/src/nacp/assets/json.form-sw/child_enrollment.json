@@ -102,6 +102,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "exclusive": [
           "none"
@@ -208,6 +209,7 @@
         "openmrs_entity_id": "birthdateApprox",
         "hidden": "false",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {

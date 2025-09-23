@@ -170,6 +170,7 @@
       {
         "key": "side_effects_sterialization",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
@@ -238,6 +239,7 @@
       {
         "key": "side_effects_iucd",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
@@ -316,6 +318,7 @@
       {
         "key": "side_effects_implant",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
@@ -387,6 +390,7 @@
       {
         "key": "side_effects_inject_pills",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",

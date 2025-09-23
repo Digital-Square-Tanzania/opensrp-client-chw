@@ -60,6 +60,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_problem_malaria",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Maelezo kuhusiana na matatizo ya mteja",
         "label_text_style": "bold",
         "options": [
@@ -236,6 +237,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "service_before_malaria",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Matibabu aliyopatikwa kabla ya Rufaa",
         "label_text_style": "bold",
         "is_problem": false,
