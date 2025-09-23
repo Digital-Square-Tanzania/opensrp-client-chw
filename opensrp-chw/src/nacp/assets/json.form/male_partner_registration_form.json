@@ -310,6 +310,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -436,8 +437,8 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do you have any of the following IDs?",
         "combine_checkbox_option_values": "true",
+        "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -738,8 +739,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
-        "label": "Type of disability",
         "combine_checkbox_option_values": "true",
+        "label": "Type of disability",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -907,8 +908,8 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "A leadership role in the community",
         "combine_checkbox_option_values": "true",
+        "label": "A leadership role in the community",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

@@ -390,6 +390,7 @@
             "openmrs_entity_id": "",
             "openmrs_data_type": "text",
             "type": "check_box",
+            "combine_checkbox_option_values": "true",
             "options": [
               {
                 "key": "same_as_fam_name",
@@ -510,8 +511,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "type_of_disability",
             "type": "check_box",
-            "label": "Type of disability",
             "combine_checkbox_option_values": "true",
+            "label": "Type of disability",
             "label_text_style": "normal",
             "text_color": "#C0C0C0",
             "options": [
