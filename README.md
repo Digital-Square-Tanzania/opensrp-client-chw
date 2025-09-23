@@ -17,6 +17,23 @@ These instructions will get you a copy of the project up and running on your loc
 ### Steps to set up
 [OpenSRP android client app build](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619236/OpenSRP+App+Build)
 
+### Building the app locally
+
+1. Install the Android SDK tools and a Java 11+ runtime, then export `JAVA_HOME` so Gradle can locate it.
+2. Populate the offline Maven mirror from the cached artifacts:
+   ```bash
+   python3 scripts/sync_local_maven.py
+   ```
+   Rerun this command whenever `legacy-opensrp-libs/` changes. The generated `local-maven/` directory is ignored by Git.
+3. Ensure the prepackaged AARs remain under `opensrp-chw/libs/` (`circleprogressbar-1.0.8-SNAPSHOT.aar`, `MonthAndYearPicker-1.3.0.aar`, `hellocharts-android-1.5.8.aar`). Replace them if you rebuild those libraries locally.
+4. Build the client from the repository root:
+   ```bash
+   ./gradlew assemble
+   # or assemble a specific flavor, e.g.
+   ./gradlew assembleNacpDebug
+   ```
+5. The generated APKs appear under `opensrp-chw/build/outputs/apk/`.
+
 ### Running the tests
 
 [Android client unit tests](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/65570428/OpenSRP+Client)
