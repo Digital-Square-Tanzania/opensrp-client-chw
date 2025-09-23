@@ -34,6 +34,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
             "    FROM ec_pregnancy_outcome where ec_pregnancy_outcome.delivery_date is not null\n" +
+            "    AND ec_pregnancy_outcome.is_closed is 0" +
             "    UNION ALL\n" +
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.PNCVisitUtil;
 
 import java.text.MessageFormat;
@@ -25,10 +26,10 @@ public class PNCMalariaPreventionActionHelper extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            malaria_protective_measures_keys = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "malaria_protective_measures");
-            malaria_protective_measures = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "malaria_protective_measures");
-            llin_2days = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_2days");
-            llin_condition = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_condition");
+            malaria_protective_measures_keys = JsonFormUtils.getValue(jsonObject, "malaria_protective_measures");
+            malaria_protective_measures = JsonFormUtils.getCheckBoxValue(jsonObject, "malaria_protective_measures");
+            llin_2days = JsonFormUtils.getValue(jsonObject, "llin_2days");
+            llin_condition = JsonFormUtils.getValue(jsonObject, "llin_condition");
         } catch (JSONException e) {
             Timber.e(e);
         }
