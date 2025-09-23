@@ -50,10 +50,19 @@
     "title": "Danger Signs Mother",
     "fields": [
       {
+        "key": "introduction_danger_sign_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "First, I'm going to check for any postpartum danger signs. If you have any of the following danger signs, I shall refer you to the nearest health facility so that you can receive the appropriate medical attention.",
+        "toaster_type": "info"
+      },
+      {
         "key": "danger_signs_present_mama",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "danger_signs_present_mama",
         "type": "check_box",
         "label": "Does the mother have any danger signs?",
         "label_text_style": "normal",
@@ -67,85 +76,85 @@
             "key": "chk_fever",
             "text": "Fever",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_bleeding_vaginally",
             "text": "Bleeding vaginally",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_bleeding_vaginally"
           },
           {
             "key": "chk_server_headache",
             "text": "Severe headache",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_server_headache"
           },
           {
             "key": "chk_convulsions",
             "text": "Convulsions",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_convulsions"
           },
           {
             "key": "chk_difficulty_breathing",
             "text": "Difficulty breathing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_difficulty_breathing"
           },
           {
             "key": "chk_severe_leg_pain",
             "text": "Severe leg pain",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_severe_leg_pain"
           },
           {
             "key": "chk_unusual_behaviour",
             "text": "Unusual behaviour (stress, confusion)",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "152376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_unusual_behaviour"
           },
           {
             "key": "chk_swelling of breast",
             "text": "Swelling of the breast and nipple",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "125212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_swelling of breast"
           },
           {
             "key": "chk_severe_abdominal_pain",
             "text": "Severe abdominal pain",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_severe_abdominal_pain"
           },
           {
             "key": "chk_vaginal_discharge",
             "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_vaginal_discharge"
           },
           {
             "key": "chk_blurred_vision",
             "text": "Blurred vision",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_blurred_vision"
           },
           {
             "key": "chk_loss_conscioueness",
             "text": "Loss of consciousness",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_loss_conscioueness"
           },
           {
             "key": "chk_urination",
             "text": "Urinate a little or urine leakage",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "118982AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_urination"
           },
           {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -154,14 +163,14 @@
         }
       },
       {
-        "key": "danger_signs_present_toaster",
+        "key": "pnc_danger_signs_present_mama_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Danger sign! \nRefer immediately to health facility.",
-        "text_color": "#CF0800",
-        "toaster_type": "problem",
+        "text": "We've identified that you have a danger sign. Do not worry, because these conditions will be managed when you get to a health facility. Have you, in the past 3 days, gone to a health facility for any of these identified conditions?",
+        "toaster_info_text": "We've identified that you have a danger sign. Do not worry, because these conditions will be managed when you get to a health facility. Have you, in the past 3 days, gone to a health facility for any of these identified conditions?",
+        "toaster_type": "warning",
         "relevance": {
           "step1:danger_signs_present_mama": {
             "ex-checkbox": [
@@ -183,6 +192,158 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "visited_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visited_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Have you, in the past 3 days,gone to a health facility for any of these identified conditions? ?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "step1:danger_signs_present_mama": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_bleeding_vaginally",
+                  "chk_server_headache",
+                  "chk_convulsions",
+                  "chk_difficulty_breathing",
+                  "chk_severe_leg_pain",
+                  "chk_unusual_behaviour",
+                  "chk_swelling of breast",
+                  "chk_severe_abdominal_pain",
+                  "chk_vaginal_discharge",
+                  "chk_blurred_vision",
+                  "chk_loss_conscioueness",
+                  "chk_urination"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "discuss_mother_advice_health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Discuss with the client the advice she received for these conditions when she went to the facility including: Counselling, treatment, when to follow up.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_mother_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "issue_referral_mother",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "You should go to a health facility as soon as possible and within 24 hours for further screening.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_mother_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mother_referral_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mother_referral_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Based on the discussion do you think the client needs to return to the facility for a further checkup?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_mother_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "issue_referral_mother_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign! \\nRefer immediately to health facility.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_mother_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_issue_referral_mother",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Continue following the advice and treatment instructions you received at the health facility. if your condition worsens, return to the facility immediately.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_mother_relevance.yml"
+            }
           }
         }
       }

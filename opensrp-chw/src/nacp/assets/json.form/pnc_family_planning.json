@@ -75,6 +75,77 @@
         }
       },
       {
+        "key": "family_planning_counselling_message_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Now we will be discussing Postpartum family planning and its benefits.",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling_spacer",
+        "type": "spacer",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "The couple should plan the appropriate time between one pregnancy and the next and future family planning. A mother who has just given birth and her partner should wait at least two years before she can think of getting pregnant again.",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_three",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Please refer to Topic 18 in Bango Kitita to continue with the discussion",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_counselling_message_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_counselling_spacer",
+        "type": "spacer",
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
         "key": "fp_period_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -179,7 +250,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Counsel the mother on the correct FP method.\nRefer the mother to the health facility to receive the correct FP Method.",
-        "text_color": "#CF0800",
+        "text_color": "#000800",
         "toaster_type": "problem",
         "relevance": {
           "step1:fp_method": {
@@ -206,6 +277,22 @@
             "ex-rules": {
               "rules-file": "pnc_family_planning_relevance.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "bango_kitita_lam_reference_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Provide education about LAM based on bangokitita 17.",
+        "text_color": "#000800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:fp_method": {
+            "type": "string",
+            "ex": "equalTo(., \"LAM\")"
           }
         }
       }

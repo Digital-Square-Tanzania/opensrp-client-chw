@@ -50,10 +50,19 @@
     "title": "Danger Signs Baby",
     "fields": [
       {
+        "key": "neonate_dangersigns",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Now you are at the stage of screening danger signs for this child. Please avoid touching the child in order to avoid the possibility of corona virus transmission. In case you need to physically examine the child, please ask the client to do so on your behalf.\n\nI’m now going to screen your baby for neonatal danger signs. If your child has danger signs, I shall refer him/her to a nearest health facility so that they can receive the appropriate medical attention. Has your baby exhibited any of these symptoms within the past 24 hours?\n\n\nSelect all the symptoms that are reported or observed",
+        "toaster_type": "info"
+      },
+      {
         "key": "danger_signs_present_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "danger_signs_present_child",
         "type": "check_box",
         "label": "Does the baby have any danger signs?",
         "label_text_style": "normal",
@@ -67,79 +76,79 @@
             "key": "chk_fever",
             "text": "Fever",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_excessive_crying",
             "text": "Excessive crying",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_excessive_crying"
           },
           {
             "key": "chk_fast_breathing",
             "text": "Fast breathing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_fast_breathing"
           },
           {
             "key": "chk_difficult_breathing",
             "text": "Difficulty breathing",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_difficult_breathing"
           },
           {
             "key": "chk_unable_to_suck",
             "text": "Unable to suck",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_difficult_breathing"
           },
           {
             "key": "chk_umbilical_discharge",
             "text": "Umbilical blood / pus discharge",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_umbilical_discharge"
           },
           {
             "key": "chk_convulsions",
             "text": "Convulsions",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_convulsions"
           },
           {
             "key": "chk_skin_rashes",
             "text": "Skin rashes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_skin_rashes"
           },
           {
             "key": "chk_pale",
             "text": "Pale or jaundiced",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_pale"
           },
           {
             "key": "chk_eye_discharge",
             "text": "Eye discharge",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "142246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_eye_discharge"
           },
           {
             "key": "chk_severe_abdominal_pain",
             "text": "Severe abdominal pain",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_severe_abdominal_pain"
           },
           {
             "key": "chk_lethargy",
             "text": "General body Weakness",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_lethargy"
           },
           {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -148,14 +157,14 @@
         }
       },
       {
-        "key": "danger_signs_present_toaster",
+        "key": "danger_signs_present_child_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Danger sign! \nRefer immediately to health facility.",
-        "text_color": "#CF0800",
-        "toaster_type": "problem",
+        "text": "We've identified that the baby has danger signs. Do not worry, because these conditions will be managed when you get to a health facility?",
+        "toaster_info_text": "We've identified that the baby has danger signs. Do not worry, because these conditions will be managed when you get to a health facility?",
+        "toaster_type": "warning",
         "relevance": {
           "step1:danger_signs_present_child": {
             "ex-checkbox": [
@@ -167,16 +176,166 @@
                   "chk_difficult_breathing",
                   "chk_unable_to_suck",
                   "chk_umbilical_discharge",
-                  "chk_no_movement",
                   "chk_convulsions",
                   "chk_skin_rashes",
                   "chk_pale",
-                  "chk_eye_discharge",
                   "chk_severe_abdominal_pain",
-                  "chk_lethargy"
+                  "chk_lethargy",
+                  "chk_urination"
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "neonatal_visited_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "neonatal_visited_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Have you, in the past 3 days, taken the baby to a health facility for any of these identified conditions?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "step1:danger_signs_present_child": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_excessive_crying",
+                  "chk_fast_breathing",
+                  "chk_difficult_breathing",
+                  "chk_unable_to_suck",
+                  "chk_umbilical_discharge",
+                  "chk_convulsions",
+                  "chk_skin_rashes",
+                  "chk_pale",
+                  "chk_severe_abdominal_pain",
+                  "chk_lethargy",
+                  "chk_urination"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "discuss_neonatal_advice_health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Discuss with the mother about the advice she received for these conditions when she sent the Baby to the Health facility including Counselling, treatment when to follow-up.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_baby_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "issue_referral_neonatal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "You should send the Baby to the health facility as soon as possible and within 24 hours for further screening.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_baby_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "neonatal_referral_health_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "neonatal_referral_health_facility",
+        "openmrs_entity_parent": "",
+        "label": "Based on the discussion do you think the Baby needs to return to the facility for a further checkup?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_baby_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "issue_referral_neonatal_yes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign! Refer immediately to health facility.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_baby_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_issue_referral_neonatal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Continue following the Baby's advice and treatment instructions you received at the health facility. if Baby's condition worsens, return to the facility immediately.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_danger_signs_baby_relevance.yml"
+            }
           }
         }
       }

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Malaria Prevention",
+  "encounter_type": "PNC Malaria Prevention",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -50,38 +50,137 @@
     "title": "Malaria Prevention",
     "fields": [
       {
-        "key": "fam_llin",
+        "key": "malaria_prevention_counselling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Does she have a long lasting insecticide net (LLIN)?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "We also need to discuss about Malaria prevention. You and your baby are at most risk of malaria. Malaria will continue to be an important danger throughout your child's early years of life.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures",
+        "type": "check_box",
+        "label": "What measures do you take to protect yourself and your child from Malaria?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "keys": [
-          "Yes",
-          "No"
+        "options": [
+          {
+            "key": "chk_lasting_insecticide_net",
+            "text": "Use of Long Lasting Insecticide Net (LLIN)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_spraying_insecticide",
+            "text": "Household spraying of insecticide",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_doors_and_windows",
+            "text": "Covering the doors and windows with mesh",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_breeding_grounds",
+            "text": "Destroying mosquito breeding grounds",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "malaria_protective_measures_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_protective_measures_other",
+        "type": "edit_text",
+        "edit_type": "text",
+        "hint": "Specify other",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the other protective measure"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_malaria_prevention_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "praise_malaria_protective_measures",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "positive",
+        "text": "Praise her for the measures that she is already taking.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_malaria_prevention_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_protective_measures_None",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "Encourage her to use protective measures.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_malaria_prevention_relevance.yml"
+            }
+          }
         }
       },
       {
         "key": "llin_2days",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
+        "openmrs_entity_id": "llin_2days",
         "type": "spinner",
-        "hint": "Did she sleep under the LLIN last night?",
+        "hint": "Did you and your child sleep under the LLIN last night?",
         "values": [
           "Yes",
           "No"
@@ -99,24 +198,10 @@
           "err": "Please select one option"
         },
         "relevance": {
-          "step1:fam_llin": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "prompt_for_llin",
-        "type": "toaster_notes",
-        "text": "Counsel the client on the importance of sleeping under LLIN",
-        "openmrs_entity_id": "",
-        "openmrs_entity": "",
-        "openmrs_entity_parent": "",
-        "toaster_type": "problem",
-        "relevance": {
-          "step1:llin_2days": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_malaria_prevention_relevance.yml"
+            }
           }
         }
       },
@@ -124,32 +209,71 @@
         "key": "llin_condition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
+        "openmrs_entity_id": "llin_condition",
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
           "Good",
-          "Bad (Torn net)"
+          "Fair",
+          "Poor"
         ],
         "keys": [
-          "Okay",
-          "Bad"
+          "Good",
+          "Fair",
+          "Poor"
         ],
         "openmrs_choice_ids": {
-          "Okay": "Okay",
-          "Bad": "Bad"
+          "Good": "Good",
+          "Fair": "Fair",
+          "Poor": "Poor"
         },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
         },
         "relevance": {
-          "step1:fam_llin": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_malaria_prevention_relevance.yml"
+            }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "health_facility_testing_treatment_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Have the habit of going to the health facility for malaria testing when you experience any symptoms of malaria and getting treatment within 24 hours of testing positive and to ensure that you complete the given dose.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "kk_play_and_communication_flipbook_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Please refer to Topic 7 in Bango Kitita to continue with the discussion",
+        "text_color": "#000000"
       }
     ]
   }

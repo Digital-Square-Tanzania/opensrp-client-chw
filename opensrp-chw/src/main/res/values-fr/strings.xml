@@ -297,6 +297,7 @@
     <!-- PNC Home visit subtitle text -->
     <string name="pnc_danger_signs_mama">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby_task">Signes de danger - enfant</string>
+    <string name="pnc_skin_to_skin">KMC skin-to-skin counselling</string>
 
     <string name="pnc_minor_ailment_mama"> Minor Ailment - Mama </string>
 

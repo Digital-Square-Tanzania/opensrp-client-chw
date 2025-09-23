@@ -7,6 +7,7 @@ import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
@@ -211,7 +212,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    couselling_child = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "pnc_counselling");
+                    couselling_child = getCheckBoxValue(jsonObject, "pnc_counselling");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.domain.ParentClient;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;

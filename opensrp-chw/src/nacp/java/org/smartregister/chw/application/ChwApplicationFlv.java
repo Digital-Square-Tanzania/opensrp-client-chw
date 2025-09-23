@@ -41,7 +41,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasFamilyPlanning() {
-        return false;
+        return true;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasICCM() {
-        return false;
+        return true;
     }
 
     @Override
