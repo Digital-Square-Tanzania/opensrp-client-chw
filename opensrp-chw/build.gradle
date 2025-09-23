@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.5.2'
         classpath 'com.google.gms:google-services:4.3.3'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
     }
@@ -102,14 +102,22 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
-android {
-    useLibrary 'org.apache.http.legacy'
-    compileSdkVersion androidCompileSdkVersion
-    buildToolsVersion androidBuildToolsVersion
+configurations.configureEach {
+    exclude group: 'com.google.guava', module: 'listenablefuture'
+}
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
+android {
+    namespace "org.smartregister.chw"
+    useLibrary 'org.apache.http.legacy'
+    compileSdk androidCompileSdkVersion
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {
@@ -117,10 +125,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "org.smartregister.chw"
         minSdkVersion androidMinSdkVersion
-        targetSdkVersion androidTargetSdkVersion
+        targetSdk androidTargetSdkVersion
         versionCode 2
         versionName "0.2.1"
         multiDexEnabled true
@@ -147,10 +159,6 @@ android {
             println("local.properties does not exist")
             buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     buildTypes {
@@ -370,8 +378,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 ]) {
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
 
     getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
