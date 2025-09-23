@@ -311,9 +311,7 @@ public class ChwApplication extends CoreChwApplication {
             AsrhLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
-        if (flavor.hasCecap()) {
-            CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        }
+        CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         if (flavor.hasHps()) {
             HpsLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -448,7 +446,7 @@ public class ChwApplication extends CoreChwApplication {
         return flavor.hasTB();
     }
 
-    public boolean hasADDO(){
+    public boolean hasADDO() {
         return flavor.hasADDO();
     }
 
