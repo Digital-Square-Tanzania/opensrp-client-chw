@@ -1,0 +1,35 @@
+---
+name: step1_malaria_protective_measures_other
+description: Malaria protective measures other
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_praise_malaria_protective_measures
+description: Praise malaria protective measures
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_lasting_insecticide_net') || step1_malaria_protective_measures.contains('chk_spraying_insecticide') || step1_malaria_protective_measures.contains('chk_doors_and_windows') || step1_malaria_protective_measures.contains('chk_breeding_grounds') || step1_malaria_protective_measures.contains('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_protective_measures_None
+description: Malaria protective measures none
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_llin_2days
+description: llin 2days
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_lasting_insecticide_net')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_llin_condition
+description: LLIN condition
+priority: 1
+condition: "step1_malaria_protective_measures.contains('chk_lasting_insecticide_net')"
+actions:
+  - "isRelevant = true"

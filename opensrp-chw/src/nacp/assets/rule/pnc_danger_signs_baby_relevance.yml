@@ -1,0 +1,35 @@
+---
+name: step1_issue_referral_neonatal
+description: If Danger Sign Present Refer Her to the Health Facility
+priority: 1
+condition: "step1_neonatal_visited_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_discuss_neonatal_advice_health_facility
+description: Discuss with Mother on Advice She got from Health Facility for the Neonatal
+priority: 1
+condition: "step1_neonatal_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_issue_referral_neonatal_yes
+description: Send Referral for Neonatal
+priority: 1
+condition: "step1_neonatal_referral_health_facility =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_issue_referral_neonatal
+description: No Referral for Neonatal
+priority: 1
+condition: "step1_neonatal_referral_health_facility =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_neonatal_referral_health_facility
+description: Based on Discuss with Mother about Baby check if the Baby needs Referral Again
+priority: 1
+condition: "step1_neonatal_visited_health_facility =='yes'"
+actions:
+  - "isRelevant = true"

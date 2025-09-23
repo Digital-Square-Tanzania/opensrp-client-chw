@@ -1,0 +1,169 @@
+{
+  "count": "1",
+  "encounter_type": "PNC Hygiene Observation",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Environmental Hygiene Safety and Counseling",
+    "fields": [
+      {
+        "key": "environment_hygiene_note_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_note_one",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Hygiene and infection prevention includes appropriate hand washing, body hygiene, safe disposal of sanitary pads, washing of contaminated linens, observing hygieneic principles when handling the newborn baby and providing safe cord care."
+      },
+      {
+        "key": "environment_hygiene_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_spacer",
+        "type": "spacer"
+      },
+      {
+        "key": "environment_hygiene_note_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "environment_hygiene_note_two",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "I’d like to discuss disposal of children’s feces with you. A child’s stool can be dangerous and can cause diseases."
+      },
+      {
+        "key": "defecation_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "defecation_location",
+        "type": "edit_text",
+        "label_info_title": "Hygiene Information",
+        "hint": "Where does your child defecate?"
+      },
+      {
+        "key": "feces_disposal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "feces_disposal",
+        "type": "edit_text",
+        "hint": "Where do you dispose your child feces?"
+      },
+      {
+        "key": "is_latrine_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_latrine_present",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Do you have a latrine in your household",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "yes",
+          "No": "no"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      }
+    ,{
+        "key": "latrine_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "latrine_type",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "What type of Latrine do you have?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "with_4_walls",
+            "text": "With 4 walls",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_4_walls"
+          },
+          {
+            "key": "with_a_door",
+            "text": "With a door",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_door"
+          },
+          {
+            "key": "with_a_floor",
+            "text": "With a floor",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_floor"
+          },
+          {
+            "key": "with_a_roof",
+            "text": "With a roof",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "with_a_roof"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify what kind of Latrine"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_hygiene_observation_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
