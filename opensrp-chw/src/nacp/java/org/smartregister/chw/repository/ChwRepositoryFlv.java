@@ -11,6 +11,7 @@ import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -117,6 +118,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 28:
                     upgradeToVersion28(db);
+                    break;
+                case 29:
+                    upgradeToVersion29(db);
                     break;
                 default:
                     break;
@@ -502,5 +506,15 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion28");
         }
+    }
+    private static void upgradeToVersion29(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT)),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+
     }
 }

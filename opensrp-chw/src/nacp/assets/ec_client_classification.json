@@ -816,6 +816,13 @@
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening",
+            "creates_case": [
+              "ec_ncd_register"
+            ]
           }
         ]
       }
