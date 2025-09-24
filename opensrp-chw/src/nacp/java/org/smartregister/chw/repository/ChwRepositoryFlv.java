@@ -518,7 +518,9 @@ public class ChwRepositoryFlv {
         }
 
         try {
-            String addMissingColumnsQuery = "ALTER TABLE ec_family_member ADD COLUMN occupation VARCHAR; ";
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member ADD COLUMN occupation VARCHAR; "+
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN kvp_visit_date VARCHAR;";
+
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");

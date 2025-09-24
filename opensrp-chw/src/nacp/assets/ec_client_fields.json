@@ -5282,6 +5282,13 @@
           }
         },
         {
+          "column_name": "kvp_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
