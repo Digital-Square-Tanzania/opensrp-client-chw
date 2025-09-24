@@ -49,4 +49,11 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         }
         return res;
     }
+
+    @Override
+    public void onEventSaveComplete(boolean b) {
+        if(b) {
+            getView().hideProgressDialog();
+        }
+    }
 }
