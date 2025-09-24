@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -121,6 +122,7 @@ import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
 
+    private static final String LOG_TAG = ChwApplication.class.getSimpleName();
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
@@ -188,10 +190,13 @@ public class ChwApplication extends CoreChwApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
+            boolean crashlyticsInitialized = initializeCrashlytics();
+            if (crashlyticsInitialized) {
+                Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
+            } else {
+                Timber.w("Crashlytics build ID missing; skipping Crashlytics initialization.");
+            }
         }
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         initializeLibraries();
 
@@ -230,6 +235,17 @@ public class ChwApplication extends CoreChwApplication {
 
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
+        }
+    }
+
+    private boolean initializeCrashlytics() {
+        try {
+            CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+            Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
+            return true;
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to initialize Crashlytics", e);
+            return false;
         }
     }
 
