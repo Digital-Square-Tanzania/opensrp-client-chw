@@ -52,7 +52,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import timber.log.Timber;
 
@@ -247,6 +247,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     @Override
     public void notifyHasPhone(boolean b) {
         //implement
+    }
+
+    @Override
+    public void onEventSaveComplete(boolean b) {
+
     }
 
     @Override
