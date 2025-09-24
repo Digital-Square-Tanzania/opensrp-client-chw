@@ -250,7 +250,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '28'
+            buildConfigField "int", "DATABASE_VERSION", '29'
         }
     }
 
@@ -271,7 +271,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.6.6-MOH-ALPHA-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.6.6-MOH-ALPHA-SNAPSHOT-NCD_REG-SNAPSHOT01') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -286,9 +286,20 @@ dependencies {
         exclude group: 'com.ibm.fhir', module: 'fhir-path'
         exclude group: 'com.emredavarci', module: 'circleprogressbar'
         exclude group: 'org.koin'
+        exclude group: 'org.smartregister', module: 'opensrp-chw-ncd'
     }
 
+    implementation('org.smartregister:opensrp-chw-ncd:0.0.1-SNAPSHOT-LOCAL05') {
+        transitive = false
+    }
+
+    implementation 'com.nineoldandroids:library:2.4.0'
+
     implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT@aar'
+    implementation 'com.commonsware.cwac:saferoom:1.2.0'
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-csv:1.10.0'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation('io.ona.kujaku:library:0.9.0') {
@@ -316,6 +327,12 @@ dependencies {
     androidTestImplementation 'org.mockito:mockito-android:3.4.0'
 
     implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
+
+    implementation('io.realm:realm-android-library:4.1.1') {
+        exclude group: 'io.realm', module: 'realm-annotations'
+    }
+    compileOnly "io.realm:realm-annotations:4.1.1"
+    implementation 'org.apache.commons:commons-text:1.10.0'
 
     implementation 'org.mozilla:rhino:1.7.15' // Use the latest version if available
 
