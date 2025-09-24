@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url uri("${rootDir}/local-maven") }
     }
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
@@ -81,6 +82,7 @@ allprojects {
                 password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
             }
         }
+        maven { url uri("${rootDir}/local-maven") }
         flatDir {
             dirs 'libs'
         }
@@ -230,6 +232,7 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
+            force 'net.zetetic:android-database-sqlcipher:4.5.4'
         }
     }
 
@@ -238,7 +241,7 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".moh"
-            versionCode 36
+            versionCode 43
             versionName "1.2.12 (ECD)"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
