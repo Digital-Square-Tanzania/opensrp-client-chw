@@ -51,6 +51,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op23 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.asrh, CoreConstants.DrawerMenu.AYSRH, 0);
             NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
 
+            NavigationOption op26 = new NavigationOption(R.drawable.ic_ncd, R.drawable.ic_ncd_blue, R.string.nav_menu_ncd, CoreConstants.DrawerMenu.NCD, 0);
             NavigationOption op25 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
@@ -103,7 +104,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op26, op12, op3, op5, op2, op13));
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }
