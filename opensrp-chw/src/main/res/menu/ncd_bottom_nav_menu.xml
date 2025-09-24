@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_at_risk_ncd"
         android:enabled="true"
-        android:icon="@mipmap/ic_ncd_at_risk"
+        android:icon="@drawable/ic_ncd_at_risk_icon"
         android:title="@string/ncd_at_risk_clients"
         app:showAsAction="ifRoom" />
     <item
