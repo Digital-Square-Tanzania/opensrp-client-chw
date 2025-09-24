@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -88,6 +89,9 @@ public class NcdJsonWizardFormFragment extends JsonWizardFormFragment {
         return new NcdJsonWizardFormFragmentPresenter(this, JsonFormInteractor.getInstance());
     }
 
+    public void customClick(Context context, String behaviour){
+        save();
+    }
     @Override
     public void updateVisibilityOfNextAndSave(boolean next, boolean save) {
         super.updateVisibilityOfNextAndSave(next, save);

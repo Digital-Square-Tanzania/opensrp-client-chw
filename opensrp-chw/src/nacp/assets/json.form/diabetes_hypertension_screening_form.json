@@ -676,7 +676,7 @@
         "hint": "Save and Refer to Health Facility",
         "btn_bg_color": "#FF840952",
         "action": {
-          "behaviour": "refer"
+          "behaviour": "finish_form"
         },
         "relevance": {
           "rules-engine": {
@@ -695,7 +695,7 @@
         "hint": "Save",
         "btn_bg_color": "#3596c0",
         "action": {
-          "behaviour": "save"
+          "behaviour": "finish_form"
         },
         "relevance": {
           "rules-engine": {
