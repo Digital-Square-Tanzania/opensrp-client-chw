@@ -697,4 +697,6 @@
     <string name="nav_menu_linkage">Miunganisho</string>
 
     <string name="diabetes_and_hypertension_screening_form_title">Uchunguzi wa Kisukari &amp; Shinikizo la Damu</string>
+    <string name="ncd_at_risk_clients">Walio Hatarini</string>
+    <string name="ncd_confirmed_clients">Wagonjwa</string>
 </resources>

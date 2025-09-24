@@ -515,5 +515,7 @@
     <string name="cecap_referral">Reproductive Cancers Services</string>
 
     <string name="successful_linkages">Successful Linkages</string>
+    <string name="ncd_at_risk_clients">At Risk</string>
+    <string name="ncd_confirmed_clients">Confirmed</string>
 
 </resources>
