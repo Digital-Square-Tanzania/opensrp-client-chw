@@ -1,8 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static org.hl7.fhir.r4.model.codesystems.VariantState.NEGATIVE;
-import static org.hl7.fhir.r4.model.codesystems.VariantState.POSITIVE;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -28,6 +25,9 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import timber.log.Timber;
 
 public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity {
+
+    private static final String POSITIVE = "positive";
+    private static final String NEGATIVE = "negative";
     TextView tvActionTaken;
     TextView tvComments;
     TextView tvTestResult;
