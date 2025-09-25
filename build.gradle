@@ -70,7 +70,7 @@ subprojects {
 
     ext.androidToolsBuildGradle = '4.0.1'
     ext.androidBuildToolsVersion = '29.0.3'
-    ext.androidMinSdkVersion = 21
+    ext.androidMinSdkVersion = 23
     ext.androidCompileSdkVersion = 34
     ext.androidTargetSdkVersion = 34
 

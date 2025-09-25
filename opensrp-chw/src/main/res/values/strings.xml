@@ -181,6 +181,10 @@
     <string name="filter_all">All</string>
     <string name="filter_group_type_age_band">Age band</string>
     <string name="filter_group_type_classes">Classes</string>
+    <string name="ayp_visit_history">AYP visit history</string>
+    <string name="ayp_visit_history_empty">No AYP visit history recorded yet.</string>
+    <string name="ayp_visit_history_unknown_date">Visit date unavailable</string>
+    <string name="ayp_client">client</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
