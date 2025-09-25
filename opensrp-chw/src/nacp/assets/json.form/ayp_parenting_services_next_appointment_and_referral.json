@@ -1,0 +1,136 @@
+{
+  "count": "1",
+  "encounter_type": "AYP Parenting Services Next Appointment and Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "AYP Parenting Services Next Appointment and Referral",
+    "rules_file": "ayp-parenting-services-next-appointment-and-referral-relevance-rules.yml",
+    "fields": [
+      {
+        "key": "next_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "next_appointment_date",
+        "type": "date_picker",
+        "label": "Next Appointment Date",
+        "v_required": {
+          "value": true,
+          "err": "Please select the next appointment date"
+        }
+      },
+      {
+        "key": "referral_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_services",
+        "type": "check_box",
+        "label": "Referral to other services",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "hts",
+            "text": "HTS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hts"
+          },
+          {
+            "key": "vmmc",
+            "text": "VMMC",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vmmc"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv"
+          },
+          {
+            "key": "economic_empowerment",
+            "text": "Economic empowerment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "economic_empowerment"
+          },
+          {
+            "key": "pep",
+            "text": "PEP",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep"
+          },
+          {
+            "key": "others_specify",
+            "text": "Others (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others_specify"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one referral service"
+        }
+      },
+      {
+        "key": "referral_other_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_other_specify",
+        "type": "edit_text",
+        "label": "If others, please specify",
+        "v_required": {
+          "value": true,
+          "err": "Please specify other referral"
+        }
+      }
+    ]
+  }
+}

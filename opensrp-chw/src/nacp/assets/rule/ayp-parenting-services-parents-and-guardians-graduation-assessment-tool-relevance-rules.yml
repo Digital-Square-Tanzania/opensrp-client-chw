@@ -1,0 +1,17 @@
+name: step1_total_score
+description: Calculate total_score from correct answers
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_q1_hiv_problem != null && step1_q1_hiv_problem == 'yes' ? 10 : 0)
+      + (step1_q2_prevent_hiv != null && step1_q2_prevent_hiv == 'a_and_c' ? 10 : 0)
+      + (step1_q3_relationship_hiv_stis != null && step1_q3_relationship_hiv_stis == 'stis_contribute_hiv' ? 10 : 0)
+      + (step1_q4_parent_responsibility != null && step1_q4_parent_responsibility == 'none_correct' ? 10 : 0)
+      + (step1_q5_info_sources != null && step1_q5_info_sources == 'all_correct' ? 10 : 0)
+      + (step1_q6_difficulty_discussion != null && step1_q6_difficulty_discussion == 'all_correct' ? 10 : 0)
+      + (step1_q7_best_ways_help != null && step1_q7_best_ways_help == 'listen_advise' ? 10 : 0)
+      + (step1_q8_action_pregnancy != null && step1_q8_action_pregnancy == 'do_not_isolate' ? 10 : 0)
+      + (step1_q9_relationship_sexual_edu != null && step1_q9_relationship_sexual_edu == 'sexual_contact_transmission' ? 10 : 0)
+      + (step1_q10_benefits_parent_education != null && step1_q10_benefits_parent_education == 'parents_first_teachers' ? 10 : 0)"
+  - "isRelevant = true"
+

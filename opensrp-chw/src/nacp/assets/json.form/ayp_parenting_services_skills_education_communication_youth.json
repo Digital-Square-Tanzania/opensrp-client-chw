@@ -1,0 +1,104 @@
+{
+  "count": "1",
+  "encounter_type": "Skills, Education and Communication for Youth",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Skills, Education and Communication for Youth",
+    "fields": [
+      {
+        "key": "skills_education_communication_youth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "skills_education_communication_youth",
+        "type": "check_box",
+        "label": "Skills, Education and Communication for Youth",
+        "combine_checkbox_option_values": "true",
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        },
+        "options": [
+          {
+            "key": "concept_communication",
+            "text": "The concept of communication",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concept_communication"
+          },
+          {
+            "key": "communication_skills",
+            "text": "Communication skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "communication_skills"
+          },
+          {
+            "key": "parenting_youth_development_skills",
+            "text": "Parenting and youth development skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parenting_youth_development_skills"
+          },
+          {
+            "key": "morals_discipline_youth",
+            "text": "Morals and discipline for youth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "morals_discipline_youth"
+          },
+          {
+            "key": "pyramid_success_parenting",
+            "text": "The concept of Pyramid of success in parenting",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pyramid_success_parenting"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+name: step1_referral_other_specify
+description: Show referral_other_specify when Others is selected in referral_services
+priority: 1
+condition: "step1_referral_services != null && step1_referral_services.contains('others_specify')"
+actions:
+  - "isRelevant = true"
+

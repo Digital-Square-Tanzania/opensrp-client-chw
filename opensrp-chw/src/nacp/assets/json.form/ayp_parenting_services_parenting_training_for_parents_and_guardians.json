@@ -1,0 +1,142 @@
+{
+  "count": "1",
+  "encounter_type": "Parenting Training for Parents and Guardians",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Parenting Training for Parents and Guardians",
+    "fields": [
+      {
+        "key": "section_selection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "section_selection",
+        "type": "check_box",
+        "label": "Select section(s)",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "introduction",
+            "text": "Introduction",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "introduction"
+          },
+          {
+            "key": "hiv_problem_among_young_people",
+            "text": "HIV problem among young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_problem_among_young_people"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one section"
+        }
+      },
+      {
+        "key": "intro_details",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "intro_details",
+        "type": "label",
+        "label": "Introduction Details",
+        "text": "Defining key terms in Parenting Training for Parents and Guardians.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "parenting-training-for-parents-and-guardians-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_problem_topics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_problem_topics",
+        "type": "check_box",
+        "label": "HIV problem among young people topics",
+        "combine_checkbox_option_values": "true",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "parenting-training-for-parents-and-guardians-relevance-rules.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "importance_parents",
+            "text": "The importance of parents and guardians to young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "importance_parents"
+          },
+          {
+            "key": "barriers_conversations",
+            "text": "Barriers to STDs, sexuality, HIV and AIDS conversations between parent/guardian and teenagers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "barriers_conversations"
+          },
+          {
+            "key": "methods_address_barriers",
+            "text": "Methods to address barriers to STDs, sexuality, HIV and AIDS conversations between parent/guardian and teenagers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "methods_address_barriers"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        }
+      }
+    ]
+  }
+}

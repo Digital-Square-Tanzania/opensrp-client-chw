@@ -544,7 +544,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");

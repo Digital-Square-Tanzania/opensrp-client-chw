@@ -1,0 +1,118 @@
+{
+  "count": "1",
+  "encounter_type": "Understanding young people and challenges they are facing",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Understanding young people and challenges they are facing",
+    "fields": [
+      {
+        "key": "understanding_youth_challenges",
+        "type": "check_box",
+        "label": "Understanding young people and challenges they are facing",
+        "combine_checkbox_option_values": "true",
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        },
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_youth_challenges",
+        "options": [
+          {
+            "key": "understanding_young_people",
+            "text": "Understanding young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "understanding_young_people"
+          },
+          {
+            "key": "peer_pressure",
+            "text": "Peer pressure",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "peer_pressure"
+          },
+          {
+            "key": "concept_relationships",
+            "text": "The concept of relationships",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concept_relationships"
+          },
+          {
+            "key": "concept_gbv_stigma_discrimination",
+            "text": "The concept of GBV, stigma and discrimination towards young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concept_gbv_stigma_discrimination"
+          },
+          {
+            "key": "stigma_discrimination_yplhiv",
+            "text": "The concept of stigma and discrimination towards young people living with HIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stigma_discrimination_yplhiv"
+          },
+          {
+            "key": "mental_health_youth",
+            "text": "Mental health for young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health_youth"
+          },
+          {
+            "key": "alcohol_drug_use_youth",
+            "text": "Alcohol and drug use among young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alcohol_drug_use_youth"
+          }
+        ]
+      }
+    ]
+  }
+}

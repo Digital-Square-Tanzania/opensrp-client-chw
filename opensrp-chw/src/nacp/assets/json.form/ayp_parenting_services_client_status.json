@@ -1,0 +1,147 @@
+{
+  "count": "1",
+  "encounter_type": "client_status",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Client Status",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "client_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_status",
+        "type": "native_radio",
+        "label": "Client status",
+        "options": [
+          {
+            "key": "new_client",
+            "text": "New Client",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "new_client"
+          },
+          {
+            "key": "returning",
+            "text": "Returning",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "returning"
+          },
+          {
+            "key": "transferred",
+            "text": "Transferred",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transferred"
+          },
+          {
+            "key": "opt_out",
+            "text": "Parent or Guardian/Student requested to opt out of service",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "opt_out"
+          }, {
+            "key": "dead",
+            "text": "Dead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dead"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select the client status"
+        }
+      },
+      {
+        "key": "transfer_remarks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "transfer_remarks",
+        "type": "edit_text",
+        "hint": "Provide comment/remarks",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_client-status-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please provide comment/remarks"
+        }
+      },
+      {
+        "key": "new_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "new_address",
+        "type": "edit_text",
+        "hint": "New address",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_client-status-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please provide the new address"
+        }
+      }
+    ]
+  }
+}
+

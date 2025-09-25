@@ -1,0 +1,452 @@
+{
+  "count": "1",
+  "encounter_type": "Parents and Guardians’ Graduation Assessment Tool",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Parents and Guardians’ Graduation Assessment Tool",
+    "rules_file": "ayp-parenting-services-parents-and-guardians-graduation-assessment-tool-relevance-rules.yml",
+    "fields": [
+      {
+        "key": "q1_hiv_problem",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q1_hiv_problem",
+        "type": "radio",
+        "label": "Do you think HIV and AIDS is a problem for AYP in the country? (Session 2)",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "not_sure",
+            "text": "I'm not sure",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_sure"
+          },
+          {
+            "key": "dont_know",
+            "text": "I don't know",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dont_know"
+          }
+        ]
+      },
+      {
+        "key": "q2_prevent_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q2_prevent_hiv",
+        "type": "radio",
+        "label": "Which of the following are correct ways to prevent HIV infection? (Session 3)",
+        "options": [
+          {
+            "key": "condoms",
+            "text": "Condoms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "condoms"
+          },
+          {
+            "key": "oil",
+            "text": "Oil",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oil"
+          },
+          {
+            "key": "vmmc",
+            "text": "Voluntary Medical Male Circumcision",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vmmc"
+          },
+          {
+            "key": "dont_know",
+            "text": "I don't know",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dont_know"
+          },
+          {
+            "key": "a_and_c",
+            "text": "A and C",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "a_and_c"
+          }
+        ]
+      },
+      {
+        "key": "q3_relationship_hiv_stis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q3_relationship_hiv_stis",
+        "type": "radio",
+        "label": "What is the relationship between HIV and sexually transmitted infections? (Session 2)",
+        "options": [
+          {
+            "key": "hiv_causes_utis",
+            "text": "HIV causes sexually transmitted infections, especially UTIs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_causes_utis"
+          },
+          {
+            "key": "stis_contribute_hiv",
+            "text": "Sexually transmitted infections contribute to HIV infection",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis_contribute_hiv"
+          },
+          {
+            "key": "treat_stis_cures_hiv",
+            "text": "Treating sexually transmitted infections can also cure HIV and AIDS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treat_stis_cures_hiv"
+          },
+          {
+            "key": "all_correct",
+            "text": "All of the above answers are correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "all_correct"
+          }
+        ]
+      },
+      {
+        "key": "q4_parent_responsibility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q4_parent_responsibility",
+        "type": "radio",
+        "label": "Do parents/guardians have the responsibility to talk to their teenagers about violence, sexuality, sex, HIV, and AIDS? (Session 4)",
+        "options": [
+          {
+            "key": "no_role_models",
+            "text": "No, parents are moral role models and should not discuss these topics",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_role_models"
+          },
+          {
+            "key": "peer_educators_only",
+            "text": "This is the role of peer educators and health workers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "peer_educators_only"
+          },
+          {
+            "key": "govt_responsibility",
+            "text": "It is the government's responsibility",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "govt_responsibility"
+          },
+          {
+            "key": "none_correct",
+            "text": "None of these answers is correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none_correct"
+          }
+        ]
+      },
+      {
+        "key": "q5_info_sources",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q5_info_sources",
+        "type": "radio",
+        "label": "Where do adolescents and young people get information on sexual matters and HIV and AIDS? (Session 1)",
+        "options": [
+          {
+            "key": "guardians_worship",
+            "text": "Guardians/Parents and worshiping places",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "guardians_worship"
+          },
+          {
+            "key": "health_school",
+            "text": "Health facilities and school teachers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_school"
+          },
+          {
+            "key": "media",
+            "text": "Social media and media houses",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "media"
+          },
+          {
+            "key": "all_correct",
+            "text": "All of the above are correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "all_correct"
+          }
+        ]
+      },
+      {
+        "key": "q6_difficulty_discussion",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q6_difficulty_discussion",
+        "type": "radio",
+        "label": "Why is it difficult for parents/guardians to discuss sexual matters with AYP? (Session 5)",
+        "options": [
+          {
+            "key": "lack_time",
+            "text": "Lack of time due to social and economic activities",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lack_time"
+          },
+          {
+            "key": "traditions_norms",
+            "text": "Traditions and cultural norms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "traditions_norms"
+          },
+          {
+            "key": "inadequate_knowledge",
+            "text": "Inadequate knowledge",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inadequate_knowledge"
+          },
+          {
+            "key": "all_correct",
+            "text": "All of the above are correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "all_correct"
+          }
+        ]
+      },
+      {
+        "key": "q7_best_ways_help",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q7_best_ways_help",
+        "type": "radio",
+        "label": "Which are the best ways for a parent/guardian in helping an adolescent facing challenges? (Session 5)",
+        "options": [
+          {
+            "key": "listen_advise",
+            "text": "Listening well and giving advice",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "listen_advise"
+          },
+          {
+            "key": "uncle_aunt_tradition",
+            "text": "Taking them to an Uncle or Aunt according to tradition",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "uncle_aunt_tradition"
+          },
+          {
+            "key": "boarding_school",
+            "text": "Enrolling them in boarding school",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "boarding_school"
+          },
+          {
+            "key": "family_meetings",
+            "text": "Taking them to family meetings",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_meetings"
+          }
+        ]
+      },
+      {
+        "key": "q8_action_pregnancy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q8_action_pregnancy",
+        "type": "radio",
+        "label": "What action should be taken for adolescents who get pregnant? (Session 6)",
+        "options": [
+          {
+            "key": "file_charges",
+            "text": "File charges against them",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "file_charges"
+          },
+          {
+            "key": "worship_pray",
+            "text": "Take them to worship places",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "worship_pray"
+          },
+          {
+            "key": "expel_home",
+            "text": "Expel them from home",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "expel_home"
+          },
+          {
+            "key": "do_not_isolate",
+            "text": "Do not isolate them; offer advice and opportunities",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "do_not_isolate"
+          }
+        ]
+      },
+      {
+        "key": "q9_relationship_sexual_edu",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q9_relationship_sexual_edu",
+        "type": "radio",
+        "label": "What is the relationship between sexual education and HIV and AIDS? (Session 1)",
+        "options": [
+          {
+            "key": "both_introduced",
+            "text": "Sexuality issues were brought into our community",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "both_introduced"
+          },
+          {
+            "key": "knowledge_prevents_hiv",
+            "text": "Science shows sexual knowledge prevents HIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "knowledge_prevents_hiv"
+          },
+          {
+            "key": "sexual_contact_transmission",
+            "text": "HIV is transmitted through sexual contact, so education reduces risk",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_contact_transmission"
+          },
+          {
+            "key": "all_correct",
+            "text": "All of the above answers are correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "all_correct"
+          }
+        ]
+      },
+      {
+        "key": "q10_benefits_parent_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "q10_benefits_parent_education",
+        "type": "radio",
+        "label": "What are the benefits of educating parents about sexual matters and HIV and AIDS? (Session 6)",
+        "options": [
+          {
+            "key": "strict_action",
+            "text": "Parents will take strict action",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "strict_action"
+          },
+          {
+            "key": "avoid_questions",
+            "text": "Well-informed parents avoid answering questions",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "avoid_questions"
+          },
+          {
+            "key": "parents_first_teachers",
+            "text": "Parents are children’s first teachers, supporting them on HIV and adolescent challenges",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parents_first_teachers"
+          },
+          {
+            "key": "all_correct",
+            "text": "All of the above answers are correct",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "all_correct"
+          }
+        ]
+      },
+      {
+        "key": "total_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "total_score",
+        "type": "edit_text",
+        "label": "Total Score (out of 100)",
+        "read_only": true
+      }
+    ]
+  }
+}
+
