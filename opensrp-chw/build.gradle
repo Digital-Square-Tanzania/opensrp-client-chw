@@ -274,7 +274,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.1-ALPHA2-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.7.1-ALPHA3-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -290,6 +290,8 @@ dependencies {
         exclude group: 'com.emredavarci', module: 'circleprogressbar'
         exclude group: 'org.koin'
         exclude group: "com.google.guava", module: 'listenablefuture'
+        exclude group: "jakarta.activation", module: "jakarta.activation-api"
+        exclude group: "javax.xml.bind", module: "jaxb-api"
     }
 
     implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT@aar'
@@ -299,6 +301,8 @@ dependencies {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'
     }
+
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -319,7 +323,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'org.mockito:mockito-android:3.4.0'
 
-    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
+    implementation 'com.github.lecho:hellocharts-android:1.5.8'
 
     implementation 'org.mozilla:rhino:1.7.15' // Use the latest version if available
 

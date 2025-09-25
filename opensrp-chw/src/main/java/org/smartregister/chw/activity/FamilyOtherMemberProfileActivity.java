@@ -285,6 +285,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startAypOutSchoolEnrollment() {
+        AypOutSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
     protected void startKvpPrEPRegistration() {
         String gender = getClientGender(baseEntityId);
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
