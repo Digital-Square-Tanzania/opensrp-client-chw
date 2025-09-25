@@ -72,6 +72,15 @@
             android:name=".activity.AypInSchoolMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypParentalRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypParentalMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypParentalVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AypInSchoolMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
