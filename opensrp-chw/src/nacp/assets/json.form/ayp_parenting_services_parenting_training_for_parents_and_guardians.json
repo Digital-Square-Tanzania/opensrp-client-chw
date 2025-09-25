@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "section_selection",
         "type": "check_box",
-        "label": "Select section(s)",
+        "label": "Select the section(s) provided",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -83,13 +83,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "intro_details",
-        "type": "label",
-        "label": "Introduction Details",
-        "text": "Defining key terms in Parenting Training for Parents and Guardians.",
+        "type": "toaster_notes",
+        "text": "Introduction Details<br>Define key terms in Parenting Training for Parents and Guardians.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "parenting-training-for-parents-and-guardians-relevance-rules.yml"
+              "rules-file": "ayp-parenting-services-parenting-training-for-parents-and-guardians-relevance-rules.yml"
             }
           }
         }
@@ -100,12 +99,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_problem_topics",
         "type": "check_box",
-        "label": "HIV problem among young people topics",
+        "label": "HIV problem among young people topics covered",
         "combine_checkbox_option_values": "true",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "parenting-training-for-parents-and-guardians-relevance-rules.yml"
+              "rules-file": "ayp-parenting-services-parenting-training-for-parents-and-guardians-relevance-rules.yml"
             }
           }
         },

@@ -52,7 +52,7 @@
       {
         "key": "understanding_youth_challenges",
         "type": "check_box",
-        "label": "Understanding young people and challenges they are facing",
+        "label": "Select the provided topics covered regarding Understanding young people and challenges they are facing",
         "combine_checkbox_option_values": "true",
         "v_required": {
           "value": true,

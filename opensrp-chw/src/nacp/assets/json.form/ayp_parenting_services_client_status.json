@@ -86,7 +86,7 @@
           },
           {
             "key": "opt_out",
-            "text": "Parent or Guardian/Student requested to opt out of service",
+            "text": "Opted Out",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "opt_out"

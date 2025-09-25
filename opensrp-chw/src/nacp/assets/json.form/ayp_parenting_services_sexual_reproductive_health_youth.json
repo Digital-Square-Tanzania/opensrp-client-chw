@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_reproductive_health_youth",
         "type": "check_box",
-        "label": "Sexual Reproductive Health for Youth",
+        "label": "Select the topics covered regarding Sexual Reproductive Health for Youth",
         "combine_checkbox_option_values": "true",
         "v_required": {
           "value": true,

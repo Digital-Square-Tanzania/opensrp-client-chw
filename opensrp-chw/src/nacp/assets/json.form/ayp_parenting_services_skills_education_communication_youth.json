@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "skills_education_communication_youth",
         "type": "check_box",
-        "label": "Skills, Education and Communication for Youth",
+        "label": "Select the topics covered regarding Skills, Education and Communication for Youth",
         "combine_checkbox_option_values": "true",
         "v_required": {
           "value": true,

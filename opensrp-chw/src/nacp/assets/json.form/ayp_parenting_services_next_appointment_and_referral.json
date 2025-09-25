@@ -56,7 +56,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "next_appointment_date",
         "type": "date_picker",
-        "label": "Next Appointment Date",
+        "min_date": "today+1d1012",
+        "max_date": "today+2m",
+        "hint": "Please select the next appointment date",
         "v_required": {
           "value": true,
           "err": "Please select the next appointment date"
@@ -68,8 +70,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_services",
         "type": "check_box",
-        "label": "Referral to other services",
+        "label": "Select the Referrals to other services provided",
         "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "hts",
@@ -112,6 +117,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others_specify"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -125,10 +137,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_other_specify",
         "type": "edit_text",
-        "label": "If others, please specify",
+        "hint": "If others, please specify",
         "v_required": {
           "value": true,
           "err": "Please specify other referral"
+        },
+        "relevance": {
+          "step1:referral_services": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others_specify"
+                ]
+              }
+            ]
+          }
         }
       }
     ]

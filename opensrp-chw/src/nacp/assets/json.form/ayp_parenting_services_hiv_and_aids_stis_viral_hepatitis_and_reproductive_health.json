@@ -51,7 +51,7 @@
     "fields": [
       {
         "key": "rh_provided",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Has HIV and AIDS, STIs, Viral Hepatitis and reproductive health been provided?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -55,7 +55,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q1_hiv_problem",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Do you think HIV and AIDS is a problem for AYP in the country? (Session 2)",
         "options": [
           {
@@ -93,7 +93,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q2_prevent_hiv",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Which of the following are correct ways to prevent HIV infection? (Session 3)",
         "options": [
           {
@@ -138,7 +138,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q3_relationship_hiv_stis",
-        "type": "radio",
+        "type": "native_radio",
         "label": "What is the relationship between HIV and sexually transmitted infections? (Session 2)",
         "options": [
           {
@@ -176,7 +176,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q4_parent_responsibility",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Do parents/guardians have the responsibility to talk to their teenagers about violence, sexuality, sex, HIV, and AIDS? (Session 4)",
         "options": [
           {
@@ -214,7 +214,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q5_info_sources",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Where do adolescents and young people get information on sexual matters and HIV and AIDS? (Session 1)",
         "options": [
           {
@@ -252,7 +252,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q6_difficulty_discussion",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Why is it difficult for parents/guardians to discuss sexual matters with AYP? (Session 5)",
         "options": [
           {
@@ -290,7 +290,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q7_best_ways_help",
-        "type": "radio",
+        "type": "native_radio",
         "label": "Which are the best ways for a parent/guardian in helping an adolescent facing challenges? (Session 5)",
         "options": [
           {
@@ -328,7 +328,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q8_action_pregnancy",
-        "type": "radio",
+        "type": "native_radio",
         "label": "What action should be taken for adolescents who get pregnant? (Session 6)",
         "options": [
           {
@@ -366,7 +366,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q9_relationship_sexual_edu",
-        "type": "radio",
+        "type": "native_radio",
         "label": "What is the relationship between sexual education and HIV and AIDS? (Session 1)",
         "options": [
           {
@@ -404,7 +404,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "q10_benefits_parent_education",
-        "type": "radio",
+        "type": "native_radio",
         "label": "What are the benefits of educating parents about sexual matters and HIV and AIDS? (Session 6)",
         "options": [
           {
