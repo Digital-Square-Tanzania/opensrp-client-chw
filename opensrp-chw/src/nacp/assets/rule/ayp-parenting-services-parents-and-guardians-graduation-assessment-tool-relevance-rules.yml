@@ -1,3 +1,4 @@
+---
 name: step1_total_score
 description: Calculate total_score from correct answers
 priority: 1
