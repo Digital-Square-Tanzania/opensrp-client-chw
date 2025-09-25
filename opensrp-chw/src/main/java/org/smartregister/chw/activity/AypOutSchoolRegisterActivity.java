@@ -14,7 +14,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.activity.CoreAypRegisterActivity;
 import org.smartregister.chw.fragment.AypInSchoolGroupsRegisterFragment;
-import org.smartregister.chw.fragment.AypInSchoolRegisterFragment;
+import org.smartregister.chw.fragment.AypOutSchoolGroupsRegisterFragment;
+import org.smartregister.chw.fragment.AypOutSchoolRegisterFragment;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -23,23 +24,23 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
     public static void startRegistration(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.AYP_FORM_NAME, Constants.FORMS.AYP_IN_SCHOOL_ENROLLMENT);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.AYP_FORM_NAME, Constants.FORMS.AYP_OUT_SCHOOL_ENROLLMENT);
         activity.startActivity(intent);
     }
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new AypInSchoolRegisterFragment();
+        return new AypOutSchoolRegisterFragment();
     }
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{ new AypInSchoolGroupsRegisterFragment() };
+        return new Fragment[]{ new AypOutSchoolGroupsRegisterFragment() };
     }
 
     @MenuRes
     public int getMenuResource() {
-        return R.menu.bottom_nav_ayp_in_school;
+        return R.menu.bottom_nav_ayp_out_school;
     }
 
     @Override

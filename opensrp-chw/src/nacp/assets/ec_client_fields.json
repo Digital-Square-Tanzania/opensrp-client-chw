@@ -9070,6 +9070,38 @@
           }
         },
         {
+          "column_name": "date_enrolled",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_enrolled"
+          }
+        },
+        {
+          "column_name": "project_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "project_name"
+          }
+        },
+        {
+          "column_name": "project_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "project_other"
+          }
+        },
+        {
+          "column_name": "uic_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic_number"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

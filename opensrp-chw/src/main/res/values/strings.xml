@@ -164,6 +164,7 @@
 
     <!-- AYP In-school Groups register labels -->
     <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
+    <string name="ayp_out_school_groups_register_title">AYP Out-school Groups</string>
     <string name="ayp_group_type_label">Type: %1$s</string>
     <string name="ayp_group_age_band_label">Age-band: %1$s</string>
     <string name="ayp_group_type_title">Type:</string>
