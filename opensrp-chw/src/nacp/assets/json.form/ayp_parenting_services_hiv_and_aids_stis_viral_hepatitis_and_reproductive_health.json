@@ -1,0 +1,381 @@
+{
+  "count": "1",
+  "encounter_type": "HIV and AIDS, STIs, Viral Hepatitis and Reproductive Health",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "HIV and AIDS, STIs, Viral Hepatitis and Reproductive Health",
+    "fields": [
+      {
+        "key": "rh_provided",
+        "type": "native_radio",
+        "label": "Has HIV and AIDS, STIs, Viral Hepatitis and reproductive health been provided?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "rh_provided",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select Yes or No"
+        }
+      },
+      {
+        "key": "rh_sections_provided",
+        "type": "check_box",
+        "label": "Which section(s) have been provided?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp-parenting-services-hiv-and-aids-stis-viral-hepatitis-and-reproductive-health-relevance-rules.yml"
+            }
+          }
+        },
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "rh_sections_provided",
+        "options": [
+          {
+            "key": "hiv_and_aids",
+            "text": "HIV and AIDS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_and_aids"
+          },
+          {
+            "key": "stis_rtis",
+            "text": "Reproductive tract infections (RTIs) and STIs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis_rtis"
+          },
+          {
+            "key": "viral_hepatitis",
+            "text": "Viral Hepatitis",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "viral_hepatitis"
+          },
+          {
+            "key": "protection_against_hiv",
+            "text": "Protection against HIV and AIDS, STIs, and Viral Hepatitis",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "protection_against_hiv"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one section"
+        }
+      },
+      {
+        "key": "hiv_aids_topics",
+        "type": "check_box",
+        "label": "HIV and AIDS topics",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp-parenting-services-hiv-and-aids-stis-viral-hepatitis-and-reproductive-health-relevance-rules.yml"
+            }
+          }
+        },
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_aids_topics",
+        "options": [
+          {
+            "key": "hiv",
+            "text": "HIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv"
+          },
+          {
+            "key": "aids",
+            "text": "AIDS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "aids"
+          },
+          {
+            "key": "hiv_transmission_methods",
+            "text": "HIV Transmission methods",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_transmission_methods"
+          },
+          {
+            "key": "myths_and_perceptions_hiv_aids",
+            "text": "Myth and perceptions about HIV and AIDS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "myths_and_perceptions_hiv_aids"
+          },
+          {
+            "key": "situations_promoting_hiv_infection_young_people",
+            "text": "Situations that can promote HIV infection among young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "situations_promoting_hiv_infection_young_people"
+          },
+          {
+            "key": "risk_behaviors_promoting_hiv_infection_young_people",
+            "text": "Risk behaviors which promote HIV infection among young people",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "risk_behaviors_promoting_hiv_infection_young_people"
+          },
+          {
+            "key": "effects_hiv_aids_in_society",
+            "text": "Effects of HIV and AIDS in society",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_hiv_aids_in_society"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        }
+      },
+      {
+        "key": "stis_rtis_topics",
+        "type": "check_box",
+        "label": "RTIs and STIs topics",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp-parenting-services-hiv-and-aids-stis-viral-hepatitis-and-reproductive-health-relevance-rules.yml"
+            }
+          }
+        },
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stis_rtis_topics",
+        "options": [
+          {
+            "key": "stis",
+            "text": "STIs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stis"
+          },
+          {
+            "key": "reproductive_organs_diseases",
+            "text": "Reproductive organs diseases",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reproductive_organs_diseases"
+          },
+          {
+            "key": "types_stis_rtis",
+            "text": "Types of STIs and reproductive tract infections",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "types_stis_rtis"
+          },
+          {
+            "key": "symptoms_stis_rtis",
+            "text": "Symptoms of STIs and reproductive tract infections",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "symptoms_stis_rtis"
+          },
+          {
+            "key": "effects_stis_rtis",
+            "text": "Effects of STIs and reproductive tract infections",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_stis_rtis"
+          },
+          {
+            "key": "responsibilities_parents_guardians_care_young_person_stis_rtis",
+            "text": "Responsibility of parent and guardian for taking care of a young person with STIs and RTIs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "responsibilities_parents_guardians_care_young_person_stis_rtis"
+          },
+          {
+            "key": "prevention_control_techniques_stis_rtis",
+            "text": "Prevention and control techniques for STIs and RTIs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_control_techniques_stis_rtis"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        }
+      },
+      {
+        "key": "viral_hepatitis_topics",
+        "type": "check_box",
+        "label": "Viral Hepatitis topics",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp-parenting-services-hiv-and-aids-stis-viral-hepatitis-and-reproductive-health-relevance-rules.yml"
+            }
+          }
+        },
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "viral_hepatitis_topics",
+        "options": [
+          {
+            "key": "viral_hepatitis_b_c",
+            "text": "Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "viral_hepatitis_b_c"
+          },
+          {
+            "key": "transmission_modes_hepatitis_b_c",
+            "text": "Modes of transmission for Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transmission_modes_hepatitis_b_c"
+          },
+          {
+            "key": "prevention_methods_hepatitis_b_c",
+            "text": "Prevention methods against Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prevention_methods_hepatitis_b_c"
+          },
+          {
+            "key": "symptoms_hepatitis_b_c",
+            "text": "Symptoms of Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "symptoms_hepatitis_b_c"
+          },
+          {
+            "key": "effects_hepatitis_b_c",
+            "text": "Effects of Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_hepatitis_b_c"
+          },
+          {
+            "key": "responsibilities_parents_guardians_ayp_hepatitis_b_c",
+            "text": "Parent and guardian’s responsibilities of AYP against Viral Hepatitis diseases (B and C)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "responsibilities_parents_guardians_ayp_hepatitis_b_c"
+          },
+          {
+            "key": "conclusion",
+            "text": "Conclusion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "conclusion"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        }
+      },
+      {
+        "key": "protection_against_hiv_aids_stis_viral_hepatitis",
+        "type": "check_box",
+        "label": "Protection against HIV and AIDS, STIs, and Viral Hepatitis",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp-parenting-services-hiv-and-aids-stis-viral-hepatitis-and-reproductive-health-relevance-rules.yml"
+            }
+          }
+        },
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "protection_against_hiv_aids_stis_viral_hepatitis",
+        "options": [
+          {
+            "key": "proper_condom_use",
+            "text": "Proper condom use",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "proper_condom_use"
+          },
+          {
+            "key": "biomedical_prevention_methods_against_hiv",
+            "text": "Biomedical prevention methods against HIV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "biomedical_prevention_methods_against_hiv"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one topic"
+        }
+      }
+    ]
+  }
+}

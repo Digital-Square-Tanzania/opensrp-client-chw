@@ -1,0 +1,156 @@
+{
+  "count": "1",
+  "encounter_type": "AYP Parental Service Enrollment",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": "today",
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "AYP Parental Service Enrollment",
+    "fields": [
+      {
+        "key": "number_of_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_children",
+        "type": "check_box",
+        "label": "Number of children",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male"
+          },
+          {
+            "key": "female",
+            "text": "Female",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one option"
+        }
+      },
+      {
+        "key": "male_children_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_children_count",
+        "type": "edit_text",
+        "hint": "Number of Male Children",
+        "edit_type": "number",
+        "v_numeric_integer": {
+          "value": true,
+          "err": ""
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a value"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Please enter a number between 0 and 10."
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Please enter a number between 0 and 10."
+        },
+        "relevance": {
+          "step1:number_of_children": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "female_children_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_children_count",
+        "type": "edit_text",
+        "hint": "Number of Female Children",
+        "edit_type": "number",
+        "v_numeric_integer": {
+          "value": true,
+          "err": ""
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a value"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Please enter a number between 0 and 10."
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Please enter a number between 0 and 10."
+        },
+        "relevance": {
+          "step1:number_of_children": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
