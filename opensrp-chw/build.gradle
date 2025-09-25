@@ -233,6 +233,7 @@ android {
             force 'com.google.android.material:material:1.0.0'
             force 'net.zetetic:android-database-sqlcipher:4.5.4'
         }
+        exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
     flavorDimensions 'baseDimension'
@@ -300,7 +301,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.7.1-ALPHA3-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -338,7 +339,9 @@ dependencies {
     implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
-    implementation 'com.google.guava:guava:20.0'
+    implementation('com.google.guava:guava:20.0') {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
     implementation 'androidx.webkit:webkit:1.7.0'
     testImplementation project(path: ':opensrp-chw')
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
