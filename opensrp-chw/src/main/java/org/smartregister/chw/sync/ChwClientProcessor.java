@@ -3,6 +3,7 @@ package org.smartregister.chw.sync;
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
+import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
 
@@ -89,6 +90,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.KVP_PREP_FOLLOWUP_VISIT:
                 case Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS:
                 case HIVST_MOBILIZATION:
+                case TB_LEPROSY_MOBILIZATION:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:

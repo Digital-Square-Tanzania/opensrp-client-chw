@@ -25,7 +25,6 @@ public class Constants extends CoreConstants {
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}
-
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
 
@@ -97,6 +96,7 @@ public class Constants extends CoreConstants {
         private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
         private static final String MOTHER_CHAMPION_SBCC_FORM = "mother_champion_sbcc_sessions";
         private static final String CBHS_REGISTRATION_FORM = "cbhs_registration";
+        private static final String TBLEPROSY_REGISTRATION_FORM = "tbleprosy_record_visit";
         private static final String PNC_HV_LOCATION = "pnc_hv_location";
         private static final String CHILD_HV_BREASTFEEDING_FORM = "child_hv_breastfeeding_form";
         private static  final  String CHILD_HOME_VISIT_DANGER_SIGN_FORM = "child_hv_danger_sign";
@@ -113,6 +113,10 @@ public class Constants extends CoreConstants {
 
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
+        }
+
+        public static String getTbLeprosyForm() {
+            return TBLEPROSY_REGISTRATION_FORM;
         }
 
         public static String getMotherChampionFollowupForm() {

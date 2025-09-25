@@ -53,6 +53,7 @@ import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity;
 import org.smartregister.chw.activity.SbcRegisterActivity;
+import org.smartregister.chw.activity.TbLeprosyRegisterActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.agyw.AGYWLibrary;
@@ -88,6 +89,7 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.tb.TbLibrary;
+import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
@@ -299,6 +301,10 @@ public class ChwApplication extends CoreChwApplication {
             KvpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
+        if (flavor.hasTbLeprosy()) {
+            TbLeprosyLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         HivstLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         if (flavor.hasAGYW()) {
@@ -409,6 +415,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CDP_REGISTER_ACTIVITY, CdpRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.KVP_PrEP_REGISTER_ACTIVITY, KvpPrEPRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TBLEPROSY_REGISTER_ACTIVITY, TbLeprosyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ICCM_REGISTER_ACTIVITY, IccmRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
@@ -604,6 +611,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasHIVST();
 
         boolean hasKvp();
+
+        boolean hasTbLeprosy();
 
         boolean hasICCM();
 
