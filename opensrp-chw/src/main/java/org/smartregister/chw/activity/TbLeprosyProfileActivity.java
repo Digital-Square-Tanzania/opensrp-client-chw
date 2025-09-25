@@ -116,6 +116,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     @Override
     public void openTbLeprosyContactRegister() {
         Intent intent = new Intent(this, TbLeprosyContactRegister.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberObject.getBaseEntityId());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
         startActivity(intent);
     }
 
@@ -362,4 +364,3 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         addReferralTypes();
     }
 }
-

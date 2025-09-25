@@ -551,4 +551,12 @@
     <string name="chw_details">CHW Details</string>
     <string name="multiselect_msg_on_item_added">Added</string>
     <string name="forgot_your_password">Forgot your password?</string>
+    <string name="tbleprosy_contact_registration_success">TB contact saved</string>
+    <string name="tbleprosy_no_contacts_available">No eligible contacts available</string>
+    <string name="tbleprosy_contact_family_header">Family members</string>
+    <string name="tbleprosy_contact_other_header">Other clients</string>
+    <string name="tbleprosy_contact_search_hint">Search by name or ID</string>
+    <string name="tbleprosy_contact_no_match">No clients matched your search</string>
+    <string name="tbleprosy_contact_family_dialog_title">Select family member</string>
+    <string name="tbleprosy_contact_all_clients_dialog_title">Select client</string>
 </resources>
