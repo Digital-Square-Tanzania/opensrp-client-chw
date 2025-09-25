@@ -84,7 +84,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "intro_details",
         "type": "toaster_notes",
-        "text": "Introduction Details<br>Define key terms in Parenting Training for Parents and Guardians.",
+        "text": "Provide Introduction Details<br>Define key terms in Parenting Training to the Parent(s) and/or Guardian(s).",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
