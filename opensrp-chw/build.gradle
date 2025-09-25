@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url uri("${rootDir}/local-maven") }
     }
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
@@ -230,6 +231,7 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
+            force 'net.zetetic:android-database-sqlcipher:4.5.4'
         }
     }
 
@@ -274,7 +276,31 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.1-ALPHA2-MOH-SNAPSHOT@aar') {
+    implementation 'com.google.firebase:firebase-crashlytics:20.0.2'
+    def libsDir = new File(projectDir, 'libs')
+
+    def circleProgressbarAar = new File(libsDir, 'circleprogressbar-1.0.8-SNAPSHOT.aar')
+    if (circleProgressbarAar.exists()) {
+        implementation files(circleProgressbarAar)
+    } else {
+        implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT@aar'
+    }
+
+    def monthAndYearPickerAar = new File(libsDir, 'MonthAndYearPicker-1.3.0.aar')
+    if (monthAndYearPickerAar.exists()) {
+        implementation files(monthAndYearPickerAar)
+    } else {
+        implementation 'com.github.joeShuff:MonthAndYearPicker:1.3.0'
+    }
+
+    def helloChartsAar = new File(libsDir, 'hellocharts-android-1.5.8.aar')
+    if (helloChartsAar.exists()) {
+        implementation files(helloChartsAar)
+    } else {
+        implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
+    }
+
+    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -309,17 +335,16 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:20.0'
     implementation 'androidx.webkit:webkit:1.7.0'
-    implementation 'com.github.joeShuff:MonthAndYearPicker:1.3.0'
     testImplementation project(path: ':opensrp-chw')
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'org.mockito:mockito-android:3.4.0'
 
-    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
 
     implementation 'org.mozilla:rhino:1.7.15' // Use the latest version if available
 
@@ -348,8 +373,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 ]) {
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
 
     getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
