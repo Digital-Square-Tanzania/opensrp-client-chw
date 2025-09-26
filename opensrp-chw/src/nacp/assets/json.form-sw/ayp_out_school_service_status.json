@@ -1,0 +1,146 @@
+{
+  "count": "1",
+  "encounter_type": "service_status",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Service Status",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "service_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "service_status",
+        "type": "check_box",
+        "label": "Chagua hali ya huduma ya mteja",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "not_in_service"
+        ],
+        "options": [
+          {
+            "key": "in_service",
+            "text": "Yupo kwenye huduma",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "in_service"
+          },
+          {
+            "key": "not_in_service",
+            "text": "Hayupo kwenye huduma",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "not_in_service"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        }
+      },
+      {
+        "key": "reasons",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons",
+        "type": "native_radio",
+        "label": "Reasons",
+        "options": [
+          {
+            "key": "transferred",
+            "text": "Amehama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transferred"
+          },
+          {
+            "key": "dead",
+            "text": "Amefariki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dead"
+          },
+          {
+            "key": "discontinued",
+            "text": "Amejitoa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "discontinued"
+          },
+          {
+            "key": "married",
+            "text": "Ameoa/Kuolewa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "married"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:service_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "not_in_service"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
+

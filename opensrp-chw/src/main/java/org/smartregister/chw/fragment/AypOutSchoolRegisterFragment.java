@@ -4,6 +4,7 @@ import android.view.View;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AypInSchoolMemberProfileActivity;
+import org.smartregister.chw.activity.AypOutSchoolMemberProfileActivity;
 import org.smartregister.chw.core.fragment.CoreAypRegisterFragment;
 import org.smartregister.chw.model.AypInSchoolRegisterFragmentModel;
 import org.smartregister.chw.presenter.AypOutSchoolRegisterPresenter;
@@ -13,7 +14,7 @@ public class AypOutSchoolRegisterFragment extends CoreAypRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-        AypInSchoolMemberProfileActivity.startProfileActivity(getActivity(), baseEntityId);
+        AypOutSchoolMemberProfileActivity.startProfileActivity(getActivity(), baseEntityId);
     }
 
     @Override

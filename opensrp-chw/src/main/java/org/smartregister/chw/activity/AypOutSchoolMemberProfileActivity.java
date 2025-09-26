@@ -1,8 +1,15 @@
 package org.smartregister.chw.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
+import com.vijay.jsonwizard.domain.Form;
+import com.vijay.jsonwizard.factory.FileSourceFactoryHelper;
+import com.vijay.jsonwizard.utils.FormUtils;
+
+import org.json.JSONObject;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.util.Constants;
@@ -34,18 +41,27 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public void openFollowupVisit() {
-        AypInSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
+        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void startServiceForm() {
-        AypInSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
+        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
+    @Override
+    public void graduateForm() {
+        try {
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, "ayp_out_school_graduate");
+            startFormActivity(formJsonObject);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected MemberObject getMemberObject(String baseEntityId) {
-        return AypDao.getInSchoolMember(baseEntityId);
+        return AypDao.getOutSchoolMember(baseEntityId);
     }
 }
 

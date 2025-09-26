@@ -1,0 +1,232 @@
+{
+  "count": "1",
+  "encounter_type": "sbc_services",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "SBC Service",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "provided_sbc_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_sbc_service",
+        "type": "native_radio",
+        "label": "Was the client provided SBC Service",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "choose_sbc_service_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "choose_sbc_service_provided",
+        "type": "check_box",
+        "label": "Select SBC service provided to the client",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "identification_of_organizations_key_people_and_safe_places",
+            "text": "Identification of organizations and prominent people and safe meeting places",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "identification_of_organizations_key_people_and_safe_places"
+          },
+          {
+            "key": "risky_behaviors",
+            "text": "Risky behaviors",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "risky_behaviors"
+          },
+          {
+            "key": "sex_and_gender_education",
+            "text": "Gender and sex education",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "sex_and_gender_education"
+          },
+          {
+            "key": "reproductive_health_system",
+            "text": "Reproductive health",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "reproductive_health_system"
+          },
+          {
+            "key": "effective_communication",
+            "text": "Effective communication",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "effective_communication"
+          },
+          {
+            "key": "sexually_transmitted_infections_stis",
+            "text": "STIs",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "sexually_transmitted_infections_stis"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family Planning",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "healthy_relationships",
+            "text": "Healthy relationships",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "healthy_relationships"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Gender-based violence (GBV)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "correct_and_consistent_condom_use",
+            "text": "Correct and consistent use of condoms",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "correct_and_consistent_condom_use"
+          },
+          {
+            "key": "hiv_care_and_treatment",
+            "text": "HIV Care and Treatment",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hiv_care_and_treatment"
+          },
+          {
+            "key": "prep_pre_exposure_prophylaxis",
+            "text": "Pre-Exposure Prophylaxis (PrEP)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "prep_pre_exposure_prophylaxis"
+          },
+          {
+            "key": "pep_post_exposure_prophylaxis",
+            "text": "Post Exposure Prophylaxis (PEP)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "pep_post_exposure_prophylaxis"
+          },
+          {
+            "key": "tuberculosis_tb",
+            "text": "TB",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "tuberculosis_tb"
+          },
+          {
+            "key": "hiv_testing_services_hts",
+            "text": "HIV Testing Services (HTS)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hiv_testing_services_hts"
+          },
+          {
+            "key": "hepatitis_b",
+            "text": "Hepatitis B (HBV)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hepatitis_b"
+          },
+          {
+            "key": "hepatitis_c",
+            "text": "Hepatitis C (HCV)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hepatitis_c"
+          },
+          {
+            "key": "hpv_vaccination",
+            "text": "HPV Vaccination",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hpv_vaccination"
+          },
+          {
+            "key": "male_circumcision_education",
+            "text": "Voluntary Medical Male Circumcision (VMMC)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "male_circumcision_education"
+          },
+          {
+            "key": "distribution_of_health_educational_materials",
+            "text": "Distribution of health educational materials",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "distribution_of_health_educational_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:provided_sbc_service": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}
+

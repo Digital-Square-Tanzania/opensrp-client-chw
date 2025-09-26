@@ -1,0 +1,468 @@
+{
+  "count": "1",
+  "encounter_type": "graduate",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Kuhitimu mafunzo ya huduma",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "understanding_of_hiv_transmission_after_training",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_of_hiv_transmission_after_training",
+        "type": "native_radio",
+        "label": "Baada ya mafunzo, je, una uelewa mzuri zaidi wa jinsi Virusi vya UKIMWI (VVU) vinavyoambukizwa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "awareness_of_hiv_prevention_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "awareness_of_hiv_prevention_methods",
+        "type": "native_radio",
+        "label": "Je, sasa una ufahamu zaidi wa njia bora za kuzuia maambukizi ya VVU?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "knowledge_of_risky_behaviors_causing_hiv_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowledge_of_risky_behaviors_causing_hiv_infection",
+        "type": "native_radio",
+        "label": "Je, sasa unajua tabia hatarishi zinazoweza kusababisha maambukizi ya VVU?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "awareness_of_early_pregnancy_risks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "awareness_of_early_pregnancy_risks",
+        "type": "native_radio",
+        "label": "Je, Unajua athari za kupata ujauzito katika umri mdogo?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "belief_in_condom_importance_for_hiv_and_pregnancy_prevention",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "belief_in_condom_importance_for_hiv_and_pregnancy_prevention",
+        "type": "native_radio",
+        "label": "Je, sasa unaamini kuwa kutumia kondomu ni muhimu kwa kuzuia maambukizi ya VVU na ujauzito katika umri mdogo?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "comfort_in_discussing_hiv_reproductive_health_and_pregnancy_prevention",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comfort_in_discussing_hiv_reproductive_health_and_pregnancy_prevention",
+        "type": "native_radio",
+        "label": "Je, uko huru kujadili masuala ya VVU, afya ya uzazi, na kuzuia ujauzito na marafiki au familia baada ya mafunzo?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "knowledge_of_where_to_access_counseling_testing_stis_and_family_planning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowledge_of_where_to_access_counseling_testing_stis_and_family_planning",
+        "type": "native_radio",
+        "label": "Je, sasa unajua sehemu za kupata huduma za shauri nasaha, kupima VVU, magonjwa ya ngono na uzazi wa mpango?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "understanding_of_stigma_effects_related_to_hiv_and_early_pregnancy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_of_stigma_effects_related_to_hiv_and_early_pregnancy",
+        "type": "native_radio",
+        "label": "Je, una uelewa kuhusu athari za unyanyapaa unaohusiana na VVU na ujauzito katika umri mdogo?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "understanding_importance_of_art_if_infected_with_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_importance_of_art_if_infected_with_hiv",
+        "type": "native_radio",
+        "label": "Je, sasa unaelewa umuhimu wa kutumia dawa za kufubaza VVU endapo umepata maambukizi?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "understanding_of_violence_concept",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_of_violence_concept",
+        "type": "native_radio",
+        "label": "Je unaelewa upi kuhusu dhana ya ukatili?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "knowledge_of_where_to_report_or_seek_help_in_case_of_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowledge_of_where_to_report_or_seek_help_in_case_of_violence",
+        "type": "native_radio",
+        "label": "Je, sasa unajua wapi pa kutoa taarifa au kupata msaada wa haraka ikiwa ukatili umefanyika?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "awareness_of_importance_of_joining_economic_empowerment_groups",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "awareness_of_importance_of_joining_economic_empowerment_groups",
+        "type": "native_radio",
+        "label": "Je unajua umuhimu kujiunga na vikundi vya kujikwamua kiuchumi?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "knowledge_of_business_planning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowledge_of_business_planning",
+        "type": "native_radio",
+        "label": "Je unajua kuandaa Mpangokazi wa biashara?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "understanding_of_business_and_financial_record_keeping",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "understanding_of_business_and_financial_record_keeping",
+        "type": "native_radio",
+        "label": "Je unaelewa jinsi ya kuandaa na kutunza kumbukumbu za biashara na fedha?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select"
+        }
+      },
+      {
+        "key": "congratulations_completed_ayp_training_with_80_percent",
+        "type": "toaster_notes",
+        "text": "Hongera! Umehitimu mafunzo na huduma za AYP kwa alama 80%",
+        "openmrs_entity_id": "linked_to_self_testing_module",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "positive",
+        "relevance": {
+          "step1:understanding_of_business_and_financial_record_keeping": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}
+
