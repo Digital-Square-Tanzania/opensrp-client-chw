@@ -668,7 +668,7 @@
         "spacer_height": "20dp"
       },
       {
-        "key": "save_n_refer",
+        "key": "db_save_n_refer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

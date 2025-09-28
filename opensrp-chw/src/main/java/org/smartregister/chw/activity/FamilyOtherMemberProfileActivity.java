@@ -15,9 +15,11 @@ import android.os.Looper;
 import android.view.Menu;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.domain.Form;
@@ -25,6 +27,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.koin.core.Koin;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -34,7 +37,12 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.interactor.IssueReferralInteractor;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
+import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
+import org.smartregister.chw.referral.model.BaseIssueReferralModel;
+import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
@@ -49,6 +57,10 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -57,6 +69,15 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private LinearLayout layoutRecordNCDScreening;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
+
+    private HashMap<String, NFormViewData> formData = new HashMap<>();
+
+    JSONObject ncdJsonObjectForm = new JSONObject();
+
+    protected BaseIssueReferralContract.Presenter referralPresenter = null;
+
+//    Intent data = new Intent(FamilyOtherMemberProfileActivity.this, NcdFormWizardActivity.class);
+    Intent data = new Intent();
 
     @Override
     protected void onCreation() {
@@ -371,6 +392,30 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         delayInvalidateOptionsMenu();
+
+        if (resultCode == RESULT_OK){
+            try {
+                String jsonForm = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.JSON);
+                if (jsonForm == null) return;
+                JSONObject jsonObject= JsonFormUtils.getFieldJSONObject(JsonFormUtils.fields(new JSONObject(jsonForm)),"db_save_n_refer");
+                if (jsonObject == null) return;
+                if(Boolean.parseBoolean(jsonObject.optString("value"))){
+                    createReferralForm(data);
+                    sendNCDReferralToFacility(data);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+    }
+
+    private void sendNCDReferralToFacility(Intent data) {
+        try {
+            getReferralPresenter().saveForm(formData, ncdJsonObjectForm,false);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
     }
 
     private void delayInvalidateOptionsMenu() {
@@ -379,6 +424,121 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+     private BaseIssueReferralPresenter getReferralPresenter() {
+         BaseIssueReferralContract.View view = new BaseIssueReferralContract.View() {
+             @NonNull
+             @Override
+             public BaseIssueReferralContract.Presenter presenter() {
+                 return null;
+             }
+
+             @Override
+             public void setProfileViewWithData() {
+             }
+
+             @NonNull
+             @Override
+             public Koin getKoin() {
+                 return null;
+             }
+         };
+
+         return new BaseIssueReferralPresenter(
+                 baseEntityId, view, BaseIssueReferralModel.class, new IssueReferralInteractor()
+         );
+    }
+
+    private void createReferralForm(Intent data) {
+        try {
+            String jsonForm = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.JSON);
+            ncdJsonObjectForm = new FormUtils().getFormJsonFromRepositoryOrAssets(
+                    FamilyOtherMemberProfileActivity.this, "referrals/referral_form");
+            ncdJsonObjectForm.put("referral_task_focus", "Diabetes and Hypertension Testing");
+
+            assert jsonForm != null;
+
+            // Referral problem
+            HashMap<String, NFormViewData> problemValue = new HashMap<>();
+            NFormViewData dbRisk = createFormViewData("Risk for diabetes and hypertension",null,metaData("","risk_for_diabetes_&_hypertension", ""));
+            problemValue.put("risk_for_diabetes_&_hypertension", dbRisk);
+            NFormViewData problemFormViewData = createFormViewData(problemValue, "MultiChoiceCheckBox",metaData("", "concept", "problem"));
+            problemFormViewData.setType("MultiChoiceCheckBox");
+            formData.put("problem", problemFormViewData);
+
+            // Referral facility
+            String facilityValue = JsonFormUtils.getValue(new JSONObject(jsonForm), "chw_referral_hf");
+            JSONArray jsonArray = JsonFormUtils.fields(new JSONObject(jsonForm));
+            JSONObject chwReferralHf = JsonFormUtils.getFieldJSONObject(jsonArray, "chw_referral_hf");
+            assert chwReferralHf != null;
+            JSONArray options = chwReferralHf.getJSONArray("options");
+            String facilityText = "";
+            for (int i=0; i < options.length();i++){
+                JSONObject option = options.getJSONObject(i);
+                if(facilityValue.equals(option.getString("key"))){
+                    facilityText = option.getString("text");
+                }
+            }
+            NFormViewData chwReferralValue = createFormViewData(facilityText, null, metaData("location_uuid",facilityValue,""));
+            formData.put("chw_referral_hf", createFormViewData(chwReferralValue,"SpinnerNFormView", metaData("concept", "chw_referral_hf", "")));
+
+            // Service before referral
+            String serviceBReferralValue = JsonFormUtils.getValue(new JSONObject(jsonForm), "service_before_referral");
+            JSONArray serviceBReferralArray = new JSONArray(serviceBReferralValue);
+            HashMap<String, NFormViewData> serviceBReferralNFormValue = new HashMap<>();
+            for(int i=0; i < serviceBReferralArray.length(); i++){
+                String serviceValue = serviceBReferralArray.getString(i);
+                NFormViewData valueItem = createFormViewData( serviceValue, null, metaData("", serviceValue, ""));
+                serviceBReferralNFormValue.put(serviceValue, valueItem);
+            }
+            formData.put("service_before_referral", createFormViewData(serviceBReferralNFormValue, "MultiChoiceCheckBox", metaData("concept", "service_before_referral", "")));
+
+            // Diabetes risk score
+            String dbRiskScore = JsonFormUtils.getValue(new JSONObject(jsonForm), "diabetes_risk_score_output");
+            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",null));
+
+            // Appointment data
+            String appointmentDate = JsonFormUtils.getValue(new JSONObject(jsonForm), "referral_appointment_date");
+            formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)),"Calculation",metaData("concept", "referral_appointment_date", "")));
+
+            formData.put("referral_status", createFormViewData("PENDING", "Calculation", null));
+            formData.put("chw_referral_service", createFormViewData("Diabetes & Hypertension Screening", null, null));
+            formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
+            formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
+            formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public static Long convertDateToLong(String date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date formattedDate = dateFormat.parse(date);
+            assert formattedDate != null;
+            return formattedDate.getTime();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private HashMap<String, Object> metaData(String openmrs_entity,String openmrs_entity_id, String openmrs_entity_parent) {
+        HashMap<String, Object> metadata = new HashMap<>();
+        metadata.put("openmrs_entity", openmrs_entity);
+        metadata.put("openmrs_entity_id", openmrs_entity_id);
+        metadata.put("openmrs_entity_parent", openmrs_entity_parent);
+        return metadata;
+    }
+
+    private NFormViewData createFormViewData(Object value, String type, HashMap<String, Object> metaData) {
+        NFormViewData data = new NFormViewData();
+        data.setValue(value);
+        data.setType(type);
+        data.setVisible(true);
+        data.setMetadata(metaData);
+        return data;
     }
 
     /**
