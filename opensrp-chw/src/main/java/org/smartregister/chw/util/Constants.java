@@ -113,8 +113,14 @@ public class Constants extends CoreConstants {
 
         public static final String DIABETES_SCREENING_FORM = "diabetes_hypertension_screening_form";
 
+        public static final String DIABETES_FOLLOWUP_FORM = "diabetes_hypertension_followup_form";
+
         public static String getDiabetesScreeningForm() {
             return DIABETES_SCREENING_FORM;
+        }
+
+        public static String getDiabetesFollowupForm() {
+            return DIABETES_FOLLOWUP_FORM;
         }
 
         public static String getCbhsRegistrationForm() {
