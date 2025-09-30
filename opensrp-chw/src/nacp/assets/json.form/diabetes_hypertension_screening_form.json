@@ -225,29 +225,6 @@
         }
       },
       {
-        "key": "screened_hypertension_12m",
-        "type": "spinner",
-        "hint": "Have you been screened for hypertension in the last 12 months?",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "screened_hypertension_12m",
-        "values": ["Yes", "No"],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please select whether you agree with the screening"
-        },
-        "relevance": {
-          "step1:aggree_with_screening_procedure": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
         "key": "medicines_hypertension",
         "type": "spinner",
         "hint": "Are you taking medicines for hypertension?",
