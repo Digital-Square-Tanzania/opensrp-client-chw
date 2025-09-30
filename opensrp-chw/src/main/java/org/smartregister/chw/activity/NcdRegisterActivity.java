@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreNcdRegisterActivity;
 import org.smartregister.chw.fragment.CompletedReferralRegisterFragment;
+import org.smartregister.chw.fragment.NcdConfirmedRegisterFragment;
 import org.smartregister.chw.fragment.NcdRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -36,7 +37,7 @@ public class NcdRegisterActivity extends CoreNcdRegisterActivity implements Bott
     @NotNull
     @Override
     protected Fragment[] getOtherFragments() {
-        return new CompletedReferralRegisterFragment[]{new CompletedReferralRegisterFragment()};
+        return new NcdConfirmedRegisterFragment[]{new NcdConfirmedRegisterFragment()};
     }
 
     @Override
