@@ -510,11 +510,13 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion29(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT)),
+                    new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT,
+                            Constants.TABLES.DIABETES_HYPERTENSION_FOLLOWUP,
+                            Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION)
+                    ),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");
         }
-
     }
 }
