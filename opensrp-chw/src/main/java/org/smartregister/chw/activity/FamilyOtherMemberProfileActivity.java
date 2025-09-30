@@ -70,8 +70,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     private LinearLayout layoutRecordNCDScreening;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
-    private HashMap<String, NFormViewData> formData = new HashMap<>();
-
     JSONObject ncdJsonObjectForm = new JSONObject();
 
     protected BaseIssueReferralContract.Presenter referralPresenter = null;
@@ -400,8 +398,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
                 JSONObject jsonObject= JsonFormUtils.getFieldJSONObject(JsonFormUtils.fields(new JSONObject(jsonForm)),"db_save_n_refer");
                 if (jsonObject == null) return;
                 if(Boolean.parseBoolean(jsonObject.optString("value"))){
-                    createReferralForm(data);
-                    sendNCDReferralToFacility(data);
+                    sendNCDReferralToFacility(createReferralForm(data));
                 }
             } catch (JSONException e) {
                 Timber.e(e);
@@ -409,9 +406,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         }
     }
 
-    private void sendNCDReferralToFacility(Intent data) {
+    private void sendNCDReferralToFacility(HashMap<String,NFormViewData> data) {
         try {
-            getReferralPresenter().saveForm(formData, ncdJsonObjectForm,false);
+            JSONObject NCDForm = new FormUtils().getFormJsonFromRepositoryOrAssets(FamilyOtherMemberProfileActivity.this, "referrals/referral_form");
+            if(NCDForm==null)return;
+
+            NCDForm.put("referral_task_focus", "Diabetes and Hypertension Testing");
+            getReferralPresenter().saveForm(data, NCDForm,false);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -450,12 +451,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
          );
     }
 
-    private void createReferralForm(Intent data) {
+    private HashMap<String, NFormViewData> createReferralForm(Intent data) {
         try {
+            HashMap<String, NFormViewData> formData = new HashMap<>();
             String jsonForm = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.JSON);
-            ncdJsonObjectForm = new FormUtils().getFormJsonFromRepositoryOrAssets(
-                    FamilyOtherMemberProfileActivity.this, "referrals/referral_form");
-            ncdJsonObjectForm.put("referral_task_focus", "Diabetes and Hypertension Testing");
 
             assert jsonForm != null;
 
@@ -507,9 +506,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
             formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
             formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+            return formData;
         } catch (Exception e) {
             Timber.e(e);
         }
+        return new HashMap<>();
     }
 
     public static Long convertDateToLong(String date) {
