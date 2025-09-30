@@ -823,6 +823,13 @@
             "creates_case": [
               "ec_ncd_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening Followup",
+            "creates_case": [
+              "ec_diabetes_hypertension_followup"
+            ]
           }
         ]
       }

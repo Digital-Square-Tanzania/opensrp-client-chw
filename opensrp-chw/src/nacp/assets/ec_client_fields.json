@@ -5700,6 +5700,112 @@
           "json_mapping": {
             "field": "version"
           }
+        },
+        {
+          "column_name": "risk_score",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_risk_score_output"
+          }
+        },
+        {
+          "column_name": "diastolic_bp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diastolic_bp"
+          }
+        },
+        {
+          "column_name": "systolic_bp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "systolic_bp"
+          }
+        },
+        {
+          "column_name": "waist_circumference",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "waist_circumference"
+          }
+        },
+        {
+          "column_name": "family_history_diabetes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "family_history_diabetes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_diabetes_hypertension_followup",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "receive_diabetes_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "receive_diabetes_test"
+          }
+        },
+        {
+          "column_name": "diabetes_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_test_result"
+          }
+        },
+        {
+          "column_name": "receive_hypertension_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "receive_hypertension_test"
+          }
+        },
+        {
+          "column_name": "hypertension_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hypertension_test_result"
+          }
         }
       ]
     },
