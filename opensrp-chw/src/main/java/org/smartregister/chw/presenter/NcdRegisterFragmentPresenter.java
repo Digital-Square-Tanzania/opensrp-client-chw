@@ -9,4 +9,9 @@ public class NcdRegisterFragmentPresenter extends BaseNcdRegisterFragmentPresent
     public NcdRegisterFragmentPresenter(NcdRegisterFragmentContract.View view, NcdRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
+
+    @Override
+    public String getMainCondition() {
+        return super.getMainCondition() + " AND (dhf.diabetes_test_result is null or dhf.hypertension_test_result is null) ";
+    }
 }
