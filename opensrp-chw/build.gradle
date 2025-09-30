@@ -289,7 +289,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-chw-ncd'
     }
 
-    implementation('org.smartregister:opensrp-chw-ncd:0.0.1-SNAPSHOT-LOCAL05') {
+    implementation('org.smartregister:opensrp-chw-ncd:0.0.1-SNAPSHOT-USELOCAL-BUILD01') {
         transitive = false
     }
 

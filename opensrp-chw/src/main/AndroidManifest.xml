@@ -65,6 +65,9 @@
         <activity
             android:name=".activity.NcdRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name="org.smartregister.chw.activity.NcdProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AgywProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
