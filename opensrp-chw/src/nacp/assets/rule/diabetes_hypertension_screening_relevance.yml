@@ -123,7 +123,7 @@ condition: "(step3_systolic_bp != '' && step3_systolic_bp >= 140) ||
 actions:
   - "isRelevant = true"
 ---
-name: step4_save_n_refer
+name: step4_db_save_n_refer
 description: Save and refer
 priority: 1
 condition: "(step3_systolic_bp != '' && step3_systolic_bp >= 140) || 
