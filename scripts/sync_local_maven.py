@@ -87,19 +87,31 @@ def main() -> int:
         help="Destination directory for the generated Maven repository",
     )
     parser.add_argument(
+        "destination",
+        nargs="?",
+        type=Path,
+        help=(
+            "Optional positional destination overriding --dest; useful for paths like"
+            " ~/.m2/repository"
+        ),
+    )
+    parser.add_argument(
         "--overwrite",
         action="store_true",
         help="Overwrite existing files in the destination",
     )
     args = parser.parse_args()
 
-    if not args.source.exists():
-        parser.error(f"Source cache directory {args.source} does not exist")
+    source_root = args.source.expanduser()
+    dest_root = (args.destination or args.dest).expanduser()
 
-    args.dest.mkdir(parents=True, exist_ok=True)
-    copied = sync_repo(args.source, args.dest, overwrite=args.overwrite)
+    if not source_root.exists():
+        parser.error(f"Source cache directory {source_root} does not exist")
 
-    print(f"Copied {len(copied)} artifacts into {args.dest}")
+    dest_root.mkdir(parents=True, exist_ok=True)
+    copied = sync_repo(source_root, dest_root, overwrite=args.overwrite)
+
+    print(f"Copied {len(copied)} artifacts into {dest_root}")
     return 0
 
 
