@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
@@ -70,10 +71,10 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             if (groupId == null) return;
 
             // Members already in this group
-            List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
             Set<String> existing = new HashSet<>();
-            for (Visit v : groupVisits) {
-                if (v.getBaseEntityId() != null) existing.add(v.getBaseEntityId());
+            List<MemberObject> existingMembers = AypDao.getInSchoolGroupMembers(groupId);
+            for(MemberObject memberObject: existingMembers){
+                existing.add(memberObject.getBaseEntityId());
             }
 
             // All in-school members
@@ -133,10 +134,15 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             baseEvent.addObs(new Obs("concept", "text", "members", "",
                     toList(TextUtils.join(",", memberIds)), new ArrayList<>(), null, "members"));
 
-            Visit visit = NCUtils.eventToVisit(baseEvent, AypJsonFormUtils.generateRandomUUIDString());
 
-            AypLibrary.getInstance().visitRepository().addVisit(visit);
-            AypVisitsUtil.manualProcessVisit(visit);
+            AllSharedPreferences allSharedPreferences = AypLibrary.getInstance().context().allSharedPreferences();
+
+            try {
+                NCUtils.addEvent(allSharedPreferences,baseEvent);
+                NCUtils.startClientProcessing();
+            } catch (Exception e) {
+                Timber.e(e);
+            }
 
             refreshMembersFromSources(groupId);
         } catch (Exception e) {
