@@ -24,7 +24,11 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    python3 scripts/sync_local_maven.py
    ```
-   Rerun this command whenever `legacy-opensrp-libs/` changes. The generated `local-maven/` directory is ignored by Git.
+   Pass a destination to mirror directly into another Maven repository if needed, for example your local `~/.m2/repository` cache:
+   ```bash
+   python3 scripts/sync_local_maven.py ~/.m2/repository
+   ```
+   Rerun this command whenever `legacy-opensrp-libs/` changes. The generated `local-maven/` directory is ignored by Git when using the default destination.
 3. Ensure the prepackaged AARs remain under `opensrp-chw/libs/` (`circleprogressbar-1.0.8-SNAPSHOT.aar`, `MonthAndYearPicker-1.3.0.aar`, `hellocharts-android-1.5.8.aar`). Replace them if you rebuild those libraries locally.
 4. Build the client from the repository root:
    ```bash
