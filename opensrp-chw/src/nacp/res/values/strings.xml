@@ -8,6 +8,7 @@
     <string name="hiv_referral">Care and Treatment Clinic</string>
     <string name="hts_referral">HIV Testing Services</string>
     <string name="tb_referral">TB Clinic</string>
+    <string name="tb_leprosy_referral">TB/Leprosy</string>
     <string name="pmtct_referral">PMTCT Clinic</string>
     <string name="gbv_referral">Gender Based Violence</string>
     <string name="vmmc_referral">VMMC Services</string>

@@ -76,6 +76,9 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.KVP_PrEP:
                     AllClientsUtils.goToKvpPrepProfile(this.getActivity(), commonPersonObjectClient);
                     break;
+                case CoreConstants.REGISTER_TYPE.TBLEPROSY:
+                    AllClientsUtils.goToTbLeprosyProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
                 case CoreConstants.REGISTER_TYPE.SBC:
                     AllClientsUtils.goToSbcProfile(this.getActivity(), commonPersonObjectClient);
                     break;

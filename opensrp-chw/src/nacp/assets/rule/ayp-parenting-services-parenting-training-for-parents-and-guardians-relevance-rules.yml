@@ -1,0 +1,15 @@
+---
+name: step1_intro_details
+description: Show intro_details when its condition is met
+priority: 1
+condition: "step1_section_selection != null && step1_section_selection.contains('introduction')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_problem_topics
+description: Show hiv_problem_topics when its condition is met
+priority: 1
+condition: "step1_section_selection != null && step1_section_selection.contains('hiv_problem_among_young_people')"
+actions:
+  - "isRelevant = true"
+

@@ -643,6 +643,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "TbLeprosy Mobilization Session",
+            "creates_case":[
+              "ec_tbleprosy_mobilization"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "CDP Outlet Registration",
             "creates_case": [
               "ec_cdp_outlet",
@@ -755,6 +762,48 @@
           },
           {
             "field": "eventType",
+            "field_value": "TBLeprosy Screening",
+            "creates_case": [
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLEPROSY Observation Results",
+            "creates_case": [
+              "ec_tbleprosy_observation_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLEPROSY Contact Observation Results",
+            "creates_case": [
+              "ec_tbleprosy_contact_observation_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Follow-up Visit",
+            "creates_case": [
+              "ec_tbleprosy_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Visit",
+            "creates_case": [
+              "ec_tbleprosy_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Contact Visit",
+            "creates_case": [
+              "ec_tbleprosy_contact_visit"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "SBC Enrollment",
             "creates_case": [
               "ec_sbc_register"
@@ -822,6 +871,13 @@
             "field_value": "AYP In-school Enrollment",
             "creates_case": [
               "ec_ayp_in_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP Parental Service Enrollment",
+            "creates_case": [
+              "ec_ayp_parental_enrollment"
             ]
           },
           {

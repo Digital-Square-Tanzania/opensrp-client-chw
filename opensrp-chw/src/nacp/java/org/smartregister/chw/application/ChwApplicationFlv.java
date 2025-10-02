@@ -168,6 +168,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasTbLeprosy() {
+        return true;
+    }
+
+    @Override
     public boolean hasICCM() {
         return true;
     }
