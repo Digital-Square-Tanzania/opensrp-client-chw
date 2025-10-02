@@ -34,6 +34,7 @@ import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.activity.SbcMemberProfileActivity;
+import org.smartregister.chw.activity.TbLeprosyProfileActivity;
 import org.smartregister.chw.activity.TbProfileActivity;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -45,7 +46,6 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -53,6 +53,7 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
+import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -122,6 +123,10 @@ public class AllClientsUtils {
 
     public static void goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client) {
         KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
+        TbLeprosyProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
     public static void goToSbcProfile(Activity activity, CommonPersonObjectClient client) {
@@ -323,6 +328,11 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_kvp_prep_registration, !KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
 
+        // Handle Tb Leprosy menu items
+        if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+            setMenuItemVisibility(menu, R.id.action_tbleprosy_screening, !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId));
+        }
+
         // Handle SBC menu items
         if (ChwApplication.getApplicationFlavor().hasSbc()) {
             setMenuItemVisibility(menu, R.id.action_sbc_registration, !SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);
@@ -341,6 +351,7 @@ public class AllClientsUtils {
         // Handle AYP menu items
         if (ChwApplication.getApplicationFlavor().hasAyp()) {
             setMenuItemVisibility(menu, R.id.action_ayp_in_school_enrollment, !AypDao.isRegisteredForAypInSchoolServices(baseEntityId) && age >= 10 && age < 25);
+            setMenuItemVisibility(menu, R.id.action_ayp_parental_enrollment, !AypDao.isRegisteredForAypParentalServices(baseEntityId) && age >= 25);
         }
     }
 

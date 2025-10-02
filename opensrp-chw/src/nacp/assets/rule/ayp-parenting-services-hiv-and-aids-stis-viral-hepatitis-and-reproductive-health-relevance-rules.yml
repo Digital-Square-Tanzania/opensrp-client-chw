@@ -1,0 +1,36 @@
+---
+name: step1_rh_sections_provided
+description: Show rh_sections_provided when rh_provided == 'yes'
+priority: 1
+condition: "step1_rh_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_aids_topics
+description: Show hiv_aids_topics when rh_sections_provided contains 'hiv_and_aids'
+priority: 1
+condition: "step1_rh_sections_provided != null && step1_rh_sections_provided.contains('hiv_and_aids')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_stis_rtis_topics
+description: Show stis_rtis_topics when rh_sections_provided contains 'stis_rtis'
+priority: 1
+condition: "step1_rh_sections_provided != null && step1_rh_sections_provided.contains('stis_rtis')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_viral_hepatitis_topics
+description: Show viral_hepatitis_topics when rh_sections_provided contains 'viral_hepatitis'
+priority: 1
+condition: "step1_rh_sections_provided != null && step1_rh_sections_provided.contains('viral_hepatitis')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_protection_against_hiv_aids_stis_viral_hepatitis
+description: Show protection_against_hiv_aids_stis_viral_hepatitis when any related section is provided
+priority: 1
+condition: "step1_rh_sections_provided != null && step1_rh_sections_provided.contains('protection_against_hiv')"
+actions:
+  - "isRelevant = true"

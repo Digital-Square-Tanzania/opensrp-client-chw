@@ -2136,6 +2136,22 @@
             "field": "obs.formSubmissionField",
             "concept": "referral_task_previous_business_status"
           }
+        },
+        {
+          "column_name": "servicesProvided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "servicesProvided"
+          }
+        },
+        {
+          "column_name": "prescriptions",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "prescriptions"
+          }
         }
       ]
     },
@@ -4538,6 +4554,49 @@
       ]
     },
     {
+      "name": "ec_tbleprosy_mobilization",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "mobilization_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mobilization_date"
+          }
+        },
+        {
+          "column_name": "female_clients_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_clients_reached"
+          }
+        },
+        {
+          "column_name": "male_clients_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_clients_reached"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_cdp_outlet",
       "columns": [
         {
@@ -5286,6 +5345,416 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_screening",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "anaishi_karibu_na_mgonjwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "anaishi_karibu_na_mgonjwa"
+          }
+        },
+        {
+          "column_name": "namba_ya_mteja_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "namba_ya_mteja_tb"
+          }
+        },
+        {
+          "column_name": "namba_ya_mteja_ukoma",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "namba_ya_mteja_ukoma"
+          }
+        },
+        {
+          "column_name": "kundi_maalumu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kundi_maalumu"
+          }
+        },
+        {
+          "column_name": "status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_observation_results",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "aina_ya_uchunguzi",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "aina_ya_uchunguzi"
+          }
+        },
+        {
+          "column_name": "kipimo_cha_uchunguzi_kilichotumika_kupima_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kipimo_cha_uchunguzi_kilichotumika_kupima_tb"
+          }
+        },
+        {
+          "column_name": "matokeo_ya_sampuli_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "matokeo_ya_sampuli_tb"
+          }
+        },
+        {
+          "column_name": "maamuzi_kitabibu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maamuzi_kitabibu"
+          }
+        },
+        {
+          "column_name": "aina_uchunguzi_uliotumika_kupima_ukoma",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "aina_uchunguzi_uliotumika_kupima_ukoma"
+          }
+        },
+        {
+          "column_name": "matokeo_uchunguzi_ukoma",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "matokeo_uchunguzi_ukoma"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_contact_observation_results",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "matokeo_ya_uchunguzi_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "matokeo_ya_uchunguzi_tb"
+          }
+        },
+        {
+          "column_name": "ameanza_tiba_ya_tb",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ameanza_tiba_ya_tb"
+          }
+        },
+        {
+          "column_name": "tarehe_ya_kuanza_matibabu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tarehe_ya_kuanza_matibabu"
+          }
+        },
+        {
+          "column_name": "anastahili_kutumia_tiba_kinga",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "anastahili_kutumia_tiba_kinga"
+          }
+        },
+        {
+          "column_name": "ameanza_tiba_kinga",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ameanza_tiba_kinga"
+          }
+        },
+        {
+          "column_name": "tarehe_ya_kuanza_tiba_kinga",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tarehe_ya_kuanza_tiba_kinga"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_followup_visit",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "sababu_ya_ufuatiliaji",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sababu_ya_ufuatiliaji"
+          }
+        },
+        {
+          "column_name": "matokeo_ya_ufuatiliaji",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "matokeo_ya_ufuatiliaji"
+          }
+        },
+        {
+          "column_name": "taja_sababu_ya_hajapatikana",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "taja_sababu_ya_hajapatikana"
+          }
+        },
+        {
+          "column_name": "amerudi_kwenye_matibabu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "amerudi_kwenye_matibabu"
+          }
+        },
+        {
+          "column_name": "tarehe_ya_miadi",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tarehe_ya_miadi"
+          }
+        },
+        {
+          "column_name": "changamoto_katika_upatikanaji_huduma",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "changamoto_katika_upatikanaji_huduma"
+          }
+        },
+        {
+          "column_name": "changamoto_mteja_aliyopata",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "changamoto_mteja_aliyopata"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_visit",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "kuchukuliwa_sampuli",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kuchukuliwa_sampuli"
+          }
+        },
+        {
+          "column_name": "mteja_anahitaji_kifaa_kingine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mteja_anahitaji_kifaa_kingine"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tbleprosy_contact_visit",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "aina_ya_ukaribu_na_mgonjwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "aina_ya_ukaribu_na_mgonjwa"
+          }
+        },
+        {
+          "column_name": "namba_ya_mteja",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "namba_ya_mteja"
+          }
+        },
+        {
+          "column_name": "matokeo_ya_ufuatiliaji",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "matokeo_ya_ufuatiliaji"
+          }
+        },
+        {
+          "column_name": "aina_ya_uchunguzi",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "aina_ya_uchunguzi"
+          }
+        },
+        {
+          "column_name": "maamuzi_kitabibu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maamuzi_kitabibu"
           }
         }
       ]
@@ -9126,6 +9595,57 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "encounter_date"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_ayp_parental_enrollment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "number_of_children",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_children"
+          }
+        },
+        {
+          "column_name": "male_children_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_children_count"
+          }
+        },
+        {
+          "column_name": "female_children_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_children_count"
           }
         },
         {

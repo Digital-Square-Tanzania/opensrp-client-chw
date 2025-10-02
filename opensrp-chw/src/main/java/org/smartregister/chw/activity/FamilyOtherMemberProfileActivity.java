@@ -86,6 +86,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         // Not required
     }
 
+
+
     @Override
     protected void startIntegratedCommunityCaseManagementEnrollment() {
         IccmRegisterActivity.startIccmRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
@@ -282,6 +284,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startAypInSchoolEnrollment() {
         AypInSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startAypParentalEnrollment() {
+        AypParentalRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
