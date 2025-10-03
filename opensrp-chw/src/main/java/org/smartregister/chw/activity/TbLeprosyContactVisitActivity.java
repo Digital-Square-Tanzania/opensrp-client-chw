@@ -9,7 +9,10 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.interactor.TbLeprosyVisitInteractor;
 import org.smartregister.chw.tbleprosy.activity.BaseTbLeprosyVisitActivity;
+import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.MemberObject;
 import org.smartregister.chw.tbleprosy.interactor.BaseTbLeprosyServiceVisitInteractor;
 import org.smartregister.chw.tbleprosy.presenter.BaseTbLeprosyVisitPresenter;
@@ -38,13 +41,13 @@ public class TbLeprosyContactVisitActivity extends BaseTbLeprosyVisitActivity {
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseTbLeprosyVisitPresenter(memberObject, this, new BaseTbLeprosyServiceVisitInteractor(org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_SERVICES));
+        presenter = new BaseTbLeprosyVisitPresenter(memberObject, this, new TbLeprosyVisitInteractor(org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_SERVICES));
     }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
-        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+        form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
@@ -61,6 +64,11 @@ public class TbLeprosyContactVisitActivity extends BaseTbLeprosyVisitActivity {
         // get language from prefs
         String lang = LangUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(LangUtils.setAppLocale(base, lang));
+    }
+
+    @Override
+    protected MemberObject getMemberObject(String baseEntityId) {
+        return TbLeprosyDao.getContact(baseEntityId);
     }
 }
 

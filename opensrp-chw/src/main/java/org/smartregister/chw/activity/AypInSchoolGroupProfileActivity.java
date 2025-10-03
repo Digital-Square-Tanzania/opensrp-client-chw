@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.toList;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,12 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
@@ -37,7 +34,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
-import org.smartregister.view.activity.FormActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,21 +56,9 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
     @Override
     public void openGroupDetailsForm() {
         try {
-            JSONObject form = new FormUtils().getFormJsonFromRepositoryOrAssets(this, "ayp_in_school_group_creation");
-            if (form != null) {
-                // Use group id as entity id for this event
-                String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
-                if (groupId == null) groupId = UUID.randomUUID().toString();
-                form.put(ENTITY_ID, groupId);
-
-                // Configure form (non-wizard)
-                Form cfg = new Form();
-                cfg.setWizard(false);
-                Intent intent = new Intent(this, FormActivity.class);
-                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
-                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, cfg);
-                startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
-            }
+            String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
+            String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
+            AypInSchoolGroupVisitActivity.startAypInSchoolGroupVisitActivity(this, UUID.randomUUID().toString(), false, groupId, groupName);
         } catch (Exception ignored) {
         }
     }
@@ -87,10 +71,10 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             if (groupId == null) return;
 
             // Members already in this group
-            List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
             Set<String> existing = new HashSet<>();
-            for (Visit v : groupVisits) {
-                if (v.getBaseEntityId() != null) existing.add(v.getBaseEntityId());
+            List<MemberObject> existingMembers = AypDao.getInSchoolGroupMembers(groupId);
+            for(MemberObject memberObject: existingMembers){
+                existing.add(memberObject.getBaseEntityId());
             }
 
             // All in-school members
@@ -150,10 +134,15 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             baseEvent.addObs(new Obs("concept", "text", "members", "",
                     toList(TextUtils.join(",", memberIds)), new ArrayList<>(), null, "members"));
 
-            Visit visit = NCUtils.eventToVisit(baseEvent, AypJsonFormUtils.generateRandomUUIDString());
 
-            AypLibrary.getInstance().visitRepository().addVisit(visit);
-            AypVisitsUtil.manualProcessVisit(visit);
+            AllSharedPreferences allSharedPreferences = AypLibrary.getInstance().context().allSharedPreferences();
+
+            try {
+                NCUtils.addEvent(allSharedPreferences,baseEvent);
+                NCUtils.startClientProcessing();
+            } catch (Exception e) {
+                Timber.e(e);
+            }
 
             refreshMembersFromSources(groupId);
         } catch (Exception e) {

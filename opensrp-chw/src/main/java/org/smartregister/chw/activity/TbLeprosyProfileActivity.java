@@ -5,6 +5,8 @@ import static org.smartregister.chw.tbleprosy.util.Constants.JSON_FORM_EXTRA.EVE
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -116,6 +118,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     @Override
     public void openTbLeprosyContactRegister() {
         Intent intent = new Intent(this, TbLeprosyContactRegister.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberObject.getBaseEntityId());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
         startActivity(intent);
     }
 
@@ -186,9 +190,19 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setupViews();
-        fetchProfileData();
-        profilePresenter.refreshProfileBottom();
+        delayRefresh();
+    }
+
+    private void delayRefresh() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                setupViews();
+                fetchProfileData();
+                profilePresenter.refreshProfileBottom();
+            }, 500);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -362,4 +376,3 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         addReferralTypes();
     }
 }
-

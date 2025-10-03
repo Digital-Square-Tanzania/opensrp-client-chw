@@ -16,6 +16,7 @@ import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
@@ -260,13 +261,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
             String membersCsv = getObsStringValue(event, "members");
             if (groupId == null || membersCsv == null) return;
             String providerId = event.getProviderId();
-            java.util.List<String> ids = new java.util.ArrayList<>();
+            List<String> ids = new ArrayList<>();
             for (String s : membersCsv.split(",")) {
                 String t = s.trim();
                 if (!t.isEmpty()) ids.add(t);
             }
             if (!ids.isEmpty()) {
-                new org.smartregister.chw.repository.AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+                new AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
             }
         } catch (Exception e) {
             Timber.e(e);

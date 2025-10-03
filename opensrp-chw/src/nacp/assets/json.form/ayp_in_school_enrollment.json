@@ -101,6 +101,12 @@
         "v_required": {
           "value": true,
           "err": "Please select the enrollment date"
+        },
+        "relevance": {
+          "step1:enrollment_status": {
+            "type": "string",
+            "ex": "notEqualTo(., \"new_client\")"
+          }
         }
       },
       {
