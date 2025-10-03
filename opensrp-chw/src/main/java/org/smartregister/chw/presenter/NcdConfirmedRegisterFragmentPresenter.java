@@ -10,6 +10,6 @@ public class NcdConfirmedRegisterFragmentPresenter extends BaseNcdRegisterFragme
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + ".is_closed = 0 AND dhf.base_entity_id is not null ";
+        return " " + getMainTable() + ".is_closed = 0 AND (dhf.base_entity_id is not null or dhc.base_entity_id is not null) ";
     }
 }

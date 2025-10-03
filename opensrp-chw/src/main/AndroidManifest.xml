@@ -66,8 +66,14 @@
             android:name=".activity.NcdRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name="org.smartregister.chw.activity.NcdProfileActivity"
+        <activity
+            android:name="org.smartregister.chw.activity.NcdProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.chw.activity.NcdVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.AgywProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

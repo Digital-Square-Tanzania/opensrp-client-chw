@@ -12,6 +12,6 @@ public class NcdRegisterFragmentPresenter extends BaseNcdRegisterFragmentPresent
 
     @Override
     public String getMainCondition() {
-        return super.getMainCondition() + " AND (dhf.diabetes_test_result is null or dhf.hypertension_test_result is null) ";
+        return " " + this.getMainTable() + ".is_closed = 0 AND dhf.base_entity_id is null AND dhc.base_entity_id is null ";
     }
 }

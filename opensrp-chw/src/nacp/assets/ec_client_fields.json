@@ -5810,6 +5810,64 @@
       ]
     },
     {
+      "name": "ec_diabetes_hypertension_confirmation",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task"
+          }
+        },
+        {
+          "column_name": "hypertension_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hypertension_result"
+          }
+        },
+        {
+          "column_name": "diabetes_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_result"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_sbc_visit",
       "columns": [
         {
