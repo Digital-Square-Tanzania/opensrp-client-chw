@@ -13,7 +13,8 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.activity.CoreAypRegisterActivity;
-import org.smartregister.chw.fragment.AypInSchoolGroupsRegisterFragment;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AypOutSchoolGroupsRegisterFragment;
 import org.smartregister.chw.fragment.AypOutSchoolRegisterFragment;
 import org.smartregister.family.util.Utils;
@@ -41,6 +42,15 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
     @MenuRes
     public int getMenuResource() {
         return R.menu.bottom_nav_ayp_out_school;
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.AYP_OUT_SCHOOL);
+        }
     }
 
     @Override

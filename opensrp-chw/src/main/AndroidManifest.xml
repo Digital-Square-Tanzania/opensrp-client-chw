@@ -617,6 +617,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.AypOutSchoolGroupProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.AypInSchoolGroupVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 

@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -52,7 +54,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     @Override
     public void graduateForm() {
         try {
-            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, "ayp_out_school_graduate");
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, AYP_OUT_SCHOOL_GRADUATION);
             startFormActivity(formJsonObject);
         } catch (Exception e) {
             throw new RuntimeException(e);

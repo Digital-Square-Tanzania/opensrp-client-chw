@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.adapter.AypInSchoolGroupsRegisterAdapter;
+import org.smartregister.chw.adapter.AypOutSchoolGroupsRegisterAdapter;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.model.BaseAypRegisterFragmentModel;
@@ -36,8 +36,8 @@ import org.smartregister.chw.ayp.util.AypVisitsUtil;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.fragment.CoreAypRegisterFragment;
-import org.smartregister.chw.interactor.AypInSchoolGroupsRegisterInteractor;
-import org.smartregister.chw.presenter.AypInSchoolGroupRegisterFragmentPresenter;
+import org.smartregister.chw.interactor.AypOutSchoolGroupsRegisterInteractor;
+import org.smartregister.chw.presenter.AypOutSchoolGroupRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.model.View;
@@ -57,7 +57,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
     protected Toolbar toolbar;
     protected LinearLayout emptyViewLayout;
     private android.view.View view;
-    private AypInSchoolGroupsRegisterAdapter adapter;
+    private AypOutSchoolGroupsRegisterAdapter adapter;
     private String currentGroupTypeFilter = null; // null = all; else 'age_band' | 'classes'
 
     @Override
@@ -127,7 +127,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
             Timber.e(e);
         }
         // Reuse AYP base presenter/model since this is a custom list not backed by the common register query
-        presenter = new AypInSchoolGroupRegisterFragmentPresenter(this, new BaseAypRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new AypOutSchoolGroupRegisterFragmentPresenter(this, new BaseAypRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
     @Override
@@ -155,11 +155,11 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
     }
 
     protected void setUpAdapter() {
-        AypInSchoolGroupsRegisterInteractor interactor = new AypInSchoolGroupsRegisterInteractor();
+        AypOutSchoolGroupsRegisterInteractor interactor = new AypOutSchoolGroupsRegisterInteractor();
         if (currentGroupTypeFilter == null || currentGroupTypeFilter.isEmpty()) {
             interactor.fetchItems(items -> {
                 if (items != null && !items.isEmpty()) {
-                    adapter = new AypInSchoolGroupsRegisterAdapter(items, requireActivity());
+                    adapter = new AypOutSchoolGroupsRegisterAdapter(items, requireActivity());
                     clientsView.setAdapter(adapter);
                     showEmptyState();
                 } else {
@@ -170,7 +170,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
         } else {
             interactor.fetchItemsByType(currentGroupTypeFilter, items -> {
                 if (items != null && !items.isEmpty()) {
-                    adapter = new AypInSchoolGroupsRegisterAdapter(items, requireActivity());
+                    adapter = new AypOutSchoolGroupsRegisterAdapter(items, requireActivity());
                     clientsView.setAdapter(adapter);
                     showEmptyState();
                 } else {
@@ -234,7 +234,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
             syncButton.setImageDrawable(context().getDrawable(R.drawable.ic_add_white_24));
             syncButton.setOnClickListener(view -> {
                 try {
-                    JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireActivity(), "ayp_in_school_group_creation");
+                    JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireActivity(), "ayp_out_school_group_creation");
                     if (form != null) {
                         String randomId = generateRandomUUIDString();
                         form.put(ENTITY_ID, randomId);
@@ -280,7 +280,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
 
                 JSONObject form = new JSONObject(json);
                 String encounterType = form.optString("encounter_type", "");
-                if (!"group_details".equalsIgnoreCase(encounterType)) return;
+                if (!"group_out_details".equalsIgnoreCase(encounterType)) return;
 
                 // Build Event from the JSON form
                 AllSharedPreferences prefs = Utils.getAllSharedPreferences();
