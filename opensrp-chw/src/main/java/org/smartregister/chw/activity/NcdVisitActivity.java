@@ -137,7 +137,7 @@ public class NcdVisitActivity extends BaseNcdVisitActivity {
         TextView textView = (TextView) view;
         textView.setIncludeFontPadding(false);
         textView.setPaintFlags(textView.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        textView.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        textView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
