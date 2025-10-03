@@ -518,5 +518,25 @@
     <string name="ncd_at_risk_clients">At Risk</string>
     <string name="ncd_confirmed_clients">Confirmed</string>
     <string name="ncd_confirmed_register_title">All Confirmed Clients</string>
+    <string name="ncd_visit_action_diabetes_title">Record vitals</string>
+    <string name="ncd_visit_action_hypertension_title">Client Education</string>
+    <string name="ncd_visit_action_result">Latest %1$s result: %2$s</string>
+    <string name="ncd_visit_action_result_missing">No %1$s result recorded yet</string>
+    <string name="ncd_visit_condition_diabetes">Blood sugar</string>
+    <string name="ncd_visit_condition_hypertension">Blood pressure</string>
+    <string name="ncd_visit_vitals_summary">Blood sugar: %1$s | Blood pressure: %2$s</string>
+    <string name="ncd_visit_vitals_missing_all">No vitals recorded yet</string>
+    <string name="ncd_visit_vitals_missing_placeholder">Not recorded</string>
+    <string name="ncd_visit_client_education_done">Counselling provided</string>
+    <string name="ncd_visit_client_education_not_done">Counselling not provided</string>
+    <string name="ncd_visit_client_education_missing">Counselling status not recorded</string>
+    <string name="ncd_visit_client_education_topics">Topics: %1$s</string>
+    <string name="ncd_visit_topic_diet">Healthy diet and nutrition</string>
+    <string name="ncd_visit_topic_physical_activity">Physical activity and exercise</string>
+    <string name="ncd_visit_topic_medication_adherence">Medication adherence</string>
+    <string name="ncd_visit_topic_follow_up">Follow-up and referral plans</string>
+    <string name="ncd_visit_topic_warning_signs">Warning signs and when to seek care</string>
+    <string name="ncd_visit_topic_none">None</string>
+    <string name="ncd_visit_topic_other">Other</string>
 
 </resources>
