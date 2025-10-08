@@ -87,7 +87,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void setupViews() {
         super.setupViews();
-        if (Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false)) >= 40) {
+        if (Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false)) >= 30) {
             this.layoutRecordNCDScreening = findViewById(R.id.record_visit_panel_container);
             this.layoutRecordNCDScreening.setVisibility(VISIBLE);
             this.layoutRecordNCDScreening.setOnClickListener(v -> startDiabetesRiskAssessment());
