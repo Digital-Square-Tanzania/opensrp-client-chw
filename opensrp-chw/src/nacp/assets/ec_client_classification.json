@@ -797,6 +797,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "TbLeprosy Contact Registration",
+            "creates_case": [
+              "ec_tbleprosy_contacts"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "TBLeprosy Contact Visit",
             "creates_case": [
               "ec_tbleprosy_contact_visit"

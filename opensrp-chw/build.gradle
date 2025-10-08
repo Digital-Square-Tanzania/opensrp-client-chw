@@ -1,16 +1,3 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url uri("${rootDir}/local-maven") }
-    }
-    dependencies {
-        classpath 'org.apache.commons:commons-lang3:3.10'
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath 'com.google.gms:google-services:4.3.3'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
-    }
-}
 def githubProperties = new Properties()
 if (rootProject.file("github.properties").exists()) {
     githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
@@ -33,7 +20,6 @@ allprojects {
         }
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url 'https://maven.fabric.io/public' }
         maven {
 
             name = "GitHubPackages"
@@ -86,6 +72,7 @@ allprojects {
             dirs 'libs'
         }
         mavenLocal()
+        maven { url uri("${rootDir}/local-maven") }
     }
 }
 
@@ -102,13 +89,13 @@ jacoco {
 }
 
 android {
+    namespace 'org.smartregister.chw'
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
-    buildToolsVersion androidBuildToolsVersion
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 
     compileOptions {
@@ -147,11 +134,6 @@ android {
             buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
     }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     buildTypes {
 
         release {
@@ -175,6 +157,10 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
             testCoverageEnabled false
+            manifestPlaceholders += [
+                    firebase_crashlytics_collection_enabled: "true",
+                    firebase_crashlytics_collection_deactivated: "false"
+            ]
         }
 
         debug {
@@ -194,26 +180,32 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
             testCoverageEnabled false
+            manifestPlaceholders += [
+                    firebase_crashlytics_collection_enabled: "false",
+                    firebase_crashlytics_collection_deactivated: "true"
+            ]
         }
     }
 
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.md'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.md'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/LICENSE.md'
-        exclude 'META-INF/NOTICE.md'
-        exclude 'META-INF/INDEX.LIST'
+    packaging {
+        resources {
+            excludes += [
+                    'META-INF/DEPENDENCIES.txt',
+                    'META-INF/LICENSE.txt',
+                    'META-INF/NOTICE.txt',
+                    'META-INF/NOTICE',
+                    'META-INF/NOTICE.md',
+                    'META-INF/LICENSE',
+                    'META-INF/LICENSE.md',
+                    'META-INF/DEPENDENCIES',
+                    'META-INF/notice.txt',
+                    'META-INF/license.txt',
+                    'META-INF/dependencies.txt',
+                    'META-INF/LGPL2.1',
+                    'LICENSE.txt',
+                    'META-INF/INDEX.LIST'
+            ]
+        }
     }
 
     testOptions {
@@ -260,8 +252,9 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        buildConfig = true
     }
 
     bundle {
@@ -274,6 +267,12 @@ android {
         }
     }
     ndkVersion '21.1.6352462'
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -342,7 +341,7 @@ dependencies {
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
 
@@ -362,9 +361,10 @@ dependencies {
     testImplementation "io.insert-koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.12.4'
-    testImplementation 'org.robolectric:robolectric:4.3.1'
-    testImplementation 'org.robolectric:shadows-multidex:4.3.1'
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    def robolectricVersion = '4.8.2'
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-multidex:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
     testImplementation 'androidx.test:core:1.5.0'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 }
