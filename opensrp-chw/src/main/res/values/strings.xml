@@ -538,5 +538,6 @@
     <string name="ncd_visit_topic_warning_signs">Warning signs and when to seek care</string>
     <string name="ncd_visit_topic_none">None</string>
     <string name="ncd_visit_topic_other">Other</string>
+    <string name="ncd_follow_up_wait_message">Follow-up visit can be recorded 3 days after screening.</string>
 
 </resources>

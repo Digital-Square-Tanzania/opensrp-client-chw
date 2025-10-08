@@ -5,19 +5,26 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONObject;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.ncd.activity.BaseNcdProfileActivity;
 import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
+import java.util.Date;
 import java.util.Locale;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -35,7 +42,13 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     private static final String COLUMN_HYPERTENSION_RESULT = "hypertension_result";
     private static final String COLUMN_LAST_INTERACTED_WITH = "last_interacted_with";
     private static final String COLUMN_VISIT_DATE = "visit_date";
-    boolean isConfirmedNcd = false;
+    private static final int FOLLOW_UP_WAIT_PERIOD_DAYS = 3;
+
+    private boolean isConfirmedNcd = false;
+    private Date lastDiabetesScreeningDate;
+    private boolean followUpButtonHiddenByWaitPeriod;
+    private Integer originalRecordVisitRowVisibility;
+    private Integer originalRecordVisitButtonVisibility;
 
     /**
      * Use this method to start the NcdProfileActivity.
@@ -71,6 +84,12 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        enforceFollowUpWaitPeriod();
+    }
+
+    @Override
     public void openFollowupVisit() {
         if (memberObject == null) {
             Timber.w("Member object is null, cannot continue with NCD visit");
@@ -79,6 +98,12 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
 
         if (shouldOpenNcdVisit(memberObject.getBaseEntityId())) {
             NcdVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+            return;
+        }
+
+        if (!isFollowUpWaitPeriodSatisfied()) {
+            Toast.makeText(this, R.string.ncd_follow_up_wait_message, Toast.LENGTH_SHORT).show();
+            enforceFollowUpWaitPeriod();
             return;
         }
 
@@ -108,6 +133,96 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    private void enforceFollowUpWaitPeriod() {
+        if (memberObject == null) {
+            return;
+        }
+
+        if (isConfirmedNcd) {
+            lastDiabetesScreeningDate = null;
+            restoreFollowUpVisibilityIfNeeded();
+            return;
+        }
+
+        Date screeningDate = NcdDao.getLastDiabetesScreeningDate(memberObject.getBaseEntityId());
+        lastDiabetesScreeningDate = screeningDate;
+
+        if (isEligibleForFollowUp(screeningDate)) {
+            restoreFollowUpVisibilityIfNeeded();
+        } else {
+            hideFollowUpButton();
+        }
+    }
+
+    private boolean isFollowUpWaitPeriodSatisfied() {
+        if (isConfirmedNcd || memberObject == null) {
+            return true;
+        }
+
+        Date screeningDate = lastDiabetesScreeningDate != null ? lastDiabetesScreeningDate
+                : NcdDao.getLastDiabetesScreeningDate(memberObject.getBaseEntityId());
+        lastDiabetesScreeningDate = screeningDate;
+        return isEligibleForFollowUp(screeningDate);
+    }
+
+    private boolean isEligibleForFollowUp(Date screeningDate) {
+        if (screeningDate == null) {
+            return false;
+        }
+
+        DateTime screeningDay = new DateTime(screeningDate).withTimeAtStartOfDay();
+        DateTime today = DateTime.now().withTimeAtStartOfDay();
+
+        if (screeningDay.isAfter(today)) {
+            return false;
+        }
+
+        return Days.daysBetween(screeningDay, today).getDays() >= FOLLOW_UP_WAIT_PERIOD_DAYS;
+    }
+
+    private void hideFollowUpButton() {
+        View recordVisitRow = findViewById(R.id.record_visit_ncd);
+        TextView recordFollowUpButton = findViewById(R.id.textview_record_ncd);
+
+        boolean changed = false;
+
+        if (!followUpButtonHiddenByWaitPeriod) {
+            originalRecordVisitRowVisibility = recordVisitRow != null ? recordVisitRow.getVisibility() : null;
+            originalRecordVisitButtonVisibility = recordFollowUpButton != null ? recordFollowUpButton.getVisibility() : null;
+        }
+
+        if (recordVisitRow != null && recordVisitRow.getVisibility() != View.GONE) {
+            recordVisitRow.setVisibility(View.GONE);
+            changed = true;
+        }
+
+        if (recordFollowUpButton != null && recordFollowUpButton.getVisibility() != View.GONE) {
+            recordFollowUpButton.setVisibility(View.GONE);
+            changed = true;
+        }
+
+        followUpButtonHiddenByWaitPeriod = followUpButtonHiddenByWaitPeriod || changed;
+    }
+
+    private void restoreFollowUpVisibilityIfNeeded() {
+        if (!followUpButtonHiddenByWaitPeriod) {
+            return;
+        }
+
+        View recordVisitRow = findViewById(R.id.record_visit_ncd);
+        TextView recordFollowUpButton = findViewById(R.id.textview_record_ncd);
+
+        if (recordVisitRow != null && originalRecordVisitRowVisibility != null) {
+            recordVisitRow.setVisibility(originalRecordVisitRowVisibility);
+        }
+
+        if (recordFollowUpButton != null && originalRecordVisitButtonVisibility != null) {
+            recordFollowUpButton.setVisibility(originalRecordVisitButtonVisibility);
+        }
+
+        followUpButtonHiddenByWaitPeriod = false;
     }
 
     @Override
