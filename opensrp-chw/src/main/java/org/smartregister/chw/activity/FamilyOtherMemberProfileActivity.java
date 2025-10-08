@@ -460,8 +460,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
             // Referral problem
             HashMap<String, NFormViewData> problemValue = new HashMap<>();
-            NFormViewData dbRisk = createFormViewData("Risk for diabetes and hypertension",null,metaData("","risk_for_diabetes_&_hypertension", ""));
-            problemValue.put("risk_for_diabetes_&_hypertension", dbRisk);
+            NFormViewData dbRisk = createFormViewData("Risk for diabetes and hypertension",null,metaData("","risk_for_diabetes_and_hypertension", ""));
+            problemValue.put("risk_for_diabetes_and_hypertension", dbRisk);
             NFormViewData problemFormViewData = createFormViewData(problemValue, "MultiChoiceCheckBox",metaData("", "concept", "problem"));
             problemFormViewData.setType("MultiChoiceCheckBox");
             formData.put("problem", problemFormViewData);
