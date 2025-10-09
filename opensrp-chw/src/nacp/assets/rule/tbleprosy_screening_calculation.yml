@@ -4,20 +4,4 @@ description: screening status calculation
 priority: 1
 condition: "true"
 actions:
-  - "def hasPresumptive(selection) {
-         if (selection == null) {
-             return false;
-         }
-         if (selection instanceof java.util.Collection) {
-             return !selection.isEmpty() && !(selection.size() == 1 && selection.contains('hana_dalili'));
-         }
-         return selection.toString().trim().length() > 0 && !selection.equals('hana_dalili');
-     }"
-  - "def statuses = []"
-  - "if (hasPresumptive(step3_majibu_ya_uchunguzi_tb)) {
-         statuses.add('tb_presamptive');
-     }"
-  - "if (hasPresumptive(step3_majibu_ya_uchunguzi_ukoma)) {
-         statuses.add('leprocy_presamptive');
-     }"
-  - "calculation = statuses.join(',')"
+  - "calculation = ((step3_majibu_ya_uchunguzi_tb != null && !step3_majibu_ya_uchunguzi_tb.isEmpty() && !(step3_majibu_ya_uchunguzi_tb.size() == 1 && step3_majibu_ya_uchunguzi_tb.contains('hana_dalili'))) ? ((step3_majibu_ya_uchunguzi_ukoma != null && !step3_majibu_ya_uchunguzi_ukoma.isEmpty() && !(step3_majibu_ya_uchunguzi_ukoma.size() == 1 && step3_majibu_ya_uchunguzi_ukoma.contains('hana_dalili'))) ? 'tb_presamptive,leprocy_presamptive' : 'tb_presamptive') : ((step3_majibu_ya_uchunguzi_ukoma != null && !step3_majibu_ya_uchunguzi_ukoma.isEmpty() && !(step3_majibu_ya_uchunguzi_ukoma.size() == 1 && step3_majibu_ya_uchunguzi_ukoma.contains('hana_dalili'))) ? 'leprocy_presamptive' : ''))"
