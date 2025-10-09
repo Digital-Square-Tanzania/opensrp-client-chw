@@ -5407,6 +5407,14 @@
           }
         },
         {
+          "column_name": "screening_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "screening_status"
+          }
+        },
+        {
           "column_name": "status",
           "type": "Event",
           "json_mapping": {
