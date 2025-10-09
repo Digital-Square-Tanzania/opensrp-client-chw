@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -93,11 +94,28 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     @Override
     public void openObservationResults() {
 
-        if (getTbLeprosyClientStatus(memberObject.getBaseEntityId()).equalsIgnoreCase("contact")) {
+        String baseEntityId = memberObject.getBaseEntityId();
+
+        if (getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact")) {
             startForm(Constants.FORMS.CONTACT_OBSERVATION_RESULTS);
 
         } else {
-            startForm(Constants.FORMS.OBSERVATION_RESULTS);
+            try {
+                JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
+                form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+
+                boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
+                boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
+
+                if (isTbPresumptive ^ isLeprosyPresumptive) {
+                    String hiddenValue = isTbPresumptive ? "tb" : "leprosy";
+                    applyObservationTypeOverrides(form, hiddenValue);
+                }
+
+                startFormActivity(form);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
         }
     }
 
@@ -361,6 +379,41 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    private void applyObservationTypeOverrides(JSONObject form, String hiddenValue) throws JSONException {
+        if (form == null) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject("step1");
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) {
+                continue;
+            }
+
+            if ("aina_ya_uchunguzi".equals(field.optString("key"))) {
+                field.put("type", "hidden");
+                field.put("value", hiddenValue);
+                field.remove("options");
+                field.remove("combine_checkbox_option_values");
+                field.remove("label");
+                field.remove("label_text_style");
+                field.remove("text_color");
+                field.remove("v_required");
+                break;
+            }
+        }
     }
 
     protected Visit getTbLeprosyContactVisit() {
