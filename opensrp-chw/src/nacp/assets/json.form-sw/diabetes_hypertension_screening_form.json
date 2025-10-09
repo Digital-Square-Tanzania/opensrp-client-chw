@@ -336,6 +336,7 @@
         "openmrs_entity_id": "family_history_diabetes",
         "openmrs_data_type": "select one",
         "hint": "Je, kuna mtu katika familia yako wa karibu (mzazi, mtoto au ndugu wa kuzaliwa mfano, kaka na dada) aliyewahi kuugua ugojwa w kisukari?",
+        "keys": ["Yes", "No"],
         "values": [
           "Ndio",
           "Hapana"
@@ -456,7 +457,9 @@
     "fields": [
       {
         "key": "diabetes_risk_score_output",
-        "type": "hidden",
+        "type": "edit_text",
+        "hint": "Patient risk",
+        "read_only": true,
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diabetes_risk_score_output",
         "openmrs_entity_parent": "",

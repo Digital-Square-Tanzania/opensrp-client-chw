@@ -330,6 +330,7 @@
         "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "hint": "Family history of diabetes?",
+        "keys": ["Yes", "No"],
         "values": [
           "Yes",
           "No"
