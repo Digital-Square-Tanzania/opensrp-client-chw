@@ -126,20 +126,32 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     @Override
     protected void setupButtons() {
 
-        if (!getTbLeprosyClientStatus(memberObject.getBaseEntityId()).equalsIgnoreCase("contact")) {
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyVisit(memberObject.getBaseEntityId()))) {
+        String baseEntityId = memberObject.getBaseEntityId();
+        boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
+
+        if (!isContactClient) {
+            boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
+
+            if (isTbPresumptiveClient) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+            } else {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+            }
+
+            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyVisit(baseEntityId))) {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyObservationResults(memberObject.getBaseEntityId()))) {
+            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyObservationResults(baseEntityId))) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                 textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyFollowUpVisit(memberObject.getBaseEntityId()))) {
+            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyFollowUpVisit(baseEntityId))) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                 textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
@@ -148,7 +160,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         }
 
 
-        if (getTbLeprosyClientStatus(memberObject.getBaseEntityId()).equalsIgnoreCase("contact")) {
+        if (isContactClient) {
 
             if(getTbLeprosyContactVisit() == null){
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_contact_visit);
