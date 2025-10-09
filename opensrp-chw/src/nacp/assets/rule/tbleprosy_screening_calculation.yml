@@ -1,0 +1,23 @@
+---
+name: step3_screening_status
+description: screening status calculation
+priority: 1
+condition: "true"
+actions:
+  - "def hasPresumptive(selection) {
+         if (selection == null) {
+             return false;
+         }
+         if (selection instanceof java.util.Collection) {
+             return !selection.isEmpty() && !(selection.size() == 1 && selection.contains('hana_dalili'));
+         }
+         return selection.toString().trim().length() > 0 && !selection.equals('hana_dalili');
+     }"
+  - "def statuses = []"
+  - "if (hasPresumptive(step3_majibu_ya_uchunguzi_tb)) {
+         statuses.add('tb_presamptive');
+     }"
+  - "if (hasPresumptive(step3_majibu_ya_uchunguzi_ukoma)) {
+         statuses.add('leprocy_presamptive');
+     }"
+  - "calculation = statuses.join(',')"

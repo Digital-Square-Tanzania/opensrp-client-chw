@@ -374,7 +374,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chagua_aina_ya_uchunguzi",
-        "type": "native_radio",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Uchunguzi wa Awali wa Kifua Kikuu au Ukoma uliofanyika",
         "label_text_size": "18px",
         "v_required": {
@@ -461,7 +462,6 @@
           }
         }
       },
-
       {
         "key": "majibu_ya_uchunguzi_ukoma",
         "openmrs_entity_parent": "",
@@ -511,6 +511,20 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "tbleprosy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "screening_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screening_status",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tbleprosy_screening_calculation.yml"
             }
           }
         }
