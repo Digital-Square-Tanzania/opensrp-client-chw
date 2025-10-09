@@ -410,6 +410,9 @@
           "value": "true",
           "err": "Tafadhali jaza taarifa"
         },
+        "exclusive": [
+          "hana_dalili"
+        ],
         "options": [
           {
             "key": "kikohozi",
@@ -475,6 +478,9 @@
           "value": "true",
           "err": "Tafadhali jaza taarifa"
         },
+        "exclusive": [
+          "hana_dalili"
+        ],
         "options": [
           {
             "key": "baka_mabaka_yasiyo_hisia",
