@@ -83,6 +83,14 @@ public class ChwWebAppInterface {
             }
         }
 
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.AYP_IN_SCHOOL_REPORT)) {
+            if (Constants.ReportConstants.AypInSchoolReportKeys.AYP_IN_SCHOOL_MONTHLY_REPORT.equalsIgnoreCase(key)) {
+                ReportUtils.setPrintJobName("AYP_in_school_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                return ReportUtils.AypInSchoolReports.computeMonthlyReport(ReportUtils.getReportDate());
+            }
+            return "";
+        }
+
 
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CECAP_REPORT)) {
             switch (key) {

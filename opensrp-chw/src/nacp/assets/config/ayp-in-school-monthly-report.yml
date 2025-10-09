@@ -1,0 +1,918 @@
+indicators:
+  - key: "ayp-1-male-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                                            AND (lower(efm.gender)='male')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-1-male-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                                            AND (lower(efm.gender)='male')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-1-male-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                                            AND (lower(efm.gender)='male')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-1-female-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                                            AND (lower(efm.gender)='female')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-1-female-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                                            AND (lower(efm.gender)='female')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-1-female-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people Newly enrolled into AYP services"
+    indicatorQuery: "SELECT count(DISTINCT enrollment.base_entity_id) as count
+                                            FROM ec_ayp_in_school_enrollment enrollment
+                                            INNER JOIN ec_family_member efm ON efm.base_entity_id = enrollment.base_entity_id
+                                            WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                                            AND (lower(efm.gender)='female')
+                                            AND lower(enrollment.enrollment_status) = 'new_client'
+                                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                            date(substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                            '-' || substr(strftime('%Y-%m-%d', datetime(enrollment.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "ayp-2-male-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-2-male-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-2-male-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-2-female-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-2-female-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-2-female-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with health education"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      health_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes')
+                      )
+                      SELECT count(DISTINCT hc.base_entity_id) as count
+                      FROM health_clients hc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = hc.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-3-male-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-3-male-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-3-male-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-3-female-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-3-female-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-3-female-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people reached with combination minimum defined package"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-4-male-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-4-male-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-4-male-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-4-female-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-4-female-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-4-female-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of active adolescent and young people that have fully completed the defined primary package of services with atleast 1 secondary service"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      cse_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'cse_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      financial_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'financial_literacy_conducted' AND lower(vd.details) = 'yes'
+                      ),
+                      secondary_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE (vd.visit_key = 'education_subsidies_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'sanitary_kits_provided' AND lower(vd.details) = 'yes')
+                             OR (vd.visit_key = 'screening_for_gbv' AND vd.details IN ('encountered_gbv', 'did_not_encounter_gbv'))
+                      ),
+                      client_status_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'client_status' AND lower(vd.details) = 'continuing'
+                      ),
+                      eligible_clients AS (
+                          SELECT DISTINCT c.base_entity_id
+                          FROM cse_clients c
+                          INNER JOIN financial_clients f ON f.base_entity_id = c.base_entity_id
+                          INNER JOIN secondary_clients s ON s.base_entity_id = c.base_entity_id
+                          INNER JOIN client_status_clients cs ON cs.base_entity_id = c.base_entity_id
+                      )
+                      SELECT count(DISTINCT ec.base_entity_id) as count
+                      FROM eligible_clients ec
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ec.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-5-male-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-5-male-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-5-male-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'male')"
+
+  - key: "ayp-5-female-10-14"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-5-female-15-19"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 19
+                        AND (lower(efm.gender) = 'female')"
+
+  - key: "ayp-5-female-20-24"
+    grouping: "AYP_IN_SCHOOL"
+    description: "Number of adolescent and young people violence cases reported"
+    indicatorQuery: "WITH monthly_visits AS (
+                          SELECT v.visit_id, v.base_entity_id
+                          FROM visits v
+                          WHERE v.visit_type = 'Ayp In School Client Followup Visit'
+                            AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                                        date(substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                             '-' || substr(strftime('%Y-%m-%d', datetime(v.visit_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ),
+                      violence_clients AS (
+                          SELECT DISTINCT mv.base_entity_id
+                          FROM monthly_visits mv
+                          INNER JOIN visit_details vd ON vd.visit_id = mv.visit_id
+                          WHERE vd.visit_key = 'screening_for_gbv' AND lower(vd.details) = 'encountered_gbv'
+                      )
+                      SELECT count(DISTINCT vc.base_entity_id) as count
+                      FROM violence_clients vc
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = vc.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 24
+                        AND (lower(efm.gender) = 'female')"

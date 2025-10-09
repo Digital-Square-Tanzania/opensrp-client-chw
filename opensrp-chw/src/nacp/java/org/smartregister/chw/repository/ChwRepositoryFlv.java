@@ -124,6 +124,9 @@ public class ChwRepositoryFlv {
                 case 30:
                     upgradeToVersion30(db);
                     break;
+                case 31:
+                    upgradeToVersion31(db);
+                    break;
                 default:
                     break;
             }
@@ -548,6 +551,17 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
+        }
+    }
+
+    private static void upgradeToVersion31(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String configFile = "config/ayp-in-school-monthly-report.yml";
+            reportingLibrary.readConfigFile(configFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion31");
         }
     }
 }

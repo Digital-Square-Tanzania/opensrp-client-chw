@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, asrh_reports, cecap_reports, kvp_reports, hps_reports"
+                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,ayp_in_school_reports,iccm_reports,sbc_reports, asrh_reports, cecap_reports, kvp_reports, hps_reports"
                 app:flow_horizontalAlign="center"
                 app:flow_horizontalGap="20dp"
                 app:flow_horizontalStyle="packed"
@@ -298,6 +298,61 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_agyw_report"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTitle_agyw_reports" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ayp_in_school_reports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/reports_bg_blue_green"
+                android:minHeight="150dp"
+                android:paddingVertical="30dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_ayp_in_school_report"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="AYP In-school Report Icon"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_cbhs_summary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewTitle_ayp_in_school_reports"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/ayp_in_school_reports_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle_ayp_in_school"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_ayp_in_school_report"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewSubtitle_ayp_in_school"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/ayp_in_school_reports_subtitle"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_ayp_in_school_report"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle_ayp_in_school_reports" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
