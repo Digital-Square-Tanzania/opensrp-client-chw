@@ -644,5 +644,8 @@
 
     <string name="successful_linkages">Miunganisho iliyofanikiwa</string>
     <string name="ncd_confirmed_register_title">Orodha ya wateja waliothibitishwa</string>
+    <string name="both_diabetes_and_hypertenstion">kisukari na shinikizo la damu</string>
+    <string name="only_diabetes">kisukari</string>
+    <string name="only_hypertension">shinikizo la damu</string>
 
 </resources>

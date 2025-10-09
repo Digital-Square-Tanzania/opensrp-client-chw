@@ -539,5 +539,8 @@
     <string name="ncd_visit_topic_none">None</string>
     <string name="ncd_visit_topic_other">Other</string>
     <string name="ncd_follow_up_wait_message">Follow-up visit can be recorded 3 days after screening.</string>
+    <string name="both_diabetes_and_hypertenstion">both diabetes and hypertension</string>
+    <string name="only_diabetes">diabetes</string>
+    <string name="only_hypertension">hypertension</string>
 
 </resources>

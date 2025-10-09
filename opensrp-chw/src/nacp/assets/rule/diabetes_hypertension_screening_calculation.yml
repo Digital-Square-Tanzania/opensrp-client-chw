@@ -12,25 +12,4 @@ description: Risk display text
 priority: 1
 condition: "true"
 actions:
-  - "def getDisplayText(risk_str, sbp_str, dbp_str) {
-        import java.lang.Double;
-        double risk = risk_str != null && !risk_str.isEmpty() ? Double.parseDouble(risk_str) : 0.0;
-        double sbp = sbp_str != null && !sbp_str.isEmpty() ? Double.parseDouble(sbp_str) : 0.0;
-        double dbp = dbp_str != null && !dbp_str.isEmpty() ? Double.parseDouble(dbp_str) : 0.0;
-        if (risk < 0 || sbp < 0 || dbp < 0) {
-          return 'Invalid input values';
-        }
-        double diabetes_risk_cutoff = 0.09175944;
-        String condition = '';
-        if (risk >= diabetes_risk_cutoff && (sbp >= 140 || dbp >= 90)) {
-          condition = 'both diabetes and  hypertension';
-        } else if (risk >= diabetes_risk_cutoff) {
-          condition = 'diabetes';
-        } else if (sbp >= 140 || dbp >= 90) {
-          condition = 'hypertension';
-        } else {
-          condition = 'no_risk';
-        }
-        return condition;
-  }"
-  - "calculation = ['condition': getDisplayText(step4_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"
+  - "calculation = ['condition': helper.getDiabesityRiskCondition(step4_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"
