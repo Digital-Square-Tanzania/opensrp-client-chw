@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Huduma za SBC",
+    "title": "SBC Services",
     "display_back_button": "true",
     "fields": [
       {
@@ -61,26 +61,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provided_sbc_service",
         "type": "native_radio",
-        "label": "Je, mteja amepatiwa huduma za SBC?",
+        "label": "Has the client received SBC services?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Yes",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "Hapana",
+            "text": "No",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua angalau moja"
+          "err": "Please select at least one option"
         }
       },
       {
@@ -89,135 +89,135 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "choose_sbc_service_provided",
         "type": "check_box",
-        "label": "Chagua huduma za SBC zilizotolewa kwa mteja",
+        "label": "Select SBC services provided to the client",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "identification_of_organizations_key_people_and_safe_places",
-            "text": "Utambuzi wa mashirika, watu muhimu na sehemu salama za kukutana",
+            "text": "Identification of organizations, key people, and safe meeting places",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "identification_of_organizations_key_people_and_safe_places"
           },
           {
             "key": "risky_behaviors",
-            "text": "Tabia hatarishi",
+            "text": "Risky behaviors",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "risky_behaviors"
           },
           {
             "key": "sex_and_gender_education",
-            "text": "Elimu ya jinsia na ngono",
+            "text": "Sex and gender education",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "sex_and_gender_education"
           },
           {
             "key": "reproductive_health_system",
-            "text": "Afya ya uzazi",
+            "text": "Reproductive health",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "reproductive_health_system"
           },
           {
             "key": "effective_communication",
-            "text": "Mawasiliano yenye ufanisi",
+            "text": "Effective communication",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "effective_communication"
           },
           {
             "key": "sexually_transmitted_infections_stis",
-            "text": "Magonjwa yanayoenezwa kwa ngono (STIs)",
+            "text": "Sexually transmitted infections (STIs)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "sexually_transmitted_infections_stis"
           },
           {
             "key": "family_planning",
-            "text": "Uzazi wa mpango",
+            "text": "Family planning",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "family_planning"
           },
           {
             "key": "healthy_relationships",
-            "text": "Mahusiano mazuri",
+            "text": "Healthy relationships",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "healthy_relationships"
           },
           {
             "key": "gender_based_violence",
-            "text": "Ukatili wa kijinsia (GBV)",
+            "text": "Gender-based violence (GBV)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "gender_based_violence"
           },
           {
             "key": "correct_and_consistent_condom_use",
-            "text": "Matumizi sahihi na endelevu ya kondomu",
+            "text": "Correct and consistent condom use",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "correct_and_consistent_condom_use"
           },
           {
             "key": "hiv_care_and_treatment",
-            "text": "Huduma za matunzo na tiba ya VVU",
+            "text": "HIV care and treatment services",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "hiv_care_and_treatment"
           },
           {
             "key": "prep_pre_exposure_prophylaxis",
-            "text": "Dawa za kinga kabla ya maambukizi (PrEP)",
+            "text": "Pre-exposure prophylaxis (PrEP)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "prep_pre_exposure_prophylaxis"
           },
           {
             "key": "pep_post_exposure_prophylaxis",
-            "text": "Dawa za kinga baada ya maambukizi (PEP)",
+            "text": "Post-exposure prophylaxis (PEP)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "pep_post_exposure_prophylaxis"
           },
           {
             "key": "tuberculosis_tb",
-            "text": "Kifua kikuu (TB)",
+            "text": "Tuberculosis (TB)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "tuberculosis_tb"
           },
           {
             "key": "hiv_testing_services_hts",
-            "text": "Huduma za Upimaji wa VVU (HTS)",
+            "text": "HIV testing services (HTS)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "hiv_testing_services_hts"
           },
           {
             "key": "hepatitis_b",
-            "text": "Homa ya ini B (HBV)",
+            "text": "Hepatitis B (HBV)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "hepatitis_b"
           },
           {
             "key": "hepatitis_c",
-            "text": "Homa ya ini C (HCV)",
+            "text": "Hepatitis C (HCV)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "hepatitis_c"
           },
           {
             "key": "hpv_vaccination",
-            "text": "Chanjo ya HPV",
+            "text": "HPV vaccination",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "hpv_vaccination"
           },
           {
             "key": "male_circumcision_education",
-            "text": "Tohara kwa hiari ya matibabu kwa wanaume (VMMC)",
+            "text": "Voluntary medical male circumcision (VMMC)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "male_circumcision_education"
           },
           {
             "key": "distribution_of_health_educational_materials",
-            "text": "Ugawaji wa vifaa vya elimu ya afya",
+            "text": "Distribution of health education materials",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "distribution_of_health_educational_materials"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza"
+          "err": "Please fill in"
         },
         "relevance": {
           "step1:provided_sbc_service": {

@@ -284,7 +284,7 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
 
                 // Build Event from the JSON form
                 AllSharedPreferences prefs = Utils.getAllSharedPreferences();
-                Event baseEvent = org.smartregister.chw.ayp.util.JsonFormUtils.processJsonForm(prefs, json, Constants.TABLES.AYP_IN_SCHOOL_GROUP_DETAILS);
+                Event baseEvent = org.smartregister.chw.ayp.util.JsonFormUtils.processJsonForm(prefs, json, Constants.TABLES.AYP_OUT_SCHOOL_GROUP_DETAILS);
                 if (baseEvent != null) {
                     // Convert Event to a Visit for AYP processing
                     Visit visit = new Visit();

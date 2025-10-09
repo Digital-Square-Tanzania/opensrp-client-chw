@@ -18,6 +18,7 @@ import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
 import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
@@ -322,7 +323,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 if (!t.isEmpty()) ids.add(t);
             }
             if (!ids.isEmpty()) {
-                new org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+                new AypOutSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
             }
         } catch (Exception e) {
             Timber.e(e);

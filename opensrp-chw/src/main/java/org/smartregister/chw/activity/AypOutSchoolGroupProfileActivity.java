@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
+import org.smartregister.chw.ayp.activity.BaseAypOutGroupProfileActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.GroupObject;
 import org.smartregister.chw.ayp.domain.MemberObject;
@@ -37,7 +38,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
-import org.smartregister.view.activity.FormActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +48,7 @@ import java.util.UUID;
 
 import timber.log.Timber;
 
-public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivity {
+public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActivity {
 
     public static void start(Context context, String groupId, String groupName) {
         Intent intent = new Intent(context, AypOutSchoolGroupProfileActivity.class);
@@ -60,21 +60,9 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
     @Override
     public void openGroupDetailsForm() {
         try {
-            JSONObject form = new FormUtils().getFormJsonFromRepositoryOrAssets(this, "ayp_out_school_group_creation");
-            if (form != null) {
-                // Use group id as entity id for this event
-                String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
-                if (groupId == null) groupId = UUID.randomUUID().toString();
-                form.put(ENTITY_ID, groupId);
-
-                // Configure form (non-wizard)
-                Form cfg = new Form();
-                cfg.setWizard(false);
-                Intent intent = new Intent(this, FormActivity.class);
-                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
-                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, cfg);
-                startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
-            }
+            String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
+            String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
+            AypOutSchoolGroupVisitActivity.startAypOutSchoolGroupVisitActivity(this, UUID.randomUUID().toString(), false, groupId, groupName);
         } catch (Exception ignored) {
         }
     }
@@ -87,10 +75,10 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
             if (groupId == null) return;
 
             // Members already in this group
-            List<Visit> groupVisits = AypLibrary.getInstance().visitRepository().getVisitsByGroup(groupId);
             Set<String> existing = new HashSet<>();
-            for (Visit v : groupVisits) {
-                if (v.getBaseEntityId() != null) existing.add(v.getBaseEntityId());
+            List<MemberObject> existingMembers = AypDao.getOutSchoolGroupMembers(groupId);
+            for(MemberObject memberObject: existingMembers){
+                existing.add(memberObject.getBaseEntityId());
             }
 
             // All in-school members
@@ -101,7 +89,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
             }
 
             if (eligible.isEmpty()) {
-                Toast.makeText(this, R.string.no, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, org.smartregister.chw.R.string.no, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -116,7 +104,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
             }
 
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.add_eligible_child)
+                    .setTitle(org.smartregister.chw.R.string.add_eligible_child)
                     .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> saveMembershipByEvent(groupId, collectSelectedIds(eligible, checked)))
                     .setNegativeButton(android.R.string.cancel, null)
@@ -137,7 +125,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
             if (memberIds == null || memberIds.isEmpty()) return;
             // Build Event tagged to groupId with membership list in details
             Event baseEvent = JsonFormUtils.createUntaggedEvent(groupId,
-                    Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP,
+                    org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP,
                     "ec_ayp_out_school_group_members");
             baseEvent.setFormSubmissionId(AypJsonFormUtils.generateRandomUUIDString());
             JsonFormUtils.tagEvent(Utils.getAllSharedPreferences(), baseEvent);
@@ -150,10 +138,15 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
             baseEvent.addObs(new Obs("concept", "text", "members", "",
                     toList(TextUtils.join(",", memberIds)), new ArrayList<>(), null, "members"));
 
-            Visit visit = NCUtils.eventToVisit(baseEvent, AypJsonFormUtils.generateRandomUUIDString());
 
-            AypLibrary.getInstance().visitRepository().addVisit(visit);
-            AypVisitsUtil.manualProcessVisit(visit);
+            AllSharedPreferences allSharedPreferences = AypLibrary.getInstance().context().allSharedPreferences();
+
+            try {
+                NCUtils.addEvent(allSharedPreferences,baseEvent);
+                NCUtils.startClientProcessing();
+            } catch (Exception e) {
+                Timber.e(e);
+            }
 
             refreshMembersFromSources(groupId);
         } catch (Exception e) {
@@ -199,11 +192,11 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
 
                 // Convert form JSON to Event and process via AYP visit pipeline
                 AllSharedPreferences prefs = Utils.getAllSharedPreferences();
-                Event baseEvent = JsonFormUtils.processJsonForm(prefs, jsonString, Constants.TABLES.AYP_OUT_SCHOOL_GROUP_DETAILS);
+                Event baseEvent = JsonFormUtils.processJsonForm(prefs, jsonString, org.smartregister.chw.ayp.util.Constants.TABLES.AYP_OUT_SCHOOL_GROUP_DETAILS);
                 if (baseEvent != null) {
                     Visit visit = new Visit();
                     visit.setVisitId(UUID.randomUUID().toString());
-                    visit.setVisitType(Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS);
+                    visit.setVisitType(org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS);
                     visit.setBaseEntityId(baseEvent.getBaseEntityId());
                     Date now = new Date();
                     visit.setDate(now);
@@ -246,9 +239,9 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
         if (raw == null) return null;
         switch (raw) {
             case "age_band":
-                return getString(R.string.ayp_group_type_age_band);
+                return getString(org.smartregister.chw.R.string.ayp_group_type_age_band);
             case "classes":
-                return getString(R.string.ayp_group_type_classes);
+                return getString(org.smartregister.chw.R.string.ayp_group_type_classes);
             default:
                 return raw;
         }
@@ -258,13 +251,13 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypGroupProfileActivit
         if (raw == null) return null;
         switch (raw) {
             case "age_10_14":
-                return getString(R.string.ayp_age_band_age_10_14);
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_14);
             case "age_10_19_enabling_dreams":
-                return getString(R.string.ayp_age_band_age_10_19_enabling_dreams);
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_19_enabling_dreams);
             case "age_15_19":
-                return getString(R.string.ayp_age_band_age_15_19);
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_15_19);
             case "age_20_24":
-                return getString(R.string.ayp_age_band_age_20_24);
+                return getString(org.smartregister.chw.R.string.ayp_age_band_age_20_24);
             default:
                 return raw;
         }

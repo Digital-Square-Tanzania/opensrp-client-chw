@@ -9785,6 +9785,50 @@
       ]
     },
     {
+      "name": "ec_ayp_out_school_group_members",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "group_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "group_id"
+          }
+        },
+        {
+          "column_name": "member_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "member_base_entity_id"
+          }
+        },
+        {
+          "column_name": "date_added",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_added"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provider_id"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_ayp_parental_enrollment",
       "columns": [
         {
