@@ -806,7 +806,9 @@
             "field": "eventType",
             "field_value": "TBLeprosy Contact Visit",
             "creates_case": [
-              "ec_tbleprosy_contact_visit"
+              "ec_tbleprosy_contact_visit",
+              "ec_tbleprosy_screening",
+              "ec_tbleprosy_visit"
             ]
           },
           {
