@@ -149,12 +149,18 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
 
         if (!isContactClient) {
             boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
+            boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
 
             if (isTbPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
             } else {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
+            }
+
+            if (isLeprosyPresumptiveClient) {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+                rlObservationResults.setVisibility(View.VISIBLE);
             }
 
             if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyVisit(baseEntityId))) {
