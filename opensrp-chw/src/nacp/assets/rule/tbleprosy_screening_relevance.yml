@@ -51,7 +51,7 @@ actions:
 name: step3_leprosy_referral_prompt
 description: prompt referral when client is presumptive for leprosy
 priority: 1
-condition: "step3_screening_status != null && step3_screening_status.contains('leprocy_presamptive')"
+condition: "step3_screening_status != null && step3_screening_status.contains('leprocy_presumptive')"
 actions:
   - "isRelevant = true"
 ---
