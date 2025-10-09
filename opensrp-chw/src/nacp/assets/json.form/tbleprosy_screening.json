@@ -48,16 +48,40 @@
     "next": "step2",
     "fields": [
       {
+        "key": "is_the_client_living_with_or_near_tb_leprosy_patient",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chagua_aina_ya_uchunguzi",
+        "type": "native_radio",
+        "label": "Anaishi kaya au karibu na mgonjwa wa TB au Ukoma",
+        "label_text_size": "18px",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza taarifa"
+        },
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ]
+      },
+      {
         "key": "anaishi_karibu_na_mgonjwa",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anaishi_karibu_na_mgonjwa",
         "type": "check_box",
-        "label": "Anaishi na kaya/karibu na mgonjwa wa",
+        "label": "Aina ya mgonjwa anayeishi naye/karibu naye",
         "label_text_size": "18px",
-        "exclusive": [
-          "hapana"
-        ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza taarifa"
@@ -74,14 +98,14 @@
             "text": "Ukoma",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "ukoma"
-          },
-          {
-            "key": "hapana",
-            "text": "Hapana",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hapana"
           }
-        ]
+        ],
+        "relevance": {
+          "step1:is_the_client_living_with_or_near_tb_leprosy_patient": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "namba_ya_mteja_tb",
@@ -137,7 +161,6 @@
       }
     ]
   },
-
   "step2": {
     "title": "Aina Ya Mteja",
     "next": "step3",
@@ -352,7 +375,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chagua_aina_ya_uchunguzi",
         "type": "native_radio",
-        "label": "Chagua aina ya Uchunguzi",
+        "label": "Uchunguzi wa Awali wa Kifua Kikuu au Ukoma uliofanyika",
         "label_text_size": "18px",
         "v_required": {
           "value": "true",
@@ -378,8 +401,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "majibu_ya_uchunguzi_tb",
-        "type": "native_radio",
-        "label": "Majibu ya Uchunguzi wa TB",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Matokeo ya Mahojiano Kuhusu TB",
         "label_text_size": "18px",
         "v_required": {
           "value": "true",
@@ -443,8 +467,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "majibu_ya_uchunguzi_ukoma",
-        "type": "native_radio",
-        "label": "Majibu ya Uchunguzi wa Ukoma",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Matokeo ya Mahojiano Kuhusu Ukoma",
         "label_text_size": "18px",
         "v_required": {
           "value": "true",
@@ -493,7 +518,7 @@
     ]
   },
   "step4": {
-    "title": "Vipimo Vya VVU",
+    "title": "Upimaji wa VVU",
     "fields": [
       {
         "key": "amepimwa_vvu",
