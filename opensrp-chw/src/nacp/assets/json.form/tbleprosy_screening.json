@@ -534,6 +534,24 @@
             }
           }
         }
+      },
+      {
+        "key": "leprosy_referral_prompt",
+        "type": "toaster_notes",
+        "text": "Mteja ana dalili za ukoma, toa rufaa kwenda kituo cha afya.",
+        "toaster_info_title": "Mpe mteja rufaa ya kwenda kituo cha afya",
+        "toaster_info_text": "Mteja anaonekana kuwa mtuhumiwa wa ukoma. Andaa na mkabidhi rufaa ya kwenda kituo cha afya kwa uchunguzi zaidi.",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tbleprosy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },

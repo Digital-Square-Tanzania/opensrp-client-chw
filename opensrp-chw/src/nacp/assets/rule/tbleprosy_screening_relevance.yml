@@ -1,0 +1,56 @@
+---
+name: step1_namba_ya_mteja_tb
+description: enter tb client id
+priority: 1
+condition: "step1_anaishi_karibu_na_mgonjwa.contains('tb')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_namba_ya_mteja_ukoma
+description: enter leprosy client id
+priority: 1
+condition: "step1_anaishi_karibu_na_mgonjwa.contains('ukoma')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_kundi_la_mteja
+description: enter leprosy client id
+priority: 1
+condition: "step2_kundi_maalumu.contains('ndiyo')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_taja_kundi_lingine
+description: enter leprosy client id
+priority: 1
+condition: "step2_kundi_la_mteja.contains('kundi_lingine')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_taja_sehemu_nyingine
+description: enter leprosy client id
+priority: 1
+condition: "step2_uchunguzi_ulipofanyika.contains('kwingineko')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_majibu_ya_uchunguzi_tb
+description: enter leprosy client id
+priority: 1
+condition: "step3_chagua_aina_ya_uchunguzi.contains('tb')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_majibu_ya_uchunguzi_ukoma
+description: enter leprosy client id
+priority: 1
+condition: "step3_chagua_aina_ya_uchunguzi.contains('ukoma')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_leprosy_referral_prompt
+description: prompt referral when client is presumptive for leprosy
+priority: 1
+condition: "step3_screening_status != null && step3_screening_status.contains('leprocy_presamptive')"
+actions:
+  - "isRelevant = true"
