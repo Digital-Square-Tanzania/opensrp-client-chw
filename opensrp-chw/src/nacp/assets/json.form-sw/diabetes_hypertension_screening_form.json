@@ -49,7 +49,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Client consent",
+    "title": "Fomu ya ridhaa ya mteja",
     "next": "step2",
     "fields": [
       {
@@ -58,7 +58,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "We are here today to conduct a health screening for high blood pressure and diabetes. This screening is free, does not involve blood or injections, and is aimed at early detection of preventable health problems.",
+        "text": "Tupo hapa leo kufanya uchunguzi wa afya kwa shinikizo la juu/chini la damu na kisukari. Uchunguzi huu ni bure, hautumii damu wala sindano, na unalenga kugundua mapema matatizo ya afya yanayoweza kuzuilika.",
         "toaster_type": "info",
         "text_color": "#1199F9"
       },
@@ -69,10 +69,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "agree_with_screening_procedure",
         "openmrs_data_type": "select one",
-        "hint": "Do you agree with proceedings?",
+        "hint": "Je, unakubali tuendelee na zoezi hili?",
         "values": [
-          "Yes",
-          "No"
+          "Ndio",
+          "Hapana"
         ],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -80,7 +80,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua kama amekubali kufanyiwa uchunguzi"
         }
       },
       {
@@ -95,49 +95,49 @@
         "options": [
           {
             "key": "not_well_not_prepared",
-            "text": "The person is not feeling well or is not yet prepared for the screening",
+            "text": "Mtu hajisikii vizuri au bado hajajiandaa kwa uchunguzi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "not_well"
           },
           {
             "key": "in_hurry",
-            "text": "They do not have time to participate at the moment.",
+            "text": "Hana muda wa kushiriki kwa sasa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "in_hurry"
           },
           {
             "key": "privacy_trust",
-            "text": "Fear that health information may be misused, or concern that the application records too much personal information",
+            "text": "Hofu ya taarifa za afya kutumika vibaya, au hofu kwamba programu inarekodi taarifa nyingi sana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "privacy_trust"
           },
           {
             "key": "feel_healthy",
-            "text": "The client feels they are healthy and do not see the need for screening",
+            "text": "Mteja anaona yuko na afya njema na hakuna haja ya kufanyiwa uchunguzi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "feel_healthy"
           },
           {
             "key": "fear_anxiety",
-            "text": "Worry about being diagnosed with a disease",
+            "text": "Wasiwasi wa kugundulika na ugonjwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fear_anxiety"
           },
           {
             "key": "other_reason",
-            "text": "Other, please specify.",
+            "text": "Nyingine, taja",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fear_technology"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please provide the reason(s) for declining"
+          "err": "Tafadhali chagua sababu za mteja kukataa"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"No\")"
+            "ex": "equalTo(., \"Hapana\")"
           }
         }
       },
@@ -147,7 +147,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_reason_for_declining",
         "type": "edit_text",
-        "hint": "Please specify other reason for declining",
+        "hint": "Tafadhali elezea sababu nyingine za kukataa",
         "v_required": {
           "value": true,
           "err": "Please specify the other reason for declining"
@@ -167,24 +167,25 @@
     ]
   },
   "step2": {
-    "title": "Self-reported Medical History",
+    "title": "Fomu ya historia ya magonjwa ya mteja",
     "next": "step3",
     "fields": [
       {
         "key": "diagnosed_diabetes",
         "type": "spinner",
-        "hint": "Are you diagnosed with diabetes?",
+        "hint": "Je, umewahi kugunduliwa kuwa na ugonjwa wa kisukari?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diagnosed_diabetes",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "rules-engine": {
@@ -197,122 +198,127 @@
       {
         "key": "medicines_diabetes",
         "type": "spinner",
-        "hint": "Are you taking medicines for diabetes?",
+        "hint": "Je, unatumia dawa za kisukari?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medicines_diabetes",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Ndio\")"
           }
         }
       },
       {
         "key": "screened_diabetes_12m",
         "type": "spinner",
-        "hint": "Have you been screened for diabetes in the last 12 months?",
+        "hint": "Je, umewahi kupimwa kisukari katika kipindi cha miezi 12 iliyopita?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "screened_diabetes_12m",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Ndio\")"
           }
         }
       },
       {
         "key": "medicines_hypertension",
         "type": "spinner",
-        "hint": "Are you taking medicines for hypertension?",
+        "hint": "Je, unatumia dawa za shinikizo la damu?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medicines_hypertension",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Ndio\")"
           }
         }
       },
       {
         "key": "screened_hypertension_last12m",
         "type": "spinner",
-        "hint": "Have you been screened for hypertension in the last 12 months?",
+        "hint": "Je, umewahi kupimwa shinikizo la damu katika kipindi cha miezi 12 iliyopita?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "screened_hypertension_last12m",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Ndio\")"
           }
         }
       },
       {
         "key": "routine_clinic_visits",
         "type": "spinner",
-        "hint": "Are you attending or enrolled in any routine clinic visits?",
+        "hint": "Je, unahudhuria au umejiandikisha katika kliniki ya ufuatiliaji wa afya dhidi ya magonjwa ya kisukari na shinikizo la damu?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "routine_clinic_visits",
-        "values": ["Yes", "No"],
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Ndio\")"
           }
         }
       }
     ]
   },
   "step3": {
-    "title": "Diabetes and Hypertension Screening",
+    "title": "Uchunguzi wa kisukari na shinikizo la damu",
     "next": "step4",
     "fields": [
       {
@@ -327,12 +333,12 @@
         "type": "spinner",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "family_history_diabetes",
         "openmrs_data_type": "select one",
-        "hint": "Family history of diabetes?",
+        "hint": "Je, kuna mtu katika familia yako wa karibu (mzazi, mtoto au ndugu wa kuzaliwa mfano, kaka na dada) aliyewahi kuugua ugojwa w kisukari?",
         "values": [
-          "Yes",
-          "No"
+          "Ndio",
+          "Hapana"
         ],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -340,7 +346,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "rules-engine": {
@@ -353,25 +359,25 @@
       {
         "key": "waist_circumference",
         "type": "edit_text",
-        "hint": "Waist Circumference (cm)",
+        "hint": "Mzingo wa kiuno (cm)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "waist_circumference",
         "openmrs_entity_parent": "",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the temperature"
+          "err": "Tafadhali ingiza mzingo wa kiuno kwa sentimita (cm)"
         },
         "v_min": {
           "value": "30",
-          "err": "This waist circumference is very small, waist circumference can not be lower than 30"
+          "err": "Namba hii ni ndogo mno kwa mzingo wa kiuno"
         },
         "v_max": {
           "value": "300",
-          "err": "The waist circumference can not be greater than 300"
+          "err": "Namba hii ni kubwa mno kwa mzingo wa kiuno"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali ingiza mzingo wa kiuno"
         },
         "relevance": {
           "rules-engine": {
@@ -384,25 +390,25 @@
       {
         "key": "systolic_bp",
         "type": "edit_text",
-        "hint": "Systolic blood pressure (mmHg)",
+        "hint": "Shinikizo la damu la juu (namba ya kwanza inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 135) (mmHg)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "systolic_bp",
         "openmrs_entity_parent": "",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the systolic value"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_min": {
           "value": "50",
-          "err": "Systolic value must be equal or greater than 50"
+          "err": "Kiwango lazima kiwe sawa au kikubwa kuliko 50"
         },
         "v_max": {
           "value": "320",
-          "err": "Systolic value must be equal or less than 320"
+          "err": "Kiwango lazima kiwe sawa au kidogo kuliko 320"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali ingiza shinikizo la juu la damu"
         },
         "relevance": {
           "rules-engine": {
@@ -415,7 +421,7 @@
       {
         "key": "diastolic_bp",
         "type": "edit_text",
-        "hint": "Diastolic blood pressure (mmHg)",
+        "hint": "Shinikizo la damu la chini\n(namba ya pili inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 85) (mmHg)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diastolic_bp",
         "openmrs_entity_parent": "",
@@ -446,13 +452,11 @@
     ]
   },
   "step4": {
-    "title": "Facility Referral",
+    "title": "Fomu ya Rufaa",
     "fields": [
       {
         "key": "diabetes_risk_score_output",
-        "type": "edit_text",
-        "hint": "Patient risk",
-        "read_only": true,
+        "type": "hidden",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diabetes_risk_score_output",
         "openmrs_entity_parent": "",
@@ -470,7 +474,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "You may be at risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
+        "text": "Nimegundua kuwa unaweza kuwa katika hatari ya ugonjwa wa {condition}. Hii haimaanishi kwamba tayari una ugonjwa huo. Hivyo ni vyema kutembelea kituo cha kutolea huduma za afya kwa ajili ya vipimo zaidi.",
         "text_color": "#000000",
         "toaster_type": "problem",
         "calculation": {
@@ -494,7 +498,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "This client does not consent on diabetes assessment, please proceed with the visit.",
+        "text": "Mteja amekataa kufanyiwa uchunguzi wa kisukari na shinikizo la damu. Tafadhali heshimu uamuzi wa mteja na usifanye uchunguzi bila ridhaa yake.",
         "text_color": "#000000",
         "toaster_type": "warning",
         "calculation": {
@@ -518,7 +522,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "The prescreening shows that this client already has a condition advice the client on the importance of medicine adherence if they are using any medication and emphasize the importance of maintaining a good and health lifestyle for example keeping active and eating a balanced diet.",
+        "text": "Mteja amekubali kufanyiwa uchunguzi wa kisukari na shinikizo la damu. Hata hivyo, nimegundua kuwa tayari amewahi kugunduliwa na ugonjwa wa kisukari au shinikizo la damu au anatumia dawa za magonjwa hayo. Hivyo, hatutafanya uchunguzi wa kisukari na shinikizo la damu kwa mteja huyu.",
         "text_color": "#000000",
         "toaster_type": "info",
         "calculation": {
@@ -542,7 +546,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "The patient neither a risk for diabetes nor hypertension, advice them on the importance of maintaining a good and health life style.",
+        "text": "Kwa sasa hakuna dalili kuwa uko katika hatari ya kuwa na ugonjwa wa kisukari au shinikizo la damu. Tunakuhimiza kuendelea kuishi maisha yenye afya, ikiwemo kula vizuri, kufanya mazoezi, na kwenda kupimwa mara kwa mara.",
         "text_color": "#000000",
         "toaster_type": "positive",
         "relevance": {
@@ -559,7 +563,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_before_referral",
         "type": "check_box",
-        "label": "Pre-referral management given.",
+        "label": "Huduma zilizotolewa kabla ya rufaa",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "combine_checkbox_option_values": "true",
@@ -583,14 +587,14 @@
           },
           {
             "key": "Other_treatment",
-            "text": "Other treatment",
+            "text": "Matibabu mengine",
             "openmrs_entity": "",
             "openmrs_entity_id": "Other_treatment",
             "openmrs_entity_parent": ""
           },
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Hakuna huduma alizopewa",
             "openmrs_entity": "",
             "openmrs_entity_id": "chk_none",
             "openmrs_entity_parent": ""
@@ -598,7 +602,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Tafadhali chagua huduma zilizotolewa kabla ya rufaa"
         },
         "relevance": {
           "rules-engine": {
@@ -616,11 +620,11 @@
         "openmrs_entity_id": "chw_referral_hf",
         "openmrs_data_type": "select one",
         "openmrs_entity_parent": "",
-        "hint": "Select which facility to send the referral to",
+        "hint": "Chagua kituo cha kutolea huduma za afya",
         "options": [],
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Tafadhali chagua kituo cha kutolea huduma za afya"
         },
         "relevance": {
           "rules-engine": {
@@ -636,13 +640,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_appointment_date",
         "type": "date_picker",
-        "hint": "Please specify the appointment date",
+        "hint": "Tafadhali chagua tarehe ya miadi ya rufaa",
         "expanded": false,
         "min_date": "today",
         "max_date": "today+30d",
         "v_required": {
           "value": "true",
-          "err": "Please enter date"
+          "err": "Ingiza tarehe ya miadi ya rufaa"
         },
         "relevance": {
           "rules-engine": {
@@ -666,7 +670,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "button",
-        "hint": "Save and Refer to Health Facility",
+        "hint": "Hifadhi na Tuma Rufaa Kwenda Kituoni",
         "btn_bg_color": "#FF840952",
         "action": {
           "behaviour": "finish_form"
@@ -685,7 +689,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "button",
-        "hint": "Save",
+        "hint": "Hifadhi",
         "btn_bg_color": "#3596c0",
         "action": {
           "behaviour": "finish_form"

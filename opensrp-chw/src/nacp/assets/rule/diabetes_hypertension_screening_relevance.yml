@@ -2,59 +2,59 @@
 name: step2_diagnosed_diabetes
 description: Age relevance based on the pre-screening questions
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'Yes'"
+condition: "step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_screening_procedure == 'Ndio'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_family_history_diabetes
 description: Family history diabetes relevance based on the pre-screening questions
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'Yes' &&
-            step2_diagnosed_diabetes == 'No' && 
-            step2_medicines_diabetes == 'No' && 
-            step2_screened_hypertension_12m == 'No' && 
-            step2_medicines_hypertension == 'No' && 
-            step2_screened_hypertension_last12m == 'No' &&
-            step2_routine_clinic_visits == 'No'"
+condition: "(step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_screening_procedure == 'Ndio') &&
+            (step2_diagnosed_diabetes == 'No' || step2_diagnosed_diabetes == 'Hapana') && 
+            (step2_medicines_diabetes == 'No' || step2_medicines_diabetes == 'Hapana') && 
+            (step2_screened_diabetes_12m == 'No' || step2_screened_diabetes_12m == 'Hapana') && 
+            (step2_medicines_hypertension == 'No' || step2_medicines_hypertension == 'Hapana') && 
+            (step2_screened_hypertension_last12m == 'No' || step2_screened_hypertension_last12m == 'Hapana') &&
+            (step2_routine_clinic_visits == 'No' || step2_routine_clinic_visits == 'Hapana')"
 actions:
   - "isRelevant = true"
 ---
 name: step3_waist_circumference
 description: WC relevance based on the pre-screening questions
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'Yes' &&
-            step2_diagnosed_diabetes == 'No' && 
-            step2_medicines_diabetes == 'No' && 
-            step2_screened_hypertension_12m == 'No' && 
-            step2_medicines_hypertension == 'No' && 
-            step2_screened_hypertension_last12m == 'No' &&
-            step2_routine_clinic_visits == 'No'"
+condition: "(step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_screening_procedure == 'Ndio') &&
+            (step2_diagnosed_diabetes == 'No' || step2_diagnosed_diabetes == 'Hapana') && 
+            (step2_medicines_diabetes == 'No'  || step2_medicines_diabetes == 'Hapana') && 
+            (step2_screened_diabetes_12m == 'No' || step2_screened_diabetes_12m == 'Hapana') && 
+            (step2_medicines_hypertension == 'No'  || step2_medicines_hypertension == 'Hapana')&& 
+            (step2_screened_hypertension_last12m == 'No' || step2_screened_hypertension_last12m == 'Hapana') &&
+            (step2_routine_clinic_visits == 'No' || step2_routine_clinic_visits == 'Hapana')"
 actions:
   - "isRelevant = true"
 ---
 name: step3_systolic_bp
 description: SBP relevance based on the pre-screening questions
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'Yes' &&
-            step2_diagnosed_diabetes == 'No' && 
-            step2_medicines_diabetes == 'No' && 
-            step2_screened_hypertension_12m == 'No' && 
-            step2_medicines_hypertension == 'No' && 
-            step2_screened_hypertension_last12m == 'No' &&
-            step2_routine_clinic_visits == 'No'"
+condition: "(step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_screening_procedure == 'Ndio') &&
+            (step2_diagnosed_diabetes == 'No' || step2_diagnosed_diabetes == 'Hapana') && 
+            (step2_medicines_diabetes == 'No' || step2_medicines_diabetes == 'Hapana') && 
+            (step2_screened_diabetes_12m == 'No' || step2_screened_diabetes_12m == 'Hapana') && 
+            (step2_medicines_hypertension == 'No' || step2_medicines_hypertension == 'Hapana') && 
+            (step2_screened_hypertension_last12m == 'No' || step2_screened_hypertension_last12m == 'Hapana') &&
+            (step2_routine_clinic_visits == 'No' || step2_routine_clinic_visits == 'Hapana')"
 actions:
   - "isRelevant = true"
 ---
 name: step3_diastolic_bp
 description: DBP relevance based on the pre-screening questions
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'Yes' &&
-            step2_diagnosed_diabetes == 'No' && 
-            step2_medicines_diabetes == 'No' && 
-            step2_screened_hypertension_12m == 'No' && 
-            step2_medicines_hypertension == 'No' && 
-            step2_screened_hypertension_last12m == 'No' &&
-            step2_routine_clinic_visits == 'No'"
+condition: "(step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_screening_procedure == 'Ndio') &&
+            (step2_diagnosed_diabetes == 'No' || step2_diagnosed_diabetes == 'Hapana') && 
+            (step2_medicines_diabetes == 'No' || step2_medicines_diabetes == 'Hapana') && 
+            (step2_screened_diabetes_12m == 'No' || step2_screened_diabetes_12m == 'Hapana') && 
+            (step2_medicines_hypertension == 'No' || step2_medicines_hypertension == 'Hapana') && 
+            (step2_screened_hypertension_last12m == 'No' || step2_screened_hypertension_last12m == 'Hapana') &&
+            (step2_routine_clinic_visits == 'No' || step2_routine_clinic_visits == 'Hapana')"
 actions:
   - "isRelevant = true"
 ---
@@ -72,7 +72,7 @@ actions:
 name: step4_client_refused_assessment
 description: Risk toaster for diabetes and hypertension screening
 priority: 1
-condition: "step1_aggree_with_screening_procedure == 'No'"
+condition: "step1_agree_with_screening_procedure == 'No' || step1_agree_with_screening_procedure == 'Hapana'"
 actions:
   - "isRelevant = true"
 
@@ -138,9 +138,9 @@ priority: 1
 condition: "(step3_systolic_bp != '' && step3_systolic_bp < 140 && 
             step3_diastolic_bp != '' && step3_diastolic_bp < 90 && 
             step4_diabetes_risk_score_output < 0.09175944) || 
-            step1_aggree_with_screening_procedure == 'No' || 
+            (step1_agree_with_screening_procedure == 'No' || step1_agree_with_screening_procedure == 'Hapana') ||
             (step2_diagnosed_diabetes == 'Yes' || step2_medicines_diabetes == 'Yes' || 
-            step2_screened_hypertension_12m == 'Yes' || step2_medicines_hypertension == 'Yes' || 
+            step2_screened_diabetes_12m == 'Yes' || step2_medicines_hypertension == 'Yes' || 
             step2_screened_hypertension_last12m == 'Yes' || step2_routine_clinic_visits == 'Yes')"
 actions:
   - "isRelevant = true"
@@ -149,7 +149,7 @@ name: step4_prescreening_client_has_condition_toaster
 description: Prescreening client has condition toaster
 priority: 1
 condition: "step2_diagnosed_diabetes == 'Yes' || step2_medicines_diabetes == 'Yes' || 
-            step2_screened_hypertension_12m == 'Yes' || step2_medicines_hypertension == 'Yes' || 
+            step2_screened_diabetes_12m == 'Yes' || step2_medicines_hypertension == 'Yes' || 
             step2_screened_hypertension_last12m == 'Yes' || step2_routine_clinic_visits == 'Yes'"
 actions:
   - "isRelevant = true"
