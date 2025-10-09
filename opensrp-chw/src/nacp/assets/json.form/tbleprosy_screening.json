@@ -538,9 +538,9 @@
       {
         "key": "non_presumptive_prompt",
         "type": "toaster_notes",
-        "text": "Mteja hana dalili za ukoma kwa sasa. Endelea kumfuatilia kwa mujibu wa mwongozo.",
+        "text": "Mteja hana dalili za ukoma wala TB kwa sasa.",
         "toaster_info_title": "Hakuna dalili za ukoma zilizobainika",
-        "toaster_info_text": "Mteja hana dalili za ukoma zilizobainika katika uchunguzi huu. Endelea kumfuatilia kwa mujibu wa mwongozo.",
+        "toaster_info_text": "Mteja hana dalili za ukoma wala TB zilizobainika katika uchunguzi huu.",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
