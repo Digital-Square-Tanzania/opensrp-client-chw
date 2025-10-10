@@ -30,3 +30,4 @@ wrapper
 native/
 /opensrp-chw/libs/
 android/
+android.lock
