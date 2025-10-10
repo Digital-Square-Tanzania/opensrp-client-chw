@@ -367,12 +367,12 @@
         }
       },
       {
-        "key": "novisit_reason",
+        "key": "reasons_for_not_visiting",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "reasons_for_not_visiting",
         "type": "check_box",
-        "label": "Why they did not go to the facility?",
+        "label": "Why did they not go to the facility?",
         "label_text_style": "bold",
         "exclusive": [
           "chk_other_visit_reason"
@@ -423,10 +423,9 @@
           "err": "No visit reason is required"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_followup_relevance.yml.yml"
-            }
+          "step1:visit_hf": {
+            "type": "string",
+            "ex": "equalTo(., \\\"No\\\")"
           }
         }
       },
@@ -442,7 +441,7 @@
           "err": "Describe the other reason"
         },
         "relevance": {
-          "step1:novisit_reason": {
+          "step1:reasons_for_not_visiting": {
             "ex-checkbox": [
               {
                 "or": [
