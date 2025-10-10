@@ -83,12 +83,17 @@ public class ChwWebAppInterface {
             }
         }
 
-        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.AYP_IN_SCHOOL_REPORT)) {
-            if (Constants.ReportConstants.AypInSchoolReportKeys.AYP_IN_SCHOOL_MONTHLY_REPORT.equalsIgnoreCase(key)) {
-                ReportUtils.setPrintJobName("AYP_in_school_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
-                return ReportUtils.AypInSchoolReports.computeMonthlyReport(ReportUtils.getReportDate());
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.AYP_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.AypReportKeys.AYP_IN_SCHOOL_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("AYP_in_school_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AypReports.computeInSchoolMonthlyReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.AypReportKeys.AYP_PARENTAL_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("AYP_parental_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AypReports.computeParentalMonthlyReport(ReportUtils.getReportDate());
+                default:
+                    return "";
             }
-            return "";
         }
 
 

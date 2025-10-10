@@ -245,6 +245,8 @@ public class Constants extends CoreConstants {
 
            String ASRH_REPORT = "asrh_report";
 
+           String AYP_REPORT = "ayp_report";
+
            String AYP_IN_SCHOOL_REPORT = "ayp_in_school_report";
 
            String CECAP_REPORT = "cecap_report";
@@ -275,8 +277,9 @@ public class Constants extends CoreConstants {
             String OTHER_MONTHLY_REPORT = "other-monthly-report";
         }
 
-        public interface AypInSchoolReportKeys {
+        public interface AypReportKeys {
             String AYP_IN_SCHOOL_MONTHLY_REPORT = "ayp-in-school-monthly-report";
+            String AYP_PARENTAL_MONTHLY_REPORT = "ayp-parental-monthly-report";
         }
 
         public interface HpsReportKeys {
@@ -312,6 +315,7 @@ public class Constants extends CoreConstants {
             String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
 
             String AYP_IN_SCHOOL_REPORT_PATH = "ayp_in_school_reports/ayp-in-school-report";
+            String AYP_PARENTAL_REPORT_PATH = "ayp_reports/ayp-parental-report";
 
             String CECAP_REPORT_PATH = "cecap_reports/cecap-report";
 
