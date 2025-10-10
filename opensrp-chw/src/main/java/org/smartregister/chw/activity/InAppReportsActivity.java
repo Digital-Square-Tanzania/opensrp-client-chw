@@ -37,7 +37,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout agywReports;
 
-    protected ConstraintLayout aypInSchoolReports;
+    protected ConstraintLayout aypReports;
 
     protected ConstraintLayout iccmReports;
 
@@ -70,7 +70,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agywReports = findViewById(R.id.agyw_reports);
-        aypInSchoolReports = findViewById(R.id.ayp_in_school_reports);
+        aypReports = findViewById(R.id.ayp_reports);
         iccmReports = findViewById(R.id.iccm_reports);
         sbcReports = findViewById(R.id.sbc_reports);
         asrhReports = findViewById(R.id.asrh_reports);
@@ -110,7 +110,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                        aypInSchoolReports.setVisibility(View.VISIBLE);
+                        aypReports.setVisibility(View.VISIBLE);
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasICCM()) {
@@ -156,7 +156,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             }
 
             if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                aypInSchoolReports.setVisibility(View.VISIBLE);
+                aypReports.setVisibility(View.VISIBLE);
             }
 
             if (ChwApplication.getApplicationFlavor().hasICCM()) {
@@ -193,7 +193,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
         agywReports.setOnClickListener(this);
-        aypInSchoolReports.setOnClickListener(this);
+        aypReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
         asrhReports.setOnClickListener(this);
@@ -246,8 +246,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             Intent intent = new Intent(this, AGYWReportsActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.ayp_in_school_reports) {
-            Intent intent = new Intent(this, AypInSchoolReportsActivity.class);
+        if (id == R.id.ayp_reports) {
+            Intent intent = new Intent(this, AypReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.iccm_reports) {

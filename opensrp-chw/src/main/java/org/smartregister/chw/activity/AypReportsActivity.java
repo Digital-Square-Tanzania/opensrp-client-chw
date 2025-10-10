@@ -28,9 +28,11 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class AypInSchoolReportsActivity extends SecuredActivity implements View.OnClickListener {
+public class AypReportsActivity extends SecuredActivity implements View.OnClickListener {
 
     protected ConstraintLayout aypMonthlyReport;
+
+    protected ConstraintLayout aypParentalMonthlyReport;
 
     protected AppBarLayout appBarLayout;
 
@@ -40,14 +42,20 @@ public class AypInSchoolReportsActivity extends SecuredActivity implements View.
 
     @Override
     protected void onCreation() {
-        setContentView(R.layout.activity_ayp_in_school_reports);
+        setContentView(R.layout.activity_ayp_reports);
         setUpToolbar();
         setupViews();
     }
 
     public void setupViews() {
         aypMonthlyReport = findViewById(R.id.ayp_in_school_monthly_report);
-        aypMonthlyReport.setOnClickListener(this);
+        if (aypMonthlyReport != null) {
+            aypMonthlyReport.setOnClickListener(this);
+        }
+        aypParentalMonthlyReport = findViewById(R.id.ayp_parental_monthly_report);
+        if (aypParentalMonthlyReport != null) {
+            aypParentalMonthlyReport.setOnClickListener(this);
+        }
     }
 
     public void setUpToolbar() {
@@ -64,6 +72,10 @@ public class AypInSchoolReportsActivity extends SecuredActivity implements View.
         toolbar.setNavigationOnClickListener(v -> finish());
         appBarLayout = findViewById(org.smartregister.chw.core.R.id.app_bar);
         appBarLayout.setOutlineProvider(null);
+        View titleView = toolbar.findViewById(org.smartregister.chw.core.R.id.toolbar_title);
+        if (titleView instanceof org.smartregister.view.customcontrols.CustomFontTextView) {
+            ((org.smartregister.view.customcontrols.CustomFontTextView) titleView).setText(R.string.ayp_reports_screen_title);
+        }
     }
 
     @Override
@@ -91,14 +103,24 @@ public class AypInSchoolReportsActivity extends SecuredActivity implements View.
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.ayp_in_school_monthly_report) {
-            AypInSchoolReportsViewActivity.startMe(this,
+        int viewId = v.getId();
+        if (viewId == R.id.ayp_in_school_monthly_report) {
+            AypReportsViewActivity.startMe(this,
                     Constants.ReportConstants.ReportPaths.AYP_IN_SCHOOL_REPORT_PATH,
                     R.string.ayp_in_school_reports_title,
-                    reportPeriod);
-        } else {
-            Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();
+                    reportPeriod,
+                    Constants.ReportConstants.ReportTypes.AYP_REPORT);
+            return;
         }
+        if (viewId == R.id.ayp_parental_monthly_report) {
+            AypReportsViewActivity.startMe(this,
+                    Constants.ReportConstants.ReportPaths.AYP_PARENTAL_REPORT_PATH,
+                    R.string.ayp_parental_reports_title,
+                    reportPeriod,
+                    Constants.ReportConstants.ReportTypes.AYP_REPORT);
+            return;
+        }
+        Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();
     }
 
     private void showMonthPicker(Context context, Menu menu) {

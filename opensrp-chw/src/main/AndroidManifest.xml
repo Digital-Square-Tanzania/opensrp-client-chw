@@ -532,11 +532,11 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AypInSchoolReportsViewActivity"
+            android:name=".activity.AypReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AypInSchoolReportsActivity"
+            android:name=".activity.AypReportsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
