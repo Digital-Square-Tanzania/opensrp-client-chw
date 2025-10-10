@@ -127,6 +127,9 @@ public class ChwRepositoryFlv {
                 case 31:
                     upgradeToVersion31(db);
                     break;
+                case 32:
+                    upgradeToVersion32(db);
+                    break;
                 default:
                     break;
             }
@@ -557,11 +560,55 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion31(SQLiteDatabase db) {
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
-            String configFile = "config/ayp-in-school-monthly-report.yml";
-            reportingLibrary.readConfigFile(configFile, db);
+            List<String> configFiles = Arrays.asList(
+                    "config/ayp-in-school-monthly-report.yml",
+                    "config/ayp-parental-monthly-report.yml"
+            );
+            for (String configFile : configFiles) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion31");
+        }
+    }
+
+    private static void upgradeToVersion32(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_ayp_parenting_services_parental_group_exit")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-create-tables");
+        }
+
+        try {
+            String migrationQuery = "INSERT INTO ec_ayp_parenting_services_parental_group_exit (\n" +
+                    "event_id, form_submission_id, base_entity_id, event_type, event_date, provider_id, location_id, entity_type, last_interacted_with,\n" +
+                    "region, council, cso, ward, village, group_name, age_group, date_group_formation, current_members, members_in_assessment, dropouts,\n" +
+                    "mentor, chairperson, chair_phone, date_assessment, duration_assessment, q1_completed_6months, q2_basic_services, q3_constitution,\n" +
+                    "q4_registered, q5_rules_familiar, q6_leadership_training, q7_elections, q8_saving, q9_records, q10_financial_mgmt, q11_grants,\n" +
+                    "q12_repayments, q13_dividends, q14_investments, q15_business_plan, q16_health_services, q17_hiv_protection, q18_sti_protection,\n" +
+                    "q19_understand_abuse, q20_report_abuse, total_score, score_category)\n" +
+                    "SELECT event_id, form_submission_id, base_entity_id, event_type, event_date, provider_id, location_id, entity_type, last_interacted_with,\n" +
+                    "region, council, cso, ward, village, group_name, age_group, date_group_formation, current_members, members_in_assessment, dropouts,\n" +
+                    "mentor, chairperson, chair_phone, date_assessment, duration_assessment, q1_completed_6months, q2_basic_services, q3_constitution,\n" +
+                    "q4_registered, q5_rules_familiar, q6_leadership_training, q7_elections, q8_saving, q9_records, q10_financial_mgmt, q11_grants,\n" +
+                    "q12_repayments, q13_dividends, q14_investments, q15_business_plan, q16_health_services, q17_hiv_protection, q18_sti_protection,\n" +
+                    "q19_understand_abuse, q20_report_abuse, total_score, score_category\n" +
+                    "FROM ec_ayp_parental_services\n" +
+                    "WHERE lower(event_type) = 'parents and guardians’ group exit assessment tool'";
+            db.execSQL(migrationQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-migrate-data");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/ayp-parental-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-config");
         }
     }
 }

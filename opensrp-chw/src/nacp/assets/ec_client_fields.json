@@ -9724,6 +9724,718 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_ayp_parental_services",
+      "columns": [
+        {
+          "column_name": "event_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "event_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventType"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
+        },
+        {
+          "column_name": "location_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "locationId"
+          }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "client_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_status"
+          }
+        },
+        {
+          "column_name": "transfer_remarks",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "transfer_remarks"
+          }
+        },
+        {
+          "column_name": "new_address",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "new_address"
+          }
+        },
+        {
+          "column_name": "service_delivery_modality",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "service_delivery_modality"
+          }
+        },
+        {
+          "column_name": "group_modality_types",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "group_modality_types"
+          }
+        },
+        {
+          "column_name": "number_of_children",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_children"
+          }
+        },
+        {
+          "column_name": "male_children_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_children_count"
+          }
+        },
+        {
+          "column_name": "female_children_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_children_count"
+          }
+        },
+        {
+          "column_name": "rh_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rh_provided"
+          }
+        },
+        {
+          "column_name": "rh_sections_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rh_sections_provided"
+          }
+        },
+        {
+          "column_name": "hiv_aids_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_aids_topics"
+          }
+        },
+        {
+          "column_name": "stis_rtis_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stis_rtis_topics"
+          }
+        },
+        {
+          "column_name": "viral_hepatitis_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "viral_hepatitis_topics"
+          }
+        },
+        {
+          "column_name": "protection_against_hiv_aids_stis_viral_hepatitis",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "protection_against_hiv_aids_stis_viral_hepatitis"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
+          "column_name": "referral_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_services"
+          }
+        },
+        {
+          "column_name": "referral_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_other_specify"
+          }
+        },
+        {
+          "column_name": "section_selection",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "section_selection"
+          }
+        },
+        {
+          "column_name": "hiv_problem_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_problem_topics"
+          }
+        },
+        {
+          "column_name": "q1_hiv_problem",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q1_hiv_problem"
+          }
+        },
+        {
+          "column_name": "q2_prevent_hiv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q2_prevent_hiv"
+          }
+        },
+        {
+          "column_name": "q3_relationship_hiv_stis",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q3_relationship_hiv_stis"
+          }
+        },
+        {
+          "column_name": "q4_parent_responsibility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q4_parent_responsibility"
+          }
+        },
+        {
+          "column_name": "q5_info_sources",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q5_info_sources"
+          }
+        },
+        {
+          "column_name": "q6_difficulty_discussion",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q6_difficulty_discussion"
+          }
+        },
+        {
+          "column_name": "q7_best_ways_help",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q7_best_ways_help"
+          }
+        },
+        {
+          "column_name": "q8_action_pregnancy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q8_action_pregnancy"
+          }
+        },
+        {
+          "column_name": "q9_relationship_sexual_edu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q9_relationship_sexual_edu"
+          }
+        },
+        {
+          "column_name": "q10_benefits_parent_education",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q10_benefits_parent_education"
+          }
+        },
+        {
+          "column_name": "promote_hiv_services_youth",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "promote_hiv_services_youth"
+          }
+        },
+        {
+          "column_name": "sexual_reproductive_health_youth",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sexual_reproductive_health_youth"
+          }
+        },
+        {
+          "column_name": "skills_education_communication_youth",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "skills_education_communication_youth"
+          }
+        },
+        {
+          "column_name": "understanding_youth_challenges",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "understanding_youth_challenges"
+          }
+        },
+        {
+          "column_name": "visit_comment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_comment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_ayp_parenting_services_parental_group_exit",
+      "columns": [
+        {
+          "column_name": "event_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "event_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventType"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
+        },
+        {
+          "column_name": "location_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "locationId"
+          }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "region",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "region"
+          }
+        },
+        {
+          "column_name": "council",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "council"
+          }
+        },
+        {
+          "column_name": "cso",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cso"
+          }
+        },
+        {
+          "column_name": "ward",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ward"
+          }
+        },
+        {
+          "column_name": "village",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "village"
+          }
+        },
+        {
+          "column_name": "group_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "group_name"
+          }
+        },
+        {
+          "column_name": "age_group",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "age_group"
+          }
+        },
+        {
+          "column_name": "date_group_formation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_group_formation"
+          }
+        },
+        {
+          "column_name": "current_members",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "current_members"
+          }
+        },
+        {
+          "column_name": "members_in_assessment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "members_in_assessment"
+          }
+        },
+        {
+          "column_name": "dropouts",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "dropouts"
+          }
+        },
+        {
+          "column_name": "mentor",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mentor"
+          }
+        },
+        {
+          "column_name": "chairperson",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson"
+          }
+        },
+        {
+          "column_name": "chair_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chair_phone"
+          }
+        },
+        {
+          "column_name": "date_assessment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_assessment"
+          }
+        },
+        {
+          "column_name": "duration_assessment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "duration_assessment"
+          }
+        },
+        {
+          "column_name": "q1_completed_6months",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q1_completed_6months"
+          }
+        },
+        {
+          "column_name": "q2_basic_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q2_basic_services"
+          }
+        },
+        {
+          "column_name": "q3_constitution",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q3_constitution"
+          }
+        },
+        {
+          "column_name": "q4_registered",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q4_registered"
+          }
+        },
+        {
+          "column_name": "q5_rules_familiar",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q5_rules_familiar"
+          }
+        },
+        {
+          "column_name": "q6_leadership_training",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q6_leadership_training"
+          }
+        },
+        {
+          "column_name": "q7_elections",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q7_elections"
+          }
+        },
+        {
+          "column_name": "q8_saving",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q8_saving"
+          }
+        },
+        {
+          "column_name": "q9_records",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q9_records"
+          }
+        },
+        {
+          "column_name": "q10_financial_mgmt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q10_financial_mgmt"
+          }
+        },
+        {
+          "column_name": "q11_grants",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q11_grants"
+          }
+        },
+        {
+          "column_name": "q12_repayments",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q12_repayments"
+          }
+        },
+        {
+          "column_name": "q13_dividends",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q13_dividends"
+          }
+        },
+        {
+          "column_name": "q14_investments",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q14_investments"
+          }
+        },
+        {
+          "column_name": "q15_business_plan",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q15_business_plan"
+          }
+        },
+        {
+          "column_name": "q16_health_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q16_health_services"
+          }
+        },
+        {
+          "column_name": "q17_hiv_protection",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q17_hiv_protection"
+          }
+        },
+        {
+          "column_name": "q18_sti_protection",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q18_sti_protection"
+          }
+        },
+        {
+          "column_name": "q19_understand_abuse",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q19_understand_abuse"
+          }
+        },
+        {
+          "column_name": "q20_report_abuse",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "q20_report_abuse"
+          }
+        },
+        {
+          "column_name": "total_score",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "total_score"
+          }
+        },
+        {
+          "column_name": "score_category",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "score_category"
+          }
+        }
+      ]
     }
   ]
 }
