@@ -47,6 +47,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout kvpReports;
 
+    protected ConstraintLayout aypOutSchoolReports;
+
     protected ConstraintLayout hpsReports;
 
     @Override
@@ -73,6 +75,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         asrhReports = findViewById(R.id.asrh_reports);
         cecapReports = findViewById(R.id.cecap_reports);
         kvpReports = findViewById(R.id.kvp_reports);
+        aypOutSchoolReports = findViewById(R.id.ayp_out_school_report);
         hpsReports = findViewById(R.id.hps_reports);
 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
@@ -126,6 +129,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                         kvpReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                        aypOutSchoolReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasCdp()) {
                         condomDistributionReports.setVisibility(View.VISIBLE);
                     }
@@ -168,6 +175,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 kvpReports.setVisibility(View.VISIBLE);
             }
 
+            if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                aypOutSchoolReports.setVisibility(View.VISIBLE);
+            }
+
             if (ChwApplication.getApplicationFlavor().hasCdp()) {
                 condomDistributionReports.setVisibility(View.VISIBLE);
             }
@@ -187,6 +198,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         asrhReports.setOnClickListener(this);
         cecapReports.setOnClickListener(this);
         kvpReports.setOnClickListener(this);
+        aypOutSchoolReports.setOnClickListener(this);
         hpsReports.setOnClickListener(this);
     }
 
@@ -252,6 +264,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.kvp_reports) {
             Intent intent = new Intent(this, KvpReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.ayp_out_school_report) {
+            Intent intent = new Intent(this, AypOutSchoolReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.hps_reports) {
