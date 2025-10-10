@@ -62,21 +62,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Did the client visit a facility?",
+        "label": "Je, ulienda kituo cha afya?",
         "options": [
           {
             "key": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Yes",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Ndio"
           },
           {
             "key": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "No",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Hapana"
           }
         ],
         "v_required": {
@@ -90,7 +90,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_visiting",
         "type": "check_box",
-        "label": "What are the reasons for not visiting health facility?",
+        "label": "Sababu za kutotembelea kituo cha afya",
         "label_text_style": "bold",
         "exclusive": [
           "chk_other_visit_reason"
@@ -98,7 +98,7 @@
         "options": [
           {
             "key": "lack_of_transport_fare",
-            "text": "Lack of transport fare",
+            "text": "Kukosa nauli/Usafiri",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -106,7 +106,7 @@
           },
           {
             "key": "facility_too_far",
-            "text": "The health facility is too far",
+            "text": "Umbali wa kituo ni mrefu sana",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -114,23 +114,15 @@
           },
           {
             "key": "no_time",
-            "text": "Lack of time due to work or household responsibilities",
+            "text": "Kukosa muda kutokana na kazi au majukumu ya nyumbani",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no_time"
           },
           {
-            "key": "chk_costly",
-            "text": "Transport was too costly",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "fear_of_diagnosis",
-            "text": "Fear of disease diagnosis or receiving bad news",
+            "text": "Hofu ya utambuzi wa ugojwa au taarifa mbaya",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -138,28 +130,28 @@
           },
           {
             "key": "facility_closed",
-            "text": "The facility was closed/Long waiting time for services",
+            "text": "Kituo kilikua kimefungwa/Muda mrefu wa kusubiria huduma",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "facility_closed"
           },
           {
             "key": "alternative_treatment",
-            "text": "The client sought alternative treatment (e.g., traditional healer)",
+            "text": "Mteja ametafuta matibabu mbadala (mfano, mganga wa jadi)",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alternative_treatment"
           },
           {
             "key": "forgot_referral",
-            "text": "Forgot about the referral",
+            "text": "Alisahau kuhusu rufaa",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "forgot_referral"
           },
           {
             "key": "chk_other_visit_reason",
-            "text": "Other",
+            "text": "Nyingine, taja",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
@@ -167,7 +159,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "No visit reason is required"
+          "err": "Chagua sababu moja au zaidi"
         },
         "relevance": {
           "step1:visit_hf": {
@@ -182,21 +174,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "services_hf",
         "openmrs_entity_parent": "",
-        "label": "Did they receive the services at the facility?",
+        "label": "Alipata huduma yoyote katika kituo cha afya?",
         "options": [
           {
             "key": "Yes",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Yes",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Ndio"
           },
           {
             "key": "No",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "No",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Hapana"
           }
         ],
         "v_required": {
@@ -218,10 +210,10 @@
         "openmrs_entity_id": "receive_diabetes_test",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "Did you get tested for diabetes?",
+        "label": "Ulipata vipimo vya kisukari?",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": ""
         },
         "options": [
           {
@@ -229,14 +221,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Yes",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Ndio"
           },
           {
             "key": "No",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "No",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Hapana"
           }
         ],
         "relevance": {
@@ -254,10 +246,10 @@
         "openmrs_entity_id": "diabetes_test_result",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "What was the result?",
+        "label": "Nini ilikuwa matokeo ya kipimo chako cha kisukari?",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Chagua moja"
         },
         "options": [
           {
@@ -265,14 +257,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "positive",
             "openmrs_entity_parent": "",
-            "text": "Positive"
+            "text": "Ana kisukari"
           },
           {
             "key": "negative",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "negative",
             "openmrs_entity_parent": "",
-            "text": "Negative"
+            "text": "Hana kisukari"
           }
         ],
         "relevance": {
@@ -290,10 +282,10 @@
         "openmrs_entity_id": "receive_hypertension_test",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "Did you get tested for hypertension?",
+        "label": "Ulipata vipimo vya shinikizo la damu?",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Chagua moja"
         },
         "options": [
           {
@@ -301,14 +293,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Yes",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Ndio"
           },
           {
             "key": "No",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "No",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Hapana"
           }
         ],
         "relevance": {
@@ -326,10 +318,10 @@
         "openmrs_entity_id": "hypertension_test_result",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "What was the result of your hypertension test?",
+        "label": "Matokeo ya kipimo chako cha shinikizo la damu yalikuwa yapi?",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Chagua moja"
         },
         "options": [
           {
@@ -337,14 +329,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "positive",
             "openmrs_entity_parent": "",
-            "text": "Positive"
+            "text": "Ana shinikizo la damu"
           },
           {
             "key": "negative",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "negative",
             "openmrs_entity_parent": "",
-            "text": "Negative"
+            "text": "Hana shinikizo la damu"
           }
         ],
         "relevance": {
@@ -361,7 +353,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Remind the client or caretaker to adhere to medications or counselling received at the facility regarding diet, exercise and lifestyle changes.",
+        "text": "Ni muhimu kutembelea kituo cha afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -459,6 +451,70 @@
         }
       },
       {
+        "key": "novisit_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Why they did not go to the facility?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_visit_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_no_time",
+            "text": "I did not have time",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_too_far",
+            "text": "It's too far",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_forgot",
+            "text": "I forgot",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_changed_mind",
+            "text": "I changed my mind",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_visit_reason",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "No visit reason is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "other_reason_novisit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -470,7 +526,7 @@
           "err": "Describe the other reason"
         },
         "relevance": {
-          "step1:reasons_for_not_visiting": {
+          "step1:novisit_reason": {
             "ex-checkbox": [
               {
                 "or": [
@@ -487,7 +543,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "It’s important to visit the health facility so that you can be fully checked and supported early before your condition gets worse. Early care can help prevent serious complications. Please try to go as soon as you can.",
+        "text": "Advise and encourage the client or caretaker to complete the referral at the health facility",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {

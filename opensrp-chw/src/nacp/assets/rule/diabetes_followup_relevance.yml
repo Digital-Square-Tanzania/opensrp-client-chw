@@ -23,7 +23,8 @@ actions:
 name: step1_reminder_toaster
 description: determine if treatment was given or not
 priority: 1
-condition: "step1_services_hf.contains('Yes')"
+condition: "step1_services_hf.contains('Yes') && 
+            (step1_hypertension_test_result.contains('positive') || step1_diabetes_test_result.contains('positive'))"
 actions:
   - "isRelevant = true"
 ---
