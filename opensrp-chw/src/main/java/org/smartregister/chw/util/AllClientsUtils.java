@@ -323,7 +323,7 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
 
-        if (age >= 40) {
+        if (age >= 30) {
             setMenuItemVisibility(menu, R.id.action_diabetes_risk, true);
         }
     }
