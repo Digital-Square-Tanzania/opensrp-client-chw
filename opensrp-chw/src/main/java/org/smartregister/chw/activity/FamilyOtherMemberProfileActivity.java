@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +28,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.koin.core.Koin;
+import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -40,9 +41,6 @@ import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.IssueReferralInteractor;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
-import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
-import org.smartregister.chw.referral.model.BaseIssueReferralModel;
-import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
@@ -71,8 +69,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     JSONObject ncdJsonObjectForm = new JSONObject();
-
-    protected BaseIssueReferralContract.Presenter referralPresenter = null;
 
 //    Intent data = new Intent(FamilyOtherMemberProfileActivity.this, NcdFormWizardActivity.class);
     Intent data = new Intent();
@@ -406,17 +402,46 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         }
     }
 
-    private void sendNCDReferralToFacility(HashMap<String,NFormViewData> data) {
+    private void sendNCDReferralToFacility(HashMap<String, NFormViewData> data) {
         try {
             JSONObject NCDForm = new FormUtils().getFormJsonFromRepositoryOrAssets(FamilyOtherMemberProfileActivity.this, "referrals/referral_form");
-            if(NCDForm==null)return;
+            if (NCDForm == null) {
+                return;
+            }
 
             NCDForm.put("referral_task_focus", "Diabetes and Hypertension Testing");
-            getReferralPresenter().saveForm(data, NCDForm,false);
+
+            BaseIssueReferralContract.InteractorCallBack interactorCallback = new BaseIssueReferralContract.InteractorCallBack() {
+                @Override
+                public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple, @NonNull String entityId) {
+                    // No-op: referral form uses existing entity id
+                }
+
+                @Override
+                public void onNoUniqueId() {
+                    Timber.w("No unique ID fetched while saving NCD referral for %s", baseEntityId);
+                }
+
+                @Override
+                public void onRegistrationSaved(boolean isSaved) {
+                    Timber.i("NCD referral save status: %s", isSaved ? "success" : "failed");
+                }
+
+                @Override
+                public void onRegistrationSaved(boolean isSaved, boolean isAddoLinkage) {
+                    Timber.i("NCD referral save status: %s, isAddoLinkage: %s", isSaved ? "success" : "failed", isAddoLinkage);
+                    if (isSaved) {
+                        Toast.makeText(FamilyOtherMemberProfileActivity.this, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(FamilyOtherMemberProfileActivity.this, R.string.referral_not_submitted, Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+
+            new IssueReferralInteractor().saveRegistration(baseEntityId, data, NCDForm, interactorCallback, false);
         } catch (Exception e) {
             Timber.e(e);
         }
-
     }
 
     private void delayInvalidateOptionsMenu() {
@@ -425,30 +450,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } catch (Exception e) {
             Timber.e(e);
         }
-    }
-
-     private BaseIssueReferralPresenter getReferralPresenter() {
-         BaseIssueReferralContract.View view = new BaseIssueReferralContract.View() {
-             @NonNull
-             @Override
-             public BaseIssueReferralContract.Presenter presenter() {
-                 return null;
-             }
-
-             @Override
-             public void setProfileViewWithData() {
-             }
-
-             @NonNull
-             @Override
-             public Koin getKoin() {
-                 return null;
-             }
-         };
-
-         return new BaseIssueReferralPresenter(
-                 baseEntityId, view, BaseIssueReferralModel.class, new IssueReferralInteractor()
-         );
     }
 
     private HashMap<String, NFormViewData> createReferralForm(Intent data) {
