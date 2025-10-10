@@ -519,7 +519,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "The prescreening shows that this client already has a condition advice the client on the importance of medicine adherence if they are using any medication and emphasize the importance of maintaining a good and health lifestyle for example keeping active and eating a balanced diet.",
+        "text": "According to the information you have provided, you are already receiving care or have been recently screened for diabetes and hypertension. Therefore, you are not eligible for another screening today. Please continue with your routine clinic visits and follow your healthcare provider’s advice. Please ensure you take your medicines as prescribed and maintain a healthy lifestyle, such as staying physically active and eating a balanced diet.",
         "text_color": "#000000",
         "toaster_type": "info",
         "calculation": {
@@ -529,6 +529,23 @@
             }
           }
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prescreening_client_has_condition_toaster_not_using_meds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "You mentioned that you are not currently taking medicines for diabetes or hypertension. It is important to follow up at your nearest health facility for medical advice and possible treatment. You are not eligible for a new screening today, but you should continue with regular check-ups as advised by your healthcare provider",
+        "text_color": "#000000",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

@@ -70,6 +70,7 @@
         "openmrs_entity_id": "agree_with_screening_procedure",
         "openmrs_data_type": "select one",
         "hint": "Je, unakubali tuendelee na zoezi hili?",
+        "keys": ["Yes", "No"],
         "values": [
           "Ndio",
           "Hapana"
@@ -137,7 +138,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Hapana\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -215,7 +216,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Ndio\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -239,7 +240,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Ndio\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -263,7 +264,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Ndio\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -287,7 +288,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Ndio\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -311,7 +312,7 @@
         "relevance": {
           "step1:agree_with_screening_procedure": {
             "type": "string",
-            "ex": "equalTo(., \"Ndio\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       }
@@ -525,7 +526,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Mteja amekubali kufanyiwa uchunguzi wa kisukari na shinikizo la damu. Hata hivyo, nimegundua kuwa tayari amewahi kugunduliwa na ugonjwa wa kisukari au shinikizo la damu au anatumia dawa za magonjwa hayo. Hivyo, hatutafanya uchunguzi wa kisukari na shinikizo la damu kwa mteja huyu.",
+        "text": "Kwa mujibu wa taarifa ulizotoa, tayari unapokea huduma  na umeshafanyiwa uchunguzi wa kisukari na shinikizo la damu hivi karibuni. Hivyo basi, hauhitaji kufanyiwa uchunguzi mwingine kwa sasa. Tafadhali endelea kuhudhuria kliniki na kufuata ushauri wa mtoa huduma wako wa afya. Ni muhimu kuzingatia matumizi sahihi ya dawa ulizopewa na kudumisha mtindo mzuri wa maisha kama kufanya mazoezi mara kwa mara na kula chakula chenye lishe bora.",
         "text_color": "#000000",
         "toaster_type": "info",
         "calculation": {
@@ -535,6 +536,23 @@
             }
           }
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prescreening_client_has_condition_toaster_not_using_meds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Umetaja kuwa kwa sasa hutumii dawa za kisukari au shinikizo la damu. Ni muhimu kufika kituo cha afya kilicho karibu nawe kwa ushauri wa kitabibu na matibabu iwapo itahitajika. Huhitaji kufanyiwa uchunguzi mpya kwa sasa, lakini unashauriwa kuendelea na ukaguzi wa afya wa mara kwa mara kama utakavyoelekezwa na mtoa huduma wako wa afya.",
+        "text_color": "#000000",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

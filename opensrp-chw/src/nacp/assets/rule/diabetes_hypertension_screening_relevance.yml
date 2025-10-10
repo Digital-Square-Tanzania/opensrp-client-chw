@@ -148,8 +148,19 @@ actions:
 name: step4_prescreening_client_has_condition_toaster
 description: Prescreening client has condition toaster
 priority: 1
-condition: "step2_diagnosed_diabetes == 'Yes' || step2_medicines_diabetes == 'Yes' || 
-            step2_screened_diabetes_12m == 'Yes' || step2_medicines_hypertension == 'Yes' || 
-            step2_screened_hypertension_last12m == 'Yes' || step2_routine_clinic_visits == 'Yes'"
+condition: "step2_medicines_diabetes == 'Yes' || step2_medicines_diabetes == 'Ndio' ||
+            step2_medicines_hypertension == 'Yes' || step2_medicines_hypertension == 'Ndio'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_prescreening_client_has_condition_toaster_not_using_meds
+description: Prescreening client has condition toaster but not using meds
+priority: 1
+condition: "(step2_diagnosed_diabetes == 'Yes' || step2_diagnosed_diabetes == 'Ndio' ||
+            step2_screened_diabetes_12m == 'Yes' || step2_screened_diabetes_12m == 'Ndio' ||
+            step2_screened_hypertension_last12m == 'Yes' || step2_screened_hypertension_last12m == 'Ndio' ||
+            step2_routine_clinic_visits == 'Yes' || step2_routine_clinic_visits == 'Ndio') &&
+            (step2_medicines_diabetes != 'Yes' && step2_medicines_diabetes != 'Ndio' &&
+            step2_medicines_hypertension != 'Yes' && step2_medicines_hypertension != 'Ndio')"
 actions:
   - "isRelevant = true"
