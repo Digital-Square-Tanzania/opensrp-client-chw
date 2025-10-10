@@ -282,6 +282,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startAypFacilityScreening() {
+        // Not required in community build
+    }
+
+    @Override
     protected void startAypInSchoolEnrollment() {
         AypInSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
