@@ -93,6 +93,17 @@ android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
 
+    packagingOptions {
+        resources {
+            excludes += [
+                    "AndroidManifest.xml",
+                    "res/drawable-*/ic_check.png",
+                    "res/drawable-*/ic_clear.png",
+                    "res/drawable-*/ic_chevron_right.png"
+            ]
+        }
+    }
+
     lint {
         checkReleaseBuilds = false
         abortOnError = false
