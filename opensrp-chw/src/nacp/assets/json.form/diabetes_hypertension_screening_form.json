@@ -70,6 +70,7 @@
         "openmrs_entity_id": "agree_with_screening_procedure",
         "openmrs_data_type": "select one",
         "hint": "Do you agree with proceedings?",
+        "keys": ["Yes", "No"],
         "values": [
           "Yes",
           "No"
@@ -97,7 +98,7 @@
             "key": "not_well_not_prepared",
             "text": "The person is not feeling well or is not yet prepared for the screening",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_well"
+            "openmrs_entity_id": "not_well_not_prepared"
           },
           {
             "key": "in_hurry",
@@ -127,7 +128,7 @@
             "key": "other_reason",
             "text": "Other, please specify.",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "fear_technology"
+            "openmrs_entity_id": "other_reason"
           }
         ],
         "v_required": {
@@ -177,6 +178,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diagnosed_diabetes",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -201,6 +203,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medicines_diabetes",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -224,6 +227,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "screened_diabetes_12m",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -247,6 +251,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medicines_hypertension",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -270,6 +275,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "screened_hypertension_last12m",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",
@@ -293,6 +299,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "routine_clinic_visits",
+        "keys": ["Yes", "No"],
         "values": ["Yes", "No"],
         "openmrs_choice_ids": {
           "Yes": "Yes",

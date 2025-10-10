@@ -58,7 +58,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Tupo hapa leo kufanya uchunguzi wa afya kwa shinikizo la juu/chini la damu na kisukari. Uchunguzi huu ni bure, hautumii damu wala sindano, na unalenga kugundua mapema matatizo ya afya yanayoweza kuzuilika.",
+        "text": "Tupo hapa leo kufanya uchunguzi wa afya kwa shinikizo la damu na kisukari. Uchunguzi huu ni bure, hautumii damu wala sindano, na unalenga kugundua mapema matatizo ya afya yanayoweza kuzuilika.",
         "toaster_type": "info",
         "text_color": "#1199F9"
       },
@@ -98,7 +98,7 @@
             "key": "not_well_not_prepared",
             "text": "Mtu hajisikii vizuri au bado hajajiandaa kwa uchunguzi",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_well"
+            "openmrs_entity_id": "not_well_not_prepared"
           },
           {
             "key": "in_hurry",
@@ -128,7 +128,7 @@
             "key": "other_reason",
             "text": "Nyingine, taja",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "fear_technology"
+            "openmrs_entity_id": "other_reason"
           }
         ],
         "v_required": {
@@ -151,7 +151,7 @@
         "hint": "Tafadhali elezea sababu nyingine za kukataa",
         "v_required": {
           "value": true,
-          "err": "Please specify the other reason for declining"
+          "err": "Tafadhali elezea sababu nyingine za kukataa"
         },
         "relevance": {
           "step1:reasons_for_declining": {
@@ -423,25 +423,25 @@
       {
         "key": "diastolic_bp",
         "type": "edit_text",
-        "hint": "Shinikizo la damu la chini\n(namba ya pili inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 85) (mmHg)",
+        "hint": "Shinikizo la damu la chini (namba ya pili inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 85) (mmHg)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diastolic_bp",
         "openmrs_entity_parent": "",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter the diastolic value"
+          "err": "Tafadhali ingiza nambari"
         },
         "v_min": {
           "value": "30",
-          "err": "Diastolic value must be equal or greater than 30"
+          "err": "Nambari hii ni ndogo mno kwa shinikizo la chini la damu"
         },
         "v_max": {
           "value": "200",
-          "err": "Diastolic value must be equal or less than 200"
+          "err": "Nambari hii ni kubwa mno kwa shinikizo la chini la damu"
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Tafadhali ingiza shinikizo la chini la damu"
         },
         "relevance": {
           "rules-engine": {
