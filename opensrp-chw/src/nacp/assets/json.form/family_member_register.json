@@ -556,13 +556,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public Health Insurance",
+            "text": "Public Health Insurance (e.g. NHIF, ICHF)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private Health Insurance",
+            "text": "Private Health Insurance (e.g. AAR, Jubilee, Britam)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
