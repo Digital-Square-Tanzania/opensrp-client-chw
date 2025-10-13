@@ -703,13 +703,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Bima ya Afya ya Umma",
+            "text": "Bima ya Afya ya Umma (mfano NHIF, ICHF)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Bima ya Afya Binafsi",
+            "text": "Bima ya Afya Binafsi (mfano AAR, Jubilee, Britam)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
