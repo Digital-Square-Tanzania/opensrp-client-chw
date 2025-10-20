@@ -647,5 +647,20 @@
     <string name="both_diabetes_and_hypertenstion">kisukari na shinikizo la damu</string>
     <string name="only_diabetes">kisukari</string>
     <string name="only_hypertension">shinikizo la damu</string>
+    <string name="ncd_visit_action_diabetes_title">Chukua vipimo</string>
+    <string name="ncd_visit_action_hypertension_title">Elimu Iliyotolewa</string>
+    <string name="ncd_visit_vitals_missing_all">Hakuna vipimo vilivyochukuliwa</string>
+    <string name="ncd_visit_client_education_missing">Ushauri haujatolewa</string>
+    <string name="ncd_visit_vitals_summary">Sukari ya damu: %1$s | Shinikizo la damu: %2$s</string>
+    <string name="ncd_visit_client_education_topics">Vipengele: %1$s</string>
+    <string name="ncd_visit_client_education_done">Ushauri umetolewa</string>
+    <string name="ncd_visit_client_education_not_done">Ushauri haujatolewa</string>
 
+    <string name="ncd_visit_topic_diet">Lishe bora na chakula</string>
+    <string name="ncd_visit_topic_physical_activity">Shughuli za kuimalisha mwili  na mazoezi</string>
+    <string name="ncd_visit_topic_medication_adherence">Ufuataji wa matumizi sahihi ya dawa</string>
+    <string name="ncd_visit_topic_follow_up">Ufuatiliaji wa rufaa</string>
+    <string name="ncd_visit_topic_warning_signs">Dalili za hatari na wakati sahihi wa kupata huduma</string>
+    <string name="ncd_visit_topic_none">Hakuna vipimo vilivyochukuliwa</string>
+    <string name="ncd_visit_topic_other">Nyingine</string>
 </resources>

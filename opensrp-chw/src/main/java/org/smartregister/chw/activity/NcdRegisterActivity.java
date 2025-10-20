@@ -28,7 +28,7 @@ public class NcdRegisterActivity extends CoreNcdRegisterActivity implements Bott
     protected void setupViews() {
         super.setupViews();
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("NCD Clients");
+            getSupportActionBar().setTitle(getString(R.string.nav_menu_ncd));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

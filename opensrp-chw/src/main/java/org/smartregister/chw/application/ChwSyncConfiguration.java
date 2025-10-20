@@ -27,7 +27,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getAllSharedPreferences().fetchRegisteredANM();
+        return Utils.getAllSharedPreferences().getPreference("CURRENT_LOCATION_ID");
     }
 
     @Override

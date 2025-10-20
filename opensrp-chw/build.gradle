@@ -289,7 +289,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-chw-ncd'
     }
 
-    implementation('org.smartregister:opensrp-chw-ncd:0.0.1-SNAPSHOT-USELOCAL-BUILD01') {
+    implementation('org.smartregister:opensrp-chw-ncd:0.0.2-SNAPSHOT-USELOCAL-BUILD') {
         transitive = false
     }
 
@@ -326,7 +326,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'org.mockito:mockito-android:3.4.0'
 
-    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
+//    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
 
     implementation('io.realm:realm-android-library:4.1.1') {
         exclude group: 'io.realm', module: 'realm-annotations'
