@@ -9,8 +9,18 @@ import org.joda.time.format.DateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.actionhelper.HealthFacilityVisitAction;
+import org.smartregister.chw.actionhelper.BirthPreparednessAction;
+import org.smartregister.chw.actionhelper.BreastFeedingActionHelper;
+import org.smartregister.chw.actionhelper.ClinicAttendanceAction;
+import org.smartregister.chw.actionhelper.CommunityHealthWorkerObservationsAction;
+import org.smartregister.chw.actionhelper.CounsellingStatusAction;
+import org.smartregister.chw.actionhelper.FamilyPlanningAction;
+import org.smartregister.chw.actionhelper.HealthFacilityAction;
+import org.smartregister.chw.actionhelper.MalariaAction;
+import org.smartregister.chw.actionhelper.NutritionCounsellingAction;
+import org.smartregister.chw.actionhelper.PMTCTActionHelper;
 import org.smartregister.chw.actionhelper.PNCVisitLocationActionHelper;
+import org.smartregister.chw.actionhelper.PartnerEngagementAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -26,11 +36,8 @@ import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.JsonFormUtils;
 
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -157,18 +164,21 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateMalaria(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject malariaForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(malariaForm, details);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject)) {
+            JSONObject malariaForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(malariaForm, details);
+            }
+            BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withJsonPayload(malariaForm.toString())
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA())
+                    .withHelper(new MalariaAction())
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
         }
-        BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
-                .withOptional(false)
-                .withDetails(details)
-                .withJsonPayload(malariaForm.toString())
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA())
-                .withHelper(new MalariaAction())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
     }
 
     private void evaluateObservation(Map<String, List<VisitDetail>> details,
@@ -198,46 +208,60 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
     private void evaluatePMTCT() throws BaseAncHomeVisitAction.ValidationException {
-        String visitTitle  = context.getString(R.string.anc_home_visit_pmtct);
-        BaseAncHomeVisitAction pmtctAction = new BaseAncHomeVisitAction.Builder(context, visitTitle)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new PmtctActionHelper())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .withFormName("anc_hv_pmctc")
-                .build();
-        actionList.put(visitTitle, pmtctAction);
-
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            String visitTitle = context.getString(R.string.anc_home_visit_pmtct);
+            BaseAncHomeVisitAction pmtctAction = new BaseAncHomeVisitAction.Builder(context, visitTitle)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new PMTCTActionHelper())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_pmctc")
+                    .build();
+            actionList.put(visitTitle, pmtctAction);
+        }
     }
 
     private void evaluatePostpartumCareForMother() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_care_for_mother))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_postpartum_care_for_mother")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_postpartum_care_for_mother), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_care_for_mother))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_care_for_mother")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_care_for_mother), earlyStimulation);
+        }
     }
 
     private void evaluateEarlyStimulation() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_early_stimulation))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_early_stimulation")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_early_stimulation), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_early_stimulation))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_early_stimulation")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_early_stimulation), earlyStimulation);
+        }
     }
 
     private void evaluatePostpartumDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_danger_signs))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_postpartum_danger_signs")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_postpartum_danger_signs), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_danger_signs))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_danger_signs")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_danger_signs), earlyStimulation);
+        }
     }
 
     private void evaluateCommunityHealthWorkerObservation(Map<String, List<VisitDetail>> details,
@@ -253,121 +277,141 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateImmediateNewBornCare() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_immediate_newborn_care")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_immediate_newborn_care")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
+        }
     }
 
     private void evaluateAncClinicAttendance() throws BaseAncHomeVisitAction.ValidationException {
-
-        //Check if first and second visit had already been conducted
-//        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject))
-//            return;
-//        String visit_title = MessageFormat.format(context.getString(R.string.anc_hv_clinic_attendance), allVisits.size() + 1);
-        String visit_title = context.getString(R.string.anc_hv_clinic_attendance);
-        BaseAncHomeVisitAction anc_clinic_attendance = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new ClinicAttendanceAction())
-                .withFormName("anc_hv_clinic_attendance")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(visit_title, anc_clinic_attendance);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ) {
+            String visit_title = context.getString(R.string.anc_hv_clinic_attendance);
+            BaseAncHomeVisitAction anc_clinic_attendance = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new ClinicAttendanceAction())
+                    .withFormName("anc_hv_clinic_attendance")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(visit_title, anc_clinic_attendance);
+        }
     }
 
     private void evaluateLAM() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction lam = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_lam))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_lam")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_lam), lam);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction lam = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_lam))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_lam")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_lam), lam);
+        }
     }
 
     private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
                                        final Context context) throws BaseAncHomeVisitAction.ValidationException {
-//        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
-
-        BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
+        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new BreastFeedingActionHelper())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                 .withFormName("anc_hv_breastfeeding")
                 .build();
-        actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
-//        }
-
+            actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
+        }
     }
 
     private void evaluateGenderIssues() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_gender_issues))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_gender_issues")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_gender_issues), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_gender_issues))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_gender_issues")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_gender_issues), earlyStimulation);
+        }
     }
 
     private void evaluateNewBornDangerSign() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_new_born_danger_signs")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_new_born_danger_signs")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
+        }
     }
 
     private void evaluateHIVExposedInfantFollowUp() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_hiv_exposed_infant_follow_up")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_hiv_exposed_infant_follow_up")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
+        }
     }
 
     private void evaluatePostpartumPhysiologicalChanges() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_postpartum_physiological_changes))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_postpartum_physiological_changes")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_postpartum_physiological_changes), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_physiological_changes))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_physiological_changes")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_physiological_changes), earlyStimulation);
+        }
     }
 
     private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_hiv_aids_general_information")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_hiv_aids_general_information), earlyStimulation);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_hiv_aids_general_information")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_hiv_aids_general_information), earlyStimulation);
+        }
     }
 
     private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details,
                                            final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
-        String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
-        BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new BirthPreparednessAction())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .withFormName("anc_hv_birth_preparedness")
-                .build();
-        actionList.put(visit_title, birth_preparedness);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
+            BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new BirthPreparednessAction())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_birth_preparedness")
+                    .build();
+            actionList.put(visit_title, birth_preparedness);
+        }
     }
-
     private void evaluateVisitLocation() throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
                 .withOptional(false)
@@ -381,31 +425,38 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluatePartnerEngagement(Map<String, List<VisitDetail>> details,
                                            final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject partnerEngagementForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getAncHvPartnerEngagement());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(partnerEngagementForm, details);
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            JSONObject partnerEngagementForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getAncHvPartnerEngagement());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(partnerEngagementForm, details);
+            }
+            BaseAncHomeVisitAction partner_engagement = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_partner_engagement))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_partner_engagement")
+                    .withHelper(new PartnerEngagementAction())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_partner_engagement), partner_engagement);
         }
-        BaseAncHomeVisitAction partner_engagement = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_partner_engagement))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName("anc_hv_partner_engagement")
-                .withHelper(new PartnerEngagementAction())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_partner_engagement), partner_engagement);
     }
 
     private void evaluateNutritionCounselling() throws BaseAncHomeVisitAction.ValidationException {
-        String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
-        BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new NutritionCounsellingAction())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                .withFormName("anc_hv_nutrition_counselling")
-                .build();
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject)) {
+            String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
+            BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new NutritionCounsellingAction())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_nutrition_counselling")
+                    .build();
 
-        actionList.put(visit_title, nutrition_counselling);
+            actionList.put(visit_title, nutrition_counselling);
+        }
     }
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
@@ -530,274 +581,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
-            } else {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class HealthFacilityAction extends HealthFacilityVisitAction {
-        private Context context;
-
-        private String anc_hf_visit;
-        private String anc_hf_visit_date;
-        private Date visitDate;
-
-
-        public HealthFacilityAction(MemberObject memberObject, Map<Integer, LocalDate> dateMap) {
-            super(memberObject, dateMap);
-        }
-
-        @Override
-        public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
-            super.onJsonFormLoaded(jsonPayload, context, map);
-            this.context = context;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-
-                anc_hf_visit = JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
-                anc_hf_visit_date = JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
-                visitDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(anc_hf_visit_date);
-
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return super.getPreProcessed();
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            StringBuilder stringBuilder = new StringBuilder();
-            if (anc_hf_visit.equalsIgnoreCase("No")) {
-                stringBuilder.append(context.getString(R.string.visit_not_done).replace("\n", ""));
-            } else {
-                stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(visitDate)));
-            }
-            return stringBuilder.toString();
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(anc_hf_visit)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-
-            if (anc_hf_visit.equalsIgnoreCase("Yes")) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class FamilyPlanningAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private Context context;
-        private String fam_planning;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                fam_planning = JsonFormUtils.getValue(jsonObject, "fam_planning").toLowerCase();
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            String subTitle = (fam_planning.equalsIgnoreCase("Yes") ? context.getString(R.string.family_planning_done).toLowerCase() : context.getString(R.string.family_planning_not_done).toLowerCase());
-            return StringUtils.capitalize(subTitle);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_planning)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-
-            if (fam_planning.equalsIgnoreCase("Yes")) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class CounsellingStatusAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private Context context;
-        private String counselling_given;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                counselling_given = JsonFormUtils.getValue(jsonObject, "counselling_given").toLowerCase();
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            String subTitle = (!counselling_given.contains("chk_none") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
-            return MessageFormat.format("{0} {1}", context.getString(R.string.counselling), subTitle);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(counselling_given)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            } else if (counselling_given.contains("chk_none")) {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-
-            return BaseAncHomeVisitAction.Status.COMPLETED;
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class MalariaAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private String fam_llin;
-        private String llin_2days;
-        private String llin_condition;
-        private Context context;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                fam_llin = JsonFormUtils.getValue(jsonObject, "fam_llin");
-                llin_2days = JsonFormUtils.getValue(jsonObject, "llin_2days");
-                llin_condition = JsonFormUtils.getValue(jsonObject, "llin_condition");
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            if (fam_llin.equalsIgnoreCase("No"))
-                return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}", context.getString(R.string.anc_malaria_field_no));
-            else
-                return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}",
-                        (fam_llin.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
-                                + "\n" + MessageFormat.format(context.getString(R.string.slept_under_net) + ": " + "{0}",
-                                (llin_2days.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
-                                        + "\n" + MessageFormat.format(context.getString(R.string.net_condition) + ": " + "{0}",
-                                        (llin_condition.equalsIgnoreCase("Good") ? context.getString(R.string.anc_malaria_net_condition_good) : context.getString(R.string.anc_malaria_net_condition_bad)))));
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_llin)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-
-            if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Good")) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
             } else {
                 return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
             }
@@ -940,495 +723,4 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             Timber.v("onPayloadReceived");
         }
     }
-
-    private class NutritionCounsellingAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private Context context;
-        private String available_foods = "";
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                available_foods = JsonFormUtils.getCheckBoxValue(jsonObject, "foods_available");
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", context.getString(R.string.foods_available), available_foods);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (available_foods.isEmpty()){
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }else {
-                return  BaseAncHomeVisitAction.Status.COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class CommunityHealthWorkerObservationsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private String value = "";
-        private String anyone_presence = "";
-        private Context context;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                value = JsonFormUtils.getCheckBoxValue(jsonObject, "anyone_else_present_during_visit");
-                anyone_presence = JsonFormUtils.getValue(jsonObject, "anyone_else_present_during_visit");
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            if (!value.isEmpty()){
-                return MessageFormat.format(context.getString(R.string.community_health_worker_observations_evaluate_sub_title), value);
-            } else{
-                return value;
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (!anyone_presence.isEmpty()){
-                if (anyone_presence.contains("anyone_present_yes")){
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                } else{
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                }
-            }
-            else
-                return BaseAncHomeVisitAction.Status.PENDING;
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-    private class ClinicAttendanceAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-
-        private Context context;
-        private String clinic_attendance;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                clinic_attendance = JsonFormUtils.getValue(jsonObject, "attend_anc_clinic_visit");
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            if (clinic_attendance.equalsIgnoreCase("Yes")) {
-                return MessageFormat.format("{0}: {1}", context.getString(
-                        R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.yes));
-            } else {
-                return MessageFormat.format("{0}: {1}", context.getString(
-                        R.string.anc_hv_clinic_attendance_sub_title), context.getString(R.string.no));
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(clinic_attendance)){
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }else{
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
-        }
-    }
-    private class BirthPreparednessAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-
-        private Context context;
-        private String location_nearest_health_facility = "";
-        private String savings_preparedness = "";
-        private String birth_companion_preparedness = "";
-        private String family_member_individual_stay_home_preparedness = "";
-        private String transportation_preparedness = "";
-
-        @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try{
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                location_nearest_health_facility = JsonFormUtils.getValue(jsonObject, "location_nearest_health_facility");
-                savings_preparedness = JsonFormUtils.getValue(jsonObject, "savings_preparedness");
-                birth_companion_preparedness = JsonFormUtils.getValue(jsonObject, "birth_companion_preparedness");
-                family_member_individual_stay_home_preparedness = JsonFormUtils.getValue(jsonObject, "family_member_individual_stay_home_preparedness");
-                transportation_preparedness = JsonFormUtils.getValue(jsonObject, "transportation_preparedness");
-            }catch (Exception e){
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String jsonPayload) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format(
-                    context.getString(R.string.birth_preparedness_summary),
-                    location_nearest_health_facility,
-                    savings_preparedness,
-                    birth_companion_preparedness,
-                    family_member_individual_stay_home_preparedness,
-                    transportation_preparedness
-            );
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (location_nearest_health_facility.equalsIgnoreCase("yes") &&
-                    savings_preparedness.equalsIgnoreCase("yes") &&
-                    birth_companion_preparedness.equalsIgnoreCase("yes") &&
-                    family_member_individual_stay_home_preparedness.equalsIgnoreCase("yes") &&
-                    transportation_preparedness.equalsIgnoreCase("yes")){
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            }
-            else if (location_nearest_health_facility.equalsIgnoreCase("yes") ||
-                    savings_preparedness.equalsIgnoreCase("yes") ||
-                    birth_companion_preparedness.equalsIgnoreCase("yes") ||
-                    family_member_individual_stay_home_preparedness.equalsIgnoreCase("yes") ||
-                    transportation_preparedness.equalsIgnoreCase("yes")){
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-            else
-                return BaseAncHomeVisitAction.Status.PENDING;
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction ancHomeVisitAction) {
-
-        }
-    }
-
-    private class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-
-    private String preg_woman_other_children;
-    private String preg_woman_breastfeed;
-
-
-    @Override
-    public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-
-    }
-
-    @Override
-    public String getPreProcessed() {
-        return null;
-    }
-
-    @Override
-    public void onPayloadReceived(String s) {
-
-        try {
-            JSONObject jsonObject = new JSONObject(s);
-            preg_woman_other_children = JsonFormUtils.getValue(jsonObject, "preg_woman_other_children");
-            preg_woman_breastfeed = JsonFormUtils.getValue(jsonObject, "preg_woman_breastfeed");
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
-
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
-
-    @Override
-    public String postProcess(String s) {
-        return null;
-    }
-
-    @Override
-    public String evaluateSubTitle() {
-        return null;
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(preg_woman_other_children) || StringUtils.isBlank(preg_woman_breastfeed)) {
-            return BaseAncHomeVisitAction.Status.PENDING;
-        } else if (preg_woman_breastfeed.contains("chk_no")) {
-            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        } else {
-            return BaseAncHomeVisitAction.Status.COMPLETED;
-        }
-    }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
-    }
 }
-
-    private class PartnerEngagementAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private String partner_presence;
-        private Context context;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                partner_presence = JsonFormUtils.getCheckBoxValue(jsonObject, "partner_head_of_household");
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format(context.getString(R.string.partner_engagement_evaluate_sub_title), partner_presence);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (!StringUtils.isBlank(partner_presence))
-                if(partner_presence.equalsIgnoreCase("yes") || partner_presence.equalsIgnoreCase("ndio")){
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                }else{
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                }
-            else
-                return BaseAncHomeVisitAction.Status.PENDING;
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
-
-    private class PmtctActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-
-        private Context context;
-        String hiv_test;
-        String disclose_status;
-        String taking_art;
-        String hiv_status;
-
-        @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                hiv_test = JsonFormUtils.getValue(jsonObject, "hiv_test").toLowerCase();
-                disclose_status = JsonFormUtils.getValue(jsonObject, "disclose_status").toLowerCase();
-                taking_art = JsonFormUtils.getValue(jsonObject, "taking_art").toLowerCase();
-                hiv_status = JsonFormUtils.getValue(jsonObject, "hiv_status").toLowerCase();
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String jsonPayload) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return null;
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-
-            if (hiv_test.contains("chk_hiv_test_no")){
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-
-            if (hiv_test.contains("chk_hiv_test_yes") && disclose_status.contains("chk_disclose_status_no")){
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-
-            if (hiv_test.contains("chk_hiv_test_yes") && disclose_status.contains("chk_disclose_status_yes") && taking_art.contains("chk_taking_art_no")){
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-
-            if (hiv_test.contains("chk_hiv_test_yes") && hiv_status.contains("chk_hiv_status_negative")){
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            }
-
-            if (hiv_test.contains("chk_hiv_test_yes") && hiv_status.contains("chk_hiv_status_positive") && taking_art.contains("chk_taking_art_yes")){
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            }
-
-            return BaseAncHomeVisitAction.Status.PENDING;
-
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction ancHomeVisitAction) {
-
-        }
-    }
-}
-
