@@ -255,7 +255,18 @@
         "type": "toaster_notes",
         "text": "UJUMBE WA MJA: Mshauri mama mjamzito kuhusu umuhimu wa kutumia vyakula hivyo kwa maendeleo na ukuaji wa mtoto wake.",
         "text_color": "#2C0000",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step2:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "folic_acid_tablets",
@@ -378,6 +389,36 @@
             }
           }
         }
+      },
+      {
+        "key": "completing_medications_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "Endelea na kumshauri mama mjamzito juu ya umuhimu wa kumaliza dozi ya dawa. Ni muhimu kuhakikisha unamaliza dozi ya dawa ambayo umepewa kituo cha huduma za afya. Hata unapoanza kujisikia vizuri, hakikisha umemaliza dozi ya dawa.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "traditional_herbs_warning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "Ningependa kujadili kuhusu matumizi ya dawa za kienyeji wakati wa ujauzito na madhara yake kwa afya yako na ya mtoto wako ambaye hajazaliwa.\nWanawake wengi hutumia mitishamba ili kuponya maumivu ya tumbo, kupunguza maumivu ya asubuhi na kuongeza damu wakati wa ujauzito. Hata hivyo, miti shamba hii ikitumika kwa wingi na bila kushauriana na daktari inaweza kusababisha shinikizo la damu kushuka/kupanda, kuharibika kwa mimba, kuzaliwa kwa mtoto mgonjwa wa akili/kimwili na wakati mwingine kifo kwa mama, mtoto au wote wawili.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "counsel_harmful_habits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "KUMBUSHO KWA MJA:  Mshauri mama kuhusu madhara ya tabia hatarishi kama vile uvutaji sigara, matumizi ya dawa za kulevya, na unywaji wa pombe, na athari zake katika ujauzito wake.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
       }
     ]
   }

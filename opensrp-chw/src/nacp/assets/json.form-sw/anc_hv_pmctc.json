@@ -289,18 +289,6 @@
         }
       },
       {
-        "key": "pmtct_bango_kitita_reference",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "pmtct_bango_kitita_reference",
-        "type": "label",
-        "has_bg": true,
-        "text": "Tafadhali fungua kitendea kazi namba 6 kwenye bango kitita ili kuendelea na majadiliano.",
-        "bg_color": "#f595df",
-        "text_color": "#000000",
-        "label_text_style": "italic"
-      },
-      {
         "key": "hiv_positive_women_support_group_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -316,6 +304,18 @@
             }
           }
         }
+      },
+      {
+        "key": "pmtct_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_bango_kitita_reference",
+        "type": "label",
+        "has_bg": true,
+        "text": "Tafadhali fungua kitendea kazi namba 6 kwenye bango kitita ili kuendelea na majadiliano.",
+        "bg_color": "#f595df",
+        "text_color": "#000000",
+        "label_text_style": "italic"
       }
     ]
   }

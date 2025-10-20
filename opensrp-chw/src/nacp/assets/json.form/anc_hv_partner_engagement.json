@@ -90,7 +90,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "partner_head_of_household_no"
           }
         ],
         "v_required": {
@@ -102,7 +102,7 @@
         "key": "partner_head_of_household_stay_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "partner_head_of_household_stay_visit",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Did the partner stay for the entire visit?",
@@ -118,7 +118,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "partner_head_of_household_yes"
           },
           {
             "key": "partner_head_of_household_no",
@@ -126,7 +126,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "partner_head_of_household_no"
           }
         ],
         "v_required": {
@@ -145,7 +145,7 @@
         "key": "partner_head_of_households_interaction",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "partner_head_of_households_interaction",
         "combine_checkbox_option_values": "true",
         "type": "check_box",
         "label": "How would you define the partner/male head of household's interaction during the visit?",
@@ -162,7 +162,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_frustrated"
           },
           {
             "key": "chk_minimal_questions",
@@ -170,7 +170,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_minimal_questions"
           },
           {
             "key": "chk_many_questions",
@@ -178,7 +178,7 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_many_questions"
           }
         ],
         "v_required": {

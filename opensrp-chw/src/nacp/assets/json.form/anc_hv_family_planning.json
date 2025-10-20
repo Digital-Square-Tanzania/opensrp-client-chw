@@ -93,21 +93,6 @@
         }
       },
       {
-        "key": "prompt_for_family_planning",
-        "type": "toaster_notes",
-        "text": "Please provide the client counselling on family planning",
-        "openmrs_entity_id": "prompt_for_family_planning",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "warning",
-        "relevance": {
-          "step1:fam_planning": {
-            "type": "String",
-            "ex": "equalTo(.,\"No\")"
-          }
-        }
-      },
-      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

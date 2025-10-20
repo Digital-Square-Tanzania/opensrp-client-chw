@@ -94,13 +94,6 @@
         "v_required": {
           "value": true,
           "err": "Value required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_clinic_attendance_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -278,14 +271,7 @@
         "type": "toaster_notes",
         "text": "It’s very important that you attend all 8 ANC  visits because life-threatening complications are often only seen at the third or fourth visit",
         "text_color": "#F91A00",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_clinic_attendance_relevance.yml"
-            }
-          }
-        }
+        "toaster_type": "problem"
       },
       {
         "key": "clinic_visit_bango_kitita_reference",

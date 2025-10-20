@@ -94,13 +94,6 @@
         "v_required": {
           "value": true,
           "err": "Jibu linahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_clinic_attendance_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -139,7 +132,7 @@
         "openmrs_entity_id": "anc_clinic_visit_partner",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "Does she usually attend her ANC clinic visits with her partner?",
+        "label": "Je, unaambatana na mwenza wakati wa mahudhurio ya klinki?",
         "options": [
           {
             "key": "Yes",
@@ -230,14 +223,14 @@
           },
           {
             "key": "chk_too_early",
-            "text": "Ilikua ni mapema zana kwa ujauzito wangu",
+            "text": "Ilikua ni mapema sana kwa ujauzito wangu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_too_early"
           },
           {
             "key": "chk_other",
-            "text": "Hakuna",
+            "text": "Sababu Nyingine",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
@@ -278,14 +271,7 @@
         "type": "toaster_notes",
         "text": "Ni muhimu uhudhurie matembeleo yote 8 ya kliniki ya wajawazito, kwa sababu dalili hatarishi huonekana mara nyingi katika hudhurio la tatu au la nne.",
         "text_color": "#F91A00",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_clinic_attendance_relevance.yml"
-            }
-          }
-        }
+        "toaster_type": "problem"
       },
       {
         "key": "clinic_visit_bango_kitita_reference",

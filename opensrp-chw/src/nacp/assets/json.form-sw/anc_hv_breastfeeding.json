@@ -130,7 +130,7 @@
         "openmrs_entity_id": "preg_woman_challenges_breastfeed",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "Did she experience any challenges while breastfeeding?",
+        "label": "Je, alipata changamoto yoyote wakati wa kunyonyesha?",
         "options": [
           {
             "key": "chk_yes",

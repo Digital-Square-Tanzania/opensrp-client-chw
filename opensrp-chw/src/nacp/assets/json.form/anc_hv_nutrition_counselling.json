@@ -385,6 +385,36 @@
             }
           }
         }
+      },
+      {
+        "key": "completing_medications_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "Proceed to advise the pregnant mother on the importance of completing the course of medication. It is important to make sure you finish the dose of medicine that you have been given at the health facility.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "traditional_herbs_warning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "I would like to discuss about the use of traditional medicine during pregnancy and the effects they have to your health and that of your unborn child.\nMost women use traditional medicines to induce labor, heal abdominal pain, reduce morning sickness and increase blood during pregnancy. The use of traditional medicines can lead to  high/low blood pressure, miscarriage, birth of a mentally/physically ill baby and sometimes death to either mom, baby or both.\n",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
+      },
+      {
+        "key": "counsel_harmful_habits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_note",
+        "type": "toaster_notes",
+        "text": "REMINDER TO CHW: Counsel the mother with regard to harmful habits such as smoking, drug abuse, alcoholism in relation to their implication on their pregnancy.",
+        "text_color": "#2C0000",
+        "toaster_type": "info"
       }
     ]
   }

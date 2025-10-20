@@ -74,7 +74,7 @@
         "openmrs_entity_id": "hiv_exposed_infant_flip_book_reference",
         "type": "toaster_notes",
         "toaster_type": "info",
-        "text": "<i> Tafadhali fungua kitendea kazi namba</i> <b>1</b> <i>kwenye bango kitita ili kuendelea na mazungumzo</i>",
+        "text": "<i> Tafadhali fungua kitendea kazi namba</i> <b>15</b> <i>kwenye bango kitita ili kuendelea na mazungumzo</i>",
         "text_color": "#000000",
         "has_bg": true,
         "bg_color": "#f595df",

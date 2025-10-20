@@ -205,7 +205,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "KUMBUSHO KWA WAJA: Pitia kila dalili pamoja na mama mjamzito.\nKumbuka kuwa dalili za awali za uchungu wa kujifungua zinaweza kuwa",
+        "text": "KUMBUSHO KWA MJA: Pitia kila dalili pamoja na mama mjamzito.\nKumbuka kuwa dalili za awali za uchungu wa kujifungua zinaweza kuwa",
         "text_color": "#000000"
       },
       {
@@ -213,7 +213,6 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
         "type": "label",
         "text": "\n• Kujiskia kuchoka \n• Kupata choo kilaini/chepesi\n• Mtoto kushuka \n•  Kutokwa na damu kidogo ukeni \n• Kupata uchungu wa mara kwa mara \n• Kutokwa na maji maji ukeni (utelezi kuongezeka) \n• Kukojoa mara kwa mara"
       },
