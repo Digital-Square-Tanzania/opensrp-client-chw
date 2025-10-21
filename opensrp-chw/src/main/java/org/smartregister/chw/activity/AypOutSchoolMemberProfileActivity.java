@@ -1,10 +1,14 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -15,10 +19,13 @@ import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
+import org.smartregister.chw.ayp.util.DBConstants;
+import org.smartregister.chw.core.activity.CoreAypOutSchoolProfileActivity;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
-import org.smartregister.chw.kvp.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -36,6 +43,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolMemberProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(org.smartregister.chw.ayp.util.Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
         activity.startActivity(intent);
     }
 
@@ -56,7 +64,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
                 } else {
                     try {
                         Date lastSelfTestingFollowupDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(lastSelfTestingFollowupDateString);
-                        Visit lastVisit = getVisit(Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
+                        Visit lastVisit = getVisit(AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
                         if (truncateTimeFromDate(lastSelfTestingFollowupDate).before(truncateTimeFromDate(lastVisit.getDate())) && lastVisit.getProcessed()) {
                             shouldIssueHivSelfTestingKits = true;
                         }
@@ -104,7 +112,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         return calendar.getTime();
     }
 
-    @Override
+
     public void startHivstRegistration() {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
@@ -118,22 +126,21 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public void continueService() {
-
+        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     @Override
     public void continueDischarge() {
-
     }
 
     @Override
     public void openFollowupVisit() {
-        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), true);
+        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void startServiceForm() {
-        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), true);
+        AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
@@ -150,5 +157,31 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     protected MemberObject getMemberObject(String baseEntityId) {
         return AypDao.getOutSchoolMember(baseEntityId);
     }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        setupViews();
+        refreshMedicalHistory(true);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        org.smartregister.chw.ayp.domain.Visit lastVisit = getVisit(AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
+        if (lastVisit != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+//            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
+            ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        AypOutSchoolMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
 }
 

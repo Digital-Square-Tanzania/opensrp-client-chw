@@ -496,6 +496,9 @@
         <activity
             android:name=".activity.KvpPrEPMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypOutSchoolMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.CbhsMedicalHistoryActivity"

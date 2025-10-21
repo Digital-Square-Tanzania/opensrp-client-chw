@@ -58,7 +58,7 @@
       {
         "key": "choose_economic_empowerment_services",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "choose_economic_empowerment_services",
         "type": "check_box",
         "label": "Select economic empowerment services",
@@ -72,73 +72,73 @@
           {
             "key": "savings_management_education",
             "text": "Savings management education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "savings_management_education"
           },
           {
             "key": "loan_management_education",
             "text": "Loan management education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "loan_management_education"
           },
           {
             "key": "budgeting_education",
             "text": "Budgeting education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "budgeting_education"
           },
           {
             "key": "business_startup_education",
             "text": "Business startup education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_startup_education"
           },
           {
             "key": "business_plan_preparation_education",
             "text": "Business plan preparation education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_plan_preparation_education"
           },
           {
             "key": "youth_employment_and_self_employment_preparation",
             "text": "Preparation for youth self-employment and employment",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "youth_employment_and_self_employment_preparation"
           },
           {
             "key": "business_management_education",
             "text": "Business management education",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_management_education"
           },
           {
             "key": "financial_and_business_services",
             "text": "Financial and business services",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_and_business_services"
           },
           {
             "key": "village_bank_services",
             "text": "Village banking services",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "village_bank_services"
           },
           {
             "key": "group_health_assessment_and_profit_sharing",
             "text": "Group performance assessment and profit sharing",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "group_health_assessment_and_profit_sharing"
           },
           {
             "key": "financial_dialogue",
             "text": "Financial dialogue",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_dialogue"
           },
           {
             "key": "none",
             "text": "None",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
         ],
@@ -150,7 +150,7 @@
       {
         "key": "choose_integrated_services",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "choose_integrated_services",
         "type": "check_box",
         "label": "Select integrated services",
@@ -161,73 +161,73 @@
           {
             "key": "entrepreneurial_skills_in_group",
             "text": "Entrepreneurial skills in groups",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurial_skills_in_group"
           },
           {
             "key": "practical_training_for_job_skills",
             "text": "Practical training to gain job skills",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "practical_training_for_job_skills"
           },
           {
             "key": "entrepreneurship_equipment",
             "text": "Entrepreneurship equipment",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship_equipment"
           },
           {
             "key": "employment_preparation",
             "text": "Employment preparation",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "employment_preparation"
           },
           {
             "key": "employment",
             "text": "Employment",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "employment"
           },
           {
             "key": "join_savings_and_credit_group",
             "text": "Join a savings and credit group",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_savings_and_credit_group"
           },
           {
             "key": "market_research",
             "text": "Market research",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "market_research"
           },
           {
             "key": "join_vocational_training_institute",
             "text": "Join a vocational training institute (VETA)",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_vocational_training_institute"
           },
           {
             "key": "join_health_insurance_fund",
             "text": "Join a health insurance fund",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_health_insurance_fund"
           },
           {
             "key": "receive_grant",
             "text": "Receive a grant",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "receive_grant"
           },
           {
             "key": "receive_loan",
             "text": "Receive a loan",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "receive_loan"
           },
           {
             "key": "assistance_in_obtaining_national_ids",
             "text": "Assistance in obtaining national IDs (birth certificate, NIDA)",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "assistance_in_obtaining_national_ids"
           }
         ],
@@ -351,7 +351,7 @@
       {
         "key": "number_of_sanitary_pads_given",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_sanitary_pads_given",
         "type": "edit_text",
         "hint": "Number of sanitary pads given",

@@ -101,7 +101,7 @@
       {
         "key": "condom_distribution",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "condom_distribution",
         "type": "check_box",
         "label": "Condom distribution",
@@ -112,13 +112,13 @@
           {
             "key": "male",
             "text": "Male",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "male"
           },
           {
             "key": "female",
             "text": "Female",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
           }
         ]
@@ -126,7 +126,7 @@
       {
         "key": "number_of_male_condom",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_male_condom",
         "type": "edit_text",
         "hint": "Number of male condoms",
@@ -150,7 +150,7 @@
       {
         "key": "number_of_female_condom",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_female_condom",
         "type": "edit_text",
         "hint": "Number of female condoms",
@@ -202,7 +202,7 @@
       {
         "key": "type_of_gender_based_violence",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_gender_based_violence",
         "type": "check_box",
         "label": "Type of gender-based violence",
@@ -213,25 +213,25 @@
           {
             "key": "physical",
             "text": "Physical",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "physical"
           },
           {
             "key": "emotional",
             "text": "Emotional",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "emotional"
           },
           {
             "key": "sexual",
             "text": "Sexual",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "sexual"
           },
           {
             "key": "economic",
             "text": "Economic",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "economic"
           }
         ],
