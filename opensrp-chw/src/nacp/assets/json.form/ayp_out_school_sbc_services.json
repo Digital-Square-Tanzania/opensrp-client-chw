@@ -213,6 +213,24 @@
             "text": "Distribution of health education materials",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "distribution_of_health_educational_materials"
+          },
+          {
+            "key": "mental_health",
+            "text": "Mental Health",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "hepatitis",
+            "text": "Hepatitis (Liver Disease)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hepatitis"
+          },
+          {
+            "key": "information_science_technology",
+            "text": "Proper Use of Information Science and Technology",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "information_science_technology"
           }
         ],
         "v_required": {

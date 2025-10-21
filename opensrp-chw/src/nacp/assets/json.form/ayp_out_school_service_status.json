@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Hali ya Huduma",
+    "title": "Service Status",
     "display_back_button": "true",
     "fields": [
       {
@@ -60,31 +60,25 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "service_status",
-        "type": "check_box",
-        "label": "Chagua hali ya huduma ya mteja",
-        "combine_checkbox_option_values": "true",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "exclusive": [
-          "not_in_service"
-        ],
+        "type": "native_radio",
+        "label": "Select the client’s service status",
         "options": [
           {
             "key": "in_service",
-            "text": "Yupo kwenye huduma",
+            "text": "Currently in service",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "in_service"
           },
           {
             "key": "not_in_service",
-            "text": "Hayupo kwenye huduma",
+            "text": "Not in service",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "not_in_service"
           }
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhali jaza"
+          "err": "Please fill in"
         }
       },
       {
@@ -93,32 +87,32 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons",
         "type": "native_radio",
-        "label": "Sababu",
+        "label": "Reason",
         "options": [
           {
             "key": "transferred",
-            "text": "Amehama",
+            "text": "Moved to another location",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "transferred"
           },
           {
             "key": "dead",
-            "text": "Amefariki",
+            "text": "Deceased",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "dead"
           },
           {
             "key": "discontinued",
-            "text": "Amejitoa",
+            "text": "Withdrew from the program",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "discontinued"
           },
           {
             "key": "married",
-            "text": "Ameoa / Kuolewa",
+            "text": "Married",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "married"
@@ -126,17 +120,12 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhali jaza"
+          "err": "Please fill in"
         },
         "relevance": {
           "step1:service_status": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "not_in_service"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"not_in_service\")"
           }
         }
       }

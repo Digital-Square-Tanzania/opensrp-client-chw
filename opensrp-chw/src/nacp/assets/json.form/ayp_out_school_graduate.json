@@ -250,6 +250,13 @@
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_graduation_marks_calculation.yml"
+            }
+          }
         }
       }
     ]

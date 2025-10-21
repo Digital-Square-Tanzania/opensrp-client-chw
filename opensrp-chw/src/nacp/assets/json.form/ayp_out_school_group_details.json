@@ -81,13 +81,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "age_band"
-          },
-          {
-            "key": "classes",
-            "text": "Classes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "classes"
           }
         ],
         "v_required": {
@@ -109,13 +102,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "age_10_14"
-          },
-          {
-            "key": "age_10_19_enabling_dreams",
-            "text": "10-19 (Enabling DREAMS)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "age_10_19_enabling_dreams"
           },
           {
             "key": "age_15_19",

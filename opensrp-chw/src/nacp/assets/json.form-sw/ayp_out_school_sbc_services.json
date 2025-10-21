@@ -213,6 +213,24 @@
             "text": "Ugawaji wa vifaa vya elimu ya afya",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "distribution_of_health_educational_materials"
+          },
+          {
+            "key": "mental_health",
+            "text": "Afya ya Akili",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "hepatitis",
+            "text": "Homa ya Ini",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "hepatitis"
+          },
+          {
+            "key": "information_science_technology",
+            "text": "Matumizi sahihi ya sayansi na teknolojia ya habari",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "information_science_technology"
           }
         ],
         "v_required": {

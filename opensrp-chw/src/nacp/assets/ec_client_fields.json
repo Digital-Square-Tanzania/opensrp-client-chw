@@ -9878,6 +9878,57 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_ayp_out_school_client_followup_visits",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "service_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "service_status"
+          }
+        },
+        {
+          "column_name": "not_in_service_reasons",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "not_in_service_reasons"
+          }
+        },
+        {
+          "column_name": "self_testing_service_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "self_testing_service_provided"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }

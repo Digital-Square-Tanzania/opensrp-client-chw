@@ -6,7 +6,9 @@ import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +70,34 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
     }
 
     @Override
+    public void renderMembers(List<MemberObject> members) {
+        adapter.setItems(members);
+
+        int count = (members != null) ? members.size() : 0;
+
+        if (count >= 5) {
+            // Normal display when group has 5 or more members
+            tvGroupMemberCount.setText(getString(R.string.group_members_count, count));
+            tvGroupMemberCount.setTextColor(Color.BLACK);
+            tvGroupMemberCount.setBackgroundColor(Color.TRANSPARENT);
+
+            if (btnProvideDetails != null) {
+                btnProvideDetails.setVisibility(View.VISIBLE);
+            }
+
+        } else {
+            // Warning style for few members
+            tvGroupMemberCount.setTextColor(Color.WHITE);
+            tvGroupMemberCount.setBackgroundColor(Color.RED);
+            tvGroupMemberCount.setText(getString(R.string.group_few_members_count, count));
+
+            if (btnProvideDetails != null) {
+                btnProvideDetails.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
     public void onAddMember() {
         try {
             String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
@@ -77,11 +107,22 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             // Members already in this group
             Set<String> existing = new HashSet<>();
             List<MemberObject> existingMembers = AypDao.getOutSchoolGroupMembers(groupId);
-            for(MemberObject memberObject: existingMembers){
+            for (MemberObject memberObject : existingMembers) {
                 existing.add(memberObject.getBaseEntityId());
             }
 
-            // All in-school members
+            int existingCount = existing.size();
+            int maxGroupSize = 10;
+
+            // Check if group already full
+            if (existingCount >= maxGroupSize) {
+                Toast.makeText(this,
+                        "This group already has 10 members. You cannot add more.",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // All members eligible to join
             List<MemberObject> all = AypDao.getOutSchoolMembers();
             List<MemberObject> eligible = new ArrayList<>();
             for (MemberObject m : all) {
@@ -98,18 +139,48 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             final boolean[] checked = new boolean[eligible.size()];
             for (int i = 0; i < eligible.size(); i++) {
                 MemberObject m = eligible.get(i);
-                String name = (m.getFirstName() + " " + (m.getMiddleName() != null ? m.getMiddleName() + " " : "") + m.getLastName()).trim();
+                String name = (m.getFirstName() + " " +
+                        (m.getMiddleName() != null ? m.getMiddleName() + " " : "") +
+                        m.getLastName()).trim();
                 items[i] = name;
                 checked[i] = false;
             }
 
             new AlertDialog.Builder(this)
                     .setTitle(org.smartregister.chw.R.string.add_eligible_child)
-                    .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> saveMembershipByEvent(groupId, collectSelectedIds(eligible, checked)))
+                    .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> {
+                        int selectedCount = 0;
+                        for (boolean b : checked) if (b) selectedCount++;
+
+                        // Prevent selecting more than 10 total (including existing)
+                        if (isChecked && (existingCount + selectedCount) > maxGroupSize) {
+                            ((AlertDialog) dialog).getListView().setItemChecked(which, false);
+                            checked[which] = false;
+                            Toast.makeText(this,
+                                    "Each group can have up to 10 members only",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            checked[which] = isChecked;
+                        }
+                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        List<String> selectedIds = collectSelectedIds(eligible, checked);
+                        int newCount = existingCount + selectedIds.size();
+
+                        if (newCount > maxGroupSize) {
+                            Toast.makeText(this,
+                                    "Adding these members would exceed the 10-member limit",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        saveMembershipByEvent(groupId, selectedIds);
+                    })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
-        } catch (Exception ignored) {
+
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -252,8 +323,6 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
         switch (raw) {
             case "age_10_14":
                 return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_14);
-            case "age_10_19_enabling_dreams":
-                return getString(org.smartregister.chw.R.string.ayp_age_band_age_10_19_enabling_dreams);
             case "age_15_19":
                 return getString(org.smartregister.chw.R.string.ayp_age_band_age_15_19);
             case "age_20_24":
