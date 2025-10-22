@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
-import static org.smartregister.chw.tbleprosy.util.Constants.JSON_FORM_EXTRA.EVENT_TYPE;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,13 +21,10 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbLeprosyProfileActivity;
-import org.smartregister.chw.core.custom_views.CoreVmmcFloatingMenu;
-import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.chw.custom_view.CecapFloatingMenu;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
@@ -150,6 +146,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         if (!isContactClient) {
             boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
             boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
+            String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
+            boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
+            String latestObservationResults = TbLeprosyDao.getTBleprosyObservationResults(baseEntityId);
+            String contactObservationResults = TbLeprosyDao.getTBleprosyContactObservationResults(baseEntityId);
+            boolean hasPoorQualitySample = StringUtils.isNotBlank(contactObservationResults)
+                    && StringUtils.containsIgnoreCase(contactObservationResults, "poor_quality_sample");
 
             if (isTbPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
@@ -163,19 +165,27 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyVisit(baseEntityId))) {
+            if (StringUtils.isNotBlank(latestTbLeprosyVisit)) {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyObservationResults(baseEntityId))) {
+            if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+            }
+
+            if (StringUtils.isNotBlank(latestObservationResults)) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                 textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyFollowUpVisit(baseEntityId))) {
+            if (hasTbLeprosyVisit && StringUtils.isBlank(latestTbLeprosyVisit)) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+            } else if (hasTbLeprosyVisit) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                 textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
@@ -186,7 +196,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
 
         if (isContactClient) {
 
-            if(getTbLeprosyContactVisit() == null){
+            if (getTbLeprosyContactVisit() == null) {
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_contact_visit);
             }
 
@@ -293,7 +303,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     public void continueContactVisit() {
         TbLeprosyContactVisitActivity.startTbLeprosyVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
-
 
 
     @Override
