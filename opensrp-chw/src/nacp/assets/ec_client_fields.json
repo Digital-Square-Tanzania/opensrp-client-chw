@@ -5509,19 +5509,19 @@
           }
         },
         {
-          "column_name": "matokeo_ya_sampuli_tb",
+          "column_name": "tb_sample_test_results",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "matokeo_ya_sampuli_tb"
+            "concept": "tb_sample_test_results"
           }
         },
         {
-          "column_name": "maamuzi_kitabibu",
+          "column_name": "clinical_decision",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "maamuzi_kitabibu"
+            "concept": "clinical_decision"
           }
         },
         {
@@ -5705,6 +5705,13 @@
       "columns": [
         {
           "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
