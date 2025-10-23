@@ -77,13 +77,13 @@ def main() -> int:
     parser.add_argument(
         "--source",
         type=Path,
-        default=Path("legacy-opensrp-libs"),
+        default=Path("local-maven"),
         help="Path to the Gradle legacy-opensrp-libs cache",
     )
     parser.add_argument(
         "--dest",
         type=Path,
-        default=Path("local-maven"),
+        default=Path("legacy-opensrp-libs"),
         help="Destination directory for the generated Maven repository",
     )
     parser.add_argument(
