@@ -5391,6 +5391,14 @@
           }
         },
         {
+          "column_name": "leprosy_index_client_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "leprosy_index_client_number"
+          }
+        },
+        {
           "column_name": "tb_client_number",
           "type": "Event",
           "json_mapping": {
