@@ -53,7 +53,11 @@ public class TbLeprosyObservationResultsInteractor extends CoreBaseAncMedicalHis
     @Override
     public void getMemberHistory(final String memberID, final Context context, final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
         final Runnable runnable = () -> {
-            String[] eventTypes = new String[]{Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION};
+            String[] eventTypes = new String[]{
+                    Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION,
+                    Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT,
+                    Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT
+            };
             List<SortableVisit> visits = getVisits(memberID, eventTypes);
             final List<Visit> allVisits = new ArrayList<>(visits);
             appExecutors.mainThread().execute(() -> callBack.onDataFetched(allVisits));
