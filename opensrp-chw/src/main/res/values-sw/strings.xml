@@ -829,6 +829,7 @@
     <string name="filter_group_type_age_band">Vikundi vya umri</string>
     <string name="filter_group_type_classes">Darasa</string>
 
+    <string name="tbleprosy_visit_history_title">Ziara za TB/Ukoma</string>
     <string name="tbleprosy_observation_results_history">Matokeo ya Uchunguzi</string>
     <string name="tbleprosy_observation_results_visit_title">Ziara ya Matokeo ya Uchunguzi</string>
     <string name="tbleprosy_observation_results_investigation_type">Aina ya Uchunguzi</string>
@@ -874,5 +875,39 @@
     <string name="tbleprosy_observation_results_no">Hapana</string>
     <string name="tbleprosy_observation_results_yes_hiv_tested">Ndiyo</string>
     <string name="tbleprosy_observation_results_no_hiv_not_tested">Hapana</string>
+    <string name="tbleprosy_followup_visit_title">Ziara ya Ufuatiliaji wa TB/Ukoma</string>
+    <string name="tbleprosy_followup_visit_follow_up_reason">Sababu ya ufuatiliaji</string>
+    <string name="tbleprosy_followup_visit_interrupted_treatment">Amekatiza dawa</string>
+    <string name="tbleprosy_followup_visit_never_started_treatment">Hakuanza dawa</string>
+    <string name="tbleprosy_followup_visit_follow_up_outcome">Matokeo ya ufuatiliaji</string>
+    <string name="tbleprosy_followup_visit_client_found">Amepatikana</string>
+    <string name="tbleprosy_followup_visit_client_not_found">Hajapatikana</string>
+    <string name="tbleprosy_followup_visit_client_deceased">Amefariki</string>
+    <string name="tbleprosy_followup_visit_reason_client_not_found">Taja sababu ya kutopatikana mteja</string>
+    <string name="tbleprosy_followup_visit_returned_to_treatment">Amerudi kwenye matibabu</string>
+    <string name="tbleprosy_followup_visit_service_access_challenges">Kuna changamoto anazokabiliana nazo katika upatikanaji wa huduma?</string>
+    <string name="tbleprosy_followup_visit_reasons_for_not_returning_to_services_while_not_facing_challenges">Taja sababu ya kutokuanza/kutatiza dawa</string>
+    <string name="tbleprosy_followup_visit_client_challenge_types">Chagua aina ya changamoto mteja aliyopata</string>
+    <string name="tbleprosy_followup_visit_family_challenges">Katika familia</string>
+    <string name="tbleprosy_followup_visit_health_facility_challenges">Katika kituo cha kutolea huduma za afya</string>
+    <string name="tbleprosy_followup_visit_community_challenges">Katika jamii</string>
+    <string name="tbleprosy_followup_visit_other">Changamoto nyinginezo</string>
+    <string name="tbleprosy_followup_visit_health_facility_challenges_detail">Chagua changamoto katika kituo cha kutolea huduma za afya</string>
+    <string name="tbleprosy_followup_visit_verbal_abuse">Kutukanwa/Kufokewa</string>
+    <string name="tbleprosy_followup_visit_denied_information_on_condition">Kunyimwa taarifa juu ya ugonjwa na matibabu</string>
+    <string name="tbleprosy_followup_visit_neglected_or_delayed">Kutelekezwa au kucheleweshwa</string>
+    <string name="tbleprosy_followup_visit_limited_service_access">Upatikanaji mdogo wa huduma</string>
+    <string name="tbleprosy_followup_visit_discriminated">Kudharauliwa</string>
+    <string name="tbleprosy_followup_visit_medication_denied">Kunyimwa dawa</string>
+    <string name="tbleprosy_followup_visit_return_to_treatment_prompt">Mshauri mteja kurudi kwenye matibabu</string>
+    <string name="tbleprosy_followup_visit_yes">Ndiyo</string>
+    <string name="tbleprosy_followup_visit_no">Hapana</string>
+    <string name="tbleprosy_record_visit_visit_title">Ziara ya Mteja wa TB/Ukoma</string>
+    <string name="tbleprosy_record_visit_has_sample_been_collected">Je mteja amechukuliwa sampuli?</string>
+    <string name="tbleprosy_record_visit_sample_collection_date">Tarehe ya kuchukuliwa sampuli</string>
+    <string name="tbleprosy_record_visit_sputum_container_provided">Je mteja amepewa kikopo cha makohozi?</string>
+    <string name="tbleprosy_record_visit_extra_sputum_container_required">Je mteja anahitaji kikopo cha makohozi cha ziada?</string>
+    <string name="tbleprosy_record_visit_yes">Ndiyo</string>
+    <string name="tbleprosy_record_visit_no">Hapana</string>
 
 </resources>
