@@ -417,7 +417,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 continue;
             }
 
-            if ("aina_ya_uchunguzi".equals(field.optString("key"))) {
+            if ("investigation_type".equals(field.optString("key"))) {
                 field.put("type", "hidden");
                 field.put("value", hiddenValue);
                 field.remove("options");
