@@ -5375,35 +5375,35 @@
           }
         },
         {
-          "column_name": "anaishi_karibu_na_mgonjwa",
+          "column_name": "contact_lives_with_patient_type",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "anaishi_karibu_na_mgonjwa"
+            "concept": "contact_lives_with_patient_type"
           }
         },
         {
-          "column_name": "namba_ya_mteja_tb",
+          "column_name": "tb_client_number",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "namba_ya_mteja_tb"
+            "concept": "tb_client_number"
           }
         },
         {
-          "column_name": "namba_ya_mteja_ukoma",
+          "column_name": "leprosy_client_number",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "namba_ya_mteja_ukoma"
+            "concept": "leprosy_client_number"
           }
         },
         {
-          "column_name": "kundi_maalumu",
+          "column_name": "belongs_to_special_group",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "kundi_maalumu"
+            "concept": "belongs_to_special_group"
           }
         },
         {
@@ -5493,19 +5493,19 @@
           }
         },
         {
-          "column_name": "aina_ya_uchunguzi",
+          "column_name": "investigation_type",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "aina_ya_uchunguzi"
+            "concept": "investigation_type"
           }
         },
         {
-          "column_name": "kipimo_cha_uchunguzi_kilichotumika_kupima_tb",
+          "column_name": "tb_diagnostic_test_type",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "kipimo_cha_uchunguzi_kilichotumika_kupima_tb"
+            "concept": "tb_diagnostic_test_type"
           }
         },
         {
@@ -5525,19 +5525,19 @@
           }
         },
         {
-          "column_name": "aina_uchunguzi_uliotumika_kupima_ukoma",
+          "column_name": "leprosy_diagnostic_method",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "aina_uchunguzi_uliotumika_kupima_ukoma"
+            "concept": "leprosy_diagnostic_method"
           }
         },
         {
-          "column_name": "matokeo_uchunguzi_ukoma",
+          "column_name": "leprosy_investigation_results",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "matokeo_uchunguzi_ukoma"
+            "concept": "leprosy_investigation_results"
           }
         }
       ]
@@ -5568,27 +5568,27 @@
           }
         },
         {
-          "column_name": "matokeo_ya_uchunguzi_tb",
+          "column_name": "tb_investigation_results",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "matokeo_ya_uchunguzi_tb"
+            "concept": "tb_investigation_results"
           }
         },
         {
-          "column_name": "ameanza_tiba_ya_tb",
+          "column_name": "has_tb_treatment_started",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "ameanza_tiba_ya_tb"
+            "concept": "has_tb_treatment_started"
           }
         },
         {
-          "column_name": "tarehe_ya_kuanza_matibabu",
+          "column_name": "tb_treatment_start_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "tarehe_ya_kuanza_matibabu"
+            "concept": "tb_treatment_start_date"
           }
         },
         {
@@ -5600,19 +5600,19 @@
           }
         },
         {
-          "column_name": "ameanza_tiba_kinga",
+          "column_name": "has_tb_preventive_therapy_started",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "ameanza_tiba_kinga"
+            "concept": "has_tb_preventive_therapy_started"
           }
         },
         {
-          "column_name": "tarehe_ya_kuanza_tiba_kinga",
+          "column_name": "tpt_start_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "tarehe_ya_kuanza_tiba_kinga"
+            "concept": "tpt_start_date"
           }
         }
       ]
@@ -5643,19 +5643,19 @@
           }
         },
         {
-          "column_name": "sababu_ya_ufuatiliaji",
+          "column_name": "follow_up_reason",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "sababu_ya_ufuatiliaji"
+            "concept": "follow_up_reason"
           }
         },
         {
-          "column_name": "matokeo_ya_ufuatiliaji",
+          "column_name": "follow_up_outcome",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "matokeo_ya_ufuatiliaji"
+            "concept": "follow_up_outcome"
           }
         },
         {
@@ -5667,11 +5667,11 @@
           }
         },
         {
-          "column_name": "amerudi_kwenye_matibabu",
+          "column_name": "returned_to_treatment",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "amerudi_kwenye_matibabu"
+            "concept": "returned_to_treatment"
           }
         },
         {
@@ -5683,19 +5683,19 @@
           }
         },
         {
-          "column_name": "changamoto_katika_upatikanaji_huduma",
+          "column_name": "service_access_challenges",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "changamoto_katika_upatikanaji_huduma"
+            "concept": "service_access_challenges"
           }
         },
         {
-          "column_name": "changamoto_mteja_aliyopata",
+          "column_name": "client_challenge_types",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "changamoto_mteja_aliyopata"
+            "concept": "client_challenge_types"
           }
         }
       ]
@@ -5733,19 +5733,19 @@
           }
         },
         {
-          "column_name": "kuchukuliwa_sampuli",
+          "column_name": "has_sample_been_collected",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "kuchukuliwa_sampuli"
+            "concept": "has_sample_been_collected"
           }
         },
         {
-          "column_name": "mteja_anahitaji_kifaa_kingine",
+          "column_name": "sample_container_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "mteja_anahitaji_kifaa_kingine"
+            "concept": "sample_container_provided"
           }
         }
       ]
@@ -5776,11 +5776,11 @@
           }
         },
         {
-          "column_name": "aina_ya_ukaribu_na_mgonjwa",
+          "column_name": "relationship_to_index_client",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "aina_ya_ukaribu_na_mgonjwa"
+            "concept": "relationship_to_index_client"
           }
         },
         {
@@ -5792,27 +5792,27 @@
           }
         },
         {
-          "column_name": "matokeo_ya_ufuatiliaji",
+          "column_name": "sample_follow_up_results",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "matokeo_ya_ufuatiliaji"
+            "concept": "sample_follow_up_results"
           }
         },
         {
-          "column_name": "aina_ya_uchunguzi",
+          "column_name": "investigation_type",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "aina_ya_uchunguzi"
+            "concept": "investigation_type"
           }
         },
         {
-          "column_name": "maamuzi_kitabibu",
+          "column_name": "clinical_decision",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "maamuzi_kitabibu"
+            "concept": "clinical_decision"
           }
         }
       ]
