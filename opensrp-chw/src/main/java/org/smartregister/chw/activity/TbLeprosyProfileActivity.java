@@ -165,11 +165,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (StringUtils.isNotBlank(latestTbLeprosyVisit)) {
-                textViewRecordTbLeprosy.setVisibility(View.GONE);
-                rlObservationResults.setVisibility(View.VISIBLE);
-            }
-
             if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
@@ -182,7 +177,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (hasTbLeprosyVisit && StringUtils.isBlank(latestTbLeprosyVisit)) {
+            if (hasTbLeprosyVisit && StringUtils.isBlank(latestObservationResults)) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_observation_results);
             } else if (hasTbLeprosyVisit) {
