@@ -148,7 +148,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
             boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
             String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
             boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
-            String latestObservationResults = TbLeprosyDao.getTBleprosyObservationResults(baseEntityId);
+            String latestObservationResults = TbLeprosyDao.getTbLeprosyObservationResults(baseEntityId);
             String contactObservationResults = TbLeprosyDao.getTBleprosyContactObservationResults(baseEntityId);
             boolean hasPoorQualitySample = StringUtils.isNotBlank(contactObservationResults)
                     && StringUtils.containsIgnoreCase(contactObservationResults, "poor_quality_sample");
