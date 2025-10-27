@@ -247,6 +247,15 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     }
 
     @Override
+    public void onClick(View view) {
+        if (view.getId() == org.smartregister.chw.tbleprosy.R.id.rlObservationResults) {
+            TbLeprosyObservationResultsActivity.startMe(this, memberObject);
+        } else {
+            super.onClick(view);
+        }
+    }
+
+    @Override
     protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
         return null;
     }

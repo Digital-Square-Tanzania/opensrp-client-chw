@@ -50,6 +50,9 @@
             android:name=".activity.TbLeprosyContactRegister"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.TbLeprosyObservationResultsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.KvpPrEPProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
