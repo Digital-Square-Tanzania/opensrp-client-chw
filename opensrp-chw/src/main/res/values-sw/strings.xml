@@ -829,6 +829,16 @@
     <string name="filter_group_type_age_band">Vikundi vya umri</string>
     <string name="filter_group_type_classes">Darasa</string>
 
+
+    <string name="tbleprosy_contact_registration_success">Mhisiwa wa TB/Ukoma amehifadhiwa</string>
+    <string name="tbleprosy_no_contacts_available">Hamna wateja wanaohisiwa kuwa na TB/Ukoma</string>
+    <string name="tbleprosy_contact_family_header">Wanafamilia</string>
+    <string name="tbleprosy_contact_other_header">Wateja wengine</string>
+    <string name="tbleprosy_contact_search_hint">Tafuta kwa kutumia jina</string>
+    <string name="tbleprosy_contact_no_match">Hamna wateja wanakidhi vigezo</string>
+    <string name="tbleprosy_contact_family_dialog_title">Chagua mwanafamilia</string>
+    <string name="tbleprosy_contact_all_clients_dialog_title">Chagua mteja</string>
+
     <string name="tbleprosy_visit_history_title">Ziara za TB/Ukoma</string>
     <string name="tbleprosy_observation_results_history">Matokeo ya Uchunguzi</string>
     <string name="tbleprosy_observation_results_visit_title">Ziara ya Matokeo ya Uchunguzi</string>
