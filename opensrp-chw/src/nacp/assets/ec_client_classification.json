@@ -771,7 +771,8 @@
             "field": "eventType",
             "field_value": "TBLEPROSY Observation Results",
             "creates_case": [
-              "ec_tbleprosy_observation_results"
+              "ec_tbleprosy_observation_results",
+              "ec_tbleprosy_screening"
             ]
           },
           {
