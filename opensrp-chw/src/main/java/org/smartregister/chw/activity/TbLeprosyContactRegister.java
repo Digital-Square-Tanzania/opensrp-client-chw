@@ -5,6 +5,7 @@ import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,6 +84,13 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
 
         setupToolbar();
         initializeOptions();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        // get language from prefs
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
     }
 
     private void setupToolbar() {
