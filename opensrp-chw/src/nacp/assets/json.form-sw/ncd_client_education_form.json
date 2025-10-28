@@ -55,22 +55,22 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ncd_counselling_provided",
         "type": "native_radio",
-        "label": "Did you provide counselling during this visit?",
+        "label": "Je, ulitoa ushauri kwenye tembeleo hili?",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Tafadhali chagua moja"
         },
         "options": [
           {
             "key": "Yes",
-            "text": "Yes",
+            "text": "Ndio",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Yes"
           },
           {
             "key": "No",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "No"
@@ -83,7 +83,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ncd_counselling_topics",
         "type": "check_box",
-        "label": "Counselling topics covered",
+        "label": "Ushauri uliotolewa",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "chk_none"
@@ -91,49 +91,49 @@
         "options": [
           {
             "key": "chk_diet",
-            "text": "Healthy diet and nutrition",
+            "text": "Lishe bora na chakula",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "diet_nutrition"
           },
           {
             "key": "chk_physical_activity",
-            "text": "Physical activity and exercise",
+            "text": "Shughuli za kuimalisha mwili  na mazoezi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_activity"
           },
           {
             "key": "chk_medication_adherence",
-            "text": "Medication adherence",
+            "text": "Ufuataji wa matumizi sahihi ya dawa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "medication_adherence"
           },
           {
             "key": "chk_follow_up",
-            "text": "Follow-up and referral plans",
+            "text": "Ufuatiliaji wa rufaa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "follow_up_plans"
           },
           {
             "key": "chk_warning_signs",
-            "text": "Warning signs and when to seek care",
+            "text": "Dalili za hatari na wakati sahihi wa kupata huduma",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "warning_signs"
           },
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Hakuna vipimo vilivyochukuliwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           },
           {
             "key": "chk_other",
-            "text": "Other",
+            "text": "Nyingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other"
@@ -141,7 +141,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select at least one"
+          "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
           "step1:provided_counselling": {
@@ -156,10 +156,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_counselling_topic",
         "type": "edit_text",
-        "hint": "Describe other counselling topics",
+        "hint": "Eleza ushauri mwingine uliotolewa",
         "v_required": {
           "value": "true",
-          "err": "Please describe the other counselling topic"
+          "err": "Tafadhali eleza ushauri mwingine uliotolewa"
         },
         "relevance": {
           "step1:counselling_topics": {
@@ -179,7 +179,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ncd_counselling_notes",
         "type": "edit_text",
-        "hint": "Additional notes (optional)",
+        "hint": "Maelezo ya ziada (hiari)",
         "relevance": {
           "step1:provided_counselling": {
             "type": "string",
