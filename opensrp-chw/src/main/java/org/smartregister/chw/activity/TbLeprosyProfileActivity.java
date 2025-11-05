@@ -144,6 +144,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
 
         if (!isContactClient) {
+            manualProcessVisit.setVisibility(View.GONE);
+
             boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
             boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
             String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
