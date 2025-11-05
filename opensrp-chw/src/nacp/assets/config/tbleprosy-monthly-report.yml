@@ -1547,76 +1547,76 @@ indicators:
     description: "Idadi ya wagonjwa ambao hawajapatikana (ME 15 na zaidi)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, KE)
-  - key: "tbleprosy_challenge_tb_finance_ke"
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Kifua Kikuu, KE)
+  - key: "tbleprosy_challenge_tb_facility_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, KE)"
+    description: "Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Kifua Kikuu, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, ME)
-  - key: "tbleprosy_challenge_tb_finance_me"
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Kifua Kikuu, ME)
+  - key: "tbleprosy_challenge_tb_facility_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, ME)"
+    description: "Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Kifua Kikuu, ME)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, KE)
-  - key: "tbleprosy_challenge_lpr_finance_ke"
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Ukoma, KE)
+  - key: "tbleprosy_challenge_lpr_facility_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, KE)"
+    description: "Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Ukoma, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, ME)
-  - key: "tbleprosy_challenge_lpr_finance_me"
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Ukoma, ME)
+  - key: "tbleprosy_challenge_lpr_facility_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, ME)"
+    description: "Idadi ya watu waliopata changamoto katika kituo cha kutoa huduma za afya (Ukoma, ME)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, KE)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika familia (Kifua Kikuu, KE)
   - key: "tbleprosy_challenge_tb_family_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, KE)"
+    description: "Idadi ya watu waliopata changamoto katika familia (Kifua Kikuu, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, ME)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika familia (Kifua Kikuu, ME)
   - key: "tbleprosy_challenge_tb_family_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, ME)"
+    description: "Idadi ya watu waliopata changamoto katika familia (Kifua Kikuu, ME)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, KE)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika familia (Ukoma, KE)
   - key: "tbleprosy_challenge_lpr_family_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, KE)"
+    description: "Idadi ya watu waliopata changamoto katika familia (Ukoma, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, ME)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika familia (Ukoma, ME)
   - key: "tbleprosy_challenge_lpr_family_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, ME)"
+    description: "Idadi ya watu waliopata changamoto katika familia (Ukoma, ME)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, KE)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika jamii (Kifua Kikuu, KE)
   - key: "tbleprosy_challenge_tb_community_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, KE)"
+    description: "Idadi ya watu waliopata changamoto katika jamii (Kifua Kikuu, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, ME)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika jamii (Kifua Kikuu, ME)
   - key: "tbleprosy_challenge_tb_community_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, ME)"
+    description: "Idadi ya watu waliopata changamoto katika jamii (Kifua Kikuu, ME)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, KE)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika jamii (Ukoma, KE)
   - key: "tbleprosy_challenge_lpr_community_ke"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, KE)"
+    description: "Idadi ya watu waliopata changamoto katika jamii (Ukoma, KE)"
     indicatorQuery: "SELECT 0"
 
-  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, ME)
+  # TODO: Define query for Idadi ya watu waliopata changamoto katika jamii (Ukoma, ME)
   - key: "tbleprosy_challenge_lpr_community_me"
     grouping: "TBLeprosy Service Challenges"
-    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, ME)"
+    description: "Idadi ya watu waliopata changamoto katika jamii (Ukoma, ME)"
     indicatorQuery: "SELECT 0"
 
   # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto nyinginezo, kifua kikuu, KE)
