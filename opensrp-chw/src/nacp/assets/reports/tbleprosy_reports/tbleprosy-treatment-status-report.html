@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <title>Waliokatiza/Hawakuanza Matibabu ya TB au Ukoma (TB/LEP 13B)</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 4px 0;
+        }
+
+        .report-header {
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .age-cell {
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+
+        .unknown {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #636e72;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<div class="report-header">
+    <h1>WALIOKATIZA/HAWAKUANZA MATIBABU YA TB AU UKOMA (TB/LEP 13B)</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <h2>KITUO: <span id="reporting_facility"></span></h2>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th rowspan="3">Umri (miaka)</th>
+        <th colspan="2">Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa</th>
+        <th colspan="4">Matokeo ya ufuatiliaji (Angalizo: Kielelezo A)</th>
+    </tr>
+    <tr>
+        <th colspan="2">1</th>
+        <th colspan="2">Amepatikana/kuendelea</th>
+        <th colspan="2">Hajapatikana</th>
+    </tr>
+    <tr>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="age-cell">0-14</td>
+        <td data-indicator="tbleprosy_treat_started_ke_0_14" data-column="treat-started-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_started_me_0_14" data-column="treat-started-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_found_ke_0_14" data-column="treat-found-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_found_me_0_14" data-column="treat-found-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_not_found_ke_0_14" data-column="treat-notfound-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_not_found_me_0_14" data-column="treat-notfound-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="age-cell">15 na zaidi</td>
+        <td data-indicator="tbleprosy_treat_started_ke_15_plus" data-column="treat-started-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_started_me_15_plus" data-column="treat-started-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_found_ke_15_plus" data-column="treat-found-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_found_me_15_plus" data-column="treat-found-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_not_found_ke_15_plus" data-column="treat-notfound-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_not_found_me_15_plus" data-column="treat-notfound-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="age-cell">Jumla</td>
+        <td data-total-for="treat-started-ke">0</td>
+        <td data-total-for="treat-started-me">0</td>
+        <td data-total-for="treat-found-ke">0</td>
+        <td data-total-for="treat-found-me">0</td>
+        <td data-total-for="treat-notfound-ke">0</td>
+        <td data-total-for="treat-notfound-me">0</td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="note">Vitambulisho vyekundu (N/A) vinaonyesha viashiria ambavyo bado havijapangiwa nambari ya ukurasa wa ripoti.</p>
+
+<script>
+    function safeParseInt(value) {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? 0 : num;
+    }
+
+    function loadData() {
+        let payload = { nameValuePairs: {} };
+        try {
+            payload = JSON.parse(Android.getData("tbleprosy-treatment-status-report"));
+        } catch (e) {
+            payload = { nameValuePairs: {} };
+        }
+        const values = payload && payload.nameValuePairs ? payload.nameValuePairs : {};
+
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const key = cell.getAttribute("data-indicator");
+            if (values.hasOwnProperty(key) && values[key] !== null && values[key] !== "") {
+                cell.textContent = values[key];
+                cell.classList.remove("unknown");
+            }
+        });
+
+        const columnTotals = {};
+        document.querySelectorAll("[data-column]").forEach(cell => {
+            const column = cell.getAttribute("data-column");
+            const amount = safeParseInt(cell.textContent);
+            columnTotals[column] = (columnTotals[column] || 0) + amount;
+        });
+
+        document.querySelectorAll("[data-total-for]").forEach(cell => {
+            const column = cell.getAttribute("data-total-for");
+            cell.textContent = columnTotals[column] || 0;
+        });
+
+        document.getElementById("report_period").innerHTML = Android.getDataPeriod();
+        document.getElementById("reporting_facility").innerHTML = Android.getReportingFacility();
+    }
+</script>
+</body>
+</html>

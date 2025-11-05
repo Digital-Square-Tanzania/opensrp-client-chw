@@ -1,0 +1,1644 @@
+indicators:
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (KE 6-14)
+  - key: "tbleprosy_comm_col2_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya watu waliochunguzwa wa TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (ME 6-14)
+  - key: "tbleprosy_comm_col2_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya watu waliochunguzwa wa TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col2_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya watu waliochunguzwa wa TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col2_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya watu waliochunguzwa wa TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (KE 6-14)
+  - key: "tbleprosy_comm_col3_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa wa TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (ME 6-14)
+  - key: "tbleprosy_comm_col3_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa wa TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col3_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa wa TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col3_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa wa TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (KE 6-14)
+  - key: "tbleprosy_comm_col4_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (ME 6-14)
+  - key: "tbleprosy_comm_col4_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col4_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col4_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo vya TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli zilizopimwa TB au ukoma (KE 6-14)
+  - key: "tbleprosy_comm_col5_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya sampuli zilizopimwa TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli zilizopimwa TB au ukoma (ME 6-14)
+  - key: "tbleprosy_comm_col5_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya sampuli zilizopimwa TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli zilizopimwa TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col5_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya sampuli zilizopimwa TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli zilizopimwa TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col5_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya sampuli zilizopimwa TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (KE 6-14)
+  - key: "tbleprosy_comm_col6_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa TB (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (ME 6-14)
+  - key: "tbleprosy_comm_col6_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa TB (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col6_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa TB (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col6_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa TB (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (KE 6-14)
+  - key: "tbleprosy_comm_col7_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (ME 6-14)
+  - key: "tbleprosy_comm_col7_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col7_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col7_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopimwa ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu (KE 6-14)
+  - key: "tbleprosy_comm_col8_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu (ME 6-14)
+  - key: "tbleprosy_comm_col8_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col8_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col8_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (KE 6-14)
+  - key: "tbleprosy_comm_col9_ke_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (ME 6-14)
+  - key: "tbleprosy_comm_col9_me_6_14"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (KE 15 na zaidi)
+  - key: "tbleprosy_comm_col9_ke_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (ME 15 na zaidi)
+  - key: "tbleprosy_comm_col9_me_15_plus"
+    grouping: "TBLeprosy Community"
+    description: "Idadi ya wagonjwa wanaoanza hali yao ya matibabu ya VVU (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 0-5)
+  - key: "tbleprosy_house_col1_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 0-5)
+  - key: "tbleprosy_house_col1_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 6-14)
+  - key: "tbleprosy_house_col1_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 6-14)
+  - key: "tbleprosy_house_col1_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_house_col1_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_house_col1_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa wa TB/DR-TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 0-5)
+  - key: "tbleprosy_house_col2_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 0-5)
+  - key: "tbleprosy_house_col2_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 6-14)
+  - key: "tbleprosy_house_col2_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 6-14)
+  - key: "tbleprosy_house_col2_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 15 na zaidi)
+  - key: "tbleprosy_house_col2_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 15 na zaidi)
+  - key: "tbleprosy_house_col2_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliochunguzwa (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 0-5)
+  - key: "tbleprosy_house_col3_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 0-5)
+  - key: "tbleprosy_house_col3_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 6-14)
+  - key: "tbleprosy_house_col3_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 6-14)
+  - key: "tbleprosy_house_col3_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_house_col3_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_house_col3_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu wanaoishi na mgonjwa wa TB/DR-TB au ukoma waliokutwa na dalili au kushukiwa kuwa na TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (KE 0-5)
+  - key: "tbleprosy_house_col4_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (ME 0-5)
+  - key: "tbleprosy_house_col4_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (KE 6-14)
+  - key: "tbleprosy_house_col4_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (ME 6-14)
+  - key: "tbleprosy_house_col4_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (KE 15 na zaidi)
+  - key: "tbleprosy_house_col4_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliokutwa wana TB au ukoma (ME 15 na zaidi)
+  - key: "tbleprosy_house_col4_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliokutwa wana TB au ukoma (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 0-5)
+  - key: "tbleprosy_house_col5_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 0-5)
+  - key: "tbleprosy_house_col5_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 6-14)
+  - key: "tbleprosy_house_col5_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 6-14)
+  - key: "tbleprosy_house_col5_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 15 na zaidi)
+  - key: "tbleprosy_house_col5_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 15 na zaidi)
+  - key: "tbleprosy_house_col5_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma baada ya kufuata rufaa (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 0-5)
+  - key: "tbleprosy_house_col6_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 0-5)
+  - key: "tbleprosy_house_col6_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 6-14)
+  - key: "tbleprosy_house_col6_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 6-14)
+  - key: "tbleprosy_house_col6_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 15 na zaidi)
+  - key: "tbleprosy_house_col6_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 15 na zaidi)
+  - key: "tbleprosy_house_col6_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watu waliopimwa kipimo cha TB au ukoma kati ya wale waliopelwa rufaa (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)
+  - key: "tbleprosy_house_col7_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)
+  - key: "tbleprosy_house_col7_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)
+  - key: "tbleprosy_house_col7_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)
+  - key: "tbleprosy_house_col7_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)
+  - key: "tbleprosy_house_col7_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)
+  - key: "tbleprosy_house_col7_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliogundulika kutoka familia yenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)
+  - key: "tbleprosy_house_col8_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)
+  - key: "tbleprosy_house_col8_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)
+  - key: "tbleprosy_house_col8_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)
+  - key: "tbleprosy_house_col8_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)
+  - key: "tbleprosy_house_col8_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)
+  - key: "tbleprosy_house_col8_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu ya TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 0-5)
+  - key: "tbleprosy_house_col9_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 0-5)
+  - key: "tbleprosy_house_col9_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 6-14)
+  - key: "tbleprosy_house_col9_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 6-14)
+  - key: "tbleprosy_house_col9_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 15 na zaidi)
+  - key: "tbleprosy_house_col9_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 15 na zaidi)
+  - key: "tbleprosy_house_col9_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 0-5)
+  - key: "tbleprosy_house_col10_ke_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 0-5)
+  - key: "tbleprosy_house_col10_me_0_5"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 0-5)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 6-14)
+  - key: "tbleprosy_house_col10_ke_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 6-14)
+  - key: "tbleprosy_house_col10_me_6_14"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 6-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 15 na zaidi)
+  - key: "tbleprosy_house_col10_ke_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 15 na zaidi)
+  - key: "tbleprosy_house_col10_me_15_plus"
+    grouping: "TBLeprosy Household"
+    description: "Idadi ya watoto chini ya miaka mitano waliowekwa kwenye dawa kinga - TPT (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Duka la dawa (KE)
+  - key: "tbleprosy_area_col1_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Duka la dawa (ME)
+  - key: "tbleprosy_area_col1_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Duka la dawa (KE)
+  - key: "tbleprosy_area_col2_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Duka la dawa (ME)
+  - key: "tbleprosy_area_col2_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Duka la dawa (KE)
+  - key: "tbleprosy_area_col3_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Duka la dawa (ME)
+  - key: "tbleprosy_area_col3_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Duka la dawa (KE)
+  - key: "tbleprosy_area_col4_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Duka la dawa (ME)
+  - key: "tbleprosy_area_col4_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Duka la dawa (KE)
+  - key: "tbleprosy_area_col5_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Duka la dawa (ME)
+  - key: "tbleprosy_area_col5_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Duka la dawa (KE)
+  - key: "tbleprosy_area_col6_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Duka la dawa (ME)
+  - key: "tbleprosy_area_col6_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Duka la dawa (KE)
+  - key: "tbleprosy_area_col7_ke_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Duka la dawa (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Duka la dawa (ME)
+  - key: "tbleprosy_area_col7_me_duka"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Duka la dawa (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col1_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col1_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col2_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col2_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col3_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col3_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col4_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col4_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col5_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col5_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col6_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col6_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mganga wa jadi (KE)
+  - key: "tbleprosy_area_col7_ke_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mganga wa jadi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mganga wa jadi (ME)
+  - key: "tbleprosy_area_col7_me_mganga"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mganga wa jadi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col1_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col1_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col2_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col2_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col3_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col3_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col4_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col4_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col5_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col5_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col6_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col6_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Machinjio/migodi (KE)
+  - key: "tbleprosy_area_col7_ke_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Machinjio/migodi (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Machinjio/migodi (ME)
+  - key: "tbleprosy_area_col7_me_migodi"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Machinjio/migodi (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col1_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col1_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col2_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col2_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col3_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col3_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col4_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col4_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col5_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col5_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col6_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col6_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mitumbwi na bandari (KE)
+  - key: "tbleprosy_area_col7_ke_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mitumbwi na bandari (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mitumbwi na bandari (ME)
+  - key: "tbleprosy_area_col7_me_bandari"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mitumbwi na bandari (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mjengo (KE)
+  - key: "tbleprosy_area_col1_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mjengo (ME)
+  - key: "tbleprosy_area_col1_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mjengo (KE)
+  - key: "tbleprosy_area_col2_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Mjengo (ME)
+  - key: "tbleprosy_area_col2_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mjengo (KE)
+  - key: "tbleprosy_area_col3_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mjengo (ME)
+  - key: "tbleprosy_area_col3_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mjengo (KE)
+  - key: "tbleprosy_area_col4_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mjengo (ME)
+  - key: "tbleprosy_area_col4_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mjengo (KE)
+  - key: "tbleprosy_area_col5_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mjengo (ME)
+  - key: "tbleprosy_area_col5_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mjengo (KE)
+  - key: "tbleprosy_area_col6_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Mjengo (ME)
+  - key: "tbleprosy_area_col6_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mjengo (KE)
+  - key: "tbleprosy_area_col7_ke_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mjengo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mjengo (ME)
+  - key: "tbleprosy_area_col7_me_mjengo"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Mjengo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col1_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col1_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col2_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col2_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col3_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col3_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col4_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col4_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col5_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col5_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col6_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col6_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Nyumba za ibada (KE)
+  - key: "tbleprosy_area_col7_ke_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Nyumba za ibada (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Nyumba za ibada (ME)
+  - key: "tbleprosy_area_col7_me_ibada"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Nyumba za ibada (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col1_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col1_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col2_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col2_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col3_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col3_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col4_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col4_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col5_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col5_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col6_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col6_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Shule/Vyuo (KE)
+  - key: "tbleprosy_area_col7_ke_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Shule/Vyuo (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Shule/Vyuo (ME)
+  - key: "tbleprosy_area_col7_me_shule"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Shule/Vyuo (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Sokoni (KE)
+  - key: "tbleprosy_area_col1_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Sokoni (ME)
+  - key: "tbleprosy_area_col1_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Sokoni (KE)
+  - key: "tbleprosy_area_col2_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Sokoni (ME)
+  - key: "tbleprosy_area_col2_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Sokoni (KE)
+  - key: "tbleprosy_area_col3_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Sokoni (ME)
+  - key: "tbleprosy_area_col3_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Sokoni (KE)
+  - key: "tbleprosy_area_col4_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Sokoni (ME)
+  - key: "tbleprosy_area_col4_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Sokoni (KE)
+  - key: "tbleprosy_area_col5_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Sokoni (ME)
+  - key: "tbleprosy_area_col5_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Sokoni (KE)
+  - key: "tbleprosy_area_col6_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Sokoni (ME)
+  - key: "tbleprosy_area_col6_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Sokoni (KE)
+  - key: "tbleprosy_area_col7_ke_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Sokoni (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Sokoni (ME)
+  - key: "tbleprosy_area_col7_me_sokoni"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Sokoni (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col1_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col1_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col2_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col2_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col3_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col3_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col4_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col4_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col5_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col5_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col6_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col6_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kombi za wavuvu (KE)
+  - key: "tbleprosy_area_col7_ke_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kombi za wavuvu (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kombi za wavuvu (ME)
+  - key: "tbleprosy_area_col7_me_wavuvu"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kombi za wavuvu (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Matamasha (KE)
+  - key: "tbleprosy_area_col1_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Matamasha (ME)
+  - key: "tbleprosy_area_col1_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Matamasha (KE)
+  - key: "tbleprosy_area_col2_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Matamasha (ME)
+  - key: "tbleprosy_area_col2_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Matamasha (KE)
+  - key: "tbleprosy_area_col3_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Matamasha (ME)
+  - key: "tbleprosy_area_col3_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Matamasha (KE)
+  - key: "tbleprosy_area_col4_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Matamasha (ME)
+  - key: "tbleprosy_area_col4_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Matamasha (KE)
+  - key: "tbleprosy_area_col5_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Matamasha (ME)
+  - key: "tbleprosy_area_col5_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Matamasha (KE)
+  - key: "tbleprosy_area_col6_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Matamasha (ME)
+  - key: "tbleprosy_area_col6_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Matamasha (KE)
+  - key: "tbleprosy_area_col7_ke_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Matamasha (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Matamasha (ME)
+  - key: "tbleprosy_area_col7_me_matamasha"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Matamasha (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col1_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col1_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col2_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa wa kifua kikuu au ukoma - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col2_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col3_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col3_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col4_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col4_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col5_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col5_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col6_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatiwa matibabu - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col6_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliopatiwa matibabu - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kwingineko (Taja) (KE)
+  - key: "tbleprosy_area_col7_ke_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kwingineko (Taja) (KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kwingineko (Taja) (ME)
+  - key: "tbleprosy_area_col7_me_kwingineko"
+    grouping: "TBLeprosy Special Areas"
+    description: "Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU - Kwingineko (Taja) (ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (KE 0-14)
+  - key: "tbleprosy_treat_started_ke_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (KE 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatikana kuendelea (KE 0-14)
+  - key: "tbleprosy_treat_found_ke_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliopatikana kuendelea (KE 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa ambao hawajapatikana (KE 0-14)
+  - key: "tbleprosy_treat_not_found_ke_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa ambao hawajapatikana (KE 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (ME 0-14)
+  - key: "tbleprosy_treat_started_me_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (ME 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatikana kuendelea (ME 0-14)
+  - key: "tbleprosy_treat_found_me_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliopatikana kuendelea (ME 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa ambao hawajapatikana (ME 0-14)
+  - key: "tbleprosy_treat_not_found_me_0_14"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa ambao hawajapatikana (ME 0-14)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (KE 15 na zaidi)
+  - key: "tbleprosy_treat_started_ke_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatikana kuendelea (KE 15 na zaidi)
+  - key: "tbleprosy_treat_found_ke_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliopatikana kuendelea (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa ambao hawajapatikana (KE 15 na zaidi)
+  - key: "tbleprosy_treat_not_found_ke_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa ambao hawajapatikana (KE 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (ME 15 na zaidi)
+  - key: "tbleprosy_treat_started_me_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa waliopatikana kuendelea (ME 15 na zaidi)
+  - key: "tbleprosy_treat_found_me_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa waliopatikana kuendelea (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya wagonjwa ambao hawajapatikana (ME 15 na zaidi)
+  - key: "tbleprosy_treat_not_found_me_15_plus"
+    grouping: "TBLeprosy Treatment Status"
+    description: "Idadi ya wagonjwa ambao hawajapatikana (ME 15 na zaidi)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, KE)
+  - key: "tbleprosy_challenge_tb_finance_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, ME)
+  - key: "tbleprosy_challenge_tb_finance_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, kifua kikuu, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, KE)
+  - key: "tbleprosy_challenge_lpr_finance_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, ME)
+  - key: "tbleprosy_challenge_lpr_finance_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto za kifedha, ukoma, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, KE)
+  - key: "tbleprosy_challenge_tb_family_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, ME)
+  - key: "tbleprosy_challenge_tb_family_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, kifua kikuu, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, KE)
+  - key: "tbleprosy_challenge_lpr_family_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, ME)
+  - key: "tbleprosy_challenge_lpr_family_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto kutoka au kuletea huduma familia, ukoma, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, KE)
+  - key: "tbleprosy_challenge_tb_community_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, ME)
+  - key: "tbleprosy_challenge_tb_community_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, kifua kikuu, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, KE)
+  - key: "tbleprosy_challenge_lpr_community_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, ME)
+  - key: "tbleprosy_challenge_lpr_community_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto katikati ya jamii, ukoma, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto nyinginezo, kifua kikuu, KE)
+  - key: "tbleprosy_challenge_tb_other_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto nyinginezo, kifua kikuu, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto nyinginezo, kifua kikuu, ME)
+  - key: "tbleprosy_challenge_tb_other_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto nyinginezo, kifua kikuu, ME)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto nyinginezo, ukoma, KE)
+  - key: "tbleprosy_challenge_lpr_other_ke"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto nyinginezo, ukoma, KE)"
+    indicatorQuery: "SELECT 0"
+
+  # TODO: Define query for Idadi ya watu waliopata changamoto (Changamoto nyinginezo, ukoma, ME)
+  - key: "tbleprosy_challenge_lpr_other_me"
+    grouping: "TBLeprosy Service Challenges"
+    description: "Idadi ya watu waliopata changamoto (Changamoto nyinginezo, ukoma, ME)"
+    indicatorQuery: "SELECT 0"

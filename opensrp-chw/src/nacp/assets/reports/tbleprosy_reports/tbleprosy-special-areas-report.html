@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <title>Uchunguzi wa Kifua Kikuu na ukoma katika maeneo maalumu</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 4px 0;
+        }
+
+        .report-header {
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .location-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+
+        .unknown {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #636e72;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<div class="report-header">
+    <h1>UCHUNGUZI WA KIFUA KIKUU NA UKOMA KATIKA MAENEO MAALUMU</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <h2>KITUO: <span id="reporting_facility"></span></h2>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th rowspan="3">Eneo</th>
+        <th colspan="2">Idadi ya watu waliochunguzwa wa kifua kikuu au ukoma</th>
+        <th colspan="2">Idadi ya wahisiwa wa kifua kikuu au ukoma</th>
+        <th colspan="2">Idadi ya wahisiwa waliopelwa rufaa kwa vipimo wa TB au ukoma (Sampuli + Matibabu)</th>
+        <th colspan="2">Idadi ya sampuli au wateja waliopimwa TB au ukoma</th>
+        <th colspan="2">Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma</th>
+        <th colspan="2">Idadi ya wagonjwa waliopatiwa matibabu</th>
+        <th colspan="2">Idadi ya wagonjwa waliokutwa na hali yao ya matibabu ya VVU</th>
+    </tr>
+    <tr>
+        <th colspan="2">1</th>
+        <th colspan="2">2</th>
+        <th colspan="2">3</th>
+        <th colspan="2">4</th>
+        <th colspan="2">5</th>
+        <th colspan="2">6</th>
+        <th colspan="2">7</th>
+    </tr>
+    <tr>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="location-cell">1. Duka la dawa</td>
+        <td data-indicator="tbleprosy_area_col1_ke_duka" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_duka" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_duka" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_duka" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_duka" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_duka" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_duka" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_duka" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_duka" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_duka" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_duka" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_duka" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_duka" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_duka" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">2. Mganga wa jadi</td>
+        <td data-indicator="tbleprosy_area_col1_ke_mganga" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_mganga" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_mganga" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_mganga" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_mganga" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_mganga" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_mganga" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_mganga" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_mganga" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_mganga" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_mganga" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_mganga" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_mganga" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_mganga" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">3. Machinjio/migodi</td>
+        <td data-indicator="tbleprosy_area_col1_ke_migodi" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_migodi" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_migodi" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_migodi" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_migodi" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_migodi" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_migodi" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_migodi" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_migodi" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_migodi" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_migodi" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_migodi" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_migodi" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_migodi" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">4. Mitumbwi na bandari</td>
+        <td data-indicator="tbleprosy_area_col1_ke_bandari" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_bandari" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_bandari" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_bandari" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_bandari" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_bandari" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_bandari" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_bandari" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_bandari" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_bandari" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_bandari" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_bandari" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_bandari" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_bandari" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">5. Mjengo</td>
+        <td data-indicator="tbleprosy_area_col1_ke_mjengo" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_mjengo" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_mjengo" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_mjengo" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_mjengo" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_mjengo" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_mjengo" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_mjengo" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_mjengo" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_mjengo" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_mjengo" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_mjengo" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_mjengo" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_mjengo" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">6. Nyumba za ibada</td>
+        <td data-indicator="tbleprosy_area_col1_ke_ibada" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_ibada" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_ibada" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_ibada" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_ibada" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_ibada" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_ibada" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_ibada" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_ibada" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_ibada" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_ibada" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_ibada" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_ibada" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_ibada" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">7. Shule/Vyuo</td>
+        <td data-indicator="tbleprosy_area_col1_ke_shule" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_shule" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_shule" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_shule" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_shule" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_shule" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_shule" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_shule" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_shule" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_shule" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_shule" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_shule" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_shule" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_shule" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">8. Sokoni</td>
+        <td data-indicator="tbleprosy_area_col1_ke_sokoni" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_sokoni" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_sokoni" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_sokoni" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_sokoni" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_sokoni" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_sokoni" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_sokoni" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_sokoni" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_sokoni" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_sokoni" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_sokoni" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_sokoni" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_sokoni" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">9. Kombi za wavuvu</td>
+        <td data-indicator="tbleprosy_area_col1_ke_wavuvu" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_wavuvu" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_wavuvu" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_wavuvu" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_wavuvu" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_wavuvu" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_wavuvu" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_wavuvu" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_wavuvu" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_wavuvu" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_wavuvu" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_wavuvu" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_wavuvu" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_wavuvu" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">10. Matamasha</td>
+        <td data-indicator="tbleprosy_area_col1_ke_matamasha" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_matamasha" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_matamasha" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_matamasha" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_matamasha" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_matamasha" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_matamasha" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_matamasha" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_matamasha" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_matamasha" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_matamasha" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_matamasha" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_matamasha" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_matamasha" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">11. Kwingineko (Taja)</td>
+        <td data-indicator="tbleprosy_area_col1_ke_kwingineko" data-column="area-col1-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col1_me_kwingineko" data-column="area-col1-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_ke_kwingineko" data-column="area-col2-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col2_me_kwingineko" data-column="area-col2-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_ke_kwingineko" data-column="area-col3-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col3_me_kwingineko" data-column="area-col3-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_ke_kwingineko" data-column="area-col4-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col4_me_kwingineko" data-column="area-col4-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_ke_kwingineko" data-column="area-col5-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col5_me_kwingineko" data-column="area-col5-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_ke_kwingineko" data-column="area-col6-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col6_me_kwingineko" data-column="area-col6-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_ke_kwingineko" data-column="area-col7-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_area_col7_me_kwingineko" data-column="area-col7-me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="location-cell">Jumla</td>
+        <td data-total-for="area-col1-ke">0</td>
+        <td data-total-for="area-col1-me">0</td>
+        <td data-total-for="area-col2-ke">0</td>
+        <td data-total-for="area-col2-me">0</td>
+        <td data-total-for="area-col3-ke">0</td>
+        <td data-total-for="area-col3-me">0</td>
+        <td data-total-for="area-col4-ke">0</td>
+        <td data-total-for="area-col4-me">0</td>
+        <td data-total-for="area-col5-ke">0</td>
+        <td data-total-for="area-col5-me">0</td>
+        <td data-total-for="area-col6-ke">0</td>
+        <td data-total-for="area-col6-me">0</td>
+        <td data-total-for="area-col7-ke">0</td>
+        <td data-total-for="area-col7-me">0</td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="note">Vitambulisho vyekundu (N/A) vinaonyesha viashiria ambavyo bado havijapangiwa nambari ya ukurasa wa ripoti.</p>
+
+<script>
+    function safeParseInt(value) {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? 0 : num;
+    }
+
+    function loadData() {
+        let payload = { nameValuePairs: {} };
+        try {
+            payload = JSON.parse(Android.getData("tbleprosy-special-areas-report"));
+        } catch (e) {
+            payload = { nameValuePairs: {} };
+        }
+        const values = payload && payload.nameValuePairs ? payload.nameValuePairs : {};
+
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const key = cell.getAttribute("data-indicator");
+            if (values.hasOwnProperty(key) && values[key] !== null && values[key] !== "") {
+                cell.textContent = values[key];
+                cell.classList.remove("unknown");
+            }
+        });
+
+        const columnTotals = {};
+        document.querySelectorAll("[data-column]").forEach(cell => {
+            const column = cell.getAttribute("data-column");
+            const amount = safeParseInt(cell.textContent);
+            columnTotals[column] = (columnTotals[column] || 0) + amount;
+        });
+
+        document.querySelectorAll("[data-total-for]").forEach(cell => {
+            const column = cell.getAttribute("data-total-for");
+            cell.textContent = columnTotals[column] || 0;
+        });
+
+        document.getElementById("report_period").innerHTML = Android.getDataPeriod();
+        document.getElementById("reporting_facility").innerHTML = Android.getReportingFacility();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <title>Waliokuwa na changamoto za huduma ya kifua kikuu na ukoma</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 4px 0;
+        }
+
+        .report-header {
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+            min-width: 65px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .challenge-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+
+        .unknown {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #636e72;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<div class="report-header">
+    <h1>WALIOKUWA NA CHANGAMOTO ZA HUDUMA YA KIFUA KIKUU NA UKOMA</h1>
+    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+    <h2>KITUO: <span id="reporting_facility"></span></h2>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th rowspan="2">Aina ya Changamoto</th>
+        <th colspan="2">Idadi ya watu waliopata changamoto (Kifua kikuu)</th>
+        <th colspan="2">Idadi ya watu waliopata changamoto (Ukoma)</th>
+    </tr>
+    <tr>
+        <th>KE</th><th>ME</th>
+        <th>KE</th><th>ME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="challenge-cell">Kifedha</td>
+        <td data-indicator="tbleprosy_challenge_tb_finance_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_finance_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_finance_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_finance_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Kutoka au kuletea huduma familia</td>
+        <td data-indicator="tbleprosy_challenge_tb_family_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_family_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_family_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_family_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Katikati ya jamii</td>
+        <td data-indicator="tbleprosy_challenge_tb_community_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_community_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_community_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_community_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Changamoto nyinginezo</td>
+        <td data-indicator="tbleprosy_challenge_tb_other_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_other_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_other_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_other_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Jumla</td>
+        <td data-total-for="tb-ke">0</td>
+        <td data-total-for="tb-me">0</td>
+        <td data-total-for="lpr-ke">0</td>
+        <td data-total-for="lpr-me">0</td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="note">Vitambulisho vyekundu (N/A) vinaonyesha viashiria ambavyo bado havijapangiwa nambari ya ukurasa wa ripoti.</p>
+
+<script>
+    function safeParseInt(value) {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? 0 : num;
+    }
+
+    function loadData() {
+        let payload = { nameValuePairs: {} };
+        try {
+            payload = JSON.parse(Android.getData("tbleprosy-service-challenges-report"));
+        } catch (e) {
+            payload = { nameValuePairs: {} };
+        }
+        const values = payload && payload.nameValuePairs ? payload.nameValuePairs : {};
+
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const key = cell.getAttribute("data-indicator");
+            if (values.hasOwnProperty(key) && values[key] !== null && values[key] !== "") {
+                cell.textContent = values[key];
+                cell.classList.remove("unknown");
+            }
+        });
+
+        const totals = { "tb-ke": 0, "tb-me": 0, "lpr-ke": 0, "lpr-me": 0 };
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const indicator = cell.getAttribute("data-indicator");
+            const value = safeParseInt(cell.textContent);
+
+            if (indicator.includes("_tb_") && indicator.endsWith("_ke")) totals["tb-ke"] += value;
+            if (indicator.includes("_tb_") && indicator.endsWith("_me")) totals["tb-me"] += value;
+            if (indicator.includes("_lpr_") && indicator.endsWith("_ke")) totals["lpr-ke"] += value;
+            if (indicator.includes("_lpr_") && indicator.endsWith("_me")) totals["lpr-me"] += value;
+        });
+
+        document.querySelectorAll("[data-total-for]").forEach(cell => {
+            const column = cell.getAttribute("data-total-for");
+            cell.textContent = totals[column] || 0;
+        });
+
+        document.getElementById("report_period").innerHTML = Android.getDataPeriod();
+        document.getElementById("reporting_facility").innerHTML = Android.getReportingFacility();
+    }
+</script>
+</body>
+</html>
