@@ -89,30 +89,24 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
 
     @Override
     public void openObservationResults() {
-
         String baseEntityId = memberObject.getBaseEntityId();
+        try {
+            JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
+            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
 
-        if (getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact")) {
-            startForm(Constants.FORMS.CONTACT_OBSERVATION_RESULTS);
+            boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
+            boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
 
-        } else {
-            try {
-                JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
-                form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
-
-                boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
-                boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
-
-                if (isTbPresumptive ^ isLeprosyPresumptive) {
-                    String hiddenValue = isTbPresumptive ? "tb" : "leprosy";
-                    applyObservationTypeOverrides(form, hiddenValue);
-                }
-
-                startFormActivity(form);
-            } catch (Exception e) {
-                Timber.e(e);
+            if (isTbPresumptive ^ isLeprosyPresumptive) {
+                String hiddenValue = isTbPresumptive ? "tb" : "leprosy";
+                applyObservationTypeOverrides(form, hiddenValue);
             }
+
+            startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e);
         }
+
     }
 
     @Override
@@ -151,9 +145,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
             String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
             boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
             String latestObservationResults = TbLeprosyDao.getTbLeprosyObservationResults(baseEntityId);
-            String contactObservationResults = TbLeprosyDao.getTBleprosyContactObservationResults(baseEntityId);
-            boolean hasPoorQualitySample = StringUtils.isNotBlank(contactObservationResults)
-                    && StringUtils.containsIgnoreCase(contactObservationResults, "poor_quality_sample");
+            boolean hasPoorQualitySample = StringUtils.isNotBlank(latestObservationResults)
+                    && StringUtils.containsIgnoreCase(latestObservationResults, "poor_quality_sample");
 
             if (isTbPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
@@ -170,9 +163,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
             if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-            }
-
-            if (StringUtils.isNotBlank(latestObservationResults)) {
+            } else if (StringUtils.isNotBlank(latestObservationResults)) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                 textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
@@ -221,7 +212,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 }
             }
 
-            if (StringUtils.isNotBlank(TbLeprosyDao.getTBleprosyContactObservationResults(memberObject.getBaseEntityId()))) {
+            if (StringUtils.isNotBlank(TbLeprosyDao.getTbLeprosyObservationResults(memberObject.getBaseEntityId()))) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_contact_visit_followup);
             }
