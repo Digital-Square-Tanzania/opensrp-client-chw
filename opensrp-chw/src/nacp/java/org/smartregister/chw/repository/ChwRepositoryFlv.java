@@ -130,6 +130,9 @@ public class ChwRepositoryFlv {
                 case 32:
                     upgradeToVersion32(db);
                     break;
+                case 33:
+                    upgradeToVersion33(db);
+                    break;
                 default:
                     break;
             }
@@ -609,6 +612,33 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion32-config");
+        }
+    }
+
+    private static void upgradeToVersion33(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(
+                            "ec_tbleprosy_register",
+                            "ec_tbleprosy_mobilization",
+                            "ec_tbleprosy_screening",
+                            "ec_tbleprosy_contacts",
+                            "ec_tbleprosy_observation_results",
+                            "ec_tbleprosy_followup_visit",
+                            "ec_tbleprosy_visit",
+                            "ec_tbleprosy_contact_visit")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion33-create-tables");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String tbLeprosyConfigFile = "config/tbleprosy-monthly-report.yml";
+            reportingLibrary.readConfigFile(tbLeprosyConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion33-config");
         }
     }
 }

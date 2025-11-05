@@ -30,6 +30,7 @@ import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObje
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
 import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 import org.smartregister.chw.domain.sbc_reports.SbcReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyReportObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -304,6 +305,41 @@ public class ReportUtils {
         }
     }
 
+    public static class TbLeprosyReports {
+        public static String computeMonthlyReport(Date startDate) {
+            TbLeprosyReportObject tbLeprosyReportObject = new TbLeprosyReportObject(startDate);
+            try {
+                return tbLeprosyReportObject.getIndicatorDataAsGson(tbLeprosyReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeCommunityReport(Date startDate) {
+            return emptyReport();
+        }
+
+        public static String computeHouseholdReport(Date startDate) {
+            return emptyReport();
+        }
+
+        public static String computeSpecialAreasReport(Date startDate) {
+            return emptyReport();
+        }
+
+        public static String computeTreatmentStatusReport(Date startDate) {
+            return emptyReport();
+        }
+
+        public static String computeServiceChallengesReport(Date startDate) {
+            return emptyReport();
+        }
+
+        public static String emptyReport() {
+            return "{\"nameValuePairs\":{}}";
+        }
+    }
 
     public static class KvpReports {
         public static String computeClientsReports(Date startDate) {

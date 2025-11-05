@@ -128,6 +128,28 @@ public class ChwWebAppInterface {
             }
         }
 
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.TBLEPROSY_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.TbLeprosyReportKeys.COMMUNITY_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Community_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeCommunityReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.HOUSEHOLD_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Household_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeHouseholdReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.SPECIAL_AREAS_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Special_Areas_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeSpecialAreasReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.TREATMENT_STATUS_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Treatment_Status_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeTreatmentStatusReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.SERVICE_CHALLENGES_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Service_Challenges_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeServiceChallengesReport(ReportUtils.getReportDate());
+                default:
+                    return ReportUtils.TbLeprosyReports.emptyReport();
+            }
+        }
+
         return "";
     }
 

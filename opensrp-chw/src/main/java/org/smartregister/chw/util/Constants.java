@@ -250,6 +250,8 @@ public class Constants extends CoreConstants {
            String AYP_IN_SCHOOL_REPORT = "ayp_in_school_report";
 
            String CECAP_REPORT = "cecap_report";
+
+           String TBLEPROSY_REPORT = "tbleprosy_report";
         }
 
         public interface CDPReportKeys {
@@ -275,6 +277,14 @@ public class Constants extends CoreConstants {
         public interface AsrhReportKeys {
             String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
             String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+        public interface TbLeprosyReportKeys {
+            String COMMUNITY_REPORT = "tbleprosy-community-report";
+            String HOUSEHOLD_REPORT = "tbleprosy-household-report";
+            String SPECIAL_AREAS_REPORT = "tbleprosy-special-areas-report";
+            String TREATMENT_STATUS_REPORT = "tbleprosy-treatment-status-report";
+            String SERVICE_CHALLENGES_REPORT = "tbleprosy-service-challenges-report";
         }
 
         public interface AypReportKeys {
@@ -320,6 +330,12 @@ public class Constants extends CoreConstants {
             String CECAP_REPORT_PATH = "cecap_reports/cecap-report";
 
             String CECAP_OTHER_REPORT_PATH = "cecap_reports/cecap-other-report";
+
+            String TBLEPROSY_COMMUNITY_REPORT_PATH = "tbleprosy_reports/tbleprosy-community-report";
+            String TBLEPROSY_HOUSEHOLD_REPORT_PATH = "tbleprosy_reports/tbleprosy-household-report";
+            String TBLEPROSY_SPECIAL_REPORT_PATH = "tbleprosy_reports/tbleprosy-special-areas-report";
+            String TBLEPROSY_TREATMENT_STATUS_REPORT_PATH = "tbleprosy_reports/tbleprosy-treatment-status-report";
+            String TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH = "tbleprosy_reports/tbleprosy-service-challenges-report";
         }
     }
 
