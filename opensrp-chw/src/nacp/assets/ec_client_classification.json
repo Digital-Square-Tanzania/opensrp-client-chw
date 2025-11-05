@@ -777,13 +777,6 @@
           },
           {
             "field": "eventType",
-            "field_value": "TBLEPROSY Contact Observation Results",
-            "creates_case": [
-              "ec_tbleprosy_contact_observation_results"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "TbLeprosy Follow-up Visit",
             "creates_case": [
               "ec_tbleprosy_followup_visit"
