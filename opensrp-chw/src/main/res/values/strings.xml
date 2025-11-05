@@ -543,6 +543,22 @@
 
 
     <string name="cecap_referral">Reproductive Cancers Services</string>
+    <string name="tb_leprosy_reports_title">TB/Leprosy Reports</string>
+
+    <string name="tb_leprosy_report_section_community">Uchunguzi wa TB/Ukoma katika Jamii</string>
+    <string name="tb_leprosy_report_section_community_desc">Ripoti za uchunguzi katika jamii kwa umri na jinsia</string>
+    <string name="tb_leprosy_report_section_household">Uchunguzi kwa Wanaoishi na Mgonjwa wa TB au Ukoma</string>
+    <string name="tb_leprosy_report_section_household_desc">Ripoti za uchunguzi kwa wanafamilia na kaya</string>
+    <string name="tb_leprosy_report_section_special">Uchunguzi katika Maeneo Maalumu</string>
+    <string name="tb_leprosy_report_section_special_desc">Ripoti kwa maeneo maalumu kama masokoni na migodini</string>
+    <string name="tb_leprosy_report_section_treatment">Waliokatiza au Hawakuanza Matibabu</string>
+    <string name="tb_leprosy_report_section_treatment_desc">Ripoti za ufuatiliaji wa waliokatiza au hawakuanza matibabu</string>
+    <string name="tb_leprosy_report_section_challenges">Changamoto za Huduma ya TB na Ukoma</string>
+    <string name="tb_leprosy_report_section_challenges_desc">Ripoti za changamoto zilizobainika wakati wa huduma</string>
+
+    <string name="tb_leprosy_reports_subtitle">View TB/Leprosy report</string>
+    <string name="tb_leprosy_monthly_report_title">TB/Leprosy Monthly Report</string>
+    <string name="action_not_defined">Action haijafafanuliwa</string>
 
     <string name="successful_linkages">Successful Linkages</string>
 
