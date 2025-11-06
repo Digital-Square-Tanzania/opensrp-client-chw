@@ -55,8 +55,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "malaria_prevention_counselling_intro",
         "type": "label",
-        "text": "Tunahitaji pia kujadili kuhusu kujikinga na Malaria.",
-        "label_info_text": "We also need to discuss about Malaria.",
+        "text": "Tujadili pia kuhusu kujikinga na Malaria. Wewe na mtoto wako mpo katika hatari zaidi ya malaria. Malaria itaendelea kuwa hatarishi katika miaka mitano ya mwanzo ya  maisha ya mtoto wako.",
+        "label_info_text": "Tujadili pia kuhusu kujikinga na Malaria. Wewe na mtoto wako mpo katika hatari zaidi ya malaria. Malaria itaendelea kuwa hatarishi katika miaka mitano ya mwanzo ya  maisha ya mtoto wako.",
         "text_color": "#000000",
         "label_text_style": "italic",
         "has_bg": true
@@ -68,7 +68,7 @@
         "openmrs_entity_id": "malaria_protective_measures",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Je, unachukua hatua gani kujikinga wewe na mtoto wako aliye tumboni dhidi ya Malaria?",
+        "label": "Je, unachukua hatua gani kujikinga wewe na mtoto wako aliye tumboni dhidi ya Malaria? <i<b>(Tiki kulingana na majibu ya mama)</b></i>",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -77,7 +77,7 @@
         "options": [
           {
             "key": "chk_use_llin",
-            "text": "Anatumia chandarua chenye dawa",
+            "text": "Anatumia chandarua chenye dawa kwa usahihi",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_use_llin"
@@ -187,7 +187,7 @@
         "openmrs_entity_id": "fam_llin",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, Mwanamke ana chandarua chenye dawa ya muda mrefu (LLIN)?",
+        "hint": "Je, Mama ana chandarua chenye dawa ya muda mrefu (LLIN)?",
         "values": [
           "Ndiyo ",
           "Hapana"
@@ -242,7 +242,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sleep_under_mosquito_net",
         "type": "label",
-        "text": "Ukilala chini ya chandarua cha LLIN unaweza kujikinga wewe na mtoto wako ambaye hajazaliwa kutokana na athari zilizo hapo juu.",
+        "text": "Ukilala chini ya chandarua chenye dawa ya muda mrefu unaweza kujikinga wewe na mtoto wako ambaye hajazaliwa kutokana na athari zilizo orodheshwa kwenye kitendea kazi.",
         "label_info_text": "We also need to discuss about Malaria.",
         "text_color": "#000000",
         "label_text_style": "italic",
@@ -256,14 +256,7 @@
         "type": "toaster_notes",
         "text": "Mkumbushe mama mjamzito na mwenza wake kuwa anaweza kupata chandarua kwenye kituo cha kutolea huduma za afya na pia umshauri kuhusu utumiaji wa chandarua kwaajili ya kujikinga na Malaria.",
         "text_color": "#000000",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_malaria_relevance.yml"
-            }
-          }
-        }
+        "toaster_type": "info"
       },
       {
         "key": "malaria_cause",
@@ -271,16 +264,61 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "malaria_cause",
         "type": "toaster_notes",
-        "text": "Malaria inaweza kusababisha:\n- Kuzaa kabla ya muda- kabla ya wiki 37 za ujauzito\n- Uzito mdogo kwa mtoto anayezaliwa\n- Kuzuia ukuaji wa mtoto tumboni\n- Kujifungua mtoto aliyefariki\n- Kuharibika kwa mimba\n- Kifo cha mama\n- Upungufu wa damu",
+        "toaster_type": "warning",
+        "text": "<b>Malaria inaweza kusababisha:</b>",
         "text_color": "#000000",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_malaria_relevance.yml"
-            }
-          }
-        }
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "malaria_cause_1",
+        "type": "label",
+        "text": "- Kuzaa kabla ya muda- kabla ya wiki 37 za ujauzito",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_2",
+        "type": "label",
+        "text": "- Uzito mdogo kwa mtoto anayezaliwa",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_3",
+        "type": "label",
+        "text": "- Kuzuia ukuaji wa mtoto tumboni",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_4",
+        "type": "label",
+        "text": "- Kujifungua mtoto aliyefariki",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_5",
+        "type": "label",
+        "text": "- Kuharibika kwa mimba",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_6",
+        "type": "label",
+        "text": "- Kifo cha mama",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_7",
+        "type": "label",
+        "text": "- Upungufu wa damu",
+        "label_text_style": "italic",
+        "text_color": "#000000"
       },
       {
         "key": "malaria_bango_kitita_reference",
@@ -307,7 +345,7 @@
       {
         "key": "prompt_for_llin",
         "type": "toaster_notes",
-        "text": "Tafadhali mshauri mteja umuhimu wa kulala kwenye chandarua chenye dawa LLIN",
+        "text": "Tafadhali mshauri mteja umuhimu wa kulala kwenye chandarua chenye dawa LLIN(Chandarua chenye Viwatilifu)",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
@@ -328,11 +366,13 @@
         "type": "spinner",
         "hint": "Hali ya chandarua",
         "values": [
-          "Nzuri",
-          "Mbaya (Chandarua kimechanika)"
+          "Nzuri (haina matobo)",
+          "Kawaida (Haina matobo ila imechakaa)",
+          "Mbaya (Imechakaa na ina matobo)"
         ],
         "keys": [
           "Good",
+          "Fair",
           "Bad"
         ],
         "openmrs_choice_ids": {

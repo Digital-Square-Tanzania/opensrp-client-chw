@@ -55,8 +55,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "malaria_prevention_counselling_intro",
         "type": "label",
-        "text": "We also need to discuss about Malaria.",
-        "label_info_text": "We also need to discuss about Malaria.",
+        "text": "We also need to discuss about Malaria prevention. You and your baby are at most risk of malaria. Malaria will continue to be an important danger throughout your child's early years of life.",
+        "label_info_text": "We also need to discuss about Malaria prevention. You and your baby are at most risk of malaria. Malaria will continue to be an important danger throughout your child's early years of life.",
         "text_color": "#000000",
         "label_text_style": "italic",
         "has_bg": true
@@ -105,7 +105,7 @@
           },
           {
             "key": "chk_destroying_mosquito_breeds",
-            "text": "Household spraying of insecticide",
+            "text": "Destroying mosquito breeding grounds",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_destroying_mosquito_breeds"
@@ -187,7 +187,7 @@
         "openmrs_entity_id": "fam_llin",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the woman have a long lasting insecticide net (LLIN)?",
+        "hint": "Did you and your child sleep under the LLIN last night?",
         "values": [
           "Yes",
           "No"
@@ -256,14 +256,7 @@
         "type": "toaster_notes",
         "text": "Remind the pregnant woman and her partner that they can get a free LLIN from the health facility and counsel them on the usage of LLIN and malaria prevention.",
         "text_color": "#000000",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_malaria_relevance.yml"
-            }
-          }
-        }
+        "toaster_type": "info"
       },
       {
         "key": "malaria_cause",
@@ -271,16 +264,61 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "malaria_cause",
         "type": "toaster_notes",
-        "text": "Malaria can cause:\n- Premature Birth-birth before 37 weeks of pregnancy\n- Low birth weight\n- Restricted growth of the baby in the womb\n- Stillbirth\n- Miscarriage\n- Death of the mother\n- Anemia",
+        "toaster_type": "warning",
+        "text": "<b>Malaria can cause:</b>",
         "text_color": "#000000",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_malaria_relevance.yml"
-            }
-          }
-        }
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "malaria_cause_1",
+        "type": "label",
+        "text": "- Premature Birth-birth before 37 weeks of pregnancy",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_2",
+        "type": "label",
+        "text": "- Low birth weight",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_3",
+        "type": "label",
+        "text": "- Restricted growth of the baby in the womb",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_4",
+        "type": "label",
+        "text": "- Stillbirth",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_5",
+        "type": "label",
+        "text": "- Miscarriage",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_6",
+        "type": "label",
+        "text": "- Death of the mother",
+        "label_text_style": "italic",
+        "text_color": "#000000"
+      },
+      {
+        "key": "malaria_cause_7",
+        "type": "label",
+        "text": "- Anemia",
+        "label_text_style": "italic",
+        "text_color": "#000000"
       },
       {
         "key": "malaria_bango_kitita_reference",
@@ -328,11 +366,13 @@
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
-          "Good",
-          "Bad (Torn net)"
+          "Good (no holes)",
+          "Fair (no holes but very used)",
+          "Poor (old with many holes)"
         ],
         "keys": [
           "Good",
+          "Fair",
           "Bad"
         ],
         "openmrs_choice_ids": {
