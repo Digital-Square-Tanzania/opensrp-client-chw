@@ -136,7 +136,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         } else {
             evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
-            evaluateCounselling();
             evaluateMalariaPrevention();
             evaluateEnvironmentalHygiene();
             for (Person baby : children) {
@@ -144,6 +143,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 evaluateOtherActionForBaby(baby);
             }
 
+            evaluateCounselling();
         }
     }
 

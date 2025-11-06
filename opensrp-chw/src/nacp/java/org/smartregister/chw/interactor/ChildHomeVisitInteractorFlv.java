@@ -108,7 +108,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateVitaminA(serviceWrapperMap);
             evaluateChildDeWorming(serviceWrapperMap);
             evaluateMalariaPrevention();
-            evaluateCounselling();
             evaluateNutritionStatus();
             evaluateObsAndIllness();
             evaluateMalnutritionScreening(serviceWrapperMap);
@@ -121,6 +120,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateCareGiverResponsiveness(serviceWrapperMap);
             evaluateCCDChildDiscipline(serviceWrapperMap);
             evaluateDevelopmentScreening(serviceWrapperMap);
+            evaluateCounselling();
         }
         else removeNonDangerSignActions();
         new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
