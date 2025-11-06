@@ -50,6 +50,13 @@
     "title": "Mpango binafsi wa Kujifungua",
     "fields": [
       {
+        "key": "visit_2_visit_3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "delivery_preparedness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -154,8 +161,8 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je mama mjamzito ameanda usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
-        "label_info_text": "Je mama mjamzito ameanda usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
+        "hint": "Je mama mjamzito ameandaa usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
+        "label_info_text": "Je mama mjamzito ameandaa usafiri wa kwenda  kwenye kituo kilichotayarishwa?",
         "values": [
           "Ndio",
           "Hapana"
@@ -206,15 +213,118 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "KUMBUSHO KWA MJA: Pitia kila dalili pamoja na mama mjamzito.\nKumbuka kuwa dalili za awali za uchungu wa kujifungua zinaweza kuwa",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "early_signs_labour_counselling",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
         "type": "label",
-        "text": "\n• Kujiskia kuchoka \n• Kupata choo kilaini/chepesi\n• Mtoto kushuka \n•  Kutokwa na damu kidogo ukeni \n• Kupata uchungu wa mara kwa mara \n• Kutokwa na maji maji ukeni (utelezi kuongezeka) \n• Kukojoa mara kwa mara"
+        "text": "Dalili za mwanzo za uchungu wa kujifungua:",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_1",
+        "type": "label",
+        "text": "• Kujiskia kuchoka",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_2",
+        "type": "label",
+        "text": "• Kupata choo kilaini/chepesi",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_3",
+        "type": "label",
+        "text": "• Mtoto kushuka",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_4",
+        "type": "label",
+        "text": "• Kutokwa na damu kidogo ukeni",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_5",
+        "type": "label",
+        "text": "• Kupata uchungu wa mara kwa mara",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_6",
+        "type": "label",
+        "text": "• Kutokwa na maji maji ukeni (utelezi kuongezeka)",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_7",
+        "type": "label",
+        "text": "• Kukojoa mara kwa mara",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "early_signs_labour_counselling_memo",
@@ -223,7 +333,14 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "Eleza kwa nini ni muhimu kufika kituo cha afya mapema iwezekanavyo akianza kuziona hizi dalili.  \n",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

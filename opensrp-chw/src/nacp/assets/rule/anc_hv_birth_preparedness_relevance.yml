@@ -6,3 +6,82 @@ condition: "step1_transportation_preparedness.contains('Yes')||step1_family_memb
   ||step1_birth_companion_preparedness.contains('Yes')||step1_savings_preparedness.contains('Yes')||step1_location_nearest_health_facility"
 actions:
   - "isRelevant = true"
+---
+name: step1_early_signs_labour_counselling_title
+description: early_signs_labour_counselling_title
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling
+description: early_signs_labour_counselling
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_1
+description: early_signs_labour_counselling_1
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_2
+description: early_signs_labour_counselling_2
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_3
+description: early_signs_labour_counselling_3
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_4
+description: early_signs_labour_counselling_4
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_5
+description: early_signs_labour_counselling_5
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_6
+description: early_signs_labour_counselling_6
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_7
+description: early_signs_labour_counselling_7
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_early_signs_labour_counselling_memo
+description: early_signs_labour_counselling_memo
+priority: 1
+condition: "step1_visit_2_visit_3 == 'true'"
+actions:
+  - "isRelevant = true"

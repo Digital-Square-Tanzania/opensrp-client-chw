@@ -2,6 +2,8 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
@@ -9,6 +11,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.JsonFormUtils;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,15 +25,19 @@ public class BirthPreparednessAction implements BaseAncHomeVisitAction.AncHomeVi
     private String birth_companion_preparedness = "";
     private String family_member_individual_stay_home_preparedness = "";
     private String transportation_preparedness = "";
+    private String jsonString;
+    private final Map<String, Boolean> visitNumberMap = new HashMap<>();
+
+    private boolean is_visit_2_visit_3;
+
+    public BirthPreparednessAction(boolean is_visit_2_visit_3) {
+        this.is_visit_2_visit_3 = is_visit_2_visit_3;
+    }
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
         this.context = context;
-    }
-
-    @Override
-    public String getPreProcessed() {
-        return null;
+        this.jsonString = jsonString;
     }
 
     @Override
@@ -50,6 +57,31 @@ public class BirthPreparednessAction implements BaseAncHomeVisitAction.AncHomeVi
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
         return null;
+    }
+
+
+    @Override
+    public String getPreProcessed() {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray fields = org.smartregister.chw.anc.util.JsonFormUtils.fields(jsonObject);
+            populateVisitNumber();
+            for (Map.Entry<String, Boolean> entry : visitNumberMap.entrySet()) {
+                if (entry.getValue()) {
+                    org.smartregister.chw.anc.util.JsonFormUtils.getFieldJSONObject(fields, entry.getKey()).put("value", "true");
+                }
+            }
+            return jsonObject.toString();
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private void populateVisitNumber() {
+        if (is_visit_2_visit_3) {
+            visitNumberMap.put("visit_2_visit_3", true);
+        }
     }
 
     @Override
