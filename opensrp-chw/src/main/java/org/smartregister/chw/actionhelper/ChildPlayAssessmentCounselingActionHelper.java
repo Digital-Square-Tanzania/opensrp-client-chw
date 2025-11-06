@@ -64,7 +64,7 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray fields = JsonFormUtils.fields(jsonObject);
-//            populateVisitNumber();
+            populateVisitNumber();
             for (Map.Entry<String, Boolean> entry : visitNumberMap.entrySet()) {
                 if (entry.getValue()) {
                     JsonFormUtils.getFieldJSONObject(fields, entry.getKey()).put("value", "true");
@@ -116,8 +116,8 @@ public class ChildPlayAssessmentCounselingActionHelper extends HomeVisitActionHe
 
     private void populateVisitNumber() {
         int visitNumber = visitNumber();
-        if (visitNumber >= 17 && visitNumber <= 25) {
-            visitNumberMap.put("visit_17_visit_25", true);
+        if (visitNumber >= 19 && visitNumber <= 25) {
+            visitNumberMap.put("visit_19_visit_25", true);
         }
     }
 

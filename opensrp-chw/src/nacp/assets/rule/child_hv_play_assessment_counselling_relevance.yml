@@ -37,7 +37,7 @@ actions:
 name: step1_child_attend_daycare
 description: Child attend daycare
 priority: 1
-condition: "step1_visit_17_visit_25 == 'true'"
+condition: "step1_visit_19_visit_25 == 'true'"
 actions:
   - "isRelevant = true"
 ---

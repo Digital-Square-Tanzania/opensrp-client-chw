@@ -132,18 +132,20 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateFamilyPlanning(Map<String, List<VisitDetail>> details,
                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject familyPlanningForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(familyPlanningForm, details);
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            JSONObject familyPlanningForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(familyPlanningForm, details);
+            }
+            BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning())
+                    .withJsonPayload(familyPlanningForm.toString())
+                    .withHelper(new FamilyPlanningAction())
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
         }
-        BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning())
-                .withJsonPayload(familyPlanningForm.toString())
-                .withHelper(new FamilyPlanningAction())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
     }
 
     private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
@@ -401,11 +403,18 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
                 org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
                 org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+
+            boolean is_second_or_third_visit = false;
+
+            if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+                is_second_or_third_visit = true;
+            }
+
             String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
             BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withHelper(new BirthPreparednessAction())
+                    .withHelper(new BirthPreparednessAction(is_second_or_third_visit))
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                     .withFormName("anc_hv_birth_preparedness")
                     .build();
@@ -499,30 +508,29 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public String postProcess(String s) {
             try {
                 if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
-                    evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
-                    evaluateFamilyPlanning(details, context);
-                    // evaluateNutritionStatus(details, context);
-                    evaluateCounsellingStatus(details, context);
-                    evaluateMalaria(details, context);
-                    evaluateObservation(details, context);
-                    evaluateRemarks(details, context);
-                    evaluatePostpartumCareForMother();
-                    evaluateEarlyStimulation();
-                    evaluatePostpartumDangerSigns();
-                    evaluateCommunityHealthWorkerObservation(details, context);
-                    evaluateImmediateNewBornCare();
                     evaluateAncClinicAttendance();
                     evaluateNutritionCounselling();
                     evaluateBirthPreparedness(details, memberObject);
                     evaluateHIVAIDSGeneralInformation();
-                    evaluateBreastFeeding(details, memberObject, context);
-                    evaluateNewBornDangerSign();
-                    evaluatePartnerEngagement(details, context);
-                    evaluateLAM();
-                    evaluateHIVExposedInfantFollowUp();
-                    evaluatePostpartumPhysiologicalChanges();
-                    evaluateGenderIssues();
                     evaluatePMTCT();
+                    evaluateMalaria(details, context);
+                    evaluateBreastFeeding(details, memberObject, context);
+                    evaluateGenderIssues();
+                    evaluatePostpartumPhysiologicalChanges();
+                    evaluatePostpartumCareForMother();
+                    evaluatePostpartumDangerSigns();
+                    evaluateImmediateNewBornCare();
+                    evaluateNewBornDangerSign();
+                    evaluateHIVExposedInfantFollowUp();
+                    evaluateLAM();
+                    evaluateFamilyPlanning(details, context);
+                    evaluateEarlyStimulation();
+                    evaluatePartnerEngagement(details, context);
+                    evaluateCommunityHealthWorkerObservation(details, context);
+                    evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
+                    evaluateCounsellingStatus(details, context);
+                    evaluateObservation(details, context);
+                    evaluateRemarks(details, context);
                 } else {
                     Timber.d(actionList.toString());
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
