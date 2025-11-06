@@ -23,7 +23,7 @@ public class VisitUtils {
 
     public static boolean isFirstVisit(final MemberObject member) {
         int gaWeeks = member.getGestationAge();
-        return gaWeeks <= 12 && isVisitInRangeWithoutECD(member, 0, 12);
+        return gaWeeks < 16 && isVisitInRangeWithoutECD(member, 0, 16);
     }
 
     public static boolean isSecondVisit(final MemberObject member) {
