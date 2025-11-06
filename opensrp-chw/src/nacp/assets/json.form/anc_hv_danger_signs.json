@@ -64,40 +64,10 @@
         ],
         "options": [
           {
-            "key": "chk_fever",
-            "text": "Fever",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_fever"
-          },
-          {
             "key": "chk_bleeding_vaginally",
-            "text": "Bleeding vaginally",
+            "text": "Vaginal bleeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_bleeding_vaginally"
-          },
-          {
-            "key": "chk_server_headache",
-            "text": "Severe headache",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_server_headache"
-          },
-          {
-            "key": "chk_blurred_vision",
-            "text": "Blurred vision",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_blurred_vision"
-          },
-          {
-            "key": "chk_convulsions",
-            "text": "Convulsions",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_convulsions"
-          },
-          {
-            "key": "chk_difficulty_breathing",
-            "text": "Difficulty breathing",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_difficulty_breathing"
           },
           {
             "key": "chk_severe_abdominal_pain",
@@ -106,16 +76,34 @@
             "openmrs_entity_id": "chk_severe_abdominal_pain"
           },
           {
-            "key": "chk_loss_consciousness",
-            "text": "Loss of consciousness",
+            "key": "chk_server_headache",
+            "text": "Severe headache",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_loss_consciousness"
+            "openmrs_entity_id": "chk_server_headache"
+          },
+          {
+            "key": "chk_fever",
+            "text": "Fever and being too weak to get out of bed",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_swelling",
-            "text": "Swelling of the face and/or hands",
+            "text": "Swelling of face, arms,  legs, fingers, hands and feet",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling"
+          },
+          {
+            "key": "chk_vaginal_discharge",
+            "text": "Foul smelling vaginal discharge",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vaginal_discharge"
+          },
+          {
+            "key": "chk_vaginal_liquid_leaking",
+            "text": "Liquid leaking from Vagina",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vaginal_liquid_leaking"
           },
           {
             "key": "chk_early_labour",
@@ -124,28 +112,34 @@
             "openmrs_entity_id": "chk_early_labour"
           },
           {
-            "key": "chk_vaginal_discharge",
-            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_vaginal_discharge"
-          },
-          {
-            "key": "chk_unusual_movement",
-            "text": "No movement / unusual movement for a child in the womb",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unusual_movement"
-          },
-          {
-            "key": "chk_fgm",
-            "text": "FGM",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_fgm"
-          },
-          {
             "key": "chk_pallor",
             "text": "Pallor (palms, tongue, and conjuctiva)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_loss_consciousness",
+            "text": "Loss of consciousness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_loss_consciousness"
+          },
+          {
+            "key": "chk_unusual_movement",
+            "text": "Reduced/no fetal movement",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unusual_movement"
+          },
+          {
+            "key": "chk_blurred_vision",
+            "text": "Blurred vision",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_blurred_vision"
+          },
+          {
+            "key": "chk_fatigue",
+            "text": "Fatigue/Lethargy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fatigue"
           },
           {
             "key": "chk_dizziness",
@@ -158,6 +152,24 @@
             "text": "Signs of malaria (feeling cold, fever, vomiting)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_malaria_signs"
+          },
+          {
+            "key": "chk_difficulty_breathing",
+            "text": "Difficulty breathing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_difficulty_breathing"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Convulsions/Fits",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_convulsions"
+          },
+          {
+            "key": "chk_fgm",
+            "text": "FGM",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fgm"
           },
           {
             "key": "chk_none",
@@ -193,6 +205,11 @@
                   "chk_difficulty_breathing",
                   "chk_severe_abdominal_pain",
                   "chk_loss_consciousness",
+                  "chk_vaginal_liquid_leaking",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_malaria_signs",
+                  "chk_fatigue",
                   "chk_swelling",
                   "chk_early_labour",
                   "chk_vaginal_discharge",

@@ -171,6 +171,9 @@
         "label": "Kwa nini hukuhudhuria kliniki ya wajawazito mara ya mwisho?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_other"
+        ],
         "options": [
           {
             "key": "chk_not_important",
@@ -188,7 +191,7 @@
           },
           {
             "key": "chk_afraid",
-            "text": "Anaogopa huduma fulani inayotolewa katika kituo cha afya (kwa mfano kupima HIV)",
+            "text": "Anaogopa huduma fulani inayotolewa katika kituo cha afya (kwa mfano kupima virusi vya Ukimwi)",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_afraid"

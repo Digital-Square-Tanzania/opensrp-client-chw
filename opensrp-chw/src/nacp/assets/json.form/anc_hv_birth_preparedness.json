@@ -50,6 +50,13 @@
     "title": "Birth Preparedness",
     "fields": [
       {
+        "key": "visit_2_visit_3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "delivery_preparedness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -203,19 +210,121 @@
         "key": "early_signs_labour_counselling_title",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "early_signs_labour_counselling_title",
         "type": "label",
         "text": "REMINDER TO CHW: Go through each sign with the pregnant woman. Remember that Early Signs of Labor could be",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "early_signs_labour_counselling",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
         "type": "label",
-        "text": "\n• Tiredness \n•  Light Stool/Diarrhoea\n• A feeling of pressure in the pelvis or lower belly.\n•  Vaginal spotting or light bleeding\n• Labor Contractions - Strong and regular contractions \n• A gush or an ongoing trickle of fluid from the vagina\n• Frequent Urination"
+        "text": "Dalili za mwanzo za uchungu wa kujifungua:",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_1",
+        "type": "label",
+        "text": "• Tiredness",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_2",
+        "type": "label",
+        "text": "• Light Stool/Diarrhoea",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_3",
+        "type": "label",
+        "text": "• A feeling of pressure in the pelvis or lower belly.",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_4",
+        "type": "label",
+        "text": "• Vaginal spotting or light bleeding",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_5",
+        "type": "label",
+        "text": "• Labor Contractions - Strong and regular contractions",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_6",
+        "type": "label",
+        "text": "• A gush or an ongoing trickle of fluid from the vagina",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "early_signs_labour_counselling_7",
+        "type": "label",
+        "text": "• Frequent Urination",
+        "label_text_style": "italic",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "early_signs_labour_counselling_memo",
@@ -224,7 +333,14 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "Indicate why it’s important to get to the facility as early as possible after she has shown any of the early signs of labour: \n",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_birth_preparedness_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

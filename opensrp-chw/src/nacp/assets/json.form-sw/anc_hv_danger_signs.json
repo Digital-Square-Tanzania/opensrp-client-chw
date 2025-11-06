@@ -64,40 +64,10 @@
         ],
         "options": [
           {
-            "key": "chk_fever",
-            "text": "Homa",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_fever"
-          },
-          {
             "key": "chk_bleeding_vaginally",
-            "text": "Kutokwa na damu ukeni",
+            "text": "Kutokwa Damu ukeni",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_bleeding_vaginally"
-          },
-          {
-            "key": "chk_server_headache",
-            "text": "Maumivu makali ya kichwa",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_server_headache"
-          },
-          {
-            "key": "chk_blurred_vision",
-            "text": "Kutoona vizuri",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_blurred_vision"
-          },
-          {
-            "key": "chk_convulsions",
-            "text": "Degedege",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_convulsions"
-          },
-          {
-            "key": "chk_difficulty_breathing",
-            "text": "Kupumua kwa shida",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_difficulty_breathing"
           },
           {
             "key": "chk_severe_abdominal_pain",
@@ -106,46 +76,70 @@
             "openmrs_entity_id": "chk_severe_abdominal_pain"
           },
           {
-            "key": "chk_loss_consciousness",
-            "text": "Kupoteza fahamu",
+            "key": "chk_server_headache",
+            "text": "Maumivu makali ya kichwa",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_loss_consciousness"
+            "openmrs_entity_id": "chk_server_headache"
+          },
+          {
+            "key": "chk_fever",
+            "text": "Kupata homa na kuhisi uchovu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_swelling",
-            "text": "Kuvimba kwa uso na/au mikono",
+            "text": "Kuvimba mikono au uso",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling"
           },
           {
-            "key": "chk_early_labour",
-            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_early_labour"
-          },
-          {
             "key": "chk_vaginal_discharge",
-            "text": "Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya",
+            "text": "Kutokwa na uchafu ukeni",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginal_discharge"
           },
           {
-            "key": "chk_unusual_movement",
-            "text": "Hakuna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni",
+            "key": "chk_vaginal_liquid_leaking",
+            "text": "Kutokwa uchafu au majimaji ukeni",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unusual_movement"
+            "openmrs_entity_id": "chk_vaginal_liquid_leaking"
           },
           {
-            "key": "chk_fgm",
-            "text": "Ukeketaji",
+            "key": "chk_early_labour",
+            "text": "Kupata uchungu mapema kabla ya miezi tisa",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_fgm"
+            "openmrs_entity_id": "chk_early_labour"
           },
           {
             "key": "chk_pallor",
             "text": "Weupe mkubwa (viganja, ulimi, macho)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_loss_consciousness",
+            "text": "Kupoteza fahamu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_loss_consciousness"
+          },
+          {
+            "key": "chk_unusual_movement",
+            "text": "Mtoto kupunguza kucheza au kutokucheza kabisa tumbonia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unusual_movement"
+          },
+          {
+            "key": "chk_blurred_vision",
+            "text": "kutoona vizuri",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_blurred_vision"
+          },
+          {
+            "key": "chk_fatigue",
+            "text": "Kujisikia kuchoka",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fatigue"
           },
           {
             "key": "chk_dizziness",
@@ -155,9 +149,27 @@
           },
           {
             "key": "chk_malaria_signs",
-            "text": "Dalili za malaria (Kuhisi baridi, Homa, Kutapika)",
+            "text": "Dalili za malaria kama vile kusikia baridi, homa na  kutapika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_malaria_signs"
+          },
+          {
+            "key": "chk_difficulty_breathing",
+            "text": " kukosa pumzi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_difficulty_breathing"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Degedege/Kifafa cha mimba",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_convulsions"
+          },
+          {
+            "key": "chk_fgm",
+            "text": "Ukeketaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fgm"
           },
           {
             "key": "chk_none",
@@ -193,6 +205,11 @@
                   "chk_difficulty_breathing",
                   "chk_severe_abdominal_pain",
                   "chk_loss_consciousness",
+                  "chk_vaginal_liquid_leaking",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_malaria_signs",
+                  "chk_fatigue",
                   "chk_swelling",
                   "chk_early_labour",
                   "chk_vaginal_discharge",

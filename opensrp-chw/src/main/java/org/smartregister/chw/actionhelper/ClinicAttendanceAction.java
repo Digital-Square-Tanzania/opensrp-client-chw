@@ -68,9 +68,11 @@ public class ClinicAttendanceAction implements BaseAncHomeVisitAction.AncHomeVis
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
         if (clinic_attendance.equalsIgnoreCase("No")){
-            return BaseAncHomeVisitAction.Status.PENDING;
-        }else{
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+        } else if (clinic_attendance.equalsIgnoreCase("Yes")) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
+        } else {
+            return BaseAncHomeVisitAction.Status.PENDING;
         }
     }
 

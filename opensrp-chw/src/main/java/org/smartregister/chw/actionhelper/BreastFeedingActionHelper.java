@@ -65,7 +65,7 @@ public class BreastFeedingActionHelper implements BaseAncHomeVisitAction.AncHome
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(preg_woman_other_children) || StringUtils.isBlank(preg_woman_breastfeed)) {
+        if (StringUtils.isBlank(preg_woman_other_children) && StringUtils.isBlank(preg_woman_breastfeed)) {
             return BaseAncHomeVisitAction.Status.PENDING;
         } else if (preg_woman_breastfeed.contains("chk_no")) {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;

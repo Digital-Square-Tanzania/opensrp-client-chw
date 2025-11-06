@@ -171,6 +171,9 @@
         "label": "Why did you not attend last ANC visit?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_other"
+        ],
         "options": [
           {
             "key": "chk_not_important",

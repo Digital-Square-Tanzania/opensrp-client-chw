@@ -198,6 +198,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_egg",
@@ -252,6 +255,21 @@
         "v_required": {
           "value": "true",
           "err": "Value Required"
+        }
+      },
+      {
+        "key": "nutrition_restrictions_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nutrition_restrictions_other",
+        "type": "edit_text",
+        "hint": "Other Food Restrictions",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_counselling_relevance.yml"
+            }
+          }
         }
       },
       {

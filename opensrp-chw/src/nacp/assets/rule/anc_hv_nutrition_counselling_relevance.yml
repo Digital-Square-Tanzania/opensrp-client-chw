@@ -19,3 +19,10 @@ priority: 1
 condition: "step1_folic_acid_tablets.contains('No')"
 actions:
   - "isRelevant = true"
+---
+name: step1_nutrition_restrictions_other
+description: Other Food Restrictions
+priority: 1
+condition: "step1_nutrition_restrictions.contains('chk_other')"
+actions:
+  - "isRelevant = true"
