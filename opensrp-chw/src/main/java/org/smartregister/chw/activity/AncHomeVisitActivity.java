@@ -87,9 +87,9 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
         //Necessary evil to rearrange the actions according to a specific arrangement
-        if (map.containsKey(getString(R.string.anc_home_visit_danger_signs))) {
-            BaseAncHomeVisitAction dangerSignsAction = map.get(getString(R.string.anc_home_visit_danger_signs));
-            actionList.put(getString(R.string.anc_home_visit_danger_signs), dangerSignsAction);
+        if (map.containsKey(getString(org.smartregister.chw.R.string.pnc_hv_location))) {
+            BaseAncHomeVisitAction dangerSignsAction = map.get(getString(org.smartregister.chw.R.string.pnc_hv_location));
+            actionList.put(getString(org.smartregister.chw.R.string.pnc_hv_location), dangerSignsAction);
         }
         //====================End of Necessary evil ====================================
 
