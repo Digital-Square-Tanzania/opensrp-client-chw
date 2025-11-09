@@ -45,6 +45,21 @@
             font-weight: bold;
         }
 
+        .outcome-cell {
+            text-align: left;
+        }
+
+        .outcome-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .outcome-label {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
         .note {
             margin-top: 12px;
             font-size: 11px;
@@ -62,48 +77,116 @@
 <table>
     <thead>
     <tr>
-        <th rowspan="3">Umri (miaka)</th>
-        <th colspan="2">Idadi ya wagonjwa waliowahi kuanza matibabu waliosahau kufuatiliwa</th>
-        <th colspan="4">Matokeo ya ufuatiliaji (Angalizo: Kielelezo A)</th>
+        <th rowspan="2">Umri (miaka)</th>
+        <th colspan="2">Idadi ya wagonjwa walioacha/wasioanza matibabu waliofutiliwa</th>
+        <th colspan="2">Matokeo ya ufuatiliaji (Angali kielelezo A)</th>
     </tr>
     <tr>
-        <th colspan="2">1</th>
-        <th colspan="2">Amepatikana/kuendelea</th>
-        <th colspan="2">Hajapatikana</th>
-    </tr>
-    <tr>
-        <th>KE</th><th>ME</th>
-        <th>KE</th><th>ME</th>
-        <th>KE</th><th>ME</th>
+        <th>KE</th>
+        <th>ME</th>
+        <th>KE</th>
+        <th>ME</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="age-cell">0-14</td>
-        <td data-indicator="tbleprosy_treat_started_ke_0_14" data-column="treat-started-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_started_me_0_14" data-column="treat-started-me" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_found_ke_0_14" data-column="treat-found-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_found_me_0_14" data-column="treat-found-me" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_not_found_ke_0_14" data-column="treat-notfound-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_not_found_me_0_14" data-column="treat-notfound-me" class="unknown">N/A</td>
+        <td class="age-cell">0 - 14</td>
+        <td data-indicator="tbleprosy_treat_followed_ke_0_14" data-column="followed-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_followed_me_0_14" data-column="followed-me" class="unknown">N/A</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_ke_0_14" data-column="outcome-a-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_ke_0_14" data-column="outcome-h-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_ke_0_14" data-column="outcome-k-ke" class="unknown">N/A</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_me_0_14" data-column="outcome-a-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_me_0_14" data-column="outcome-h-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_me_0_14" data-column="outcome-k-me" class="unknown">N/A</span>
+            </div>
+        </td>
     </tr>
     <tr>
         <td class="age-cell">15 na zaidi</td>
-        <td data-indicator="tbleprosy_treat_started_ke_15_plus" data-column="treat-started-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_started_me_15_plus" data-column="treat-started-me" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_found_ke_15_plus" data-column="treat-found-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_found_me_15_plus" data-column="treat-found-me" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_not_found_ke_15_plus" data-column="treat-notfound-ke" class="unknown">N/A</td>
-        <td data-indicator="tbleprosy_treat_not_found_me_15_plus" data-column="treat-notfound-me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_followed_ke_15_plus" data-column="followed-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_followed_me_15_plus" data-column="followed-me" class="unknown">N/A</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_ke_15_plus" data-column="outcome-a-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_ke_15_plus" data-column="outcome-h-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_ke_15_plus" data-column="outcome-k-ke" class="unknown">N/A</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_me_15_plus" data-column="outcome-a-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_me_15_plus" data-column="outcome-h-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_me_15_plus" data-column="outcome-k-me" class="unknown">N/A</span>
+            </div>
+        </td>
     </tr>
     <tr>
         <td class="age-cell">Jumla</td>
-        <td data-total-for="treat-started-ke">0</td>
-        <td data-total-for="treat-started-me">0</td>
-        <td data-total-for="treat-found-ke">0</td>
-        <td data-total-for="treat-found-me">0</td>
-        <td data-total-for="treat-notfound-ke">0</td>
-        <td data-total-for="treat-notfound-me">0</td>
+        <td data-total-for="followed-ke">0</td>
+        <td data-total-for="followed-me">0</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-total-for="outcome-a-ke">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-total-for="outcome-h-ke">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-total-for="outcome-k-ke">0</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-total-for="outcome-a-me">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-total-for="outcome-h-me">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-total-for="outcome-k-me">0</span>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>
