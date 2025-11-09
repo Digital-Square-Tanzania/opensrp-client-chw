@@ -15,8 +15,40 @@
             margin: 4px 0;
         }
 
+        .show-on-print {
+            display: none !important;
+        }
+
         .report-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
             margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .report-title {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .left-logo {
+            margin-right: 10px;
+        }
+
+        .right-logo {
+            margin-left: 10px;
+        }
+
+        #reporting_facility,
+        #report_period {
+            font-weight: 700;
         }
 
         table {
@@ -58,13 +90,25 @@
             font-size: 11px;
             color: #636e72;
         }
+
+        @media print {
+            .show-on-print {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body onload="loadData()">
-<div class="report-header">
-    <h1>WALIOKUWA NA CHANGAMOTO ZA HUDUMA YA KIFUA KIKUU NA UKOMA</h1>
-    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
-    <h2>KITUO: <span id="reporting_facility"></span></h2>
+<div class="show-on-print report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo left-logo" alt="Left Logo">
+    <div class="report-title">
+        <h1>WALIOKUWA NA CHANGAMOTO ZA HUDUMA YA KIFUA KIKUU NA UKOMA</h1>
+        <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+        <h2>KITUO: <span id="reporting_facility"></span></h2>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/ic_launcher_afya_jamii_logo.png" class="header-logo right-logo" alt="Right Logo">
 </div>
 
 <table>
