@@ -97,7 +97,7 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
 
                 if (pregnancyStatusObject != null) {
                     assert gender != null;
-                    if (gender.equalsIgnoreCase("male")) {
+                    if (gender.equalsIgnoreCase("male") || age > 18) {
                         pregnancyStatusObject.put("type", "hidden");
                     }
                 }

@@ -52,3 +52,4 @@ actions:
         return count;
     }"
   - "calculation = getDate(step1_age,step1_gender,step2_parent_maternal_status,step2_parental_status,step3_had_sex,step3_sex_for_things,step3_without_protection,step3_pregnancy_status,step3_relationship_status,step3_martial_status,step4_sexual_disease,step5_done_violance,step2_three_meals_past_three_month,step2_unaccess_health_care_lack_money,step2_recreational_drugs_past_three_month,step2_currently_receiving_services_tasaf)"
+
