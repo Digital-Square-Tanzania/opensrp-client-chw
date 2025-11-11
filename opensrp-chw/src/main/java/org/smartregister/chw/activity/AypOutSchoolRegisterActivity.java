@@ -1,6 +1,9 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
+import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_EXTRA.STEP3;
+import static org.smartregister.util.JsonFormUtils.FIELDS;
+import static org.smartregister.util.JsonFormUtils.STEP1;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,15 +22,21 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AypOutSchoolGroupsRegisterFragment;
 import org.smartregister.chw.fragment.AypOutSchoolRegisterFragment;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Calendar;
+
+import timber.log.Timber;
+
 public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
 
-    public static void startRegistration(Activity activity, String baseEntityId) {
+    public static void startRegistration(Activity activity, String baseEntityId, String gender) {
         Intent intent = new Intent(activity, AypOutSchoolRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER, gender);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.AYP_FORM_NAME, Constants.FORMS.AYP_OUT_SCHOOL_ENROLLMENT);
         activity.startActivity(intent);
     }
@@ -75,6 +84,24 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
         form.setWizard(false);
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+
+        String gender = getIntent().getStringExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER);
+
+        try {
+            if (jsonForm.getString("encounter_type").equals("AYP Out-school Enrollment")) {
+                JSONObject pregnancyStatusObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP3).getJSONArray(FIELDS), "pregnancy_status");
+
+                if (pregnancyStatusObject != null) {
+                    assert gender != null;
+                    if (gender.equalsIgnoreCase("male")) {
+                        pregnancyStatusObject.put("type", "hidden");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());

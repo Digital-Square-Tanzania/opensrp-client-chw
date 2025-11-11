@@ -1,8 +1,8 @@
 {
   "count": "6",
+  "skip_blank_steps": true,
   "encounter_type": "AYP Out-school Enrollment",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -45,16 +45,12 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "phonenumber"
     },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
+    "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Education",
     "next": "step2",
-    "display_back_button": "true",
     "fields": [
       {
         "key": "school_status",
@@ -121,6 +117,12 @@
             "openmrs_entity_id": "other"
           }
         ],
+        "relevance": {
+          "step1:school_status": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Answer the question"
@@ -146,7 +148,6 @@
       }
     ]
   },
-
   "step2": {
     "title": "Care",
     "next": "step3",
@@ -203,7 +204,7 @@
           },
           {
             "key": "self",
-            "text": "Self-care",
+            "text": "Self care",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "self"
@@ -223,7 +224,6 @@
       }
     ]
   },
-
   "step3": {
     "title": "Risky Sexual Behavior",
     "next": "step4",
@@ -282,6 +282,12 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -310,15 +316,21 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
         "key": "pregnancy_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "pregnancy_status",
         "type": "check_box",
-        "label": "Reproductive status (for AGYW)",
+        "label": "Reproductive status",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -329,31 +341,41 @@
           {
             "key": "pregnant_now",
             "text": "Currently pregnant",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "pregnant_now"
           },
           {
             "key": "had_pregnancy",
-            "text": "Has ever been pregnant",
-            "openmrs_entity": "person_attribute",
+            "text": "Has been pregnant before",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "had_pregnancy"
           },
           {
             "key": "parent",
             "text": "Parent",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
+            "openmrs_entity_parent": "",
             "openmrs_entity_id": "parent"
           },
           {
             "key": "none",
             "text": "Not applicable",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please fill in"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -382,6 +404,12 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -410,11 +438,16 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]
   },
-
   "step4": {
     "title": "Sexually Transmitted Infections",
     "next": "step5",
@@ -449,7 +482,6 @@
       }
     ]
   },
-
   "step5": {
     "title": "Violence",
     "next": "step6",
@@ -518,10 +550,80 @@
       }
     ]
   },
-
   "step6": {
     "title": "AYP Enrollment",
     "fields": [
+      {
+        "key": "birth_region",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_region",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "Client's Region of Birth",
+        "label_info_text": "",
+        "hint": "Select the client's Region of Birth",
+        "values": [
+          "Arusha",
+          "Dar es Salaam",
+          "Dodoma",
+          "Geita",
+          "Iringa",
+          "Kagera",
+          "Katavi",
+          "Kigoma",
+          "Kilimanjaro",
+          "Lindi",
+          "Manyara",
+          "Mara",
+          "Mbeya",
+          "Morogoro",
+          "Mtwara",
+          "Mwanza",
+          "Njombe",
+          "Pwani",
+          "Rukwa",
+          "Ruvuma",
+          "Shinyanga",
+          "Simiyu",
+          "Singida",
+          "Songwe",
+          "Tabora",
+          "Tanga"
+        ],
+        "keys": [
+          "Arusha",
+          "Dar es Salaam",
+          "Dodoma",
+          "Geita",
+          "Iringa",
+          "Kagera",
+          "Katavi",
+          "Kigoma",
+          "Kilimanjaro",
+          "Lindi",
+          "Manyara",
+          "Mara",
+          "Mbeya",
+          "Morogoro",
+          "Mtwara",
+          "Mwanza",
+          "Njombe",
+          "Pwani",
+          "Rukwa",
+          "Ruvuma",
+          "Shinyanga",
+          "Simiyu",
+          "Singida",
+          "Songwe",
+          "Tabora",
+          "Tanga"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the region"
+        }
+      },
       {
         "key": "date_enrolled",
         "openmrs_entity_parent": "",
@@ -536,92 +638,16 @@
         }
       },
       {
-        "key": "uic_number",
-        "openmrs_entity_parent": "",
+        "key": "should_enroll",
+        "type": "hidden",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "uic_number",
-        "type": "mask_edit_text",
-        "mask": "PS/EM.####-##-#####",
-        "mask_hint": "XXXX-XX-XXXXX",
-        "hint": "Registration number",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the UIC number"
-        }
-      },
-      {
-        "key": "education_status_now",
+        "openmrs_entity_id": "should_enroll",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "education_status_now",
-        "type": "native_radio",
-        "label": "Current education status",
-        "options": [
-          {
-            "key": "present",
-            "text": "Currently in school/college",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "not_present",
-            "text": "Not in school/college",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Answer the question"
-        }
-      },
-      {
-        "key": "choose_education_level",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "choose_education_level",
-        "type": "native_radio",
-        "label": "Choose education level",
-        "options": [
-          {
-            "key": "primary",
-            "text": "Primary education",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "primary"
-          },
-          {
-            "key": "secondary",
-            "text": "Secondary education",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "secondary"
-          },
-          {
-            "key": "university",
-            "text": "University/College",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "university"
-          },
-          {
-            "key": "technician",
-            "text": "Vocational training",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "technician"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Answer the question"
-        },
-        "relevance": {
-          "step6:education_status_now": {
-            "type": "string",
-            "ex": "equalTo(., \"present\")"
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_screening_calculation.yml"
+            }
           }
         }
       },

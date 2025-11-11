@@ -536,20 +536,6 @@
         }
       },
       {
-        "key": "uic_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "uic_number",
-        "type": "mask_edit_text",
-        "mask": "PS/EM.####-##-#####",
-        "mask_hint": "XXXX-XX-XXXXX",
-        "hint": "Namba ya usajili",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the UIC number"
-        }
-      },
-      {
         "key": "education_status_now",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -55,7 +55,9 @@ import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -154,6 +156,15 @@ public class AllClientsUtils {
         intent.putExtra(CLIENT, patient);
         passToolbarTitle(activity, intent);
         return intent;
+    }
+
+    public static String getClientGender(String baseEntityId) {
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
     }
 
     public static void goToOtherMemberProfile(Activity activity, CommonPersonObjectClient patient,

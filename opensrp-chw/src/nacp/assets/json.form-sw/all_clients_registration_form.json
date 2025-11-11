@@ -798,55 +798,61 @@
         "options": [
           {
             "key": "physical_impairments",
-            "text": "Ulemavu wa viungo vya mwili",
+            "text": "Ulemavu wa mwendo / viungo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
-            "key": "spinal_cord_disability",
-            "text": "Ulemavu wa Uti wa Mgongo",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "spinal_cord_disability"
-          },
-          {
-            "key": "brain_disability",
-            "text": "Majeraha ya Kichwa - Ulemavu wa Ubongo",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "brain_disability"
-          },
-          {
             "key": "vision_disability",
-            "text": "Ulemavu wa macho",
+            "text": "Ulemavu wa mwono / kuona",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
-            "text": "Ulemavu wa Kusikia",
+            "text": "Ulemavu wa kusikia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
-            "text": "Ulemavu wa Utambuzi au Kujifunza",
+            "text": "Ulemavu wa akili / kiakili",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
-            "text": "Matatizo ya Kisaikolojia",
+            "text": "Ulemavu wa akili ya hisia / kisaikolojia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
-            "key": "invisible_disabilities",
-            "text": "Ulemavu Usioonekana",
+            "key": "speech_impairment",
+            "text": "Ulemavu wa kujieleza / lugha",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "invisible_disabilities"
+            "openmrs_entity_id": "speech_impairment"
+          },
+          {
+            "key": "selfcare_disability",
+            "text": "Ulemavu wa kujitibu / kujihudumia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "selfcare_disability"
+          },
+          {
+            "key": "concentration_impairment",
+            "text": "Ulemavu wa kumbukumbu / kuzingatia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concentration_impairment"
+          },
+          {
+            "key": "multiple_disabilities",
+            "text": "Ulemavu tofauti",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "multiple_disabilities"
           },
           {
             "key": "albinism",
-            "text": "Ualbino",
+            "text": "Ulemavu wa ngozi / hali maalum",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "albinism"
           },

@@ -9582,6 +9582,22 @@
           }
         },
         {
+          "column_name": "uic_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic_id"
+          }
+        },
+        {
+          "column_name": "birth_region",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birth_region"
+          }
+        },
+        {
           "column_name": "date_enrolled",
           "type": "Event",
           "json_mapping": {
@@ -9603,14 +9619,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "project_other"
-          }
-        },
-        {
-          "column_name": "uic_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "uic_number"
           }
         },
         {

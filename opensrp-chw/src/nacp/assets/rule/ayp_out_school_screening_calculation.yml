@@ -1,0 +1,7 @@
+---
+name: step6_should_enroll
+description: check if should enroll client if they belong to any kvp group
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_school_status.equals('yes') ? 'no' : 'yes' "

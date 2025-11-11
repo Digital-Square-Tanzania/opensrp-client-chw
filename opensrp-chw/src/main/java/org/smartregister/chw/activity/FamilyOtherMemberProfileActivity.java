@@ -298,7 +298,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startAypOutSchoolEnrollment() {
-        AypOutSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        AypOutSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId,gender);
     }
 
     @Override
