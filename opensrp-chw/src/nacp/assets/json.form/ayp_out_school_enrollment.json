@@ -684,7 +684,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "score",
-        "type": "hidden"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_screening_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "birth_region",
