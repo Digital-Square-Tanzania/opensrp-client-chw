@@ -131,7 +131,10 @@ public class NcdClientEducationActionHelper implements BaseNcdVisitAction.NcdVis
 
     @Override
     public BaseNcdVisitAction.Status evaluateStatusOnPayload() {
-        return counsellingProvided() ? BaseNcdVisitAction.Status.COMPLETED : BaseNcdVisitAction.Status.PENDING;
+        if (StringUtils.isBlank(getCounsellingResponse())) {
+            return BaseNcdVisitAction.Status.PENDING;
+        }
+        return counsellingProvided() ? BaseNcdVisitAction.Status.COMPLETED : BaseNcdVisitAction.Status.PARTIALLY_COMPLETED;
     }
 
     @Override
