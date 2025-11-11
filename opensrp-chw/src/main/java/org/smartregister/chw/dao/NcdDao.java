@@ -34,6 +34,36 @@ public class NcdDao extends AbstractDao {
         return (results != null && !results.isEmpty()) ? results.get(0) : null;
     }
 
+    public static ClientNcdStatus getClientNcdStatus(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return ClientNcdStatus.empty();
+        }
+
+        boolean hasActiveEnrollment = hasActiveEnrollment(baseEntityId);
+        ConfirmationStatus confirmationStatus = getLatestConfirmationStatus(baseEntityId);
+        boolean hasConfirmedDiagnosis = confirmationStatus != null
+                && (confirmationStatus.isDiabetesPositive() || confirmationStatus.isHypertensionPositive());
+
+        return new ClientNcdStatus(hasActiveEnrollment, hasConfirmedDiagnosis, confirmationStatus);
+    }
+
+    public static boolean isNcdClient(String baseEntityId) {
+        ClientNcdStatus status = getClientNcdStatus(baseEntityId);
+        return status.isAtRisk() || status.isConfirmed();
+    }
+
+    private static boolean hasActiveEnrollment(String baseEntityId) {
+        String sql = String.format(Locale.US,
+                "SELECT 1 FROM %s WHERE base_entity_id = '%s' AND IFNULL(is_closed, 0) = 0 LIMIT 1",
+                Constants.TABLES.NCD_ENROLLMENT,
+                baseEntityId
+        );
+
+        DataMap<Boolean> dataMap = cursor -> true;
+        List<Boolean> results = readData(sql, dataMap);
+        return results != null && !results.isEmpty();
+    }
+
     public static ConfirmationStatus getLatestConfirmationStatus(String baseEntityId) {
         ConfirmationStatus emptyStatus = ConfirmationStatus.empty();
         if (StringUtils.isBlank(baseEntityId)) {
@@ -92,6 +122,38 @@ public class NcdDao extends AbstractDao {
                     || normalized.equals("confirmed")
                     || normalized.equals("yes")
                     || normalized.equals("true");
+        }
+    }
+
+    public static class ClientNcdStatus {
+        private final boolean atRisk;
+        private final boolean confirmed;
+        private final ConfirmationStatus confirmationStatus;
+
+        ClientNcdStatus(boolean atRisk, boolean confirmed, ConfirmationStatus confirmationStatus) {
+            this.atRisk = atRisk;
+            this.confirmed = confirmed;
+            this.confirmationStatus = confirmationStatus;
+        }
+
+        public boolean isAtRisk() {
+            return atRisk;
+        }
+
+        public boolean isConfirmed() {
+            return confirmed;
+        }
+
+        public ConfirmationStatus getConfirmationStatus() {
+            return confirmationStatus;
+        }
+
+        public static ClientNcdStatus empty() {
+            return new ClientNcdStatus(false, false, ConfirmationStatus.empty());
+        }
+
+        public boolean isNcdClient() {
+            return atRisk || confirmed;
         }
     }
 }

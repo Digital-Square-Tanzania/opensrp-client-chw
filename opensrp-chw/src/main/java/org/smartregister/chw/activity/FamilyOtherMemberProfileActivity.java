@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -30,12 +31,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.IssueReferralInteractor;
@@ -53,6 +56,7 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import java.text.SimpleDateFormat;
@@ -66,6 +70,7 @@ import timber.log.Timber;
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private LinearLayout layoutRecordNCDScreening;
+    private CustomFontTextView recordNcdActionButton;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     JSONObject ncdJsonObjectForm = new JSONObject();
@@ -85,8 +90,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.setupViews();
         if (Utils.getAgeFromDate(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false)) >= 30) {
             this.layoutRecordNCDScreening = findViewById(R.id.record_visit_panel_container);
-            this.layoutRecordNCDScreening.setVisibility(VISIBLE);
-            this.layoutRecordNCDScreening.setOnClickListener(v -> startDiabetesRiskAssessment());
+            this.recordNcdActionButton = findViewById(R.id.textview_record_visit);
+            if (this.layoutRecordNCDScreening != null) {
+                this.layoutRecordNCDScreening.setVisibility(View.GONE);
+                evaluateNcdScreeningAction();
+            }
         }
     }
 
@@ -95,6 +103,37 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         return true;
+    }
+
+    private void evaluateNcdScreeningAction() {
+        ChwApplication chwApplication = (ChwApplication) getApplication();
+        chwApplication.getAppExecutors().diskIO().execute(() -> {
+            NcdDao.ClientNcdStatus status = NcdDao.getClientNcdStatus(baseEntityId);
+            chwApplication.getAppExecutors().mainThread().execute(() -> applyNcdScreeningState(status));
+        });
+    }
+
+    private void applyNcdScreeningState(NcdDao.ClientNcdStatus status) {
+        if (layoutRecordNCDScreening == null) {
+            return;
+        }
+        layoutRecordNCDScreening.setVisibility(VISIBLE);
+        if (status.isNcdClient()) {
+            if (recordNcdActionButton != null) {
+                recordNcdActionButton.setText(R.string.view_profile);
+            }
+            layoutRecordNCDScreening.setOnClickListener(v ->
+                    NcdProfileActivity.startProfileActivity(
+                            FamilyOtherMemberProfileActivity.this,
+                            baseEntityId,
+                            status.isConfirmed()
+                    ));
+        } else {
+            if (recordNcdActionButton != null) {
+                recordNcdActionButton.setText(R.string.diabetes_screening);
+            }
+            layoutRecordNCDScreening.setOnClickListener(v -> startDiabetesRiskAssessment());
+        }
     }
 
     @Override
