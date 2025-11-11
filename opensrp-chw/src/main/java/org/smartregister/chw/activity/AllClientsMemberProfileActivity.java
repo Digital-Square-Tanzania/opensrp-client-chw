@@ -185,7 +185,9 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startAypOutSchoolEnrollment() {
         String gender = AllClientsUtils.getClientGender(baseEntityId);
-        AypOutSchoolRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AypOutSchoolRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
     @Override

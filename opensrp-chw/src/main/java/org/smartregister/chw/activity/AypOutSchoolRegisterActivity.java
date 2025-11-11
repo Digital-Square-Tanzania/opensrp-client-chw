@@ -33,10 +33,11 @@ import timber.log.Timber;
 
 public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
 
-    public static void startRegistration(Activity activity, String baseEntityId, String gender) {
+    public static void startRegistration(Activity activity, String baseEntityId, String gender,int age) {
         Intent intent = new Intent(activity, AypOutSchoolRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER, gender);
+        intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, age);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.AYP_FORM_NAME, Constants.FORMS.AYP_OUT_SCHOOL_ENROLLMENT);
         activity.startActivity(intent);
     }
@@ -86,10 +87,13 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
 
         String gender = getIntent().getStringExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER);
+        int age = getIntent().getIntExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, -1);
 
         try {
             if (jsonForm.getString("encounter_type").equals("AYP Out-school Enrollment")) {
                 JSONObject pregnancyStatusObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP3).getJSONArray(FIELDS), "pregnancy_status");
+                JSONObject ageObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS), "age");
+                JSONObject genderObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS), "gender");
 
                 if (pregnancyStatusObject != null) {
                     assert gender != null;
@@ -97,6 +101,10 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
                         pregnancyStatusObject.put("type", "hidden");
                     }
                 }
+
+                ageObject.put("value", age);
+                genderObject.put("value", gender);
+
             }
         } catch (Exception e) {
             Timber.e(e);
