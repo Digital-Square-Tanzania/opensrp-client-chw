@@ -18,6 +18,7 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.NcdAutoConfirmationHelper;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
@@ -100,6 +101,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case NcdAutoConfirmationHelper.SCREENING_EVENT_TYPE:
+                    NcdAutoConfirmationHelper.maybeAutoConfirmDiabetesHypertension(eventClient);
                     break;
 
                 case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
