@@ -857,114 +857,277 @@ indicators:
                                   datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                                   datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)
   - key: "tbleprosy_house_col7_ke_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Female'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND date(efm.dob, '+5 years') >= date('now')
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)
   - key: "tbleprosy_house_col7_ke_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Female'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)
   - key: "tbleprosy_house_col7_ke_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Female'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND date(efm.dob, '+15 years') <= date('now')
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)
   - key: "tbleprosy_house_col7_me_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Male'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND date(efm.dob, '+5 years') >= date('now')
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)
   - key: "tbleprosy_house_col7_me_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Male'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)
   - key: "tbleprosy_house_col7_me_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa waliogundulika kutoka familia zenye wagonjwa TB/DR-TB au ukoma wakati wa ufuatiliaji (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                      INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                      WHERE efm.gender='Male'
+                                      AND (etcv.relationship_to_index_client = 'same_household')
+                                      AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                          			  AND date(efm.dob, '+15 years') <= date('now')
+                                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                      datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 0-5)
   - key: "tbleprosy_house_col8_ke_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Female'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND date(efm.dob, '+5 years') >= date('now')
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 6-14)
   - key: "tbleprosy_house_col8_ke_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Female'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 15 na zaidi)
   - key: "tbleprosy_house_col8_ke_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Female'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND date(efm.dob, '+15 years') <= date('now')
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 0-5)
   - key: "tbleprosy_house_col8_me_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Male'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND date(efm.dob, '+5 years') >= date('now')
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 6-14)
   - key: "tbleprosy_house_col8_me_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Male'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 15 na zaidi)
   - key: "tbleprosy_house_col8_me_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya wagonjwa walioanzishiwa matibabu ya TB/DR-TB au ukoma na wanaoishi na mgonjwa wa TB au ukoma (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etcv.base_entity_id) as count FROM ec_tbleprosy_contact_visit etcv 
+                                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etcv.base_entity_id
+                                          INNER JOIN ec_tbleprosy_observation_results etor ON etor.base_entity_id = etcv.base_entity_id
+                                          WHERE efm.gender='Male'
+                                          AND (etcv.relationship_to_index_client = 'same_household')
+                                          AND (etor.tb_sample_test_results = 'pulmonary_tb' OR etor.tb_sample_test_results = 'extra_pulmonary_tb' OR etor.tb_sample_test_results = 'drug_resistant_tb' OR etor.leprosy_investigation_results = 'leprosy_confirmed')
+                                          AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date IS NOT NULL)
+                              			  AND date(efm.dob, '+15 years') <= date('now')
+                                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                          datetime(etcv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 0-5)
   - key: "tbleprosy_house_col9_ke_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Female'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND date(efm.dob, '+5 years') >= date('now')
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 6-14)
   - key: "tbleprosy_house_col9_ke_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Female'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 15 na zaidi)
   - key: "tbleprosy_house_col9_ke_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Female'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND date(efm.dob, '+15 years') <= date('now')
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 0-5)
   - key: "tbleprosy_house_col9_me_0_5"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 0-5)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Male'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND date(efm.dob, '+5 years') >= date('now')
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 6-14)
   - key: "tbleprosy_house_col9_me_6_14"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Male'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 15 na zaidi)
   - key: "tbleprosy_house_col9_me_15_plus"
     grouping: "TBLeprosy Household"
     description: "Idadi ya watoto chini ya miaka mitano walioanzishiwa dawa Kinga - TPT (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                                              WHERE efm.gender='Male'
+                                              AND (etor.tpt_initiation_date IS NOT NULL)
+                                  			  AND date(efm.dob, '+15 years') <= date('now')
+                                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
+  # TODO: Define query for Idadi ya watu waliochunguzwa TB au ukoma - Duka la dawa (KE)
   # TODO: Define query for Idadi ya watu waliochunguzwa TB au ukoma - Duka la dawa (KE)
   - key: "tbleprosy_area_col1_ke_duka"
     grouping: "TBLeprosy Special Areas"
