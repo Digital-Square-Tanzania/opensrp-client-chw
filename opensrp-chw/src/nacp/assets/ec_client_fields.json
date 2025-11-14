@@ -5423,6 +5423,14 @@
           }
         },
         {
+          "column_name": "client_special_group",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_special_group"
+          }
+        },
+        {
           "column_name": "screening_status",
           "type": "Event",
           "json_mapping": {
