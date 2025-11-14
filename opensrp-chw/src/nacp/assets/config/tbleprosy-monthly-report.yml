@@ -1128,7 +1128,6 @@ indicators:
                                               datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   # TODO: Define query for Idadi ya watu waliochunguzwa TB au ukoma - Duka la dawa (KE)
-  # TODO: Define query for Idadi ya watu waliochunguzwa TB au ukoma - Duka la dawa (KE)
   - key: "tbleprosy_area_col1_ke_duka"
     grouping: "TBLeprosy Special Areas"
     description: "Idadi ya watu waliochunguzwa TB au ukoma - Duka la dawa (KE)"
