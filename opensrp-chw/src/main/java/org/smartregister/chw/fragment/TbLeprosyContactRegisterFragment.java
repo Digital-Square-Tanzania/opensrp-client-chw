@@ -10,9 +10,4 @@ public class TbLeprosyContactRegisterFragment extends CoreTbLeprosyContactRegist
     protected void openProfile(String baseEntityId) {
         TbLeprosyProfileActivity.startProfileActivity(requireActivity(), baseEntityId);
     }
-
-//    @Override
-//    protected int getTitleString() {
-//        return R.string.menu_tbleprosy;
-//    }
 }
