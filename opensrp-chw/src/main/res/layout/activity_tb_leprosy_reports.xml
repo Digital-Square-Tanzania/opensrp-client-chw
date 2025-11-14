@@ -78,7 +78,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textAlignment="center"
             android:textSize="18sp"
             android:text="@string/tb_leprosy_report_section_community"
             android:textAppearance="?attr/textAppearanceHeadline2"
