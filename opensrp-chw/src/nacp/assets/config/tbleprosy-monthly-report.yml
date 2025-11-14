@@ -1,195 +1,392 @@
 indicators:
-  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (KE 6-14)
   - key: "tbleprosy_comm_col2_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+    				  INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+    				  WHERE efm.gender='Female'
+    				  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+    				  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+    				  datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+    				  datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (ME 6-14)
   - key: "tbleprosy_comm_col2_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col2_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col2_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya watu waliochunguzwa wa TB au ukoma (Rejea TB/LEP 12) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (KE 6-14)
   - key: "tbleprosy_comm_col3_ke_6_14"
     grouping: "TBLeprosy Community"
-    description: "Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    description: "Idadi ya wahisiwa wa TB au ukoma (KE 6-14)"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+    				  INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+    				  WHERE efm.gender='Female'
+    				  AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+    				  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+    				  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+    				  datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+    				  datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (ME 6-14)
+
   - key: "tbleprosy_comm_col3_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col3_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col3_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa wa TB au ukoma (Rejea TB/LEP 12) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (KE 6-14)
   - key: "tbleprosy_comm_col4_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      INNER JOIN task t ON efm.base_entity_id = t.for
+                      WHERE efm.gender='Female'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND t.focus = 'TB/Leprosy'
+                      AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (ME 6-14)
   - key: "tbleprosy_comm_col4_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      INNER JOIN task t ON efm.base_entity_id = t.for
+                      WHERE efm.gender='Male'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND t.focus = 'TB/Leprosy'
+                      AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col4_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      INNER JOIN task t ON efm.base_entity_id = t.for
+                      WHERE efm.gender='Female'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND t.focus = 'TB/Leprosy'
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col4_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB au ukoma (Sampuli + Mteja) (Rejea TB/LEP 12) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
+                      INNER JOIN task t ON efm.base_entity_id = t.for
+                      WHERE efm.gender='Male'
+                      AND (ets.screening_status = 'tb_presumptive' OR ets.screening_status = 'leprosy_presumptive')
+                      AND t.focus = 'TB/Leprosy'
+                      AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (KE 6-14)
   - key: "tbleprosy_comm_col5_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+    				  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (ME 6-14)
   - key: "tbleprosy_comm_col5_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+    				  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col5_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+    				  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col5_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wahisiwa au sampuli waliopimwa/zilizopimwa TB au ukoma (Rejea TB/LEP 13A) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+    				  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (KE 6-14)
   - key: "tbleprosy_comm_col6_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                          WHERE efm.gender='Female'
+                          AND etor.investigation_type = 'tb'
+        				  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                          datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                          datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (ME 6-14)
   - key: "tbleprosy_comm_col6_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND etor.investigation_type = 'tb'
+        			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col6_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND etor.investigation_type = 'tb'
+        			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col6_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa TB (Rejea TB/LEP 13A) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND etor.investigation_type = 'tb'
+        			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (KE 6-14)
   - key: "tbleprosy_comm_col7_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND etor.investigation_type = 'leprosy'
+          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (ME 6-14)
   - key: "tbleprosy_comm_col7_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND etor.investigation_type = 'leprosy'
+          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (KE 15 na zaidi)
   - key: "tbleprosy_comm_col7_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND etor.investigation_type = 'leprosy'
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (ME 15 na zaidi)
   - key: "tbleprosy_comm_col7_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa waliopimwa ukoma (Rejea TB/LEP 13A) (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND etor.investigation_type = 'leprosy'
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (KE 6-14)
   - key: "tbleprosy_comm_col8_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                          INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                          WHERE efm.gender='Female'
+                          AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date  IS NOT NULL)
+              			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                          AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                          datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                          datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (ME 6-14)
   - key: "tbleprosy_comm_col8_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date  IS NOT NULL)
+          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (KE 15 na zaidi)
   - key: "tbleprosy_comm_col8_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date  IS NOT NULL)
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (ME 15 na zaidi)
   - key: "tbleprosy_comm_col8_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (etor.tb_treatment_start_date IS NOT NULL OR etor.leprosy_treatment_start_date  IS NOT NULL)
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (KE 6-14)
   - key: "tbleprosy_comm_col9_ke_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (KE 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                              INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                              INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
+                              WHERE efm.gender='Female'
+                              AND (ets.hiv_tested IS NOT NULL OR etor.hiv_tested IS NOT NULL)
+                  			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                              AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                              datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (ME 6-14)
   - key: "tbleprosy_comm_col9_me_6_14"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (ME 6-14)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (ets.hiv_tested IS NOT NULL OR etor.hiv_tested IS NOT NULL)
+          			  AND (date(efm.dob, '+6 years') <= date('now')) AND (date(efm.dob, '+15 years') > date('now'))
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (KE 15 na zaidi)
   - key: "tbleprosy_comm_col9_ke_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (KE 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Female'
+                      AND (ets.hiv_tested IS NOT NULL OR etor.hiv_tested IS NOT NULL)
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  # TODO: Define query for Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (ME 15 na zaidi)
   - key: "tbleprosy_comm_col9_me_15_plus"
     grouping: "TBLeprosy Community"
     description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU (ME 15 na zaidi)"
-    indicatorQuery: "SELECT 0"
+    indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
+                      INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
+                      WHERE efm.gender='Male'
+                      AND (ets.hiv_tested IS NOT NULL OR etor.hiv_tested IS NOT NULL)
+          			  AND date(efm.dob, '+15 years') <= date('now')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+                      datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
     # TODO: Define query for Idadi ya wagonjwa TB/DR-TB au ukoma (Rejea regista ya TB 03/DR-TB/LEP 03) (KE 0-5)
   - key: "tbleprosy_house_col1_ke_0_5"
