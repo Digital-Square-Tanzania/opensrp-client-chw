@@ -5549,6 +5549,22 @@
           }
         },
         {
+          "column_name": "tb_treatment_start_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_treatment_start_date"
+          }
+        },
+        {
+          "column_name": "leprosy_treatment_start_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "leprosy_treatment_start_date"
+          }
+        },
+        {
           "column_name": "leprosy_investigation_results",
           "type": "Event",
           "json_mapping": {
