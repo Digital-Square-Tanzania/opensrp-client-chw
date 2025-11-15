@@ -561,7 +561,7 @@
         "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
-        "mask_hint": "12345678912345678912",
+        "mask_hint": "00000000000000000000",
         "allowed_chars": "0123456789",
         "hint": "National ID number e.g 12345678-91234-56789-12",
         "edit_type": "number",
@@ -593,7 +593,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Voter's registration number e.g T-1234-5678-912-3",
         "edit_type": "number",
@@ -625,7 +625,7 @@
         "openmrs_entity_id": "driver_license",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Driver's license number e.g 1234567891",
         "edit_type": "number",
@@ -657,7 +657,7 @@
         "openmrs_entity_id": "passport",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Passport's number e.g 1234567891",
         "edit_type": "number",
@@ -798,55 +798,61 @@
         "options": [
           {
             "key": "physical_impairments",
-            "text": "Mobility and Physical Impairments",
+            "text": "Mobility / Physical disability",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
-            "key": "spinal_cord_disability",
-            "text": "Spinal Cord Disability",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "spinal_cord_disability"
-          },
-          {
-            "key": "brain_disability",
-            "text": "Head Injuries - Brain Disability",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "brain_disability"
-          },
-          {
             "key": "vision_disability",
-            "text": "Vision Disability",
+            "text": "Visual impairment / Blindness",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
-            "text": "Hearing Disability",
+            "text": "Hearing impairment / Deafness",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
-            "text": "Cognitive or Learning Disabilities",
+            "text": "Intellectual disability / Cognitive impairment",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
-            "text": "Psychological Disorders",
+            "text": "Psychosocial / Mental health disability",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
-            "key": "invisible_disabilities",
-            "text": "Invisible Disabilities",
+            "key": "speech_impairment",
+            "text": "Communication / Speech impairment",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "invisible_disabilities"
+            "openmrs_entity_id": "speech_impairment"
+          },
+          {
+            "key": "selfcare_disability",
+            "text": "Selfcare disability",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "selfcare_disability"
+          },
+          {
+            "key": "concentration_impairment",
+            "text": "Remembering / Concentration impairment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concentration_impairment"
+          },
+          {
+            "key": "multiple_disabilities",
+            "text": "Multiple disabilities",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "multiple_disabilities"
           },
           {
             "key": "albinism",
-            "text": "Albinism",
+            "text": "special condition like albinism",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "albinism"
           },

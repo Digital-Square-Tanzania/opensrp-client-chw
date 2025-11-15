@@ -1,0 +1,7 @@
+---
+name: step1_member_attendance_toaster_info
+description: members_present
+priority: 1
+condition: "step1_members_present.size() < 5"
+actions:
+  - "isRelevant = true"

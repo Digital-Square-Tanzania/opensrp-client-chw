@@ -1,0 +1,397 @@
+{
+  "count": "1",
+  "encounter_type": "medical_services",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Medical Services",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "self_testing_service_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "self_testing_service_provided",
+        "type": "native_radio",
+        "label": "Was self-testing service provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please fill"
+        }
+      },
+      {
+        "key": "linked_to_self_testing_module",
+        "type": "toaster_notes",
+        "text": "Link to Self-Testing module",
+        "openmrs_entity_id": "linked_to_self_testing_module",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:self_testing_service_provided": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "condom_distribution",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_distribution",
+        "type": "check_box",
+        "label": "Condom distribution",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male"
+          },
+          {
+            "key": "female",
+            "text": "Female",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female"
+          }
+        ]
+      },
+      {
+        "key": "number_of_male_condom",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condom",
+        "type": "edit_text",
+        "hint": "Number of male condoms",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        },
+        "relevance": {
+          "step1:condom_distribution": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condom",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condom",
+        "type": "edit_text",
+        "hint": "Number of female condoms",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        },
+        "relevance": {
+          "step1:condom_distribution": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "gender_based_violence_investigation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "gender_based_violence_investigation",
+        "type": "native_radio",
+        "label": "Gender-based violence investigation",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "done"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_done"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        }
+      },
+      {
+        "key": "type_of_gender_based_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_gender_based_violence",
+        "type": "check_box",
+        "label": "Type of gender-based violence",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "physical",
+            "text": "Physical",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical"
+          },
+          {
+            "key": "emotional",
+            "text": "Emotional",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "emotional"
+          },
+          {
+            "key": "sexual",
+            "text": "Sexual",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual"
+          },
+          {
+            "key": "economic",
+            "text": "Economic",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "economic"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        },
+        "relevance": {
+          "step1:gender_based_violence_investigation": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning",
+        "type": "native_radio",
+        "label": "Is using family planning",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        }
+      },
+      {
+        "key": "contraceptive_method_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "contraceptive_method_used",
+        "type": "native_radio",
+        "label": "Contraceptive method used",
+        "options": [
+          {
+            "key": "pills",
+            "text": "Pills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pills"
+          },
+          {
+            "key": "injection",
+            "text": "Injection",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "injection"
+          },
+          {
+            "key": "implant",
+            "text": "Implant",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "implant"
+          },
+          {
+            "key": "condom",
+            "text": "Condom",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "condom"
+          },
+          {
+            "key": "iucd",
+            "text": "IUCD",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "icud"
+          },
+          {
+            "key": "none",
+            "text": "Not using any method",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please fill"
+        },
+        "relevance": {
+          "step1:family_planning": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "received_hpv_vaccine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "received_hpv_vaccine",
+        "type": "native_radio",
+        "label": "Received HPV vaccine",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        }
+      },
+      {
+        "key": "tested_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tested_hiv",
+        "type": "native_radio",
+        "label": "Was the client tested for HIV at the facility",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        }
+      }
+    ]
+  }
+}

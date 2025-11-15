@@ -17,6 +17,8 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
@@ -134,6 +136,24 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         saveAypGroupMembership(eventClient.getEvent());
                     } catch (Exception e) {
                         Timber.e(e, "Error saving AYP group membership");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group details");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
                     }
                     break;
                 case CoreConstants.EventType.REMOVE_MEMBER:
@@ -255,6 +275,21 @@ public class ChwClientProcessor extends CoreClientProcessor {
             Timber.e(e);
         }
     }
+    private void saveAypOutGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypOutSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 
     private void saveAypGroupMembership(Event event) {
         try {
@@ -271,6 +306,27 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
             if (!ids.isEmpty()) {
                 new AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = new java.util.ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
             }
         } catch (Exception e) {
             Timber.e(e);

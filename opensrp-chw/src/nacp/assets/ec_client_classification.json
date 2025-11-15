@@ -885,6 +885,20 @@
           },
           {
             "field": "eventType",
+            "field_value": "AYP Out-school Enrollment",
+            "creates_case": [
+              "ec_ayp_out_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Client Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_client_followup_visits"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "HPS Client Enrollment",
             "creates_case": [
               "ec_hps_client_register"

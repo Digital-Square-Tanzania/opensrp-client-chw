@@ -64,6 +64,14 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypOutSchoolReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypOutSchoolReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HpsReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -96,10 +104,16 @@
             android:name=".activity.AypParentalVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AypInSchoolMedicalHistoryActivity"
+            android:name=".activity.AypOutSchoolRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypOutSchoolMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AypInSchoolClientServiceVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypOutSchoolClientServiceVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.HivstProfileActivity"
@@ -485,6 +499,9 @@
         <activity
             android:name=".activity.KvpPrEPMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypOutSchoolMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.CbhsMedicalHistoryActivity"
@@ -631,7 +648,15 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.AypOutSchoolGroupProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.AypInSchoolGroupVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AypOutSchoolGroupVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

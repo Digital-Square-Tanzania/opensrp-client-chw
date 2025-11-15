@@ -241,7 +241,9 @@ public class Constants extends CoreConstants {
 
            String KVP_REPORT = "kvp_report";
 
-           String HPS_REPORT = "hps_report";
+           String AYP_OUT_SCHOOL_REPORT = "ayp_out_school_report";
+
+            String HPS_REPORT = "hps_report";
 
            String ASRH_REPORT = "asrh_report";
 
@@ -315,6 +317,8 @@ public class Constants extends CoreConstants {
             String SBC_REPORT_PATH = "sbc-report";
 
             String KVP_REPORT_PATH = "kvp-report";
+
+            String AYP_OUT_SCHOOL_REPORT_PATH = "ayp-out-school-report";
 
             String HPS_MONTHLY_REPORT_PATH = "hps-monthly-report";
 

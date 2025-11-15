@@ -1,0 +1,62 @@
+---
+name: step6_score
+description: score
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(age,gender,parent_maternal_status,parental_status,had_sex,sex_for_things,without_protection,pregnancy_status,relationship_status,martial_status,sexual_disease,done_violance,three_meals_past_three_month,unaccess_health_care_lack_money,recreational_drugs_past_three_month,currently_receiving_services_tasaf) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        
+        Integer count = 0;
+        if(parent_maternal_status.equalsIgnoreCase('No')) {
+           count = count + 1;
+        }
+        if(parental_status.equalsIgnoreCase('self')){
+           count = count + 1;
+        }
+        if(had_sex.equalsIgnoreCase('Yes')) {
+           count = count + 1;
+        }
+        if(sex_for_things.equalsIgnoreCase('Yes') && gender.equalsIgnoreCase('Female')){
+           count = count + 1;
+        }  
+        if(without_protection.equalsIgnoreCase('No')){
+           count = count + 1;
+        }  
+
+        if(relationship_status.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(martial_status.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(sexual_disease.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(done_violance.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(three_meals_past_three_month.equalsIgnoreCase('No')){
+           count = count + 1;
+        }  
+        if(unaccess_health_care_lack_money.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(recreational_drugs_past_three_month.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }  
+        if(currently_receiving_services_tasaf.equalsIgnoreCase('Yes')){
+           count = count + 1;
+        }
+        return count;
+    }"
+  - "calculation = getDate(step1_age,step1_gender,step2_parent_maternal_status,step2_parental_status,step3_had_sex,step3_sex_for_things,step3_without_protection,step3_pregnancy_status,step3_relationship_status,step3_martial_status,step4_sexual_disease,step5_done_violance,step2_three_meals_past_three_month,step2_unaccess_health_care_lack_money,step2_recreational_drugs_past_three_month,step2_currently_receiving_services_tasaf)"
+---
+name: step6_should_enroll
+description: check if should enroll client if they belong to any kvp group
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_school_status.equals('yes') ? 'no' : 'yes' "
+

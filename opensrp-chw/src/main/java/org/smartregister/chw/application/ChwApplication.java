@@ -34,6 +34,7 @@ import org.smartregister.chw.activity.AypParentalRegisterActivity;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.AsrhRegisterActivity;
+import org.smartregister.chw.activity.AypOutSchoolRegisterActivity;
 import org.smartregister.chw.activity.CdpRegisterActivity;
 import org.smartregister.chw.activity.CecapRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -442,6 +443,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_REGISTER_ACTIVITY, AypInSchoolRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_OUT_SCHOOL_REGISTER_ACTIVITY, AypOutSchoolRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_PARENTAL_REGISTER_ACTIVITY, AypParentalRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);

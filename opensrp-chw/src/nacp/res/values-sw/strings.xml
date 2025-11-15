@@ -519,6 +519,8 @@
     <string name="sbc_reports">Ripoti za SBC</string>
     <string name="kvp_reports">Ripoti za KVP</string>
     <string name="kvp_reports_subtitle">Tazama Ripoti za KVP</string>
+    <string name="ayp_out_school_reports">Ripoti Ayp Out School</string>
+    <string name="ayp_out_school_reports_subtitle">Tazama Ripoti za Ayp Out School</string>
     <string name="hps_reports_title">Ripoti za mwezi za iCCHW</string>
     <string name="hps_annual_reports_title">Ripoti za mwaka za iCCHW</string>
     <string name="hps_reports">Ripoti za iCCHW</string>

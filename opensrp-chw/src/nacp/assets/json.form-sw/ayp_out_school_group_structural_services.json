@@ -1,0 +1,153 @@
+{
+  "count": "1",
+  "encounter_type": "group_structutal_services",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Huduma za kimuundo",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "choose_economic_empowerment_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "choose_economic_empowerment_services",
+        "type": "check_box",
+        "label": "Chagua huduma za uwezeshaji Kiuchumi",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "savings_management_education",
+            "text": "Elimu ya usimamizi wa akiba",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "savings_management_education"
+          },
+          {
+            "key": "loan_management_education",
+            "text": "Elimu ya usimamizi wa mikopo",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "loan_management_education"
+          },
+          {
+            "key": "budgeting_education",
+            "text": "Elimu ya kupanga bajeti",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "budgeting_education"
+          },
+          {
+            "key": "business_startup_education",
+            "text": "Elimu ya kuanzisha biashara",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "business_startup_education"
+          },
+          {
+            "key": "business_plan_preparation_education",
+            "text": "Elimu ya kuandaa mpango biashara",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "business_plan_preparation_education"
+          },
+          {
+            "key": "youth_employment_and_self_employment_preparation",
+            "text": "Kumuandaa Kijana kujiajiri na kuajiriwa",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "youth_employment_and_self_employment_preparation"
+          },
+          {
+            "key": "business_management_education",
+            "text": "Elimu ya usimamizi wa biashara",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "business_management_education"
+          },
+          {
+            "key": "financial_and_business_services",
+            "text": "Huduma za kifedha na biashara",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "financial_and_business_services"
+          },
+          {
+            "key": "village_bank_services",
+            "text": "Huduma za benki ya kijiji",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "village_bank_services"
+          },
+          {
+            "key": "group_health_assessment_and_profit_sharing",
+            "text": "Kupima Afya ya kikundi na gawio la faida",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "group_health_assessment_and_profit_sharing"
+          },
+          {
+            "key": "financial_dialogue",
+            "text": "Mazungumzo ya kifedha",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "financial_dialogue"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
+        }
+      }
+    ]
+  }
+}
+

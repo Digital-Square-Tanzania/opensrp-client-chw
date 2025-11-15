@@ -600,6 +600,8 @@
     <string name="kvp_reports_title">KVP Report</string>
     <string name="kvp_reports">KVP REPORTS</string>
     <string name="kvp_reports_subtitle">View Reports For KVP</string>
+    <string name="ayp_out_school_reports">Ayp Out School REPORTS</string>
+    <string name="ayp_out_school_reports_subtitle">View Reports For Ayp Out School</string>
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>
     <string name="hps_annual_reports_title">iCCHW ANNUAL REPORTS</string>

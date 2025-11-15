@@ -1,0 +1,14 @@
+---
+name: step1_scores
+description: Date PNC referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "def getMarks() {
+      int count = 2;
+      if (true) {
+        count++;
+      }
+    return 'Congratulations! You have successfully completed AYP training and services with ' + count + '% score';
+      }"
+  - "calculation = getMarks()"

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AYP Out School Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body onload="loadData('monthly', 'anc')">
+
+<!--<div class="show-on-print" style="font-size:12px;">-->
+<!--    <h1>MAKUNDI MAALUM YA WALIOPO KWENYE HATARI YA KUPATA MAAMBUKIZI YA VVU</h1>-->
+<!--    <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>-->
+<!--    <h2>KITUO: <span id="reporting_facility"></span></h2>-->
+<!--</div>-->
+
+<div class="max-w-6xl mx-auto">
+
+    <table class="w-full border border-black border-collapse text-sm">
+        <thead>
+        <tr class="bg-gray-200">
+            <th rowspan="2" class="border border-black px-3 py-2 text-left font-semibold">Indicator</th>
+            <th rowspan="2" class="border border-black px-3 py-2 text-center font-semibold bg-gray-400">Grand Total</th>
+            <th colspan="4" class="border border-black px-3 py-2 text-center font-semibold">Female</th>
+            <th colspan="4" class="border border-black px-3 py-2 text-center font-semibold">Male</th>
+        </tr>
+        <tr class="bg-gray-100">
+            <th class="border border-black px-2 py-1 text-center">10-14</th>
+            <th class="border border-black px-2 py-1 text-center">15-19</th>
+            <th class="border border-black px-2 py-1 text-center">20-24</th>
+            <th class="border border-black px-2 py-1 text-center bg-gray-100">Total</th>
+            <th class="border border-black px-2 py-1 text-center">10-14</th>
+            <th class="border border-black px-2 py-1 text-center">15-19</th>
+            <th class="border border-black px-2 py-1 text-center">20-24</th>
+            <th class="border border-black px-2 py-1 text-center bg-gray-100">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="border border-black px-3 py-2">Number of adolescent and young people Newly enrolled into AYP services</td>
+            <td class="border border-black px-3 py-2 bg-gray-300" id="enrolled-ayp-total">0</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-female-10-14">1</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-female-15-19">2</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-female-20-24">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100" id="enrolled-ayp-female-total">0</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-male-10-14"10-14 male>0</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-male-15-19">0</td>
+            <td class="border border-black px-3 py-2" id="enrolled-ayp-male-20-24">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100" id="enrolled-ayp-male-total">0</td>
+        </tr>
+
+        <tr>
+            <td class="border border-black px-3 py-2">Number of adolescent and young people reached with comprehensive health prevention knowledge</td>
+            <td class="border border-black px-3 py-2 bg-gray-300">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">1</td>
+            <td class="border border-black px-3 py-2">1</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+        </tr>
+
+        <tr>
+            <td class="border border-black px-3 py-2">Number of adolescent and young(AYP) people reached with combination minimum defined package</td>
+            <td class="border border-black px-3 py-2 bg-gray-300">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">1</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+        </tr>
+
+        <tr>
+            <td class="border border-black px-3 py-2">Number of vulnerable adolescent and young people who have been linked to economic strengthening opportunities</td>
+            <td class="border border-black px-3 py-2 bg-gray-300">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">2</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2">0</td>
+            <td class="border border-black px-3 py-2 bg-gray-100">0</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+<script>
+    function loadData(reportKey, reportType) {
+  const data = JSON.parse(Android.getData(reportKey));
+  const keys = Object.keys(data.nameValuePairs);
+  const reportPeriod = document.getElementById("report_period");
+  const reportingFacility = document.getElementById("reporting_facility");
+  keys.forEach((key) => {
+    let element;
+    if(reportType!== null && reportType === "pnc"){
+      element = document.getElementById(key.replace("pnc-",""));
+    }else{
+      element = document.getElementById(key);
+    }
+    if (element !== null && typeof element !== "undefined") {
+      element.innerHTML = data.nameValuePairs[key];
+    }
+  });
+  reportPeriod.innerHTML = Android.getDataPeriod();
+  reportingFacility.innerHTML = Android.getReportingFacility();
+}
+</script>
+</html>
