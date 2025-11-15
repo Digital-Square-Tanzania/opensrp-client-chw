@@ -1,10 +1,11 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,18 +36,24 @@ import org.joda.time.Period;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.model.ChwAllClientsRegisterModel;
+import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
 import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyJsonFormUtils;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.LangUtils;
 
@@ -61,18 +68,18 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public class TbLeprosyContactRegister extends AppCompatActivity {
+public class TbLeprosyContactRegister extends AppCompatActivity implements OpdRegisterActivityContract.View {
 
     private static final String CONTACT_EVENT_TYPE = "TBLeprosy Contacts";
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_CONTACT = 1;
-
-    private String indexBaseEntityId;
-    private String familyBaseEntityId;
-
     private final Map<String, ContactPerson> familyMembersCache = new HashMap<>();
     private final Map<String, ContactPerson> otherClientsCache = new HashMap<>();
     private final Set<String> registeredScreeningIds = new HashSet<>();
+    private String indexBaseEntityId;
+    private String familyBaseEntityId;
+    private ChwAllClientRegisterPresenter registerPresenter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,7 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
 
         setupToolbar();
         initializeOptions();
+        registerPresenter = new ChwAllClientRegisterPresenter(this, new ChwAllClientsRegisterModel(this));
     }
 
     @Override
@@ -106,9 +114,11 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
     private void initializeOptions() {
         RelativeLayout familyContactsOption = findViewById(org.smartregister.chw.tbleprosy.R.id.existingClient);
         RelativeLayout allClientsOption = findViewById(org.smartregister.chw.tbleprosy.R.id.newClient);
+        RelativeLayout registerNewClientOption = findViewById(org.smartregister.chw.tbleprosy.R.id.registerNewClient);
 
         familyContactsOption.setOnClickListener(view -> showFamilyContactsDialog());
         allClientsOption.setOnClickListener(view -> showAllClientsDialog());
+        registerNewClientOption.setOnClickListener(view -> startNewClientRegistration());
     }
 
     private void showFamilyContactsDialog() {
@@ -129,6 +139,25 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
             return;
         }
         showContactsDialog(options, R.string.tbleprosy_contact_all_clients_dialog_title);
+    }
+
+    private void startNewClientRegistration() {
+        try {
+            String locationId = org.smartregister.family.util.Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            if (StringUtils.isBlank(locationId)) {
+                displayToast(org.smartregister.chw.core.R.string.error_unable_to_start_form);
+                return;
+            }
+
+            if (registerPresenter == null) {
+                registerPresenter = new ChwAllClientRegisterPresenter(this, new ChwAllClientsRegisterModel(this));
+            }
+
+            registerPresenter.startForm(CoreConstants.JSON_FORM.getAllClientRegistrationForm(), null, null, locationId);
+        } catch (Exception e) {
+            Timber.e(e, "Unable to start new client registration");
+            displayToast(org.smartregister.chw.core.R.string.error_unable_to_start_form);
+        }
     }
 
     private void showContactsDialog(ExistingContactOptions options, int titleRes) {
@@ -478,6 +507,87 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
     }
 
     @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void displaySyncNotification() {
+        // no-op
+    }
+
+    @Override
+    public void displayToast(int resourceId) {
+        Toast.makeText(this, getString(resourceId), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayShortToast(int resourceId) {
+        Toast.makeText(this, getString(resourceId), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startFormActivity(JSONObject form) {
+        startFormActivity(form, null);
+    }
+
+    @Override
+    public void refreshList(FetchStatus fetchStatus) {
+        // no-op
+    }
+
+    @Override
+    public void showProgressDialog(int messageStringIdentifier) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.setTitle(getString(messageStringIdentifier));
+        progressDialog.setMessage(getString(org.smartregister.chw.core.R.string.please_wait_message));
+        if (!isFinishing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void updateInitialsText(String initials) {
+        // no-op
+    }
+
+    @Override
+    public OpdRegisterActivityContract.Presenter presenter() {
+        return registerPresenter;
+    }
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData, HashMap<String, String> injectedFieldValues, String clientTable) {
+        // not used in this context
+    }
+
+    @Override
+    public void startFormActivity(@NonNull JSONObject jsonForm, @Nullable HashMap<String, String> parcelableData) {
+        Intent intent = CoreJsonFormUtils.getJsonIntent(this, jsonForm, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        if (parcelableData != null) {
+            for (Map.Entry<String, String> entry : parcelableData.entrySet()) {
+                intent.putExtra(entry.getKey(), entry.getValue());
+            }
+        }
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -488,14 +598,29 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
             }
 
             try {
+                JSONObject form = new JSONObject(jsonString);
+                String encounterType = form.optString(JsonFormUtils.ENCOUNTER_TYPE);
+                if (CoreConstants.EventType.FAMILY_REGISTRATION.equals(encounterType)) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonString);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                    return;
+                }
+
                 TbLeprosyUtil.saveFormEvent(jsonString);
                 Toast.makeText(this, getString(org.smartregister.chw.R.string.tbleprosy_contact_registration_success), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
                 finish();
             } catch (Exception e) {
                 Timber.e(e, "Error saving TB contact registration");
                 Toast.makeText(this, org.smartregister.chw.core.R.string.error_unable_to_save_form, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private interface OnContactSelectedListener {
+        void onContactSelected(ContactPerson contact);
     }
 
     private static class ContactPerson {
@@ -573,10 +698,6 @@ public class TbLeprosyContactRegister extends AppCompatActivity {
             return (familyMembers == null || familyMembers.isEmpty())
                     && (otherClients == null || otherClients.isEmpty());
         }
-    }
-
-    private interface OnContactSelectedListener {
-        void onContactSelected(ContactPerson contact);
     }
 
     private static class ContactRow {
