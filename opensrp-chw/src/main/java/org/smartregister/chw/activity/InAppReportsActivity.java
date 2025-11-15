@@ -22,8 +22,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import java.util.Arrays;
-
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected CustomFontTextView toolBarTextView;
 
@@ -36,8 +34,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     protected ConstraintLayout condomDistributionReports;
 
     protected ConstraintLayout agywReports;
-
-    protected ConstraintLayout aypReports;
 
     protected ConstraintLayout iccmReports;
 
@@ -74,7 +70,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agywReports = findViewById(R.id.agyw_reports);
-        aypReports = findViewById(R.id.ayp_reports);
         iccmReports = findViewById(R.id.iccm_reports);
         sbcReports = findViewById(R.id.sbc_reports);
         asrhReports = findViewById(R.id.asrh_reports);
@@ -113,10 +108,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
                     if (ChwApplication.getApplicationFlavor().hasAGYW()) {
                         agywReports.setVisibility(View.VISIBLE);
-                    }
-
-                    if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                        aypReports.setVisibility(View.VISIBLE);
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasICCM()) {
@@ -169,10 +160,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 agywReports.setVisibility(View.VISIBLE);
             }
 
-            if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                aypReports.setVisibility(View.VISIBLE);
-            }
-
             if (ChwApplication.getApplicationFlavor().hasICCM()) {
                 iccmReports.setVisibility(View.VISIBLE);
             }
@@ -215,7 +202,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
         agywReports.setOnClickListener(this);
-        aypReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
         asrhReports.setOnClickListener(this);
@@ -268,10 +254,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.agyw_reports) {
             Intent intent = new Intent(this, AGYWReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.ayp_reports) {
-            Intent intent = new Intent(this, AypReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.iccm_reports) {
