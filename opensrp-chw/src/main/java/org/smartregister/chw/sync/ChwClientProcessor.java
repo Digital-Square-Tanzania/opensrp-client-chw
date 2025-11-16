@@ -15,15 +15,15 @@ import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.PmtctDao;
+import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
 import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
 import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
 import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.domain.AypInSchoolGroupDetails;
-import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
@@ -69,6 +69,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 default:
                     break;
             }
+        }
+
+        if (eventType.equals(org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_SCREENING)) {
+            Timber.e("TB_LEPROSY_SCREENING");
         }
 
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
@@ -182,7 +186,11 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
 
         if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            try {
+                ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
         }
     }
 
@@ -275,6 +283,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
             Timber.e(e);
         }
     }
+
     private void saveAypOutGroupDetails(Event event) {
         try {
             if (event == null) return;
