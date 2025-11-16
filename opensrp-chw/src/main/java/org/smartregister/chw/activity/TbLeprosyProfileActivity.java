@@ -32,7 +32,7 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
-import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
+import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.Visit;
@@ -59,13 +59,15 @@ import java.util.Map;
 import timber.log.Timber;
 
 
-public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
+public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity implements TbLeprosyContactRegisterPresenter.ContactRegistrationCallback {
 
     private static final int REQUEST_CODE_CONTACT_REGISTER = 6700;
 
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private ChwAllClientRegisterPresenter newClientRegisterPresenter;
+    private TbLeprosyContactRegisterPresenter newClientRegisterPresenter;
     private OpdRegisterActivityContract.View newClientRegisterView;
+    @Nullable
+    private String pendingContactRegistrationLocationId;
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, TbLeprosyProfileActivity.class);
@@ -492,12 +494,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 return;
             }
 
-            String contactBaseEntityId = form.optString(JsonFormUtils.ENTITY_ID);
             JSONObject metadata = form.optJSONObject(CoreJsonFormUtils.METADATA);
-            String locationId = metadata != null ? metadata.optString(JsonFormUtils.ENCOUNTER_LOCATION) : null;
-            if (StringUtils.isNotBlank(contactBaseEntityId)) {
-                saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
-            }
+            pendingContactRegistrationLocationId = metadata != null ? metadata.optString(JsonFormUtils.ENCOUNTER_LOCATION) : null;
 
             ensureNewClientRegistrationSupport();
             RegisterParams registerParams = new RegisterParams();
@@ -506,6 +504,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
             showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
             newClientRegisterPresenter.saveForm(jsonString, registerParams);
         } catch (Exception e) {
+            pendingContactRegistrationLocationId = null;
             hideProgressDialog();
             Timber.e(e);
             Toast.makeText(this, org.smartregister.chw.core.R.string.error_unable_to_save_form, Toast.LENGTH_LONG).show();
@@ -515,7 +514,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
     private void ensureNewClientRegistrationSupport() {
         if (newClientRegisterView == null) {
             newClientRegisterView = new ContactRegistrationView();
-            newClientRegisterPresenter = new ChwAllClientRegisterPresenter(newClientRegisterView, new ChwAllClientsRegisterModel(this));
+            newClientRegisterPresenter = new TbLeprosyContactRegisterPresenter(newClientRegisterView,
+                    new ChwAllClientsRegisterModel(this), this);
         }
     }
 
@@ -636,5 +636,18 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         public void startFormActivity(@NonNull JSONObject jsonForm, @Nullable HashMap<String, String> parcelableData) {
             // not used
         }
+    }
+
+    @Override
+    public void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId) {
+        String locationId = pendingContactRegistrationLocationId;
+        pendingContactRegistrationLocationId = null;
+
+        if (StringUtils.isBlank(contactBaseEntityId)) {
+            Timber.w("Contact base entity ID not available after registration save");
+            return;
+        }
+
+        saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
     }
 }
