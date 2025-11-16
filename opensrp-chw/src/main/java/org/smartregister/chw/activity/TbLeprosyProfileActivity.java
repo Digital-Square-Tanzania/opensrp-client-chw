@@ -20,12 +20,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbLeprosyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -36,14 +38,20 @@ import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.Visit;
 import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -484,6 +492,13 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
                 return;
             }
 
+            String contactBaseEntityId = form.optString(JsonFormUtils.ENTITY_ID);
+            JSONObject metadata = form.optJSONObject(CoreJsonFormUtils.METADATA);
+            String locationId = metadata != null ? metadata.optString(JsonFormUtils.ENCOUNTER_LOCATION) : null;
+            if (StringUtils.isNotBlank(contactBaseEntityId)) {
+                saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
+            }
+
             ensureNewClientRegistrationSupport();
             RegisterParams registerParams = new RegisterParams();
             registerParams.setEditMode(false);
@@ -501,6 +516,56 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity {
         if (newClientRegisterView == null) {
             newClientRegisterView = new ContactRegistrationView();
             newClientRegisterPresenter = new ChwAllClientRegisterPresenter(newClientRegisterView, new ChwAllClientsRegisterModel(this));
+        }
+    }
+
+    private void saveRegisterTbLeprosyContactEvent(String indexClientBaseEntityId, String contactBaseEntityId, String locationId) {
+        if (StringUtils.isBlank(indexClientBaseEntityId) || StringUtils.isBlank(contactBaseEntityId)) {
+            return;
+        }
+
+        try {
+            AllSharedPreferences sharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+            if (StringUtils.isBlank(locationId)) {
+                locationId = sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
+            }
+
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(contactBaseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EVENT_TYPE.TBLEPROSY_CONTACTS)
+                    .withFormSubmissionId(org.smartregister.util.JsonFormUtils.generateRandomUUIDString())
+                    .withEntityType(Constants.TABLES.TBLEPROSY_CONTACTS)
+                    .withProviderId(sharedPreferences.fetchRegisteredANM())
+                    .withLocationId(locationId)
+                    .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
+                    .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
+                    .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                    .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                    .withDateCreated(new Date());
+
+            baseEvent.addObs(new Obs()
+                    .withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.INDEX_CLIENT_BASE_ENTITY_ID)
+                    .withValue(indexClientBaseEntityId)
+                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.INDEX_CLIENT_BASE_ENTITY_ID)
+                    .withFieldType("formsubmissionField")
+                    .withFieldDataType("text")
+                    .withParentCode("")
+                    .withHumanReadableValues(new ArrayList<>()));
+
+            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(sharedPreferences, baseEvent);
+            baseEvent.setLocationId(locationId);
+
+            JSONObject eventJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(indexClientBaseEntityId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext())
+                    .processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e, "TbLeprosyProfileActivity --> saveRegisterTbLeprosyContactEvent");
         }
     }
 
