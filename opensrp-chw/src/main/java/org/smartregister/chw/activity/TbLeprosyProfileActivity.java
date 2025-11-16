@@ -48,6 +48,7 @@ import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
@@ -558,7 +559,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             baseEvent.setLocationId(locationId);
 
             JSONObject eventJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseEvent));
-            syncHelper.addEvent(indexClientBaseEntityId, eventJson);
+            syncHelper.addEvent(contactBaseEntityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext())
