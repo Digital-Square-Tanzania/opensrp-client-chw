@@ -20,8 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbLeprosyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -30,19 +30,20 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
-import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.Visit;
 import org.smartregister.chw.tbleprosy.util.Constants;
+import org.smartregister.chw.tbleprosy.util.DBConstants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
@@ -55,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -186,24 +186,26 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 rlObservationResults.setVisibility(View.VISIBLE);
             }
 
-            if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-            } else if (StringUtils.isNotBlank(latestObservationResults)) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
-                textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                rlObservationResults.setVisibility(View.VISIBLE);
-            }
+            if (isTbPresumptiveClient || isLeprosyPresumptiveClient) {
+                if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (StringUtils.isNotBlank(latestObservationResults)) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                }
 
-            if (hasTbLeprosyVisit && StringUtils.isBlank(latestObservationResults)) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_observation_results);
-            } else if (hasTbLeprosyVisit) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
-                textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                rlObservationResults.setVisibility(View.VISIBLE);
+                if (hasTbLeprosyVisit && StringUtils.isBlank(latestObservationResults)) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasTbLeprosyVisit) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                }
             }
         }
 
@@ -547,9 +549,9 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     .withDateCreated(new Date());
 
             baseEvent.addObs(new Obs()
-                    .withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.INDEX_CLIENT_BASE_ENTITY_ID)
+                    .withFormSubmissionField(DBConstants.KEY.INDEX_CLIENT_ID)
                     .withValue(indexClientBaseEntityId)
-                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.INDEX_CLIENT_BASE_ENTITY_ID)
+                    .withFieldCode(DBConstants.KEY.INDEX_CLIENT_ID)
                     .withFieldType("formsubmissionField")
                     .withFieldDataType("text")
                     .withParentCode("")
@@ -568,6 +570,19 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         } catch (Exception e) {
             Timber.e(e, "TbLeprosyProfileActivity --> saveRegisterTbLeprosyContactEvent");
         }
+    }
+
+    @Override
+    public void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId) {
+        String locationId = pendingContactRegistrationLocationId;
+        pendingContactRegistrationLocationId = null;
+
+        if (StringUtils.isBlank(contactBaseEntityId)) {
+            Timber.w("Contact base entity ID not available after registration save");
+            return;
+        }
+
+        saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
     }
 
     private class ContactRegistrationView implements OpdRegisterActivityContract.View {
@@ -637,18 +652,5 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         public void startFormActivity(@NonNull JSONObject jsonForm, @Nullable HashMap<String, String> parcelableData) {
             // not used
         }
-    }
-
-    @Override
-    public void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId) {
-        String locationId = pendingContactRegistrationLocationId;
-        pendingContactRegistrationLocationId = null;
-
-        if (StringUtils.isBlank(contactBaseEntityId)) {
-            Timber.w("Contact base entity ID not available after registration save");
-            return;
-        }
-
-        saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
     }
 }

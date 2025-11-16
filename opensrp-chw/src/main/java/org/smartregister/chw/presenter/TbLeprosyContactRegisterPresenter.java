@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.pojo.RegisterParams;
@@ -19,14 +20,9 @@ import timber.log.Timber;
  */
 public class TbLeprosyContactRegisterPresenter extends ChwAllClientRegisterPresenter {
 
-    public interface ContactRegistrationCallback {
-        void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId);
-    }
-
     private final WeakReference<ContactRegistrationCallback> callbackReference;
     @Nullable
     private String pendingContactBaseEntityId;
-
     public TbLeprosyContactRegisterPresenter(OpdRegisterActivityContract.View view,
                                              OpdRegisterActivityContract.Model model,
                                              ContactRegistrationCallback callback) {
@@ -64,12 +60,19 @@ public class TbLeprosyContactRegisterPresenter extends ChwAllClientRegisterPrese
     @Nullable
     private String extractContactBaseEntityId(@NonNull List<OpdEventClient> opdEventClientList) {
         for (OpdEventClient opdEventClient : opdEventClientList) {
-            Client client = opdEventClient != null ? opdEventClient.getClient() : null;
-            if (client != null && StringUtils.isNotBlank(client.getBaseEntityId())) {
-                return client.getBaseEntityId();
+            Event event = opdEventClient != null ? opdEventClient.getEvent() : null;
+            if (event != null && CoreConstants.EventType.FAMILY_MEMBER_REGISTRATION.equals(event.getEventType())) {
+                String baseEntityId = event.getBaseEntityId();
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    return baseEntityId;
+                }
             }
         }
 
         return null;
+    }
+
+    public interface ContactRegistrationCallback {
+        void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId);
     }
 }
