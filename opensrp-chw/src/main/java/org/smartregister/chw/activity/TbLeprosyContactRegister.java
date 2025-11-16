@@ -1,7 +1,7 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
 import static org.smartregister.util.JsonFormUtils.FIELDS;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -73,11 +73,13 @@ public class TbLeprosyContactRegister extends AppCompatActivity implements OpdRe
     private static final String CONTACT_EVENT_TYPE = "TBLeprosy Contacts";
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_CONTACT = 1;
+
+    private String indexBaseEntityId;
+    private String familyBaseEntityId;
+
     private final Map<String, ContactPerson> familyMembersCache = new HashMap<>();
     private final Map<String, ContactPerson> otherClientsCache = new HashMap<>();
     private final Set<String> registeredScreeningIds = new HashSet<>();
-    private String indexBaseEntityId;
-    private String familyBaseEntityId;
     private ChwAllClientRegisterPresenter registerPresenter;
     private ProgressDialog progressDialog;
 
@@ -619,10 +621,6 @@ public class TbLeprosyContactRegister extends AppCompatActivity implements OpdRe
         }
     }
 
-    private interface OnContactSelectedListener {
-        void onContactSelected(ContactPerson contact);
-    }
-
     private static class ContactPerson {
         private final String baseEntityId;
         private final String displayName;
@@ -698,6 +696,10 @@ public class TbLeprosyContactRegister extends AppCompatActivity implements OpdRe
             return (familyMembers == null || familyMembers.isEmpty())
                     && (otherClients == null || otherClients.isEmpty());
         }
+    }
+
+    private interface OnContactSelectedListener {
+        void onContactSelected(ContactPerson contact);
     }
 
     private static class ContactRow {
