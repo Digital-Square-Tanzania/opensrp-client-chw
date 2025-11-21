@@ -115,26 +115,29 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
                                 JSONObject minorAilmentObject = new JSONObject(meForm);
                                 String minorAilments = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(minorAilmentObject, "minor_ailment").toLowerCase();
 
-                                //Get fields from json object
-                                JSONArray fields = org.smartregister.util.JsonFormUtils.fields(minorAilmentObject);
-                                JSONObject metadata = org.smartregister.util.JsonFormUtils.getJSONObject(minorAilmentObject, "metadata");
-                                String bindType = org.smartregister.chw.referral.util.Constants.Tables.REFERRAL;
-                                String enconterType = org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION;
-                                String baseEntityId = memberObject.getBaseEntityId();
+                                if (!minorAilments.equals("none") && !minorAilments.equals("hakuna")){
+                                    //Get fields from json object
+                                    JSONArray fields = org.smartregister.util.JsonFormUtils.fields(minorAilmentObject);
+                                    JSONObject metadata = org.smartregister.util.JsonFormUtils.getJSONObject(minorAilmentObject, "metadata");
+                                    String bindType = org.smartregister.chw.referral.util.Constants.Tables.REFERRAL;
+                                    String enconterType = org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION;
+                                    String baseEntityId = memberObject.getBaseEntityId();
 
-                                ReferralLibrary referralLibrary = ReferralLibrary.getInstance();
+                                    ReferralLibrary referralLibrary = ReferralLibrary.getInstance();
 
-                                //Create and process event
-                                Event event = createEvent(fields, metadata, LinkageUtils.getFormTag(referralLibrary), baseEntityId, enconterType, bindType);
-                                LinkageUtils.addLinkageDetails(event, org.smartregister.chw.util.Constants.AddoLinkage.PNC_TASK_FOCUS, minorAilments);
-                                NCUtils.processEvent(event.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(event)));
-                                //LinkageUtils.processEvent(ReferralLibrary.getInstance(), event);
+                                    //Create and process event
+                                    Event event = createEvent(fields, metadata, LinkageUtils.getFormTag(referralLibrary), baseEntityId, enconterType, bindType);
+                                    LinkageUtils.addLinkageDetails(event, org.smartregister.chw.util.Constants.AddoLinkage.PNC_TASK_FOCUS, minorAilments);
+                                    NCUtils.processEvent(event.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(event)));
+                                    //LinkageUtils.processEvent(ReferralLibrary.getInstance(), event);
 
-                                //Create linkage task
-                                ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
-                                        memberObject.getBaseEntityId(), event.getFormSubmissionId(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.PNC_TASK_FOCUS);
+                                    //Create linkage task
+                                    ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
+                                            memberObject.getBaseEntityId(), event.getFormSubmissionId(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.PNC_TASK_FOCUS);
 
-                                showToastMessage(getContext().getString(R.string.linked_to_addo_message));
+                                    showToastMessage(getContext().getString(R.string.linked_to_addo_message));
+                                }
+
                             }catch (Exception e){
                                 Timber.e(e);
                             }
@@ -150,9 +153,11 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
                             try {
                                 JSONObject minorAilmentObject = new JSONObject(meForm);
                                 String minorAilments = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(minorAilmentObject, "child_minor_ailment").toLowerCase();
-                                ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
-                                        memberObject.getBaseEntityId(), generateRandomUUIDString(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.CHILD_TASK_FOCUS);
-                                showToastMessage(getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message));
+                                if (!minorAilments.equals("none") && !minorAilments.equals("hakuna")){
+                                    ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
+                                            memberObject.getBaseEntityId(), generateRandomUUIDString(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.CHILD_TASK_FOCUS);
+                                    showToastMessage(getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message));
+                                }
                             }
                             catch (Exception e){
                                 Timber.e(e);
