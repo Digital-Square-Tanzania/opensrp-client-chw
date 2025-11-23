@@ -28,4 +28,3 @@ build-scan-data
 kotlin-profile
 wrapper
 native/
-local-maven/
