@@ -28,9 +28,11 @@ import org.smartregister.chw.hps.model.BaseHpsVisitAction;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.hps.util.VisitUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +46,25 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
 
     private BaseHpsVisitContract.InteractorCallBack callBack;
     private String householdCountValue;
+    private LinkedHashMap<String, BaseHpsVisitAction> cachedActionList;
+
+    @SuppressWarnings("unchecked")
+    private LinkedHashMap<String, BaseHpsVisitAction> getMutableActionList() {
+        if (cachedActionList == null) {
+            try {
+                Field actionListField = BaseHpsServiceVisitInteractor.class.getDeclaredField("actionList");
+                actionListField.setAccessible(true);
+                cachedActionList = (LinkedHashMap<String, BaseHpsVisitAction>) actionListField.get(this);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new IllegalStateException("Unable to access HPS action list", e);
+            }
+        }
+        return cachedActionList;
+    }
+
+    private void notifyActionsChanged() {
+        appExecutors.mainThread().execute(() -> callBack.preloadActions(getMutableActionList()));
+    }
 
     public HpsAnnualCensusVisitInteractor() {
         super(Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS);
@@ -70,7 +91,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 Timber.e(e);
             }
 
-            appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));
+            notifyActionsChanged();
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -83,9 +104,9 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
             String nutritionTitle = getString(R.string.hps_annual_census_basic_nutrition_action_title);
             String socialEconomicTitle = getString(R.string.hps_annual_census_social_economic_action_title);
             String committeesTitle = getString(R.string.hps_annual_census_committees_traditional_action_title);
-            actionList.remove(nutritionTitle);
-            actionList.remove(socialEconomicTitle);
-            actionList.remove(committeesTitle);
+            getMutableActionList().remove(nutritionTitle);
+            getMutableActionList().remove(socialEconomicTitle);
+            getMutableActionList().remove(committeesTitle);
             try {
                 evaluateStep2Nutrition(details);
                 evaluateStep4SocialEconomic(details);
@@ -93,7 +114,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
             } catch (BaseHpsVisitAction.ValidationException e) {
                 throw new RuntimeException(e);
             }
-            appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));
+            notifyActionsChanged();
         });
 
         String formName = Utils.getLocalForm("hps_annual_census_step1_population", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
@@ -105,7 +126,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withFormName(formName)
                 .build();
 
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep2Nutrition(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -125,7 +146,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withFormName(formName)
                 .build();
 
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep3Centers(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -137,7 +158,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep3CentersActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep4SocialEconomic(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -152,7 +173,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep4SocialEconomicActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep5CommitteesTraditionalMedicine(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -167,7 +188,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -182,7 +203,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep7BuildingInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -194,7 +215,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep7BuildingInspectionActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep8WorkplaceInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -206,7 +227,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep8WorkplaceInspectionActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep9FoodBeverageInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -218,7 +239,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep9FoodBeverageInspectionActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep10WorkplaceHealthReports(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -230,7 +251,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep10WorkplaceHealthReportsActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep11SolidWaste(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -242,7 +263,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep11SolidWasteActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     private void evaluateStep12InsectBreedingControl(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
@@ -254,7 +275,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 .withHelper(new HpsAnnualCensusStep12InsectBreedingControlActionHelper())
                 .withFormName(formName)
                 .build();
-        actionList.put(title, action);
+        getMutableActionList().put(title, action);
     }
 
     @Override
