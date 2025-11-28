@@ -242,7 +242,7 @@ android {
             versionName "2.0.0"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
-            buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://ucs-opensrp-dev.d-tree.org/opensrp/"'
 
             buildConfigField "String", 'reset_password_url', '"https://ucs.moh.go.tz/gateway/api/v1/user/chw/forgot/"'
             buildConfigField "String", 'reset_password_url_debug', '"http://170.187.199.69/gateway/api/v1/user/chw/forgot/"'
