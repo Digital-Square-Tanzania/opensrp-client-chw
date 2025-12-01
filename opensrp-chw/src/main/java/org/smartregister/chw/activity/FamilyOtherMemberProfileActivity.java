@@ -250,6 +250,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startDiabetesRiskAssessment() {
+
+    }
+
+    @Override
     protected void startSbcRegistration() {
         SbcRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }

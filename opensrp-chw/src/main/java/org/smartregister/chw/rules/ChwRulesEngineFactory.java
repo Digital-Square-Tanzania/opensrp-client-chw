@@ -18,7 +18,7 @@ public class ChwRulesEngineFactory extends RulesEngineFactory {
 
     public ChwRulesEngineFactory(Context context, Map<String, String> globalValues) {
         super(context, globalValues);
-        this.chwRulesEngineHelper = new ChwRulesEngineHelper();
+        this.chwRulesEngineHelper = new ChwRulesEngineHelper(context);
         this.globalValues = globalValues;
 
     }

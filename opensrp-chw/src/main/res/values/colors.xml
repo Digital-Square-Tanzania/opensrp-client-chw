@@ -27,4 +27,5 @@
     <color name="pie_chart_purple">#A64D79</color>
     <color name="pie_chart_orange">#E69138</color>
     <color name="pie_chart_brown">#803F04</color>
+    <color name="ncd_visit_subtitle_overdue">#8C1D18</color>
 </resources>

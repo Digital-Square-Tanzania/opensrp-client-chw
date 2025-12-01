@@ -643,6 +643,12 @@
     <string name="street_name">Jina la mtaa au Kitongoji</string>
 
     <string name="successful_linkages">Miunganisho iliyofanikiwa</string>
+    <string name="nav_menu_ncd">NCD</string>
+    <string name="diabetes_and_hypertension_screening_form_title">Uchunguzi wa Kisukari na Shinikizo la damu</string>
+    <string name="referral_submitted">Rufaa imetumwa</string>
+    <string name="both_diabetes_and_hypertenstion">kisukari na shinikizo la damu</string>
+    <string name="only_diabetes">kisukari</string>
+    <string name="only_hypertension">shinikizo la damu</string>
 
 
     <!--    HPS   -->
@@ -825,4 +831,29 @@
     <string name="hps_annual_census_insect_breeding_control_action_title">Utambuzi wa Mazalia ya Wadudu na Udhibiti</string>
 
 
+    <string name="ncd_at_risk_clients">Walio katika hatari</string>
+    <string name="ncd_confirmed_clients">Waliothibitishwa</string>
+    <string name="ncd_confirmed_register_title">Orodha ya wateja waliothibitishwa</string>
+    <string name="ncd_visit_action_diabetes_title">Chukua vipimo</string>
+    <string name="ncd_visit_action_hypertension_title">Elimu Iliyotolewa</string>
+    <string name="ncd_visit_action_result">Matokeo ya mwisho ya %1$s: %2$s</string>
+    <string name="ncd_visit_action_result_missing">Hakuna matokeo ya %1$s yaliyorekodiwa</string>
+    <string name="ncd_visit_condition_diabetes">Sukari ya damu</string>
+    <string name="ncd_visit_condition_hypertension">Shinikizo la damu</string>
+    <string name="ncd_visit_vitals_summary">Sukari ya damu: %1$s | Shinikizo la damu: %2$s</string>
+    <string name="ncd_visit_vitals_missing_all">Hakuna vipimo vilivyochukuliwa</string>
+    <string name="ncd_visit_vitals_missing_placeholder">Haijarekodiwa</string>
+    <string name="ncd_visit_client_education_done">Ushauri umetolewa</string>
+    <string name="ncd_visit_client_education_not_done">Ushauri haujatolewa</string>
+    <string name="ncd_visit_client_education_missing">Ushauri haujarekodiwa</string>
+    <string name="ncd_visit_client_education_topics">Vipengele: %1$s</string>
+    <string name="ncd_visit_topic_diet">Lishe bora na chakula</string>
+    <string name="ncd_visit_topic_physical_activity">Shughuli za kuimarisha mwili na mazoezi</string>
+    <string name="ncd_visit_topic_medication_adherence">Ufuataji wa matumizi sahihi ya dawa</string>
+    <string name="ncd_visit_topic_follow_up">Ufuatiliaji wa rufaa</string>
+    <string name="ncd_visit_topic_warning_signs">Dalili za hatari na wakati sahihi wa kupata huduma</string>
+    <string name="ncd_visit_topic_none">Hakuna</string>
+    <string name="ncd_visit_topic_other">Nyingine</string>
+    <string name="referral_not_submitted">Rufaa haijatumwa</string>
+    <string name="ncd_follow_up_wait_message">Ufuatiliaji unaweza kufanyika baada ya siku 3 tangu uchunguzi wa awali.</string>
 </resources>

@@ -1,0 +1,15 @@
+---
+name: step4_diabetes_risk_score_output
+description: Risk calculated for diabetes and hypertension screening
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDiabesityRiskScore(global_age, step3_family_history_diabetes, step3_waist_circumference, step3_systolic_bp, step3_diastolic_bp)"
+
+---
+name: step4_risk_present_toaster
+description: Risk display text
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['condition': helper.getDiabesityRiskCondition(step4_diabetes_risk_score_output, step3_systolic_bp, step3_diastolic_bp)]"

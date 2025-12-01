@@ -108,8 +108,28 @@ public class Constants extends CoreConstants {
         private static final String ICCM_PNEUMONIA = "iccm_pneumonia";
         private static final String ICCM_DIARRHEA = "iccm_diarrhea";
         private static final String CHILD_HV_MALNUTRITION_SCREENING = "child_hv_malnutrition_screening";
+        private static final String DIABETES_SCREENING_FORM = "diabetes_hypertension_screening_form";
+        private static final String DIABETES_FOLLOWUP_FORM = "diabetes_hypertension_followup_form";
+        private static final String NCD_VITALS_FORM = "record_diabetes_hypertension_vital_form";
+        private static final String NCD_CLIENT_EDUCATION_FORM = "ncd_client_education_form";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
+
+        public static String getDiabetesScreeningForm() {
+            return DIABETES_SCREENING_FORM;
+        }
+
+        public static String getDiabetesFollowupForm() {
+            return DIABETES_FOLLOWUP_FORM;
+        }
+
+        public static String getNcdVitalsForm() {
+            return NCD_VITALS_FORM;
+        }
+
+        public static String getNcdClientEducationForm() {
+            return NCD_CLIENT_EDUCATION_FORM;
+        }
 
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;

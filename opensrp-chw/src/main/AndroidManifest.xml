@@ -78,6 +78,18 @@
             android:name=".activity.AgywRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.NcdRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.chw.activity.NcdProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.chw.activity.NcdVisitActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AgywProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -571,6 +583,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity android:name=".activity.LinkageFollowUpActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.NcdFormWizardActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
