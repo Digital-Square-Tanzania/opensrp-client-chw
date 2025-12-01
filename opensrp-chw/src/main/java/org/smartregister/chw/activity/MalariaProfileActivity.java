@@ -364,6 +364,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 //        TODO notify if it has phone number
     }
 
+    @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
     private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
         ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
     }

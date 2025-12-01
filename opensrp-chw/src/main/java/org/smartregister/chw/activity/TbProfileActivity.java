@@ -151,6 +151,11 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // recompute schedule
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getTbMemberObject().getBaseEntityId(), org.smartregister.chw.tb.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());

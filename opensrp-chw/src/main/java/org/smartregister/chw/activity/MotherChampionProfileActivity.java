@@ -277,6 +277,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     public void initializeFloatingMenu() {
         basePmtctFloatingMenu = new MotherChampionFloatingMenu(this, memberObject);
 

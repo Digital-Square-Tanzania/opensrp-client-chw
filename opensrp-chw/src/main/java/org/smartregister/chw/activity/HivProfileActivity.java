@@ -432,6 +432,11 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // recompute schedule
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getHivMemberObject().getBaseEntityId(), org.smartregister.chw.hiv.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());

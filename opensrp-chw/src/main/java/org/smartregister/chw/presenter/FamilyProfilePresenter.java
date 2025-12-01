@@ -49,4 +49,9 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         }
         return res;
     }
+
+    @Override
+    public void onEventSaveComplete(boolean isSaved) {
+        // No-op: override required by interface but handled via super/interactor callbacks elsewhere.
+    }
 }

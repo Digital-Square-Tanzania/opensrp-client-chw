@@ -174,6 +174,11 @@ public class FPMemberProfileActivity extends CoreFamilyPlanningMemberProfileActi
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
