@@ -113,6 +113,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     defaultConfig {
@@ -228,9 +229,11 @@ android {
 
     configurations.all {
         resolutionStrategy {
-            force 'androidx.appcompat:appcompat:1.0.2'
-            force 'com.google.android.material:material:1.0.0'
+            force 'androidx.appcompat:appcompat:1.2.0'
+            force 'com.google.android.material:material:1.2.1'
         }
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'jakarta.annotation', module: 'jakarta.annotation-api'
     }
 
     flavorDimensions 'baseDimension'
@@ -274,7 +277,8 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.7.0-ALPHA31-MOH-SNAPSHOT@aar') {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+    implementation('org.smartregister:opensrp-client-chw-core:1.6.6-MOH-ALPHA-SNAPSHOT-NCD_REG-SNAPSHOT01@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -306,11 +310,16 @@ dependencies {
         exclude group: 'commons-logging', module: 'commons-logging'
     }
     implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation 'com.nineoldandroids:library:2.4.0'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation('io.ona.kujaku:library:0.9.0') {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'
+    }
+
+    implementation('org.smartregister:opensrp-chw-ncd:0.0.1-SNAPSHOT-USELOCAL-BUILD05') {
+        transitive = false
     }
 
     //Do not upgrade to 1.1.0 due to compatibility issues
