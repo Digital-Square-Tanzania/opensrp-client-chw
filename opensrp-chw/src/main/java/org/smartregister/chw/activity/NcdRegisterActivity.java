@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreNcdRegisterActivity;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.CompletedReferralRegisterFragment;
 import org.smartregister.chw.fragment.NcdConfirmedRegisterFragment;
 import org.smartregister.chw.fragment.NcdRegisterFragment;
@@ -22,6 +23,7 @@ public class NcdRegisterActivity extends CoreNcdRegisterActivity implements Bott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NavigationMenu.getInstance(this, null, null);
     }
 
     @Override

@@ -5,9 +5,7 @@ import android.view.View;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.NcdProfileActivity;
 import org.smartregister.chw.core.fragment.CoreNcdRegisterFragment;
-import org.smartregister.chw.core.model.CoreNcdRegisterFragmentModel;
 import org.smartregister.chw.model.NcdConfirmedRegisterFragmentModel;
-import org.smartregister.chw.model.NcdRegisterAtRiskFragmentModel;
 import org.smartregister.chw.presenter.NcdConfirmedRegisterFragmentPresenter;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -28,7 +26,7 @@ public class NcdConfirmedRegisterFragment extends CoreNcdRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-        presenter = new NcdConfirmedRegisterFragmentPresenter(this, new NcdRegisterAtRiskFragmentModel(), null);
+        presenter = new NcdConfirmedRegisterFragmentPresenter(this, new NcdConfirmedRegisterFragmentModel(), null);
     }
 
     @Override

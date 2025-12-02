@@ -417,7 +417,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
-       // registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.NCD_REGISTER_ACTIVITY, NcdRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.NCD_REGISTER_ACTIVITY, NcdRegisterActivity.class);
         return registeredActivities;
     }
 

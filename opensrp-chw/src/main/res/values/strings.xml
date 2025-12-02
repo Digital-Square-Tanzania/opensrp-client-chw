@@ -543,6 +543,7 @@
     <string name="only_hypertension">hypertension only</string>
     <string name="ncd_at_risk_clients">At Risk</string>
     <string name="ncd_confirmed_clients">Confirmed</string>
+    <string name="ncd_at_risk_register_title">At Risk Clients</string>
     <string name="ncd_confirmed_register_title">All Confirmed Clients</string>
     <string name="ncd_visit_action_diabetes_title">Record vitals</string>
     <string name="ncd_visit_action_hypertension_title">Client Education</string>
