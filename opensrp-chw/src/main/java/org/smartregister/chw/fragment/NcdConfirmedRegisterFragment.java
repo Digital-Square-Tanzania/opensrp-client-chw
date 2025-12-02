@@ -4,10 +4,13 @@ import android.view.View;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.NcdProfileActivity;
+import org.smartregister.chw.activity.NcdRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreNcdRegisterFragment;
 import org.smartregister.chw.model.NcdConfirmedRegisterFragmentModel;
 import org.smartregister.chw.presenter.NcdConfirmedRegisterFragmentPresenter;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import timber.log.Timber;
 
 public class NcdConfirmedRegisterFragment extends CoreNcdRegisterFragment {
 
@@ -36,6 +39,11 @@ public class NcdConfirmedRegisterFragment extends CoreNcdRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-        NcdProfileActivity.startProfileActivity(getActivity(), baseEntityId, true);
+        if (getActivity() instanceof NcdRegisterActivity) {
+            ((NcdRegisterActivity) getActivity()).openClientProfile(baseEntityId, true);
+        } else {
+            Timber.e("Confirmed fragment host missing NcdRegisterActivity; opening profile directly");
+            NcdProfileActivity.startProfileActivity(getActivity(), baseEntityId, true);
+        }
     }
 }
