@@ -1,8 +1,8 @@
 {
-  "count": "6",
+  "count": "8",
+  "skip_blank_steps": true,
   "encounter_type": "AYP Out-school Enrollment",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -45,28 +45,38 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "phonenumber"
     },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
+    "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Elimu",
     "next": "step2",
-    "display_back_button": "true",
     "fields": [
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "type": "hidden"
+      },
+      {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "gender",
+        "type": "hidden"
+      },
       {
         "key": "school_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "school_status",
         "type": "native_radio",
-        "label": "Je, uko shule kwa sasa ?",
+        "label": "Je, kwa sasa uko shule?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -81,7 +91,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       },
       {
@@ -90,40 +100,46 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "school_level",
         "type": "native_radio",
-        "label": "Uko ngazi gani ya elimu:",
+        "label": "Kiwango chako cha elimu ni kipi?",
         "options": [
           {
             "key": "msingi",
-            "text": "Msingi",
+            "text": "Shule ya Msingi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "msingi"
           },
           {
             "key": "sekondari",
-            "text": "Sekondari",
+            "text": "Shule ya Sekondari",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sekondari"
           },
           {
             "key": "chuo",
-            "text": "Chuo",
+            "text": "Chuo/Chuo Kikuu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chuo"
           },
           {
             "key": "other",
-            "text": "Nyingineyo",
+            "text": "Nyingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other"
           }
         ],
+        "relevance": {
+          "step1:school_status": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       },
       {
@@ -132,7 +148,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "school_level_other",
         "type": "edit_text",
-        "hint": "Nyingineyo",
+        "hint": "Nyingine",
         "relevance": {
           "step1:school_level": {
             "type": "string",
@@ -141,12 +157,11 @@
         },
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       }
     ]
   },
-
   "step2": {
     "title": "Malezi",
     "next": "step3",
@@ -157,11 +172,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parent_maternal_status",
         "type": "native_radio",
-        "label": "Wazazi wako wapo hai ?",
+        "label": "Je, wazazi wako bado wako hai?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -175,7 +190,7 @@
           },
           {
             "key": "one_parent_alive",
-            "text": "Mzazi mmoja yupo hai",
+            "text": "Mzazi mmoja yuko hai",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "one_parent_alive"
@@ -183,7 +198,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       },
       {
@@ -192,25 +207,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parental_status",
         "type": "native_radio",
-        "label": "Hali ya malezi ?",
+        "label": "Nani anakulea?",
         "options": [
           {
             "key": "parent",
-            "text": "Analelewa na mzazi",
+            "text": "Nalelewa na mzazi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "parent"
           },
           {
             "key": "self",
-            "text": "Anajielea mwenyewe",
+            "text": "Ninajilea mwenyewe",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "self"
           },
           {
             "key": "guardian",
-            "text": "Analelewa na mlezi",
+            "text": "Nalelewa na mlezi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "guardian"
@@ -218,14 +233,13 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       }
     ]
   },
-
   "step3": {
-    "title": "Ngono hatarishi",
+    "title": "Tabia Hatari za Ngono",
     "next": "step4",
     "fields": [
       {
@@ -234,11 +248,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "had_sex",
         "type": "native_radio",
-        "label": "Je, umewahi kufanya ngono ?",
+        "label": "Katika miezi 12 iliyopita, je umewahi kushiriki tendo la ngono?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -253,7 +267,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
         }
       },
       {
@@ -262,11 +276,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sex_for_things",
         "type": "native_radio",
-        "label": "Je, umewahi kufanya ngono kwa ajili ya kujipatia vitu au kipato au zawadi ?",
+        "label": "Katika miezi 12 iliyopita, je umewahi kupokea pesa, zawadi au msaada kama malipo kwa tendo la ngono?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -281,7 +295,13 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -290,11 +310,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "without_protection",
         "type": "native_radio",
-        "label": "Je, unatumia kondomu wakati wa ngono ?",
+        "label": "Katika miezi 12 iliyopita, je ulitumia kondomu kila ulipofanya ngono?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -309,16 +329,22 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
         "key": "pregnancy_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "pregnancy_status",
         "type": "check_box",
-        "label": "Hali ya uzazi (kwa AGYW)",
+        "label": "Hali ya Uzazi",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -328,32 +354,42 @@
         "options": [
           {
             "key": "pregnant_now",
-            "text": "Mjamzito Sasa",
-            "openmrs_entity": "person_attribute",
+            "text": "Mjamzito kwa sasa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "pregnant_now"
           },
           {
             "key": "had_pregnancy",
-            "text": "Amewahi kuwa mjamzito",
-            "openmrs_entity": "person_attribute",
+            "text": "Ameshawahi kuwa mjamzito",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "had_pregnancy"
           },
           {
             "key": "parent",
             "text": "Mzazi",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
+            "openmrs_entity_parent": "",
             "openmrs_entity_id": "parent"
           },
           {
             "key": "none",
-            "text": "Haihusiki",
-            "openmrs_entity": "person_attribute",
+            "text": "Haitumiki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza"
+          "err": "Tafadhali jaza sehemu hii"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -362,11 +398,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "relationship_status",
         "type": "native_radio",
-        "label": "Una mahusiano ya kimapenzi na wanaume/wanawake zaidi ya mmoja?",
+        "label": "Je, una wenzi wa ngono zaidi ya mmoja?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -381,7 +417,13 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -390,11 +432,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "martial_status",
         "type": "native_radio",
-        "label": "Umeolewa/Umeoa katika umri mdogo (Chini ya miaka 18)?",
+        "label": "Je, uliwahi kuolewa/kuoa ukiwa chini ya miaka 18?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -409,14 +451,19 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Jibu swali"
+          "err": "Tafadhali jibu swali"
+        },
+        "relevance": {
+          "step3:had_sex": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]
   },
-
   "step4": {
-    "title": "Magonjwa ya zinaa",
+    "title": "Maambukizi ya Magonjwa ya Zinaa",
     "next": "step5",
     "fields": [
       {
@@ -425,11 +472,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_disease",
         "type": "native_radio",
-        "label": "Umewahi kupata ugonjwa wa zinaa?",
+        "label": "Je, umewahi kupata maambukizi ya magonjwa ya zinaa katika miezi 12 iliyopita?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -449,7 +496,6 @@
       }
     ]
   },
-
   "step5": {
     "title": "Ukatili",
     "next": "step6",
@@ -460,11 +506,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "violance",
         "type": "native_radio",
-        "label": "Unafahamu kuhusu ukatili?",
+        "label": "Je, unafahamu kuhusu ukatili?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -488,11 +534,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "done_violance",
         "type": "native_radio",
-        "label": "Umeshawahi kufanyiwa ukatili?",
+        "label": "Je, umewahi kupitia ukatili?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -518,41 +564,28 @@
       }
     ]
   },
-
   "step6": {
-    "title": "AYP Enrollment",
+    "title": "Ukatili wa Kijamii na Kiuchumi",
+    "next": "step7",
     "fields": [
       {
-        "key": "date_enrolled",
+        "key": "three_meals_past_three_month",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "date_enrolled",
-        "type": "date_picker",
-        "hint": "Tarehe ya usajili?",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the enrollment date"
-        }
-      },
-      {
-        "key": "education_status_now",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "education_status_now",
+        "openmrs_entity_id": "three_meals_past_three_month",
         "type": "native_radio",
-        "label": "Hali ya elimu",
+        "label": "Je, uliweza kumudu kupata milo mitatu (3) kwa siku katika miezi mitatu iliyopita?",
         "options": [
           {
-            "key": "present",
-            "text": "Yupo shule/Chuo",
+            "key": "yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
-            "key": "not_present",
-            "text": "Hayupo shule/Chuo",
+            "key": "no",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -564,50 +597,265 @@
         }
       },
       {
-        "key": "choose_education_level",
+        "key": "unaccess_health_care_lack_money",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "choose_education_level",
+        "openmrs_entity_id": "unaccess_health_care_lack_money",
         "type": "native_radio",
-        "label": "Chagua kiwango cha elimu",
+        "label": "Je, umeshindwa kupata huduma za afya katika miezi mitatu iliyopita kwa sababu ya kukosa fedha?",
         "options": [
           {
-            "key": "primary",
-            "text": "Elimu ya msingi",
+            "key": "yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "primary"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "secondary",
-            "text": "Elimu ya sekondari",
+            "key": "no",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "secondary"
-          },
-          {
-            "key": "university",
-            "text": "Chuo",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "university"
-          },
-          {
-            "key": "technician",
-            "text": "Ufundi stadi",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "technician"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": true,
           "err": "Jibu swali"
+        }
+      },
+      {
+        "key": "currently_receiving_services_tasaf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "currently_receiving_services_tasaf",
+        "type": "native_radio",
+        "label": "Je, kwa sasa unapata msaada au huduma kutoka TASAF?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Jibu swali"
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Matumizi ya Pombe na Dawa za Kulevya",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "used_alcohol_past_three_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "used_alcohol_past_three_month",
+        "type": "native_radio",
+        "label": "Je, umetumia pombe katika miezi mitatu iliyopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Jibu swali"
+        }
+      },
+      {
+        "key": "recreational_drugs_past_three_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "recreational_drugs_past_three_month",
+        "type": "native_radio",
+        "label": "Je, umetumia dawa zozote za kulevya katika miezi mitatu iliyopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Jibu swali"
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "Usajili wa AYP",
+    "fields": [
+      {
+        "key": "should_enroll",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "should_enroll",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "score",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ayp_eligibility_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "RoC hastahili kujiunga na AYP Out of School",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "birth_region",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_region",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "Mkoa wa Kuzaliwa kwa Mteja",
+        "label_info_text": "",
+        "hint": "Chagua mkoa aliozaliwa mteja",
+        "values": [
+          "Arusha",
+          "Dar es Salaam",
+          "Dodoma",
+          "Geita",
+          "Iringa",
+          "Kagera",
+          "Katavi",
+          "Kigoma",
+          "Kilimanjaro",
+          "Lindi",
+          "Manyara",
+          "Mara",
+          "Mbeya",
+          "Morogoro",
+          "Mtwara",
+          "Mwanza",
+          "Njombe",
+          "Pwani",
+          "Rukwa",
+          "Ruvuma",
+          "Shinyanga",
+          "Simiyu",
+          "Singida",
+          "Songwe",
+          "Tabora",
+          "Tanga"
+        ],
+        "keys": [
+          "Arusha",
+          "Dar es Salaam",
+          "Dodoma",
+          "Geita",
+          "Iringa",
+          "Kagera",
+          "Katavi",
+          "Kigoma",
+          "Kilimanjaro",
+          "Lindi",
+          "Manyara",
+          "Mara",
+          "Mbeya",
+          "Morogoro",
+          "Mtwara",
+          "Mwanza",
+          "Njombe",
+          "Pwani",
+          "Rukwa",
+          "Ruvuma",
+          "Shinyanga",
+          "Simiyu",
+          "Singida",
+          "Songwe",
+          "Tabora",
+          "Tanga"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua mkoa"
         },
         "relevance": {
-          "step6:education_status_now": {
+          "step8:should_enroll": {
             "type": "string",
-            "ex": "equalTo(., \"present\")"
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "date_enrolled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_enrolled",
+        "type": "date_picker",
+        "hint": "Tarehe ya usajili?",
+        "max_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali chagua tarehe ya usajili"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -628,21 +876,21 @@
           },
           {
             "key": "timiza_malengo",
-            "text": "Timiza malengo",
+            "text": "Timiza Malengo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "timiza_malengo"
           },
           {
             "key": "others",
-            "text": "Nyinginezo",
+            "text": "Mwingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "others"
           },
           {
             "key": "not_present",
-            "text": "Hayupo kwenye mradi",
+            "text": "Hajajiunga na mradi wowote",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -651,6 +899,12 @@
         "v_required": {
           "value": true,
           "err": "Jibu swali"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -659,9 +913,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "project_other",
         "type": "edit_text",
-        "hint": "Nyingineyo",
+        "hint": "Mradi mwingine",
         "relevance": {
-          "step6:project_name": {
+          "step8:project_name": {
             "type": "string",
             "ex": "equalTo(., \"others\")"
           }
@@ -677,11 +931,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_disease",
         "type": "native_radio",
-        "label": "Hali ya maambukizi ya VVU",
+        "label": "Hali ya maambukizi ya HIV",
         "options": [
           {
             "key": "have_hiv",
-            "text": "Anaishi na maambukizi",
+            "text": "Anaishi na VVU",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "have_hiv"
@@ -697,6 +951,12 @@
         "v_required": {
           "value": true,
           "err": "Jibu swali"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]

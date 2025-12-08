@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Service Status",
+    "title": "Hali ya Huduma",
     "display_back_button": "true",
     "fields": [
       {
@@ -61,17 +61,17 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_status",
         "type": "native_radio",
-        "label": "Select the client’s service status",
+        "label": "Chagua hali ya huduma ya mteja",
         "options": [
           {
             "key": "in_service",
-            "text": "Yupo kwenye huduma",
+            "text": "Anaendelea kupokea huduma",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "in_service"
           },
           {
             "key": "not_in_service",
-            "text": "Hayupo kwenye huduma",
+            "text": "Hapokei huduma",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "not_in_service"
           }
@@ -87,11 +87,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "not_in_service_reasons",
         "type": "native_radio",
-        "label": "Reasons",
+        "label": "Sababu",
         "options": [
           {
             "key": "transferred",
-            "text": "Amehama",
+            "text": "Amehama kwenda eneo jingine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "transferred"
@@ -105,14 +105,14 @@
           },
           {
             "key": "discontinued",
-            "text": "Amejitoa",
+            "text": "Amejiondoa kwenye programu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "discontinued"
           },
           {
             "key": "married",
-            "text": "Ameoa/Kuolewa",
+            "text": "Ameolewa/Ameoa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "married"
@@ -124,17 +124,11 @@
         },
         "relevance": {
           "step1:service_status": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "not_in_service"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"not_in_service\")"
           }
         }
       }
     ]
   }
 }
-

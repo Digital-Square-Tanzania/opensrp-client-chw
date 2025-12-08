@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Next Appointment Date",
+    "title": "Tarehe ya Miadi Ijayo",
     "display_back_button": "true",
     "fields": [
       {
@@ -64,7 +64,7 @@
         "min_date": "today",
         "max_date": "today+5y",
         "expanded": false,
-        "hint": "Next Appointment Date",
+        "hint": "Tarehe ya Miadi Ijayo",
         "v_required": {
           "value": "true",
           "err": "Required"

@@ -52,16 +52,16 @@
     }
   },
   "step1": {
-    "title": "Huduma za Kimuundo",
+    "title": "Huduma za Muundo",
     "display_back_button": "true",
     "fields": [
       {
         "key": "choose_economic_empowerment_services",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "choose_economic_empowerment_services",
         "type": "check_box",
-        "label": "Chagua huduma za uwezeshaji kiuchumi",
+        "label": "Chagua huduma za uwezeshaji wa kiuchumi",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -72,73 +72,73 @@
           {
             "key": "savings_management_education",
             "text": "Elimu ya usimamizi wa akiba",
-            "openmrs_entity": "savings_management_education",
-            "openmrs_entity_id": "in_service"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "savings_management_education"
           },
           {
             "key": "loan_management_education",
             "text": "Elimu ya usimamizi wa mikopo",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "loan_management_education"
           },
           {
             "key": "budgeting_education",
-            "text": "Elimu ya kupanga bajeti",
-            "openmrs_entity": "person_attribute",
+            "text": "Elimu ya bajeti",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "budgeting_education"
           },
           {
             "key": "business_startup_education",
             "text": "Elimu ya kuanzisha biashara",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_startup_education"
           },
           {
             "key": "business_plan_preparation_education",
-            "text": "Elimu ya kuandaa mpango biashara",
-            "openmrs_entity": "person_attribute",
+            "text": "Elimu ya kuandaa mpango wa biashara",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_plan_preparation_education"
           },
           {
             "key": "youth_employment_and_self_employment_preparation",
-            "text": "Kumuandaa kijana kujiajiri na kuajiriwa",
-            "openmrs_entity": "person_attribute",
+            "text": "Maandalizi ya ajira na uzalishaji binafsi kwa vijana",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "youth_employment_and_self_employment_preparation"
           },
           {
             "key": "business_management_education",
             "text": "Elimu ya usimamizi wa biashara",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "business_management_education"
           },
           {
             "key": "financial_and_business_services",
             "text": "Huduma za kifedha na biashara",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_and_business_services"
           },
           {
             "key": "village_bank_services",
-            "text": "Huduma za benki ya kijiji",
-            "openmrs_entity": "person_attribute",
+            "text": "Huduma za benki za vijiji",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "village_bank_services"
           },
           {
             "key": "group_health_assessment_and_profit_sharing",
-            "text": "Kupima Afya ya kikundi na gawio la faida",
-            "openmrs_entity": "person_attribute",
+            "text": "Tathmini ya utendaji wa kikundi na ugawaji wa faida",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "group_health_assessment_and_profit_sharing"
           },
           {
             "key": "financial_dialogue",
             "text": "Mazungumzo ya kifedha",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_dialogue"
           },
           {
             "key": "none",
             "text": "Hakuna",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }
         ],
@@ -150,84 +150,84 @@
       {
         "key": "choose_integrated_services",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "choose_integrated_services",
         "type": "check_box",
-        "label": "Chagua huduma Unganishi",
+        "label": "Chagua huduma za kuunganishwa",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "entrepreneurial_skills_in_group",
-            "text": "Ujuzi wa ujasiriamali katika kikundi",
-            "openmrs_entity": "person_attribute",
+            "text": "Ustadi wa ukuaji wa biashara katika makundi",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurial_skills_in_group"
           },
           {
             "key": "practical_training_for_job_skills",
-            "text": "Mafunzo kwa vitendo kupata ujuzi kazini",
-            "openmrs_entity": "person_attribute",
+            "text": "Mafunzo ya vitendo kupata ustadi wa kazi",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "practical_training_for_job_skills"
           },
           {
             "key": "entrepreneurship_equipment",
-            "text": "Vifaa vya ujasiriamali",
-            "openmrs_entity": "person_attribute",
+            "text": "Vyombo vya kujishughulisha kibiashara",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship_equipment"
           },
           {
             "key": "employment_preparation",
-            "text": "Maandalizi ya kuajiriwaa",
-            "openmrs_entity": "person_attribute",
+            "text": "Maandalizi ya ajira",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "employment_preparation"
           },
           {
             "key": "employment",
             "text": "Ajira",
-            "openmrs_entity": "person_attribute",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "employment"
           },
           {
             "key": "join_savings_and_credit_group",
-            "text": "Kujiunga kwenye kikundi cha kuweka na kukopa",
-            "openmrs_entity": "person_attribute",
+            "text": "Jiunge na kikundi cha akiba na mikopo",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_savings_and_credit_group"
           },
           {
             "key": "market_research",
-            "text": "Utafiti wa masoko",
-            "openmrs_entity": "person_attribute",
+            "text": "Utafiti wa soko",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "market_research"
           },
           {
             "key": "join_vocational_training_institute",
-            "text": "Kujiunga na Chuo cha ujuzi mf. VETA",
-            "openmrs_entity": "person_attribute",
+            "text": "Jiunge na instituti ya mafunzo ya ufundi (VETA)",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_vocational_training_institute"
           },
           {
             "key": "join_health_insurance_fund",
-            "text": "Kujiunga na mfuko wa bima ya afya",
-            "openmrs_entity": "person_attribute",
+            "text": "Jiunge na fedha ya bima ya afya",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "join_health_insurance_fund"
           },
           {
             "key": "receive_grant",
-            "text": "Kupata Ruzuku",
-            "openmrs_entity": "person_attribute",
+            "text": "Pokea rasilimali",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "receive_grant"
           },
           {
             "key": "receive_loan",
-            "text": "Kupata Mkopo",
-            "openmrs_entity": "person_attribute",
+            "text": "Pokea mkopo",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "receive_loan"
           },
           {
             "key": "assistance_in_obtaining_national_ids",
-            "text": "Usaidizi wa Kupata vitambulisho vya Taifa mf cheti cha kuzaliwa, NIDA",
-            "openmrs_entity": "person_attribute",
+            "text": "Msaada wa kupata vitambulisho vya Taifa (cheti cha kuzaliwa, NIDA)",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "assistance_in_obtaining_national_ids"
           }
         ],
@@ -242,13 +242,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_youth_friendly_health_services",
         "type": "native_radio",
-        "label": "Amepatiwa huduma rafiki za afya kwa vijana ",
+        "label": "Je, mteja amepokea huduma za afya rafiki kwa vijana?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -270,13 +270,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_stigma_and_discrimination_services",
         "type": "native_radio",
-        "label": "Amepatiwa huduma za unyanyapaa na ubaguzi",
+        "label": "Je, mteja amepokea huduma za ukandamizaji na ubaguzi?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -298,13 +298,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_educational_materials_support",
         "type": "native_radio",
-        "label": "Amepatiwa msaada wa vifaa vya elimu",
+        "label": "Je, mteja amepokea msaada wa vifaa vya kielimu?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -326,13 +326,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_received_sanitary_pads",
         "type": "native_radio",
-        "label": "Mteja amepatiwa taulo za kike",
+        "label": "Je, mteja amepokea pad za usafi wa kike?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -351,11 +351,11 @@
       {
         "key": "number_of_sanitary_pads_given",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_sanitary_pads_given",
         "type": "edit_text",
-        "hint": "Idadi ya taulo za kike alizopewa",
-        "edit_type": "name",
+        "hint": "Idadi ya pad za usafi zilizotolewa",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza"
@@ -370,4 +370,3 @@
     ]
   }
 }
-

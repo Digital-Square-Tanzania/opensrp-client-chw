@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Medical Services",
+    "title": "Huduma za Kitabibu",
     "display_back_button": "true",
     "fields": [
       {
@@ -61,18 +61,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "self_testing_service_provided",
         "type": "native_radio",
-        "label": "Was self-testing service provided?",
+        "label": "Je, huduma ya kujipima ilitolewa?",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -80,13 +80,13 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         }
       },
       {
         "key": "linked_to_self_testing_module",
         "type": "toaster_notes",
-        "text": "Link to Self-Testing module",
+        "text": "Unganisha na moduli ya Kujipima",
         "openmrs_entity_id": "linked_to_self_testing_module",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -104,20 +104,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "condom_distribution",
         "type": "check_box",
-        "label": "Condom distribution",
+        "label": "Ugawaji wa kondomu",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "male",
-            "text": "Male",
+            "text": "Kiume",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "male"
           },
           {
             "key": "female",
-            "text": "Female",
+            "text": "Kike",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
           }
@@ -129,11 +129,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_male_condom",
         "type": "edit_text",
-        "hint": "Number of male condoms",
+        "hint": "Idadi ya kondomu za kiume",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:condom_distribution": {
@@ -153,11 +153,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_female_condom",
         "type": "edit_text",
-        "hint": "Number of female condoms",
+        "hint": "Idadi ya kondomu za kike",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:condom_distribution": {
@@ -177,26 +177,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gender_based_violence_investigation",
         "type": "native_radio",
-        "label": "Gender-based violence investigation",
+        "label": "Uchunguzi wa ukatili wa kijinsia",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "done",
-            "text": "Done",
+            "text": "Umefanyika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "done"
           },
           {
             "key": "not_done",
-            "text": "Not done",
+            "text": "Haujafanyika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "not_done"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         }
       },
       {
@@ -205,39 +205,39 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_gender_based_violence",
         "type": "check_box",
-        "label": "Type of gender-based violence",
+        "label": "Aina ya ukatili wa kijinsia",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "physical",
-            "text": "Physical",
+            "text": "Kimwili",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical"
           },
           {
             "key": "emotional",
-            "text": "Emotional",
+            "text": "Kihisia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "emotional"
           },
           {
             "key": "sexual",
-            "text": "Sexual",
+            "text": "Kijinsia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sexual"
           },
           {
             "key": "economic",
-            "text": "Economic",
+            "text": "Kiuchumi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "economic"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:gender_based_violence_investigation": {
@@ -252,26 +252,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "family_planning",
         "type": "native_radio",
-        "label": "Is using family planning",
+        "label": "Anatumia uzazi wa mpango?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         }
       },
       {
@@ -280,32 +280,32 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "contraceptive_method_used",
         "type": "native_radio",
-        "label": "Contraceptive method used",
+        "label": "Njia ya uzazi wa mpango inayotumika",
         "options": [
           {
             "key": "pills",
-            "text": "Pills",
+            "text": "Vidonge",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pills"
           },
           {
             "key": "injection",
-            "text": "Injection",
+            "text": "Sindano",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "injection"
           },
           {
             "key": "implant",
-            "text": "Implant",
+            "text": "Kipandikizi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "implant"
           },
           {
             "key": "condom",
-            "text": "Condom",
+            "text": "Kondomu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "condom"
@@ -319,7 +319,7 @@
           },
           {
             "key": "none",
-            "text": "Not using any method",
+            "text": "Hatumii njia yoyote",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
@@ -327,7 +327,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:family_planning": {
@@ -342,26 +342,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_hpv_vaccine",
         "type": "native_radio",
-        "label": "Received HPV vaccine",
+        "label": "Amepewa chanjo ya HPV?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         }
       },
       {
@@ -370,26 +370,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "tested_hiv",
         "type": "native_radio",
-        "label": "Was the client tested for HIV at the facility",
+        "label": "Je, mteja alifanyiwa kipimo cha VVU kituoni?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please fill"
+          "err": "Tafadhali jaza"
         }
       }
     ]
