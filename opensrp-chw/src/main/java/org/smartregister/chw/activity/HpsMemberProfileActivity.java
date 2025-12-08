@@ -14,8 +14,11 @@ import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -44,6 +47,8 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.sbc.dao.SbcDao;
+import org.smartregister.chw.referral.util.LocationUtils;
+import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -57,12 +62,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
 public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private LinearLayout layoutRecordNcdScreening;
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, HpsMemberProfileActivity.class);
@@ -124,6 +131,8 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
         }
+
+        setupDiabetesScreeningButton();
     }
 
     @Override
@@ -164,6 +173,82 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
         }
 
+    }
+
+    private void setupDiabetesScreeningButton() {
+        if (memberObject == null) {
+            return;
+        }
+
+        if (layoutRecordNcdScreening == null) {
+            layoutRecordNcdScreening = findViewById(R.id.record_visit_panel_container);
+        }
+
+        if (layoutRecordNcdScreening == null) {
+            return;
+        }
+
+        if (memberObject.getAge() >= 30) {
+            layoutRecordNcdScreening.setVisibility(View.VISIBLE);
+            layoutRecordNcdScreening.setOnClickListener(v -> startDiabetesRiskAssessment());
+        } else {
+            layoutRecordNcdScreening.setVisibility(View.GONE);
+        }
+    }
+
+    protected void startDiabetesRiskAssessment() {
+        try {
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
+                    this,
+                    org.smartregister.chw.util.Constants.JsonForm.getDiabetesScreeningForm()
+            );
+            prepopulateDiabetesScreeningForm(formJsonObject);
+            if (formJsonObject != null) {
+                startNcdFormActivity(formJsonObject);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void prepopulateDiabetesScreeningForm(JSONObject formJsonObject) throws JSONException {
+        if (formJsonObject == null || memberObject == null) {
+            return;
+        }
+
+        int age = memberObject.getAge();
+        JSONArray step3Fields = JsonFormUtils.fields(formJsonObject, "step3");
+        JSONObject ageField = FormUtils.getFieldJSONObject(step3Fields, "age");
+
+        if (ageField != null) {
+            ageField.put("value", age);
+        }
+        formJsonObject.getJSONObject(JsonFormConstants.GLOBAL).put("age", age);
+
+        Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
+        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
+    }
+
+    private void startNcdFormActivity(JSONObject jsonForm) {
+        Form form = new Form();
+        String formTitle = getString(R.string.diabetes_and_hypertension_screening_form_title);
+        form.setName(formTitle);
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setWizard(true);
+        form.setHideNextButton(true);
+        form.setHidePreviousButton(true);
+        form.setSaveLabel("");
+        form.setHideSaveLabel(true);
+
+        Intent intent = new Intent(this, NcdFormWizardActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, memberObject.getBaseEntityId());
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     public List<ReferralTypeModel> getReferralTypeModels() {
