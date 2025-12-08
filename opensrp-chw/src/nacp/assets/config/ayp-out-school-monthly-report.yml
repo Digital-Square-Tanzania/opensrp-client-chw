@@ -1,40 +1,368 @@
 indicators:
 #Indicator 1
-  - key: "kvp-1-<10-pwid-ME"
-    grouping: "KVP"
+  - key: "enrolled-ayp-total"
+    grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <10"
-    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
-                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
-                      WHERE visit_type = 'new_visit'
-                      AND ekr.client_group ='pwid'
-                      AND (date('now')-date(efm.dob))<10
-                      AND (efm.gender='Male')
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
-  - key: "kvp-1-10-14-pwid-ME"
-    grouping: "KVP"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-female-10-14"
+    grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
-                      INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
-                      WHERE visit_type = 'new_visit'
-                      AND ekr.client_group ='pwid'
-                      AND (date(efm.dob, '+10 years') <= date('now'))
-                      AND (date(efm.dob, '+15 years') > date('now'))
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-female-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-female-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-female-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (efm.gender='Female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-male-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
                       AND (efm.gender='Male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
-  - key: "kvp-1-15-19-pwid-ME"
-    grouping: "KVP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
-    indicatorQuery: " SELECT count(DISTINCT ekpf.entity_id) as count FROM ec_kvp_prep_followup ekpf
-                        INNER JOIN ec_family_member efm ON efm.base_entity_id = ekpf.entity_id
-                        INNER JOIN ec_kvp_prep_register ekr ON efm.base_entity_id = ekr.id
-                        WHERE visit_type = 'new_visit'
-                        AND ekr.client_group ='pwid'
-                        AND (date(efm.dob, '+15 years') <= date('now'))
-                        AND (date(efm.dob, '+20 years') > date('now'))
-                        AND (efm.gender='Male')
-                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                        date(substr(ekpf.kvp_visit_date, 7, 4) || '-' || substr(ekpf.kvp_visit_date, 4, 2) || '-' || '01')"
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-male-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-male-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "enrolled-ayp-male-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+                      WHERE (efm.gender='Male')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "leso-ayp-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+				 	  WHERE choose_integrated_services IS NOT NULL
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-female-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-female-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-female-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-female-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+					 WHERE choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-male-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-male-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-male-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+					 AND choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "leso-ayp-male-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+					 WHERE choose_integrated_services IS NOT NULL
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-female-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Female')
+                  	 AND (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-female-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Female')
+                  	 AND (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-female-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Female')
+                  	 AND (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-female-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Female')
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-male-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Male')
+                  	 AND (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-male-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Male')
+                  	 AND (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-male-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Male')
+                  	 AND (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "cmdp-ayp-male-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
+                      FROM ec_ayp_out_school_client_followup_visits eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE 
+                      (
+                      (length(choose_sbc_health_behavior_change_services_provided)
+                      - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
+                      ) + 1
+                      ) > 9
+                  	 AND client_received_sanitary_pads =='Yes'
+                  	 AND received_educational_materials_support =='Yes'
+                  	 AND choose_economic_empowerment_services IS NOT NULL
+	                 AND (efm.gender='Male')
+					 AND choose_integrated_services IS NOT NULL
+ 	    		     AND (efm.gender='Male')
+ 				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+    				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+   				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

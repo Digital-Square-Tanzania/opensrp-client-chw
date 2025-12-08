@@ -9938,6 +9938,78 @@
           }
         },
         {
+          "column_name": "gender_based_violence_investigation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "gender_based_violence_investigation"
+          }
+        },
+        {
+          "column_name": "received_hpv_vaccine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_hpv_vaccine"
+          }
+        },
+        {
+          "column_name": "choose_economic_empowerment_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "choose_economic_empowerment_services"
+          }
+        },
+        {
+          "column_name": "choose_integrated_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "choose_integrated_services"
+          }
+        },
+        {
+          "column_name": "received_educational_materials_support",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_educational_materials_support"
+          }
+        },
+        {
+          "column_name": "choose_sbc_service_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "choose_sbc_service_provided"
+          }
+        },
+        {
+          "column_name": "choose_sbc_health_behavior_change_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "choose_sbc_health_behavior_change_services_provided"
+          }
+        },
+        {
+          "column_name": "received_educational_materials_support",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_educational_materials_support"
+          }
+        },
+        {
+          "column_name": "client_received_sanitary_pads",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_received_sanitary_pads"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
