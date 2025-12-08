@@ -7173,6 +7173,14 @@
           }
         },
         {
+          "column_name": "age",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "age"
+          }
+        },
+        {
           "column_name": "sex",
           "type": "Event",
           "json_mapping": {
