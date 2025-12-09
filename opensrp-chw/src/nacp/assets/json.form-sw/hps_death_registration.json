@@ -57,7 +57,14 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza tarehe ya kifo"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Rekebisha tarehe ya kifo"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -116,7 +123,7 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Tarehe ya kuzaliwa ni lazima iwe kabla ya tarehe ya kifo"
+            "err": "Rekebisha tarehe ya kuzaliwa"
           }
         ],
         "relevance": {

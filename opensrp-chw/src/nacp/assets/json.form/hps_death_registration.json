@@ -57,7 +57,14 @@
         "v_required": {
           "value": "true",
           "err": "Please select the date"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Modify date of death"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -116,7 +123,7 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Date of birth must be earlier than date of death"
+            "err": "Modify date of birth"
           }
         ],
         "relevance": {
