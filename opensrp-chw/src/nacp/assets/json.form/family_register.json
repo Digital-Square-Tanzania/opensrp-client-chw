@@ -637,7 +637,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "00000000000",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Driver's license number e.g 1234567891",
         "edit_type": "number",

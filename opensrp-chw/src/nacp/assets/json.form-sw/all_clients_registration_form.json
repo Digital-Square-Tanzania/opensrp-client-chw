@@ -562,7 +562,7 @@
         "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
-        "mask_hint": "0000000000000000000000",
+        "mask_hint": "00000000000000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya kitambulisho cha taifa k.m 12345678-91234-56789-12",
         "edit_type": "number",

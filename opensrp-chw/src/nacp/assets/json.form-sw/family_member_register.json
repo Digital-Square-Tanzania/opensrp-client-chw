@@ -459,7 +459,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "0000000000000",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Nambari ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
