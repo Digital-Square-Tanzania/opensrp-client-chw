@@ -57,7 +57,14 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza tarehe ya kifo"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Rekebisha tarehe ya kifo"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -116,9 +123,87 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Tarehe ya kuzaliwa ni lazima iwe kabla ya tarehe ya kifo"
+            "err": "Rekebisha tarehe ya kuzaliwa"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age_calculated",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dob_unknown",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "Tarehe ya kuzaliwa haijulikani?",
+            "text_size": "18px",
+            "value": "false"
           }
         ]
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Umri",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Lazima iwe namba halali ya umri"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza umri halali"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza umri halali"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Umri unatakiwa uwe sawa au zaidi ya 0"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Umri unatakiwa uwe sawa au mkubwa kwa 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tadhadhali jaza umri"
+        }
       },
       {
         "key": "dob_validation_toaster",

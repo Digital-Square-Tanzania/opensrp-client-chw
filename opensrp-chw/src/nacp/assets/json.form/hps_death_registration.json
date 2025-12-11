@@ -41,8 +41,7 @@
     },
     "encounter_location": ""
   },
-  "global":{
-  },
+  "global":{},
   "step1": {
     "title": "Death Information",
     "fields": [
@@ -58,7 +57,14 @@
         "v_required": {
           "value": "true",
           "err": "Please select the date"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Modify date of death"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -117,9 +123,87 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Date of birth must be earlier than date of death"
+            "err": "Modify date of birth"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age_calculated",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dob_unknown",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
           }
         ]
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Age must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
       },
       {
         "key": "dob_validation_toaster",
@@ -161,7 +245,6 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
           }
-
         ],
         "v_required": {
           "value": "true",
