@@ -9938,6 +9938,14 @@
           }
         },
         {
+          "column_name": "condom_distribution",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_distribution"
+          }
+        },
+        {
           "column_name": "gender_based_violence_investigation",
           "type": "Event",
           "json_mapping": {
@@ -9946,11 +9954,43 @@
           }
         },
         {
+          "column_name": "type_of_gender_based_violence",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "type_of_gender_based_violence"
+          }
+        },
+        {
+          "column_name": "family_planning",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "family_planning"
+          }
+        },
+        {
+          "column_name": "contraceptive_method_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "contraceptive_method_used"
+          }
+        },
+        {
           "column_name": "received_hpv_vaccine",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "received_hpv_vaccine"
+          }
+        },
+        {
+          "column_name": "tested_hiv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tested_hiv"
           }
         },
         {
@@ -9967,6 +10007,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "choose_integrated_services"
+          }
+        },
+        {
+          "column_name": "received_youth_friendly_health_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_youth_friendly_health_services"
+          }
+        },
+        {
+          "column_name": "received_stigma_and_discrimination_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_stigma_and_discrimination_services"
           }
         },
         {
@@ -10007,6 +10063,30 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "client_received_sanitary_pads"
+          }
+        },
+        {
+          "column_name": "referred_for_hiv_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_for_hiv_test"
+          }
+        },
+        {
+          "column_name": "loc_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "loc_test_conducted"
+          }
+        },
+        {
+          "column_name": "linked_to_prep_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linked_to_prep_services"
           }
         },
         {

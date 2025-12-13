@@ -72,7 +72,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "school_status",
         "type": "native_radio",
-        "label": "Je, kwa sasa uko shule?",
+        "label": "Je uko shuleni kwa sasa?",
         "options": [
           {
             "key": "yes",
@@ -100,7 +100,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "school_level",
         "type": "native_radio",
-        "label": "Kiwango chako cha elimu ni kipi?",
+        "label": "Uko ngazi gani ya elimu?",
         "options": [
           {
             "key": "msingi",
@@ -172,7 +172,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parent_maternal_status",
         "type": "native_radio",
-        "label": "Je, wazazi wako bado wako hai?",
+        "label": "Wazazi wako wote wapo hai?",
         "options": [
           {
             "key": "yes",
@@ -207,7 +207,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parental_status",
         "type": "native_radio",
-        "label": "Nani anakulea?",
+        "label": "Hali ya malezi",
         "options": [
           {
             "key": "parent",
@@ -248,7 +248,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "had_sex",
         "type": "native_radio",
-        "label": "Katika miezi 12 iliyopita, je umewahi kushiriki tendo la ngono?",
+        "label": "Katika miezi 12 iliyopita, Je umewahi kufanya ngono?",
         "options": [
           {
             "key": "yes",
@@ -310,7 +310,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "without_protection",
         "type": "native_radio",
-        "label": "Katika miezi 12 iliyopita, je ulitumia kondomu kila ulipofanya ngono?",
+        "label": "Je, ulitumia kondomu kila ulipofanya ngono katika kipindi cha miezi 12 iliyopita?",
         "options": [
           {
             "key": "yes",
@@ -398,7 +398,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "relationship_status",
         "type": "native_radio",
-        "label": "Je, una wenzi wa ngono zaidi ya mmoja?",
+        "label": "Una mahusiano ya kimapenzi na mwenza zaidi ya mmoja?",
         "options": [
           {
             "key": "yes",
@@ -432,7 +432,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "martial_status",
         "type": "native_radio",
-        "label": "Je, uliwahi kuolewa/kuoa ukiwa chini ya miaka 18?",
+        "label": "Umeolewa/Umeoa katika umri mdogo (Chini ya Miaka 18) ?",
         "options": [
           {
             "key": "yes",
@@ -472,7 +472,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_disease",
         "type": "native_radio",
-        "label": "Je, umewahi kupata maambukizi ya magonjwa ya zinaa katika miezi 12 iliyopita?",
+        "label": "Je umepata magonjwa ya zinaa katika kipindi cha miezi 12 iliyopita?",
         "options": [
           {
             "key": "yes",
@@ -506,7 +506,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "violance",
         "type": "native_radio",
-        "label": "Je, unafahamu kuhusu ukatili?",
+        "label": "Una ufahamu kuhusu ukatili (kimwili, kingono, kihisia, n.k.)?",
         "options": [
           {
             "key": "yes",
@@ -534,7 +534,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "done_violance",
         "type": "native_radio",
-        "label": "Je, umewahi kupitia ukatili?",
+        "label": "Je umefanyiwa ukatili katika kipindi cha miezi 12 iliyopita?",
         "options": [
           {
             "key": "yes",
@@ -561,6 +561,83 @@
           "value": true,
           "err": "Jibu swali"
         }
+      },
+      {
+        "key": "violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "violence_experienced",
+        "type": "check_box",
+        "label": "Chagua aina ya ukatili uliofanyiwa",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "physical",
+            "text": "Kimwili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical"
+          },
+          {
+            "key": "sexual",
+            "text": "Kijinsia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual"
+          },
+          {
+            "key": "emotional",
+            "text": "Kihisia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_parent": "",
+            "openmrs_entity_id": "emotional"
+          },
+          {
+            "key": "others",
+            "text": "Nyinginezo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill in"
+        },
+        "relevance": {
+          "step3:done_violance": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_violence_experienced",
+        "type": "edit_text",
+        "hint": "Nyinginezo",
+        "relevance": {
+          "step1:violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali"
+        }
       }
     ]
   },
@@ -574,7 +651,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "three_meals_past_three_month",
         "type": "native_radio",
-        "label": "Je, uliweza kumudu kupata milo mitatu (3) kwa siku katika miezi mitatu iliyopita?",
+        "label": "Je ulikuwa una uwezo wa  kupata milo mitatu kwa siku ndani ya miezi mitatu iliyopita?",
         "options": [
           {
             "key": "yes",
@@ -602,7 +679,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "unaccess_health_care_lack_money",
         "type": "native_radio",
-        "label": "Je, umeshindwa kupata huduma za afya katika miezi mitatu iliyopita kwa sababu ya kukosa fedha?",
+        "label": "Je, umeshindwa kupata huduma za afya katika miezi mitatu iliyopita kwa sababu ya ukosefu wa fedha?",
         "options": [
           {
             "key": "yes",
@@ -630,7 +707,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "currently_receiving_services_tasaf",
         "type": "native_radio",
-        "label": "Je, kwa sasa unapata msaada au huduma kutoka TASAF?",
+        "label": "Je upo kwenye huduma za TASAF?",
         "options": [
           {
             "key": "yes",
@@ -664,7 +741,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "used_alcohol_past_three_month",
         "type": "native_radio",
-        "label": "Je, umetumia pombe katika miezi mitatu iliyopita?",
+        "label": "Je, umetumia pombe katika kipindi cha miezi mitatu iliyopita?",
         "options": [
           {
             "key": "yes",
@@ -692,7 +769,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "recreational_drugs_past_three_month",
         "type": "native_radio",
-        "label": "Je, umetumia dawa zozote za kulevya katika miezi mitatu iliyopita?",
+        "label": "Je, umetumia dawa za kulevya katika kipindi cha miezi mitatu iliyopita?",
         "options": [
           {
             "key": "yes",

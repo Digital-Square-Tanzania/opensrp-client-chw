@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Huduma za kitabibu",
+    "title": "Huduma za Kitabibu",
     "display_back_button": "true",
     "fields": [
       {
@@ -61,11 +61,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "self_testing_service_provided",
         "type": "native_radio",
-        "label": "Huduma ya Jipime imetolewa?",
+        "label": "Je, huduma ya kujipima ilitolewa?",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -86,7 +86,7 @@
       {
         "key": "linked_to_self_testing_module",
         "type": "toaster_notes",
-        "text": "Aunganishwe na moduli ya Jipime",
+        "text": "Unganisha na moduli ya Kujipima",
         "openmrs_entity_id": "linked_to_self_testing_module",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -104,7 +104,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "condom_distribution",
         "type": "check_box",
-        "label": "Ugawaji wa Kondomu",
+        "label": "Ugawaji wa kondomu",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -129,7 +129,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_male_condom",
         "type": "edit_text",
-        "hint": "Idadi ya condom za kiume",
+        "hint": "Idadi ya kondomu za kiume",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -153,7 +153,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_female_condom",
         "type": "edit_text",
-        "hint": "Idadi ya condom za kike",
+        "hint": "Idadi ya kondomu za kike",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -177,19 +177,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gender_based_violence_investigation",
         "type": "native_radio",
-        "label": "Uchunguzi wa ukatili wa kijinsia ",
+        "label": "Uchunguzi wa ukatili wa kijinsia",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "done",
-            "text": "Amefanyiwa",
+            "text": "Umefanyika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "done"
           },
           {
             "key": "not_done",
-            "text": "Hakufanyiwa",
+            "text": "Haujafanyika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "not_done"
           }
@@ -224,7 +224,7 @@
           },
           {
             "key": "sexual",
-            "text": "Kingono",
+            "text": "Kijinsia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sexual"
           },
@@ -252,19 +252,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "family_planning",
         "type": "native_radio",
-        "label": "Anatumia Uzazi wa mpango",
+        "label": "Anatumia uzazi wa mpango?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
@@ -280,7 +280,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "contraceptive_method_used",
         "type": "native_radio",
-        "label": "Njia ya Uzazi wa mpango anayotumia",
+        "label": "Njia ya uzazi wa mpango inayotumika",
         "options": [
           {
             "key": "pills",
@@ -342,13 +342,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_hpv_vaccine",
         "type": "native_radio",
-        "label": "Amepata chanjo ya HPV ",
+        "label": "Amepewa chanjo ya HPV?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -363,8 +363,146 @@
           "value": "true",
           "err": "Tafadhali jaza"
         }
+      },
+      {
+        "key": "referred_for_hiv_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referred_for_hiv_test",
+        "type": "native_radio",
+        "label": "Je, mteja alipewa rufaa kwa ajili ya upimaji wa VVU?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
+        }
+      },
+      {
+        "key": "tested_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tested_hiv",
+        "type": "native_radio",
+        "label": "Je, mteja alifanyiwa kipimo cha VVU?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "relevance": {
+          "step1:referred_for_hiv_test": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhili jaza"
+        }
+      },
+      {
+        "key": "loc_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "loc_test_conducted",
+        "type": "native_radio",
+        "label": "Upimaji ulifanyika wapi?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "community",
+            "text": "Jamii",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "facility",
+            "text": "Kituoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "relevance": {
+          "step1:tested_hiv": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhili jaza"
+        }
+      },
+      {
+        "key": "linked_to_prep_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep_services",
+        "type": "native_radio",
+        "label": "Je, mteja aliunganishwa na huduma za PrEP?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhili jaza"
+        }
+      },
+      {
+        "key": "linked_to_prep_services_toaster",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa mteja kwenda kwenye huduma za PrEP",
+        "openmrs_entity_id": "linked_to_prep_services_toaster",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:linked_to_prep_services": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       }
     ]
   }
 }
-

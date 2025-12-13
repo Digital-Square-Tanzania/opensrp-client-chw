@@ -177,7 +177,7 @@ indicators:
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
-				 	  WHERE choose_integrated_services IS NOT NULL
+				 	  WHERE (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -187,7 +187,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Female')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -198,7 +198,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Female')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -209,7 +209,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Female')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -219,7 +219,7 @@ indicators:
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
-					 WHERE choose_integrated_services IS NOT NULL
+					 WHERE (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Female')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -230,7 +230,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Male')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -241,7 +241,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Male')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -252,7 +252,7 @@ indicators:
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-					 AND choose_integrated_services IS NOT NULL
+					 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Male')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -262,7 +262,7 @@ indicators:
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
-					 WHERE choose_integrated_services IS NOT NULL
+					 WHERE (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
                      AND (efm.gender='Male')
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -299,12 +299,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Female')
                   	 AND (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -321,12 +318,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Female')
                   	 AND (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -343,12 +337,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Female')
                   	 AND (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -365,11 +356,8 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Female')
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -386,12 +374,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Male')
                   	 AND (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -408,12 +393,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Male')
                   	 AND (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -430,12 +412,9 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Male')
                   	 AND (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -452,12 +431,104 @@ indicators:
                       - length(replace(choose_sbc_health_behavior_change_services_provided, ',', ''))
                       ) + 1
                       ) > 9
-                  	 AND client_received_sanitary_pads =='Yes'
-                  	 AND received_educational_materials_support =='Yes'
-                  	 AND choose_economic_empowerment_services IS NOT NULL
+                  	 AND (client_received_sanitary_pads =='Yes' OR received_educational_materials_support =='Yes' OR received_youth_friendly_health_services =='Yes' OR received_stigma_and_discrimination_services =='Yes' OR choose_economic_empowerment_services IS NOT NULL OR choose_integrated_services IS NOT NULL)
 	                 AND (efm.gender='Male')
-					 AND choose_integrated_services IS NOT NULL
  	    		     AND (efm.gender='Male')
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE referred_for_hiv_test =='Yes' 
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-female-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-female-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-female-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-female-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Female')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-male-10-14"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-male-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-male-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                     WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
+                     AND referred_for_hiv_test =='Yes' 
+                     AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  - key: "hts-ayp-male-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
+    indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaoscfv.id
+                      WHERE referred_for_hiv_test =='Yes' 
+                      AND (efm.gender='Male')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

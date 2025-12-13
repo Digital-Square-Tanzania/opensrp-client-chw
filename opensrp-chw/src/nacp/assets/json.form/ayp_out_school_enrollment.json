@@ -472,7 +472,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_disease",
         "type": "native_radio",
-        "label": "Have you ever had STI in the last 12 months?",
+        "label": "Have you had STI in the last 12 months?",
         "options": [
           {
             "key": "yes",
@@ -555,6 +555,83 @@
           "step5:violance": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      },
+      {
+        "key": "violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "violence_experienced",
+        "type": "check_box",
+        "label": "Select the type of violence experienced",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "physical",
+            "text": "Physical",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical"
+          },
+          {
+            "key": "sexual",
+            "text": "Sexual",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual"
+          },
+          {
+            "key": "emotional",
+            "text": "Emotional",
+            "openmrs_entity": "concept",
+            "openmrs_entity_parent": "",
+            "openmrs_entity_id": "emotional"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill in"
+        },
+        "relevance": {
+          "step3:done_violance": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_violence_experienced",
+        "type": "edit_text",
+        "hint": "Other",
+        "relevance": {
+          "step1:violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
