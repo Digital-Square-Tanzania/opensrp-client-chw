@@ -129,7 +129,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_male_condom",
         "type": "edit_text",
-        "hint": "Number of male condoms",
+        "hint": "Number of male condoms (Pieces)",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -153,7 +153,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_female_condom",
         "type": "edit_text",
-        "hint": "Number of female condoms",
+        "hint": "Number of female condoms (Pieces)",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -483,6 +483,12 @@
             "openmrs_entity_id": "no"
           }
         ],
+        "relevance": {
+          "step1:referred_for_hiv_test": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please fill"

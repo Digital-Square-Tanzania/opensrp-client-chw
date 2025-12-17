@@ -53,20 +53,6 @@
     "next": "step2",
     "fields": [
       {
-        "key": "age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "age",
-        "type": "hidden"
-      },
-      {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "gender",
-        "type": "hidden"
-      },
-      {
         "key": "school_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -176,7 +162,7 @@
         "options": [
           {
             "key": "yes",
-            "text": "Ndiyo",
+            "text": "Ndio",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
@@ -202,12 +188,12 @@
         }
       },
       {
-        "key": "parental_status",
+        "key": "parental_status_parent_alive",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "parental_status",
+        "openmrs_entity_id": "parental_status_parent_alive",
         "type": "native_radio",
-        "label": "Hali ya malezi",
+        "label": "Hali ya malezi ?",
         "options": [
           {
             "key": "parent",
@@ -231,9 +217,65 @@
             "openmrs_entity_id": "guardian"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Tafadhali jibu swali"
+        }
+      },
+      {
+        "key": "parental_status_parent_not_alive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parental_status_parent_not_alive",
+        "type": "native_radio",
+        "label": "Hali ya malezi ?",
+        "options": [
+          {
+            "key": "self",
+            "text": "Ninajilea mwenyewe",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "self"
+          },
+          {
+            "key": "guardian",
+            "text": "Nalelewa na mlezi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "guardian"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu swali"
+        }
+      },
+      {
+        "key": "parental_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parental_status",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
         }
       }
     ]
@@ -298,9 +340,10 @@
           "err": "Tafadhali jibu swali"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       },
@@ -386,9 +429,10 @@
           "err": "Tafadhali jaza sehemu hii"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       },
@@ -454,9 +498,10 @@
           "err": "Tafadhali jibu swali"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       }
@@ -501,10 +546,10 @@
     "next": "step6",
     "fields": [
       {
-        "key": "violance",
+        "key": "aware_of_violance",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "violance",
+        "openmrs_entity_id": "aware_of_violance",
         "type": "native_radio",
         "label": "Una ufahamu kuhusu ukatili (kimwili, kingono, kihisia, n.k.)?",
         "options": [
@@ -610,7 +655,7 @@
           "err": "Please fill in"
         },
         "relevance": {
-          "step3:done_violance": {
+          "step5:done_violance": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -624,7 +669,7 @@
         "type": "edit_text",
         "hint": "Nyinginezo",
         "relevance": {
-          "step1:violence_experienced": {
+          "step5:violence_experienced": {
             "ex-checkbox": [
               {
                 "or": [
@@ -1003,10 +1048,10 @@
         }
       },
       {
-        "key": "sexual_disease",
+        "key": "hiv_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sexual_disease",
+        "openmrs_entity_id": "hiv_status",
         "type": "native_radio",
         "label": "Hali ya maambukizi ya HIV",
         "options": [

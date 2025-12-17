@@ -1,0 +1,293 @@
+{
+  "count": "1",
+  "encounter_type": "referal_other_services",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Refer to Other services",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "is_client_refered_to_the_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_client_refered_to_the_facility",
+        "type": "native_radio",
+        "label": "Client referred to the Facility",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill"
+        }
+      },
+      {
+        "key": "referal_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referal_service",
+        "type": "check_box",
+        "label": "Referal  service ",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hts",
+            "text": "HTS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hts"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv"
+          },
+          {
+            "key": "sti",
+            "text": "STI services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti"
+          },
+          {
+            "key": "prep",
+            "text": "PrEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prep"
+          },
+          {
+            "key": "pep",
+            "text": "PEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep"
+          },
+          {
+            "key": "tb",
+            "text": "TB",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "fp",
+            "text": "FP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fp"
+          }
+        ],
+        "relevance": {
+          "step1:is_client_refered_to_the_facility": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        }
+      },
+      {
+        "key": "referal_service_hts",
+        "type": "toaster_notes",
+        "text": "Refer the client for HTS services ",
+        "openmrs_entity_id": "referal_service_hts",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "hts"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_gbv",
+        "type": "toaster_notes",
+        "text": "Refer the client for GBV services ",
+        "openmrs_entity_id": "referal_service_gbv",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "gbv"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_prep",
+        "type": "toaster_notes",
+        "text": "Refer the client for PrEP services ",
+        "openmrs_entity_id": "referal_service_prep",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "prep"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_pep",
+        "type": "toaster_notes",
+        "text": "Refer the client for PEP services ",
+        "openmrs_entity_id": "referal_service_pep",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "pep"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_sti",
+        "type": "toaster_notes",
+        "text": "Refer the client for STI services ",
+        "openmrs_entity_id": "referal_service_sti",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sti"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_tb",
+        "type": "toaster_notes",
+        "text": "Refer the client for TB services ",
+        "openmrs_entity_id": "referal_service_tb",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "tb"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "referal_service_fp",
+        "type": "toaster_notes",
+        "text": "Refer the client for FP services ",
+        "openmrs_entity_id": "referal_service_fp",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "step1:referal_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "fp"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

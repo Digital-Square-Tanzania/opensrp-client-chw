@@ -468,8 +468,10 @@
 
     <!--    KVP Community-->
     <string name="kvp_visit">KVP Visits</string>
+    <string name="ayp_visit">AYP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
     <string name="kvp_prep_followup_visit">Kvp PrEP Follow-up Visit</string>
+    <string name="ayp_followup_visit">Ayp Follow-up Visit</string>
     <string name="kvp_client_hiv_status">Client\'s HIV status:</string>
     <string name="new_visit">New Visit</string>
     <string name="followup">Follow-up</string>
@@ -595,6 +597,21 @@
     <string name="kvp_reports_subtitle">View Reports For KVP</string>
     <string name="ayp_out_school_reports">Ayp Out School REPORTS</string>
     <string name="ayp_out_school_reports_subtitle">View Reports For Ayp Out School</string>
+
+    <string name="ayp_service_status">client’s service status:</string>
+    <string name="ayp_not_in_service_reasons">Reasons:</string>
+    <string name="ayp_choose_sbc_health_behavior_change_services_provided">SBC Provided:</string>
+    <string name="ayp_self_testing_service_provided">HIVST provided:</string>
+    <string name="ayp_condom_distribution">Condom distribution:</string>
+    <string name="ayp_number_of_male_condom">No of male condom:</string>
+    <string name="ayp_number_of_female_condom">No of female condom:</string>
+    <string name="ayp_gender_based_violence_investigation">GBV Investigation:</string>
+    <string name="ayp_type_of_gender_based_violence">Type of GBV:</string>
+    <string name="ayp_family_planning">Family planning:</string>
+    <string name="ayp_contraceptive_method_used">Contraceptive method used:</string>
+    <string name="ayp_received_hpv_vaccine">Received hpv vaccine:</string>
+    <string name="ayp_referred_for_hiv_test">Referred for hiv test:</string>
+
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>
     <string name="hps_annual_reports_title">iCCHW ANNUAL REPORTS</string>

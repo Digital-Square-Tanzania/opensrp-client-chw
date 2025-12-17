@@ -22,6 +22,7 @@ import org.smartregister.chw.activity.AgywProfileActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.AsrhMemberProfileActivity;
+import org.smartregister.chw.activity.AypOutSchoolMemberProfileActivity;
 import org.smartregister.chw.activity.CecapMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
@@ -125,6 +126,10 @@ public class AllClientsUtils {
 
     public static void goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client) {
         KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToAypProfile(Activity activity, CommonPersonObjectClient client) {
+        AypOutSchoolMemberProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {

@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +24,8 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
-import org.smartregister.chw.interactor.KvpPrEPMedicalHistoryInteractor;
+import org.smartregister.chw.interactor.AypOutSchoolMedicalHistoryInteractor;
 import org.smartregister.chw.ayp.domain.MemberObject;
-import org.smartregister.chw.util.Constants;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -48,12 +49,9 @@ public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryAct
         activity.startActivity(intent);
     }
 
-    public static void startMe(AypOutSchoolMemberProfileActivity aypOutSchoolMemberProfileActivity, org.smartregister.chw.ayp.domain.MemberObject memberObject) {
-    }
-
     @Override
     public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new KvpPrEPMedicalHistoryInteractor(), this, aypMemberObject.getBaseEntityId());
+        presenter = new BaseAncMedicalHistoryPresenter(new AypOutSchoolMedicalHistoryInteractor(), this, aypMemberObject.getBaseEntityId());
     }
 
     @Override
@@ -74,8 +72,8 @@ public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryAct
         displayLoadingState(true);
         flavor.processViewData(visits, this);
         displayLoadingState(false);
-        TextView kvpVisitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        kvpVisitTitle.setText(R.string.kvp_visit);
+        TextView aypVisitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
+        aypVisitTitle.setText(R.string.ayp_visit);
         return view;
     }
 
@@ -113,20 +111,18 @@ public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryAct
                         days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
                     }
 
-                    String[] visitTypeParams = {"visit_type", "client_hiv_status"};
-                    extractVisitDetails(visits, visitTypeParams, visitDetails, x, context);
+                    String[] visitTypeAypParams = {"service_status", "not_in_service_reasons"};
+                    extractVisitDetails(visits, visitTypeAypParams, visitDetails, x, context);
 
-                    String[] structuralServicesParams = {"structural_services_provided", "other_structural_services_provided"};
-                    extractVisitDetails(visits, structuralServicesParams, visitDetails, x, context);
+                    String[] sbcAypParams = {"choose_sbc_health_behavior_change_services_provided"};
+                    extractVisitDetails(visits, sbcAypParams, visitDetails, x, context);
 
-                    String[] protectiveServicesParams = {"condoms_given", "type_of_issued_condoms", "number_of_male_condoms_issued", "number_of_female_condoms_issued", "number_of_iec_distributed", "number_of_needles_and_syringes_distributed", "number_of_sterile_water_for_injection_distributed", "number_of_alcohol_swabs_distributed", "number_of_disposable_safety_boxes_distributed", "number_of_plasters_distributed", "kits_distributed", "number_of_coupons_distributed_for_social_network"};
-                    extractVisitDetails(visits, protectiveServicesParams, visitDetails, x, context);
+                    String[] medicalAypParams = {"self_testing_service_provided", "condom_distribution", "number_of_male_condom", "number_of_female_condom", "gender_based_violence_investigation", "type_of_gender_based_violence", "family_planning", "contraceptive_method_used", "received_hpv_vaccine", "referred_for_hiv_test", "tested_hiv", "loc_test_conducted", "linked_to_prep_services"};
+                    extractVisitDetails(visits, medicalAypParams, visitDetails, x, context);
 
-                    String[] referralServicesParams = {"referral_to_structural_services", "other_referral_to_structural_services", "referrals_completed_to_structural_services", "other_referrals_completed_to_structural_services"};
-                    extractVisitDetails(visits, referralServicesParams, visitDetails, x, context);
+                    String[] economicAypParams = {"choose_economic_empowerment_services", "choose_integrated_services", "received_youth_friendly_health_services", "received_stigma_and_discrimination_services", "received_educational_materials_support", "client_received_sanitary_pads", "number_of_sanitary_pads_given"};
+                    extractVisitDetails(visits, economicAypParams, visitDetails, x, context);
 
-                    String[] sbccServicesParams = {"sbcc_services_offered"};
-                    extractVisitDetails(visits, sbccServicesParams, visitDetails, x, context);
                     hf_visits.add(visitDetails);
 
                     x++;
@@ -187,14 +183,14 @@ public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryAct
 
                         if (visit.getBaseEntityId() != null) {
                             ((Activity) context).finish();
-                            KvpPrEPVisitActivity.startKvpPrEPVisitActivity((Activity) context, visit.getBaseEntityId(), true);
+                            AypOutSchoolClientServiceVisitActivity.startAypVisitActivity((Activity) context, visit.getBaseEntityId(), true);
                         }
                     });
 
                     String visitType;
 
-                    if (Constants.Events.KVP_PREP_FOLLOWUP_VISIT.equals(visits.get(x).getVisitType())) {
-                        visitType = context.getString(R.string.kvp_prep_followup_visit);
+                    if (AYP_OUT_SCHOOL_FOLLOW_UP_VISIT.equals(visits.get(x).getVisitType())) {
+                        visitType = context.getString(R.string.ayp_followup_visit);
                     } else {
                         visitType = visits.get(x).getVisitType();
                     }
@@ -214,7 +210,7 @@ public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryAct
 
 
                         try {
-                            int resource = context.getResources().getIdentifier("kvp_" + entry.getKey(), "string", context.getPackageName());
+                            int resource = context.getResources().getIdentifier("ayp_" + entry.getKey(), "string", context.getPackageName());
                             evaluateView(context, vals, visitDetailTv, entry.getKey(), resource, "");
                         } catch (Exception e) {
                             Timber.e(e);

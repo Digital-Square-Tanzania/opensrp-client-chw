@@ -1,0 +1,42 @@
+---
+name: step3_pregnancy_status
+description: Rule to control the visibility of (step3_pregnancy_status)
+priority: 1
+condition: "step3_had_sex.equalsIgnoreCase('yes') && (global_gender.equalsIgnoreCase('female') && global_age < 18)"
+actions:
+  - "isRelevant = true "
+---
+name: step3_sex_for_things
+description: Rule to control the visibility of (step3_pregnancy_status)
+priority: 1
+condition: "step3_had_sex.equalsIgnoreCase('yes') && global_gender.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true "
+---
+name: step3_martial_status
+description: Rule to control the visibility of (step3_pregnancy_status)
+priority: 1
+condition: "step3_had_sex.equalsIgnoreCase('yes') && global_gender.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true "
+---
+name: step2_parental_status_parent_alive
+description: Rule to control the visibility of (step1_client_criteria_below_12)
+priority: 1
+condition: "step2_parent_maternal_status.equalsIgnoreCase('yes') || step2_parent_maternal_status.equalsIgnoreCase('one_parent_alive')"
+actions:
+  - "isRelevant = true "
+---
+name: step2_parental_status_parent_not_alive
+description: Rule to control the visibility of (step1_client_criteria_below_12)
+priority: 1
+condition: "step2_parent_maternal_status.equalsIgnoreCase('no')"
+actions:
+  - "isRelevant = true "
+---
+name: step2_parental_status
+description: Rule to control the value of (step1_parental_status)
+priority: 1
+condition: "true"
+actions:
+  - "calculation =  step2_parent_maternal_status.equalsIgnoreCase('no') ? step2_parental_status_parent_not_alive : step2_parental_status_parent_alive"

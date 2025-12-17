@@ -708,6 +708,7 @@ public interface ChwQueryConstant {
             "                    on ec_family_member.base_entity_id = ec_ayp_out_school_enrollment.base_entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
             "  AND ec_ayp_out_school_enrollment.is_closed is 0\n" +
+//            "  AND ec_ayp_out_school_enrollment.should_enroll = 'yes'\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +

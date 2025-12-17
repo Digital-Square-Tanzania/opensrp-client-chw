@@ -9622,6 +9622,14 @@
           }
         },
         {
+          "column_name": "should_enroll",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "should_enroll"
+          }
+        },
+        {
           "column_name": "score",
           "type": "Event",
           "json_mapping": {
@@ -10087,6 +10095,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "linked_to_prep_services"
+          }
+        },
+        {
+          "column_name": "is_client_refered_to_the_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_client_refered_to_the_facility"
+          }
+        },
+        {
+          "column_name": "referal_service",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referal_service"
           }
         },
         {

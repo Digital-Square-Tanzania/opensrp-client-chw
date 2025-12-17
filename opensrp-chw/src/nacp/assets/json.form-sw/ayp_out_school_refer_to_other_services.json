@@ -1,0 +1,159 @@
+{
+  "count": "1",
+  "encounter_type": "referal_other_services",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Rufaa",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "is_client_refered_to_the_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_client_refered_to_the_facility",
+        "type": "native_radio",
+        "label": "Mteja amepewa Rufaa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
+        }
+      },
+      {
+        "key": "referal_service ",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referal_service",
+        "type": "check_box",
+        "label": "Rufaa",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hts",
+            "text": "HTS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hts"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gbv"
+          },
+          {
+            "key": "sti",
+            "text": "STI services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti"
+          },
+          {
+            "key": "prep",
+            "text": "PrEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prep"
+          },
+          {
+            "key": "pep",
+            "text": "PEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep"
+          },
+          {
+            "key": "tb",
+            "text": "TB",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "fp",
+            "text": "FP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fp"
+          }
+        ],
+        "relevance": {
+          "step1:is_client_refered_to_the_facility": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
+        }
+      }
+    ]
+  }
+}

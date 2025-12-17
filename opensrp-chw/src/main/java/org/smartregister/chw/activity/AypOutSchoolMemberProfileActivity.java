@@ -2,17 +2,21 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
+import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
+import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.ayp.dao.AypDao;
@@ -21,16 +25,20 @@ import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.ayp.util.DBConstants;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -46,6 +54,30 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     private org.smartregister.chw.ayp.domain.Visit getVisit(String eventType) {
         return AypLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
+    }
+
+    @Override
+    protected boolean showReferralView() {
+        return true;
+    }
+
+    @Override
+    public void startReferralForm() {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+            if (memberObject.getGender().equalsIgnoreCase("male")) {
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.ayp_friendly_services),
+                        CoreConstants.JSON_FORM.getMaleAypFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.KVP_FRIENDLY_SERVICES));
+            } else {
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.ayp_friendly_services),
+                        CoreConstants.JSON_FORM.getFemaleAypFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.KVP_FRIENDLY_SERVICES));
+            }
+            referralTypeModels.addAll(getCommonReferralTypes(this, memberObject.getBaseEntityId()));
+
+            launchClientReferralActivity(this, referralTypeModels, memberObject.getBaseEntityId());
+        } else {
+            Toast.makeText(this, "Refer to facility", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -168,7 +200,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         if (lastVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
-//            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
             ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
         } else {
             rlLastVisit.setVisibility(View.GONE);

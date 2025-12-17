@@ -57,7 +57,7 @@ actions:
         }
         return count;
     }"
-  - "calculation = getDate(step1_age,step1_gender,step2_parent_maternal_status,step2_parental_status,step3_had_sex,step3_sex_for_things,step3_without_protection,step3_pregnancy_status,step3_relationship_status,step3_martial_status,step4_sexual_disease,step5_done_violance,step6_three_meals_past_three_month,step6_unaccess_health_care_lack_money,step7_recreational_drugs_past_three_month,step6_currently_receiving_services_tasaf,step7_used_alcohol_past_three_month)"
+  - "calculation = getDate(global_age,global_gender,step2_parent_maternal_status,step2_parental_status,step3_had_sex,step3_sex_for_things,step3_without_protection,step3_pregnancy_status,step3_relationship_status,step3_martial_status,step4_sexual_disease,step5_done_violance,step6_three_meals_past_three_month,step6_unaccess_health_care_lack_money,step7_recreational_drugs_past_three_month,step6_currently_receiving_services_tasaf,step7_used_alcohol_past_three_month)"
 ---
 name: step8_should_enroll
 description: check if should enroll client if they belong to any kvp group

@@ -203,6 +203,8 @@ public class Constants extends CoreConstants {
         public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
 
         public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
+
+        public static final String AYP_OUT_SCHOOL_FOLLOW_UP_VISIT = "Ayp Out School Client Followup Visit";
     }
 
     public static final class ActionList {
