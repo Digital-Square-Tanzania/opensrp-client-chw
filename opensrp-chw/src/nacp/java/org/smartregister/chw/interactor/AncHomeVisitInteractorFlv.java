@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.BirthPreparednessAction;
 import org.smartregister.chw.actionhelper.BreastFeedingActionHelper;
-import org.smartregister.chw.actionhelper.ClinicAttendanceAction;
 import org.smartregister.chw.actionhelper.CommunityHealthWorkerObservationsAction;
 import org.smartregister.chw.actionhelper.CounsellingStatusAction;
 import org.smartregister.chw.actionhelper.FamilyPlanningAction;
@@ -114,6 +113,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                                              final MemberObject memberObject,
                                              Map<Integer, LocalDate> dateMap,
                                              final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ) {
         visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit());
         if (details != null) {
@@ -128,6 +129,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .build();
 
         actionList.put(visit_title, facility_visit);
+        }
     }
 
     private void evaluateFamilyPlanning(Map<String, List<VisitDetail>> details,
@@ -290,21 +292,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
                     .build();
             actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
-        }
-    }
-
-    private void evaluateAncClinicAttendance() throws BaseAncHomeVisitAction.ValidationException {
-        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
-                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ) {
-            String visit_title = context.getString(R.string.anc_hv_clinic_attendance);
-            BaseAncHomeVisitAction anc_clinic_attendance = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withHelper(new ClinicAttendanceAction())
-                    .withFormName("anc_hv_clinic_attendance")
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
-                    .build();
-            actionList.put(visit_title, anc_clinic_attendance);
         }
     }
 
@@ -508,7 +495,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public String postProcess(String s) {
             try {
                 if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
-                    evaluateAncClinicAttendance();
+                    evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateNutritionCounselling();
                     evaluateBirthPreparedness(details, memberObject);
                     evaluateHIVAIDSGeneralInformation();
@@ -527,7 +514,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateEarlyStimulation();
                     evaluatePartnerEngagement(details, context);
                     evaluateCommunityHealthWorkerObservation(details, context);
-                    evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateCounsellingStatus(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
@@ -545,7 +531,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
                     actionList.remove(context.getString(R.string.anc_home_visit_community_health_worker_observations));
                     actionList.remove(context.getString(R.string.anc_home_visit_immediate_newborn_care));
-                    actionList.remove(context.getString(R.string.anc_hv_clinic_attendance));
                     actionList.remove(context.getString(R.string.anc_home_visit_birth_preparedness));
                     actionList.remove(context.getString(R.string.anc_home_visit_hiv_aids_general_information));
                     actionList.remove(context.getString(R.string.anc_home_visit_breast_feeding));

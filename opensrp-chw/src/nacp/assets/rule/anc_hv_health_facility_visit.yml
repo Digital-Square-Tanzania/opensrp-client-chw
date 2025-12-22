@@ -4,11 +4,45 @@ priority: 1
 condition: "step1_imm_medicine_given.contains('chk_other')"
 actions:
   - "isRelevant = true"
-
 ---
 name: step1_llin_given
 description: llin  given after the first visit
 priority: 1
 condition: "step1_confirmed_visits == 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step1_reason_for_missed_visit
+description: Reason for not attending the ANC Clinic Visit
+priority: 1
+condition: "step1_anc_hf_visit == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reason_missed_visit
+description: Other Reason for not attending the ANC Clinic Visit
+priority: 1
+condition: "step1_reason_for_missed_visit.contains('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_last_clinic_visit
+description: The last time an anc mother has attended clinic
+priority: 1
+condition: "step1_anc_hf_visit == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_advice_pregnant_woman_attend_clinic_toaster
+description: Note to remind ANC mother importance of attending all the eight visits
+priority: 1
+condition: "step1_last_clinic_visit.contains('More than a month ago')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_services_pregnant_woman_anc_visit
+description: Services that the woman has received at the clinic
+priority: 1
+condition: "step1_anc_hf_visit == 'Yes'"
 actions:
   - "isRelevant = true"
