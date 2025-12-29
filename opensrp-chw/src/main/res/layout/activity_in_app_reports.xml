@@ -424,7 +424,8 @@
                 android:paddingVertical="30dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sbc_reports">
 
                 <ImageView
                     android:id="@+id/iv_asrh_summary"
@@ -670,7 +671,7 @@
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/ayp_out_school_reports"
+                    android:text="@string/ayp_reports_title"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="22sp"
@@ -686,7 +687,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/ayp_out_school_reports_subtitle"
+                    android:text="@string/ayp_reports_subtitle"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp"

@@ -281,7 +281,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             startActivity(intent);
         }
         if (id == R.id.ayp_out_school_report) {
-            Intent intent = new Intent(this, AypOutSchoolReportsActivity.class);
+            Intent intent = new Intent(this, AypReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.hps_reports) {
