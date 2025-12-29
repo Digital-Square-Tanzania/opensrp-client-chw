@@ -85,7 +85,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.12"
 }
 
 android {
@@ -417,6 +417,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*', 'java.*']
     maxHeapSize = "3g"
 }
 
@@ -428,4 +429,3 @@ coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
     sourceDirs = ["$project.projectDir/src/main/java"]
 }
-
