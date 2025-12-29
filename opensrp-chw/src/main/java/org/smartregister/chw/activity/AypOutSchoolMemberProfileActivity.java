@@ -48,11 +48,11 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolMemberProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(org.smartregister.chw.ayp.util.Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
         activity.startActivity(intent);
     }
 
-    private org.smartregister.chw.ayp.domain.Visit getVisit(String eventType) {
+    private Visit getVisit(String eventType) {
         return AypLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 
@@ -196,7 +196,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-        org.smartregister.chw.ayp.domain.Visit lastVisit = getVisit(AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
+        Visit lastVisit = getVisit(AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
         if (lastVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
