@@ -485,6 +485,7 @@
     <string name="callPhoneRequestTitle">Allow Phone Number Collection</string>
     <string name="callPhoneRequestMessage">Community Healthcare Worker collect user phone numbers to be used for monitoring, evaluation and analysis of visits conducted at the community.</string>
     <string name="kvp_friendly_services">KVP Friendly Services</string>
+    <string name="ayp_friendly_services">AYP Friendly Services</string>
     <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
     <string name="condom_distribution_reports">Condom Distribution Reports</string>
     <string name="cdp_reports">CDP REPORTS</string>

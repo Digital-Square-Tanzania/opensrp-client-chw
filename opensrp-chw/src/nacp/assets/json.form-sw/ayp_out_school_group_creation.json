@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "client_status",
+  "encounter_type": "group_out_details",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,96 +52,85 @@
     }
   },
   "step1": {
-    "title": "Hali ya Mteja",
+    "title": "Group Details",
     "display_back_button": "true",
     "fields": [
       {
-        "key": "client_status",
+        "key": "group_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "client_status",
+        "openmrs_entity_id": "group_name",
+        "type": "edit_text",
+        "hint": "Jina la Kikundi",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the group name"
+        }
+      },
+      {
+        "key": "group_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_type",
         "type": "native_radio",
-        "label": "Hali ya Mteja",
+        "label": "Aina ya Kikundi:",
         "options": [
           {
-            "key": "continuing",
-            "text": "Anaendelea na Huduma",
+            "key": "age_band",
+            "text": "Kikundi cha Umri",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "continuing"
-          },
-          {
-            "key": "dead",
-            "text": "Amefariki",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "dead"
-          },
-          {
-            "key": "transferred",
-            "text": "Amehamishwa",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "transferred"
-          },
-          {
-            "key": "dropped_from_school",
-            "text": "Ameacha Shule",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "dropped_from_school"
-          },
-          {
-            "key": "opt_out",
-            "text": "Mzazi/Mlezi au Mwanafunzi alitaka kuondoa huduma",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "opt_out"
+            "openmrs_entity_id": "age_band"
           }
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhali chagua hali ya mteja"
+          "err": "Tafadhali chagua aina ya kikundi"
         }
       },
       {
-        "key": "transfer_remarks",
+        "key": "age_band",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "transfer_remarks",
-        "type": "edit_text",
-        "hint": "Toa maoni/maelezo",
+        "openmrs_entity_id": "age_band",
+        "type": "native_radio",
+        "label": "Kikundi cha Umri:",
+        "options": [
+          {
+            "key": "age_10_14",
+            "text": "10-14",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_10_14"
+          },
+          {
+            "key": "age_15_19",
+            "text": "15-19",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_15_19"
+          },
+          {
+            "key": "age_20_24",
+            "text": "20-24",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_20_24"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ayp_in-school_client-status-relevance-rules.yml"
+              "rules-file": "ayp_in-school_group-details-relevance-rules.yml"
             }
           }
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali toa maoni/maelezo"
-        }
-      },
-      {
-        "key": "new_address",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "new_address",
-        "type": "edit_text",
-        "hint": "Anwani Mpya",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ayp_in-school_client-status-relevance-rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please provide the new address"
+          "err": "Tafadhali chagua kikundi cha umri"
         }
       }
     ]
   }
 }
+

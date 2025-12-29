@@ -15,7 +15,7 @@ public class AypOutSchoolRegisterPresenter extends BaseAypRegisterFragmentPresen
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + ".is_closed = 0 ";
+        return " " + getMainTable() + ".is_closed = 0 AND " + "should_enroll = 'yes'";
     }
 
     @Override

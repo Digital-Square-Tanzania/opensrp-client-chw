@@ -1,5 +1,5 @@
 {
-  "count": "6",
+  "count": "8",
   "skip_blank_steps": true,
   "encounter_type": "AYP Out-school Enrollment",
   "entity_id": "",
@@ -52,20 +52,6 @@
     "title": "Education",
     "next": "step2",
     "fields": [
-      {
-        "key": "age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "age",
-        "type": "hidden"
-      },
-      {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "gender",
-        "type": "hidden"
-      },
       {
         "key": "school_status",
         "openmrs_entity_parent": "",
@@ -202,10 +188,10 @@
         }
       },
       {
-        "key": "parental_status",
+        "key": "parental_status_parent_alive",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "parental_status",
+        "openmrs_entity_id": "parental_status_parent_alive",
         "type": "native_radio",
         "label": "Who is raising you?",
         "options": [
@@ -231,121 +217,65 @@
             "openmrs_entity_id": "guardian"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Answer the question"
         }
       },
       {
-        "key": "three_meals_past_three_month",
+        "key": "parental_status_parent_not_alive",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "three_meals_past_three_month",
+        "openmrs_entity_id": "parental_status_parent_not_alive",
         "type": "native_radio",
-        "label": "Have you been able to afford three (3) meals a day in the past three (3) months?",
+        "label": "Who is raising you?",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes",
+            "key": "self",
+            "text": "Self care",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
+            "openmrs_entity_id": "self"
           },
           {
-            "key": "no",
-            "text": "No",
+            "key": "guardian",
+            "text": "Raised by guardian",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
+            "openmrs_entity_id": "guardian"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Answer the question"
         }
       },
       {
-        "key": "unaccess_health_care_lack_money",
+        "key": "parental_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "unaccess_health_care_lack_money",
-        "type": "native_radio",
-        "label": "Have you been unable to access healthcare services in the past three months due to lack of money?",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
+        "openmrs_entity_id": "parental_status",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Answer the question"
-        }
-      },
-      {
-        "key": "recreational_drugs_past_three_month",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "recreational_drugs_past_three_month",
-        "type": "native_radio",
-        "label": "Have you used alcohol or any recreational drugs in the past three months?",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Answer the question"
-        }
-      },
-      {
-        "key": "currently_receiving_services_tasaf",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "currently_receiving_services_tasaf",
-        "type": "native_radio",
-        "label": "Are you currently receiving support or services from TASAF ?",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Answer the question"
         }
       }
     ]
@@ -360,7 +290,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "had_sex",
         "type": "native_radio",
-        "label": "Have you ever had sex?",
+        "label": "During the previous 12 months, did you engage in any sexual activity ?",
         "options": [
           {
             "key": "yes",
@@ -388,7 +318,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sex_for_things",
         "type": "native_radio",
-        "label": "Have you ever had sex in exchange for money, gifts, or favors?",
+        "label": "During the last 12 months, have you received money, gifts, or favors in return for sexual activity?",
         "options": [
           {
             "key": "yes",
@@ -410,9 +340,10 @@
           "err": "Answer the question"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       },
@@ -498,9 +429,10 @@
           "err": "Please fill in"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       },
@@ -566,9 +498,10 @@
           "err": "Answer the question"
         },
         "relevance": {
-          "step3:had_sex": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       }
@@ -584,7 +517,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sexual_disease",
         "type": "native_radio",
-        "label": "Have you ever had STI in the last 12 months?",
+        "label": "Have you had STI in the last 12 months?",
         "options": [
           {
             "key": "yes",
@@ -613,10 +546,10 @@
     "next": "step6",
     "fields": [
       {
-        "key": "violance",
+        "key": "aware_of_violance",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "violance",
+        "openmrs_entity_id": "aware_of_violance",
         "type": "native_radio",
         "label": "Are you aware of violence?",
         "options": [
@@ -664,9 +597,86 @@
           }
         ],
         "relevance": {
-          "step5:violance": {
+          "step5:aware_of_violance": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      },
+      {
+        "key": "violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "violence_experienced",
+        "type": "check_box",
+        "label": "Select the type of violence experienced",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "physical",
+            "text": "Physical",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical"
+          },
+          {
+            "key": "sexual",
+            "text": "Sexual",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual"
+          },
+          {
+            "key": "emotional",
+            "text": "Emotional",
+            "openmrs_entity": "concept",
+            "openmrs_entity_parent": "",
+            "openmrs_entity_id": "emotional"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please fill in"
+        },
+        "relevance": {
+          "step5:done_violance": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_violence_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_violence_experienced",
+        "type": "edit_text",
+        "hint": "Other",
+        "relevance": {
+          "step5:violence_experienced": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "others"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
@@ -677,8 +687,174 @@
     ]
   },
   "step6": {
+    "title": "Socio-economic vulnerability",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "three_meals_past_three_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "three_meals_past_three_month",
+        "type": "native_radio",
+        "label": "Have you been able to afford three (3) meals a day in the past three (3) months?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      },
+      {
+        "key": "unaccess_health_care_lack_money",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "unaccess_health_care_lack_money",
+        "type": "native_radio",
+        "label": "Have you been unable to access healthcare services in the past three months due to lack of money?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      },
+      {
+        "key": "currently_receiving_services_tasaf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "currently_receiving_services_tasaf",
+        "type": "native_radio",
+        "label": "Are you currently receiving support or services from TASAF ?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Alcohol and Drug use",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "used_alcohol_past_three_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "used_alcohol_past_three_month",
+        "type": "native_radio",
+        "label": "Have you used alcohol in the past three months?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      },
+      {
+        "key": "recreational_drugs_past_three_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "recreational_drugs_past_three_month",
+        "type": "native_radio",
+        "label": "Have you used any recreational drugs in the past three months?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Answer the question"
+        }
+      }
+    ]
+  },
+  "step8": {
     "title": "AYP Enrollment",
     "fields": [
+      {
+        "key": "should_enroll",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "should_enroll",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_screening_calculation.yml"
+            }
+          }
+        }
+      },
       {
         "key": "score",
         "openmrs_entity_parent": "",
@@ -690,6 +866,22 @@
             "ex-rules": {
               "rules-file": "ayp_out_school_screening_calculation.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "ayp_eligibility_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "RoC is not eligible to be enrolled into AYP Out of School",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
           }
         }
       },
@@ -762,6 +954,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select the region"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -775,19 +973,11 @@
         "v_required": {
           "value": true,
           "err": "Please select the enrollment date"
-        }
-      },
-      {
-        "key": "should_enroll",
-        "type": "hidden",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "should_enroll",
-        "openmrs_entity_parent": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ayp_out_school_screening_calculation.yml"
-            }
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -831,6 +1021,12 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -841,7 +1037,7 @@
         "type": "edit_text",
         "hint": "Other",
         "relevance": {
-          "step6:project_name": {
+          "step8:project_name": {
             "type": "string",
             "ex": "equalTo(., \"others\")"
           }
@@ -852,10 +1048,10 @@
         }
       },
       {
-        "key": "sexual_disease",
+        "key": "hiv_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sexual_disease",
+        "openmrs_entity_id": "hiv_status",
         "type": "native_radio",
         "label": "HIV status",
         "options": [
@@ -877,6 +1073,12 @@
         "v_required": {
           "value": true,
           "err": "Answer the question"
+        },
+        "relevance": {
+          "step8:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]

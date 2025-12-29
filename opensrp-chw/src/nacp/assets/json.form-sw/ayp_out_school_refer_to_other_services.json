@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "service status",
+  "encounter_type": "referal_other_services",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,81 +52,106 @@
     }
   },
   "step1": {
-    "title": "Hali ya Huduma",
+    "title": "Rufaa",
     "display_back_button": "true",
     "fields": [
       {
-        "key": "service_status",
+        "key": "is_client_refered_to_the_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_status",
+        "openmrs_entity_id": "is_client_refered_to_the_facility",
         "type": "native_radio",
-        "label": "Chagua hali ya huduma ya mteja",
+        "label": "Mteja amepewa Rufaa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "in_service",
-            "text": "Anaendelea kupokea huduma",
+            "key": "yes",
+            "text": "Ndio",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "in_service"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "not_in_service",
-            "text": "Hapokei huduma",
+            "key": "no",
+            "text": "Hapana",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_in_service"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Tafadhali jaza"
         }
       },
       {
-        "key": "not_in_service_reasons",
+        "key": "referal_service ",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "not_in_service_reasons",
-        "type": "native_radio",
-        "label": "Sababu",
+        "openmrs_entity_id": "referal_service",
+        "type": "check_box",
+        "label": "Rufaa",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "transferred",
-            "text": "Amehama kwenda eneo jingine",
-            "openmrs_entity_parent": "",
+            "key": "hts",
+            "text": "HTS",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "transferred"
+            "openmrs_entity_id": "hts"
           },
           {
-            "key": "dead",
-            "text": "Amefariki",
-            "openmrs_entity_parent": "",
+            "key": "gbv",
+            "text": "GBV",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "dead"
+            "openmrs_entity_id": "gbv"
           },
           {
-            "key": "discontinued",
-            "text": "Amejiondoa kwenye programu",
-            "openmrs_entity_parent": "",
+            "key": "gbv",
+            "text": "GBV",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "discontinued"
+            "openmrs_entity_id": "gbv"
           },
           {
-            "key": "married",
-            "text": "Ameolewa/Ameoa",
-            "openmrs_entity_parent": "",
+            "key": "sti",
+            "text": "STI services",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "married"
+            "openmrs_entity_id": "sti"
+          },
+          {
+            "key": "prep",
+            "text": "PrEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prep"
+          },
+          {
+            "key": "pep",
+            "text": "PEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep"
+          },
+          {
+            "key": "tb",
+            "text": "TB",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "fp",
+            "text": "FP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fp"
           }
         ],
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali jaza"
-        },
         "relevance": {
-          "step1:service_status": {
+          "step1:is_client_refered_to_the_facility": {
             "type": "string",
-            "ex": "equalTo(., \"not_in_service\")"
+            "ex": "equalTo(., \"yes\")"
           }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza"
         }
       }
     ]

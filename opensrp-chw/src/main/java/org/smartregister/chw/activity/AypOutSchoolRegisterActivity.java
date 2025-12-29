@@ -91,19 +91,13 @@ public class AypOutSchoolRegisterActivity extends CoreAypRegisterActivity {
 
         try {
             if (jsonForm.getString("encounter_type").equals("AYP Out-school Enrollment")) {
-                JSONObject pregnancyStatusObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP3).getJSONArray(FIELDS), "pregnancy_status");
-                JSONObject ageObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS), "age");
-                JSONObject genderObject = JsonFormUtils.getFieldJSONObject(jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS), "gender");
 
-                if (pregnancyStatusObject != null) {
-                    assert gender != null;
-                    if (gender.equalsIgnoreCase("male") || age > 18) {
-                        pregnancyStatusObject.put("type", "hidden");
-                    }
+                JSONObject global = jsonForm.getJSONObject("global");
+
+                if (gender != null) {
+                    global.put("age", age);
+                    global.put("gender", gender);
                 }
-
-                ageObject.put("value", age);
-                genderObject.put("value", gender);
 
             }
         } catch (Exception e) {
