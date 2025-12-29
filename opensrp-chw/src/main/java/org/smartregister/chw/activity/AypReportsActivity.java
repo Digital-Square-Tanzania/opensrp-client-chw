@@ -19,6 +19,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ReportUtils;
 import org.smartregister.view.activity.SecuredActivity;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,8 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
 
     private Menu menu;
 
+    protected ConstraintLayout aypOutSchoolReport;
+
     private String reportPeriod = ReportUtils.getDefaultReportPeriod();
 
     @Override
@@ -56,6 +59,10 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
         if (aypParentalMonthlyReport != null) {
             aypParentalMonthlyReport.setOnClickListener(this);
         }
+        aypOutSchoolReport = findViewById(R.id.ayp_out_school_report);
+        if (aypOutSchoolReport != null) {
+            aypOutSchoolReport.setOnClickListener(this);
+        }
     }
 
     public void setUpToolbar() {
@@ -73,8 +80,8 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
         appBarLayout = findViewById(org.smartregister.chw.core.R.id.app_bar);
         appBarLayout.setOutlineProvider(null);
         View titleView = toolbar.findViewById(org.smartregister.chw.core.R.id.toolbar_title);
-        if (titleView instanceof org.smartregister.view.customcontrols.CustomFontTextView) {
-            ((org.smartregister.view.customcontrols.CustomFontTextView) titleView).setText(R.string.ayp_reports_screen_title);
+        if (titleView instanceof CustomFontTextView) {
+            ((CustomFontTextView) titleView).setText(R.string.ayp_reports_screen_title);
         }
     }
 
@@ -118,6 +125,10 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
                     R.string.ayp_parental_reports_title,
                     reportPeriod,
                     Constants.ReportConstants.ReportTypes.AYP_REPORT);
+            return;
+        }
+        if (viewId == R.id.ayp_out_school_report) {
+            AypOutSchoolReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.AYP_OUT_SCHOOL_REPORT_PATH, R.string.ayp_out_school_reports, reportPeriod);
             return;
         }
         Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();

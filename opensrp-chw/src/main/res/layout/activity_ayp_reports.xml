@@ -43,6 +43,67 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ayp_out_school_report"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        app:layout_constraintBottom_toTopOf="@id/view_three_months_row"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintVertical_bias="0">
+
+        <ImageView
+            android:id="@+id/report_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sidemenu_reports_active"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/go_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/row_goto"
+            android:tint="@color/alert_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/report_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/report_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="AYP Out Of School Report"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/report_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View
+        android:id="@+id/view_row_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/visit_status_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ayp_out_school_report" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ayp_in_school_monthly_report"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,7 +114,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar">
+        app:layout_constraintTop_toBottomOf="@id/view_row_1">
 
         <ImageView
             android:id="@+id/ayp_in_school_icon"
@@ -89,6 +150,15 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <View
+        android:id="@+id/view_three_months_row"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/visit_status_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ayp_in_school_monthly_report" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ayp_parental_monthly_report"
         android:layout_width="0dp"
@@ -100,7 +170,7 @@
         android:paddingVertical="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ayp_in_school_monthly_report">
+        app:layout_constraintTop_toBottomOf="@id/view_three_months_row">
 
         <ImageView
             android:id="@+id/ayp_parental_icon"
@@ -134,5 +204,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/view_row"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/visit_status_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ayp_parental_monthly_report" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
