@@ -10813,6 +10813,345 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_harm_reduction_risk_assessment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "birth_region",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birth_region"
+          }
+        },
+        {
+          "column_name": "maskani_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maskani_name"
+          }
+        },
+        {
+          "column_name": "received_harm_reduction_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_harm_reduction_services"
+          }
+        },
+        {
+          "column_name": "harm_reduction_services_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "harm_reduction_services_type"
+          }
+        },
+        {
+          "column_name": "harm_reduction_services_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "harm_reduction_services_other_specify"
+          }
+        },
+        {
+          "column_name": "living_environment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "living_environment"
+          }
+        },
+        {
+          "column_name": "living_environment_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "living_environment_other_specify"
+          }
+        },
+        {
+          "column_name": "route_of_substance_use",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "route_of_substance_use"
+          }
+        },
+        {
+          "column_name": "substances_used_injecting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_injecting"
+          }
+        },
+        {
+          "column_name": "substances_used_injecting_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_injecting_other_specify"
+          }
+        },
+        {
+          "column_name": "substances_used_non_injecting",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_non_injecting"
+          }
+        },
+        {
+          "column_name": "substances_used_non_injecting_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_non_injecting_other_specify"
+          }
+        },
+        {
+          "column_name": "injection_times_per_day",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "injection_times_per_day"
+          }
+        },
+        {
+          "column_name": "reused_needles",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reused_needles"
+          }
+        },
+        {
+          "column_name": "shared_needles",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "shared_needles"
+          }
+        },
+        {
+          "column_name": "doses_used_at_once",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "doses_used_at_once"
+          }
+        },
+        {
+          "column_name": "controlled_substances_prescribed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "controlled_substances_prescribed"
+          }
+        },
+        {
+          "column_name": "controlled_substances_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "controlled_substances_other_specify"
+          }
+        },
+        {
+          "column_name": "sex_times_per_week",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sex_times_per_week"
+          }
+        },
+        {
+          "column_name": "multiple_partners",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "multiple_partners"
+          }
+        },
+        {
+          "column_name": "condom_use",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_use"
+          }
+        },
+        {
+          "column_name": "ever_used_prep",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ever_used_prep"
+          }
+        },
+        {
+          "column_name": "ever_tested_hiv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ever_tested_hiv"
+          }
+        },
+        {
+          "column_name": "ever_tested_hbv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ever_tested_hbv"
+          }
+        },
+        {
+          "column_name": "hbv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hbv_status"
+          }
+        },
+        {
+          "column_name": "ever_tested_hcv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ever_tested_hcv"
+          }
+        },
+        {
+          "column_name": "hcv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hcv_status"
+          }
+        },
+        {
+          "column_name": "ever_tested_sti",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ever_tested_sti"
+          }
+        },
+        {
+          "column_name": "sti_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sti_status"
+          }
+        },
+        {
+          "column_name": "with_when_using_substance",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "with_when_using_substance"
+          }
+        },
+        {
+          "column_name": "stress_challenges",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stress_challenges"
+          }
+        },
+        {
+          "column_name": "help_received",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "help_received"
+          }
+        },
+        {
+          "column_name": "other_health_problem",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_health_problem"
+          }
+        },
+        {
+          "column_name": "health_problem_description",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_problem_description"
+          }
+        },
+        {
+          "column_name": "health_problem_support",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_problem_support"
+          }
+        },
+        {
+          "column_name": "pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnant"
+          }
+        },
+        {
+          "column_name": "started_anc",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "started_anc"
+          }
+        },
+        {
+          "column_name": "pregnancy_challenges",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnancy_challenges"
+          }
+        },
+        {
+          "column_name": "roc_mat_pre_session",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "roc_mat_pre_session"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }
