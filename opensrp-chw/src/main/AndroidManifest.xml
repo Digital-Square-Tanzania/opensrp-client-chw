@@ -91,6 +91,9 @@
             android:name=".activity.AypInSchoolRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypInSchoolMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AypInSchoolMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
