@@ -313,7 +313,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.8.0-ALPHA1-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.9.0-ALPHA1-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
