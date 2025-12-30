@@ -43,6 +43,12 @@
             android:name=".activity.TbLeprosyRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.TbLeprosyContactVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

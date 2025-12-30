@@ -258,6 +258,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasHarmReduction() {
+        return false;
+    }
+
+    @Override
     public boolean hasADDO() {
         return false;
     }
