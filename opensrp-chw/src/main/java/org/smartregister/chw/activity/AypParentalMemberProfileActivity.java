@@ -9,8 +9,6 @@ import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
-import org.smartregister.chw.ayp.activity.BaseAypParentalMedicalHistoryActivity;
-import org.smartregister.chw.ayp.activity.BaseAypParentalVisitActivity;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
 
 public class AypParentalMemberProfileActivity extends CoreAypProfileActivity {
@@ -76,7 +74,7 @@ public class AypParentalMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public void openMedicalHistory() {
-        BaseAypParentalMedicalHistoryActivity.startMe(this, memberObject);
+        AypParentalMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
