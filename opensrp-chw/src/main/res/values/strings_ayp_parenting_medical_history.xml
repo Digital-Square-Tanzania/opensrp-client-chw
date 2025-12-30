@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ayp_parental_services_visit_type">AYP parental services</string>
+    <string name="ayp_parenting_services_field_client_status">Client status</string>
+    <string name="ayp_parenting_services_field_transfer_remarks">Provide comment/remarks</string>
+    <string name="ayp_parenting_services_field_new_address">New address</string>
+    <string name="ayp_parenting_services_field_service_delivery_modality">Service delivery modality</string>
+    <string name="ayp_parenting_services_field_group_modality_types">If Group, select type(s)</string>
+    <string name="ayp_parenting_services_field_section_selection">Select the section(s) provided</string>
+    <string name="ayp_parenting_services_field_intro_details">Provide Introduction Details. Define key terms in Parenting Training to the Parent(s) and/or Guardian(s).</string>
+    <string name="ayp_parenting_services_field_hiv_problem_topics">HIV problem among young people topics covered</string>
+    <string name="ayp_parenting_services_field_rh_provided">Has HIV and AIDS, STIs, Viral Hepatitis and reproductive health been provided?</string>
+    <string name="ayp_parenting_services_field_rh_sections_provided">Which section(s) have been provided?</string>
+    <string name="ayp_parenting_services_field_hiv_aids_topics">HIV and AIDS topics</string>
+    <string name="ayp_parenting_services_field_stis_rtis_topics">RTIs and STIs topics</string>
+    <string name="ayp_parenting_services_field_viral_hepatitis_topics">Viral Hepatitis topics</string>
+    <string name="ayp_parenting_services_field_protection_against_hiv_aids_stis_viral_hepatitis">Protection against HIV and AIDS, STIs, and Viral Hepatitis</string>
+    <string name="ayp_parenting_services_field_understanding_youth_challenges">Select the provided topics covered regarding Understanding young people and challenges they are facing</string>
+    <string name="ayp_parenting_services_field_skills_education_communication_youth">Select the topics covered regarding Skills, Education and Communication for Youth</string>
+    <string name="ayp_parenting_services_field_sexual_reproductive_health_youth">Select the topics covered regarding Sexual Reproductive Health for Youth</string>
+    <string name="ayp_parenting_services_field_promote_hiv_services_youth">Select the topics covered regarding Promoting the use of HIV Services among Youth</string>
+    <string name="ayp_parenting_services_field_visit_comment">Comment</string>
+    <string name="ayp_parenting_services_field_next_appointment_date">Please select the next appointment date</string>
+    <string name="ayp_parenting_services_field_referral_services">Select the Referrals to other services provided</string>
+    <string name="ayp_parenting_services_field_referral_other_specify">If others, please specify</string>
+</resources>
