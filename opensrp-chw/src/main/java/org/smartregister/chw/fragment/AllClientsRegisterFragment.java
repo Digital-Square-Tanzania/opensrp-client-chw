@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.provider.OpdRegisterProvider;
@@ -19,6 +21,7 @@ import org.smartregister.opd.utils.OpdDbConstants;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
+    private static final String AYP_REGISTER_TAG = "AYP";
 
     @Override
     public void setupViews(View view) {
@@ -30,7 +33,20 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     @Override
     protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
 
+        String baseEntityId = commonPersonObjectClient.getCaseId();
+        if (TextUtils.isEmpty(baseEntityId)) {
+            baseEntityId = commonPersonObjectClient.entityId();
+        }
+        boolean isAypClient = !TextUtils.isEmpty(baseEntityId)
+                && (AypDao.isRegisteredForAypInSchoolServices(baseEntityId)
+                || AypDao.isRegisteredForAypParentalServices(baseEntityId));
+
         String registerType = commonPersonObjectClient.getDetails().get(REGISTER_TYPE);
+        if (isAypClient && TextUtils.isEmpty(registerType)) {
+            registerType = AYP_REGISTER_TAG;
+            commonPersonObjectClient.getDetails().put(REGISTER_TYPE, registerType);
+            commonPersonObjectClient.getColumnmaps().put(OpdDbConstants.KEY.REGISTER_TYPE, registerType);
+        }
 
         Bundle bundle = new Bundle();
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(commonPersonObjectClient.entityId());

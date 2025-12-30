@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYP In-school Monthly Report</title>
+    <style>
+        body {
+            padding: 5px;
+            font-size: 0.25rem;
+        }
+
+        body,
+        td,
+        th {
+            font-family: "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        th {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .heading-section {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .grand-total-header {
+            background-color: #ccc;
+        }
+
+        .section-label {
+            background-color: #e6e6e6;
+            font-weight: 600;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            body {
+                font-size: 0.65rem;
+            }
+
+            .show-on-print {
+                display: block;
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body onload="loadData()">
+<div class="show-on-print">
+    <h1 class="heading-section">AYP In-school Monthly Report</h1>
+    <h2>Reporting Period: <span id="report_period"></span></h2>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th rowspan="2">S/N</th>
+        <th rowspan="2">Indicator</th>
+        <th rowspan="2" class="grand-total-header">Grand Total</th>
+        <th colspan="4">Female</th>
+        <th colspan="4">Male</th>
+    </tr>
+    <tr>
+        <th>10-14</th>
+        <th>15-19</th>
+        <th>20-24</th>
+        <th>Total</th>
+        <th>10-14</th>
+        <th>15-19</th>
+        <th>20-24</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Number of adolescent and young people newly enrolled into AYP services</td>
+        <td align="center" id="ayp-1-grand-total"></td>
+        <td align="center" id="ayp-1-female-10-14"></td>
+        <td align="center" id="ayp-1-female-15-19"></td>
+        <td align="center" id="ayp-1-female-20-24"></td>
+        <td align="center" id="ayp-1-female-total"></td>
+        <td align="center" id="ayp-1-male-10-14"></td>
+        <td align="center" id="ayp-1-male-15-19"></td>
+        <td align="center" id="ayp-1-male-20-24"></td>
+        <td align="center" id="ayp-1-male-total"></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Number of adolescent and young people reached with health education</td>
+        <td align="center" id="ayp-2-grand-total"></td>
+        <td align="center" id="ayp-2-female-10-14"></td>
+        <td align="center" id="ayp-2-female-15-19"></td>
+        <td align="center" id="ayp-2-female-20-24"></td>
+        <td align="center" id="ayp-2-female-total"></td>
+        <td align="center" id="ayp-2-male-10-14"></td>
+        <td align="center" id="ayp-2-male-15-19"></td>
+        <td align="center" id="ayp-2-male-20-24"></td>
+        <td align="center" id="ayp-2-male-total"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Number of adolescent and young people reached with combination minimum defined package</td>
+        <td align="center" id="ayp-3-grand-total"></td>
+        <td align="center" id="ayp-3-female-10-14"></td>
+        <td align="center" id="ayp-3-female-15-19"></td>
+        <td align="center" id="ayp-3-female-20-24"></td>
+        <td align="center" id="ayp-3-female-total"></td>
+        <td align="center" id="ayp-3-male-10-14"></td>
+        <td align="center" id="ayp-3-male-15-19"></td>
+        <td align="center" id="ayp-3-male-20-24"></td>
+        <td align="center" id="ayp-3-male-total"></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Number of active adolescent and young people that have fully completed the defined primary package of services with at least 1 secondary service</td>
+        <td align="center" id="ayp-4-grand-total"></td>
+        <td align="center" id="ayp-4-female-10-14"></td>
+        <td align="center" id="ayp-4-female-15-19"></td>
+        <td align="center" id="ayp-4-female-20-24"></td>
+        <td align="center" id="ayp-4-female-total"></td>
+        <td align="center" id="ayp-4-male-10-14"></td>
+        <td align="center" id="ayp-4-male-15-19"></td>
+        <td align="center" id="ayp-4-male-20-24"></td>
+        <td align="center" id="ayp-4-male-total"></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Number of adolescent and young people violence cases reported</td>
+        <td align="center" id="ayp-5-grand-total"></td>
+        <td align="center" id="ayp-5-female-10-14"></td>
+        <td align="center" id="ayp-5-female-15-19"></td>
+        <td align="center" id="ayp-5-female-20-24"></td>
+        <td align="center" id="ayp-5-female-total"></td>
+        <td align="center" id="ayp-5-male-10-14"></td>
+        <td align="center" id="ayp-5-male-15-19"></td>
+        <td align="center" id="ayp-5-male-20-24"></td>
+        <td align="center" id="ayp-5-male-total"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    function loadData() {
+        const data = JSON.parse(Android.getData("ayp-in-school-monthly-report"));
+        const keys = Object.keys(data.nameValuePairs);
+        const reportPeriod = document.getElementById("report_period");
+        keys.forEach((key) => {
+            const element = document.getElementById(key);
+            if (element !== null && typeof element !== "undefined") {
+                element.innerHTML = data.nameValuePairs[key];
+            }
+        });
+        reportPeriod.innerHTML = Android.getDataPeriod();
+    }
+</script>
+
+</html>

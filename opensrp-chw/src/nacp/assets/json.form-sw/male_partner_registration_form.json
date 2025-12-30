@@ -819,6 +819,9 @@
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -868,6 +871,12 @@
             "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hana Kazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

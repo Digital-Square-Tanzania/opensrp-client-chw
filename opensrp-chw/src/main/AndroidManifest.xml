@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.smartregister.chw">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:name=".application.ChwApplication"
@@ -48,6 +47,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.TbLeprosyContactRegister"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TbLeprosyObservationResultsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.KvpPrEPProfileActivity"
@@ -549,6 +551,14 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AypReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.CecapRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -566,6 +576,15 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.CecapReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbLeprosyReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TbLeprosyReportsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
 

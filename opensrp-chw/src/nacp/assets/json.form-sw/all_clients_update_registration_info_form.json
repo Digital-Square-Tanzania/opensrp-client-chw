@@ -501,13 +501,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Bima ya Afya ya Umma",
+            "text": "Bima ya Afya ya Umma (mfano NHIF, ICHF)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Bima ya Afya Binafsi",
+            "text": "Bima ya Afya Binafsi (mfano AAR, Jubilee, Britam)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -787,6 +787,9 @@
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -836,6 +839,12 @@
             "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hana Kazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

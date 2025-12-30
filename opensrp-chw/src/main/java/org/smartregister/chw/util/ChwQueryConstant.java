@@ -658,7 +658,7 @@ public interface ChwQueryConstant {
             "         inner join ec_tbleprosy_screening\n" +
             "                    on ec_family_member.base_entity_id = ec_tbleprosy_screening.base_entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
-            "  AND ec_tbleprosy_screening.is_closed is 0\n" +
+            "  AND ec_tbleprosy_screening.is_closed is 0  AND (ec_tbleprosy_screening.status IS NULL OR ec_tbleprosy_screening.status = 'client') AND  ec_tbleprosy_screening.screening_status != '-' \n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +

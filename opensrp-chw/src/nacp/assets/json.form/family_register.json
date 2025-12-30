@@ -703,13 +703,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public Health Insurance",
+            "text": "Public Health Insurance (e.g. NHIF, ICHF)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private Health Insurance",
+            "text": "Private Health Insurance (e.g. AAR, Jubilee, Britam)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -902,6 +902,9 @@
         "label": "Occupation of the Client",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -951,6 +954,12 @@
             "text": "Other",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

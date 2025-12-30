@@ -178,6 +178,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    protected void startAypFacilityScreening() {
+        // Not required in community build
+    }
+
+    @Override
     protected void startAypInSchoolEnrollment() {
         AypInSchoolRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
     }
