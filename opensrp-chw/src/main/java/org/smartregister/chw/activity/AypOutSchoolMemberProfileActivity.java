@@ -48,7 +48,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolMemberProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(org.smartregister.chw.ayp.util.Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
+        intent.putExtra(org.smartregister.chw.ayp.util.Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.AYP_OUT_SCHOOL_PROFILE);
         activity.startActivity(intent);
     }
 

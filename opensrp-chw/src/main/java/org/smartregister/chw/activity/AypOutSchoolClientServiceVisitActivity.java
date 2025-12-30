@@ -12,7 +12,6 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.ayp.activity.BaseAypOutSchoolRecordServiceVisitActivity;
 import org.smartregister.chw.ayp.activity.BaseAypVisitActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
@@ -20,7 +19,6 @@ import org.smartregister.chw.ayp.interactor.aypOutOfSchool.BaseAypOutSchoolClien
 import org.smartregister.chw.ayp.model.BaseAypVisitAction;
 import org.smartregister.chw.ayp.presenter.BaseAypVisitPresenter;
 import org.smartregister.chw.ayp.util.Constants;
-import org.smartregister.chw.vmmc.model.BaseVmmcVisitAction;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -34,7 +32,7 @@ public class AypOutSchoolClientServiceVisitActivity extends BaseAypVisitActivity
         Intent intent = new Intent(activity, AypOutSchoolClientServiceVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.AYP_OUT_SCHOOL_PROFILE);
         activity.startActivity(intent);
     }
 
