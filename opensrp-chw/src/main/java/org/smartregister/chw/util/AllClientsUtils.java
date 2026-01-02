@@ -349,6 +349,13 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_tbleprosy_screening, !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId));
         }
 
+        // Handle Harm Reduction menu items
+        if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_assessment, age >= 14);
+        } else {
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_assessment, false);
+        }
+
         // Handle SBC menu items
         if (ChwApplication.getApplicationFlavor().hasSbc()) {
             setMenuItemVisibility(menu, R.id.action_sbc_registration, !SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);

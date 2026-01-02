@@ -302,6 +302,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startHarmReductionAssessment() {
+        HarmReductionRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
     protected void startAypOutSchoolEnrollment() {
         String gender = AllClientsUtils.getClientGender(baseEntityId);
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
