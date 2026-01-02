@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.harmreduction.activity.BaseHarmReductionVisitActivity;
 import org.smartregister.chw.harmreduction.util.Constants;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
@@ -44,17 +43,17 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
     @Override
     public void openRecordClientVisit() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openFollowupVisit() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openRecordTbContactVisit() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
@@ -105,17 +104,17 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
     @Override
     public void startServiceForm() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void continueService() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), true);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     @Override
     public void continueContactVisit() {
-        BaseHarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), true);
+        HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     @Override

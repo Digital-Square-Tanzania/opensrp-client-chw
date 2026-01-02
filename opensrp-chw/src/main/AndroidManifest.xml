@@ -49,6 +49,9 @@
             android:name=".activity.HarmReductionRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
             android:name=".activity.TbLeprosyContactVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
