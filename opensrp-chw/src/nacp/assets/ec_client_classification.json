@@ -938,6 +938,13 @@
             "creates_case": [
               "ec_hps_death_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Risk Assessment",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment"
+            ]
           }
         ]
       }
