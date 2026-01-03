@@ -23,6 +23,9 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     private String jsonPayload;
     private String visitType;
     private String baseEntityId;
+    private boolean hasPreviousVisit;
+    private boolean previousHivPositive;
+    private boolean hasCtcNumber;
 
     public KvpPrEPVisitTypeActionHelper(String baseEntityId) {
         this.baseEntityId = baseEntityId;
@@ -31,6 +34,9 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
         this.jsonPayload = jsonPayload;
+        hasPreviousVisit = ChwKvpDao.hasFollowupVisits(baseEntityId);
+        previousHivPositive = ChwKvpDao.isLatestFollowupHivPositive(baseEntityId);
+        hasCtcNumber = ChwKvpDao.hasCtcNumber(baseEntityId);
     }
 
     @Override
@@ -40,11 +46,46 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
 
             JSONArray fields = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
             JSONObject visitTypeObject = JsonFormUtils.getFieldJSONObject(fields, "visit_type");
+            JSONObject hivTestConducted = JsonFormUtils.getFieldJSONObject(fields, "hiv_test_conducted");
+            JSONObject hivTestLocation = JsonFormUtils.getFieldJSONObject(fields, "hiv_test_location");
+            JSONObject hivStatusObject = JsonFormUtils.getFieldJSONObject(fields, "client_hiv_status");
+            JSONObject ctcNumberObject = JsonFormUtils.getFieldJSONObject(fields, "ctc_number");
 
-            if (ChwKvpDao.hasFollowupVisits(baseEntityId)) {
+            makeFieldOptional(ctcNumberObject);
+
+            if (hasPreviousVisit) {
                 visitTypeObject.remove("options");
                 visitTypeObject.put("type", "hidden");
                 visitTypeObject.put("value", "followup");
+            }
+
+            if (hasCtcNumber) {
+                hideField(ctcNumberObject);
+            }
+
+            if (hasPreviousVisit && previousHivPositive) {
+                hideField(hivTestConducted);
+                hideField(hivTestLocation);
+
+                if (hivStatusObject != null) {
+                    hivStatusObject.put("type", "hidden");
+                    hivStatusObject.put("value", "positive");
+                    hivStatusObject.remove("relevance");
+                }
+
+                if (ctcNumberObject != null && !hasCtcNumber) {
+                    ctcNumberObject.remove("relevance");
+                }
+
+                return jsonObject.toString();
+            }
+
+            if (hasPreviousVisit) {
+                applyYesRelevance(hivTestLocation, "hiv_test_conducted");
+                applyYesRelevance(hivStatusObject, "hiv_test_conducted");
+            } else {
+                hideField(hivTestConducted);
+                hideField(hivTestLocation);
             }
             return jsonObject.toString();
         } catch (JSONException e) {
@@ -99,5 +140,35 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     @Override
     public void onPayloadReceived(BaseKvpVisitAction baseKvpVisitAction) {
         //overridden
+    }
+
+    private void hideField(JSONObject field) throws JSONException {
+        if (field != null) {
+            field.put("type", "hidden");
+            field.remove("relevance");
+        }
+    }
+
+    private void applyYesRelevance(JSONObject field, String sourceKey) throws JSONException {
+        if (field == null || StringUtils.isBlank(sourceKey)) {
+            return;
+        }
+
+        JSONObject relevance = new JSONObject();
+        JSONObject condition = new JSONObject();
+        condition.put("type", "string");
+        condition.put("ex", "equalTo(., \"yes\")");
+        relevance.put(JsonFormConstants.STEP1 + ":" + sourceKey, condition);
+        field.put("relevance", relevance);
+    }
+
+    private void makeFieldOptional(JSONObject field) throws JSONException {
+        if (field == null) {
+            return;
+        }
+
+        JSONObject optional = new JSONObject();
+        optional.put("value", false);
+        field.put("v_required", optional);
     }
 }
