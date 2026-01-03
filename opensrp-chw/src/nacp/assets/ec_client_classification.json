@@ -644,7 +644,7 @@
           {
             "field": "eventType",
             "field_value": "TbLeprosy Mobilization Session",
-            "creates_case":[
+            "creates_case": [
               "ec_tbleprosy_mobilization"
             ]
           },
@@ -942,6 +942,13 @@
           {
             "field": "eventType",
             "field_value": "Harm Reduction Risk Assessment",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Follow-up Visit",
             "creates_case": [
               "ec_harm_reduction_risk_assessment"
             ]
