@@ -536,7 +536,7 @@
           },
           {
             "key": "chk_passport_number",
-            "text": "Leseni ya udereva",
+            "text": "Hati ya Kusafiria (Pasipoti)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_passport_number"
           },
