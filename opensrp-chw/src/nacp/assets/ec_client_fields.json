@@ -11160,6 +11160,393 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_harm_reduction_followup_visit",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "client_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_status"
+          }
+        },
+        {
+          "column_name": "pregnancy_breastfeeding_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnancy_breastfeeding_status"
+          }
+        },
+        {
+          "column_name": "substance_use_methods",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substance_use_methods"
+          }
+        },
+        {
+          "column_name": "substance_use_methods_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substance_use_methods_other_specify"
+          }
+        },
+        {
+          "column_name": "substances_used_injecting_only",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_injecting_only"
+          }
+        },
+        {
+          "column_name": "substances_used_non_injecting_only",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_non_injecting_only"
+          }
+        },
+        {
+          "column_name": "substances_used_all",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_all"
+          }
+        },
+        {
+          "column_name": "substances_used",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used"
+          }
+        },
+        {
+          "column_name": "substances_used_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_used_other_specify"
+          }
+        },
+        {
+          "column_name": "risky_behaviours_injecting_only",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "risky_behaviours_injecting_only"
+          }
+        },
+        {
+          "column_name": "risky_behaviours_non_injecting_only",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "risky_behaviours_non_injecting_only"
+          }
+        },
+        {
+          "column_name": "risky_behaviours",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "risky_behaviours"
+          }
+        },
+        {
+          "column_name": "risky_behaviours_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "risky_behaviours_other_specify"
+          }
+        },
+        {
+          "column_name": "is_idu",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_idu"
+          }
+        },
+        {
+          "column_name": "health_education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_education_provided"
+          }
+        },
+        {
+          "column_name": "health_education_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_education_other_specify"
+          }
+        },
+        {
+          "column_name": "iec_materials_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "iec_materials_provided"
+          }
+        },
+        {
+          "column_name": "iec_materials_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "iec_materials_type"
+          }
+        },
+        {
+          "column_name": "iec_materials_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "iec_materials_other_specify"
+          }
+        },
+        {
+          "column_name": "safe_injection_tools",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "safe_injection_tools"
+          }
+        },
+        {
+          "column_name": "qty_syringes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_syringes"
+          }
+        },
+        {
+          "column_name": "qty_alcohol_swab",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_alcohol_swab"
+          }
+        },
+        {
+          "column_name": "qty_dry_cotton",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_dry_cotton"
+          }
+        },
+        {
+          "column_name": "qty_plaster",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_plaster"
+          }
+        },
+        {
+          "column_name": "qty_sterile_water",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_sterile_water"
+          }
+        },
+        {
+          "column_name": "qty_needles",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "qty_needles"
+          }
+        },
+        {
+          "column_name": "engaging_in_sexual_activity",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "engaging_in_sexual_activity"
+          }
+        },
+        {
+          "column_name": "number_of_sexual_partners",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_sexual_partners"
+          }
+        },
+        {
+          "column_name": "condom_use_during_sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_use_during_sex"
+          }
+        },
+        {
+          "column_name": "condom_education_prompt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_education_prompt"
+          }
+        },
+        {
+          "column_name": "condoms_given",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condoms_given"
+          }
+        },
+        {
+          "column_name": "number_of_condoms",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_condoms"
+          }
+        },
+        {
+          "column_name": "hiv_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_tested"
+          }
+        },
+        {
+          "column_name": "hiv_test_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_test_location"
+          }
+        },
+        {
+          "column_name": "hiv_results",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_results"
+          }
+        },
+        {
+          "column_name": "drug_adherence_status_ctc",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "drug_adherence_status_ctc"
+          }
+        },
+        {
+          "column_name": "adherence_guidance_discontinued",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "adherence_guidance_discontinued"
+          }
+        },
+        {
+          "column_name": "adherence_guidance_not_started",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "adherence_guidance_not_started"
+          }
+        },
+        {
+          "column_name": "hepatitis_bc_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_bc_screening"
+          }
+        },
+        {
+          "column_name": "tb_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_screening"
+          }
+        },
+        {
+          "column_name": "stds_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stds_screening"
+          }
+        },
+        {
+          "column_name": "referrals_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referrals_provided"
+          }
+        },
+        {
+          "column_name": "referrals_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referrals_other_specify"
+          }
+        },
+        {
+          "column_name": "remarks_comments",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "remarks_comments"
+          }
+        },
+        {
+          "column_name": "roc_consent_joining_mat_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "roc_consent_joining_mat_services"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }
