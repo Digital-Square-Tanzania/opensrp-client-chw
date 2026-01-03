@@ -57,6 +57,11 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     @Override
+    public void openMedicalHistory() {
+        HarmReductionVisitHistoryActivity.startMe(this, memberObject);
+    }
+
+    @Override
     public void openObservationResults() {
         // no-op
     }
