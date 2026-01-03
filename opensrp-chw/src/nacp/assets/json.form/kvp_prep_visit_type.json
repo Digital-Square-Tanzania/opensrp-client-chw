@@ -75,11 +75,81 @@
         }
       },
       {
+        "key": "hiv_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_conducted",
+        "label": "Was the client tested for HIV?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "step1:visit_type": {
+            "type": "string",
+            "ex": "equalTo(., \"followup\")"
+          }
+        }
+      },
+      {
+        "key": "hiv_test_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_location",
+        "label": "Where was the HIV test done?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "community",
+            "text": "Community",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community"
+          },
+          {
+            "key": "facility",
+            "text": "Facility",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "step1:hiv_test_conducted": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
         "key": "client_hiv_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_hiv_status",
-        "label": "Client's HIV status",
+        "label": "HIV test result",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -99,7 +169,7 @@
           },
           {
             "key": "unknown",
-            "text": "Unknown",
+            "text": "Not ready to share results",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "unknown"
@@ -108,6 +178,37 @@
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "ctc_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12-34-5678-901234",
+        "allowed_chars": "0123456789",
+        "hint": "CTC ID (optional)",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "CTC ID should be formatted as XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid CTC ID"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please enter a valid CTC ID"
+        },
+        "relevance": {
+          "step1:client_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
         }
       }
     ]
