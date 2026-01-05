@@ -14,6 +14,7 @@ import static org.smartregister.chw.util.Constants.REQUEST_FILTERS;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
@@ -131,6 +133,15 @@ public class RegisterFilterActivity extends AppCompatActivity {
         } else {
             filterList.setVisibility(View.GONE);
         }
+
+        ColorStateList thumbTintList = new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{ContextCompat.getColor(this, R.color.pie_chart_yellow), ContextCompat.getColor(this, R.color.grey)});
+        ColorStateList trackTintList = new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{ContextCompat.getColor(this, R.color.pie_chart_yellow), ContextCompat.getColor(this, R.color.light_gray)});
+        enableFilter.setThumbTintList(thumbTintList);
+        enableFilter.setTrackTintList(trackTintList);
 
         enableFilter.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
