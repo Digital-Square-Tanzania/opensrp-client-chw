@@ -388,18 +388,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "proper_use_of_male_condom"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -420,18 +412,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "proper_use_of_female_condom"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -452,18 +436,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "demand_creation_on_condom_use"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -484,18 +460,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "preventive_methods_against_std"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -516,18 +484,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "excessive_alcohol_usage"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -548,18 +508,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_hiv_prevention"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -580,18 +532,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_hiv_aids_art_usage"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -612,18 +556,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "demand_creation_for_hiv_self_testing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -644,18 +580,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "demand_creation_for_prep"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -676,18 +604,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_the_use_of_pep"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -708,18 +628,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "harm_reduction_for_pwud_pwid"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -740,18 +652,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_paraphenalia_for_PWID"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -772,18 +676,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_overdose_management"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -804,18 +700,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_hepatitis_b"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -836,18 +724,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "education_on_hepatitis_c"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -868,18 +748,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "counselling_on_tb"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -900,18 +772,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "counselling_on_gbv"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -932,18 +796,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "stigma_and_discrimination"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -964,18 +820,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "effect_of_multiple_sexual_partners"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -996,18 +844,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "counselling_on_hiv_testing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -1028,18 +868,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "counselling_on_need_of_health_services"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -1060,18 +892,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "male_circumcision"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
@@ -1092,18 +916,10 @@
           "err": "Please provide number distributed"
         },
         "relevance": {
-          "step1:client_received_leaflet": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          },
-          "step1:leaflet_topics_provided": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "rch_services"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_leaflet_relevance.yml"
+            }
           }
         }
       },
