@@ -187,7 +187,7 @@
         "openmrs_entity_id": "ctc_number",
         "type": "mask_edit_text",
         "mask": "##-##-####-######",
-        "mask_hint": "12-34-5678-901234",
+        "mask_hint": "12345678912345",
         "allowed_chars": "0123456789",
         "hint": "CTC ID (optional)",
         "edit_type": "number",
