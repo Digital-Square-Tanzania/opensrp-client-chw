@@ -140,12 +140,14 @@
           "step1:referral_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
-          }
-        },
+        }
+      },
       {
         "key": "referrals_completed_to_structural_services",
         "openmrs_entity_parent": "",
@@ -239,6 +241,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_referrals_completed_to_structural_services",
         "hint": "Other(specify)",
+        "type": "edit_text",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -248,21 +251,13 @@
           "step1:referrals_completed_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
         }
-      },
-      {
-        "key": "next_visit_date_label",
-        "type": "label",
-        "text": "Next Visit Date",
-        "text_size": "18sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": ""
       },
       {
         "key": "next_visit_date",
@@ -271,7 +266,8 @@
         "openmrs_entity_id": "next_visit_date",
         "type": "date_picker",
         "label": "Select next visit date",
-        "expanded": true,
+        "hint": "Select next visit date",
+        "expanded": false,
         "min_date": "today",
         "v_required": {
           "value": true,
