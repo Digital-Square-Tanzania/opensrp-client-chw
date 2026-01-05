@@ -58,7 +58,7 @@
         "options": [
           {
             "key": "proper_use_of_male_condom",
-            "text": "Matumizi sahihi ya Kondomu za kiume",
+            "text": "1. Matumizi sahihi ya Kondomu za kiume",
             "openmrs_entity_id": "proper_use_of_male_condom",
             "openmrs_entity": "concept",
             "property": {
@@ -68,7 +68,7 @@
           },
           {
             "key": "proper_use_of_female_condom",
-            "text": "Matumizi sahihi ya Kondomu za kike",
+            "text": "2. Matumizi sahihi ya Kondomu za kike",
             "openmrs_entity_id": "proper_use_of_female_condom",
             "openmrs_entity": "concept",
             "property": {
@@ -78,7 +78,7 @@
           },
           {
             "key": "demand_creation_on_condom_use",
-            "text": "Ushawishi wa matumizi ya kondomu",
+            "text": "3. Ushawishi wa matumizi ya kondomu",
             "openmrs_entity_id": "demand_creation_on_condom_use",
             "openmrs_entity": "concept",
             "property": {
@@ -88,7 +88,7 @@
           },
           {
             "key": "preventive_methods_against_std",
-            "text": "Njia za kujikinga na magonjwa ya ngono",
+            "text": "4. Njia za kujikinga na magonjwa ya ngono",
             "openmrs_entity_id": "preventive_methods_against_std",
             "openmrs_entity": "concept",
             "property": {
@@ -98,7 +98,7 @@
           },
           {
             "key": "excessive_alcohol_usage",
-            "text": "Matumizi ya pombe kupita kiwango",
+            "text": "5. Matumizi ya pombe kupita kiwango",
             "openmrs_entity_id": "excessive_alcohol_usage",
             "openmrs_entity": "concept",
             "property": {
@@ -108,7 +108,7 @@
           },
           {
             "key": "education_on_hiv_prevention",
-            "text": "Elimu juu ya kuzuia maambukizi ya VVU",
+            "text": "6. Elimu juu ya kuzuia maambukizi ya VVU",
             "openmrs_entity_id": "education_on_hiv_prevention",
             "openmrs_entity": "concept",
             "property": {
@@ -118,7 +118,7 @@
           },
           {
             "key": "education_on_hiv_aids_art_usage",
-            "text": "Elimu ya matumizi ya dawa za ART",
+            "text": "7. Elimu ya matumizi ya dawa za ART",
             "openmrs_entity_id": "education_on_hiv_aids_art_usage",
             "openmrs_entity": "concept",
             "property": {
@@ -128,7 +128,7 @@
           },
           {
             "key": "demand_creation_for_hiv_self_testing",
-            "text": "Kutengeneza uhitaji wa huduma ya JIPIME",
+            "text": "8. Kutengeneza uhitaji wa huduma ya JIPIME",
             "openmrs_entity_id": "demand_creation_for_hiv_self_testing",
             "openmrs_entity": "concept",
             "property": {
@@ -138,7 +138,7 @@
           },
           {
             "key": "demand_creation_for_prep",
-            "text": "Kutengeneza uhitaji wa huduma ya dawa kinga",
+            "text": "9. Kutengeneza uhitaji wa huduma ya dawa kinga",
             "openmrs_entity_id": "demand_creation_for_prep",
             "openmrs_entity": "concept",
             "property": {
@@ -148,7 +148,7 @@
           },
           {
             "key": "education_on_the_use_of_pep",
-            "text": "Elimu ya matumizi ya dawa za PEP",
+            "text": "10. Elimu ya matumizi ya dawa za PEP",
             "openmrs_entity_id": "education_on_the_use_of_pep",
             "openmrs_entity": "concept",
             "property": {
@@ -158,7 +158,7 @@
           },
           {
             "key": "harm_reduction_for_pwud_pwid",
-            "text": "Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya",
+            "text": "11. Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya",
             "openmrs_entity_id": "harm_reduction_for_pwud_pwid",
             "openmrs_entity": "concept",
             "property": {
@@ -168,7 +168,7 @@
           },
           {
             "key": "education_on_paraphenalia_for_PWID",
-            "text": "Elimu juu ya vifaa vya wajidunga",
+            "text": "12. Elimu juu ya vifaa vya wajidunga",
             "openmrs_entity_id": "education_on_paraphenalia_for_PWID",
             "openmrs_entity": "concept",
             "property": {
@@ -178,7 +178,7 @@
           },
           {
             "key": "education_on_overdose_management",
-            "text": "Elimu kuhusu matumizi ya kupindukia ya dawa",
+            "text": "13. Elimu kuhusu matumizi ya kupindukia ya dawa",
             "openmrs_entity_id": "education_on_overdose_management",
             "openmrs_entity": "concept",
             "property": {
@@ -188,7 +188,7 @@
           },
           {
             "key": "education_on_hepatitis_b",
-            "text": "Elimu ya Homa ya Ini B",
+            "text": "14. Elimu ya Homa ya Ini B",
             "openmrs_entity_id": "education_on_hepatitis_b",
             "openmrs_entity": "concept",
             "property": {
@@ -198,7 +198,7 @@
           },
           {
             "key": "education_on_hepatitis_c",
-            "text": "Elimu ya Homa ya Ini C",
+            "text": "15. Elimu ya Homa ya Ini C",
             "openmrs_entity_id": "education_on_hepatitis_c",
             "openmrs_entity": "concept",
             "property": {
@@ -208,7 +208,7 @@
           },
           {
             "key": "counselling_on_tb",
-            "text": "Ushauri wa Kifua kikuu",
+            "text": "16. Ushauri wa Kifua kikuu",
             "openmrs_entity_id": "counselling_on_tb",
             "openmrs_entity": "concept",
             "property": {
@@ -218,7 +218,7 @@
           },
           {
             "key": "counselling_on_gbv",
-            "text": "Ushauri wa Ukatili wa kijinsia",
+            "text": "17. Ushauri wa Ukatili wa kijinsia",
             "openmrs_entity_id": "counselling_on_gbv",
             "openmrs_entity": "concept",
             "property": {
@@ -228,7 +228,7 @@
           },
           {
             "key": "stigma_and_discrimination",
-            "text": "Unyanyapaa na kutengwa",
+            "text": "18. Unyanyapaa na kutengwa",
             "openmrs_entity_id": "stigma_and_discrimination",
             "openmrs_entity": "concept",
             "property": {
@@ -238,7 +238,7 @@
           },
           {
             "key": "effect_of_multiple_sexual_partners",
-            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "text": "19. Mahusiano ya wapenzi wengi na athari zake",
             "openmrs_entity_id": "effect_of_multiple_sexual_partners",
             "openmrs_entity": "concept",
             "property": {
@@ -248,7 +248,7 @@
           },
           {
             "key": "counselling_on_hiv_testing",
-            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "text": "20. Mahusiano ya wapenzi wengi na athari zake",
             "openmrs_entity_id": "counselling_on_hiv_testing",
             "openmrs_entity": "concept",
             "property": {
@@ -258,7 +258,7 @@
           },
           {
             "key": "counselling_on_need_of_health_services",
-            "text": "Ushari wa upimaji wa VVU",
+            "text": "21. Ushari wa upimaji wa VVU",
             "openmrs_entity_id": "counselling_on_need_of_health_servicers",
             "openmrs_entity": "concept",
             "property": {
@@ -268,7 +268,7 @@
           },
           {
             "key": "male_circumcision",
-            "text": "TOHARA kinga kwa wanaume",
+            "text": "22. TOHARA kinga kwa wanaume",
             "openmrs_entity_id": "male_circumcision",
             "openmrs_entity": "concept",
             "property": {
@@ -278,7 +278,7 @@
           },
           {
             "key": "rch_services",
-            "text": "Huduma za mama na mtoto",
+            "text": "23. Huduma za mama na mtoto",
             "openmrs_entity_id": "rch_services",
             "openmrs_entity": "concept",
             "property": {
