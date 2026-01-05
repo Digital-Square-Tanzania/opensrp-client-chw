@@ -88,6 +88,26 @@ public class ChwKvpDao extends KvpDao {
         return StringUtils.isNotBlank(normalizedCtc);
     }
 
+    public static String getLatestVisitType(String baseEntityId) {
+        return sanitizeDetail(getLatestFollowupDetail(baseEntityId, "visit_type"));
+    }
+
+    public static String getLatestClientHivStatus(String baseEntityId) {
+        return sanitizeDetail(getLatestFollowupDetail(baseEntityId, "client_hiv_status"));
+    }
+
+    private static String sanitizeDetail(String detail) {
+        if (StringUtils.isBlank(detail)) {
+            return null;
+        }
+
+        return detail
+                .replace("[", "")
+                .replace("]", "")
+                .replace("\"", "")
+                .trim();
+    }
+
     private static String getLatestFollowupDetail(String baseEntityId, String detailKey) {
         String sql = "SELECT " + detailKey + " FROM ec_kvp_prep_followup " +
                 "WHERE entity_id = '" + baseEntityId + "' " +

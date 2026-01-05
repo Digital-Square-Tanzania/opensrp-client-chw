@@ -2,6 +2,6 @@
 - name: step1_received_prep_last_facility
   priority: 1
   description: Show PrEP last facility question only for follow-up clients without positive status
-  condition: "step1_visit_type != null && step1_visit_type.equalsIgnoreCase('followup') && step1_client_hiv_status != null && (step1_client_hiv_status.equalsIgnoreCase('negative') || step1_client_hiv_status.equalsIgnoreCase('unknown') || step1_client_hiv_status.equalsIgnoreCase('hasi') || step1_client_hiv_status.equalsIgnoreCase('not ready to share results') || step1_client_hiv_status.equalsIgnoreCase('hayupo tayari kutoa majibu'))"
+  condition: "((global_step1_visit_type != null && global_step1_visit_type.equalsIgnoreCase('followup')) || (step1_visit_type != null && step1_visit_type.equalsIgnoreCase('followup'))) && ((step1_client_hiv_status != null && (step1_client_hiv_status.equalsIgnoreCase('hana maambukizi') || step1_client_hiv_status.equalsIgnoreCase('hayupo tayari kutoa majibu'))) || (global_step1_client_hiv_status != null && (global_step1_client_hiv_status.equalsIgnoreCase('hana maambukizi') || global_step1_client_hiv_status.equalsIgnoreCase('hayupo tayari kutoa majibu'))))"
   actions:
     - "isRelevant = true"

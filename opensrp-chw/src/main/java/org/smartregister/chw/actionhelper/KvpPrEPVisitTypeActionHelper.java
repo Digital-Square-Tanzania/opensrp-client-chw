@@ -26,9 +26,11 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     private boolean hasPreviousVisit;
     private boolean previousHivPositive;
     private boolean hasCtcNumber;
+    private final Map<String, String> visitState;
 
-    public KvpPrEPVisitTypeActionHelper(String baseEntityId) {
+    public KvpPrEPVisitTypeActionHelper(String baseEntityId, Map<String, String> visitState) {
         this.baseEntityId = baseEntityId;
+        this.visitState = visitState;
     }
 
     @Override
@@ -54,9 +56,12 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
             makeFieldOptional(ctcNumberObject);
 
             if (hasPreviousVisit) {
-                visitTypeObject.remove("options");
-                visitTypeObject.put("type", "hidden");
                 visitTypeObject.put("value", "followup");
+                visitTypeObject.put("read_only", true);
+                visitTypeObject.put("editable", false);
+                visitState.put("visit_type", "followup");
+            } else {
+                visitState.put("visit_type", "new_visit");
             }
 
             if (hasCtcNumber) {
@@ -71,6 +76,7 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
                     hivStatusObject.put("type", "hidden");
                     hivStatusObject.put("value", "positive");
                     hivStatusObject.remove("relevance");
+                    visitState.put("client_hiv_status", "positive");
                 }
 
                 if (ctcNumberObject != null && !hasCtcNumber) {
@@ -100,6 +106,15 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
             visitType = CoreJsonFormUtils.getValue(jsonObject, "visit_type");
+            String hivStatus = CoreJsonFormUtils.getValue(jsonObject, "client_hiv_status");
+
+            if (StringUtils.isNotBlank(visitType)) {
+                visitState.put("visit_type", visitType);
+            }
+            if (StringUtils.isNotBlank(hivStatus)) {
+                visitState.put("client_hiv_status", hivStatus);
+            }
+
             processVisitType(visitType);
         } catch (JSONException e) {
             Timber.e(e);

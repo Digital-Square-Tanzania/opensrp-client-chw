@@ -21,6 +21,7 @@ import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.family.util.JsonFormUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import timber.log.Timber;
 
 public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
     private BaseKvpVisitContract.InteractorCallBack callBack;
+    private final Map<String, String> visitState = new HashMap<>();
 
     @Override
     protected void populateActionList(BaseKvpVisitContract.InteractorCallBack callBack) {
@@ -51,11 +53,15 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateVisitType(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(memberObject.getBaseEntityId()) {
+        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(memberObject.getBaseEntityId(), visitState) {
             @Override
             public void processVisitType(String visitType) {
                 actionList.remove(context.getString(R.string.kvp_prep_referral_services));
+                actionList.remove(context.getString(R.string.kvp_prep_preventive_services));
+                actionList.remove(context.getString(R.string.kvp_prep_structural_services));
                 try {
+                    evaluatePreventiveServices(details);
+                    evaluateStructuralServices(details);
                     evaluateReferralServices(details, visitType);
                 } catch (BaseKvpVisitAction.ValidationException e) {
                     throw new RuntimeException(e);
@@ -117,7 +123,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
     }
 
     private void evaluatePreventiveServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
-        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(memberObject.getBaseEntityId());
+        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(memberObject.getBaseEntityId(), visitState);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_preventive_services))
                 .withOptional(true)
                 .withDetails(details)
