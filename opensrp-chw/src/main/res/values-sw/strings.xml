@@ -828,7 +828,7 @@
     <string name="filter">Chuja</string>
     <string name="filter_status_on">Imewashwa</string>
     <string name="filter_status_off">Imezimwa</string>
-    <string name="filter_applied">Vichujio Vilivyowekwa</string>
+    <string name="filter_applied">Zimechujwa</string>
     <string name="hiv_status_filter_title">HIV Status</string>
     <string name="prep_status_filter_title">PrEP Client Status</string>
     <string name="referred_from_community_filter_title">Referred From Community</string>
