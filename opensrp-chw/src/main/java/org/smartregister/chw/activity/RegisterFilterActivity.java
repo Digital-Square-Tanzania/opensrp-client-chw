@@ -12,9 +12,9 @@ import static org.smartregister.chw.util.Constants.FILTER_PREP_STATUS;
 import static org.smartregister.chw.util.Constants.REQUEST_FILTERS;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +30,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
+import org.smartregister.util.LangUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -60,7 +61,7 @@ public class RegisterFilterActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Filter");
+        setTitle(getString(R.string.filter));
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -260,6 +261,12 @@ public class RegisterFilterActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
     }
 
 
