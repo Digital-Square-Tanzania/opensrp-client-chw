@@ -145,7 +145,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
         KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper(visitType);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_referral_services))
-                .withOptional(true)
+                .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
                 .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.REFERRAL_SERVICES)
