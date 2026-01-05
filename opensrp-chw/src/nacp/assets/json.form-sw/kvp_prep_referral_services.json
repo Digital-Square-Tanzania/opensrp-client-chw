@@ -258,8 +258,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "next_visit_date",
         "type": "date_picker",
-        "label": "Chagua tarehe ya ziara inayofuata",
-        "hint": "Chagua tarehe ya ziara inayofuata",
+        "label": "Chagua tarehe ya tembeleo linalofuata",
+        "hint": "Chagua tarehe ya tembeleo linalofuata",
         "expanded": false,
         "min_date": "today",
         "v_required": {

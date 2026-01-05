@@ -25,7 +25,6 @@ public class Constants extends CoreConstants {
     public static String FILTER_APPOINTMENT_DATE = "FILTER_APPOINTMENT_DATE";
     public static String FILTER_APPOINTMENT_DATE_RANGE_START_DATE = "FILTER_APPOINTMENT_DATE_RANGE_START_DATE";
     public static String FILTER_APPOINTMENT_DATE_RANGE_END_DATE = "FILTER_APPOINTMENT_DATE_RANGE_END_DATE";
-    public static String FILTER_IS_REFERRED = "FILTER_IS_REFERRED";
     public static String FILTER_HIV_STATUS = "FILTER_HIV_STATUS";
     public static String FILTER_PREP_STATUS = "FILTER_PREP_STATUS";
     public static String FILTERS_ENABLED = "FILTERS_ENABLED";

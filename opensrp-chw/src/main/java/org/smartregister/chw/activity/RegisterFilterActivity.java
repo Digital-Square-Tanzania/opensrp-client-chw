@@ -8,13 +8,13 @@ import static org.smartregister.chw.util.Constants.FILTER_APPOINTMENT_DATE;
 import static org.smartregister.chw.util.Constants.FILTER_APPOINTMENT_DATE_RANGE_END_DATE;
 import static org.smartregister.chw.util.Constants.FILTER_APPOINTMENT_DATE_RANGE_START_DATE;
 import static org.smartregister.chw.util.Constants.FILTER_HIV_STATUS;
-import static org.smartregister.chw.util.Constants.FILTER_IS_REFERRED;
 import static org.smartregister.chw.util.Constants.FILTER_PREP_STATUS;
 import static org.smartregister.chw.util.Constants.REQUEST_FILTERS;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +45,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
     private TextView summaryAppointmentDate;
     private TextView summaryStartNextAppointmentDate;
     private TextView summaryEndNextAppointmentDate;
-    private SwitchCompat referredFromCommunityFilter;
     private Spinner hivStatusFilter;
     private Spinner prepStatusFilter;
     private List<String> hivFilterOptions;
@@ -57,7 +56,7 @@ public class RegisterFilterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anc_filter);
+        setContentView(R.layout.activity_register_filter);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,7 +78,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
 
         setupViews();
         boolean filterEnabled = getIntent().getBooleanExtra(FILTERS_ENABLED, false);
-        boolean filterIsReferred = getIntent().getBooleanExtra(FILTER_IS_REFERRED, false);
         String filterHivStatus = getIntent().getStringExtra(FILTER_HIV_STATUS);
         String filterPrepStatus = getIntent().getStringExtra(FILTER_PREP_STATUS);
         String appointmentDate = getIntent().getStringExtra(FILTER_APPOINTMENT_DATE);
@@ -87,9 +85,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
         String appointmentDateRangeEndDate = getIntent().getStringExtra(FILTER_APPOINTMENT_DATE_RANGE_END_DATE);
         if (filterEnabled) {
             enableFilter.setChecked(true);
-            if (filterIsReferred) {
-                referredFromCommunityFilter.setChecked(true);
-            }
 
             if (appointmentDate != null) {
                 summaryAppointmentDate.setText(appointmentDate);
@@ -126,7 +121,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
         LinearLayout filterList = findViewById(R.id.filters_list);
         hivStatusFilter = findViewById(R.id.hiv_status_filter);
         prepStatusFilter = findViewById(R.id.prep_status_filter);
-        referredFromCommunityFilter = findViewById(R.id.switch_for_referred);
         LinearLayout nextAppointmentDate = findViewById(R.id.next_appointment_date);
         LinearLayout startDateLinearLayout = findViewById(R.id.start_date);
         LinearLayout endDateLinearLayout = findViewById(R.id.end_date);
@@ -149,7 +143,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
                 summaryEndNextAppointmentDate.setText(R.string.none);
                 hivStatusFilter.setSelection(0);
                 prepStatusFilter.setSelection(0);
-                referredFromCommunityFilter.setChecked(false);
             }
         });
 
@@ -256,7 +249,6 @@ public class RegisterFilterActivity extends AppCompatActivity {
                 intent.putExtra(FILTER_APPOINTMENT_DATE, summaryAppointmentDate.getText());
                 intent.putExtra(FILTER_APPOINTMENT_DATE_RANGE_START_DATE, summaryStartNextAppointmentDate.getText());
                 intent.putExtra(FILTER_APPOINTMENT_DATE_RANGE_END_DATE, summaryEndNextAppointmentDate.getText());
-                intent.putExtra(FILTER_IS_REFERRED, referredFromCommunityFilter.isChecked());
                 intent.putExtra(FILTER_HIV_STATUS, hivFilterOptions.get(hivStatusFilter.getSelectedItemPosition()));
                 intent.putExtra(FILTER_PREP_STATUS, prepStatusFilterOptions.get(prepStatusFilter.getSelectedItemPosition()));
             }
