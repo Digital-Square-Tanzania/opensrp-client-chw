@@ -743,6 +743,7 @@
             "field": "eventType",
             "field_value": "Kvp PrEP Follow-up Visit",
             "creates_case": [
+              "ec_kvp_prep_register",
               "ec_kvp_prep_followup"
             ]
           },

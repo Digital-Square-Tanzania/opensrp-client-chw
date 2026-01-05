@@ -189,7 +189,7 @@
         "mask": "##-##-####-######",
         "mask_hint": "12345678912345",
         "allowed_chars": "0123456789",
-        "hint": "Kitambulisho cha CTC (hiari)",
+        "hint": "Kitambulisho cha CTC",
         "edit_type": "number",
         "v_regex": {
           "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
