@@ -61,7 +61,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "self_testing_service_provided",
         "type": "native_radio",
-        "label": "Je, huduma ya kujipima ilitolewa?",
+        "label": "Je, vitepe vya JIPIME vilitolewa?",
         "options": [
           {
             "key": "yes",
@@ -86,7 +86,7 @@
       {
         "key": "linked_to_self_testing_module",
         "type": "toaster_notes",
-        "text": "Unganisha na moduli ya Kujipima",
+        "text": "Tafadhali tumia moduli ya JIPIME kukusanya taarifa ya VITEPE hivi.",
         "openmrs_entity_id": "linked_to_self_testing_module",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -505,7 +505,7 @@
         "relevance": {
           "step1:linked_to_prep_services": {
             "type": "string",
-            "ex": "equalTo(., \"yes\")"
+            "ex": "equalTo(., \"no\")"
           }
         }
       }

@@ -213,4 +213,3 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
 }
-
