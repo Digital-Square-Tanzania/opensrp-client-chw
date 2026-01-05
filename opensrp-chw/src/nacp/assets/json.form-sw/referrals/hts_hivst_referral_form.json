@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "confirmation_self_test",
-              "text": "Uthibitisho Kipimo binfasi (HIV Conventional Test)",
+              "text": "Uthibitisho Kipimo Binafsi (HIV Conventional Test)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
