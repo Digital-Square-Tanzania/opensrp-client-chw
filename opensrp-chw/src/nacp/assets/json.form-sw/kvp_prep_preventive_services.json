@@ -394,6 +394,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -418,6 +423,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -442,6 +452,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -466,6 +481,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -490,6 +510,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -514,6 +539,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -538,6 +568,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -562,6 +597,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -586,6 +626,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -610,6 +655,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -634,6 +684,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -658,6 +713,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -682,6 +742,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -706,6 +771,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -730,6 +800,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -754,6 +829,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -778,6 +858,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -802,6 +887,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -826,6 +916,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -850,6 +945,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -874,6 +974,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -898,6 +1003,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
@@ -922,6 +1032,11 @@
               "rules-file": "kvp_prep_leaflet_relevance.yml"
             }
           }
+        },
+        "v_max_length": {
+          "value": "2",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
         }
       },
       {
