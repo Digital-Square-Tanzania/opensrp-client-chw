@@ -2,7 +2,6 @@ package org.smartregister.chw.dao;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.kvp.dao.KvpDao;
-import org.smartregister.chw.util.Constants;
 
 import java.util.List;
 
@@ -90,14 +89,12 @@ public class ChwKvpDao extends KvpDao {
     }
 
     private static String getLatestFollowupDetail(String baseEntityId, String detailKey) {
-        String sql = "SELECT vd.details FROM visits v " +
-                "INNER JOIN visit_details vd ON vd.visit_id = v.visit_id " +
-                "WHERE v.visit_type = '" + Constants.Events.KVP_PREP_FOLLOWUP_VISIT + "' " +
-                "AND v.base_entity_id = '" + baseEntityId + "' " +
-                "AND vd.visit_key = '" + detailKey + "' " +
-                "ORDER BY v.visit_date DESC LIMIT 1";
+        String sql = "SELECT " + detailKey + " FROM ec_kvp_prep_followup " +
+                "WHERE entity_id = '" + baseEntityId + "' " +
+                "AND " + detailKey + " IS NOT NULL " +
+                "ORDER BY last_interacted_with DESC LIMIT 1";
 
-        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "details");
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, detailKey);
         List<String> res = readData(sql, dataMap);
 
         if (res != null && !res.isEmpty()) {

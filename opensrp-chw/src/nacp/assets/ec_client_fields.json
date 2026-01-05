@@ -5218,11 +5218,43 @@
           }
         },
         {
+          "column_name": "hiv_test_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_test_conducted"
+          }
+        },
+        {
+          "column_name": "hiv_test_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_test_location"
+          }
+        },
+        {
+          "column_name": "client_hiv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_hiv_status"
+          }
+        },
+        {
           "column_name": "hiv_status",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "hiv_status"
+          }
+        },
+        {
+          "column_name": "ctc_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctc_number"
           }
         },
         {
