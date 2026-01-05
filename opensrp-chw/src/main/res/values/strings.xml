@@ -198,6 +198,39 @@
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
 
+    <!-- Filters -->
+    <string name="filter">Filter</string>
+    <string name="filter_status_on">On</string>
+    <string name="filter_status_off">Off</string>
+    <string name="filter_applied">Filters Applied</string>
+    <string name="hiv_status_filter_title">HIV Status</string>
+    <string name="prep_status_filter_title">PrEP Client Status</string>
+    <string name="referred_from_community_filter_title">Referred From Community</string>
+    <string name="next_facility_visit_date_filter_title">Next Facility Visit Date</string>
+    <string name="next_facility_visit_date_range_filter_title">Next Facility Visit Date Range</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+
+    <string-array name="hiv_status_filter_options">
+        <item>All</item>
+        <item>Positive</item>
+        <item>Negative</item>
+    </string-array>
+
+    <string-array name="prep_status_filter_options">
+        <item>All</item>
+        <item>Initiated</item>
+        <item>Not initiated</item>
+        <item>Continuing</item>
+        <item>Restarted</item>
+        <item>Discontinued/Quit</item>
+    </string-array>
+
+    <!-- Kvp PrEP register tabs -->
+    <string name="all_hei_clients">All clients</string>
+    <string name="due">Due</string>
+    <string name="kvp_tomorrow_visits">Tomorrow\'s visits</string>
+    <string name="overdue">Overdue</string>
     <string name="action_taken">Action taken</string>
     <string name="date">Date</string>
     <string name="weight">Weight</string>

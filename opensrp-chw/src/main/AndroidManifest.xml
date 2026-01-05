@@ -63,6 +63,10 @@
             android:name=".activity.KvpPrEPVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.RegisterFilterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HivstRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
