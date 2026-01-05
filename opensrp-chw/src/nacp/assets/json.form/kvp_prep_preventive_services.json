@@ -221,29 +221,144 @@
         "label_text_style": "normal",
         "text_color": "#000000",
         "options": [
-          {"key": "proper_use_of_male_condom", "text": "Education on correct and consistence use of male condom", "openmrs_entity": "concept", "openmrs_entity_id": "proper_use_of_male_condom"},
-          {"key": "proper_use_of_female_condom", "text": "Education on correct and consistence use of female condom", "openmrs_entity": "concept", "openmrs_entity_id": "proper_use_of_female_condom"},
-          {"key": "demand_creation_on_condom_use", "text": "Demand creation on condom use", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_on_condom_use"},
-          {"key": "preventive_methods_against_std", "text": "STI prevention education", "openmrs_entity": "concept", "openmrs_entity_id": "preventive_methods_against_std"},
-          {"key": "excessive_alcohol_usage", "text": "Excessive alcohol use", "openmrs_entity": "concept", "openmrs_entity_id": "excessive_alcohol_usage"},
-          {"key": "education_on_hiv_prevention", "text": "Education on HIV Prevention", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hiv_prevention"},
-          {"key": "education_on_hiv_aids_art_usage", "text": "Education on HIV & AIDS ART Usage", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hiv_aids_art_usage"},
-          {"key": "demand_creation_for_hiv_self_testing", "text": "Demand creation for HIV Self-testing", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_for_hiv_self_testing"},
-          {"key": "demand_creation_for_prep", "text": "Demand creation for PrEP", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_for_prep"},
-          {"key": "education_on_the_use_of_pep", "text": "Education on the use of PEP", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_the_use_of_pep"},
-          {"key": "harm_reduction_for_pwud_pwid", "text": "Harm reduction for PWUD/PWID", "openmrs_entity": "concept", "openmrs_entity_id": "harm_reduction_for_pwud_pwid"},
-          {"key": "education_on_paraphenalia_for_PWID", "text": "Education on Paraphenalia for PWID", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_paraphenalia_for_PWID"},
-          {"key": "education_on_overdose_management", "text": "Education on Overdose Management", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_overdose_management"},
-          {"key": "education_on_hepatitis_b", "text": "Education On Hepatitis B", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hepatitis_b"},
-          {"key": "education_on_hepatitis_c", "text": "Education On Hepatitis C", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hepatitis_c"},
-          {"key": "counselling_on_tb", "text": "Counselling On TB", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_tb"},
-          {"key": "counselling_on_gbv", "text": "Counselling On GBV", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_gbv"},
-          {"key": "stigma_and_discrimination", "text": "Stigma & Discrimination", "openmrs_entity": "concept", "openmrs_entity_id": "stigma_and_discrimination"},
-          {"key": "effect_of_multiple_sexual_partners", "text": "Effect of multiple Sexual Partners", "openmrs_entity": "concept", "openmrs_entity_id": "effect_of_multiple_sexual_partners"},
-          {"key": "counselling_on_hiv_testing", "text": "Counselling on HIV Testing", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_hiv_testing"},
-          {"key": "counselling_on_need_of_health_services", "text": "Counselling on the need of health Services", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_need_of_health_servicers"},
-          {"key": "male_circumcision", "text": "Male Circumcision", "openmrs_entity": "concept", "openmrs_entity_id": "male_circumcision"},
-          {"key": "rch_services", "text": "RCH Services", "openmrs_entity": "concept", "openmrs_entity_id": "rch_services"}
+          {
+            "key": "proper_use_of_male_condom",
+            "text": "Education on correct and consistence use of male condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "proper_use_of_male_condom"
+          },
+          {
+            "key": "proper_use_of_female_condom",
+            "text": "Education on correct and consistence use of female condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "proper_use_of_female_condom"
+          },
+          {
+            "key": "demand_creation_on_condom_use",
+            "text": "Demand creation on condom use",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_on_condom_use"
+          },
+          {
+            "key": "preventive_methods_against_std",
+            "text": "STI prevention education",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_methods_against_std"
+          },
+          {
+            "key": "excessive_alcohol_usage",
+            "text": "Excessive alcohol use",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_alcohol_usage"
+          },
+          {
+            "key": "education_on_hiv_prevention",
+            "text": "Education on HIV Prevention",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hiv_prevention"
+          },
+          {
+            "key": "education_on_hiv_aids_art_usage",
+            "text": "Education on HIV & AIDS ART Usage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hiv_aids_art_usage"
+          },
+          {
+            "key": "demand_creation_for_hiv_self_testing",
+            "text": "Demand creation for HIV Self-testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_for_hiv_self_testing"
+          },
+          {
+            "key": "demand_creation_for_prep",
+            "text": "Demand creation for PrEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_for_prep"
+          },
+          {
+            "key": "education_on_the_use_of_pep",
+            "text": "Education on the use of PEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_the_use_of_pep"
+          },
+          {
+            "key": "harm_reduction_for_pwud_pwid",
+            "text": "Harm reduction for PWUD/PWID",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "harm_reduction_for_pwud_pwid"
+          },
+          {
+            "key": "education_on_paraphenalia_for_PWID",
+            "text": "Education on Paraphenalia for PWID",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_paraphenalia_for_PWID"
+          },
+          {
+            "key": "education_on_overdose_management",
+            "text": "Education on Overdose Management",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_overdose_management"
+          },
+          {
+            "key": "education_on_hepatitis_b",
+            "text": "Education On Hepatitis B",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hepatitis_b"
+          },
+          {
+            "key": "education_on_hepatitis_c",
+            "text": "Education On Hepatitis C",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hepatitis_c"
+          },
+          {
+            "key": "counselling_on_tb",
+            "text": "Counselling On TB",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_tb"
+          },
+          {
+            "key": "counselling_on_gbv",
+            "text": "Counselling On GBV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_gbv"
+          },
+          {
+            "key": "stigma_and_discrimination",
+            "text": "Stigma & Discrimination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stigma_and_discrimination"
+          },
+          {
+            "key": "effect_of_multiple_sexual_partners",
+            "text": "Effect of multiple Sexual Partners",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effect_of_multiple_sexual_partners"
+          },
+          {
+            "key": "counselling_on_hiv_testing",
+            "text": "Counselling on HIV Testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_hiv_testing"
+          },
+          {
+            "key": "counselling_on_need_of_health_services",
+            "text": "Counselling on the need of health Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_need_of_health_servicers"
+          },
+          {
+            "key": "male_circumcision",
+            "text": "Male Circumcision",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_circumcision"
+          },
+          {
+            "key": "rch_services",
+            "text": "RCH Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rch_services"
+          }
         ],
         "v_required": {
           "value": true,
@@ -264,11 +379,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on correct and consistence use of male condom",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["proper_use_of_male_condom"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "proper_use_of_male_condom"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -279,11 +411,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on correct and consistence use of female condom",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["proper_use_of_female_condom"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "proper_use_of_female_condom"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -294,11 +443,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Demand creation on condom use",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_on_condom_use"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_on_condom_use"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -309,11 +475,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for STI prevention education",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["preventive_methods_against_std"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "preventive_methods_against_std"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -324,11 +507,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Excessive alcohol use",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["excessive_alcohol_usage"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "excessive_alcohol_usage"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -339,11 +539,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on HIV Prevention",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hiv_prevention"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hiv_prevention"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -354,11 +571,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on HIV & AIDS ART Usage",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hiv_aids_art_usage"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hiv_aids_art_usage"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -369,11 +603,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Demand creation for HIV Self-testing",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_for_hiv_self_testing"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_for_hiv_self_testing"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -384,11 +635,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Demand creation for PrEP",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_for_prep"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_for_prep"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -399,11 +667,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on the use of PEP",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_the_use_of_pep"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_the_use_of_pep"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -414,11 +699,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Harm reduction for PWUD/PWID",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["harm_reduction_for_pwud_pwid"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "harm_reduction_for_pwud_pwid"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -429,11 +731,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on Paraphenalia for PWID",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_paraphenalia_for_PWID"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_paraphenalia_for_PWID"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -444,11 +763,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education on Overdose Management",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_overdose_management"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_overdose_management"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -459,11 +795,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education On Hepatitis B",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hepatitis_b"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hepatitis_b"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -474,11 +827,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Education On Hepatitis C",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hepatitis_c"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hepatitis_c"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -489,11 +859,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Counselling On TB",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_tb"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_tb"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -504,11 +891,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Counselling On GBV",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_gbv"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_gbv"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -519,11 +923,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Stigma & Discrimination",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["stigma_and_discrimination"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "stigma_and_discrimination"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -534,11 +955,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Effect of multiple Sexual Partners",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["effect_of_multiple_sexual_partners"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "effect_of_multiple_sexual_partners"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -549,11 +987,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Counselling on HIV Testing",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_hiv_testing"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_hiv_testing"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -564,11 +1019,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Counselling on the need of health Services",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_need_of_health_services"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_need_of_health_services"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -579,11 +1051,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for Male Circumcision",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["male_circumcision"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_circumcision"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -594,11 +1083,28 @@
         "type": "edit_text",
         "hint": "Number of leaflets for RCH Services",
         "edit_type": "number",
-        "v_numeric": {"value": "true", "err": "Must be a number"},
-        "v_required": {"value": "true", "err": "Please provide number distributed"},
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"},
-          "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["rch_services"]}]}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "rch_services"
+                ]
+              }
+            ]
+          }
         }
       },
       {

@@ -191,10 +191,25 @@
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {"key": "yes", "text": "Ndiyo", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
-          {"key": "no", "text": "Hapana", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
         ],
-        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"}
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
       },
       {
         "key": "leaflet_topics_provided",
@@ -207,58 +222,891 @@
         "label_text_style": "normal",
         "text_color": "#000000",
         "options": [
-          {"key": "proper_use_of_male_condom", "text": "Matumizi sahihi ya Kondomu za kiume", "openmrs_entity": "concept", "openmrs_entity_id": "proper_use_of_male_condom"},
-          {"key": "proper_use_of_female_condom", "text": "Matumizi sahihi ya Kondomu za kike", "openmrs_entity": "concept", "openmrs_entity_id": "proper_use_of_female_condom"},
-          {"key": "demand_creation_on_condom_use", "text": "Ushawishi wa matumizi ya kondomu", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_on_condom_use"},
-          {"key": "preventive_methods_against_std", "text": "Njia za kujikinga na magonjwa ya ngono", "openmrs_entity": "concept", "openmrs_entity_id": "preventive_methods_against_std"},
-          {"key": "excessive_alcohol_usage", "text": "Matumizi ya pombe kupita kiwango", "openmrs_entity": "concept", "openmrs_entity_id": "excessive_alcohol_usage"},
-          {"key": "education_on_hiv_prevention", "text": "Elimu juu ya kuzuia maambukizi ya VVU", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hiv_prevention"},
-          {"key": "education_on_hiv_aids_art_usage", "text": "Elimu ya matumizi ya dawa za ART", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hiv_aids_art_usage"},
-          {"key": "demand_creation_for_hiv_self_testing", "text": "Kutengeneza uhitaji wa huduma ya JIPIME", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_for_hiv_self_testing"},
-          {"key": "demand_creation_for_prep", "text": "Kutengeneza uhitaji wa huduma ya dawa kinga", "openmrs_entity": "concept", "openmrs_entity_id": "demand_creation_for_prep"},
-          {"key": "education_on_the_use_of_pep", "text": "Elimu ya matumizi ya dawa za PEP", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_the_use_of_pep"},
-          {"key": "harm_reduction_for_pwud_pwid", "text": "Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya", "openmrs_entity": "concept", "openmrs_entity_id": "harm_reduction_for_pwud_pwid"},
-          {"key": "education_on_paraphenalia_for_PWID", "text": "Elimu juu ya vifaa vya wajidunga", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_paraphenalia_for_PWID"},
-          {"key": "education_on_overdose_management", "text": "Elimu kuhusu matumizi ya kupindukia ya dawa", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_overdose_management"},
-          {"key": "education_on_hepatitis_b", "text": "Elimu ya Homa ya Ini B", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hepatitis_b"},
-          {"key": "education_on_hepatitis_c", "text": "Elimu ya Homa ya Ini C", "openmrs_entity": "concept", "openmrs_entity_id": "education_on_hepatitis_c"},
-          {"key": "counselling_on_tb", "text": "Ushauri wa Kifua kikuu", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_tb"},
-          {"key": "counselling_on_gbv", "text": "Ushauri wa Ukatili wa kijinsia", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_gbv"},
-          {"key": "stigma_and_discrimination", "text": "Unyanyapaa na kutengwa", "openmrs_entity": "concept", "openmrs_entity_id": "stigma_and_discrimination"},
-          {"key": "effect_of_multiple_sexual_partners", "text": "Mahusiano ya wapenzi wengi na athari zake", "openmrs_entity": "concept", "openmrs_entity_id": "effect_of_multiple_sexual_partners"},
-          {"key": "counselling_on_hiv_testing", "text": "Mahusiano ya wapenzi wengi na athari zake", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_hiv_testing"},
-          {"key": "counselling_on_need_of_health_services", "text": "Ushari wa upimaji wa VVU", "openmrs_entity": "concept", "openmrs_entity_id": "counselling_on_need_of_health_servicers"},
-          {"key": "male_circumcision", "text": "TOHARA kinga kwa wanaume", "openmrs_entity": "concept", "openmrs_entity_id": "male_circumcision"},
-          {"key": "rch_services", "text": "Huduma za mama na mtoto", "openmrs_entity": "concept", "openmrs_entity_id": "rch_services"}
+          {
+            "key": "proper_use_of_male_condom",
+            "text": "Matumizi sahihi ya Kondomu za kiume",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "proper_use_of_male_condom"
+          },
+          {
+            "key": "proper_use_of_female_condom",
+            "text": "Matumizi sahihi ya Kondomu za kike",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "proper_use_of_female_condom"
+          },
+          {
+            "key": "demand_creation_on_condom_use",
+            "text": "Ushawishi wa matumizi ya kondomu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_on_condom_use"
+          },
+          {
+            "key": "preventive_methods_against_std",
+            "text": "Njia za kujikinga na magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_methods_against_std"
+          },
+          {
+            "key": "excessive_alcohol_usage",
+            "text": "Matumizi ya pombe kupita kiwango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "excessive_alcohol_usage"
+          },
+          {
+            "key": "education_on_hiv_prevention",
+            "text": "Elimu juu ya kuzuia maambukizi ya VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hiv_prevention"
+          },
+          {
+            "key": "education_on_hiv_aids_art_usage",
+            "text": "Elimu ya matumizi ya dawa za ART",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hiv_aids_art_usage"
+          },
+          {
+            "key": "demand_creation_for_hiv_self_testing",
+            "text": "Kutengeneza uhitaji wa huduma ya JIPIME",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_for_hiv_self_testing"
+          },
+          {
+            "key": "demand_creation_for_prep",
+            "text": "Kutengeneza uhitaji wa huduma ya dawa kinga",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "demand_creation_for_prep"
+          },
+          {
+            "key": "education_on_the_use_of_pep",
+            "text": "Elimu ya matumizi ya dawa za PEP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_the_use_of_pep"
+          },
+          {
+            "key": "harm_reduction_for_pwud_pwid",
+            "text": "Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "harm_reduction_for_pwud_pwid"
+          },
+          {
+            "key": "education_on_paraphenalia_for_PWID",
+            "text": "Elimu juu ya vifaa vya wajidunga",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_paraphenalia_for_PWID"
+          },
+          {
+            "key": "education_on_overdose_management",
+            "text": "Elimu kuhusu matumizi ya kupindukia ya dawa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_overdose_management"
+          },
+          {
+            "key": "education_on_hepatitis_b",
+            "text": "Elimu ya Homa ya Ini B",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hepatitis_b"
+          },
+          {
+            "key": "education_on_hepatitis_c",
+            "text": "Elimu ya Homa ya Ini C",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_hepatitis_c"
+          },
+          {
+            "key": "counselling_on_tb",
+            "text": "Ushauri wa Kifua kikuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_tb"
+          },
+          {
+            "key": "counselling_on_gbv",
+            "text": "Ushauri wa Ukatili wa kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_gbv"
+          },
+          {
+            "key": "stigma_and_discrimination",
+            "text": "Unyanyapaa na kutengwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stigma_and_discrimination"
+          },
+          {
+            "key": "effect_of_multiple_sexual_partners",
+            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effect_of_multiple_sexual_partners"
+          },
+          {
+            "key": "counselling_on_hiv_testing",
+            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_hiv_testing"
+          },
+          {
+            "key": "counselling_on_need_of_health_services",
+            "text": "Ushari wa upimaji wa VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling_on_need_of_health_servicers"
+          },
+          {
+            "key": "male_circumcision",
+            "text": "TOHARA kinga kwa wanaume",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_circumcision"
+          },
+          {
+            "key": "rch_services",
+            "text": "Huduma za mama na mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rch_services"
+          }
         ],
-        "v_required": {"value": true, "err": "Tafadhali chagua angalau mada moja"},
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali chagua angalau mada moja"
+        },
         "relevance": {
-          "step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
-      {"key": "leaflets_proper_use_of_male_condom_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_proper_use_of_male_condom_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Matumizi sahihi ya Kondomu za kiume", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["proper_use_of_male_condom"]}]}}},
-      {"key": "leaflets_proper_use_of_female_condom_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_proper_use_of_female_condom_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Matumizi sahihi ya Kondomu za kike", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["proper_use_of_female_condom"]}]}}},
-      {"key": "leaflets_demand_creation_on_condom_use_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_demand_creation_on_condom_use_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Ushawishi wa matumizi ya kondomu", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_on_condom_use"]}]}}},
-      {"key": "leaflets_preventive_methods_against_std_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_preventive_methods_against_std_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Njia za kujikinga na magonjwa ya ngono", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["preventive_methods_against_std"]}]}}},
-      {"key": "leaflets_excessive_alcohol_usage_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_excessive_alcohol_usage_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Matumizi ya pombe kupita kiwango", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["excessive_alcohol_usage"]}]}}},
-      {"key": "leaflets_education_on_hiv_prevention_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_hiv_prevention_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu juu ya kuzuia maambukizi ya VVU", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hiv_prevention"]}]}}},
-      {"key": "leaflets_education_on_hiv_aids_art_usage_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_hiv_aids_art_usage_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu ya matumizi ya dawa za ART", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hiv_aids_art_usage"]}]}}},
-      {"key": "leaflets_demand_creation_for_hiv_self_testing_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_demand_creation_for_hiv_self_testing_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Kutengeneza uhitaji wa huduma ya JIPIME", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_for_hiv_self_testing"]}]}}},
-      {"key": "leaflets_demand_creation_for_prep_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_demand_creation_for_prep_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Kutengeneza uhitaji wa huduma ya dawa kinga", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["demand_creation_for_prep"]}]}}},
-      {"key": "leaflets_education_on_the_use_of_pep_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_the_use_of_pep_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu ya matumizi ya dawa za PEP", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_the_use_of_pep"]}]}}},
-      {"key": "leaflets_harm_reduction_for_pwud_pwid_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_harm_reduction_for_pwud_pwid_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["harm_reduction_for_pwud_pwid"]}]}}},
-      {"key": "leaflets_education_on_paraphenalia_for_pwid_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_paraphenalia_for_pwid_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu juu ya vifaa vya wajidunga", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_paraphenalia_for_PWID"]}]}}},
-      {"key": "leaflets_education_on_overdose_management_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_overdose_management_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu kuhusu matumizi ya kupindukia ya dawa", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_overdose_management"]}]}}},
-      {"key": "leaflets_education_on_hepatitis_b_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_hepatitis_b_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu ya Homa ya Ini B", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hepatitis_b"]}]}}},
-      {"key": "leaflets_education_on_hepatitis_c_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_education_on_hepatitis_c_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Elimu ya Homa ya Ini C", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["education_on_hepatitis_c"]}]}}},
-      {"key": "leaflets_counselling_on_tb_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_counselling_on_tb_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Ushauri wa Kifua kikuu", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_tb"]}]}}},
-      {"key": "leaflets_counselling_on_gbv_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_counselling_on_gbv_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Ushauri wa Ukatili wa kijinsia", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_gbv"]}]}}},
-      {"key": "leaflets_stigma_and_discrimination_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_stigma_and_discrimination_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Unyanyapaa na kutengwa", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["stigma_and_discrimination"]}]}}},
-      {"key": "leaflets_effect_of_multiple_sexual_partners_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_effect_of_multiple_sexual_partners_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Mahusiano ya wapenzi wengi na athari zake", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["effect_of_multiple_sexual_partners"]}]}}},
-      {"key": "leaflets_counselling_on_hiv_testing_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_counselling_on_hiv_testing_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Mahusiano ya wapenzi wengi na athari zake", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_hiv_testing"]}]}}},
-      {"key": "leaflets_counselling_on_need_of_health_services_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_counselling_on_need_of_health_services_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Ushari wa upimaji wa VVU", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["counselling_on_need_of_health_services"]}]}}},
-      {"key": "leaflets_male_circumcision_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_male_circumcision_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya TOHARA kinga kwa wanaume", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["male_circumcision"]}]}}},
-      {"key": "leaflets_rch_services_count", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "leaflets_rch_services_count", "type": "edit_text", "hint": "Idadi ya vipeperushi vya Huduma za mama na mtoto", "edit_type": "number", "v_numeric": {"value": "true", "err": "Lazima iwe namba"}, "v_required": {"value": "true", "err": "Tafadhali jaza idadi"}, "relevance": {"step1:client_received_leaflet": {"type": "string", "ex": "equalTo(., \"yes\")"}, "step1:leaflet_topics_provided": {"ex-checkbox": [{"or": ["rch_services"]}]}}}
+      {
+        "key": "leaflets_proper_use_of_male_condom_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_proper_use_of_male_condom_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Matumizi sahihi ya Kondomu za kiume",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "proper_use_of_male_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_proper_use_of_female_condom_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_proper_use_of_female_condom_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Matumizi sahihi ya Kondomu za kike",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "proper_use_of_female_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_demand_creation_on_condom_use_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_demand_creation_on_condom_use_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Ushawishi wa matumizi ya kondomu",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_on_condom_use"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_preventive_methods_against_std_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_preventive_methods_against_std_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Njia za kujikinga na magonjwa ya ngono",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "preventive_methods_against_std"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_excessive_alcohol_usage_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_excessive_alcohol_usage_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Matumizi ya pombe kupita kiwango",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "excessive_alcohol_usage"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_hiv_prevention_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_hiv_prevention_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu juu ya kuzuia maambukizi ya VVU",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hiv_prevention"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_hiv_aids_art_usage_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_hiv_aids_art_usage_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu ya matumizi ya dawa za ART",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hiv_aids_art_usage"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_demand_creation_for_hiv_self_testing_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_demand_creation_for_hiv_self_testing_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Kutengeneza uhitaji wa huduma ya JIPIME",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_for_hiv_self_testing"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_demand_creation_for_prep_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_demand_creation_for_prep_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Kutengeneza uhitaji wa huduma ya dawa kinga",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "demand_creation_for_prep"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_the_use_of_pep_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_the_use_of_pep_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu ya matumizi ya dawa za PEP",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_the_use_of_pep"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_harm_reduction_for_pwud_pwid_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_harm_reduction_for_pwud_pwid_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "harm_reduction_for_pwud_pwid"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_paraphenalia_for_pwid_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_paraphenalia_for_pwid_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu juu ya vifaa vya wajidunga",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_paraphenalia_for_PWID"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_overdose_management_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_overdose_management_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu kuhusu matumizi ya kupindukia ya dawa",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_overdose_management"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_hepatitis_b_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_hepatitis_b_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu ya Homa ya Ini B",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hepatitis_b"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_education_on_hepatitis_c_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_education_on_hepatitis_c_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Elimu ya Homa ya Ini C",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "education_on_hepatitis_c"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_counselling_on_tb_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_counselling_on_tb_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Ushauri wa Kifua kikuu",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_tb"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_counselling_on_gbv_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_counselling_on_gbv_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Ushauri wa Ukatili wa kijinsia",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_gbv"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_stigma_and_discrimination_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_stigma_and_discrimination_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Unyanyapaa na kutengwa",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "stigma_and_discrimination"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_effect_of_multiple_sexual_partners_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_effect_of_multiple_sexual_partners_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Mahusiano ya wapenzi wengi na athari zake",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "effect_of_multiple_sexual_partners"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_counselling_on_hiv_testing_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_counselling_on_hiv_testing_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Mahusiano ya wapenzi wengi na athari zake",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_hiv_testing"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_counselling_on_need_of_health_services_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_counselling_on_need_of_health_services_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Ushari wa upimaji wa VVU",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling_on_need_of_health_services"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_male_circumcision_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_male_circumcision_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya TOHARA kinga kwa wanaume",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_circumcision"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leaflets_rch_services_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "leaflets_rch_services_count",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vya Huduma za mama na mtoto",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Lazima iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi"
+        },
+        "relevance": {
+          "step1:client_received_leaflet": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          },
+          "step1:leaflet_topics_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "rch_services"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "protective_items_for_PWID_label",
