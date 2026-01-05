@@ -182,6 +182,27 @@
         }
       },
       {
+        "key": "received_prep_last_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "received_prep_last_facility",
+        "label": "Was the client given PrEP in their last facility visit?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_prep_last_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "client_received_leaflet",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

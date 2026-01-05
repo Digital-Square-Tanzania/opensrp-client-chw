@@ -183,6 +183,27 @@
         }
       },
       {
+        "key": "received_prep_last_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "received_prep_last_facility",
+        "label": "Je, mteja alipatiwa PrEP kwenye ziara yake ya mwisho kituoni?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_prep_last_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "client_received_leaflet",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
