@@ -1,139 +1,138 @@
 ---
-# Relevance rules for leaflet topic counts
-- name: step1_leaflets_proper_use_of_male_condom_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('proper_use_of_male_condom')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_proper_use_of_female_condom_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('proper_use_of_female_condom')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_demand_creation_on_condom_use_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_on_condom_use')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_preventive_methods_against_std_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('preventive_methods_against_std')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_excessive_alcohol_usage_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('excessive_alcohol_usage')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_hiv_prevention_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hiv_prevention')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_hiv_aids_art_usage_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hiv_aids_art_usage')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_demand_creation_for_hiv_self_testing_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_for_hiv_self_testing')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_demand_creation_for_prep_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_for_prep')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_the_use_of_pep_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_the_use_of_pep')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_harm_reduction_for_pwud_pwid_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('harm_reduction_for_pwud_pwid')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_paraphenalia_for_PWID_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_paraphenalia_for_PWID')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_overdose_management_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_overdose_management')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_hepatitis_b_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hepatitis_b')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_education_on_hepatitis_c_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hepatitis_c')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_counselling_on_tb_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_tb')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_counselling_on_gbv_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_gbv')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_stigma_and_discrimination_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('stigma_and_discrimination')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_effect_of_multiple_sexual_partners_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('effect_of_multiple_sexual_partners')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_counselling_on_hiv_testing_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_hiv_testing')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_counselling_on_need_of_health_services_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_need_of_health_services')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_male_circumcision_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('male_circumcision')"
-  actions:
-    - "isRelevant = true"
-
-- name: step1_leaflets_rch_services_count
-  priority: 1
-  condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('rch_services')"
-  actions:
-    - "isRelevant = true"
+name: step1_leaflets_proper_use_of_male_condom_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('proper_use_of_male_condom')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_proper_use_of_female_condom_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('proper_use_of_female_condom')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_demand_creation_on_condom_use_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_on_condom_use')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_preventive_methods_against_std_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('preventive_methods_against_std')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_excessive_alcohol_usage_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('excessive_alcohol_usage')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_hiv_prevention_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hiv_prevention')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_hiv_aids_art_usage_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hiv_aids_art_usage')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_demand_creation_for_hiv_self_testing_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_for_hiv_self_testing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_demand_creation_for_prep_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('demand_creation_for_prep')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_the_use_of_pep_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_the_use_of_pep')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_harm_reduction_for_pwud_pwid_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('harm_reduction_for_pwud_pwid')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_paraphenalia_for_PWID_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_paraphenalia_for_PWID')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_overdose_management_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_overdose_management')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_hepatitis_b_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hepatitis_b')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_education_on_hepatitis_c_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('education_on_hepatitis_c')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_counselling_on_tb_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_tb')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_counselling_on_gbv_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_gbv')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_stigma_and_discrimination_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('stigma_and_discrimination')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_effect_of_multiple_sexual_partners_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('effect_of_multiple_sexual_partners')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_counselling_on_hiv_testing_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet.equalsIgnoreCase('yes') && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_hiv_testing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_counselling_on_need_of_health_services_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet == 'yes' && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('counselling_on_need_of_health_services')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_male_circumcision_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet == 'yes' && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('male_circumcision')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_leaflets_rch_services_count
+priority: 1
+condition: "step1_client_received_leaflet != null && step1_client_received_leaflet == 'yes' && step1_leaflet_topics_provided != null && step1_leaflet_topics_provided.contains('rch_services')"
+actions:
+  - "isRelevant = true"
