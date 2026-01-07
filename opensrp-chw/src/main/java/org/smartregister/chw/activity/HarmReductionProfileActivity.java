@@ -37,11 +37,6 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     @Override
-    public void openTbContactFollowUpVisit() {
-        // no-op
-    }
-
-    @Override
     public void openRecordClientVisit() {
         HarmReductionVisitActivity.startHarmReductionVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
