@@ -51,6 +51,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Structural Services",
     "display_back_button": "true",
