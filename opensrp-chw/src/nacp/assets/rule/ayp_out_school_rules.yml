@@ -40,3 +40,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation =  step2_parent_maternal_status.equalsIgnoreCase('no') ? step2_parental_status_parent_not_alive : step2_parental_status_parent_alive"
+---
+name: step1_client_received_sanitary_pads
+description: Rule to control the visibility of (step1_client_received_sanitary_pads)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female')"
+actions:
+  - "isRelevant = true "
