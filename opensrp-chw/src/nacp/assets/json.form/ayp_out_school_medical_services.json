@@ -51,6 +51,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Medical Services",
     "display_back_button": "true",
@@ -627,7 +628,7 @@
         "relevance": {
           "step1:linked_to_prep_services": {
             "type": "string",
-            "ex": "equalTo(., \"yes\")"
+            "ex": "equalTo(., \"no\")"
           }
         }
       }

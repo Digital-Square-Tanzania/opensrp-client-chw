@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.dao.AypDao.isAypOutSchoolServiceToday;
 import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
 import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -128,6 +130,10 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
                 textViewVisitDoneEdit.setOnClickListener(v -> startHivstRegistration());
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
+        }
+
+        if(isAypOutSchoolServiceToday(memberObject.getBaseEntityId())) {
+            textViewRecordayp.setVisibility(View.GONE);
         }
     }
 
