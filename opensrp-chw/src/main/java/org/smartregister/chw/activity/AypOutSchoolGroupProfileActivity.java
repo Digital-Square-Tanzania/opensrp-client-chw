@@ -102,6 +102,15 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
         try {
             String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
             String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
+            AypOutSchoolGroupDetailsRepository repo = new AypOutSchoolGroupDetailsRepository();
+            AypInSchoolGroupDetails rec = repo.getByBaseEntityId(groupId);
+
+            String ageBand = localizeAgeBand(rec.getAgeBand());
+
+            String[] parts = ageBand.split("-");
+            int ageFrom = Integer.parseInt(parts[0]);
+            int ageTo   = Integer.parseInt(parts[1]);
+
             if (groupId == null) return;
 
             // Members already in this group
@@ -123,7 +132,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             }
 
             // All members eligible to join
-            List<MemberObject> all = AypDao.getOutSchoolMembers();
+            List<MemberObject> all = AypDao.getOutSchoolMembers(ageFrom,ageTo);
             List<MemberObject> eligible = new ArrayList<>();
             for (MemberObject m : all) {
                 if (!existing.contains(m.getBaseEntityId())) eligible.add(m);
