@@ -47,3 +47,24 @@ priority: 1
 condition: "global_gender.equalsIgnoreCase('Female')"
 actions:
   - "isRelevant = true "
+---
+name: step1_contraceptive_method_used_female
+description: Rule to control the visibility of (step1_contraceptive_method_used_female)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female') && step1_family_planning.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_contraceptive_method_used_male
+description: Rule to control the visibility of (step1_contraceptive_method_used_male)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Male') && step1_family_planning.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_contraceptive_method_used
+description: Rule to control the value of (step1_contraceptive_method_used)
+priority: 1
+condition: "true"
+actions:
+  - "calculation =  global_gender.equalsIgnoreCase('Female') ? step1_contraceptive_method_used_female : step1_contraceptive_method_used_male"

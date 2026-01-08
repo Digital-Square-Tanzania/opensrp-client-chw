@@ -115,7 +115,8 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
 
             // Members already in this group
             Set<String> existing = new HashSet<>();
-            List<MemberObject> existingMembers = AypDao.getOutSchoolGroupMembers(groupId);
+            List<MemberObject> existingMembers = AypDao.getOutSchoolGroupMembers();
+
             for (MemberObject memberObject : existingMembers) {
                 existing.add(memberObject.getBaseEntityId());
             }

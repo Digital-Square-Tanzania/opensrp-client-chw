@@ -65,6 +65,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "identification_of_organizations_key_people_and_safe_meeting_places",
@@ -185,6 +188,12 @@
             "text": "Distribution of health education leaflets",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "distribution_of_health_education_leaflets"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {

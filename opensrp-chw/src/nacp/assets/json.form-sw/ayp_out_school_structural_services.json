@@ -157,6 +157,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "entrepreneurial_skills_in_group",
@@ -229,6 +232,12 @@
             "text": "Msaada wa kupata vitambulisho vya Taifa (cheti cha kuzaliwa, NIDA)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "assistance_in_obtaining_national_ids"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -326,7 +335,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_received_sanitary_pads",
         "type": "native_radio",
-        "label": "Je, mteja amepokea pad za usafi wa kike?",
+        "label": "Je, mteja amepokea pedi za kike?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [

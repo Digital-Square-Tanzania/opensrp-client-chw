@@ -99,6 +99,35 @@
         }
       },
       {
+        "key": "condoms_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condoms_given",
+        "label": "Was the client given condoms?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
         "key": "condom_distribution",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -121,7 +150,17 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "step1:condoms_given": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "number_of_male_condom",
@@ -135,6 +174,19 @@
           "value": "true",
           "err": "Please fill"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "The value should be less than to 1000"
+        },
+        "maxLength": 3,
         "relevance": {
           "step1:condom_distribution": {
             "ex-checkbox": [
@@ -159,6 +211,19 @@
           "value": "true",
           "err": "Please fill"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 999,
+          "err": "The value should be less than to 1000"
+        },
+        "maxLength": 3,
         "relevance": {
           "step1:condom_distribution": {
             "ex-checkbox": [
@@ -275,10 +340,10 @@
         }
       },
       {
-        "key": "contraceptive_method_used",
+        "key": "contraceptive_method_used_female",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "contraceptive_method_used",
+        "openmrs_entity_id": "contraceptive_method_used_female",
         "type": "native_radio",
         "label": "Contraceptive method used",
         "options": [
@@ -330,9 +395,66 @@
           "err": "Please fill"
         },
         "relevance": {
-          "step1:family_planning": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "contraceptive_method_used_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "contraceptive_method_used_male",
+        "type": "native_radio",
+        "label": "Contraceptive method used",
+        "options": [
+          {
+            "key": "vasectomy",
+            "text": "Vasectomy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vasectomy"
+          },
+          {
+            "key": "condom",
+            "text": "Condom",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "condom"
+          },
+          {
+            "key": "none",
+            "text": "Not using any method",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please fill"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "contraceptive_method_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "contraceptive_method_used",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
       },
