@@ -170,7 +170,7 @@
         "openmrs_entity_id": "number_of_male_condom",
         "type": "edit_text",
         "hint": "Number of male condoms (Pieces)",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Please fill"
@@ -207,7 +207,7 @@
         "openmrs_entity_id": "number_of_female_condom",
         "type": "edit_text",
         "hint": "Number of female condoms (Pieces)",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Please fill"

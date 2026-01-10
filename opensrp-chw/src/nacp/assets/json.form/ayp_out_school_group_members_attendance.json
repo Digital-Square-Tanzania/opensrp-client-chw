@@ -46,6 +46,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Group Members Attendance",
     "fields": [
@@ -79,12 +80,26 @@
         ]
       },
       {
+        "key": "member_names",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "member_names",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "member_attendance_toaster_info",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please select five or more than five members",
+        "text": "Please select two or more than two members",
         "toaster_type": "problem",
         "text_color": "#CF0800",
         "relevance": {

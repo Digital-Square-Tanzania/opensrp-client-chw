@@ -619,6 +619,11 @@
     <string name="ayp_received_hpv_vaccine">Received hpv vaccine:</string>
     <string name="ayp_referred_for_hiv_test">Referred for hiv test:</string>
 
+    <string name="ayp_provided_sbc_service">sbc services:</string>
+    <string name="ayp_choose_sbc_service_provided">sbc service provided:</string>
+    <string name="ayp_member_names">Members Present:</string>
+    <string name="ayp_choose_economic_empowerment_services">economic empowerment services:</string>
+
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>
     <string name="hps_annual_reports_title">iCCHW ANNUAL REPORTS</string>

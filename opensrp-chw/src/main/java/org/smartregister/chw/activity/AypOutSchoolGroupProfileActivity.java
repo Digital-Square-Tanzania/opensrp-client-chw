@@ -1,7 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.toList;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,22 +11,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.smartregister.chw.ayp.domain.MemberObject;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-import com.vijay.jsonwizard.utils.FormUtils;
-
-import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.ayp.AypLibrary;
-import org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity;
 import org.smartregister.chw.ayp.activity.BaseAypOutGroupProfileActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.GroupObject;
-import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.AypJsonFormUtils;
 import org.smartregister.chw.ayp.util.AypVisitsUtil;
@@ -34,6 +27,7 @@ import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.ayp.util.JsonFormUtils;
 import org.smartregister.chw.ayp.util.NCUtils;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
+import org.smartregister.chw.domain.AypInSchoolGroupListItem;
 import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
 import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.clientandeventmodel.Event;
@@ -52,11 +46,19 @@ import timber.log.Timber;
 
 public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActivity {
 
-    public static void start(Context context, String groupId, String groupName) {
+    static AypInSchoolGroupListItem groupListItem;
+
+    public static void start(Context context, String groupId, String groupName, AypInSchoolGroupListItem item) {
+        groupListItem = item;
         Intent intent = new Intent(context, AypOutSchoolGroupProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID, groupId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME, groupName);
         context.startActivity(intent);
+    }
+
+    private Visit getVisit(String eventType) {
+        String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
+        return AypLibrary.getInstance().visitRepository().getLatestVisit(groupId, eventType);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
         try {
             String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
             String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
-            AypOutSchoolGroupVisitActivity.startAypOutSchoolGroupVisitActivity(this, UUID.randomUUID().toString(), false, groupId, groupName);
+            AypOutSchoolGroupVisitActivity.startAypOutSchoolGroupVisitActivity(this, false, groupId, groupName);
         } catch (Exception ignored) {
         }
     }
@@ -341,4 +343,29 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
                 return raw;
         }
     }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        Visit lastVisit = getVisit(AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT);
+        if (lastVisit != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
+            ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        AypOutSchoolGroupMedicalHistoryActivity.startMe(this, groupListItem);
+    }
+
+    @Override
+    protected Visit getAypOutSchoolGroupVisit() {
+        String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
+        return AypLibrary.getInstance().visitRepository().getLatestVisit(groupId, Constants.EVENT_TYPE.AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT);
+    }
+
 }

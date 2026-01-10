@@ -87,7 +87,7 @@ public class AypOutSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypO
 
             // Navigate to group profile on click
             itemView.setOnClickListener(v -> {
-                org.smartregister.chw.activity.AypOutSchoolGroupProfileActivity.start(context, item.getBaseEntityId(), item.getGroupName());
+                org.smartregister.chw.activity.AypOutSchoolGroupProfileActivity.start(context, item.getBaseEntityId(), item.getGroupName(), item);
             });
         }
 

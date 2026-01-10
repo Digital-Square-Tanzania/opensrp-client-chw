@@ -112,6 +112,9 @@
             android:name=".activity.AypInSchoolClientServiceVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AypOutSchoolGroupMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AypOutSchoolClientServiceVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
