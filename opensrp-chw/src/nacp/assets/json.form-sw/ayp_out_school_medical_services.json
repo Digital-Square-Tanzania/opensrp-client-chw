@@ -51,6 +51,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Huduma za Kitabibu",
     "display_back_button": "true",
@@ -395,12 +396,12 @@
           "err": "Tafadhali jaza"
         },
         "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ayp_out_school_rules.yml"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
           }
         }
-      }
       },
       {
         "key": "contraceptive_method_used_male",
@@ -434,7 +435,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhali jaza"
+          "err": "Tafadhali Jaza"
         },
         "relevance": {
           "rules-engine": {
