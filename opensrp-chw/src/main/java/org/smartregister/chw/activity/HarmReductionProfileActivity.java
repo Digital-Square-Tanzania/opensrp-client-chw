@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,9 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.harmreduction.util.Constants;
+import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
+
+import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
 
@@ -24,6 +28,16 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     protected void setupButtons() {
         textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
         textViewRecordTbLeprosy.setText(org.smartregister.chw.harmreduction.R.string.record_harm_reduction_community_visit);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            HarmReductionVisitsUtil.processVisits();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
