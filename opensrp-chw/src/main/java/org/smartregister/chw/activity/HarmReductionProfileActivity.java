@@ -141,4 +141,10 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     public void notifyHasPhone(boolean b) {
         // no-op
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshMedicalHistory(true);
+    }
 }
