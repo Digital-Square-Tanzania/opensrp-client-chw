@@ -121,6 +121,9 @@ public class ChwRepositoryFlv {
                 case 29:
                     upgradeToVersion29(db);
                     break;
+                case 39:
+                    upgradeToVersion30(db);
+                    break;
                 default:
                     break;
             }
@@ -534,6 +537,15 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");
+        }
+    }
+
+    private static void upgradeToVersion30(SQLiteDatabase db) {
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE location ADD COLUMN status VARCHAR; ";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion30");
         }
     }
 }
