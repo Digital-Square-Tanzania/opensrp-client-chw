@@ -950,7 +950,8 @@
             "field": "eventType",
             "field_value": "Harm Reduction Follow-up Visit",
             "creates_case": [
-              "ec_harm_reduction_risk_assessment"
+              "ec_harm_reduction_risk_assessment",
+              "ec_harm_reduction_followup_visit"
             ]
           }
         ]

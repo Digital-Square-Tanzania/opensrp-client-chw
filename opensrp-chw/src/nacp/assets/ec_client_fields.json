@@ -11153,6 +11153,14 @@
           }
         },
         {
+          "column_name": "roc_consent_joining_mat_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "roc_consent_joining_mat_services"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
@@ -11165,10 +11173,17 @@
       "name": "ec_harm_reduction_followup_visit",
       "columns": [
         {
-          "column_name": "base_entity_id",
+          "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
           }
         },
         {
@@ -11537,6 +11552,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "roc_consent_joining_mat_services"
+          }
+        },
+        {
+          "column_name": "dateCreated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "dateCreated"
           }
         },
         {
