@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.harmreduction.R;
+import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
 
@@ -26,8 +28,12 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
     @Override
     protected void setupButtons() {
-        textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-        textViewRecordTbLeprosy.setText(org.smartregister.chw.harmreduction.R.string.record_harm_reduction_community_visit);
+        textViewRecordHarmReductionVisit.setVisibility(View.VISIBLE);
+        if (HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId()).equals("yes")) {
+            textViewRecordHarmReductionVisit.setText(R.string.record_pre_mat_session);
+        } else {
+            textViewRecordHarmReductionVisit.setText(R.string.record_harm_reduction_community_visit);
+        }
     }
 
     @Override
