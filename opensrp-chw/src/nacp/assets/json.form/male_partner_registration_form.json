@@ -820,9 +820,6 @@
         "label": "Occupation of the Client",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -857,7 +854,6 @@
           {
             "key": "chk_business_person",
             "text": "Business person",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },

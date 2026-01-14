@@ -979,9 +979,6 @@
         "label": "Occupation of the Client",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -1016,7 +1013,6 @@
           {
             "key": "chk_business_person",
             "text": "Business person",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },
@@ -1036,25 +1032,6 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "occupation_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "occupation_other",
-        "type": "edit_text",
-        "hint": "Other Occupation",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify role"
         },
         "relevance": {
           "rules-engine": {

@@ -817,7 +817,6 @@
           {
             "key": "chk_business_person",
             "text": "Business person",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },
