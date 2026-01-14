@@ -2,7 +2,7 @@
 name: step3_pregnancy_status
 description: Rule to control the visibility of (step3_pregnancy_status)
 priority: 1
-condition: "step3_had_sex.equalsIgnoreCase('yes') && (global_gender.equalsIgnoreCase('female') && global_age < 18)"
+condition: "step3_had_sex.equalsIgnoreCase('yes') && (global_gender.equalsIgnoreCase('Female') && global_age < 18)"
 actions:
   - "isRelevant = true "
 ---

@@ -200,6 +200,23 @@
           "value": "true",
           "err": "Please specify"
         }
+      },
+      {
+        "key": "three_sbc_service_per_day",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "three_sbc_service_per_day",
+        "type": "toaster_notes",
+        "text": "Please select maximum of 3 SBC Session",
+        "toaster_type": "problem",
+        "text_color": "#CF0800",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_group_member_attendance-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   }
