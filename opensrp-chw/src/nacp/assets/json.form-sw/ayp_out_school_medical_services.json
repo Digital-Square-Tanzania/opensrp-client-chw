@@ -382,13 +382,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "icud"
-          },
-          {
-            "key": "none",
-            "text": "Hatumii njia yoyote",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -424,13 +417,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "condom"
-          },
-          {
-            "key": "none",
-            "text": "Hatumii njia yoyote",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {

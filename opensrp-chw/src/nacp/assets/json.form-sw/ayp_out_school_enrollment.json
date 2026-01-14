@@ -597,7 +597,7 @@
           }
         ],
         "relevance": {
-          "step5:violance": {
+          "step5:aware_of_violance": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
