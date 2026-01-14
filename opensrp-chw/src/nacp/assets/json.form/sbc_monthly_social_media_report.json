@@ -201,6 +201,7 @@
         "openmrs_entity_id": "social_media_hiv_msg_distribution",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Select social media used for HIV & AIDS message distribution ",
         "hint": "Select social media used for HIV & AIDS message distribution ",
         "options": [

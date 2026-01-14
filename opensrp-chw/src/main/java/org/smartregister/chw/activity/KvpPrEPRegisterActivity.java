@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Constants.REQUEST_FILTERS;
+
 import android.app.Activity;
 import android.content.Intent;
 
@@ -23,5 +25,13 @@ public class KvpPrEPRegisterActivity extends CoreKvpRegisterActivity {
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new KvpPrEPRegisterFragment();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_FILTERS) {
+            ((KvpPrEPRegisterFragment) mBaseFragment).onFiltersUpdated(requestCode, data);
+        }
     }
 }

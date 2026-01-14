@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.smartregister</groupId>
+  <artifactId>opensrp-client-immunization</artifactId>
+  <version>2.0.1-SNAPSHOT</version>
+  <packaging>aar</packaging>
+  <name>OpenSRP Client Immnization</name>
+  <description>OpenSRP Client Immunization</description>
+  <url>https://github.com/OpenSRP/opensrp-client-immunization</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>opensrp</id>
+      <name>OpenSRP Onadev</name>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git@github.com:OpenSRP/opensrp-client-immunization.git</connection>
+    <developerConnection>scm:git@github.com:OpenSRP/opensrp-client-immunization.git</developerConnection>
+    <url>https://github.com/OpenSRP/opensrp-client-immunization</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>org.jacoco.agent</artifactId>
+      <version>0.7.9</version>
+      <classifier>runtime</classifier>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.android.support</groupId>
+      <artifactId>multidex</artifactId>
+      <version>1.0.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.smartregister</groupId>
+      <artifactId>opensrp-client-core</artifactId>
+      <version>1.10.1-SNAPSHOT</version>
+      <type>aar</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>atv</artifactId>
+          <groupId>com.github.bmelnychuk</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.smartregister</groupId>
+      <artifactId>opensrp-client-native-form</artifactId>
+      <version>1.7.32-SNAPSHOT</version>
+      <type>aar</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>recyclerview-v7</artifactId>
+          <groupId>com.android.support</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+</project>

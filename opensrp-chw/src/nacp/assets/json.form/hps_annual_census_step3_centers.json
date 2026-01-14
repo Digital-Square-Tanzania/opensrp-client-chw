@@ -53,6 +53,7 @@
         "label": "Select center category",
         "text_color": "#000000",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "government",

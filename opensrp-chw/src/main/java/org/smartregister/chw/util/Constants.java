@@ -22,9 +22,22 @@ public class Constants extends CoreConstants {
 
     public static final String ADDO_LINKAGE_PLAN_ID = "6270285b-5a3b-4647-b772-c0b3c52e2b72";
 
+    public static String FILTER_APPOINTMENT_DATE = "FILTER_APPOINTMENT_DATE";
+    public static String FILTER_APPOINTMENT_DATE_RANGE_START_DATE = "FILTER_APPOINTMENT_DATE_RANGE_START_DATE";
+    public static String FILTER_APPOINTMENT_DATE_RANGE_END_DATE = "FILTER_APPOINTMENT_DATE_RANGE_END_DATE";
+    public static String FILTER_HIV_STATUS = "FILTER_HIV_STATUS";
+    public static String FILTER_PREP_STATUS = "FILTER_PREP_STATUS";
+    public static String FILTERS_ENABLED = "FILTERS_ENABLED";
+    public static String ENABLE_HIV_STATUS_FILTER = "ENABLE_HIV_STATUS_FILTER";
+    public static String ENABLE_PREP_STATUS_FILTER = "ENABLE_PREP_STATUS_FILTER";
+    public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
+
+    public static int REQUEST_FILTERS = 2004;
+
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}
+
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
 

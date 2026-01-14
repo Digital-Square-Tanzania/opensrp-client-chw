@@ -126,16 +126,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                         cecapReports.setVisibility(View.VISIBLE);
                     }
 
-                    if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
-                        tbLeprosyReports.setVisibility(View.VISIBLE);
-                    }
-
                     if (ChwApplication.getApplicationFlavor().hasKvp()) {
                         kvpReports.setVisibility(View.VISIBLE);
-                    }
-
-                    if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                        aypOutSchoolReports.setVisibility(View.VISIBLE);
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasCdp()) {
@@ -208,6 +200,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         cecapReports.setOnClickListener(this);
         tbLeprosyReports.setOnClickListener(this);
         kvpReports.setOnClickListener(this);
+        hpsReports.setOnClickListener(this);
         aypOutSchoolReports.setOnClickListener(this);
         hpsReports.setOnClickListener(this);
     }
@@ -278,6 +271,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.kvp_reports) {
             Intent intent = new Intent(this, KvpReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.hps_reports) {
+            Intent intent = new Intent(this, HpsReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.ayp_out_school_report) {

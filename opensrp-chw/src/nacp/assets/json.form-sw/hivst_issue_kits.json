@@ -228,7 +228,7 @@
         "options": [
           {
             "key": "assisted_testing_on_site",
-            "text": "Kwa Usaidizi ktk eneo la upimaji",
+            "text": "Kwa Usaidizi katika eneo la upimaji",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "assisted_testing_on_site"

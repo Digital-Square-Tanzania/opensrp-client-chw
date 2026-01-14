@@ -367,6 +367,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -692,13 +693,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public Health Insurance (e.g. NHIF, ICHF)",
+            "text": "Public Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private Health Insurance (e.g. AAR, Jubilee, Britam)",
+            "text": "Private Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -791,8 +792,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
-        "label": "Type of disabilities",
         "combine_checkbox_option_values": "true",
+        "label": "Type of disabilities",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1030,12 +1031,6 @@
             "text": "Other",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "None",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -1070,13 +1065,32 @@
         }
       },
       {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Other Occupation",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify role"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "leader",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "A leadership role in the community",
         "combine_checkbox_option_values": "true",
+        "label": "A leadership role in the community",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

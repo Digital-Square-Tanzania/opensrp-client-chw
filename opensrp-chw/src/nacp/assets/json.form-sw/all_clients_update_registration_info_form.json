@@ -176,6 +176,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -501,13 +502,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Bima ya Afya ya Umma (mfano NHIF, ICHF)",
+            "text": "Bima ya Afya ya Umma",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Bima ya Afya Binafsi (mfano AAR, Jubilee, Britam)",
+            "text": "Bima ya Afya Binafsi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -607,7 +608,7 @@
         "options": [
           {
             "key": "physical_impairments",
-            "text": "Ulemavu wa mwendo / viungo",
+            "text": "Uhamaji na Ulemavu",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
@@ -675,6 +676,25 @@
         "v_required": {
           "value": "true",
           "err": "Tafahali ingiza aina ya ulemavu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_disabilities",
+        "type": "edit_text",
+        "hint": "Ulemavu mwingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja ulemavu mwingine"
         },
         "relevance": {
           "rules-engine": {
@@ -787,9 +807,6 @@
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -839,12 +856,6 @@
             "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "Hana Kazi",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
