@@ -29,3 +29,5 @@ kotlin-profile
 wrapper
 native
 /opensrp-chw/libs/
+android/
+android.lock
