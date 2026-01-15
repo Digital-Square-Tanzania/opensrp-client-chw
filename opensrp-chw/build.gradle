@@ -101,6 +101,7 @@ jacoco {
 }
 
 android {
+    namespace 'org.smartregister.chw'
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
