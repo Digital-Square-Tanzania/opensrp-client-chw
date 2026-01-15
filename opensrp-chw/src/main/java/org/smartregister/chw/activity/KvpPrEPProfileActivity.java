@@ -191,7 +191,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         // Check if there is a dominant KVP group and update UI accordingly
         if (StringUtils.isNotBlank(dominantKVPGroup)) {
             textViewDominantKvpGroup.setVisibility(View.VISIBLE);
-            textViewDominantKvpGroup.setText(getString(org.smartregister.kvp.R.string.dominant_kvp_group,
+            textViewDominantKvpGroup.setText(getString(R.string.dominant_kvp_group,
                     readStringResourcesWithPrefix(Arrays.asList(dominantKVPGroup), "kvp_")));
         } else {
             textViewDominantKvpGroup.setVisibility(View.GONE);
