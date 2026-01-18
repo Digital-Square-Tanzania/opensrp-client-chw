@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
@@ -34,6 +35,12 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         } else {
             textViewRecordHarmReductionVisit.setText(R.string.record_harm_reduction_community_visit);
         }
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        setupPreMatSessionsHistoryLayout();
     }
 
     @Override
@@ -74,6 +81,10 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     @Override
     public void openMedicalHistory() {
         HarmReductionVisitHistoryActivity.startMe(this, memberObject);
+    }
+
+    public void openPreMatSessionsHistory() {
+        HarmReductionPreMatSessionsHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -166,5 +177,18 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     protected void onResume() {
         super.onResume();
         refreshMedicalHistory(true);
+    }
+
+    private void setupPreMatSessionsHistoryLayout() {
+        boolean showPreMatHistory = memberObject != null
+                && StringUtils.isNotBlank(HarmReductionDao.getVisitDateForRocConsentForJoiningMatServices(memberObject.getBaseEntityId()));
+        if (rlPreMatSessionHistory != null) {
+            rlPreMatSessionHistory.setVisibility(showPreMatHistory ? View.VISIBLE : View.GONE);
+            rlPreMatSessionHistory.setOnClickListener(view -> openPreMatSessionsHistory());
+        }
+
+        if (preMatSessionRowDivider != null) {
+            preMatSessionRowDivider.setVisibility(showPreMatHistory ? View.VISIBLE : View.GONE);
+        }
     }
 }
