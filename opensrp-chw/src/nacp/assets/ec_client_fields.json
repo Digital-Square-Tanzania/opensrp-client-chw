@@ -10161,19 +10161,35 @@
           }
         },
         {
-          "column_name": "relational_id",
+          "column_name": "group_id",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "relational_id"
+            "concept": "group_id"
           }
         },
         {
-          "column_name": "members_present",
+          "column_name": "member_base_entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "members_present"
+            "concept": "member_base_entity_id"
+          }
+        },
+        {
+          "column_name": "date_added",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_added"
+          }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "provider_id"
           }
         },
         {
@@ -10198,21 +10214,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "choose_economic_empowerment_services"
-          }
-        },
-        {
-          "column_name": "next_appointment_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "next_appointment_date"
-          }
-        },
-        {
-          "column_name": "last_interacted_with",
-          "type": "Event",
-          "json_mapping": {
-            "field": "version"
           }
         }
       ]

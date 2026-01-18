@@ -464,6 +464,12 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
+            "key": "chk_passport_number",
+            "text": "Hati ya Kusafiria (Pasipoti)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport_number"
+          },
+          {
             "key": "chk_none",
             "text": "Hana",
             "openmrs_entity": "person_attribute",
@@ -521,7 +527,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
@@ -557,7 +563,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya leseni ya udereva k.m 1234567891",
         "edit_type": "number",

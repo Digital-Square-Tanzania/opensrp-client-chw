@@ -87,6 +87,13 @@
         "openmrs_entity_parent": ""
       },
       {
+        "key": "group_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_id",
+        "openmrs_entity_parent": ""
+      },
+      {
         "key": "member_attendance_toaster_info",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

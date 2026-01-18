@@ -84,14 +84,14 @@
         "type": "hidden",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "member_names",
-        "openmrs_entity_parent": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ayp_out_school_rules.yml"
-            }
-          }
-        }
+        "openmrs_entity_parent": ""
+      },
+      {
+        "key": "group_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_id",
+        "openmrs_entity_parent": ""
       },
       {
         "key": "member_attendance_toaster_info",

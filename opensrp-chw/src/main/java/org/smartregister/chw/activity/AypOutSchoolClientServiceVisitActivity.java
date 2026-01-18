@@ -69,13 +69,17 @@ public class AypOutSchoolClientServiceVisitActivity extends BaseAypVisitActivity
             BaseAypVisitAction visitTypeAction = map.get(getString(R.string.ayp_out_school_service_status));
             actionList.put(getString(R.string.ayp_out_school_service_status), visitTypeAction);
         }
-        if (map.containsKey(getString(R.string.ayp_out_school_structural_services))) {
-            BaseAypVisitAction visitTypeAction = map.get(getString(R.string.ayp_out_school_structural_services));
-            actionList.put(getString(R.string.ayp_out_school_structural_services), visitTypeAction);
+        if (map.containsKey(getString(R.string.ayp_out_school_health_and_behaviour_change_services))) {
+            BaseAypVisitAction visitTypeAction = map.get(getString(R.string.ayp_out_school_health_and_behaviour_change_services));
+            actionList.put(getString(R.string.ayp_out_school_health_and_behaviour_change_services), visitTypeAction);
         }
         if (map.containsKey(getString(R.string.ayp_out_school_medical_services))) {
             BaseAypVisitAction visitTypeAction = map.get(getString(R.string.ayp_out_school_medical_services));
             actionList.put(getString(R.string.ayp_out_school_medical_services), visitTypeAction);
+        }
+        if (map.containsKey(getString(R.string.ayp_out_school_structural_services))) {
+            BaseAypVisitAction visitTypeAction = map.get(getString(R.string.ayp_out_school_structural_services));
+            actionList.put(getString(R.string.ayp_out_school_structural_services), visitTypeAction);
         }
 
         for (Map.Entry<String, BaseAypVisitAction> entry : map.entrySet()) {

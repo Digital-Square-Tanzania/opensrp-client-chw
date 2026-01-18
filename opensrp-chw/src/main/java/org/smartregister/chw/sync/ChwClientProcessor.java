@@ -161,6 +161,15 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         Timber.e(e, "Error saving AYP Out group membership");
                     }
                     break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupFollowUpVisit(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
+                    }
+                    break;
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     if (eventClient.getClient() == null) {
                         return;
@@ -343,6 +352,33 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
     }
 
+    private void saveAypOutGroupFollowUpVisit(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            List<String> membersCsv = getObsArrayValue(event, "members_present");
+            String providedSbcService = getObsStringValue(event, "provided_sbc_service");
+            String nextAppointmentDate = getObsStringValue(event, "next_appointment_date");
+            List<String> chooseSbcServiceProvided = getObsArrayValue(event, "choose_sbc_service_provided");
+            List<String> economicEmpowermentServices = getObsArrayValue(event, "choose_economic_empowerment_services");
+
+            //to be removed, on live
+            if(groupId == null){
+                groupId = "ffa4b7e9-d4f8-414a-8e0d-7a589486dd29";
+            }
+
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = membersCsv;
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addFollowUpForMembers(groupId, ids, providerId, providedSbcService, chooseSbcServiceProvided, economicEmpowermentServices,nextAppointmentDate);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
     private String getObsStringValue(Event event, String field) {
         try {
             if (event == null || event.getObs() == null) return null;
@@ -361,4 +397,35 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
         return null;
     }
+
+    private List<String> getObsArrayValue(Event event, String field) {
+        List<String> result = new ArrayList<>();
+
+        try {
+            if (event == null || event.getObs() == null) return result;
+
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null
+                        ? o.getFormSubmissionField()
+                        : o.getFieldCode();
+
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null) {
+                        for (Object v : vals) {
+                            if (v != null) {
+                                result.add(String.valueOf(v));
+                            }
+                        }
+                    }
+                    break; // field found, stop looping
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return result;
+    }
+
 }
