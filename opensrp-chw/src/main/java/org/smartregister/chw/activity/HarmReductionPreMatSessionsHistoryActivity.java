@@ -1,7 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_FOLLOW_UP_VISIT;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +31,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,10 +71,11 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
     @Override
     public View renderView(List<Visit> visits) {
         List<Visit> filteredVisits = filterVisitsAfterMatConsent(visits);
-        super.renderView(filteredVisits);
+        List<Visit> orderedVisits = sortVisitsByDateAscending(filteredVisits);
+        super.renderView(orderedVisits);
         View view = flavor.bindViews(this);
         displayLoadingState(true);
-        flavor.processViewData(filteredVisits, this);
+        flavor.processViewData(orderedVisits, this);
         displayLoadingState(false);
         TextView visitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
         visitTitle.setText(org.smartregister.chw.harmreduction.R.string.harm_reduction_pre_mat_session_history);
@@ -101,6 +101,12 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
             }
         }
         return filteredVisits;
+    }
+
+    private List<Visit> sortVisitsByDateAscending(List<Visit> visits) {
+        List<Visit> sortedVisits = new ArrayList<>(visits);
+        sortedVisits.sort(Comparator.comparing(Visit::getDate, Comparator.nullsLast(Date::compareTo)));
+        return sortedVisits;
     }
 
     private Date getMatConsentDate() {
@@ -237,23 +243,20 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                     }
 
                     tvEdit.setOnClickListener(view1 -> {
-                        Visit visit = visits.get(0);
+                        Visit visit = visits.get(visits.size() - 1);
                         if (visit.getBaseEntityId() != null) {
                             ((Activity) context).finish();
                             HarmReductionVisitActivity.startHarmReductionVisitActivity((Activity) context, visit.getBaseEntityId(), true);
                         }
                     });
 
-                    String visitType = visits.get(x).getVisitType();
-                    if (HARM_REDUCTION_FOLLOW_UP_VISIT.equals(visitType)) {
-                        visitType = context.getString(org.smartregister.chw.harmreduction.R.string.harm_reduction_pre_mat_session);
-                    }
-                    tvTypeOfService.setText(String.format("%s - %s", visitType, simpleDateFormat.format(visits.get(x).getDate())));
+                    String visitDateString = simpleDateFormat.format(visits.get(x).getDate());
+                    String contactLabel = getContactLabel(x);
+                    tvTypeOfService.setText(String.format(Locale.getDefault(), "%s CONTACT - %s", contactLabel, visitDateString));
 
                     for (LinkedHashMap.Entry<String, String> entry : vals.entrySet()) {
                         TextView visitDetailTv = new TextView(context);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                         visitDetailTv.setLayoutParams(params);
                         float scale = context.getResources().getDisplayMetrics().density;
@@ -268,7 +271,7 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                             Timber.e(e);
                         }
                     }
-                    linearLayoutHealthFacilityVisitDetails.addView(view, 0);
+                    linearLayoutHealthFacilityVisitDetails.addView(view);
                     x++;
                 }
             }
@@ -310,6 +313,34 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
             } catch (Exception e) {
                 Timber.e(e);
                 return resourceName;
+            }
+        }
+
+        private String getContactLabel(int visitIndex) {
+            String[] ordinals = {"FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH", "NINTH", "TENTH"};
+            if (visitIndex >= 0 && visitIndex < ordinals.length) {
+                return ordinals[visitIndex];
+            }
+
+            int contactNumber = visitIndex + 1;
+            return String.format(Locale.getDefault(), "%d%s", contactNumber, getOrdinalSuffix(contactNumber)).toUpperCase(Locale.getDefault());
+        }
+
+        private String getOrdinalSuffix(int number) {
+            int mod100 = number % 100;
+            if (mod100 >= 11 && mod100 <= 13) {
+                return "th";
+            }
+
+            switch (number % 10) {
+                case 1:
+                    return "st";
+                case 2:
+                    return "nd";
+                case 3:
+                    return "rd";
+                default:
+                    return "th";
             }
         }
     }
