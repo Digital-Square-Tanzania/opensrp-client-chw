@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_download_harm_reduction_pre_mat_report"
+        android:title="@string/harm_reduction_download_pre_mat_report"
+        app:showAsAction="never" />
+</menu>
