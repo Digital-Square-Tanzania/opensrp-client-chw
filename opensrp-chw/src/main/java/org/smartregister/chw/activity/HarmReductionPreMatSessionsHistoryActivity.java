@@ -254,7 +254,14 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                         destroyReportWebView();
                         return;
                     }
-                    ReportUtils.printTheWebPage(view, activity);
+                    activity.runOnUiThread(() -> {
+                        try {
+                            ReportUtils.printTheWebPage(view, activity);
+                        } catch (Exception e) {
+                            Timber.e(e);
+                            destroyReportWebView();
+                        }
+                    });
                 }
             }
 
