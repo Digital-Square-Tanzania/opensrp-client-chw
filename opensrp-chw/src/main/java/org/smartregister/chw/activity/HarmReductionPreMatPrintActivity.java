@@ -58,11 +58,6 @@ public class HarmReductionPreMatPrintActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         Timber.e(e);
                     }
-                    // Give the system a moment to show the print dialog before we close
-                    view.postDelayed(() -> {
-                        cleanup();
-                        finish();
-                    }, 500);
                 }
             }
 
