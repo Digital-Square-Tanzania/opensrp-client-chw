@@ -111,13 +111,24 @@ public class ReportUtils {
             return;
         }
 
-        // Creating  PrintManager instance
-        PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
-        PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(getPrintJobName());
+        Activity activity = (Activity) context;
+        if (activity.isFinishing() || activity.isDestroyed()) {
+            Timber.e("Print requested from finishing/destroyed activity: %s", activity);
+            return;
+        }
 
-        // Create a print job with name and adapter instance
-        assert printManager != null;
-        printManager.print(getPrintJobName(), printAdapter, new PrintAttributes.Builder().build());
+        PrintManager printManager = (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
+        if (printManager == null) {
+            Timber.e("PrintManager not available for context: %s", activity);
+            return;
+        }
+
+        PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(getPrintJobName());
+        try {
+            printManager.print(getPrintJobName(), printAdapter, new PrintAttributes.Builder().build());
+        } catch (IllegalStateException e) {
+            Timber.e(e);
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
