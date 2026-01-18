@@ -74,8 +74,6 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
     private final HarmReductionPreMatSessionsHistoryActivityFlv flavor = new HarmReductionPreMatSessionsHistoryActivityFlv();
     private ProgressBar progressBar;
     private final List<Visit> displayedVisits = new ArrayList<>();
-    private WebView reportWebView;
-    private boolean isPrintingReport;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, HarmReductionPreMatSessionsHistoryActivity.class);
@@ -169,7 +167,7 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
 
         List<ContactInfo> contactInfos = flavor.buildContactInfoForPdf(displayedVisits, this);
         String populatedHtml = populateContactTable(templateHtml, contactInfos);
-        loadHtmlIntoWebViewAndGeneratePdf(populatedHtml);
+        HarmReductionPreMatPrintActivity.start(this, populatedHtml, buildPrintJobName());
     }
 
     private String loadReportTemplate() {
@@ -229,56 +227,6 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
         return new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(consentDate);
     }
 
-    private void loadHtmlIntoWebViewAndGeneratePdf(String htmlContent) {
-        destroyReportWebView();
-
-        reportWebView = new WebView(this);
-        reportWebView.getSettings().setJavaScriptEnabled(false);
-        reportWebView.setVisibility(View.GONE);
-        linearLayout.addView(reportWebView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
-                .build();
-
-        ReportUtils.setPrintJobName(buildPrintJobName());
-        isPrintingReport = false;
-        reportWebView.setWebViewClient(new WebViewClientCompat() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                if (!isPrintingReport) {
-                    isPrintingReport = true;
-                    Activity activity = HarmReductionPreMatSessionsHistoryActivity.this;
-                    if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
-                        destroyReportWebView();
-                        return;
-                    }
-                    activity.runOnUiThread(() -> {
-                        try {
-                            ReportUtils.printTheWebPage(view, activity);
-                        } catch (Exception e) {
-                            Timber.e(e);
-                            destroyReportWebView();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                return assetLoader.shouldInterceptRequest(request.getUrl());
-            }
-
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                return assetLoader.shouldInterceptRequest(Uri.parse(url));
-            }
-        });
-
-        reportWebView.loadDataWithBaseURL(REPORT_BASE_URL, htmlContent, "text/html", "UTF-8", null);
-    }
-
     private String buildPrintJobName() {
         if (harmReductionMemberObject == null) {
             return getString(org.smartregister.chw.harmreduction.R.string.harm_reduction_pre_mat_session_history);
@@ -294,22 +242,6 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                 StringUtils.defaultString(harmReductionMemberObject.getMiddleName()),
                 StringUtils.defaultString(harmReductionMemberObject.getLastName()),
                 age).trim();
-    }
-
-    @Override
-    protected void onDestroy() {
-        destroyReportWebView();
-        super.onDestroy();
-    }
-
-    private void destroyReportWebView() {
-        if (reportWebView != null) {
-            if (reportWebView.getParent() instanceof ViewGroup) {
-                ((ViewGroup) reportWebView.getParent()).removeView(reportWebView);
-            }
-            reportWebView.destroy();
-            reportWebView = null;
-        }
     }
 
     private Date getMatConsentDate() {

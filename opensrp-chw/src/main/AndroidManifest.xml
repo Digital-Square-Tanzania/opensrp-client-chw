@@ -30,6 +30,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="org.smartregister.chw.activity.HarmReductionPreMatPrintActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ForgotPasswordActivity"
             android:theme="@style/ChwTheme.NoActionBar"
             android:parentActivityName=".activity.LoginActivity"/>
