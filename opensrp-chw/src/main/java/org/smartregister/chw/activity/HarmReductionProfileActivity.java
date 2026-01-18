@@ -45,6 +45,17 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String baseEntityId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
+        if (StringUtils.isBlank(baseEntityId)) {
+            finish();
+            return;
+        }
+        if (memberObject == null) {
+            memberObject = HarmReductionDao.getMember(baseEntityId);
+            if (memberObject == null) {
+                memberObject = HarmReductionDao.getContact(baseEntityId);
+            }
+        }
         super.onCreate(savedInstanceState);
         try {
             HarmReductionVisitsUtil.processVisits();
