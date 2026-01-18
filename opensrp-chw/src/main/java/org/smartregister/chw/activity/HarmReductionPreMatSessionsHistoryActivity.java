@@ -271,7 +271,7 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                             Timber.e(e);
                         }
                     }
-                    linearLayoutHealthFacilityVisitDetails.addView(view);
+                    linearLayoutHealthFacilityVisitDetails.addView(view, 0);
                     x++;
                 }
             }
