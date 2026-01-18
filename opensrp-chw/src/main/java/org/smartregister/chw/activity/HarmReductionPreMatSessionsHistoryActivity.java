@@ -249,7 +249,12 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                 super.onPageFinished(view, url);
                 if (!isPrintingReport) {
                     isPrintingReport = true;
-                    ReportUtils.printTheWebPage(view, HarmReductionPreMatSessionsHistoryActivity.this);
+                    Activity activity = HarmReductionPreMatSessionsHistoryActivity.this;
+                    if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+                        destroyReportWebView();
+                        return;
+                    }
+                    ReportUtils.printTheWebPage(view, activity);
                 }
             }
 

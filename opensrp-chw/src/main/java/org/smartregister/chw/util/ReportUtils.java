@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -105,6 +106,10 @@ public class ReportUtils {
     }
 
     public static void printTheWebPage(WebView webView, Context context) {
+        if (!(context instanceof Activity)) {
+            Timber.e("Print requested from non-activity context: %s", context);
+            return;
+        }
 
         // Creating  PrintManager instance
         PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
