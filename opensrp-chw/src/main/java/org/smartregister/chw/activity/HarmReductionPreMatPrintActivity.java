@@ -76,11 +76,15 @@ public class HarmReductionPreMatPrintActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(org.smartregister.chw.core.R.drawable.ic_arrow_back_white_24dp);
             actionBar.setElevation(0);
-            actionBar.setTitle(R.string.harm_reduction_pre_mat_session_history);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
         toolbar.setNavigationOnClickListener(v -> finish());
         if (toolbar != null) {
             toolbar.setTitle(R.string.harm_reduction_pre_mat_session_history);
+            android.view.View titleView = toolbar.findViewById(org.smartregister.chw.core.R.id.toolbar_title);
+            if (titleView instanceof android.widget.TextView) {
+                ((android.widget.TextView) titleView).setText(R.string.harm_reduction_pre_mat_session_history);
+            }
         }
     }
 
