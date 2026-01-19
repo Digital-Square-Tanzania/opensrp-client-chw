@@ -79,6 +79,9 @@ public class HarmReductionPreMatPrintActivity extends AppCompatActivity {
             actionBar.setTitle(R.string.harm_reduction_pre_mat_session_history);
         }
         toolbar.setNavigationOnClickListener(v -> finish());
+        if (toolbar != null) {
+            toolbar.setTitle(R.string.harm_reduction_pre_mat_session_history);
+        }
     }
 
     @Override
