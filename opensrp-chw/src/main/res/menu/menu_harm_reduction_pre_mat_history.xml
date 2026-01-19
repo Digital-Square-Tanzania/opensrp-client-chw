@@ -5,5 +5,7 @@
     <item
         android:id="@+id/action_download_harm_reduction_pre_mat_report"
         android:title="@string/harm_reduction_download_pre_mat_report"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_baseline_save_alt_24"
+        app:iconTint="@color/colorAccent"
+        app:showAsAction="ifRoom" />
 </menu>
