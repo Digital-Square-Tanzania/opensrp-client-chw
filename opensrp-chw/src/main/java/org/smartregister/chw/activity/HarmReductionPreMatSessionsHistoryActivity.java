@@ -198,7 +198,36 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
         }
 
         populatedHtml = populatedHtml.replace("{{REFERRAL_TO_MAT}}", formatCellValue(formatMatReferralDate()));
+        populatedHtml = applyDemographicInfo(populatedHtml);
         return populatedHtml;
+    }
+
+    private String applyDemographicInfo(String html) {
+        String rocName = harmReductionMemberObject != null ? harmReductionMemberObject.getFullName() : "";
+        String rocSex = getMemberGender();
+        html = html.replace("{{ROC_NAME}}", formatCellValue(rocName));
+        html = html.replace("{{ROC_SEX}}", formatCellValue(rocSex));
+        return html;
+    }
+
+    private String getMemberGender() {
+        if (harmReductionMemberObject == null) {
+            return "";
+        }
+        try {
+            return harmReductionMemberObject.getGender();
+        } catch (Exception e) {
+            Timber.d(e);
+        }
+        try {
+            // fallback if the model exposes sex instead of gender
+            java.lang.reflect.Method method = harmReductionMemberObject.getClass().getMethod("getSex");
+            Object value = method.invoke(harmReductionMemberObject);
+            return value != null ? value.toString() : "";
+        } catch (Exception e) {
+            Timber.d(e);
+        }
+        return "";
     }
 
     private String buildInformationCell(ContactInfo contactInfo) {

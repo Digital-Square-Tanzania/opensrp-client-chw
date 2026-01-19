@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -81,9 +83,9 @@ public class HarmReductionPreMatPrintActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
         if (toolbar != null) {
             toolbar.setTitle(R.string.harm_reduction_pre_mat_session_history);
-            android.view.View titleView = toolbar.findViewById(org.smartregister.chw.core.R.id.toolbar_title);
-            if (titleView instanceof android.widget.TextView) {
-                ((android.widget.TextView) titleView).setText(R.string.harm_reduction_pre_mat_session_history);
+            View titleView = toolbar.findViewById(org.smartregister.chw.core.R.id.toolbar_title);
+            if (titleView instanceof TextView) {
+                ((TextView) titleView).setText(R.string.harm_reduction_pre_mat_session_history);
             }
         }
     }
