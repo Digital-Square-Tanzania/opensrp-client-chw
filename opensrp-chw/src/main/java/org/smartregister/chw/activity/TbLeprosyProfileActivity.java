@@ -163,7 +163,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         String baseEntityId = memberObject.getBaseEntityId();
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
 
-        if (!isContactClient) {
+        if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             manualProcessVisit.setVisibility(View.GONE);
 
             boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
@@ -177,14 +177,13 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             if (isTbPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+            } else if (isLeprosyPresumptiveClient) {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+                rlObservationResults.setVisibility(View.VISIBLE);
             } else {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
 
-            if (isLeprosyPresumptiveClient) {
-                textViewRecordTbLeprosy.setVisibility(View.GONE);
-                rlObservationResults.setVisibility(View.VISIBLE);
-            }
 
             if (isTbPresumptiveClient || isLeprosyPresumptiveClient) {
                 if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
@@ -207,6 +206,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     rlObservationResults.setVisibility(View.VISIBLE);
                 }
             }
+        } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
+            textViewRecordTbLeprosy.setVisibility(View.GONE);
         }
 
 
@@ -261,6 +262,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 setupViews();
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
+                TbLeprosyDao.closeTbNegativeClients();
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
