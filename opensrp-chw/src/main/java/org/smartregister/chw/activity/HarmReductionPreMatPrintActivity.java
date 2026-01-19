@@ -70,19 +70,15 @@ public class HarmReductionPreMatPrintActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(org.smartregister.chw.core.R.id.back_to_nav_toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle(R.string.harm_reduction_pre_mat_session_history);
-            toolbar.setNavigationIcon(org.smartregister.chw.core.R.drawable.ic_arrow_back_white_24dp);
-            toolbar.setNavigationOnClickListener(v -> finish());
-        } else {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                actionBar.setHomeAsUpIndicator(org.smartregister.chw.core.R.drawable.ic_arrow_back_white_24dp);
-                actionBar.setElevation(0);
-                actionBar.setTitle(R.string.harm_reduction_pre_mat_session_history);
-            }
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(org.smartregister.chw.core.R.drawable.ic_arrow_back_white_24dp);
+            actionBar.setElevation(0);
+            actionBar.setTitle(R.string.harm_reduction_pre_mat_session_history);
         }
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
