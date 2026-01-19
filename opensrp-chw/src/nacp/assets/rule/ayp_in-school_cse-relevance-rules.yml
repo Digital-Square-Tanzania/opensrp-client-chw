@@ -1,0 +1,8 @@
+---
+name: step1_topics_covered
+description: Show topics when CSE conducted is Yes
+priority: 1
+condition: "step1_cse_conducted == 'yes'"
+actions:
+  - "isRelevant = true"
+

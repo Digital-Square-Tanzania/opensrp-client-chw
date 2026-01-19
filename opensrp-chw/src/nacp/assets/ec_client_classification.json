@@ -643,6 +643,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "TbLeprosy Mobilization Session",
+            "creates_case":[
+              "ec_tbleprosy_mobilization"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "CDP Outlet Registration",
             "creates_case": [
               "ec_cdp_outlet",
@@ -743,6 +750,7 @@
             "field": "eventType",
             "field_value": "Kvp PrEP Follow-up Visit",
             "creates_case": [
+              "ec_kvp_prep_register",
               "ec_kvp_prep_followup"
             ]
           },
@@ -751,6 +759,51 @@
             "field_value": "KVP Registration",
             "creates_case": [
               "ec_facility_kvp_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Screening",
+            "creates_case": [
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLEPROSY Observation Results",
+            "creates_case": [
+              "ec_tbleprosy_observation_results",
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Follow-up Visit",
+            "creates_case": [
+              "ec_tbleprosy_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Visit",
+            "creates_case": [
+              "ec_tbleprosy_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Contact Registration",
+            "creates_case": [
+              "ec_tbleprosy_contacts"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Contact Visit",
+            "creates_case": [
+              "ec_tbleprosy_contact_visit",
+              "ec_tbleprosy_screening",
+              "ec_tbleprosy_visit"
             ]
           },
           {
@@ -815,6 +868,41 @@
             "creates_case": [
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP In-school Enrollment",
+            "creates_case": [
+              "ec_ayp_in_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP Parental Service Enrollment",
+            "creates_case": [
+              "ec_ayp_parental_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP Out-school Enrollment",
+            "creates_case": [
+              "ec_ayp_out_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Client Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_client_followup_visits"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Group Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_group_followup_visits"
             ]
           },
           {

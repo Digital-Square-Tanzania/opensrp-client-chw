@@ -345,7 +345,7 @@
           },
           {
             "key": "chk_passport_number",
-            "text": "Passport",
+            "text": "Hati ya Kusafiria (Pasipoti)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_passport_number"
           },
@@ -467,7 +467,7 @@
         "openmrs_entity_id": "passport",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "000000000",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya Pasipoti mf. 1234567891",
         "edit_type": "number",
@@ -613,20 +613,8 @@
             "openmrs_entity_id": "physical_impairments"
           },
           {
-            "key": "spinal_cord_disability",
-            "text": "Ulemavu wa Uti wa Mgongo",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "spinal_cord_disability"
-          },
-          {
-            "key": "brain_disability",
-            "text": "Majeraha ya Kichwa - Ulemavu wa Ubongo",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "brain_disability"
-          },
-          {
             "key": "vision_disability",
-            "text": "Ulemavu wa Kuona",
+            "text": "Ulemavu wa mwono / kuona",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
@@ -638,25 +626,43 @@
           },
           {
             "key": "learning_disabilities",
-            "text": "Ulemavu wa Utambuzi au Kujifunza",
+            "text": "Ulemavu wa akili / kiakili",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
-            "text": "Matatizo ya Kisaikolojia",
+            "text": "Ulemavu wa akili ya hisia / kisaikolojia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
-            "key": "invisible_disabilities",
-            "text": "Ulemavu Usioonekana",
+            "key": "speech_impairment",
+            "text": "Ulemavu wa kujieleza / lugha",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "invisible_disabilities"
+            "openmrs_entity_id": "speech_impairment"
+          },
+          {
+            "key": "selfcare_disability",
+            "text": "Ulemavu wa kujitibu / kujihudumia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "selfcare_disability"
+          },
+          {
+            "key": "concentration_impairment",
+            "text": "Ulemavu wa kumbukumbu / kuzingatia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "concentration_impairment"
+          },
+          {
+            "key": "multiple_disabilities",
+            "text": "Ulemavu tofauti",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "multiple_disabilities"
           },
           {
             "key": "albinism",
-            "text": "Ualbino",
+            "text": "Ulemavu wa ngozi / hali maalum",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "albinism"
           },
@@ -670,6 +676,25 @@
         "v_required": {
           "value": "true",
           "err": "Tafahali ingiza aina ya ulemavu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_disabilities",
+        "type": "edit_text",
+        "hint": "Ulemavu mwingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja ulemavu mwingine"
         },
         "relevance": {
           "rules-engine": {

@@ -1,0 +1,194 @@
+indicators:
+  - key: "ayp-parental-1-grand-total"
+    grouping: "AYP_PARENTAL"
+    description: "Number of parents/guardians newly reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) = 'new_client'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-1-male"
+    grouping: "AYP_PARENTAL"
+    description: "Number of male parents/guardians newly reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = services.base_entity_id
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) = 'new_client'
+                       AND lower(efm.gender) = 'male'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-1-female"
+    grouping: "AYP_PARENTAL"
+    description: "Number of female parents/guardians newly reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = services.base_entity_id
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) = 'new_client'
+                       AND lower(efm.gender) = 'female'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-2-grand-total"
+    grouping: "AYP_PARENTAL"
+    description: "Number of parents/guardians reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) IN ('new_client','returning')
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-2-male"
+    grouping: "AYP_PARENTAL"
+    description: "Number of male parents/guardians reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = services.base_entity_id
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) IN ('new_client','returning')
+                       AND lower(efm.gender) = 'male'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-2-female"
+    grouping: "AYP_PARENTAL"
+    description: "Number of female parents/guardians reached with parents’ education programme"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = services.base_entity_id
+                     WHERE lower(services.event_type) = 'client_status'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.client_status) IN ('new_client','returning')
+                       AND lower(efm.gender) = 'female'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-3-grand-total"
+    grouping: "AYP_PARENTAL"
+    description: "Number of parents/caregivers who completed parenting sessions"
+    indicatorQuery: "SELECT count(DISTINCT exit.base_entity_id) as count
+                     FROM ec_ayp_parenting_services_parental_group_exit exit
+                     WHERE lower(exit.event_type) = 'parents and guardians’ group exit assessment tool'
+                       AND exit.event_date IS NOT NULL
+                       AND lower(exit.score_category) = 'ready to operate independently'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(exit.event_date, 1, 4) || '-' || substr(exit.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-3-male"
+    grouping: "AYP_PARENTAL"
+    description: "Number of male parents/caregivers who completed parenting sessions"
+    indicatorQuery: "SELECT count(DISTINCT exit.base_entity_id) as count
+                     FROM ec_ayp_parenting_services_parental_group_exit exit
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = exit.base_entity_id
+                     WHERE lower(exit.event_type) = 'parents and guardians’ group exit assessment tool'
+                       AND exit.event_date IS NOT NULL
+                       AND lower(exit.score_category) = 'ready to operate independently'
+                       AND lower(efm.gender) = 'male'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(exit.event_date, 1, 4) || '-' || substr(exit.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-3-female"
+    grouping: "AYP_PARENTAL"
+    description: "Number of female parents/caregivers who completed parenting sessions"
+    indicatorQuery: "SELECT count(DISTINCT exit.base_entity_id) as count
+                     FROM ec_ayp_parenting_services_parental_group_exit exit
+                     INNER JOIN ec_family_member efm ON efm.base_entity_id = exit.base_entity_id
+                     WHERE lower(exit.event_type) = 'parents and guardians’ group exit assessment tool'
+                       AND exit.event_date IS NOT NULL
+                       AND lower(exit.score_category) = 'ready to operate independently'
+                       AND lower(efm.gender) = 'female'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(exit.event_date, 1, 4) || '-' || substr(exit.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-introduction"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with the Introduction session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'parenting training for parents and guardians'
+                       AND services.event_date IS NOT NULL
+                       AND services.section_selection IS NOT NULL
+                       AND lower(services.section_selection) LIKE '%introduction%'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-hiv-module"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with HIV, STIs, and reproductive health session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'hiv and aids, stis, viral hepatitis and reproductive health'
+                       AND services.event_date IS NOT NULL
+                       AND lower(services.rh_provided) = 'yes'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-protection-module"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with protection against HIV/STIs/viral hepatitis content"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'hiv and aids, stis, viral hepatitis and reproductive health'
+                       AND services.event_date IS NOT NULL
+                       AND services.protection_against_hiv_aids_stis_viral_hepatitis IS NOT NULL
+                       AND trim(services.protection_against_hiv_aids_stis_viral_hepatitis) <> ''
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-understanding-youth"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with understanding young people and their challenges session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'understanding young people and challenges they are facing'
+                       AND services.event_date IS NOT NULL
+                       AND services.understanding_youth_challenges IS NOT NULL
+                       AND trim(services.understanding_youth_challenges) <> ''
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-skills-education"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with skills, parenting, and communication session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'skills, education and communication for youth'
+                       AND services.event_date IS NOT NULL
+                       AND services.skills_education_communication_youth IS NOT NULL
+                       AND trim(services.skills_education_communication_youth) <> ''
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-reproductive-health"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with adolescent sexual and reproductive health session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'sexual reproductive health for youth'
+                       AND services.event_date IS NOT NULL
+                       AND services.sexual_reproductive_health_youth IS NOT NULL
+                       AND trim(services.sexual_reproductive_health_youth) <> ''
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"
+
+  - key: "ayp-parental-4-promote-hiv-services"
+    grouping: "AYP_PARENTAL"
+    description: "Parents/guardians reached with promoting HIV services for youth session"
+    indicatorQuery: "SELECT count(DISTINCT services.base_entity_id) as count
+                     FROM ec_ayp_parental_services services
+                     WHERE lower(services.event_type) = 'promote the use of hiv services among youth'
+                       AND services.event_date IS NOT NULL
+                       AND services.promote_hiv_services_youth IS NOT NULL
+                       AND trim(services.promote_hiv_services_youth) <> ''
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(services.event_date, 1, 4) || '-' || substr(services.event_date, 6, 2) || '-' || '01')"

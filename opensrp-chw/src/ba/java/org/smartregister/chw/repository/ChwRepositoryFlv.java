@@ -102,6 +102,9 @@ public class ChwRepositoryFlv {
                 case 23:
                     upgradeToVersion23(db);
                     break;
+                case 24:
+                    upgradeToVersion30(db);
+                    break;
                 default:
                     break;
             }
@@ -368,6 +371,15 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion23");
+        }
+    }
+
+    private static void upgradeToVersion30(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_kvp_prep_register ADD COLUMN next_visit_date VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN next_visit_date VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion30");
         }
     }
 

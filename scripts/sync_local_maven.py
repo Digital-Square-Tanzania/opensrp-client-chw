@@ -102,16 +102,13 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    source_root = args.source.expanduser()
-    dest_root = (args.destination or args.dest).expanduser()
+    if not args.source.exists():
+        parser.error(f"Source cache directory {args.source} does not exist")
 
-    if not source_root.exists():
-        parser.error(f"Source cache directory {source_root} does not exist")
+    args.dest.mkdir(parents=True, exist_ok=True)
+    copied = sync_repo(args.source, args.dest, overwrite=args.overwrite)
 
-    dest_root.mkdir(parents=True, exist_ok=True)
-    copied = sync_repo(source_root, dest_root, overwrite=args.overwrite)
-
-    print(f"Copied {len(copied)} artifacts into {dest_root}")
+    print(f"Copied {len(copied)} artifacts into {args.dest}")
     return 0
 
 

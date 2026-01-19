@@ -37,6 +37,10 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
     LinearLayout actionTakenGroup;
     LinearLayout enrolledClinicGroup;
     LinearLayout feedBackViewGroup;
+    LinearLayout referralServiceLayout;
+    LinearLayout referralPrescriptionLayout;
+    CustomFontTextView referralService;
+    CustomFontTextView referralPrescription;
 
     public static void startChwReferralDetailsViewActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, ChwReferralDetailsViewActivity.class);
@@ -56,7 +60,10 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         actionTakenGroup = findViewById(R.id.referral_feedback_action_taken_group);
         enrolledClinicGroup = findViewById(R.id.referral_feedback_clinic_enrolled);
         feedBackViewGroup = findViewById(R.id.referral_details_feedback);
-
+        referralService = findViewById(R.id.referral_service);
+        referralPrescription = findViewById(R.id.referral_prescription);
+        referralServiceLayout = findViewById(R.id.referral_service_layout);
+        referralPrescriptionLayout = findViewById(R.id.referral_prescription_layout);
         setupViews();
     }
 
@@ -164,6 +171,21 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                 feedBackViewGroup.setVisibility(View.GONE);
             }
 
+        }
+        if(!ReferralDao.getServicesProvided(task.getIdentifier()).isEmpty()){
+            referralServiceLayout.setVisibility(View.VISIBLE);
+            String refServicesOffered = ReferralDao.getServicesProvided(task.getForEntity());
+            refServicesOffered = refServicesOffered.replace("[", "").replace("]", ""); // Removes the brackets
+            refServicesOffered = refServicesOffered.replace(", ", "\n");
+            referralService.setText(refServicesOffered);
+        }
+
+        if(!ReferralDao.getPrescriptionProvided(task.getIdentifier()).isEmpty()){
+            referralPrescriptionLayout.setVisibility(View.VISIBLE);
+            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getForEntity());
+            refPrescribeOffered = refPrescribeOffered.replace("[", "").replace("]", ""); // Removes the brackets
+            refPrescribeOffered = refPrescribeOffered.replace(", ", "\n");
+            referralPrescription.setText(refPrescribeOffered);
         }
     }
 

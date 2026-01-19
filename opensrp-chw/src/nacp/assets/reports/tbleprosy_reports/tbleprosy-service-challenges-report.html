@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <title>Waliokuwa na changamoto za huduma ya kifua kikuu na ukoma</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 4px 0;
+        }
+
+        .show-on-print {
+            display: none !important;
+        }
+
+        .report-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .report-title {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .left-logo {
+            margin-right: 10px;
+        }
+
+        .right-logo {
+            margin-left: 10px;
+        }
+
+        #reporting_facility,
+        #report_period {
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+            min-width: 65px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .challenge-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+
+        .table-title {
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .unknown {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #636e72;
+        }
+
+        @media print {
+            .show-on-print {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<div class="show-on-print report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo left-logo" alt="Left Logo">
+    <div class="report-title">
+        <h1>WALIOKUWA NA CHANGAMOTO ZA HUDUMA YA KIFUA KIKUU NA UKOMA</h1>
+        <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+        <h2>KITUO: <span id="reporting_facility"></span></h2>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/ic_launcher_afya_jamii_logo.png" class="header-logo right-logo" alt="Right Logo">
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th colspan="5" class="table-title">Waliokuwa na changamoto za huduma ya kifua kikuu na ukoma</th>
+    </tr>
+    <tr>
+        <th rowspan="2">Aina ya Changamoto</th>
+        <th colspan="2">Idadi ya watu waliopata changamoto (Kifua Kikuu)</th>
+        <th colspan="2">Idadi ya watu waliopata changamoto (Ukoma)</th>
+    </tr>
+    <tr>
+        <th>ME</th><th>KE</th>
+        <th>KE</th><th>ME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="challenge-cell">Katika familia</td>
+        <td data-indicator="tbleprosy_challenge_tb_family_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_family_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_family_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_family_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Katika kituo cha kutoa huduma za afya</td>
+        <td data-indicator="tbleprosy_challenge_tb_facility_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_facility_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_facility_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_facility_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Katika jamii</td>
+        <td data-indicator="tbleprosy_challenge_tb_community_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_community_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_community_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_community_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Changamoto nyinginezo</td>
+        <td data-indicator="tbleprosy_challenge_tb_other_me" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_tb_other_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_other_ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_challenge_lpr_other_me" class="unknown">N/A</td>
+    </tr>
+    <tr>
+        <td class="challenge-cell">Jumla</td>
+        <td data-total-for="tb-me">0</td>
+        <td data-total-for="tb-ke">0</td>
+        <td data-total-for="lpr-ke">0</td>
+        <td data-total-for="lpr-me">0</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function safeParseInt(value) {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? 0 : num;
+    }
+
+    function loadData() {
+        let payload = { nameValuePairs: {} };
+        try {
+            payload = JSON.parse(Android.getData("tbleprosy-service-challenges-report"));
+        } catch (e) {
+            payload = { nameValuePairs: {} };
+        }
+        const values = payload && payload.nameValuePairs ? payload.nameValuePairs : {};
+
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const key = cell.getAttribute("data-indicator");
+            if (values.hasOwnProperty(key) && values[key] !== null && values[key] !== "") {
+                cell.textContent = values[key];
+                cell.classList.remove("unknown");
+            }
+        });
+
+        const totals = { "tb-ke": 0, "tb-me": 0, "lpr-ke": 0, "lpr-me": 0 };
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const indicator = cell.getAttribute("data-indicator");
+            const value = safeParseInt(cell.textContent);
+
+            if (indicator.includes("_tb_") && indicator.endsWith("_ke")) totals["tb-ke"] += value;
+            if (indicator.includes("_tb_") && indicator.endsWith("_me")) totals["tb-me"] += value;
+            if (indicator.includes("_lpr_") && indicator.endsWith("_ke")) totals["lpr-ke"] += value;
+            if (indicator.includes("_lpr_") && indicator.endsWith("_me")) totals["lpr-me"] += value;
+        });
+
+        document.querySelectorAll("[data-total-for]").forEach(cell => {
+            const column = cell.getAttribute("data-total-for");
+            cell.textContent = totals[column] || 0;
+        });
+
+        document.getElementById("report_period").innerHTML = Android.getDataPeriod();
+        document.getElementById("reporting_facility").innerHTML = Android.getReportingFacility();
+    }
+</script>
+</body>
+</html>

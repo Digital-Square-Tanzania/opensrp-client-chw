@@ -3,6 +3,7 @@ package org.smartregister.chw.sync;
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
+import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
 
@@ -14,7 +15,12 @@ import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.PmtctDao;
+import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
@@ -65,6 +71,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
         }
 
+        if (eventType.equals(org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_SCREENING)) {
+            Timber.e("TB_LEPROSY_SCREENING");
+        }
+
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
@@ -87,6 +97,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.KVP_PREP_FOLLOWUP_VISIT:
                 case Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS:
                 case HIVST_MOBILIZATION:
+                case TB_LEPROSY_MOBILIZATION:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:
@@ -100,11 +111,64 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_MOBILIZATION:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_SERVICES:
+                case Constants.Events.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_PARENTAL_SERVICES:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group details");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group membership");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group details");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupFollowUpVisit(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
+                    }
                     break;
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     if (eventClient.getClient() == null) {
@@ -132,7 +196,11 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
 
         if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            try {
+                ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
         }
     }
 
@@ -209,4 +277,155 @@ public class ChwClientProcessor extends CoreClientProcessor {
             Timber.e(e);
         }
     }
+
+    private void saveAypGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypInSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypOutSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            List<String> ids = new ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = new java.util.ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupFollowUpVisit(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            List<String> membersCsv = getObsArrayValue(event, "members_present");
+            String providedSbcService = getObsStringValue(event, "provided_sbc_service");
+            String nextAppointmentDate = getObsStringValue(event, "next_appointment_date");
+            List<String> chooseSbcServiceProvided = getObsArrayValue(event, "choose_sbc_service_provided");
+            List<String> economicEmpowermentServices = getObsArrayValue(event, "choose_economic_empowerment_services");
+
+            //to be removed, on live
+            if(groupId == null){
+                groupId = "ffa4b7e9-d4f8-414a-8e0d-7a589486dd29";
+            }
+
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = membersCsv;
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addFollowUpForMembers(groupId, ids, providerId, providedSbcService, chooseSbcServiceProvided, economicEmpowermentServices,nextAppointmentDate);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private String getObsStringValue(Event event, String field) {
+        try {
+            if (event == null || event.getObs() == null) return null;
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null ? o.getFormSubmissionField() : o.getFieldCode();
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null && !vals.isEmpty()) {
+                        Object v = vals.get(0);
+                        return v != null ? String.valueOf(v) : null;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private List<String> getObsArrayValue(Event event, String field) {
+        List<String> result = new ArrayList<>();
+
+        try {
+            if (event == null || event.getObs() == null) return result;
+
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null
+                        ? o.getFormSubmissionField()
+                        : o.getFieldCode();
+
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null) {
+                        for (Object v : vals) {
+                            if (v != null) {
+                                result.add(String.valueOf(v));
+                            }
+                        }
+                    }
+                    break; // field found, stop looping
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return result;
+    }
+
 }

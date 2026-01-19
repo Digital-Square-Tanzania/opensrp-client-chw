@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <title>Waliokatiza/Hawakuanza Matibabu ya TB au Ukoma (TB/LEP 13B)</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 4px 0;
+        }
+
+        .show-on-print {
+            display: none !important;
+        }
+
+        .report-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .report-title {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .left-logo {
+            margin-right: 10px;
+        }
+
+        .right-logo {
+            margin-left: 10px;
+        }
+
+        #reporting_facility,
+        #report_period {
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .age-cell {
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+
+        .unknown {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .outcome-cell {
+            text-align: left;
+        }
+
+        .outcome-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .outcome-label {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .note {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #636e72;
+        }
+
+        @media print {
+            .show-on-print {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<div class="show-on-print report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo left-logo" alt="Left Logo">
+    <div class="report-title">
+        <h1>WALIOKATIZA/HAWAKUANZA MATIBABU YA TB AU UKOMA (TB/LEP 13B)</h1>
+        <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
+        <h2>KITUO: <span id="reporting_facility"></span></h2>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/ic_launcher_afya_jamii_logo.png" class="header-logo right-logo" alt="Right Logo">
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th rowspan="2">Umri (miaka)</th>
+        <th colspan="2">Idadi ya wagonjwa walioacha/wasioanza matibabu waliofutiliwa</th>
+        <th colspan="2">Matokeo ya ufuatiliaji (Angali kielelezo A)</th>
+    </tr>
+    <tr>
+        <th>KE</th>
+        <th>ME</th>
+        <th>KE</th>
+        <th>ME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="age-cell">0 - 14</td>
+        <td data-indicator="tbleprosy_treat_followed_ke_0_14" data-column="followed-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_followed_me_0_14" data-column="followed-me" class="unknown">N/A</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_ke_0_14" data-column="outcome-a-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_ke_0_14" data-column="outcome-h-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_ke_0_14" data-column="outcome-k-ke" class="unknown">N/A</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_me_0_14" data-column="outcome-a-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_me_0_14" data-column="outcome-h-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_me_0_14" data-column="outcome-k-me" class="unknown">N/A</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="age-cell">15 na zaidi</td>
+        <td data-indicator="tbleprosy_treat_followed_ke_15_plus" data-column="followed-ke" class="unknown">N/A</td>
+        <td data-indicator="tbleprosy_treat_followed_me_15_plus" data-column="followed-me" class="unknown">N/A</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_ke_15_plus" data-column="outcome-a-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_ke_15_plus" data-column="outcome-h-ke" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_ke_15_plus" data-column="outcome-k-ke" class="unknown">N/A</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-indicator="tbleprosy_treat_outcome_a_me_15_plus" data-column="outcome-a-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-indicator="tbleprosy_treat_outcome_h_me_15_plus" data-column="outcome-h-me" class="unknown">N/A</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-indicator="tbleprosy_treat_outcome_k_me_15_plus" data-column="outcome-k-me" class="unknown">N/A</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="age-cell">Jumla</td>
+        <td data-total-for="followed-ke">0</td>
+        <td data-total-for="followed-me">0</td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-total-for="outcome-a-ke">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-total-for="outcome-h-ke">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-total-for="outcome-k-ke">0</span>
+            </div>
+        </td>
+        <td class="outcome-cell">
+            <div class="outcome-entry">
+                <span class="outcome-label">A=</span>
+                <span data-total-for="outcome-a-me">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">H=</span>
+                <span data-total-for="outcome-h-me">0</span>
+            </div>
+            <div class="outcome-entry">
+                <span class="outcome-label">K=</span>
+                <span data-total-for="outcome-k-me">0</span>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function safeParseInt(value) {
+        const num = parseInt(value, 10);
+        return isNaN(num) ? 0 : num;
+    }
+
+    function loadData() {
+        let payload = { nameValuePairs: {} };
+        try {
+            payload = JSON.parse(Android.getData("tbleprosy-treatment-status-report"));
+        } catch (e) {
+            payload = { nameValuePairs: {} };
+        }
+        const values = payload && payload.nameValuePairs ? payload.nameValuePairs : {};
+
+        document.querySelectorAll("[data-indicator]").forEach(cell => {
+            const key = cell.getAttribute("data-indicator");
+            if (values.hasOwnProperty(key) && values[key] !== null && values[key] !== "") {
+                cell.textContent = values[key];
+                cell.classList.remove("unknown");
+            }
+        });
+
+        const columnTotals = {};
+        document.querySelectorAll("[data-column]").forEach(cell => {
+            const column = cell.getAttribute("data-column");
+            const amount = safeParseInt(cell.textContent);
+            columnTotals[column] = (columnTotals[column] || 0) + amount;
+        });
+
+        document.querySelectorAll("[data-total-for]").forEach(cell => {
+            const column = cell.getAttribute("data-total-for");
+            cell.textContent = columnTotals[column] || 0;
+        });
+
+        document.getElementById("report_period").innerHTML = Android.getDataPeriod();
+        document.getElementById("reporting_facility").innerHTML = Android.getReportingFacility();
+    }
+</script>
+</body>
+</html>
