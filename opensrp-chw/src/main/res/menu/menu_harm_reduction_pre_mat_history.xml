@@ -6,6 +6,6 @@
         android:id="@+id/action_download_harm_reduction_pre_mat_report"
         android:title="@string/harm_reduction_download_pre_mat_report"
         android:icon="@drawable/ic_baseline_save_alt_24"
-        app:iconTint="@color/colorAccent"
+        app:iconTint="@color/colorPrimary"
         app:showAsAction="ifRoom" />
 </menu>
