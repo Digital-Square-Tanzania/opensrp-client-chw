@@ -493,38 +493,6 @@
         }
       },
       {
-        "key": "passport",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "passport",
-        "type": "mask_edit_text",
-        "mask": "##########",
-        "mask_hint": "0000000000",
-        "allowed_chars": "0123456789",
-        "hint": "Passport's number e.g 1234567891",
-        "edit_type": "number",
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid driver's license number"
-        },
-        "v_regex": {
-          "value": "^([0-9]{10})",
-          "err": "Driver's license number should be of the format (XXXXXXXXXX)"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter a valid driver's license number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "insurance_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
