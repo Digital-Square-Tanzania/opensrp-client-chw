@@ -51,6 +51,20 @@ public class HpsAnnualCensusRegisterAdapter extends RecyclerView.Adapter<HpsAnnu
         return hpsAnnualCensusRegisterModels.size();
     }
 
+    public boolean containsYear(String year) {
+        if (year == null) {
+            return false;
+        }
+
+        for (HpsAnnualCensusListItem hpsAnnualCensusRegisterModel : hpsAnnualCensusRegisterModels) {
+            if (year.equals(hpsAnnualCensusRegisterModel.getYear())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected static class HpsAnnualCensusViewHolder extends RecyclerView.ViewHolder {
         public TextView dateOfDeath;
 

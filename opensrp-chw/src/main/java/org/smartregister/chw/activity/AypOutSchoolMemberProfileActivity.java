@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.ayp.dao.AypDao.isAypOutSchoolServiceToday;
 import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
 import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
@@ -10,8 +11,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -48,7 +47,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolMemberProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.ayp_PROFILE);
+        intent.putExtra(org.smartregister.chw.ayp.util.Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.AYP_OUT_SCHOOL_PROFILE);
         activity.startActivity(intent);
     }
 
@@ -128,6 +127,10 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
                 textViewVisitDoneEdit.setOnClickListener(v -> startHivstRegistration());
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
+        }
+
+        if(isAypOutSchoolServiceToday(memberObject.getBaseEntityId())) {
+            textViewRecordayp.setVisibility(View.GONE);
         }
     }
 
@@ -213,4 +216,3 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
 }
-

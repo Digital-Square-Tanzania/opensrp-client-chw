@@ -70,14 +70,14 @@ public class AypOutSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypO
             // Type: <value>
             String typeLabel = context.getString(R.string.ayp_group_type_title);
             ssb.append(typeLabel, new StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-               .append(" ")
-               .append(typeValue == null ? "" : typeValue)
-               .append("\n");
+                    .append(" ")
+                    .append(typeValue == null ? "" : typeValue)
+                    .append("\n");
 
             // Age-band: <value> (value bold)
             String ageLabel = context.getString(R.string.ayp_group_age_band_title);
             ssb.append(ageLabel, new StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-               .append(" ");
+                    .append(" ");
             if (ageBandValue != null && !ageBandValue.isEmpty()) {
                 int start = ssb.length();
                 ssb.append(ageBandValue);
@@ -87,7 +87,7 @@ public class AypOutSchoolGroupsRegisterAdapter extends RecyclerView.Adapter<AypO
 
             // Navigate to group profile on click
             itemView.setOnClickListener(v -> {
-                org.smartregister.chw.activity.AypOutSchoolGroupProfileActivity.start(context, item.getBaseEntityId(), item.getGroupName());
+                org.smartregister.chw.activity.AypOutSchoolGroupProfileActivity.start(context, item.getBaseEntityId(), item.getGroupName(), item);
             });
         }
 

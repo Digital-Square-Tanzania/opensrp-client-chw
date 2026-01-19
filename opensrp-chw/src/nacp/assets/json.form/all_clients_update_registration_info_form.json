@@ -176,6 +176,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -370,7 +371,7 @@
         "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
-        "mask_hint": "12345678912345678912",
+        "mask_hint": "00000000000000000000",
         "allowed_chars": "0123456789",
         "hint": "National ID number e.g 12345678-91234-56789-12",
         "edit_type": "number",
@@ -402,7 +403,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Voter's registration number e.g T-1234-5678-912-3",
         "edit_type": "number",
@@ -434,7 +435,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Driver's license number e.g 1234567891",
         "edit_type": "number",
@@ -466,7 +467,39 @@
         "openmrs_entity_id": "passport",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
+        "allowed_chars": "0123456789",
+        "hint": "Passport's number e.g 1234567891",
+        "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid driver's license number"
+        },
+        "v_regex": {
+          "value": "^([0-9]{10})",
+          "err": "Driver's license number should be of the format (XXXXXXXXXX)"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid driver's license number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "passport",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "passport",
+        "type": "mask_edit_text",
+        "mask": "##########",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Passport's number e.g 1234567891",
         "edit_type": "number",
@@ -501,13 +534,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public Health Insurance (e.g. NHIF, ICHF)",
+            "text": "Public Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private Health Insurance (e.g. AAR, Jubilee, Britam)",
+            "text": "Private Health Insurance",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -600,8 +633,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
-        "label": "Type of disabilities",
         "combine_checkbox_option_values": "true",
+        "label": "Type of disabilities",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -675,6 +708,25 @@
         "v_required": {
           "value": "true",
           "err": "Please enter type of disability"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_disabilities",
+        "type": "edit_text",
+        "hint": "Other Disabilities",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify disabilities"
         },
         "relevance": {
           "rules-engine": {
@@ -787,9 +839,6 @@
         "label": "Occupation of the Client",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_fisherman",
@@ -824,7 +873,6 @@
           {
             "key": "chk_business_person",
             "text": "Business person",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },

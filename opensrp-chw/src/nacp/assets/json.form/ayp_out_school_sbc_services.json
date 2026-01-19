@@ -93,6 +93,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "identification_of_organizations_key_people_and_safe_places",
@@ -231,6 +234,12 @@
             "text": "Proper Use of Information Science and Technology",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "information_science_technology"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {

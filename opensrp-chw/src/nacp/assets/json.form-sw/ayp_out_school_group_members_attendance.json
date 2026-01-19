@@ -46,6 +46,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Group Members Attendance",
     "fields": [
@@ -79,12 +80,26 @@
         ]
       },
       {
+        "key": "member_names",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "member_names",
+        "openmrs_entity_parent": ""
+      },
+      {
+        "key": "group_id",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_id",
+        "openmrs_entity_parent": ""
+      },
+      {
         "key": "member_attendance_toaster_info",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Tafadhali chagua wanachama watano au zaidi",
+        "text": "Tafadhali chagua wanachama wawili au zaidi",
         "toaster_type": "problem",
         "text_color": "#CF0800",
         "relevance": {

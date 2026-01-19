@@ -418,7 +418,7 @@
           },
           {
             "key": "none",
-            "text": "Haitumiki",
+            "text": "Hakuna",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
@@ -597,7 +597,7 @@
           }
         ],
         "relevance": {
-          "step5:violance": {
+          "step5:aware_of_violance": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }

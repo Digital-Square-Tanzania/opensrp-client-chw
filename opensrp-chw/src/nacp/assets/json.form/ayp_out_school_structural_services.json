@@ -51,6 +51,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Structural Services",
     "display_back_button": "true",
@@ -157,6 +158,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "entrepreneurial_skills_in_group",
@@ -229,6 +233,12 @@
             "text": "Assistance in obtaining national IDs (birth certificate, NIDA)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "assistance_in_obtaining_national_ids"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -343,6 +353,13 @@
             "openmrs_entity_id": "no"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please fill in"

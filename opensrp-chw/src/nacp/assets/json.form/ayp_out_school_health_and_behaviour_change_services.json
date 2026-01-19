@@ -65,6 +65,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "identification_of_organizations_key_people_and_safe_meeting_places",
@@ -185,11 +188,34 @@
             "text": "Distribution of health education leaflets",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "distribution_of_health_education_leaflets"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please specify"
+        }
+      },
+      {
+        "key": "three_sbc_service_per_day",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "three_sbc_service_per_day",
+        "type": "toaster_notes",
+        "text": "Please select maximum of 3 SBC Session",
+        "toaster_type": "problem",
+        "text_color": "#CF0800",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_group_member_attendance-relevance-rules.yml"
+            }
+          }
         }
       }
     ]

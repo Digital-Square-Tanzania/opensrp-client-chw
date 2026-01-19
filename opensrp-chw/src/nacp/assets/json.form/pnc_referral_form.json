@@ -75,6 +75,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Client condition / problem",
         "label_text_style": "bold",
         "options": [
@@ -359,6 +360,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "service_before_pnc",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Pre-referral management given",
         "label_text_style": "bold",
         "is_problem": false,

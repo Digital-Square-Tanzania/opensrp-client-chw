@@ -750,6 +750,7 @@
             "field": "eventType",
             "field_value": "Kvp PrEP Follow-up Visit",
             "creates_case": [
+              "ec_kvp_prep_register",
               "ec_kvp_prep_followup"
             ]
           },
@@ -895,6 +896,13 @@
             "field_value": "Ayp Out School Client Followup Visit",
             "creates_case": [
               "ec_ayp_out_school_client_followup_visits"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Group Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_group_followup_visits"
             ]
           },
           {

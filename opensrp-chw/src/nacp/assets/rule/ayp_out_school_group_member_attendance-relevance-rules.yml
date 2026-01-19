@@ -2,6 +2,13 @@
 name: step1_member_attendance_toaster_info
 description: members_present
 priority: 1
-condition: "step1_members_present.size() < 5"
+condition: "step1_members_present.size() < 2"
+actions:
+  - "isRelevant = true"
+---
+name: step1_three_sbc_service_per_day
+description: three_sbc_service_per_day
+priority: 1
+condition: "step1_choose_sbc_health_behavior_change_services_provided.size() > 3"
 actions:
   - "isRelevant = true"

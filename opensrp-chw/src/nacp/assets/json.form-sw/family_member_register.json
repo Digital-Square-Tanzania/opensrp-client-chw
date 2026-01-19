@@ -102,6 +102,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "exclusive": [
           "none"
@@ -217,6 +218,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -399,7 +401,7 @@
           },
           {
             "key": "chk_passport_number",
-            "text": "Passport",
+            "text": "Hati ya Kusafiria (Pasipoti)",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_passport_number"
           },
@@ -425,7 +427,7 @@
         "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
-        "mask_hint": "12345678912345678912",
+        "mask_hint": "00000000000000000000",
         "allowed_chars": "0123456789",
         "hint": "Nambari ya kitambulisho cha taifa k.m 12345678-91234-56789-12",
         "edit_type": "number",
@@ -457,7 +459,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Nambari ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
@@ -489,7 +491,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Nambari ya leseni ya udereva k.m 1234567891",
         "edit_type": "number",
@@ -521,7 +523,7 @@
         "openmrs_entity_id": "passport",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya Pasipoti mf. 1234567891",
         "edit_type": "number",
@@ -556,13 +558,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Bima ya Afya ya Umma (mfano NHIF, ICHF)",
+            "text": "Bima ya Afya ya Umma",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Bima ya Afya Binafsi (mfano AAR, Jubilee, Britam)",
+            "text": "Bima ya Afya Binafsi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -781,13 +783,22 @@
         "label": "Kazi ya mwanafamilia",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
             "key": "chk_fisherman",
             "text": "Mvuvi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fisherman"
+          },
+          {
+            "key": "chk_miner",
+            "text": "Kazi eneo la madini",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_miner"
+          },
+          {
+            "key": "chk_truck_driver",
+            "text": "Dereva wa malori",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fisherman"
           },
@@ -833,12 +844,6 @@
             "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "Hana Kazi",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

@@ -14,8 +14,14 @@ import timber.log.Timber;
 
 public class AypOutSchoolGroupMembersRepository extends BaseRepository {
     public static final String TABLE = "ec_ayp_out_school_group_members";
+    public static final String FOLLOWUP_TABLE = "ec_ayp_out_school_group_followup_visits";
     public static final String COL_GROUP_ID = "group_id";
     public static final String COL_MEMBER_BASE_ENTITY_ID = "member_base_entity_id";
+    public static final String COL_BASE_ENTITY_ID = "base_entity_id";
+    public static final String COL_PROVIDED_SBC_SERVICE = "provided_sbc_service";
+    public static final String COL_SBC_SERVICE_PROVIDED = "choose_sbc_service_provided";
+    public static final String COL_ECONOMIC_EMPOWERMENT_SERVICE = "choose_economic_empowerment_services";
+    public static final String COL_NEXT_APPOINTMENT_DATE = "next_appointment_date";
     public static final String COL_DATE_ADDED = "date_added";
     public static final String COL_PROVIDER_ID = "provider_id";
 
@@ -48,6 +54,33 @@ public class AypOutSchoolGroupMembersRepository extends BaseRepository {
                 cv.put(COL_DATE_ADDED, now);
                 if (providerId != null) cv.put(COL_PROVIDER_ID, providerId);
                 db.insert(TABLE, null, cv);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Timber.e(e, "Error adding group members");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void addFollowUpForMembers(String groupId, List<String> memberBaseEntityIds, String providerId,String providedSbcService,List<String> chooseSbcServiceProvided,List<String> economicEmpowermentServices, String nextAppointmentDate) {
+        if (groupId == null || memberBaseEntityIds == null || memberBaseEntityIds.isEmpty()) return;
+        ensureTable();
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            long now = System.currentTimeMillis();
+            for (String id : memberBaseEntityIds) {
+                ContentValues cv = new ContentValues();
+                cv.put(COL_GROUP_ID, groupId);
+                cv.put(COL_MEMBER_BASE_ENTITY_ID, id);
+                cv.put(COL_PROVIDED_SBC_SERVICE, providedSbcService);
+                cv.put(COL_SBC_SERVICE_PROVIDED, chooseSbcServiceProvided.toString());
+                cv.put(COL_ECONOMIC_EMPOWERMENT_SERVICE, economicEmpowermentServices.toString());
+                cv.put(COL_NEXT_APPOINTMENT_DATE, nextAppointmentDate);
+                cv.put(COL_DATE_ADDED, now);
+                if (providerId != null) cv.put(COL_PROVIDER_ID, providerId);
+                db.insert(FOLLOWUP_TABLE, null, cv);
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {
