@@ -170,41 +170,69 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
             String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
             boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
-            String latestObservationResults = TbLeprosyDao.getTbLeprosyObservationResults(baseEntityId);
-            boolean hasPoorQualitySample = StringUtils.isNotBlank(latestObservationResults)
-                    && StringUtils.containsIgnoreCase(latestObservationResults, "poor_quality_sample");
+            TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
+            boolean hasObservationResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision())
+                    || StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults()));
+            boolean hasPoorQualitySample = observationResults != null && observationResults.isPoorQualitySample();
+            boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
+            boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
 
-            if (isTbPresumptiveClient) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-            } else if (isLeprosyPresumptiveClient) {
-                textViewRecordTbLeprosy.setVisibility(View.GONE);
-                rlObservationResults.setVisibility(View.VISIBLE);
-            } else {
-                textViewRecordTbLeprosy.setVisibility(View.GONE);
-            }
-
-
-            if (isTbPresumptiveClient || isLeprosyPresumptiveClient) {
-                if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
+            if (isTbPresumptiveClient && !isLeprosyPresumptiveClient) {
+                if (!hasTbLeprosyVisit) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-                } else if (StringUtils.isNotBlank(latestObservationResults)) {
-                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
-                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
-                }
-
-                if (hasTbLeprosyVisit && StringUtils.isBlank(latestObservationResults)) {
+                } else if (hasTbLeprosyVisit && !hasObservationResults) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_observation_results);
-                } else if (hasTbLeprosyVisit) {
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (hasObservationResults) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
                     rlObservationResults.setVisibility(View.VISIBLE);
                 }
+            } else if (!isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+                if (!hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                } else {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                }
+            } else if (isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+
+                if (hasTbLeprosyVisit && !hasObservationResults) {
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasObservationResults) {
+                    if (hasPoorQualitySample) {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                    } else if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                    } else {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                        rlObservationResults.setVisibility(View.VISIBLE);
+                    }
+
+                    if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                        rlObservationResults.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
         } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             textViewRecordTbLeprosy.setVisibility(View.GONE);
