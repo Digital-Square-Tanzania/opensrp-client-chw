@@ -43,7 +43,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ayp_out_school_report"
+        android:id="@+id/ayp_out_school_monthly_report"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -101,7 +101,7 @@
         android:background="@color/visit_status_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ayp_out_school_report" />
+        app:layout_constraintTop_toBottomOf="@id/ayp_out_school_monthly_report" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ayp_in_school_monthly_report"

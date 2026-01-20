@@ -569,8 +569,9 @@ public class ChwRepositoryFlv {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             List<String> configFiles = Arrays.asList(
                     "config/ayp-in-school-monthly-report.yml",
-                    "config/ayp-parental-monthly-report.yml"
-            );
+                    "config/ayp-parental-monthly-report.yml",
+                    "config/ayp-out-school-monthly-report.yml"
+                    );
             for (String configFile : configFiles) {
                 reportingLibrary.readConfigFile(configFile, db);
             }

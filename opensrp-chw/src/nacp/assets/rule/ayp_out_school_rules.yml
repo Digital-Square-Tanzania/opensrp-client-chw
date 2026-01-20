@@ -68,3 +68,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation =  global_gender.equalsIgnoreCase('Female') ? step1_contraceptive_method_used_female : step1_contraceptive_method_used_male"
+---
+name: step1_received_hpv_vaccine
+description: Rule to control the visibility of (received_hpv_vaccine)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female')"
+actions:
+  - "isRelevant = true "

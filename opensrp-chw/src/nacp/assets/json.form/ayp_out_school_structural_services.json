@@ -377,6 +377,19 @@
           "value": "true",
           "err": "Please fill in"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 12,
+          "err": "The value should be equal or less than 12"
+        },
+        "maxLength": 2,
         "relevance": {
           "step1:client_received_sanitary_pads": {
             "type": "string",

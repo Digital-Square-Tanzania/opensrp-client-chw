@@ -124,12 +124,12 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             }
 
             int existingCount = existing.size();
-            int maxGroupSize = 10;
+            int maxGroupSize = 15;
 
             // Check if group already full
             if (existingCount >= maxGroupSize) {
                 Toast.makeText(this,
-                        "This group already has 10 members. You cannot add more.",
+                        "This group already has 15 members. You cannot add more.",
                         Toast.LENGTH_LONG).show();
                 return;
             }
@@ -164,12 +164,12 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
                         int selectedCount = 0;
                         for (boolean b : checked) if (b) selectedCount++;
 
-                        // Prevent selecting more than 10 total (including existing)
+                        // Prevent selecting more than 15 total (including existing)
                         if (isChecked && (existingCount + selectedCount) > maxGroupSize) {
                             ((AlertDialog) dialog).getListView().setItemChecked(which, false);
                             checked[which] = false;
                             Toast.makeText(this,
-                                    "Each group can have up to 10 members only",
+                                    "Each group can have up to 15 members only",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             checked[which] = isChecked;
@@ -181,7 +181,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
 
                         if (newCount > maxGroupSize) {
                             Toast.makeText(this,
-                                    "Adding these members would exceed the 10-member limit",
+                                    "Adding these members would exceed the 15-member limit",
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
