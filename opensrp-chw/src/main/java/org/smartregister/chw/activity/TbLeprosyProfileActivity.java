@@ -540,9 +540,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(memberObject.getBaseEntityId());
         boolean hasStartedTreatment = observationResults != null && StringUtils.isNotBlank(observationResults.getTbTreatmentStartDate());
+        boolean hasFollowUpWithTreatmentStart = TbLeprosyDao.hasFollowUpVisitWithTreatmentStartDate(memberObject.getBaseEntityId());
         boolean hasPreviousFollowUp = TbLeprosyDao.getLatestFollowUpVisit(memberObject.getBaseEntityId()) != null;
 
-        if (hasStartedTreatment) {
+        if (hasStartedTreatment || hasFollowUpWithTreatmentStart) {
             lockFollowUpReason(followUpReasonField, "interrupted_treatment");
         } else if (!hasPreviousFollowUp) {
             lockFollowUpReason(followUpReasonField, "never_started_treatment");
