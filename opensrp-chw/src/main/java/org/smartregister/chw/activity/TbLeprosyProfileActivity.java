@@ -440,6 +440,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         JSONObject form = FormUtils.getFormUtils().getFormJson(jsonForm);
         try {
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, memberObject.getBaseEntityId());
+            applyFollowUpReasonOverrides(form);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -507,6 +508,51 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 Timber.e(e);
             }
         }
+    }
+
+    private void applyFollowUpReasonOverrides(JSONObject form) throws JSONException {
+        if (form == null) {
+            return;
+        }
+
+        String encounterType = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
+        if (StringUtils.isBlank(encounterType)) {
+            encounterType = form.optString(Constants.ENCOUNTER_TYPE);
+        }
+        if (!Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT.equalsIgnoreCase(encounterType)) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject(Constants.STEP_ONE);
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        JSONObject followUpReasonField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "follow_up_reason");
+        if (followUpReasonField == null) {
+            return;
+        }
+
+        TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(memberObject.getBaseEntityId());
+        boolean hasStartedTreatment = observationResults != null && StringUtils.isNotBlank(observationResults.getTbTreatmentStartDate());
+        boolean hasPreviousFollowUp = TbLeprosyDao.getLatestFollowUpVisit(memberObject.getBaseEntityId()) != null;
+
+        if (hasStartedTreatment) {
+            lockFollowUpReason(followUpReasonField, "interrupted_treatment");
+        } else if (!hasPreviousFollowUp) {
+            lockFollowUpReason(followUpReasonField, "never_started_treatment");
+        }
+    }
+
+    private void lockFollowUpReason(JSONObject followUpReasonField, String value) throws JSONException {
+        followUpReasonField.put("value", value);
+        followUpReasonField.put("read_only", true);
+        followUpReasonField.put("editable", false);
     }
 
     @Override
