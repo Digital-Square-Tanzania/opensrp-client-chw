@@ -61,6 +61,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -250,12 +251,19 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         } else if (itemId == R.id.action_hps_enrollment) {
             startHpsEnrollment();
             return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void startHpsEnrollment() {
         HpsRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID);
     }
 
     @Override
@@ -290,6 +298,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityID) && age >= 10);
         }
 
+        AllClientsUtils.addTbLeprosyMenuItem(menu, baseEntityID);
         return true;
     }
 

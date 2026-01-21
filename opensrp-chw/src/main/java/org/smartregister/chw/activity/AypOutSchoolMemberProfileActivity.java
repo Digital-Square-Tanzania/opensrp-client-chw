@@ -8,6 +8,8 @@ import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -176,6 +179,22 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void graduateForm() {
         try {
             JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, AYP_OUT_SCHOOL_GRADUATION);
@@ -183,6 +202,10 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override
