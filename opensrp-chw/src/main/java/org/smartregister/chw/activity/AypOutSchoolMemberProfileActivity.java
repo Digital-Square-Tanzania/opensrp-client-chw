@@ -5,15 +5,20 @@ import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
 import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
 import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -28,6 +33,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -154,6 +160,158 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         client.setColumnmaps(commonPersonObject.getColumnmaps());
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         HivstRegisterActivity.startHivstRegistrationActivity(this, memberObject.getBaseEntityId(), gender);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+        AllClientsUtils.updateOptionsMenu(menu, client);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
+            startAncRegister();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_pregnancy_out_come) {
+            startPncRegister();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_fp_initiation) {
+            startFpRegister();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_fp_ecp_provision) {
+            startFpEcpScreening();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_malaria_registration) {
+            startMalariaRegister();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_iccm_registration) {
+            startIntegratedCommunityCaseManagementEnrollment();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_cbhs_registration) {
+            startHivRegister();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_tb_registration) {
+            startTbRegister();
+        } else if (i == org.smartregister.chw.core.R.id.action_hivst_registration) {
+            startHivstRegistration();
+            return true;
+        } else if (i == org.smartregister.chw.core.R.id.action_kvp_prep_registration) {
+            startKvpPrEPRegistration();
+            return true;
+        }else if (i == org.smartregister.chw.core.R.id.action_sbc_registration) {
+            startSbcRegistration();
+        } else if (i == org.smartregister.chw.core.R.id.action_gbv_registration) {
+            startGbvRegistration();
+        } else if (i == org.smartregister.chw.core.R.id.action_cancer_preventive_services_registration) {
+            startCancerPreventiveServicesRegistration();
+        } else if (i == org.smartregister.chw.core.R.id.action_asrh_registration) {
+            startAsrhRegistration();
+        }  else if (i == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startAncRegister() {
+        AncRegisterActivity.startAncRegistrationActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(),
+                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
+    }
+
+
+    protected void startPncRegister() {
+        PncRegisterActivity.startPncRegistrationActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(),
+                CoreConstants.JSON_FORM.getPregnancyOutcome(), null, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName(), null);
+    }
+
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+    }
+
+
+    protected void startTbRegister() {
+        try {
+            TbRegisterActivity.startTbFormActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+
+    protected void startFpRegister() {
+        String gender = memberObject.getGender();
+        int age = Integer.parseInt(memberObject.getAge());
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(gender));
+    }
+
+
+    protected void startFpEcpScreening() {
+        //NOT Required in CHW
+    }
+
+
+    protected void startSbcRegistration() {
+        SbcRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+
+    protected void startGbvRegistration() {
+        //Implement
+    }
+
+
+    protected void startCancerPreventiveServicesRegistration() {
+        CecapRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+
+    protected void startAsrhRegistration() {
+        AsrhRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+
+    protected void startKvpPrEPRegistration() {
+        String gender = memberObject.getGender();
+        int age = Integer.parseInt(memberObject.getAge());
+        KvpPrEPRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
+    }
+
+    protected void startIntegratedCommunityCaseManagementEnrollment() {
+        IccmRegisterActivity.startIccmRegistrationActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+    }
+
+    protected void startHivRegister() {
+        String gender = memberObject.getGender();
+        int age = Integer.parseInt(memberObject.getAge());
+
+
+        try {
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(AypOutSchoolMemberProfileActivity.this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override

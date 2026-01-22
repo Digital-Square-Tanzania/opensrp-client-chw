@@ -9990,6 +9990,22 @@
           }
         },
         {
+          "column_name": "number_of_male_condom",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_condom"
+          }
+        },
+        {
+          "column_name": "number_of_female_condom",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_condom"
+          }
+        },
+        {
           "column_name": "gender_based_violence_investigation",
           "type": "Event",
           "json_mapping": {
@@ -10078,11 +10094,11 @@
           }
         },
         {
-          "column_name": "choose_sbc_service_provided",
+          "column_name": "choose_sbc_health_behavior_change_services_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "choose_sbc_service_provided"
+            "concept": "choose_sbc_health_behavior_change_services_provided"
           }
         },
         {
@@ -10209,11 +10225,11 @@
           }
         },
         {
-          "column_name": "choose_sbc_service_provided",
+          "column_name": "choose_sbc_health_behavior_change_services_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "choose_sbc_service_provided"
+            "concept": "choose_sbc_health_behavior_change_services_provided"
           }
         },
         {
@@ -10222,6 +10238,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "choose_economic_empowerment_services"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_interacted_with"
           }
         }
       ]
