@@ -5546,6 +5546,13 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
             "field": "baseEntityId"
           }
         },
@@ -5637,6 +5644,13 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
             "field": "baseEntityId"
           }
         },
@@ -5672,11 +5686,11 @@
           }
         },
         {
-          "column_name": "taja_sababu_ya_hajapatikana",
+          "column_name": "reason_client_not_found",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "taja_sababu_ya_hajapatikana"
+            "concept": "reason_client_not_found"
           }
         },
         {
@@ -5688,11 +5702,11 @@
           }
         },
         {
-          "column_name": "tarehe_ya_miadi",
+          "column_name": "tb_treatment_start_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "tarehe_ya_miadi"
+            "concept": "tb_treatment_start_date"
           }
         },
         {
@@ -5704,11 +5718,35 @@
           }
         },
         {
+          "column_name": "reasons_for_not_returning_to_services_while_not_facing_challenges",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reasons_for_not_returning_to_services_while_not_facing_challenges"
+          }
+        },
+        {
           "column_name": "client_challenge_types",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "client_challenge_types"
+          }
+        },
+        {
+          "column_name": "health_facility_challenges_detail",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "health_facility_challenges_detail"
+          }
+        },
+        {
+          "column_name": "return_to_treatment_prompt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "return_to_treatment_prompt"
           }
         }
       ]

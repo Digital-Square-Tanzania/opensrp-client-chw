@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -63,6 +64,7 @@ import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
@@ -181,6 +183,13 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, baseEntityId);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -193,10 +202,17 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
                 return true;
+            case R.id.action_tbleprosy_screening:
+                startTbLeprosyScreening();
+                return true;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(MalariaProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @NonNull

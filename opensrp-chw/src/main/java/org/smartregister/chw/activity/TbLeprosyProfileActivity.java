@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import org.smartregister.chw.tbleprosy.domain.Visit;
 import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.DBConstants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.FetchStatus;
@@ -163,50 +166,79 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         String baseEntityId = memberObject.getBaseEntityId();
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
 
-        if (!isContactClient) {
+        if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             manualProcessVisit.setVisibility(View.GONE);
 
             boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
             boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
             String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
             boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
-            String latestObservationResults = TbLeprosyDao.getTbLeprosyObservationResults(baseEntityId);
-            boolean hasPoorQualitySample = StringUtils.isNotBlank(latestObservationResults)
-                    && StringUtils.containsIgnoreCase(latestObservationResults, "poor_quality_sample");
+            TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
+            boolean hasObservationResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision())
+                    || StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults()));
+            boolean hasPoorQualitySample = observationResults != null && observationResults.isPoorQualitySample();
+            boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
+            boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
 
-            if (isTbPresumptiveClient) {
+            if (isTbPresumptiveClient && !isLeprosyPresumptiveClient) {
+                if (!hasTbLeprosyVisit) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (hasTbLeprosyVisit && !hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                }
+            } else if (!isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+                if (!hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                } else {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    rlObservationResults.setVisibility(View.VISIBLE);
+                }
+            } else if (isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+
+                if (hasTbLeprosyVisit && !hasObservationResults) {
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasObservationResults) {
+                    if (hasPoorQualitySample) {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                    } else if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                    } else {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                        rlObservationResults.setVisibility(View.VISIBLE);
+                    }
+
+                    if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                        rlObservationResults.setVisibility(View.VISIBLE);
+                    }
+                }
             } else {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
-
-            if (isLeprosyPresumptiveClient) {
-                textViewRecordTbLeprosy.setVisibility(View.GONE);
-                rlObservationResults.setVisibility(View.VISIBLE);
-            }
-
-            if (isTbPresumptiveClient || isLeprosyPresumptiveClient) {
-                if (hasPoorQualitySample && StringUtils.isBlank(latestTbLeprosyVisit) && !hasTbLeprosyVisit) {
-                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-                } else if (StringUtils.isNotBlank(latestObservationResults)) {
-                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
-                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
-                }
-
-                if (hasTbLeprosyVisit && StringUtils.isBlank(latestObservationResults)) {
-                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
-                } else if (hasTbLeprosyVisit) {
-                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
-                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
-                }
-            }
+        } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
+            textViewRecordTbLeprosy.setVisibility(View.GONE);
         }
 
 
@@ -261,6 +293,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 setupViews();
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
+                TbLeprosyDao.closeTbNegativeClients();
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
@@ -410,6 +443,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         JSONObject form = FormUtils.getFormUtils().getFormJson(jsonForm);
         try {
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, memberObject.getBaseEntityId());
+            applyFollowUpReasonOverrides(form);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -419,6 +453,26 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(TbLeprosyProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     private void applyObservationTypeOverrides(JSONObject form, String hiddenValue) throws JSONException {
@@ -477,6 +531,52 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 Timber.e(e);
             }
         }
+    }
+
+    private void applyFollowUpReasonOverrides(JSONObject form) throws JSONException {
+        if (form == null) {
+            return;
+        }
+
+        String encounterType = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
+        if (StringUtils.isBlank(encounterType)) {
+            encounterType = form.optString(Constants.ENCOUNTER_TYPE);
+        }
+        if (!Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT.equalsIgnoreCase(encounterType)) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject(Constants.STEP_ONE);
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        JSONObject followUpReasonField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "follow_up_reason");
+        if (followUpReasonField == null) {
+            return;
+        }
+
+        TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(memberObject.getBaseEntityId());
+        boolean hasStartedTreatment = observationResults != null && StringUtils.isNotBlank(observationResults.getTbTreatmentStartDate());
+        boolean hasFollowUpWithTreatmentStart = TbLeprosyDao.hasFollowUpVisitWithTreatmentStartDate(memberObject.getBaseEntityId());
+        boolean hasPreviousFollowUp = TbLeprosyDao.getLatestFollowUpVisit(memberObject.getBaseEntityId()) != null;
+
+        if (hasStartedTreatment || hasFollowUpWithTreatmentStart) {
+            lockFollowUpReason(followUpReasonField, "interrupted_treatment");
+        } else if (!hasPreviousFollowUp) {
+            lockFollowUpReason(followUpReasonField, "never_started_treatment");
+        }
+    }
+
+    private void lockFollowUpReason(JSONObject followUpReasonField, String value) throws JSONException {
+        followUpReasonField.put("value", value);
+        followUpReasonField.put("read_only", true);
+        followUpReasonField.put("editable", false);
     }
 
     @Override

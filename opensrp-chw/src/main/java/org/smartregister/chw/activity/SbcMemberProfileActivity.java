@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +20,7 @@ import org.smartregister.chw.sbc.activity.BaseSbcProfileActivity;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.util.Constants;
 import org.smartregister.chw.sbc.util.VisitUtils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -148,5 +151,25 @@ public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
     protected void onCreation() {
         super.onCreation();
         addReferralTypes();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(SbcMemberProfileActivity.this, memberObject.getBaseEntityId());
     }
 }

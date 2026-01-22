@@ -372,6 +372,18 @@ public class AllClientsUtils {
         }
     }
 
+    public static void addTbLeprosyMenuItem(Menu menu, String baseEntityId) {
+        MenuItem tbLeprosyMenu = menu.findItem(R.id.action_tbleprosy_screening);
+        if (tbLeprosyMenu == null) {
+            tbLeprosyMenu = menu.add(Menu.NONE, R.id.action_tbleprosy_screening, Menu.NONE, R.string.tbleprosy_screening);
+            tbLeprosyMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+
+        boolean showItem = ChwApplication.getApplicationFlavor().hasTbLeprosy()
+                && !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId);
+        tbLeprosyMenu.setVisible(showItem);
+    }
+
     public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
         MenuItem item = menu.findItem(itemId);
         if (item != null) {

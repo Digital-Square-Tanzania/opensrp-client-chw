@@ -45,6 +45,7 @@ import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.MemberProfileUtils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -290,6 +291,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         if (ChwApplication.getApplicationFlavor().hasCecap()) {
             menu.findItem(R.id.action_cancer_preventive_services_registration).setVisible(!CecapDao.isRegisteredForCecap(memberObject.getBaseEntityId()) && age >= 14);
         }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -350,12 +352,19 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             MemberProfileUtils.startSbcRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == org.smartregister.chw.core.R.id.action_cancer_preventive_services_registration) {
             MemberProfileUtils.startCancerPreventiveServicesRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
+        } else if (i == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
         } else if (i == R.id.action_remove_member) {
             removeIndividualProfile();
         }
         return super.onOptionsItemSelected(item);
     }
 
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HpsMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
 
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
