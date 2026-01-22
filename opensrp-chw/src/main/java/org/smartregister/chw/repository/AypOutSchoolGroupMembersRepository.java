@@ -22,7 +22,6 @@ public class AypOutSchoolGroupMembersRepository extends BaseRepository {
     public static final String COL_SBC_SERVICE_PROVIDED = "choose_sbc_service_provided";
     public static final String COL_ECONOMIC_EMPOWERMENT_SERVICE = "choose_economic_empowerment_services";
     public static final String COL_NEXT_APPOINTMENT_DATE = "next_appointment_date";
-    public static final String COL_LAST_INTERACTED_WITH = "last_interacted_with";
     public static final String COL_DATE_ADDED = "date_added";
     public static final String COL_PROVIDER_ID = "provider_id";
 
@@ -78,7 +77,6 @@ public class AypOutSchoolGroupMembersRepository extends BaseRepository {
                 cv.put(COL_PROVIDED_SBC_SERVICE, providedSbcService);
                 cv.put(COL_SBC_SERVICE_PROVIDED, chooseSbcServiceProvided.toString());
                 cv.put(COL_ECONOMIC_EMPOWERMENT_SERVICE, economicEmpowermentServices.toString());
-                cv.put(COL_LAST_INTERACTED_WITH, getNowEpochMillis());
                 cv.put(COL_NEXT_APPOINTMENT_DATE, nextAppointmentDate);
                 cv.put(COL_DATE_ADDED, now);
                 if (providerId != null) cv.put(COL_PROVIDER_ID, providerId);
@@ -91,11 +89,6 @@ public class AypOutSchoolGroupMembersRepository extends BaseRepository {
             db.endTransaction();
         }
     }
-
-    public static long getNowEpochMillis() {
-        return System.currentTimeMillis();
-    }
-
 
     public List<String> getMemberIds(String groupId) {
         ensureTable();
