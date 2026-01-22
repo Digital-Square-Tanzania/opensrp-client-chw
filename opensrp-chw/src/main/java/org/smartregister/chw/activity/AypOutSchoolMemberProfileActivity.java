@@ -334,22 +334,6 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_tbleprosy_screening) {
-            startTbLeprosyScreening();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void graduateForm() {
         try {
             JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, AYP_OUT_SCHOOL_GRADUATION);
