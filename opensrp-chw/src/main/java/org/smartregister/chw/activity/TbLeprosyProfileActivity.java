@@ -196,7 +196,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             } else if (!isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 if (!hasObservationResults) {
@@ -205,12 +204,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 } else if (hasPoorQualitySample) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 } else {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             } else if (isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
@@ -226,12 +223,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     } else {
                         textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                         textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                        rlObservationResults.setVisibility(View.VISIBLE);
                     }
 
                     if (!hasTbResults || !hasLeprosyResults) {
                         textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                        rlObservationResults.setVisibility(View.VISIBLE);
                     }
                 }
             } else {
@@ -268,7 +263,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     manualProcessVisit.setVisibility(View.GONE);
                     textViewContinueTbLeprosy.setVisibility(View.GONE);
                     rlLastVisit.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             }
 
