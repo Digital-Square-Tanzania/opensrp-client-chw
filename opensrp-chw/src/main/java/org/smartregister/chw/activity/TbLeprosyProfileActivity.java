@@ -196,7 +196,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             } else if (!isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 if (!hasObservationResults) {
@@ -205,12 +204,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 } else if (hasPoorQualitySample) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 } else {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             } else if (isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
@@ -226,12 +223,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     } else {
                         textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                         textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                        rlObservationResults.setVisibility(View.VISIBLE);
                     }
 
                     if (!hasTbResults || !hasLeprosyResults) {
                         textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
-                        rlObservationResults.setVisibility(View.VISIBLE);
                     }
                 }
             } else {
@@ -268,7 +263,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     manualProcessVisit.setVisibility(View.GONE);
                     textViewContinueTbLeprosy.setVisibility(View.GONE);
                     rlLastVisit.setVisibility(View.VISIBLE);
-                    rlObservationResults.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -279,6 +273,15 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         }
 
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        Visit lastVisit = TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT);
+        if (lastVisit != null)
+            rlLastVisit.setVisibility(View.VISIBLE);
+        else
+            rlLastVisit.setVisibility(View.GONE);
     }
 
     @Override
@@ -301,12 +304,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     @Override
-    public void onClick(View view) {
-        if (view.getId() == org.smartregister.chw.tbleprosy.R.id.rlObservationResults) {
-            TbLeprosyObservationResultsActivity.startMe(this, memberObject);
-        } else {
-            super.onClick(view);
-        }
+    public void openMedicalHistory() {
+        TbLeprosyObservationResultsActivity.startMe(this, memberObject);
     }
 
     @Override
