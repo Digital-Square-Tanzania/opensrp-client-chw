@@ -1,5 +1,5 @@
 indicators:
-#Indicator 1
+  #Indicator 1
   - key: "ayp-1-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <10"

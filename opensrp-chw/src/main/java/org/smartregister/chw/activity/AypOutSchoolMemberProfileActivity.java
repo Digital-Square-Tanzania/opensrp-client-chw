@@ -172,6 +172,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         client.setColumnmaps(commonPersonObject.getColumnmaps());
 
         AllClientsUtils.updateOptionsMenu(menu, client);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
 
         return true;
     }
@@ -218,6 +219,9 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
             startAsrhRegistration();
         }  else if (i == R.id.action_hps_enrollment) {
             startHpsEnrollment();
+            return true;
+        }else if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -314,6 +318,11 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         }
     }
 
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+
     @Override
     public void continueService() {
         AypOutSchoolClientServiceVisitActivity.startAypVisitActivity(this, memberObject.getBaseEntityId(), true);
@@ -341,10 +350,6 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    protected void startTbLeprosyScreening() {
-        TbLeprosyRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override

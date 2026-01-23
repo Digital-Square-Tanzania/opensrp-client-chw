@@ -147,7 +147,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS:
                     // AYP In-school group creation/edit event
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     try {
                         saveAypOutGroupDetails(eventClient.getEvent());
                     } catch (Exception e) {
@@ -156,7 +156,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP:
                     // Persist selected members to group membership table
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     try {
                         saveAypOutGroupMembership(eventClient.getEvent());
                     } catch (Exception e) {

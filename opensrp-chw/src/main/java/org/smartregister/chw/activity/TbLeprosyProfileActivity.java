@@ -276,6 +276,15 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        if (TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT) != null || TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_OBSERVATIONS_RESULT) != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         delayRefresh();
@@ -295,12 +304,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     @Override
-    public void onClick(View view) {
-        if (view.getId() == org.smartregister.chw.tbleprosy.R.id.rlObservationResults) {
-            TbLeprosyObservationResultsActivity.startMe(this, memberObject);
-        } else {
-            super.onClick(view);
-        }
+    public void openMedicalHistory() {
+        TbLeprosyObservationResultsActivity.startMe(this, memberObject);
     }
 
     @Override
