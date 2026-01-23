@@ -705,4 +705,5 @@
     <string name="tbleprosy_record_visit_yes">Yes</string>
     <string name="tbleprosy_record_visit_no">No</string>
     <string name="harm_reduction_download_pre_mat_report">Download pre-MAT report</string>
+    <string name="harm_reduction_used_needles_collection">Used Needle and Syringes Collection</string>
 </resources>

@@ -538,6 +538,7 @@
     <string name="harm_reduction_iec_materials_type">Type of IEC Materials Provided</string>
     <string name="harm_reduction_iec_materials_other_specify">If others, specify</string>
     <string name="harm_reduction_safe_injection_tools">Safe injection services provided - Type of tools</string>
+    <string name="harm_reduction_used_needles_collection">Used Needle and Syringes Collection</string>
     <string name="harm_reduction_qty_syringes">Number of tools - Syringes</string>
     <string name="harm_reduction_qty_alcohol_swab">Number of tools - Alcohol swab</string>
     <string name="harm_reduction_qty_dry_cotton">Number of tools - Dry cotton</string>

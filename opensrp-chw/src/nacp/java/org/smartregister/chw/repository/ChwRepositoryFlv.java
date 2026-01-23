@@ -136,6 +136,9 @@ public class ChwRepositoryFlv {
                 case 34:
                     upgradeToVersion34(db);
                     break;
+                case 35:
+                    upgradeToVersion35(db);
+                    break;
                 default:
                     break;
             }
@@ -653,6 +656,16 @@ public class ChwRepositoryFlv {
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion34");
+        }
+    }
+
+    private static void upgradeToVersion35(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_harm_reduction_safety_box_collection")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35");
         }
     }
 }

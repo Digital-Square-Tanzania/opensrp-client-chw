@@ -961,6 +961,13 @@
               "ec_harm_reduction_risk_assessment",
               "ec_harm_reduction_followup_visit"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Used Needle and Syringes Collection",
+            "creates_case": [
+              "ec_harm_reduction_safety_box_collection"
+            ]
           }
         ]
       }

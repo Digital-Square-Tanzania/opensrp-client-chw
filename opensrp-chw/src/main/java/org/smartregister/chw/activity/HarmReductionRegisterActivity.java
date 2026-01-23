@@ -9,6 +9,7 @@ import org.smartregister.chw.core.activity.CoreHarmReductionRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.HarmReductionRegisterFragment;
+import org.smartregister.chw.fragment.HarmReductionUsedNeedlesAndSyringesCollectionFragment;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -28,7 +29,9 @@ public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActi
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[0];
+        return new Fragment[]{
+                new HarmReductionUsedNeedlesAndSyringesCollectionFragment()
+        };
     }
 
     @Override

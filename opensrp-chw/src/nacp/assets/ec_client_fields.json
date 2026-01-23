@@ -11763,6 +11763,81 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_harm_reduction_safety_box_collection",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "date_of_collection",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_of_collection"
+          }
+        },
+        {
+          "column_name": "maskani_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maskani_name"
+          }
+        },
+        {
+          "column_name": "collection_site_gps",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "collection_site_gps"
+          }
+        },
+        {
+          "column_name": "other_collection",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_collection"
+          }
+        },
+        {
+          "column_name": "fixed_bins",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fixed_bins"
+          }
+        },
+        {
+          "column_name": "total_safety_boxes_collected",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "total_safety_boxes_collected"
+          }
+        },
+        {
+          "column_name": "name_of_ow",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "name_of_ow"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }
