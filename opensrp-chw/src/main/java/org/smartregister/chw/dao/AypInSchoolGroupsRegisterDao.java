@@ -41,11 +41,19 @@ public class AypInSchoolGroupsRegisterDao extends AbstractDao {
 
     public static List<AypInSchoolGroupListItem> getAypOutSchoolGroupsByType(String groupType) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT base_entity_id, group_name, group_type, age_band FROM ec_ayp_out_school_group_details ");
+        sb.append("SELECT base_entity_id, group_name, group_type, age_band, ")
+                .append("MAX(last_interacted_with) AS last_interacted_with ")
+                .append("FROM ec_ayp_out_school_group_details ");
+
         if (groupType != null && !groupType.isEmpty()) {
-            sb.append("WHERE group_type = '" + groupType.replace("'", "''") + "' ");
+            sb.append("WHERE group_type = '")
+                    .append(groupType.replace("'", "''"))
+                    .append("' ");
         }
-        sb.append("ORDER BY COALESCE(last_interacted_with, 0) DESC");
+
+        sb.append("GROUP BY base_entity_id ")
+                .append("ORDER BY COALESCE(last_interacted_with, 0) DESC");
+
         String sql = sb.toString();
 
         DataMap<AypInSchoolGroupListItem> dataMap = c -> new AypInSchoolGroupListItem(

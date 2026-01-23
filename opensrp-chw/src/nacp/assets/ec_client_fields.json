@@ -5546,13 +5546,6 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "formSubmissionId"
-          }
-        },
-        {
-          "column_name": "entity_id",
-          "type": "Event",
-          "json_mapping": {
             "field": "baseEntityId"
           }
         },
@@ -5644,13 +5637,6 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "formSubmissionId"
-          }
-        },
-        {
-          "column_name": "entity_id",
-          "type": "Event",
-          "json_mapping": {
             "field": "baseEntityId"
           }
         },
@@ -5686,11 +5672,11 @@
           }
         },
         {
-          "column_name": "reason_client_not_found",
+          "column_name": "taja_sababu_ya_hajapatikana",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "reason_client_not_found"
+            "concept": "taja_sababu_ya_hajapatikana"
           }
         },
         {
@@ -5702,11 +5688,11 @@
           }
         },
         {
-          "column_name": "tb_treatment_start_date",
+          "column_name": "tarehe_ya_miadi",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "tb_treatment_start_date"
+            "concept": "tarehe_ya_miadi"
           }
         },
         {
@@ -5718,35 +5704,11 @@
           }
         },
         {
-          "column_name": "reasons_for_not_returning_to_services_while_not_facing_challenges",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "reasons_for_not_returning_to_services_while_not_facing_challenges"
-          }
-        },
-        {
           "column_name": "client_challenge_types",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "client_challenge_types"
-          }
-        },
-        {
-          "column_name": "health_facility_challenges_detail",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "health_facility_challenges_detail"
-          }
-        },
-        {
-          "column_name": "return_to_treatment_prompt",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "return_to_treatment_prompt"
           }
         }
       ]
@@ -10028,6 +9990,22 @@
           }
         },
         {
+          "column_name": "number_of_male_condom",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_condom"
+          }
+        },
+        {
+          "column_name": "number_of_female_condom",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_condom"
+          }
+        },
+        {
           "column_name": "gender_based_violence_investigation",
           "type": "Event",
           "json_mapping": {
@@ -10116,11 +10094,11 @@
           }
         },
         {
-          "column_name": "choose_sbc_service_provided",
+          "column_name": "choose_sbc_health_behavior_change_services_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "choose_sbc_service_provided"
+            "concept": "choose_sbc_health_behavior_change_services_provided"
           }
         },
         {
@@ -10247,11 +10225,11 @@
           }
         },
         {
-          "column_name": "choose_sbc_service_provided",
+          "column_name": "choose_sbc_health_behavior_change_services_provided",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "choose_sbc_service_provided"
+            "concept": "choose_sbc_health_behavior_change_services_provided"
           }
         },
         {
@@ -10260,6 +10238,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "choose_economic_empowerment_services"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_interacted_with"
           }
         }
       ]

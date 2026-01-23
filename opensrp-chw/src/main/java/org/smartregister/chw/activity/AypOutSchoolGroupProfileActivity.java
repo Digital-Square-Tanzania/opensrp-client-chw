@@ -103,85 +103,111 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
     public void onAddMember() {
         try {
             String groupId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID);
-            String groupName = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME);
-            AypOutSchoolGroupDetailsRepository repo = new AypOutSchoolGroupDetailsRepository();
-            AypInSchoolGroupDetails rec = repo.getByBaseEntityId(groupId);
-
-            String ageBand = localizeAgeBand(rec.getAgeBand());
-
-            String[] parts = ageBand.split("-");
-            int ageFrom = Integer.parseInt(parts[0]);
-            int ageTo   = Integer.parseInt(parts[1]);
-
             if (groupId == null) return;
 
-            // Members already in this group
-            Set<String> existing = new HashSet<>();
-            List<MemberObject> existingMembers = AypDao.getOutSchoolGroupMembers();
+            // -------------------------------
+            // 1. Get group age band
+            // -------------------------------
+            AypOutSchoolGroupDetailsRepository repo = new AypOutSchoolGroupDetailsRepository();
+            AypInSchoolGroupDetails rec = repo.getByBaseEntityId(groupId);
+            if (rec == null) return;
 
-            for (MemberObject memberObject : existingMembers) {
-                existing.add(memberObject.getBaseEntityId());
-            }
+            String ageBand = localizeAgeBand(rec.getAgeBand());
+            String[] parts = ageBand.split("-");
+            int ageFrom = Integer.parseInt(parts[0]);
+            int ageTo = Integer.parseInt(parts[1]);
 
-            int existingCount = existing.size();
-            int maxGroupSize = 10;
+            // -------------------------------
+            // 2. Members in THIS group
+            // -------------------------------
+            List<MemberObject> currentGroupMembers =
+                    AypDao.getOutSchoolGroupMembers(groupId);
 
-            // Check if group already full
+            int existingCount = currentGroupMembers.size();
+            int maxGroupSize = 15;
+
             if (existingCount >= maxGroupSize) {
                 Toast.makeText(this,
-                        "This group already has 10 members. You cannot add more.",
+                        "This group already has 15 members",
                         Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // All members eligible to join
-            List<MemberObject> all = AypDao.getOutSchoolMembers(ageFrom,ageTo);
+            // -------------------------------
+            // 3. Members in ANY group
+            // -------------------------------
+            Set<String> membersInAnyGroup = new HashSet<>();
+            for (MemberObject m : AypDao.getOutSchoolGroupMembers()) {
+                membersInAnyGroup.add(m.getBaseEntityId());
+            }
+
+            // -------------------------------
+            // 4. Eligible members (not in any group)
+            // -------------------------------
+            List<MemberObject> all = AypDao.getOutSchoolMembers(ageFrom, ageTo);
             List<MemberObject> eligible = new ArrayList<>();
+
             for (MemberObject m : all) {
-                if (!existing.contains(m.getBaseEntityId())) eligible.add(m);
+                if (!membersInAnyGroup.contains(m.getBaseEntityId())) {
+                    eligible.add(m);
+                }
             }
 
             if (eligible.isEmpty()) {
-                Toast.makeText(this, org.smartregister.chw.R.string.no, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        "No eligible members available",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Build multi-choice selection list
+            // -------------------------------
+            // 5. Prepare dialog data
+            // -------------------------------
             final String[] items = new String[eligible.size()];
             final boolean[] checked = new boolean[eligible.size()];
+
             for (int i = 0; i < eligible.size(); i++) {
                 MemberObject m = eligible.get(i);
-                String name = (m.getFirstName() + " " +
+                items[i] = (m.getFirstName() + " " +
                         (m.getMiddleName() != null ? m.getMiddleName() + " " : "") +
                         m.getLastName()).trim();
-                items[i] = name;
                 checked[i] = false;
             }
 
+            // -------------------------------
+            // 6. Show dialog with limit enforcement
+            // -------------------------------
             new AlertDialog.Builder(this)
-                    .setTitle(org.smartregister.chw.R.string.add_eligible_child)
+                    .setTitle(R.string.add_eligible_child)
                     .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> {
+
                         int selectedCount = 0;
                         for (boolean b : checked) if (b) selectedCount++;
 
-                        // Prevent selecting more than 10 total (including existing)
                         if (isChecked && (existingCount + selectedCount) > maxGroupSize) {
-                            ((AlertDialog) dialog).getListView().setItemChecked(which, false);
+                            ((AlertDialog) dialog).getListView()
+                                    .setItemChecked(which, false);
                             checked[which] = false;
+
                             Toast.makeText(this,
-                                    "Each group can have up to 10 members only",
+                                    "Maximum 15 members per group",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             checked[which] = isChecked;
                         }
                     })
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        List<String> selectedIds = collectSelectedIds(eligible, checked);
-                        int newCount = existingCount + selectedIds.size();
 
-                        if (newCount > maxGroupSize) {
+                        List<String> selectedIds = new ArrayList<>();
+                        for (int i = 0; i < eligible.size(); i++) {
+                            if (checked[i]) {
+                                selectedIds.add(eligible.get(i).getBaseEntityId());
+                            }
+                        }
+
+                        if (existingCount + selectedIds.size() > maxGroupSize) {
                             Toast.makeText(this,
-                                    "Adding these members would exceed the 10-member limit",
+                                    "Member limit exceeded",
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
