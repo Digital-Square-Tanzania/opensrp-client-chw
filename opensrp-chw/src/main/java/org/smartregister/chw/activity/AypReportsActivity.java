@@ -59,7 +59,7 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
         if (aypParentalMonthlyReport != null) {
             aypParentalMonthlyReport.setOnClickListener(this);
         }
-        aypOutSchoolReport = findViewById(R.id.ayp_out_school_report);
+        aypOutSchoolReport = findViewById(R.id.ayp_out_school_monthly_report);
         if (aypOutSchoolReport != null) {
             aypOutSchoolReport.setOnClickListener(this);
         }
@@ -127,8 +127,12 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
                     Constants.ReportConstants.ReportTypes.AYP_REPORT);
             return;
         }
-        if (viewId == R.id.ayp_out_school_report) {
-            AypOutSchoolReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.AYP_OUT_SCHOOL_REPORT_PATH, R.string.ayp_out_school_reports, reportPeriod);
+        if (viewId == R.id.ayp_out_school_monthly_report) {
+            AypReportsViewActivity.startMe(this,
+                    Constants.ReportConstants.ReportPaths.AYP_OUT_SCHOOL_REPORT_PATH,
+                    R.string.ayp_out_school_reports,
+                    reportPeriod,
+                    Constants.ReportConstants.ReportTypes.AYP_REPORT);
             return;
         }
         Toast.makeText(this, "Action Not Defined", Toast.LENGTH_SHORT).show();

@@ -35,6 +35,7 @@ import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.util.HivstUtils;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
@@ -138,6 +139,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
             int age = Utils.getAgeFromDate(dob);
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
         }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -153,12 +155,19 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         } else if (itemId == R.id.action_hps_enrollment) {
             startHpsEnrollment();
             return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void startHpsEnrollment() {
         HpsRegisterActivity.startRegistration(this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override

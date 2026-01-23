@@ -91,6 +91,9 @@ public class ChwWebAppInterface {
                 case Constants.ReportConstants.AypReportKeys.AYP_PARENTAL_MONTHLY_REPORT:
                     ReportUtils.setPrintJobName("AYP_parental_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
                     return ReportUtils.AypReports.computeParentalMonthlyReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.AypReportKeys.AYP_OUT_SCHOOL_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("AYP_out_school_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AypReports.computeOutSchoolMonthlyReport(ReportUtils.getReportDate());
                 default:
                     return "";
             }

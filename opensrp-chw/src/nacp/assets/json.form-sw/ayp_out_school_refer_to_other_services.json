@@ -107,12 +107,6 @@
             "openmrs_entity_id": "gbv"
           },
           {
-            "key": "gbv",
-            "text": "GBV",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gbv"
-          },
-          {
             "key": "sti",
             "text": "STI services",
             "openmrs_entity": "concept",

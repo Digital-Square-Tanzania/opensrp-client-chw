@@ -45,18 +45,6 @@ allprojects {
         }
 
         maven {
-
-            name = "GitHubPackages"
-
-            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/CircleProgressbar")
-            credentials {
-                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
-                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
-            }
-
-        }
-
-        maven {
             name = "GitHubPackages"
             /**
              * Configure path of the package repository on Github using the GITHUB_USER_ID and * Git Repository */
@@ -260,7 +248,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '33'
+            buildConfigField "int", "DATABASE_VERSION", '34'
         }
     }
 
@@ -336,8 +324,6 @@ dependencies {
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
-
-    implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT@aar'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'

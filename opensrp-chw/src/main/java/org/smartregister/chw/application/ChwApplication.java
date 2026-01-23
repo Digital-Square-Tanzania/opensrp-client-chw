@@ -206,6 +206,8 @@ public class ChwApplication extends CoreChwApplication {
             }
         }
 
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
         initializeLibraries();
 
         // init json helper

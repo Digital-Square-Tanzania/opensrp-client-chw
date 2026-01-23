@@ -133,6 +133,9 @@ public class ChwRepositoryFlv {
                 case 33:
                     upgradeToVersion33(db);
                     break;
+                case 34:
+                    upgradeToVersion34(db);
+                    break;
                 default:
                     break;
             }
@@ -566,8 +569,9 @@ public class ChwRepositoryFlv {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             List<String> configFiles = Arrays.asList(
                     "config/ayp-in-school-monthly-report.yml",
-                    "config/ayp-parental-monthly-report.yml"
-            );
+                    "config/ayp-parental-monthly-report.yml",
+                    "config/ayp-out-school-monthly-report.yml"
+                    );
             for (String configFile : configFiles) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
@@ -640,6 +644,15 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion33-config");
+        }
+    }
+
+    private static void upgradeToVersion34(SQLiteDatabase db) {
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE location ADD COLUMN status VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion34");
         }
     }
 }

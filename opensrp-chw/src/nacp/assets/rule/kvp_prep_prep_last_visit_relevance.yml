@@ -1,0 +1,7 @@
+---
+name: step1_received_prep_last_facility
+priority: 1
+description: Show PrEP last facility question only for follow-up clients without positive status
+condition: "(global_visit_type != null && global_visit_type.equalsIgnoreCase('followup')) && (global_visit_number != null && global_visit_number == 2)  && (global_client_hiv_status != null && (global_client_hiv_status.equalsIgnoreCase('negative') || global_client_hiv_status.equalsIgnoreCase('unknown')))"
+actions:
+  - "isRelevant = true"

@@ -50,6 +50,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -179,6 +180,9 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             } else if (itemId == R.id.action_hps_enrollment) {
                 startHpsEnrollment();
                 return true;
+            } else if (itemId == R.id.action_tbleprosy_screening) {
+                startTbLeprosyScreening();
+                return true;
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -188,6 +192,10 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
 
     protected void startHpsEnrollment() {
         HpsRegisterActivity.startRegistration(this, getHivIndexContactObject().getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId());
     }
 
     @Override
@@ -212,6 +220,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(getHivIndexContactObject().getBaseEntityId()) && age >= 10);
         }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, getHivIndexContactObject().getBaseEntityId());
         return true;
     }
 
@@ -357,4 +366,3 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         HivstRegisterActivity.startHivstRegistrationActivity(this, getHivIndexContactObject().getBaseEntityId(), gender);
     }
 }
-

@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.pmtct.PmtctLibrary;
 import org.smartregister.chw.pmtct.domain.Visit;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.common.Gender;
 
@@ -30,8 +32,18 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO: update options menu with required details
-        return false;
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -80,6 +92,9 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AgywProfileActivity.this, memberObject.getBaseEntityId());
+    }
 
     @Override
     protected void onResume() {

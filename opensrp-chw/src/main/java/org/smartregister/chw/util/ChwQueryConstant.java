@@ -30,7 +30,7 @@ public interface ChwQueryConstant {
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0 AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_harm_reduction_risk_assessment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_harm_reduction_risk_assessment  where ec_harm_reduction_risk_assessment.is_closed is 0 \n" +
@@ -40,6 +40,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
             "    FROM ec_pregnancy_outcome where ec_pregnancy_outcome.delivery_date is not null\n" +
+            "    AND ec_pregnancy_outcome.is_closed is 0" +
             "    UNION ALL\n" +
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +
@@ -141,7 +142,7 @@ public interface ChwQueryConstant {
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_harm_reduction_risk_assessment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_harm_reduction_risk_assessment where ec_harm_reduction_risk_assessment.is_closed is 0 \n" +
@@ -192,7 +193,7 @@ public interface ChwQueryConstant {
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_harm_reduction_risk_assessment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_harm_reduction_risk_assessment where ec_harm_reduction_risk_assessment.is_closed is 0  \n" +
@@ -631,7 +632,7 @@ public interface ChwQueryConstant {
             "    FROM ec_child\n" +
             "    UNION ALL\n" +
             "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_tbleprosy_screening\n" +
+            "    FROM ec_tbleprosy_screening  where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
             "    FROM ec_malaria_confirmation\n" +

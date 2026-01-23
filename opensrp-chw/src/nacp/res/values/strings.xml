@@ -692,7 +692,7 @@
     <string name="restock_history">Restock History</string>
     <string name="kvp_discordant_couples">Discordant Couples</string>
     <string name="kvp_fsw">WHR</string>
-    <string name="kvp_msm">MRH</string>
+    <string name="kvp_msm">MHR</string>
     <string name="kvp_agyw">vAGYW</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
@@ -769,6 +769,11 @@
     <string name="ayp_contraceptive_method_used">Contraceptive method used:</string>
     <string name="ayp_received_hpv_vaccine">Received hpv vaccine:</string>
     <string name="ayp_referred_for_hiv_test">Referred for hiv test:</string>
+
+    <string name="ayp_provided_sbc_service">sbc services:</string>
+    <string name="ayp_choose_sbc_service_provided">sbc service provided:</string>
+    <string name="ayp_member_names">Members Present:</string>
+    <string name="ayp_choose_economic_empowerment_services">economic empowerment services:</string>
 
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>

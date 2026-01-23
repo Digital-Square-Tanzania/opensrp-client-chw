@@ -2,7 +2,7 @@
 name: step3_pregnancy_status
 description: Rule to control the visibility of (step3_pregnancy_status)
 priority: 1
-condition: "step3_had_sex.equalsIgnoreCase('yes') && (global_gender.equalsIgnoreCase('female') && global_age < 18)"
+condition: "step3_had_sex.equalsIgnoreCase('yes') && (global_gender.equalsIgnoreCase('Female') && global_age < 18)"
 actions:
   - "isRelevant = true "
 ---
@@ -40,3 +40,38 @@ priority: 1
 condition: "true"
 actions:
   - "calculation =  step2_parent_maternal_status.equalsIgnoreCase('no') ? step2_parental_status_parent_not_alive : step2_parental_status_parent_alive"
+---
+name: step1_client_received_sanitary_pads
+description: Rule to control the visibility of (step1_client_received_sanitary_pads)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_contraceptive_method_used_female
+description: Rule to control the visibility of (step1_contraceptive_method_used_female)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female') && step1_family_planning.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_contraceptive_method_used_male
+description: Rule to control the visibility of (step1_contraceptive_method_used_male)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Male') && step1_family_planning.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_contraceptive_method_used
+description: Rule to control the value of (step1_contraceptive_method_used)
+priority: 1
+condition: "true"
+actions:
+  - "calculation =  global_gender.equalsIgnoreCase('Female') ? step1_contraceptive_method_used_female : step1_contraceptive_method_used_male"
+---
+name: step1_received_hpv_vaccine
+description: Rule to control the visibility of (received_hpv_vaccine)
+priority: 1
+condition: "global_gender.equalsIgnoreCase('Female')"
+actions:
+  - "isRelevant = true "

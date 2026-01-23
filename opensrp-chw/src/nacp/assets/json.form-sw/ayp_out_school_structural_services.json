@@ -51,6 +51,7 @@
       "value": ""
     }
   },
+  "global": {},
   "step1": {
     "title": "Huduma za Muundo",
     "display_back_button": "true",
@@ -157,6 +158,9 @@
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "entrepreneurial_skills_in_group",
@@ -229,6 +233,12 @@
             "text": "Msaada wa kupata vitambulisho vya Taifa (cheti cha kuzaliwa, NIDA)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "assistance_in_obtaining_national_ids"
+          },
+          {
+            "key": "none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -326,7 +336,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_received_sanitary_pads",
         "type": "native_radio",
-        "label": "Je, mteja amepokea pad za usafi wa kike?",
+        "label": "Je, mteja amepokea pedi za kike?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -346,6 +356,13 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_out_school_rules.yml"
+            }
+          }
         }
       },
       {
@@ -360,6 +377,19 @@
           "value": "true",
           "err": "Tafadhali jaza"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": 0,
+          "err": "The value must be 0 or higher"
+        },
+        "v_max": {
+          "value": 12,
+          "err": "Namba inatakiwa kuwa sawa au chini ya 12"
+        },
+        "maxLength": 2,
         "relevance": {
           "step1:client_received_sanitary_pads": {
             "type": "string",

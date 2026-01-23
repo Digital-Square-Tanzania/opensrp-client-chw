@@ -42,6 +42,7 @@ import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
+import org.smartregister.chw.util.AllClientsUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -264,6 +265,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.tb_profile_menu, menu);
         flavor.updateHivMenuItems(getTbMemberObject().getBaseEntityId(), menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, getTbMemberObject().getBaseEntityId());
         return true;
     }
 
@@ -272,6 +274,9 @@ public class TbProfileActivity extends CoreTbProfileActivity
         int itemId = item.getItemId();
         if (itemId == org.smartregister.chw.core.R.id.action_cbhs_registration) {
             startHivRegister();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -299,9 +304,12 @@ public class TbProfileActivity extends CoreTbProfileActivity
         }
     }
 
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(TbProfileActivity.this, getTbMemberObject().getBaseEntityId());
+    }
+
     public interface Flavor {
         void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 
 }
-
