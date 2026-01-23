@@ -277,11 +277,11 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-        Visit lastVisit = TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT);
-        if (lastVisit != null)
+        if (TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT) != null || TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_OBSERVATIONS_RESULT) != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
-        else
+        } else {
             rlLastVisit.setVisibility(View.GONE);
+        }
     }
 
     @Override
