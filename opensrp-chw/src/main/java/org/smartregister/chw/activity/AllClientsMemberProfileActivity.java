@@ -249,6 +249,21 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, PatchedOpdFormActivity.class);
+        intent.putExtra(org.smartregister.opd.utils.OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        com.vijay.jsonwizard.domain.Form form = new com.vijay.jsonwizard.domain.Form();
+        form.setName(getString(org.smartregister.chw.core.R.string.update_client_registration));
+        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+        form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
+        form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
+        form.setPreviousLabel(getResources().getString(org.smartregister.chw.core.R.string.back));
+        form.setWizard(false);
+        intent.putExtra(com.vijay.jsonwizard.constants.JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
     protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
             String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
         return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
