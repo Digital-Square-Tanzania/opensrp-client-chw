@@ -653,6 +653,14 @@ public class ChwRepositoryFlv {
         try {
             String addMissingColumnsQuery = "ALTER TABLE location ADD COLUMN status VARCHAR;";
             db.execSQL(addMissingColumnsQuery);
+
+
+            db.execSQL("ALTER TABLE ec_hps_death_register ADD COLUMN age VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN hiv_test_conducted VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN hiv_test_location VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN client_hiv_status VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN ctc_number VARCHAR;");
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN next_visit_date VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion34");
         }
