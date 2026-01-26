@@ -53,6 +53,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     protected void setupViews() {
         super.setupViews();
         setupPreMatSessionsHistoryLayout();
+        setupMarkClientStartedMatVisibility();
     }
 
     @Override
@@ -211,6 +212,13 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
         if (preMatSessionRowDivider != null) {
             preMatSessionRowDivider.setVisibility(showPreMatHistory ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void setupMarkClientStartedMatVisibility() {
+        boolean showMarkClientStartedMat = hasMinimumVisitsAfterMatConsent(3);
+        if (textViewMarkClientStartedMat != null) {
+            textViewMarkClientStartedMat.setVisibility(showMarkClientStartedMat ? View.VISIBLE : View.GONE);
         }
     }
 
