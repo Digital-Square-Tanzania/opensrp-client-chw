@@ -3,7 +3,7 @@ if (rootProject.file("github.properties").exists()) {
     githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 }
 allprojects {
-    repositories {
+repositories {
         // Mapbox Maven repository
         maven {
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
@@ -20,6 +20,8 @@ allprojects {
         }
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        // Legacy artifacts (e.g., io.ona.CircleProgressbar:lib:0.1.0) still live on JCenter
+        maven { url 'https://jcenter.bintray.com' }
         maven {
 
             name = "GitHubPackages"
@@ -62,6 +64,11 @@ allprojects {
         mavenLocal()
         maven { url uri("${rootDir}/local-maven") }
     }
+}
+
+configurations.all { config ->
+    // Ensure a single native-form version is packaged to avoid JsonFormActivity method mismatches
+    config.resolutionStrategy.force 'org.smartregister:opensrp-client-native-form:3.1.9-NACP-SNAPSHOT'
 }
 
 apply plugin: 'com.android.application'
@@ -225,6 +232,9 @@ android {
             force 'com.google.android.material:material:1.0.0'
             force 'net.zetetic:android-database-sqlcipher:4.5.4'
         }
+        // remove duplicate class sources
+        exclude group: 'org.chartmaster', module: 'mpandroidchart'
+        exclude group: 'com.emredavarci', module: 'circleprogressbar'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
@@ -301,6 +311,13 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
+    // Explicit dependencies to avoid duplicate transitive variants
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    // Pin native-form (newer) - keep aligned with OPD
+    implementation 'org.smartregister:opensrp-client-native-form:3.1.9-NACP-SNAPSHOT'
+
+
     implementation('org.smartregister:opensrp-client-chw-core:1.8.0-ALPHA3-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -315,12 +332,16 @@ dependencies {
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
         exclude group: 'com.ibm.fhir', module: 'fhir-path'
         exclude group: 'com.emredavarci', module: 'circleprogressbar'
+        exclude group: 'org.chartmaster', module: 'mpandroidchart'
+        exclude group: 'com.github.PhilJay', module: 'MPAndroidChart'
         exclude group: 'jakarta.activation', module: 'jakarta.activation-api'
         exclude group: 'jakarta.xml.bind', module: 'jakarta.xml.bind-api'
         exclude group: 'org.koin'
         exclude group: "com.google.guava", module: 'listenablefuture'
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
+        // use the pinned native-form instead of transitive newer versions
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
