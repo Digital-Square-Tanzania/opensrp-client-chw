@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:weightSum="1">
 
     <com.google.android.material.appbar.AppBarLayout

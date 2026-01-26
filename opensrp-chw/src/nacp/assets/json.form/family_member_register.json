@@ -558,13 +558,13 @@
         "options": [
           {
             "key": "public_insurance",
-            "text": "Public Health Insurance",
+            "text": "Public Health Insurance (e.g. NHIF, ICHF)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "public_insurance"
           },
           {
             "key": "private_insurance",
-            "text": "Private Health Insurance",
+            "text": "Private Health Insurance (e.g. AAR, Jubilee, Britam)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "private_insurance"
           },
@@ -817,7 +817,6 @@
           {
             "key": "chk_business_person",
             "text": "Business person",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },
@@ -871,8 +870,8 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "combine_checkbox_option_values": "true",
         "label": "A leadership role in the community",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

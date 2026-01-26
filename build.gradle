@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
-    ext.kotlinVersion = '1.9.24'
+    ext.kotlinVersion = '2.0.21'
     ext.koinVersion = '2.0.1'
     ext.espressoVersion = '3.2.0'
     ext.dokkaVersion = '0.10.1'
@@ -9,18 +9,16 @@ buildscript {
     repositories {
         google()
         mavenLocal()
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.10.2"
-        classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath 'com.google.gms:google-services:4.4.2'
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.5'
-        classpath 'com.google.gms:google-services:4.4.3'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.6'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -29,7 +27,7 @@ buildscript {
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.12"
 }
 
 allprojects {
@@ -50,7 +48,6 @@ allprojects {
         maven { url "https://acra.googlecode.com/svn/repository/releases" }
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         maven { url "https://repository.liferay.com/nexus/content/repositories/public/" }
         maven { url "https://maven.bestsolution.at/efxclipse-releases/" }
@@ -64,20 +61,16 @@ allprojects {
     }
 }
 
-project.ext.preDexLibs = !project.hasProperty('disablePreDex')
-
 subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '4.0.1'
-    ext.androidMinSdkVersion = 23
-    ext.androidCompileSdkVersion = 35
-    ext.androidTargetSdkVersion = 35
+    ext.androidMinSdkVersion = 22
+    ext.androidCompileSdkVersion = 34
+    ext.androidTargetSdkVersion = 34
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
-
 }
 
 task clean(type: Delete) {

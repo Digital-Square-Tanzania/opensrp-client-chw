@@ -191,7 +191,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         // Check if there is a dominant KVP group and update UI accordingly
         if (StringUtils.isNotBlank(dominantKVPGroup)) {
             textViewDominantKvpGroup.setVisibility(View.VISIBLE);
-            textViewDominantKvpGroup.setText(getString(org.smartregister.kvp.R.string.dominant_kvp_group,
+            textViewDominantKvpGroup.setText(getString(org.smartregister.chw.kvp.R.string.dominant_kvp_group,
                     readStringResourcesWithPrefix(Arrays.asList(dominantKVPGroup), "kvp_")));
         } else {
             textViewDominantKvpGroup.setVisibility(View.GONE);
@@ -212,6 +212,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         client.setColumnmaps(commonPersonObject.getColumnmaps());
 
         AllClientsUtils.updateOptionsMenu(menu, client);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
 
         return true;
     }
@@ -270,6 +271,9 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         }  else if (i == R.id.action_hps_enrollment) {
             startHpsEnrollment();
             return true;
+        } else if (i == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -296,6 +300,10 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startVmmcRegister() {
         //implement
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId());
     }
 
 

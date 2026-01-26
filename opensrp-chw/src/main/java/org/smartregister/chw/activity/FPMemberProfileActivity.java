@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -36,6 +38,7 @@ import org.smartregister.chw.fp.domain.Visit;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyPlanningMemberProfilePresenter;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -174,6 +177,22 @@ public class FPMemberProfileActivity extends CoreFamilyPlanningMemberProfileActi
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, fpMemberObject.getBaseEntityId());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
@@ -230,6 +249,10 @@ public class FPMemberProfileActivity extends CoreFamilyPlanningMemberProfileActi
         FpCbdFollowupVisitProvisionOfServicesActivity.startMe(this, fpMemberObject.getBaseEntityId(), false);
     }
 
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(FPMemberProfileActivity.this, fpMemberObject.getBaseEntityId());
+    }
+
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral), BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getFamilyPlanningUnifiedReferralForm(fpMemberObject.getGender()) : JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
@@ -267,4 +290,3 @@ public class FPMemberProfileActivity extends CoreFamilyPlanningMemberProfileActi
 
 
 }
-

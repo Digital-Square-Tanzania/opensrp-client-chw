@@ -10,9 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.kvp.dao.KvpDao;
-import org.smartregister.chw.kvp.domain.VisitDetail;
+import org.smartregister.chw.dao.ChwKvpDao;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
+import org.smartregister.chw.kvp.domain.VisitDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -22,9 +22,11 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private String condoms_given;
     private String jsonPayload;
     private String baseEntityId;
+    private final Map<String, String> visitState;
 
-    public KvpPrEPPreventiveServicesActionHelper(String baseEntityId) {
+    public KvpPrEPPreventiveServicesActionHelper(String baseEntityId, Map<String, String> visitState) {
         this.baseEntityId = baseEntityId;
+        this.visitState = visitState;
     }
 
     @Override
@@ -36,14 +38,35 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     public String getPreProcessed() {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            if (!KvpDao.getDominantKVPGroup(baseEntityId).equalsIgnoreCase("pwud") &&
-                    !KvpDao.getDominantKVPGroup(baseEntityId).equalsIgnoreCase("pwid")) {
+            if (!ChwKvpDao.getDominantKVPGroup(baseEntityId).equalsIgnoreCase("pwud") &&
+                    !ChwKvpDao.getDominantKVPGroup(baseEntityId).equalsIgnoreCase("pwid")) {
                 getFieldJSONObject(fields(jsonObject, STEP1), "number_of_needles_and_syringes_distributed").put("type", "hidden");
                 getFieldJSONObject(fields(jsonObject, STEP1), "number_of_sterile_water_for_injection_distributed").put("type", "hidden");
                 getFieldJSONObject(fields(jsonObject, STEP1), "number_of_alcohol_swabs_distributed").put("type", "hidden");
                 getFieldJSONObject(fields(jsonObject, STEP1), "number_of_disposable_safety_boxes_distributed").put("type", "hidden");
                 getFieldJSONObject(fields(jsonObject, STEP1), "number_of_plasters_distributed").put("type", "hidden");
                 getFieldJSONObject(fields(jsonObject, STEP1), "protective_items_for_PWID_label").put("type", "hidden");
+            }
+
+            JSONObject global = jsonObject.optJSONObject("global");
+            if (global != null) {
+                String visitType = StringUtils.defaultIfBlank(visitState.get("visit_type"), ChwKvpDao.getLatestVisitType(baseEntityId));
+                boolean hasFollowupVisits = ChwKvpDao.hasFollowupVisits(baseEntityId);
+                String visitNumber = hasFollowupVisits ? "2" : "1";
+                if (StringUtils.equalsIgnoreCase(visitType, "followup")) {
+                    visitNumber = "2";
+                }
+                String hivStatus = StringUtils.defaultIfBlank(visitState.get("client_hiv_status"), ChwKvpDao.getLatestClientHivStatus(baseEntityId));
+
+                if (StringUtils.isNotBlank(visitType)) {
+                    global.put("visit_type", visitType);
+                }
+                if (StringUtils.isNotBlank(visitNumber)) {
+                    global.put("visit_number", visitNumber);
+                }
+                if (StringUtils.isNotBlank(hivStatus)) {
+                    global.put("client_hiv_status", hivStatus);
+                }
             }
             return jsonObject.toString();
         } catch (JSONException e) {

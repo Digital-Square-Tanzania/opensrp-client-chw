@@ -1,0 +1,319 @@
+{
+  "count": "1",
+  "encounter_type": "sanitary_kits",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Sanitary Kits",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "sanitary_kits_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sanitary_kits_provided",
+        "type": "native_radio",
+        "label": "Were Sanitary Kits provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select Yes or No"
+        }
+      },
+      {
+        "key": "sanitary_kits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sanitary_kits",
+        "type": "check_box",
+        "label": "Sanitary Kits provided:",
+        "options": [
+          {
+            "key": "sanitary_pads",
+            "text": "Sanitary Pads",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sanitary_pads",
+            "value": false
+          },
+          {
+            "key": "underwear",
+            "text": "underwear",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "underwear",
+            "value": false
+          },
+          {
+            "key": "sanitary_cloth_bag",
+            "text": "Sanitary cloth bag",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sanitary_cloth_bag",
+            "value": false
+          },
+          {
+            "key": "user_guide_manual",
+            "text": "User guide (Manual)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "user_guide_manual",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sanitary_pads_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sanitary_pads_count",
+        "type": "edit_text",
+        "hint": "Number of sanitary pads",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "underwear_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "underwear_count",
+        "type": "edit_text",
+        "hint": "Number of underwear",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "sanitary_cloth_bag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sanitary_cloth_bag_count",
+        "type": "edit_text",
+        "hint": "Number of sanitary cloth bags",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "user_guide_manual_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "user_guide_manual_count",
+        "type": "edit_text",
+        "hint": "Number of user guides (manuals)",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "witness_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "witness_name",
+        "type": "edit_text",
+        "hint": "Witness",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter witness name"
+        }
+      },
+      {
+        "key": "parent_guardian_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parent_guardian_name",
+        "type": "edit_text",
+        "hint": "Name of Parent/Guardian",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter name of parent/guardian"
+        }
+      },
+      {
+        "key": "parent_guardian_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parent_guardian_phone_number",
+        "type": "edit_text",
+        "hint": "Phone number of Parent/Guardian",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_regex": {
+          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid phone number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter phone number"
+        }
+      },
+      {
+        "key": "teachers_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "teachers_name",
+        "type": "edit_text",
+        "hint": "Teacher’s Name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_sanitary-kits-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter teacher’s name"
+        }
+      }
+    ]
+  }
+}
+

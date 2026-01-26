@@ -1,0 +1,160 @@
+{
+  "count": "1",
+  "encounter_type": "Service Delivery Modality",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": "today",
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Service Delivery Modality",
+    "fields": [
+      {
+        "key": "service_delivery_modality",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_delivery_modality",
+        "type": "native_radio",
+        "label": "Service delivery modality",
+        "options": [
+          {
+            "key": "group",
+            "text": "Group",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "group"
+          },
+          {
+            "key": "individual",
+            "text": "Individual",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "individual"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select a modality"
+        }
+      },
+      {
+        "key": "group_modality_types",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_modality_types",
+        "type": "check_box",
+        "label": "If Group, select type(s)",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "groups_vicoba_upatu",
+            "text": "Groups (VICOBA, upatu, n.k.)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "groups_vicoba_upatu"
+          },
+          {
+            "key": "religious_congregation_jumuia",
+            "text": "Religious congregation (Jumuia)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "religious_congregation_jumuia"
+          },
+          {
+            "key": "community_meetings",
+            "text": "Community meetings",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_meetings"
+          },
+          {
+            "key": "traditional_initiation_practices",
+            "text": "Traditional (initiation) practices",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "traditional_initiation_practices"
+          },
+          {
+            "key": "church_mosque",
+            "text": "Church/Mosque",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "church_mosque"
+          },
+          {
+            "key": "household",
+            "text": "Household",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household"
+          },
+          {
+            "key": "school",
+            "text": "School",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school"
+          },
+          {
+            "key": "clusters",
+            "text": "Clusters",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "clusters"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one type"
+        },
+        "relevance": {
+          "step1:service_delivery_modality": {
+            "type": "string",
+            "ex": "equalTo(., \"group\")"
+          }
+        }
+      }
+    ]
+  }
+}
