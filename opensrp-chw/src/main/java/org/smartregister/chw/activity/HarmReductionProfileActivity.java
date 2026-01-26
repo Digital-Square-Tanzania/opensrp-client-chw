@@ -215,6 +215,13 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private boolean hasVisitsAfterMatConsent() {
+        return hasMinimumVisitsAfterMatConsent(1);
+    }
+
+    private boolean hasMinimumVisitsAfterMatConsent(int minimumVisits) {
+        if (minimumVisits <= 0) {
+            return true;
+        }
         if (memberObject == null) {
             return false;
         }
@@ -230,10 +237,14 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
                     Constants.EVENT_TYPE.HARM_REDUCTION_FOLLOW_UP_VISIT
             );
 
+            int visitCount = 0;
             for (SortableVisit visit : visits) {
                 Date visitDate = visit.getDate();
                 if (visitDate != null && visitDate.after(consentDate)) {
-                    return true;
+                    visitCount++;
+                    if (visitCount >= minimumVisits) {
+                        return true;
+                    }
                 }
             }
         } catch (Exception e) {
