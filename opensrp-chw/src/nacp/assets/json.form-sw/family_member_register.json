@@ -844,6 +844,12 @@
             "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hana Kazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
