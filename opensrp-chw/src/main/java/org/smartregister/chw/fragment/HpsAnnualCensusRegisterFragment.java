@@ -152,6 +152,7 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
             if (items != null && !items.isEmpty()) {
                 adapter = new HpsAnnualCensusRegisterAdapter(items, requireActivity());
                 clientsView.setAdapter(adapter);
+                showEmptyState();
             } else {
                 // Clear adapter to show empty state
                 adapter = null;

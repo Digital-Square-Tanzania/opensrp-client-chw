@@ -68,6 +68,7 @@ import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.CbhsUtils;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -612,6 +613,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(getHivMemberObject().getBaseEntityId()) && age >= 10);
         }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, getHivMemberObject().getBaseEntityId());
         return true;
     }
 
@@ -636,6 +638,9 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
             return true;
         } else if (itemId == R.id.action_hps_enrollment) {
             startHpsEnrollment();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -670,6 +675,10 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId());
     }
 
     protected void startAncRegister() {
@@ -785,4 +794,3 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 }
-

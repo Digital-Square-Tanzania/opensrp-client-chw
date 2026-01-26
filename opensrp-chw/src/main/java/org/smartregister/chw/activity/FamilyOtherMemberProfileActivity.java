@@ -86,6 +86,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         // Not required
     }
 
+
+
     @Override
     protected void startIntegratedCommunityCaseManagementEnrollment() {
         IccmRegisterActivity.startIccmRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
@@ -277,6 +279,34 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startHpsEnrollment() {
         HpsRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    @Override
+    protected void startAypFacilityScreening() {
+        // Not required in community build
+    }
+
+    @Override
+    protected void startAypInSchoolEnrollment() {
+        AypInSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startAypParentalEnrollment() {
+        AypParentalRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startAypOutSchoolEnrollment() {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AypOutSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId,gender,age);
     }
 
     @Override

@@ -43,6 +43,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.repository.AllSharedPreferences;
@@ -174,6 +175,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             case R.id.action_iccm_registration:
                 startIntegratedCommunityCaseManagementEnrollment();
                 return true;
+            case R.id.action_tbleprosy_screening:
+                startTbLeprosyScreening();
+                return true;
             default:
                 break;
         }
@@ -182,6 +186,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     protected void startIntegratedCommunityCaseManagementEnrollment() {
         IccmRegisterActivity.startIccmRegistrationActivity(ChildProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -210,6 +218,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()));
         }
 
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 

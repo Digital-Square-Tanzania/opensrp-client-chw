@@ -1,0 +1,58 @@
+---
+# Calculation for total score (count of 'yes' answers)
+- name: step1_total_score
+  description: Calculate total score from q1 to q20
+  priority: 1
+  condition: "true"
+  actions:
+    - "calculation = (step1_q1_completed_6months == 'yes' ? 1 : 0)
+        + (step1_q2_basic_services == 'yes' ? 1 : 0)
+        + (step1_q3_constitution == 'yes' ? 1 : 0)
+        + (step1_q4_registered == 'yes' ? 1 : 0)
+        + (step1_q5_rules_familiar == 'yes' ? 1 : 0)
+        + (step1_q6_leadership_training == 'yes' ? 1 : 0)
+        + (step1_q7_elections == 'yes' ? 1 : 0)
+        + (step1_q8_saving == 'yes' ? 1 : 0)
+        + (step1_q9_records == 'yes' ? 1 : 0)
+        + (step1_q10_financial_mgmt == 'yes' ? 1 : 0)
+        + (step1_q11_grants == 'yes' ? 1 : 0)
+        + (step1_q12_repayments == 'yes' ? 1 : 0)
+        + (step1_q13_dividends == 'yes' ? 1 : 0)
+        + (step1_q14_investments == 'yes' ? 1 : 0)
+        + (step1_q15_business_plan == 'yes' ? 1 : 0)
+        + (step1_q16_health_services == 'yes' ? 1 : 0)
+        + (step1_q17_hiv_protection == 'yes' ? 1 : 0)
+        + (step1_q18_sti_protection == 'yes' ? 1 : 0)
+        + (step1_q19_understand_abuse == 'yes' ? 1 : 0)
+        + (step1_q20_report_abuse == 'yes' ? 1 : 0)"
+
+# Derive score category text
+- name: step1_score_category
+  description: Derive category from total score
+  priority: 2
+  condition: "step1_total_score != null"
+  actions:
+    - "calculation = (step1_total_score >= 15 ? 'Ready to operate independently' : (step1_total_score >= 10 ? 'Needs monthly support' : 'Needs weekly support'))"
+
+# Relevance for guidance labels
+- name: step1_guidance_ready
+  description: Show guidance_ready when total_score >= 15
+  priority: 3
+  condition: "step1_total_score != null && step1_total_score >= 15"
+  actions:
+    - "isRelevant = true"
+
+- name: step1_guidance_monthly
+  description: Show guidance_monthly when 10 <= total_score < 15
+  priority: 3
+  condition: "step1_total_score != null && step1_total_score >= 10 && step1_total_score < 15"
+  actions:
+    - "isRelevant = true"
+
+- name: step1_guidance_weekly
+  description: Show guidance_weekly when total_score < 10
+  priority: 3
+  condition: "step1_total_score != null && step1_total_score < 10"
+  actions:
+    - "isRelevant = true"
+# renamed with prefix ayp_parenting_services_

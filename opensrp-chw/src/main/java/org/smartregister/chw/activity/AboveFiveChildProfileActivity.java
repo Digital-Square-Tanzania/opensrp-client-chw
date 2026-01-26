@@ -25,6 +25,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AboveFiveChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
@@ -58,6 +59,7 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
         }
 
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -131,6 +133,9 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             case R.id.action_hps_enrollment:
                 startHpsEnrollment();
                 return true;
+            case R.id.action_tbleprosy_screening:
+                startTbLeprosyScreening();
+                return true;
             default:
                 break;
         }
@@ -156,6 +161,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
 
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AboveFiveChildProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override

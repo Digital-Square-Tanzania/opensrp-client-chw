@@ -67,4 +67,31 @@ public class ReferralDao extends AbstractDao {
         return null;
 
     }
+
+    public static String getServicesProvided(String identifier) {
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "servicesProvided");
+
+        String sql = "SELECT servicesProvided from ec_close_referral " +
+                "WHERE referral_task = '" + identifier + "' ORDER BY id DESC LIMIT 1";
+
+        List<String> res = readData(sql, dataMap);
+        if (res != null && res.size() != 0 && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
+
+    public static String getPrescriptionProvided(String identifier) {
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "prescriptions");
+
+        String sql = "SELECT prescriptions from ec_close_referral " +
+                "WHERE referral_task = '" + identifier + "' ORDER BY id DESC LIMIT 1";
+
+        List<String> res = readData(sql, dataMap);
+        if (res != null && res.size() != 0 && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
+
 }

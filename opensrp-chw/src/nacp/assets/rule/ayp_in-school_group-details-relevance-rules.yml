@@ -1,0 +1,8 @@
+---
+name: step1_age_band
+description: Show age_band radios when group_type is age_band
+priority: 1
+condition: "step1_group_type == 'age_band'"
+actions:
+  - "isRelevant = true"
+

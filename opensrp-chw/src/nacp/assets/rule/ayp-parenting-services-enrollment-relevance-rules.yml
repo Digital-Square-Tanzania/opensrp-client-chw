@@ -1,0 +1,17 @@
+---
+name: step1_male_children_count
+description: Show male_children_count when its condition is met
+priority: 1
+condition: "step1_number_of_children != null && step1_number_of_children.contains('male')"
+actions:
+  - "isRelevant = true"
+
+---
+
+name: step1_female_children_count
+description: Show female_children_count when its condition is met
+priority: 1
+condition: "step1_number_of_children != null && step1_number_of_children.contains('female')"
+actions:
+  - "isRelevant = true"
+

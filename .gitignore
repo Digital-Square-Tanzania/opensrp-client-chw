@@ -28,3 +28,5 @@ build-scan-data
 kotlin-profile
 wrapper
 native/
+/opensrp-chw/libs/
+local-maven/

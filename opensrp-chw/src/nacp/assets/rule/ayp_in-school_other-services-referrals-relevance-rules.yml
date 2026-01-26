@@ -1,0 +1,15 @@
+---
+name: step1_referrals_to_other_services
+description: Show referrals options when provided is Yes
+priority: 1
+condition: "step1_referrals_other_services_provided == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_services_mention
+description: Show mention field when other_services selected
+priority: 1
+condition: "step1_referrals_to_other_services != null && step1_referrals_to_other_services.contains('other_services')"
+actions:
+  - "isRelevant = true"
+

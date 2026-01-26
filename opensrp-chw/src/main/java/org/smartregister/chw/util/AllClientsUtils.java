@@ -22,6 +22,7 @@ import org.smartregister.chw.activity.AgywProfileActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.AsrhMemberProfileActivity;
+import org.smartregister.chw.activity.AypOutSchoolMemberProfileActivity;
 import org.smartregister.chw.activity.CecapMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
@@ -34,17 +35,18 @@ import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.activity.SbcMemberProfileActivity;
+import org.smartregister.chw.activity.TbLeprosyProfileActivity;
 import org.smartregister.chw.activity.TbProfileActivity;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.asrh.dao.AsrhDao;
+import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -52,8 +54,11 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
+import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -123,6 +128,14 @@ public class AllClientsUtils {
         KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
+    public static void goToAypProfile(Activity activity, CommonPersonObjectClient client) {
+        AypOutSchoolMemberProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
+        TbLeprosyProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
     public static void goToSbcProfile(Activity activity, CommonPersonObjectClient client) {
         SbcMemberProfileActivity.startMe(activity, client.getCaseId());
     }
@@ -148,6 +161,15 @@ public class AllClientsUtils {
         intent.putExtra(CLIENT, patient);
         passToolbarTitle(activity, intent);
         return intent;
+    }
+
+    public static String getClientGender(String baseEntityId) {
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
     }
 
     public static void goToOtherMemberProfile(Activity activity, CommonPersonObjectClient patient,
@@ -322,6 +344,11 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_kvp_prep_registration, !KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
 
+        // Handle Tb Leprosy menu items
+        if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+            setMenuItemVisibility(menu, R.id.action_tbleprosy_screening, !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId));
+        }
+
         // Handle SBC menu items
         if (ChwApplication.getApplicationFlavor().hasSbc()) {
             setMenuItemVisibility(menu, R.id.action_sbc_registration, !SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);
@@ -336,6 +363,25 @@ public class AllClientsUtils {
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
+
+        // Handle AYP menu items
+        if (ChwApplication.getApplicationFlavor().hasAyp()) {
+            setMenuItemVisibility(menu, R.id.action_ayp_in_school_enrollment, !AypDao.isRegisteredForAypInSchoolServices(baseEntityId) && age >= 10 && age < 25);
+            setMenuItemVisibility(menu, R.id.action_ayp_parental_enrollment, !AypDao.isRegisteredForAypParentalServices(baseEntityId) && age >= 25);
+            setMenuItemVisibility(menu, R.id.action_ayp_out_school_enrollment, !AypDao.isRegisteredForAypOutSchoolServices(baseEntityId) && age >= 10 && age < 25);
+        }
+    }
+
+    public static void addTbLeprosyMenuItem(Menu menu, String baseEntityId) {
+        MenuItem tbLeprosyMenu = menu.findItem(R.id.action_tbleprosy_screening);
+        if (tbLeprosyMenu == null) {
+            tbLeprosyMenu = menu.add(Menu.NONE, R.id.action_tbleprosy_screening, Menu.NONE, R.string.tbleprosy_screening);
+            tbLeprosyMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+
+        boolean showItem = ChwApplication.getApplicationFlavor().hasTbLeprosy()
+                && !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId);
+        tbLeprosyMenu.setVisible(showItem);
     }
 
     public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {

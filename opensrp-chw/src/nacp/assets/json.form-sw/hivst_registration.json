@@ -106,7 +106,7 @@
                 "options": [
                     {
                         "key": "fsw",
-                        "text": "Mwanamke anayefanya biashara ya ngono",
+                        "text": "Mwanamke aliye katika hatari zaidi",
                         "openmrs_entity_parent": "",
                         "openmrs_entity": "concept",
                         "openmrs_entity_id": "fsw"
@@ -163,7 +163,7 @@
                 "options": [
                     {
                         "key": "msm",
-                        "text": "Mwanaume anayefanya ngono na mwanaume",
+                        "text": "Mwanaume aliye katika hatari zaidi",
                         "openmrs_entity_parent": "",
                         "openmrs_entity": "concept",
                         "openmrs_entity_id": "msm"

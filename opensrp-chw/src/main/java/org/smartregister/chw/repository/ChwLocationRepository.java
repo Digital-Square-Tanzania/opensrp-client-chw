@@ -3,6 +3,7 @@ package org.smartregister.chw.repository;
 import net.sqlcipher.Cursor;
 
 import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationProperty;
 import org.smartregister.domain.LocationTag;
 import org.smartregister.repository.LocationRepository;
 
@@ -24,7 +25,7 @@ public class ChwLocationRepository extends LocationRepository {
             cursor = getReadableDatabase().rawQuery(
                     ("SELECT * FROM " +
                             LOCATION_TABLE + " INNER JOIN " + LOCATION_TAG_TABLE +
-                            " on " + LOCATION_TABLE +"._id = " + LOCATION_TAG_TABLE +".location_id"),
+                            " on " + LOCATION_TABLE + "._id = " + LOCATION_TAG_TABLE + ".location_id WHERE " + LOCATION_TAG_TABLE + ".status = '" + LocationProperty.PropertyStatus.ACTIVE.name() + "'"),
                     null);
             while (cursor.moveToNext()) {
                 locations.add(readCursor(cursor));
