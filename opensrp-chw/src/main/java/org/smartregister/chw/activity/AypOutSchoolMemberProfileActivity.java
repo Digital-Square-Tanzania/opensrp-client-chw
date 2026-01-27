@@ -9,6 +9,7 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import timber.log.Timber;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
@@ -150,6 +152,32 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         return calendar.getTime();
     }
 
+    /**
+     * Opens a minimal edit form for clients without linked family records to avoid NPEs.
+     */
+    private void launchIndependentEditForm(String formName, int titleRes) {
+        try {
+            JSONObject jsonForm = new FormUtils().getFormJsonFromRepositoryOrAssets(this, formName);
+            if (jsonForm == null) return;
+
+            // ensure identifiers are present
+            jsonForm.put("entity_id", memberObject.getBaseEntityId());
+            jsonForm.put("relational_id", memberObject.getBaseEntityId());
+
+            // align title for toolbar/step1 where applicable
+            if (jsonForm.has(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)) {
+                jsonForm.getJSONObject(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)
+                        .put("title", getString(titleRes));
+            }
+            jsonForm.put("encounter_type", getString(titleRes));
+
+            startFormActivity(jsonForm);
+        } catch (Exception e) {
+            Timber.e(e);
+            Toast.makeText(this, R.string.family_details_not_available, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public void startHivstRegistration() {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
@@ -179,6 +207,18 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Prevent crashes when no family record is linked (common for KVP/PrEP, AYP out of school, etc.)
+        if ((item.getItemId() == org.smartregister.chw.core.R.id.action_registration
+                || item.getItemId() == org.smartregister.chw.core.R.id.action_location_info)
+                && TextUtils.isEmpty(memberObject.getFamilyBaseEntityId())) {
+            if (item.getItemId() == org.smartregister.chw.core.R.id.action_registration) {
+                launchIndependentEditForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(), org.smartregister.chw.core.R.string.registration_info);
+            } else {
+                launchIndependentEditForm(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), R.string.edit_location_details);
+            }
+            return true;
+        }
+
         int i = item.getItemId();
         if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
             startAncRegister();

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -219,6 +220,19 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if ((item.getItemId() == org.smartregister.chw.core.R.id.action_registration
+                || item.getItemId() == org.smartregister.chw.core.R.id.action_location_info)
+                && TextUtils.isEmpty(memberObject.getFamilyBaseEntityId())) {
+            if (item.getItemId() == org.smartregister.chw.core.R.id.action_registration) {
+                launchIndependentEditForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(),
+                        org.smartregister.chw.core.R.string.registration_info);
+            } else {
+                launchIndependentEditForm(CoreConstants.JSON_FORM.getFamilyDetailsRegister(),
+                        R.string.edit_location_details);
+            }
+            return true;
+        }
+
         int i = item.getItemId();
         if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
             startAncRegister();
@@ -388,6 +402,27 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     @Override
     protected void startPrEPRegistration() {
         //do nothing
+    }
+
+    private void launchIndependentEditForm(String formName, int titleRes) {
+        try {
+            JSONObject jsonForm = new FormUtils().getFormJsonFromRepositoryOrAssets(this, formName);
+            if (jsonForm == null) return;
+
+            jsonForm.put("entity_id", memberObject.getBaseEntityId());
+            jsonForm.put("relational_id", memberObject.getBaseEntityId());
+
+            if (jsonForm.has(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)) {
+                jsonForm.getJSONObject(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)
+                        .put("title", getString(titleRes));
+            }
+            jsonForm.put("encounter_type", getString(titleRes));
+
+            startFormActivity(jsonForm);
+        } catch (Exception e) {
+            Timber.e(e);
+            Toast.makeText(this, R.string.family_details_not_available, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
