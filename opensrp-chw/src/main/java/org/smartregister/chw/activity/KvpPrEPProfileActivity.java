@@ -335,7 +335,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startHivRegister() {
         String gender = memberObject.getGender();
-        int age = safeAge();
+        int age = memberObject.getAge();
 
 
         try {
@@ -365,7 +365,6 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startFpRegister() {
         String gender = memberObject.getGender();
-        int age = safeAge();
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(gender));
     }
 
@@ -375,7 +374,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     }
 
     protected void startAgywScreening() {
-        int age = safeAge();
+        int age = memberObject.getAge();
         AgywRegisterActivity.startRegistration(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId(), age);
     }
 
@@ -402,7 +401,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startKvpPrEPRegistration() {
         String gender = memberObject.getGender();
-        int age = safeAge();
+        int age = memberObject.getAge();
         KvpPrEPRegisterActivity.startRegistration(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
     }
 
@@ -411,13 +410,6 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         //do nothing
     }
 
-    private int safeAge() {
-        try {
-            return Integer.parseInt(String.valueOf(memberObject.getAge()));
-        } catch (Exception e) {
-            return 0;
-        }
-    }
 
     @Override
     public void startHivstRegistration() {

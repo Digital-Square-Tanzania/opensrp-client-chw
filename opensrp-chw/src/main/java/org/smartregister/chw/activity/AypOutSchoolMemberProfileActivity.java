@@ -62,14 +62,6 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         return AypLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 
-    private int safeAge() {
-        try {
-            return Integer.parseInt(memberObject.getAge());
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     @Override
     protected boolean showReferralView() {
         return true;
@@ -288,7 +280,6 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startFpRegister() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(gender));
     }
 
@@ -320,7 +311,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startKvpPrEPRegistration() {
         String gender = memberObject.getGender();
-        int age = safeAge();
+        int age = memberObject.getAge();
         KvpPrEPRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
     }
 
@@ -330,7 +321,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startHivRegister() {
         String gender = memberObject.getGender();
-        int age = safeAge();
+        int age = memberObject.getAge();
 
 
         try {
