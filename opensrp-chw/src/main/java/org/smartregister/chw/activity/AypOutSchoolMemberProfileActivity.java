@@ -330,7 +330,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startKvpPrEPRegistration() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
+        int age = memberObject.getAge();
         KvpPrEPRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
     }
 
@@ -340,7 +340,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startHivRegister() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
+        int age = memberObject.getAge();
 
 
         try {
