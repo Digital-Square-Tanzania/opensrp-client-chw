@@ -76,6 +76,28 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String READ_ONLY = "read_only";
     private static Flavor flavor = new JsonFormUtilsFlv();
 
+    /**
+     * Prepares an edit form for clients without linked family records, injecting identifiers and title.
+     */
+    public static JSONObject prepareIndependentEditForm(Context context, String formName, String baseEntityId, String title) {
+        try {
+            JSONObject jsonForm = new FormUtils(context).getFormJson(formName);
+            if (jsonForm == null) return null;
+
+            jsonForm.put("entity_id", baseEntityId);
+            jsonForm.put("relational_id", baseEntityId);
+
+            if (jsonForm.has(JsonFormConstants.STEP1)) {
+                jsonForm.getJSONObject(JsonFormConstants.STEP1).put("title", title);
+            }
+            jsonForm.put("encounter_type", title);
+            return jsonForm;
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
@@ -841,4 +863,3 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 }
-

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -30,6 +31,7 @@ import org.smartregister.chw.kvp.domain.Visit;
 import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.KvpVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -219,6 +221,25 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if ((item.getItemId() == org.smartregister.chw.core.R.id.action_registration
+                || item.getItemId() == org.smartregister.chw.core.R.id.action_location_info)
+                && TextUtils.isEmpty(memberObject.getFamilyBaseEntityId())) {
+            if (item.getItemId() == org.smartregister.chw.core.R.id.action_registration) {
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(),
+                        memberObject.getBaseEntityId(),
+                        getString(org.smartregister.chw.core.R.string.registration_info));
+                if (form != null) startFormActivity(form);
+            } else {
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getFamilyDetailsRegister(),
+                        memberObject.getBaseEntityId(),
+                        getString(R.string.edit_location_details));
+                if (form != null) startFormActivity(form);
+            }
+            return true;
+        }
+
         int i = item.getItemId();
         if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
             startAncRegister();
@@ -314,7 +335,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startHivRegister() {
         String gender = memberObject.getGender();
-        int age = memberObject.getAge();
+        int age = safeAge();
 
 
         try {
@@ -344,7 +365,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startFpRegister() {
         String gender = memberObject.getGender();
-        int age = memberObject.getAge();
+        int age = safeAge();
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(gender));
     }
 
@@ -354,7 +375,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     }
 
     protected void startAgywScreening() {
-        int age = memberObject.getAge();
+        int age = safeAge();
         AgywRegisterActivity.startRegistration(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId(), age);
     }
 
@@ -381,13 +402,21 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     protected void startKvpPrEPRegistration() {
         String gender = memberObject.getGender();
-        int age = memberObject.getAge();
+        int age = safeAge();
         KvpPrEPRegisterActivity.startRegistration(KvpPrEPProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
     }
 
     @Override
     protected void startPrEPRegistration() {
         //do nothing
+    }
+
+    private int safeAge() {
+        try {
+            return Integer.parseInt(String.valueOf(memberObject.getAge()));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     @Override

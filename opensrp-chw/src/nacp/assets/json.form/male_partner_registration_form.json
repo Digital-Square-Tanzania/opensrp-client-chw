@@ -868,6 +868,12 @@
             "text": "Other",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
