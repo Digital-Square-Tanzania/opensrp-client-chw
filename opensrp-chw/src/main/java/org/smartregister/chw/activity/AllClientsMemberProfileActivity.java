@@ -248,36 +248,6 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         }
     }
 
-    @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.opd.utils.OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        com.vijay.jsonwizard.domain.Form form = new com.vijay.jsonwizard.domain.Form();
-        // Align OPD form toolbar styling with Family flow and show a different title for Location info
-        String encounterType = jsonForm.optString("encounter_type");
-        String familyUpdateEventType = org.smartregister.family.util.Utils.metadata().familyRegister.updateEventType;
-        if (encounterType != null && encounterType.equals(familyUpdateEventType)) {
-            form.setName(getString(R.string.edit_location_details));
-            // Also update the step title so the top bar text matches when jsonwizard reads it from the form
-            try {
-                jsonForm.getJSONObject(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)
-                        .put("title", getString(R.string.edit_location_details));
-                // refresh payload with updated title
-                intent.putExtra(org.smartregister.opd.utils.OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        } else {
-            form.setName(getString(org.smartregister.chw.core.R.string.update_client_registration));
-        }
-        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
-        form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
-        form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
-        form.setPreviousLabel(getResources().getString(org.smartregister.chw.core.R.string.back));
-        form.setWizard(false);
-        intent.putExtra(com.vijay.jsonwizard.constants.JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
 
     @Override
     protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
