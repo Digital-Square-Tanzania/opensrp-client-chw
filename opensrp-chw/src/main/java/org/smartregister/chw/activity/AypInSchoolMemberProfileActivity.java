@@ -8,9 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.utils.FormUtils;
 import org.json.JSONObject;
-import timber.log.Timber;
+import org.smartregister.chw.util.JsonFormUtils;
 
 import org.smartregister.chw.ayp.AypLibrary;
 import org.smartregister.chw.R;
@@ -85,9 +84,17 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
                 || item.getItemId() == org.smartregister.chw.core.R.id.action_location_info)
                 && TextUtils.isEmpty(memberObject.getFamilyBaseEntityId())) {
             if (item.getItemId() == org.smartregister.chw.core.R.id.action_registration) {
-                launchIndependentEditForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(), org.smartregister.chw.core.R.string.registration_info);
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(),
+                        memberObject.getBaseEntityId(),
+                        getString(org.smartregister.chw.core.R.string.registration_info));
+                if (form != null) startFormActivity(form);
             } else {
-                launchIndependentEditForm(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), R.string.edit_location_details);
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getFamilyDetailsRegister(),
+                        memberObject.getBaseEntityId(),
+                        getString(R.string.edit_location_details));
+                if (form != null) startFormActivity(form);
             }
             return true;
         }
@@ -115,24 +122,4 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
         return AypDao.getInSchoolMember(baseEntityId);
     }
 
-    private void launchIndependentEditForm(String formName, int titleRes) {
-        try {
-            JSONObject jsonForm = new FormUtils().getFormJsonFromRepositoryOrAssets(this, formName);
-            if (jsonForm == null) return;
-
-            jsonForm.put("entity_id", memberObject.getBaseEntityId());
-            jsonForm.put("relational_id", memberObject.getBaseEntityId());
-
-            if (jsonForm.has(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)) {
-                jsonForm.getJSONObject(com.vijay.jsonwizard.constants.JsonFormConstants.STEP1)
-                        .put("title", getString(titleRes));
-            }
-            jsonForm.put("encounter_type", getString(titleRes));
-
-            startFormActivity(jsonForm);
-        } catch (Exception e) {
-            Timber.e(e);
-            Toast.makeText(this, R.string.family_details_not_available, Toast.LENGTH_SHORT).show();
-        }
-    }
 }
