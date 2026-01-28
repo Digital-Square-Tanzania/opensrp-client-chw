@@ -411,7 +411,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+            tools:node="remove" />
         <activity
             android:name=".activity.SickChildJsonFormActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
