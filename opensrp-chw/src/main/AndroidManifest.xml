@@ -413,19 +413,6 @@
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
             tools:node="remove" />
         <activity
-            android:name=".activity.PatchedBaseOpdFormActivity"
-            android:exported="false"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".activity.PatchedOpdFormActivity"
-            android:exported="false"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity-alias
-            android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
-            android:exported="false"
-            android:targetActivity=".activity.PatchedBaseOpdFormActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.SickChildJsonFormActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

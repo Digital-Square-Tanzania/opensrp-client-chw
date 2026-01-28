@@ -250,7 +250,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, PatchedOpdFormActivity.class);
+        Intent intent = new Intent(this, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.opd.utils.OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         com.vijay.jsonwizard.domain.Form form = new com.vijay.jsonwizard.domain.Form();
         // Align OPD form toolbar styling with Family flow and show a different title for Location info
