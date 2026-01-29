@@ -269,7 +269,7 @@ android {
             enableSplit = false
         }
     }
-    ndkVersion '21.1.6352462'
+    ndkVersion '28.0.13004108'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
