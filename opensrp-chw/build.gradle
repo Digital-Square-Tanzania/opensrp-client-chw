@@ -191,6 +191,7 @@ android {
     packaging {
         jniLibs {
             useLegacyPackaging = false
+            pickFirsts += ['**/libsqlcipher.so']
         }
         resources {
             excludes += [
@@ -230,7 +231,6 @@ android {
             force 'net.zetetic:sqlcipher-android:4.13.0'
         }
         exclude group: 'com.google.guava', module: 'listenablefuture'
-        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
     }
 
     flavorDimensions 'baseDimension'
@@ -349,6 +349,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'net.zetetic:sqlcipher-android:4.13.0'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation('com.google.guava:guava:20.0') {
