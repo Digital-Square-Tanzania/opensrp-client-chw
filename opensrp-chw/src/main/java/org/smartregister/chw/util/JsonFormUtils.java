@@ -13,7 +13,7 @@ import com.google.common.reflect.TypeToken;
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;

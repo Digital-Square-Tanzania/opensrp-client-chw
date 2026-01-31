@@ -1,6 +1,6 @@
 package org.smartregister.chw.application;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.koin.core.context.GlobalContext;
 import org.mockito.Mockito;
