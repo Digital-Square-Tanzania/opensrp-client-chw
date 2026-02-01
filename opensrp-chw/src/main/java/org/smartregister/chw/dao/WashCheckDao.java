@@ -2,7 +2,7 @@ package org.smartregister.chw.dao;
 
 import static org.mvel2.DataConversion.convert;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.domain.VisitDetail;

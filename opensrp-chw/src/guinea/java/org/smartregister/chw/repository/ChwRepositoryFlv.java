@@ -2,7 +2,7 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.util.RepositoryUtils;

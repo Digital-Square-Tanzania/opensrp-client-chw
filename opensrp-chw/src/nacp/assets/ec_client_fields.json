@@ -5644,6 +5644,13 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
             "field": "baseEntityId"
           }
         },
@@ -5708,6 +5715,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "service_access_challenges"
+          }
+        },
+        {
+          "column_name": "tb_treatment_start_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_treatment_start_date"
+          }
+        },
+        {
+          "column_name": "tb_client_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_client_number"
           }
         },
         {
