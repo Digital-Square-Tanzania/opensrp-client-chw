@@ -3,7 +3,7 @@ package org.smartregister.chw.repository;
 import android.content.Context;
 import android.database.Cursor;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;

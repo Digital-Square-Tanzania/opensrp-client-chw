@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.anc.domain.MemberObject;
