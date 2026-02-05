@@ -9,13 +9,12 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +32,8 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.JsonFormUtils;
+import com.vijay.jsonwizard.utils.FormUtils;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -151,6 +152,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     }
 
 
+
     public void startHivstRegistration() {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
@@ -179,6 +181,26 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Prevent crashes when no family record is linked (common for KVP/PrEP, AYP out of school, etc.)
+        if ((item.getItemId() == org.smartregister.chw.core.R.id.action_registration
+                || item.getItemId() == org.smartregister.chw.core.R.id.action_location_info)
+                && TextUtils.isEmpty(memberObject.getFamilyBaseEntityId())) {
+            if (item.getItemId() == org.smartregister.chw.core.R.id.action_registration) {
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm(),
+                        memberObject.getBaseEntityId(),
+                        getString(org.smartregister.chw.core.R.string.registration_info));
+                if (form != null) startFormActivity(form);
+            } else {
+                JSONObject form = JsonFormUtils.prepareIndependentEditForm(this,
+                        CoreConstants.JSON_FORM.getFamilyDetailsRegister(),
+                        memberObject.getBaseEntityId(),
+                        getString(R.string.edit_location_details));
+                if (form != null) startFormActivity(form);
+            }
+            return true;
+        }
+
         int i = item.getItemId();
         if (i == org.smartregister.chw.core.R.id.action_anc_registration) {
             startAncRegister();
@@ -258,7 +280,6 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startFpRegister() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(gender));
     }
 
@@ -290,7 +311,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startKvpPrEPRegistration() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
+        int age = memberObject.getAge();
         KvpPrEPRegisterActivity.startRegistration(AypOutSchoolMemberProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
     }
 
@@ -300,7 +321,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
 
     protected void startHivRegister() {
         String gender = memberObject.getGender();
-        int age = Integer.parseInt(memberObject.getAge());
+        int age = memberObject.getAge();
 
 
         try {

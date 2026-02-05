@@ -468,13 +468,6 @@
             "openmrs_entity_id": "no"
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ayp_out_school_rules.yml"
-            }
-          }
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza"

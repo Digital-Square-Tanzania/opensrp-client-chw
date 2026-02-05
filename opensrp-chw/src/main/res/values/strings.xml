@@ -704,6 +704,8 @@
     <string name="tbleprosy_record_visit_extra_sputum_container_required">Does the client require an extra sputum container?</string>
     <string name="tbleprosy_record_visit_yes">Yes</string>
     <string name="tbleprosy_record_visit_no">No</string>
+    <string name="family_details_not_available">Family details not available for this client</string>
+    <string name="edit_location_details">Edit Location Details</string>
     <string name="harm_reduction_download_pre_mat_report">Download pre-MAT report</string>
     <string name="harm_reduction_used_needles_collection">Used Needle and Syringes Collection</string>
 </resources>

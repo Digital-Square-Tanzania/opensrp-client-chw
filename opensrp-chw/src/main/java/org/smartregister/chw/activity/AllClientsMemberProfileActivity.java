@@ -31,7 +31,9 @@ import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
@@ -250,6 +252,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             Timber.e(e);
         }
     }
+
 
     @Override
     protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(

@@ -2,7 +2,7 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
@@ -560,7 +560,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
@@ -572,9 +573,8 @@ public class ChwRepositoryFlv {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             List<String> configFiles = Arrays.asList(
                     "config/ayp-in-school-monthly-report.yml",
-                    "config/ayp-parental-monthly-report.yml",
-                    "config/ayp-out-school-monthly-report.yml"
-                    );
+                    "config/ayp-parental-monthly-report.yml"
+            );
             for (String configFile : configFiles) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
@@ -658,6 +658,7 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion34");
         }
     }
+
 
     private static void upgradeToVersion35(SQLiteDatabase db) {
         try {

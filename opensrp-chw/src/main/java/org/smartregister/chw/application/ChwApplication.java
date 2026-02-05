@@ -16,6 +16,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -134,6 +135,7 @@ public class ChwApplication extends CoreChwApplication {
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
+    private String repositoryPassword;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -463,8 +465,14 @@ public class ChwApplication extends CoreChwApplication {
     @Override
     public Repository getRepository() {
         try {
-            if (repository == null) {
+            String currentPassword = CoreChwApplication.getInstance().getPassword();
+            if (repository == null
+                    || (StringUtils.isNotBlank(currentPassword) && !currentPassword.equals(repositoryPassword))) {
+                if (repository != null) {
+                    repository.close();
+                }
                 repository = new ChwRepository(getInstance().getApplicationContext(), context);
+                repositoryPassword = currentPassword;
             }
         } catch (UnsatisfiedLinkError e) {
             Timber.e(e);

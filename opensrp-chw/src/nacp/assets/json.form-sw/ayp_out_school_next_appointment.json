@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Tarehe ya Miadi",
+    "title": "Tarehe ya Miadi Ijayo",
     "display_back_button": "true",
     "fields": [
       {
@@ -61,10 +61,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "next_appointment_date",
         "type": "date_picker",
-        "min_date": "today+1d",
+        "min_date": "today",
         "max_date": "today+5y",
         "expanded": false,
-        "hint": "Tarehe ya Miadi",
+        "hint": "Tarehe ya Miadi Ijayo",
         "v_required": {
           "value": "true",
           "err": "Inahitajika"

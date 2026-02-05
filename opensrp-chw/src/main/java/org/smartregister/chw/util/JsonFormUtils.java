@@ -13,7 +13,7 @@ import com.google.common.reflect.TypeToken;
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -75,6 +75,28 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
     private static Flavor flavor = new JsonFormUtilsFlv();
+
+    /**
+     * Prepares an edit form for clients without linked family records, injecting identifiers and title.
+     */
+    public static JSONObject prepareIndependentEditForm(Context context, String formName, String baseEntityId, String title) {
+        try {
+            JSONObject jsonForm = new FormUtils(context).getFormJson(formName);
+            if (jsonForm == null) return null;
+
+            jsonForm.put("entity_id", baseEntityId);
+            jsonForm.put("relational_id", baseEntityId);
+
+            if (jsonForm.has(JsonFormConstants.STEP1)) {
+                jsonForm.getJSONObject(JsonFormConstants.STEP1).put("title", title);
+            }
+            jsonForm.put("encounter_type", title);
+            return jsonForm;
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
@@ -841,4 +863,3 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 }
-

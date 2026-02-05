@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.AypReportsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -43,7 +44,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ayp_out_school_monthly_report"
+        android:id="@+id/ayp_out_school_report"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -101,7 +102,7 @@
         android:background="@color/visit_status_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ayp_out_school_monthly_report" />
+        app:layout_constraintTop_toBottomOf="@id/ayp_out_school_report" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ayp_in_school_monthly_report"

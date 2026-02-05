@@ -490,7 +490,8 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
             JSONObject form = null;
-            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
+            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver() != null
+                    && memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
             String titleString = title_resource != null ? getResources().getString(title_resource) : null;
 
             if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {

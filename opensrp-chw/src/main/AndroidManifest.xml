@@ -48,6 +48,15 @@
             android:name=".activity.TbLeprosyRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.TbLeprosyContactVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TbLeprosyContactRegister"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TbLeprosyObservationResultsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HarmReductionProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -61,15 +70,6 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.HarmReductionPreMatSessionsHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".activity.TbLeprosyContactVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".activity.TbLeprosyContactRegister"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".activity.TbLeprosyObservationResultsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.KvpPrEPProfileActivity"
@@ -430,7 +430,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+            tools:node="remove" />
         <activity
             android:name=".activity.SickChildJsonFormActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

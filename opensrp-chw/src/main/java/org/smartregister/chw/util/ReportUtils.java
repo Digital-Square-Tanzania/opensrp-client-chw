@@ -1,7 +1,6 @@
 package org.smartregister.chw.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -16,7 +15,6 @@ import org.json.JSONException;
 import org.smartregister.chw.domain.asrh_reports.AsrhOtherReportObject;
 import org.smartregister.chw.domain.asrh_reports.AsrhReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypInSchoolReportObject;
-import org.smartregister.chw.domain.ayp_reports.AypOutSchoolReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypParentalReportObject;
 import org.smartregister.chw.domain.KvpReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
@@ -107,29 +105,14 @@ public class ReportUtils {
     }
 
     public static void printTheWebPage(WebView webView, Context context) {
-        if (!(context instanceof Activity)) {
-            Timber.e("Print requested from non-activity context: %s", context);
-            return;
-        }
 
-        Activity activity = (Activity) context;
-        if (activity.isFinishing() || activity.isDestroyed()) {
-            Timber.e("Print requested from finishing/destroyed activity: %s", activity);
-            return;
-        }
-
-        PrintManager printManager = (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
-        if (printManager == null) {
-            Timber.e("PrintManager not available for context: %s", activity);
-            return;
-        }
-
+        // Creating  PrintManager instance
+        PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
         PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(getPrintJobName());
-        try {
-            printManager.print(getPrintJobName(), printAdapter, new PrintAttributes.Builder().build());
-        } catch (IllegalStateException e) {
-            Timber.e(e);
-        }
+
+        // Create a print job with name and adapter instance
+        assert printManager != null;
+        printManager.print(getPrintJobName(), printAdapter, new PrintAttributes.Builder().build());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -285,16 +268,6 @@ public class ReportUtils {
     public static class AypReports {
         public static String computeInSchoolMonthlyReport(Date startDate) {
             AypInSchoolReportObject reportObject = new AypInSchoolReportObject(startDate);
-            try {
-                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-            return "";
-        }
-
-        public static String computeOutSchoolMonthlyReport(Date startDate) {
-            AypOutSchoolReportObject reportObject = new AypOutSchoolReportObject(startDate);
             try {
                 return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
             } catch (JSONException e) {

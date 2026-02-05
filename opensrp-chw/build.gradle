@@ -59,6 +59,7 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+        mavenCentral()
         mavenLocal()
         maven { url uri("${rootDir}/local-maven") }
     }
@@ -188,6 +189,9 @@ android {
     }
 
     packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
         resources {
             excludes += [
                     'META-INF/DEPENDENCIES.txt',
@@ -223,9 +227,10 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
-            force 'net.zetetic:android-database-sqlcipher:4.5.4'
+            force 'net.zetetic:sqlcipher-android:4.13.0'
         }
         exclude group: 'com.google.guava', module: 'listenablefuture'
+        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
     }
 
     flavorDimensions 'baseDimension'
@@ -266,7 +271,7 @@ android {
             enableSplit = false
         }
     }
-    ndkVersion '21.1.6352462'
+    ndkVersion '28.0.13004108'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
@@ -301,7 +306,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.9.0-ALPHA2-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.1-ALPHA-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -321,6 +326,7 @@ dependencies {
         exclude group: "com.google.guava", module: 'listenablefuture'
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
+        exclude group: 'com.github.lecho', module: 'hellocharts-library'
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
@@ -342,7 +348,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
-    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
+    implementation 'net.zetetic:sqlcipher-android:4.13.0'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation('com.google.guava:guava:20.0') {
