@@ -624,6 +624,13 @@
     <string name="tbleprosy_contact_no_match">No clients matched your search</string>
     <string name="tbleprosy_contact_family_dialog_title">Select family member</string>
     <string name="tbleprosy_contact_all_clients_dialog_title">Select client</string>
+    <string name="action_change_client_family">Change Client Family</string>
+    <string name="change_family_dialog_title">Select independent client</string>
+    <string name="change_family_search_hint">Search by name or ID</string>
+    <string name="change_family_no_clients">No independent clients matched your search</string>
+    <string name="change_family_no_clients_available">No independent clients available</string>
+    <string name="change_family_success">Updated family for %1$s</string>
+    <string name="change_family_failed">Unable to update family for selected client</string>
     <string name="tbleprosy_visit_history_title">TB/Leprosy Visits</string>
     <string name="tbleprosy_observation_results_history">Observation Results</string>
     <string name="tbleprosy_observation_results_visit_title">Observation Results Visit</string>
