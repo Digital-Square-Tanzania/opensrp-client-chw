@@ -58,23 +58,6 @@
         }
       },
       {
-        "key": "facility_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "facility_name",
-        "type": "multi_select_list",
-        "buttonText": "Jina la Kituo cha Afya",
-        "sort": true,
-        "maxSelectable": 1,
-        "dialogTitle": "Select Facility",
-        "searchHint": "Andika Jina la Kituo cha Afya",
-        "options": [],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali jaza jina la kituo"
-        }
-      },
-      {
         "key": "client_group",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
