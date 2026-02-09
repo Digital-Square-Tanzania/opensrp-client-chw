@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
-    ext.kotlinVersion = '1.6.20'
+    ext.kotlinVersion = '1.8.0'
     ext.koinVersion = '2.0.1'
     ext.espressoVersion = '3.2.0'
     ext.dokkaVersion = '0.10.1'
