@@ -7,7 +7,7 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.BuildConfig;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
