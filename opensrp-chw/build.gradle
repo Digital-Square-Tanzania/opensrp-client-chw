@@ -337,6 +337,8 @@ dependencies {
     }
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    // MaterialEditText relies on NineOldAndroids' ArgbEvaluator when inflating native form widgets
+    implementation 'com.nineoldandroids:library:2.4.0'
     // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
     // causing missing com.github.ybq.android.spinkit.* classes.
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
