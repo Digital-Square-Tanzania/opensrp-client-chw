@@ -1419,5 +1419,10 @@
     <string name="family_profile_title">%1$s Household</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="remove">SAVE</string>
+    <string name="family_head">Head of Household</string>
+    <string name="return_to_all_families">Return to all households</string>
+    <string name="return_to_family_profile">Return to household profile</string>
+    <string name="menu_all_families">All Households</string>
+    <string name="add_family">Add Household</string>
 
 </resources>
