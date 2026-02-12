@@ -30,3 +30,7 @@ wrapper
 native/
 /opensrp-chw/libs/
 local-maven/
+android/
+jdks/
+legacy-opensrp-libs/
+notifications/
