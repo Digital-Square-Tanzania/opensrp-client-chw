@@ -709,4 +709,7 @@
     <string name="tbleprosy_record_visit_no">No</string>
     <string name="family_details_not_available">Family details not available for this client</string>
     <string name="edit_location_details">Edit Location Details</string>
+    <string name="family_profile_title">%1$s Household</string>
+    <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
+
 </resources>
