@@ -164,11 +164,15 @@ android {
             testCoverageEnabled false
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "true",
-                    firebase_crashlytics_collection_deactivated: "false"
+                    firebase_crashlytics_collection_deactivated: "false",
+                    app_icon: "ic_launcher_afya_jamii",
+                    app_icon_round: "ic_launcher_afya_jamii_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash"
             ]
         }
 
         debug {
+            versionNameSuffix "-debug"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -185,11 +189,16 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
             testCoverageEnabled false
+            resValue "string", "app_name", "TESTING-AfyaJamii"
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "false",
-                    firebase_crashlytics_collection_deactivated: "true"
+                    firebase_crashlytics_collection_deactivated: "true",
+                    app_icon: "ic_launcher_afya_jamii_debug",
+                    app_icon_round: "ic_launcher_afya_jamii_debug_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash_debug"
             ]
         }
+
     }
 
     packaging {
