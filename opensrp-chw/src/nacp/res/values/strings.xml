@@ -1424,5 +1424,6 @@
     <string name="return_to_family_profile">Return to household profile</string>
     <string name="menu_all_families">All Households</string>
     <string name="add_family">Add Household</string>
+    <string name="add_fam">Add Household</string>
 
 </resources>
