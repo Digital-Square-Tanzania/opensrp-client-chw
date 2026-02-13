@@ -22,6 +22,12 @@ jobs:
         distribution: 'temurin'
         java-version: 17
         cache: gradle
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Run artifact setup script
+      run: python scripts/sync_local_maven.py
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Run unit tests with Gradle
