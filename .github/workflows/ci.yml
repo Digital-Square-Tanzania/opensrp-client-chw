@@ -27,7 +27,7 @@ jobs:
       with:
         python-version: '3.x'
     - name: Run artifact setup script
-      run: python scripts/sync_local_maven.py
+      run: python scripts/sync_local_maven.py --dest ~/.m2/repository
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Run unit tests with Gradle
