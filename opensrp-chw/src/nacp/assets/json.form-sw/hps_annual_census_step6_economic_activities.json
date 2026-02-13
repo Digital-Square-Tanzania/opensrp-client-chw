@@ -1,0 +1,130 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "step1": {
+    "title": "Economic Activities",
+    "fields": [
+      {
+        "key": "no_of_men_with_capacity_to_engage_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_of_men_with_capacity_to_engage_in_economic_activities",
+        "hint": "Idadi ya wanaume wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "no_of_women_with_capacity_to_engage_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_of_women_with_capacity_to_engage_in_economic_activities",
+        "hint": "Idadi ya wanawake wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "no_of_men_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_of_men_engaged_in_economic_activities",
+        "hint": "Idadi ya wanaume wanaofanya shughuli za uchumi / Wanaozalisha mali",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "no_of_women_engaged_in_economic_activities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_of_women_engaged_in_economic_activities",
+        "hint": "Idadi ya wanawake wanaofanya shughuli za uchumi / Wanaozalisha mali",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      }
+    ]
+  }
+}

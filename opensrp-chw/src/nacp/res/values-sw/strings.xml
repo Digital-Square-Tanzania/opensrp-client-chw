@@ -29,7 +29,7 @@
     <string name="cbhs_follow_up_visit">Ziara inayofuata ya ufuatiliaji wa </string>
     <string name="hiv_follow_up_visit">Ufuatiliaji wa VVU</string>
     <string name="hiv_service_due"><![CDATA[%1$s <font color=#000000>HUWANYU (%2$s)</font></b>]]></string>
-    <string name="optional">Hiari</string>
+    <string name="optional">Hiyari</string>
     <string name="action_received_anc_partner_followup_referrals">Ufuatiliji wa Mwenza</string>
     <string name="partner_registration_action_title">Usajili wa Mwenza</string>
     <string name="back_to_pmtct">Rudi kwa Wateja wa Ufuatiliaji wa Mama Kinara</string>
@@ -1228,6 +1228,11 @@
     <string name="hps_amount_of_pesticide_used_drums">Kiasi cha kiuatilifu kilichotumika(Madebe)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Kiasi cha kiuatilifu kilichotumika(Mapipa)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Kiasi cha kiuatilifu kilichotumika(Vifuu vya nazi)</string>
+    <string name="hps_no_of_men_with_capacity_to_engage_in_economic_activities">Idadi ya wanaume wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali</string>
+    <string name="hps_no_of_women_with_capacity_to_engage_in_economic_activities">Idadi ya wanawake wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali</string>
+    <string name="hps_no_of_men_engaged_in_economic_activities">Idadi ya wanaume wanaofanya shughuli za uchumi / Wanaozalisha mali</string>
+    <string name="hps_no_of_women_engaged_in_economic_activities">Idadi ya wanawake wanaofanya shughuli za uchumi / Wanaozalisha mali</string>
+
     <string name="hps_none">Hakuna</string>
     <string name="hps_number_of_male_capable_of_engaging_in_economic_activities">Idadi ya wanaume wanaoweza kushiriki katika shughuli za kiuchumi</string>
     <string name="hps_number_of_female_capable_of_engaging_in_economic_activities">Idadi ya wanawake wanaoweza kushiriki katika shughuli za kiuchumi</string>

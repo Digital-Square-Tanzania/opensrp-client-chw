@@ -59,6 +59,10 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+
+        // ✅ Legacy OpenSRP plan evaluator jar folder (NEW)
+        flatDir { dirs "${rootDir}/legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9" }
+
         mavenCentral()
         mavenLocal()
         maven { url uri("${rootDir}/local-maven") }
@@ -327,7 +331,15 @@ dependencies {
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
         exclude group: 'com.github.lecho', module: 'hellocharts-library'
+        exclude group: 'com.github.ybq', module: 'Android-SpinKit'
+        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
     }
+
+    // ✅ Legacy OpenSRP plan evaluator JAR (NEW)
+    implementation(name: "opensrp-plan-evaluator-0.0.19-SNAPSHOT", ext: "jar")
+
+    // ✅ SpinKit (NEW)
+    implementation(name: "Android-SpinKit-1.4.0", ext: "aar")
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 

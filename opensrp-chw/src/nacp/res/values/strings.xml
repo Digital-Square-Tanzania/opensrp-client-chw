@@ -1405,6 +1405,12 @@
     <string name="hps_amount_of_pesticide_used_drums">Amount of pesticide used (drums)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Amount of pesticide used (barrels)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
+
+    <string name="hps_no_of_men_with_capacity_to_engage_in_economic_activities">Number of men with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_women_with_capacity_to_engage_in_economic_activities">Number of women with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_men_engaged_in_economic_activities">Number of men engaged in economic activities / producing wealth</string>
+    <string name="hps_no_of_women_engaged_in_economic_activities">Number of women engaged in economic activities / producing wealth</string>
+
     <string name="hps_none">None</string>
 
     <string name="hps_preventive_services_below_5_years">Select the preventive services provided</string>
