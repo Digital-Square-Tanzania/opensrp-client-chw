@@ -9,6 +9,7 @@ buildscript {
     repositories {
         google()
         mavenLocal()
+        maven { url uri("${rootDir}/local-maven") }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
@@ -41,6 +42,7 @@ allprojects {
     repositories {
         google()
         mavenLocal()
+        maven { url uri("${rootDir}/local-maven") }
         mavenCentral()
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
