@@ -143,6 +143,7 @@ android {
 
         release {
             //debuggable true // Useful when debugging release builds
+            applicationIdSuffix ".moh"
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -250,7 +251,6 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            applicationIdSuffix ".moh"
             versionCode 40
             versionName "2.0.0"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
