@@ -246,6 +246,76 @@
             }
           }
         }
+      },
+      {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "label": "Sababu ya kifo",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "maternal_death",
+            "text": "Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_death"
+          },
+          {
+            "key": "msb",
+            "text": "Watoto waliofia tumboni (MSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msb"
+          },
+          {
+            "key": "fsb",
+            "text": "Vifo vya watoto wakati wa kuzaliwa (FSB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsb"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Ajali",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Sababu nyinginezo (Taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "other_cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_cause_of_death",
+        "hint": "Tafadhali taja sababu nyinginezo ya kifo",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja sababu nyinginezo ya kifo"
+        }
       }
     ]
   }
