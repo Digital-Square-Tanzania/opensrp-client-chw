@@ -14,10 +14,12 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HarmReductionSoberHouseRegisterActivity extends CoreHarmReductionRegisterActivity {
 
+    private static final String HARM_REDUCTION_SOBER_HOUSE_ENROLLMENT_FORM = "harm_reduction_sober_house_enrollment";
+
     public static void startRegistration(Activity activity, String memberBaseEntityID) {
         Intent intent = new Intent(activity, HarmReductionSoberHouseRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.HARM_REDUCTION_FORM_NAME, Constants.FORMS.HARM_REDUCTION_SOBER_HOUSE_ENROLLMENT);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.HARM_REDUCTION_FORM_NAME, HARM_REDUCTION_SOBER_HOUSE_ENROLLMENT_FORM);
         activity.startActivity(intent);
     }
 
