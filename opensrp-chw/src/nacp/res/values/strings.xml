@@ -1425,5 +1425,9 @@
     <string name="menu_all_families">All Households</string>
     <string name="add_family">Add Household</string>
     <string name="add_fam">Add Household</string>
+    <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
+    <string name="hps_mobilization_sessions">Gatherings Sessions</string>
+    <string name="hps_mobilization_sessions_menu">Gatherings</string>
+    <string name="hps_mobilization_sessions_title">iCCHW Gatherings Sessions</string>
 
 </resources>
