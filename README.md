@@ -20,11 +20,19 @@ These instructions will get you a copy of the project up and running on your loc
 ### Building the app locally
 
 1. Install the Android SDK tools and a Java 11+ runtime, then export `JAVA_HOME` so Gradle can locate it.
-2. Populate the offline Maven mirror from the cached artifacts:
+2. Publish legacy dependencies from the checked-in cache (`legacy-opensrp-libs/`) to your local Maven cache (`mavenLocal()`):
    ```bash
-   python3 scripts/sync_local_maven.py
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs --dest ~/.m2/repository --overwrite
    ```
-   Rerun this command whenever `legacy-opensrp-libs/` changes. The generated `local-maven/` directory is ignored by Git.
+   You can use the positional destination form if you prefer:
+   ```bash
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs ~/.m2/repository --overwrite
+   ```
+   If you want to refresh the project-local mirror used by `opensrp-chw/build.gradle` (`${rootDir}/local-maven`), run:
+   ```bash
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs --dest local-maven --overwrite
+   ```
+   Rerun these commands whenever `legacy-opensrp-libs/` changes.
 3. Ensure the prepackaged AARs remain under `opensrp-chw/libs/` (`circleprogressbar-1.0.8-SNAPSHOT.aar`, `MonthAndYearPicker-1.3.0.aar`, `hellocharts-android-1.5.8.aar`). Replace them if you rebuild those libraries locally.
 4. Build the client from the repository root:
    ```bash
