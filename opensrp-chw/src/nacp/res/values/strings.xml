@@ -1422,7 +1422,18 @@
     <string name="manual_process_visit">Process Visit</string>
     <string name="hps_view_visit_history">View visit history</string>
     <string name="confirm_remove_text">Verify the death information of %s. Completing this step will remove all information about this client from your phone. Once saved, you cannot undo this action.</string>
-
+    <string name="family_profile_title">%1$s Household</string>
+    <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="remove">SAVE</string>
+    <string name="family_head">Head of Household</string>
+    <string name="return_to_all_families">Return to all households</string>
+    <string name="return_to_family_profile">Return to household profile</string>
+    <string name="menu_all_families">All Households</string>
+    <string name="add_family">Add Household</string>
+    <string name="add_fam">Add Household</string>
+    <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
+    <string name="hps_mobilization_sessions">Gatherings Sessions</string>
+    <string name="hps_mobilization_sessions_menu">Gatherings</string>
+    <string name="hps_mobilization_sessions_title">iCCHW Gatherings Sessions</string>
 
 </resources>

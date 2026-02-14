@@ -312,6 +312,7 @@ dependencies {
 
     implementation('org.smartregister:opensrp-client-chw-core:2.0.0-MOH-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -343,9 +344,22 @@ dependencies {
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
+    implementation('org.smartregister:opensrp-plan-evaluator:0.0.19-SNAPSHOT') {
+        transitive = true
+    }
+
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    // MaterialEditText relies on NineOldAndroids' ArgbEvaluator when inflating native form widgets
+    implementation 'com.nineoldandroids:library:2.4.0'
+    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
+    // causing missing com.github.ybq.android.spinkit.* classes.
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'
     implementation 'org.mozilla:rhino:1.7.13'
+    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation("commons-io:commons-io:2.21.0")
+    implementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
     implementation('io.ona.kujaku:library:0.9.0') {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'
