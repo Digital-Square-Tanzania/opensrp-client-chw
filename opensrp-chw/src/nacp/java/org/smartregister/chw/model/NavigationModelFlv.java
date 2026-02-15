@@ -102,7 +102,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
                         }
-                        if (ChwApplication.getApplicationFlavor().hasADDO()){
+                        if (ChwApplication.getApplicationFlavor().hasADDO()) {
                             navigationOptions.add(op25);
                         }
 
@@ -115,9 +115,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         }
 
                         if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                            navigationOptions.add(op27);
                             navigationOptions.add(op28);
-                            navigationOptions.add(op29);
+//                            DISABLED AYP PARENTAL AND IN-SCHOOL
+//                            navigationOptions.add(op27);
+//                            navigationOptions.add(op29);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op15));
@@ -151,14 +152,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op23);
                 }
                 if (ChwApplication.getApplicationFlavor().hasAyp()) {
-                    navigationOptions.add(op27);
                     navigationOptions.add(op28);
-                    navigationOptions.add(op29);
+//                    DISABLED AYP PARENTAL AND IN-SCHOOL
+//                    navigationOptions.add(op27);
+//                    navigationOptions.add(op29);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);
                 }
-                if (ChwApplication.getApplicationFlavor().hasADDO()){
+                if (ChwApplication.getApplicationFlavor().hasADDO()) {
                     navigationOptions.add(op26);
                 }
                 if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
