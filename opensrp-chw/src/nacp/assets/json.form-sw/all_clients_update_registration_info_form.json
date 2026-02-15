@@ -705,25 +705,6 @@
         }
       },
       {
-        "key": "specify_other_disabilities",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_other_disabilities",
-        "type": "edit_text",
-        "hint": "Ulemavu mwingine",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali taja ulemavu mwingine"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "has_primary_caregiver",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
