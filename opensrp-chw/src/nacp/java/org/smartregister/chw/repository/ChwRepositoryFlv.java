@@ -654,5 +654,12 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion34");
         }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_hivst_results ADD COLUMN source_form_submission_id VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion34");
+        }
     }
 }
