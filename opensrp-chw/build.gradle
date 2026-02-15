@@ -73,6 +73,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
+configurations.all {
+    exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
+}
+
 jacoco {
     toolVersion = "0.8.12"
 }
@@ -139,6 +143,7 @@ android {
 
         release {
             //debuggable true // Useful when debugging release builds
+            applicationIdSuffix ".moh"
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -160,11 +165,16 @@ android {
             testCoverageEnabled false
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "true",
-                    firebase_crashlytics_collection_deactivated: "false"
+                    firebase_crashlytics_collection_deactivated: "false",
+                    app_icon: "ic_launcher_afya_jamii",
+                    app_icon_round: "ic_launcher_afya_jamii_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash"
             ]
         }
 
         debug {
+            applicationIdSuffix ".moh.testing"
+            versionNameSuffix "-debug"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -181,14 +191,22 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
             testCoverageEnabled false
+            resValue "string", "app_name", "TESTING-AfyaJamii"
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "false",
-                    firebase_crashlytics_collection_deactivated: "true"
+                    firebase_crashlytics_collection_deactivated: "true",
+                    app_icon: "ic_launcher_afya_jamii_debug",
+                    app_icon_round: "ic_launcher_afya_jamii_debug_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash_debug"
             ]
         }
+
     }
 
     packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
         resources {
             excludes += [
                     'META-INF/DEPENDENCIES.txt',
@@ -234,7 +252,6 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            applicationIdSuffix ".moh"
             versionCode 44
             versionName "2.0.3"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
@@ -268,7 +285,7 @@ android {
             enableSplit = false
         }
     }
-    ndkVersion '21.1.6352462'
+    ndkVersion '28.0.13004108'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
@@ -303,8 +320,9 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.0-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.1-MOH-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -327,6 +345,13 @@ dependencies {
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
+
+    // Bring in domain models (Client, Task, Event, LocationTag, etc.) via local jar to avoid pulling heavy FHIR deps
+    implementation files('../legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9/opensrp-plan-evaluator-0.0.19-SNAPSHOT.jar')
+
+    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
+    // causing missing com.github.ybq.android.spinkit.* classes.
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'

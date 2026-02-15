@@ -4468,6 +4468,14 @@
           }
         },
         {
+          "column_name": "source_form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "source_form_submission_id"
+          }
+        },
+        {
           "column_name": "kit_code",
           "type": "Event",
           "json_mapping": {
