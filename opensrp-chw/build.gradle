@@ -73,10 +73,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
-configurations.all {
-    exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
-}
-
 jacoco {
     toolVersion = "0.8.12"
 }
@@ -254,8 +250,8 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            versionCode 44
-            versionName "2.0.3"
+            versionCode 50
+            versionName "2.1.0"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
