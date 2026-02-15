@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -15,6 +15,8 @@ import org.smartregister.repository.Repository;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 public class RoutineHouseHoldDaoTest extends RoutineHouseHoldDao {
     @Mock
@@ -33,8 +35,7 @@ public class RoutineHouseHoldDaoTest extends RoutineHouseHoldDao {
     public void testGetLastRoutineVisitDateReturnsZero() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         long time = RoutineHouseHoldDao.getLastRoutineVisitDate("12345");
@@ -47,9 +48,7 @@ public class RoutineHouseHoldDaoTest extends RoutineHouseHoldDao {
     public void testGetEventDetails() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         long eventDate = new Date().getTime();
         String baseEntityID = "12345";
