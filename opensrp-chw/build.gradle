@@ -243,6 +243,8 @@ android {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
             force 'net.zetetic:sqlcipher-android:4.13.0'
+            // Rhino 1.7.14 references javax.lang.model.SourceVersion, which is absent on Android runtime.
+            force 'org.mozilla:rhino:1.7.13'
         }
         exclude group: 'com.google.guava', module: 'listenablefuture'
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
@@ -347,7 +349,14 @@ dependencies {
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
     // Bring in domain models (Client, Task, Event, LocationTag, etc.) via local jar to avoid pulling heavy FHIR deps
-    implementation files('../legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9/opensrp-plan-evaluator-0.0.19-SNAPSHOT.jar')
+    def localPlanEvaluatorJar = rootProject.file('local-maven/org/smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/opensrp-plan-evaluator-0.0.19-SNAPSHOT.jar')
+    if (localPlanEvaluatorJar.exists()) {
+        implementation files(localPlanEvaluatorJar)
+    } else {
+        implementation('org.smartregister:opensrp-plan-evaluator:0.0.19-SNAPSHOT') {
+            transitive = false
+        }
+    }
 
     // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
     // causing missing com.github.ybq.android.spinkit.* classes.

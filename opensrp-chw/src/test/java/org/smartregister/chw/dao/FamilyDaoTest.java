@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -14,6 +14,8 @@ import org.smartregister.domain.AlertStatus;
 import org.smartregister.repository.Repository;
 
 import java.util.Map;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 public class FamilyDaoTest extends FamilyDao {
     @Mock
@@ -33,8 +35,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetFamilyServiceScheduleReturnsVisits() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state", "totals"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state", "totals"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Map<String, Integer> visits = FamilyDao.getFamilyServiceSchedule("12345");
@@ -48,8 +49,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetFamilyServiceScheduleWithChildrenOnlyUnderTwoReturnsVisits() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state", "totals"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state", "totals"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Map<String, Integer> visits = FamilyDao.getFamilyServiceScheduleWithChildrenOnlyUnderTwo("12345");
@@ -63,9 +63,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetMemberDueStatus() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state"});
-        matrixCursor.addRow(new Object[]{"DUE"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state"}, new Object[]{"DUE"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String visitState = FamilyDao.getMemberDueStatus("12345");
@@ -78,8 +76,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetMemberDueStatusReturnsEmptyString() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String visitState = FamilyDao.getMemberDueStatus("12345");
@@ -93,9 +90,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetMemberDueStatusForUnderTwoChildren() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state"});
-        matrixCursor.addRow(new Object[]{"DUE"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state"}, new Object[]{"DUE"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String visitState = FamilyDao.getMemberDueStatusForUnderTwoChildren("12345");
@@ -108,8 +103,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetMemberDueStatusForUnderTwoChildrenReturnsEmptyString() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_state"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"visit_state"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String visitState = FamilyDao.getMemberDueStatusForUnderTwoChildren("12345");
@@ -123,8 +117,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetFamilyCreateDateReturnsEmptyString() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"event_date"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"event_date"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         long eventDate = FamilyDao.getFamilyCreateDate("12345");
@@ -137,9 +130,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testFamilyHasChildUnderFiveTrue() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"underFive"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
@@ -152,9 +143,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testFamilyHasChildUnderFiveFalse() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
-        matrixCursor.addRow(new Object[]{0});
-
+        Cursor matrixCursor = mockCursor(new String[]{"underFive"}, new Object[]{0});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
@@ -167,9 +156,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testIsFamily() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean isFamily = FamilyDao.isFamily("12345");
@@ -182,9 +169,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testIsFamilyReturnsFalse() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{0});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{0});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean isFamily = FamilyDao.isFamily("12345");
@@ -195,8 +180,7 @@ public class FamilyDaoTest extends FamilyDao {
 
     @Test
     public void getFamilyAlertStatusReturnsCorrectStatus() {
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"case"});
-        matrixCursor.addRow(new Object[]{"2"});
+        Cursor matrixCursor = mockCursor(new String[]{"case"}, new Object[]{"2"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         AlertStatus status = FamilyDao.getFamilyAlertStatus("entity-id-123");
@@ -208,9 +192,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetFamilyDetail() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail("12345");
@@ -224,8 +206,7 @@ public class FamilyDaoTest extends FamilyDao {
     public void testGetFamilyDetailReturnsNull() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         FamilyDetailsModel familyDetail = FamilyDao.getFamilyDetail("12345");

@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -13,6 +13,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.chw.core.domain.Child;
 import org.smartregister.repository.Repository;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChwChildDaoTest extends ChwChildDao {
@@ -33,9 +35,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChild() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Child child = ChwChildDao.getChild("12345");
@@ -48,8 +48,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChildReturnsNull() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Child child = ChwChildDao.getChild("12345");
@@ -63,9 +62,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChildGender() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"gender"});
-        matrixCursor.addRow(new Object[]{"female"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"gender"}, new Object[]{"female"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String gender = ChwChildDao.getChildGender("12345");
@@ -78,8 +75,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChildGenderReturnsEmptyString() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"gender"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"gender"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String gender = ChwChildDao.getChildGender("12345");
@@ -93,9 +89,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChildFamilyName() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"first_name"});
-        matrixCursor.addRow(new Object[]{"Tumba"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"first_name"}, new Object[]{"Tumba"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String familyName = ChwChildDao.getChildFamilyName("12345");
@@ -108,8 +102,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testGetChildFamilyNameReturnsEmptyString() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"first_name"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"first_name"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String familyName = ChwChildDao.getChildFamilyName("12345");
@@ -122,9 +115,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasDueVaccines() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasDueVaccines("12345");
@@ -137,9 +128,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasDueVaccinesReturnsFalse() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{0});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{0});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasDueVaccines("12345");
@@ -153,9 +142,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasDueAlerts() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasDueAlerts("12345");
@@ -168,9 +155,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasDueAlertsReturnsFalse() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{0});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{0});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasDueAlerts("12345");
@@ -184,9 +169,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasActiveSchedule() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{2});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{2});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasActiveSchedule("12345");
@@ -199,9 +182,7 @@ public class ChwChildDaoTest extends ChwChildDao {
     public void testHasActiveVaccinesReturnsFalse() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
-        matrixCursor.addRow(new Object[]{0});
-
+        Cursor matrixCursor = mockCursor(new String[]{"count"}, new Object[]{0});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         Boolean dueVaccines = ChwChildDao.hasActiveSchedule("12345");

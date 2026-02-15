@@ -64,6 +64,15 @@ case "`uname`" in
     ;;
 esac
 
+# Prefer Java 17 on macOS when available. Some test tooling in this project
+# is not compatible with newer JDKs.
+if [ "$darwin" = "true" -a -x "/usr/libexec/java_home" ] ; then
+    JAVA_17_HOME=`/usr/libexec/java_home -v 17 2>/dev/null`
+    if [ -n "$JAVA_17_HOME" ] ; then
+        JAVA_HOME="$JAVA_17_HOME"
+    fi
+fi
+
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 # Determine the Java command to use to start the JVM.

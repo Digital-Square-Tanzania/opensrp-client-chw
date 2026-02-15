@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -12,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 public class DatabaseMigrationUtilsTest extends DatabaseMigrationUtils{
     @Mock
@@ -29,9 +31,8 @@ public class DatabaseMigrationUtilsTest extends DatabaseMigrationUtils{
     @Test
     public void testGetFormSubmissionsIds() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "form_submission_id"});
-        matrixCursor.addRow(new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "form_submission_id"}, new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         ArrayList<String> formSubmissionsIds = DatabaseMigrationUtils.getFormSubmissionsIds(database);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
@@ -41,16 +42,16 @@ public class DatabaseMigrationUtilsTest extends DatabaseMigrationUtils{
     @Test
     public void testGetJSONLists() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "json","formSubmissionId"});
-        matrixCursor.addRow(new Object[]{"{\n" +
-                "    \"formSubmissionId\": \"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90\",\n" +
-                "    \"providerId\": \"chaone\"\n" +
-                "}","d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"});
-        matrixCursor.addRow(new Object[]{"{\n" +
-                "    \"formSubmissionId\": \"d5ff0ea1-bbc5-424d-84c2-5b084e10ef80\",\n" +
-                "    \"providerId\": \"chaone\"\n" +
-                "}","d5ff0ea1-bbc5-424d-84c2-5b084e10ef80"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "json","formSubmissionId"},
+                new Object[]{"{\n" +
+                        "    \"formSubmissionId\": \"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90\",\n" +
+                        "    \"providerId\": \"chaone\"\n" +
+                        "}","d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"},
+                new Object[]{"{\n" +
+                        "    \"formSubmissionId\": \"d5ff0ea1-bbc5-424d-84c2-5b084e10ef80\",\n" +
+                        "    \"providerId\": \"chaone\"\n" +
+                        "}","d5ff0ea1-bbc5-424d-84c2-5b084e10ef80"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         ArrayList<String> formSubmissionsIds = new ArrayList<>();
         formSubmissionsIds.add("d5ff0ea1-bbc5-424d-84c2-5b084e10ef90");

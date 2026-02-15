@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +17,8 @@ import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.repository.Repository;
 
 import java.util.List;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChwPNCDaoTest extends ChwPNCDao {
@@ -35,9 +37,7 @@ public class ChwPNCDaoTest extends ChwPNCDao {
 
     @Test
     public void testGetLastHealthFacilityVisitSummary() {
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"delivery_date"});
-        matrixCursor.addRow(new Object[]{"12-03-2005"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"delivery_date"}, new Object[]{"12-03-2005"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         @Nullable PNCHealthFacilityVisitSummary chwPNCDao = ChwPNCDao.getLastHealthFacilityVisitSummary("12345", database);
@@ -48,8 +48,7 @@ public class ChwPNCDaoTest extends ChwPNCDao {
 
     @Test
     public void testGetLastHealthFacilityVisitSummaryReturnsNull() {
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"delivery_date"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"delivery_date"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         @Nullable PNCHealthFacilityVisitSummary chwPNCDao = ChwPNCDao.getLastHealthFacilityVisitSummary("12345", database);
@@ -63,9 +62,7 @@ public class ChwPNCDaoTest extends ChwPNCDao {
     public void testGetLastPNCHealthFacilityVisits() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"delivery_date"});
-        matrixCursor.addRow(new Object[]{"12-03-2005"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"delivery_date"}, new Object[]{"12-03-2005"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<VisitDetail> visitDetail = ChwPNCDao.getLastPNCHealthFacilityVisits("12345");
@@ -78,8 +75,7 @@ public class ChwPNCDaoTest extends ChwPNCDao {
     public void testGetLastPNCHealthFacilityVisitsReturnsNull() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"delivery_date"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"delivery_date"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<VisitDetail> visitDetail = ChwPNCDao.getLastPNCHealthFacilityVisits("12345");
