@@ -11838,6 +11838,257 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_harm_reduction_sober_house_enrollment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "screening_tests_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "screening_tests_done"
+          }
+        },
+        {
+          "column_name": "other_conditions_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_conditions_specify"
+          }
+        },
+        {
+          "column_name": "hiv_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_screening"
+          }
+        },
+        {
+          "column_name": "stis_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stis_result"
+          }
+        },
+        {
+          "column_name": "heart_diseases_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "heart_diseases_result"
+          }
+        },
+        {
+          "column_name": "mental_health_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mental_health_result"
+          }
+        },
+        {
+          "column_name": "hepatitis_b_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_b_result"
+          }
+        },
+        {
+          "column_name": "hepatitis_c_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_c_result"
+          }
+        },
+        {
+          "column_name": "diabetes_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diabetes_result"
+          }
+        },
+        {
+          "column_name": "tuberculosis_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tuberculosis_result"
+          }
+        },
+        {
+          "column_name": "hiv_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_result"
+          }
+        },
+        {
+          "column_name": "treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "sober_house_eligible",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sober_house_eligible"
+          }
+        },
+        {
+          "column_name": "enroll_action_prompt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "enroll_action_prompt"
+          }
+        },
+        {
+          "column_name": "not_eligible_action_prompt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "not_eligible_action_prompt"
+          }
+        },
+        {
+          "column_name": "other_services_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_services_referral"
+          }
+        },
+        {
+          "column_name": "nickname",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "nickname"
+          }
+        },
+        {
+          "column_name": "uic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic"
+          }
+        },
+        {
+          "column_name": "education_level",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "education_level"
+          }
+        },
+        {
+          "column_name": "hiv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_status"
+          }
+        },
+        {
+          "column_name": "ctc_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctc_id"
+          }
+        },
+        {
+          "column_name": "substances_leading_to_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "substances_leading_to_services"
+          }
+        },
+        {
+          "column_name": "other_substances_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_substances_specify"
+          }
+        },
+        {
+          "column_name": "height_cm",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "height_cm"
+          }
+        },
+        {
+          "column_name": "nationality",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "nationality"
+          }
+        },
+        {
+          "column_name": "detoxification_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "detoxification_done"
+          }
+        },
+        {
+          "column_name": "detoxification_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "detoxification_date"
+          }
+        },
+        {
+          "column_name": "detoxification_referral_prompt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "detoxification_referral_prompt"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }

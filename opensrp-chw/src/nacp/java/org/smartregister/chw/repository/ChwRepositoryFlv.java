@@ -670,7 +670,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion35(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Collections.singletonList("ec_harm_reduction_safety_box_collection")),
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion35");
