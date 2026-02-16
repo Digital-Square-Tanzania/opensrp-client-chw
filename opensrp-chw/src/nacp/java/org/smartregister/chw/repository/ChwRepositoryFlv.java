@@ -4,10 +4,10 @@ import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -560,8 +560,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
-                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment", "ec_ayp_out_school_enrollment", "ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members", "ec_ayp_out_school_group_members", "ec_ayp_out_school_client_followup_visits", "ec_ayp_out_school_group_followup_visits")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
