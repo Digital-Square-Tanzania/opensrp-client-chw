@@ -178,6 +178,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasHarmReductionSoberHouse() {
+        return true;
+    }
+
+    @Override
     public boolean hasICCM() {
         return true;
     }
