@@ -9,7 +9,7 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.BuildConfig;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -652,6 +652,13 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion34(SQLiteDatabase db) {
         try {
             String addMissingColumnsQuery = "ALTER TABLE location ADD COLUMN status VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion34");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_hivst_results ADD COLUMN source_form_submission_id VARCHAR;";
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion34");

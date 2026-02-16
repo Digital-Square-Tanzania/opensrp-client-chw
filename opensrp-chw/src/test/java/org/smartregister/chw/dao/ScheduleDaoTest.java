@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -12,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.repository.Repository;
 
 import java.util.List;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 public class ScheduleDaoTest extends ScheduleDao {
 
@@ -30,9 +32,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActiveFamilies() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activeFamilies = ScheduleDao.getActiveFamilies("FAMILY HOME VISIT", "Home visit");
@@ -46,9 +46,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActiveANCWomen() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activeANCWomen = ScheduleDao.getActiveANCWomen("ANC HOME VISIT", "Home visit");
@@ -62,9 +60,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActivePNCWomen() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activePNCWomen = ScheduleDao.getActivePNCWomen("PNC HOME VISIT", "Home visit");
@@ -77,9 +73,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActiveFPWomen() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activeFPWomen = ScheduleDao.getActiveFPWomen("FP HOME VISIT", "Home visit");
@@ -92,9 +86,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActiveChildren() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activeChildren = ScheduleDao.getActiveChildren("CHILD HOME VISIT", "Home visit");
@@ -107,9 +99,7 @@ public class ScheduleDaoTest extends ScheduleDao {
     public void testGetActiveChildrenUnder5AndGirlsAge9to11() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
-        matrixCursor.addRow(new Object[]{"12345"});
-
+        Cursor matrixCursor = mockCursor(new String[]{"base_entity_id"}, new Object[]{"12345"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<String> activeChildrenFiveAndGirlsNineToEleven = ScheduleDao.getActiveChildrenUnder5AndGirlsAge9to11("CHILD HOME VISIT", "Home visit");

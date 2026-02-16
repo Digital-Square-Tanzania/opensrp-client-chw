@@ -135,8 +135,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
 
         if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
-            String dob = memberObject.getDob();
-            int age = Utils.getAgeFromDate(dob);
+            int age = memberObject.getAge();
             setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
         }
         AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
@@ -148,8 +147,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.action_kvp_prep_registration) {
             String gender = getClientGender(memberObject.getBaseEntityId());
-            String dob = memberObject.getDob();
-            int age = Utils.getAgeFromDate(dob);
+            int age = memberObject.getAge();
             KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
             return true;
         } else if (itemId == R.id.action_hps_enrollment) {
