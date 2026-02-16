@@ -3,19 +3,19 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
-import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.harmreduction.R;
+import org.smartregister.chw.domain.SortableVisit;
+import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseProfileActivity;
+import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseVisitActivity;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
-import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseVisitActivity;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
-import org.smartregister.domain.SortableVisit;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionProfileActivity {
+public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSoberHouseProfileActivity {
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, HarmReductionSoberHouseProfileActivity.class);
@@ -99,38 +99,31 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionPro
         // no-op
     }
 
-    @Override
     protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
         return null;
     }
 
-    @Override
     protected void removeMember() {
         // no-op
     }
 
     @NonNull
-    @Override
     public CoreFamilyOtherMemberActivityPresenter presenter() {
         return null;
     }
 
-    @Override
     public void setProfileImage(String s, String s1) {
         // no-op
     }
 
-    @Override
     public void setProfileDetailThree(String s) {
         // no-op
     }
 
-    @Override
     public void toggleFamilyHead(boolean b) {
         // no-op
     }
 
-    @Override
     public void togglePrimaryCaregiver(boolean b) {
         // no-op
     }
@@ -150,27 +143,22 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionPro
         BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
-    @Override
     public void refreshList() {
         // no-op
     }
 
-    @Override
     public void updateHasPhone(boolean b) {
         // no-op
     }
 
-    @Override
     public void setFamilyServiceStatus(String s) {
         // no-op
     }
 
-    @Override
     public void verifyHasPhone() {
         // no-op
     }
 
-    @Override
     public void notifyHasPhone(boolean b) {
         // no-op
     }
