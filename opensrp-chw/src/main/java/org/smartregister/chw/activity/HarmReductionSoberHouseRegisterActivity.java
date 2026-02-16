@@ -38,7 +38,7 @@ public class HarmReductionSoberHouseRegisterActivity extends CoreHarmReductionRe
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.HARM_REDUCTION);
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE);
         }
     }
 }
