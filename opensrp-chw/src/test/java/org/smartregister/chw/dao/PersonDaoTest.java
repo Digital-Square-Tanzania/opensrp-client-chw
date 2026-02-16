@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.junit.Assert;
@@ -14,6 +14,8 @@ import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.repository.Repository;
 
 import java.util.List;
+
+import static org.smartregister.chw.util.TestCursorUtils.mockCursor;
 
 public class PersonDaoTest extends PersonDao {
     @Mock
@@ -31,9 +33,8 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void testGetMothersChildren() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "base_entity_id", "first_name", "last_name", "middle_name", "dob"});
-        matrixCursor.addRow(new Object[]{"base_entity_id", "first_name", "last_name", "middle_name", "dob"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "base_entity_id", "first_name", "last_name", "middle_name", "dob"}, new Object[]{"base_entity_id", "first_name", "last_name", "middle_name", "dob"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String baseEntityId = "1234";
@@ -48,9 +49,8 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void testGetMothersPNCBabies() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"});
-        matrixCursor.addRow(new Object[]{"base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"}, new Object[]{"base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String baseEntityId = "1234";
@@ -65,7 +65,7 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void testGetMothersPNCBabiesReturnsEmptyArrayList() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+        Cursor matrixCursor = mockCursor(new String[]{
                 "base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
@@ -78,9 +78,8 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void getAncCreatedDate() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "date_created"});
-        matrixCursor.addRow(new Object[]{"date_created"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "date_created"}, new Object[]{"date_created"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String baseEntityId = "1234";
@@ -92,7 +91,7 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void getAncCreatedDateReturnsNull() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+        Cursor matrixCursor = mockCursor(new String[]{
                 "date_created"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
@@ -105,9 +104,8 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void getDob() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "dob"});
-        matrixCursor.addRow(new Object[]{"dob"});
+        Cursor matrixCursor = mockCursor(new String[]{
+                "dob"}, new Object[]{"dob"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         String baseEntityId = "1234";
@@ -119,7 +117,7 @@ public class PersonDaoTest extends PersonDao {
     @Test
     public void getDobReturnsNull() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+        Cursor matrixCursor = mockCursor(new String[]{
                 "dob"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         String baseEntityId = "1234";

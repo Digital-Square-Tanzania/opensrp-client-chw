@@ -15,6 +15,7 @@
     <color name="grey">#9e9e9e</color>
     <color name="light_blue">#C7E7FE</color>
     <color name="light_gray">#FAFAFA</color>
+    <color name="login_background">#F6F6F6</color>
     <color name="visit_status_ok">@android:color/holo_blue_light</color>
     <color name="visit_status_over_due">#D13F3F</color>
     <color name="visit_status_not_yet">@android:color/darker_gray</color>

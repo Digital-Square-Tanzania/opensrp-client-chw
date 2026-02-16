@@ -125,15 +125,6 @@ priority: 1
 condition: "step1_type_of_disability.contains('other_disabilities')"
 actions:
   - "isRelevant = true"
-
----
-name: step1_specify_other_disabilities
-description: specify other disabilities
-priority: 1
-condition: "step1_type_of_disability.contains('other_disabilities')"
-actions:
-  - "isRelevant = true"
-
 ---
 name: step1_national_id
 description: specify national id
@@ -162,3 +153,4 @@ priority: 1
 condition: "step1_id_avail.equalsIgnoreCase('chk_passport_number')"
 actions:
   - "isRelevant = true"
+---
