@@ -243,11 +243,8 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
     }
 
     private boolean shouldShowSyncButton() {
-        if (BuildConfig.DEBUG) {
-            return true;
-        }
         String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        return adapter == null || !adapter.containsYear(currentYear);
+        return BuildConfig.DEBUG || adapter == null || !adapter.containsYear(currentYear);
     }
 
 
