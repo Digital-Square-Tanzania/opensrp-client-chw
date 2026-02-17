@@ -363,6 +363,14 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_harm_reduction_assessment, false);
         }
 
+        // Handle Sober House menu items
+        if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+            boolean isRegisteredForHarmReductionSoberHouse = isRegisteredForHarmReductionSoberHouse(baseEntityId);
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_sober_house_enrollment, !isRegisteredForHarmReductionSoberHouse && age >= 14);
+        } else {
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_sober_house_enrollment, false);
+        }
+
         // Handle SBC menu items
         if (ChwApplication.getApplicationFlavor().hasSbc()) {
             setMenuItemVisibility(menu, R.id.action_sbc_registration, !SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);
@@ -412,6 +420,10 @@ public class AllClientsUtils {
 
     private static boolean isRegisteredForHarmReduction(String baseEntityId) {
         return StringUtils.isNotBlank(HarmReductionDao.getRegistrationStatus(baseEntityId));
+    }
+
+    private static boolean isRegisteredForHarmReductionSoberHouse(String baseEntityId) {
+        return HarmReductionDao.getSoberHouseMember(baseEntityId) != null;
     }
 
 }
