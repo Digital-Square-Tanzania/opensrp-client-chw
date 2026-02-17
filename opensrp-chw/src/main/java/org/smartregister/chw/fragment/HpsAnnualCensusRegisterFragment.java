@@ -22,6 +22,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HpsAnnualCensusVisitActivity;
 import org.smartregister.chw.adapter.HpsAnnualCensusRegisterAdapter;
@@ -242,6 +243,9 @@ public class HpsAnnualCensusRegisterFragment extends BaseHpsRegisterFragment {
     }
 
     private boolean shouldShowSyncButton() {
+        if (BuildConfig.DEBUG) {
+            return true;
+        }
         String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
         return adapter == null || !adapter.containsYear(currentYear);
     }
