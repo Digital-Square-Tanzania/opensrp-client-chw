@@ -74,6 +74,9 @@
             android:name=".activity.HarmReductionVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
+            android:name=".activity.HarmReductionSoberHouseVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HarmReductionVisitHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
