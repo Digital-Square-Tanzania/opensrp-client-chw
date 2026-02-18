@@ -968,6 +968,13 @@
             "creates_case": [
               "ec_harm_reduction_safety_box_collection"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Sober House Enrollment",
+            "creates_case": [
+              "ec_harm_reduction_sober_house_enrollment"
+            ]
           }
         ]
       }
