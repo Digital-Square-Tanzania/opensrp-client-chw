@@ -61,7 +61,7 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 evaluateStep4SocialEconomic(details);
                 evaluateStep5CommitteesTraditionalMedicine(details);
                 evaluateStep5TraditionalMedicine(details);
-                evaluateStep6EnvironmentSanitation(details);
+//                evaluateStep6EnvironmentSanitation(details);
                 evaluateStep6EconomicActivities(details);
 //                evaluateStep7BuildingInspection(details);
 //                evaluateStep8WorkplaceInspection(details);
@@ -190,20 +190,20 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         actionList.put(title, action);
     }
 
-    private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
-            return;
-        }
-        String formName = Utils.getLocalForm("hps_annual_census_step6_environment_sanitation", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_environment_sanitation_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+//            return;
+//        }
+//        String formName = Utils.getLocalForm("hps_annual_census_step6_environment_sanitation", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_environment_sanitation_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
     private void evaluateStep6EconomicActivities(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
         if (householdCountValue == null || householdCountValue.trim().isEmpty()) {

@@ -34,3 +34,5 @@ android/
 jdks/
 legacy-opensrp-libs/
 notifications/
+.secrets
+./tmp

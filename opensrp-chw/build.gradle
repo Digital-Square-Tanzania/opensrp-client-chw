@@ -77,6 +77,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
+configurations.all {
+    exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
+}
+
 jacoco {
     toolVersion = "0.8.12"
 }
@@ -143,6 +147,7 @@ android {
 
         release {
             //debuggable true // Useful when debugging release builds
+            applicationIdSuffix ".moh"
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -164,11 +169,16 @@ android {
             testCoverageEnabled false
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "true",
-                    firebase_crashlytics_collection_deactivated: "false"
+                    firebase_crashlytics_collection_deactivated: "false",
+                    app_icon: "ic_launcher_afya_jamii",
+                    app_icon_round: "ic_launcher_afya_jamii_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash"
             ]
         }
 
         debug {
+            applicationIdSuffix ".moh.testing"
+            versionNameSuffix "-debug"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -185,11 +195,16 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
             testCoverageEnabled false
+            resValue "string", "app_name", "TESTING-AfyaJamii"
             manifestPlaceholders += [
                     firebase_crashlytics_collection_enabled: "false",
-                    firebase_crashlytics_collection_deactivated: "true"
+                    firebase_crashlytics_collection_deactivated: "true",
+                    app_icon: "ic_launcher_afya_jamii_debug",
+                    app_icon_round: "ic_launcher_afya_jamii_debug_round",
+                    splash_icon: "ic_launcher_afya_jamii_splash_debug"
             ]
         }
+
     }
 
     packaging {
@@ -232,6 +247,8 @@ android {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
             force 'net.zetetic:sqlcipher-android:4.13.0'
+            // Rhino 1.7.14 references javax.lang.model.SourceVersion, which is absent on Android runtime.
+            force 'org.mozilla:rhino:1.7.13'
         }
         exclude group: 'com.google.guava', module: 'listenablefuture'
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
@@ -241,7 +258,6 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            applicationIdSuffix ".moh"
             versionCode 40
             versionName "2.0.0"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
@@ -310,8 +326,9 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.0-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.1-MOH-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -331,21 +348,35 @@ dependencies {
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
         exclude group: 'com.github.lecho', module: 'hellocharts-library'
-        exclude group: 'com.github.ybq', module: 'Android-SpinKit'
-        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
     }
-
-    // ✅ Legacy OpenSRP plan evaluator JAR (NEW)
-    implementation(name: "opensrp-plan-evaluator-0.0.19-SNAPSHOT", ext: "jar")
-
-    // ✅ SpinKit (NEW)
-    implementation(name: "Android-SpinKit-1.4.0", ext: "aar")
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    // MaterialEditText relies on NineOldAndroids' ArgbEvaluator when inflating native form widgets
+    implementation 'com.nineoldandroids:library:2.4.0'
+    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
+    // causing missing com.github.ybq.android.spinkit.* classes.
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    // Bring in domain models (Client, Task, Event, LocationTag, etc.) via local jar to avoid pulling heavy FHIR deps
+    def localPlanEvaluatorJar = rootProject.file('local-maven/org/smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/opensrp-plan-evaluator-0.0.19-SNAPSHOT.jar')
+    if (localPlanEvaluatorJar.exists()) {
+        implementation files(localPlanEvaluatorJar)
+    } else {
+        implementation('org.smartregister:opensrp-plan-evaluator:0.0.19-SNAPSHOT') {
+            transitive = false
+        }
+    }
+
+    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
+    // causing missing com.github.ybq.android.spinkit.* classes.
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'
     implementation 'org.mozilla:rhino:1.7.13'
+    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation("commons-io:commons-io:2.21.0")
+    implementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
     implementation('io.ona.kujaku:library:0.9.0') {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'

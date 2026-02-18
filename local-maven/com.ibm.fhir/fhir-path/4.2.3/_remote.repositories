@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Feb 28 16:01:49 EAT 2025
+fhir-path-4.2.3.pom>=
+fhir-path-4.2.3.jar>=
