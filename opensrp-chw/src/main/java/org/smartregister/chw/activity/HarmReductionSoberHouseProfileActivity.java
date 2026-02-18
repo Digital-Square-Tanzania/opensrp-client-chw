@@ -12,7 +12,6 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseProfileActivity;
-import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseVisitActivity;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
@@ -71,17 +70,17 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
 
     @Override
     public void openRecordClientVisit() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openFollowupVisit() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openRecordTbContactVisit() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
@@ -130,17 +129,17 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
 
     @Override
     public void startServiceForm() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void continueService() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     @Override
     public void continueContactVisit() {
-        BaseHarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
+        HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     public void refreshList() {
