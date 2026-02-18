@@ -9,6 +9,7 @@ buildscript {
     repositories {
         google()
         mavenLocal()
+        mavenCentral()
         maven { url uri("${rootDir}/local-maven") }
         maven { url "https://plugins.gradle.org/m2/" }
     }

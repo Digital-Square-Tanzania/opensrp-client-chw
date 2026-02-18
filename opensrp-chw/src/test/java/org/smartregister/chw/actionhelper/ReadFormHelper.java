@@ -1,8 +1,9 @@
 package org.smartregister.chw.actionhelper;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import android.content.Context;
 
-import org.apache.commons.codec.CharEncoding;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
@@ -34,7 +35,7 @@ public class ReadFormHelper {
                             .open("json.form/" + formIdentity + AllConstants.JSON_FILE_EXTENSION);
                 }
                 BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(inputStream, CharEncoding.UTF_8));
+                        new InputStreamReader(inputStream, UTF_8));
                 String jsonString;
                 StringBuilder stringBuilder = new StringBuilder();
 

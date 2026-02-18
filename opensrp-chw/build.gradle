@@ -348,6 +348,12 @@ dependencies {
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    // MaterialEditText relies on NineOldAndroids' ArgbEvaluator when inflating native form widgets
+    implementation 'com.nineoldandroids:library:2.4.0'
+    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
+    // causing missing com.github.ybq.android.spinkit.* classes.
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     // Bring in domain models (Client, Task, Event, LocationTag, etc.) via local jar to avoid pulling heavy FHIR deps
     def localPlanEvaluatorJar = rootProject.file('local-maven/org/smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/opensrp-plan-evaluator-0.0.19-SNAPSHOT.jar')
     if (localPlanEvaluatorJar.exists()) {
@@ -361,10 +367,12 @@ dependencies {
     // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
     // causing missing com.github.ybq.android.spinkit.* classes.
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'
     implementation 'org.mozilla:rhino:1.7.13'
+    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation("commons-io:commons-io:2.21.0")
+    implementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
     implementation('io.ona.kujaku:library:0.9.0') {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'

@@ -3,6 +3,7 @@ package org.smartregister.chw.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +19,7 @@ import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
@@ -40,6 +42,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
+        updateHouseholdRowTitle(pc, viewHolder);
         viewHolder.dueButton.setVisibility(View.GONE);
         String familyBaseEntityId = pc.getCaseId();
         if (updateAsyncTask == null) { //Ensure this task is only called once
@@ -83,6 +86,20 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         dueButton.setText(context.getString(R.string.tasks_not_done));
         dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(onClickListener);
+    }
+
+    private void updateHouseholdRowTitle(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        if (pc == null || viewHolder == null || viewHolder.patientName == null) {
+            return;
+        }
+
+        String householdName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        if (TextUtils.isEmpty(householdName)) {
+            return;
+        }
+
+        String householdLabel = context.getString(R.string.household_register_row_title, householdName);
+        viewHolder.patientName.setText(householdLabel);
     }
 
     @Override

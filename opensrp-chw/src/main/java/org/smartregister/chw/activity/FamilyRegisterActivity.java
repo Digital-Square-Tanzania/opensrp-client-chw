@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -48,6 +51,9 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
+
+        updateToolbarTitle(this, R.id.toolbar_title, getString(R.string.all_households));
+        setTitle(R.string.all_households);
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
