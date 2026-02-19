@@ -31,6 +31,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
+    private static final int MIN_PRE_MAT_SESSIONS_FOR_MAT_START = 3;
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, HarmReductionProfileActivity.class);
@@ -204,7 +205,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private void setupPreMatSessionsHistoryLayout() {
-        boolean showPreMatHistory = hasVisitsAfterMatConsent();
+        boolean showPreMatHistory = hasPreMatSessions();
         if (rlPreMatSessionHistory != null) {
             rlPreMatSessionHistory.setVisibility(showPreMatHistory ? View.VISIBLE : View.GONE);
             rlPreMatSessionHistory.setOnClickListener(view -> openPreMatSessionsHistory());
@@ -216,17 +217,17 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private void setupMarkClientStartedMatVisibility() {
-        boolean showMarkClientStartedMat = hasMinimumVisitsAfterMatConsent(3);
+        boolean showMarkClientStartedMat = hasMinimumPreMatSessions(MIN_PRE_MAT_SESSIONS_FOR_MAT_START);
         if (textViewMarkClientStartedMat != null) {
             textViewMarkClientStartedMat.setVisibility(showMarkClientStartedMat ? View.VISIBLE : View.GONE);
         }
     }
 
-    private boolean hasVisitsAfterMatConsent() {
-        return hasMinimumVisitsAfterMatConsent(1);
+    private boolean hasPreMatSessions() {
+        return hasMinimumPreMatSessions(1);
     }
 
-    private boolean hasMinimumVisitsAfterMatConsent(int minimumVisits) {
+    private boolean hasMinimumPreMatSessions(int minimumVisits) {
         if (minimumVisits <= 0) {
             return true;
         }
@@ -234,10 +235,11 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
             return false;
         }
 
-        Date consentDate = getMatConsentDate();
-        if (consentDate == null) {
+        if (!hasRocConsentForMat()) {
             return false;
         }
+
+        Date consentDate = getMatConsentDate();
 
         try {
             List<SortableVisit> visits = HarmReductionVisitHistoryInteractor.getVisits(
@@ -248,7 +250,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
             int visitCount = 0;
             for (SortableVisit visit : visits) {
                 Date visitDate = visit.getDate();
-                if (visitDate != null && visitDate.after(consentDate)) {
+                if (visitDate != null && (consentDate == null || visitDate.after(consentDate))) {
                     visitCount++;
                     if (visitCount >= minimumVisits) {
                         return true;
@@ -260,6 +262,18 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         }
 
         return false;
+    }
+
+    private boolean hasRocConsentForMat() {
+        try {
+            return StringUtils.equalsIgnoreCase(
+                    "yes",
+                    HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId())
+            );
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
     }
 
     private Date getMatConsentDate() {
