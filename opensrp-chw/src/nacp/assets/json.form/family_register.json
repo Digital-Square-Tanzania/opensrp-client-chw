@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Family details",
+    "title": "Household details",
     "next": "step2",
     "fields": [
       {
@@ -61,11 +61,11 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Family name (Family Head's Surname)",
+        "hint": "Household name (Head of Household's Surname)",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the family name"
+          "err": "Please enter the household name"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
@@ -78,7 +78,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Family Head's First name",
+        "hint": "Head of Household's First name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -95,7 +95,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Family Head's Middle name",
+        "hint": "Head of Household's Middle name",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
@@ -228,7 +228,7 @@
     ]
   },
   "step2": {
-    "title": "Family head",
+    "title": "Head of household",
     "fields": [
       {
         "key": "unique_id",

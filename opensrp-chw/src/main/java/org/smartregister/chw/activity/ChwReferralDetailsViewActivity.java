@@ -1,7 +1,7 @@
 package org.smartregister.chw.activity;
 
-import static org.hl7.fhir.r4.model.codesystems.VariantState.NEGATIVE;
-import static org.hl7.fhir.r4.model.codesystems.VariantState.POSITIVE;
+import static org.smartregister.chw.hiv.util.Constants.HivStatus.NEGATIVE;
+import static org.smartregister.chw.hiv.util.Constants.HivStatus.POSITIVE;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -146,9 +146,9 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                     tvActionTaken.setText(getTranslatedHivServicesProvided(servicesProvided));
                 }
                 if (hivStatus != null) {
-                    if (hivStatus.equalsIgnoreCase(POSITIVE.toString()))
+                    if (hivStatus.equalsIgnoreCase(POSITIVE))
                         tvTestResult.setText(getResources().getText(R.string.cbhs_positive));
-                    else if (hivStatus.equalsIgnoreCase(NEGATIVE.toString()))
+                    else if (hivStatus.equalsIgnoreCase(NEGATIVE))
                         tvTestResult.setText(getResources().getText(R.string.cbhs_negative));
                     else
                         tvTestResult.setText(hivStatus);
