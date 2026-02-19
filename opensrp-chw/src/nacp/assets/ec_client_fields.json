@@ -11962,22 +11962,6 @@
           }
         },
         {
-          "column_name": "enroll_action_prompt",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "enroll_action_prompt"
-          }
-        },
-        {
-          "column_name": "not_eligible_action_prompt",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "not_eligible_action_prompt"
-          }
-        },
-        {
           "column_name": "other_services_referral",
           "type": "Event",
           "json_mapping": {
@@ -11994,11 +11978,11 @@
           }
         },
         {
-          "column_name": "uic",
+          "column_name": "birth_region",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "uic"
+            "concept": "birth_region"
           }
         },
         {
@@ -12086,6 +12070,246 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_harm_reduction_sober_house_services",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "client_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_type"
+          }
+        },
+        {
+          "column_name": "follow_up_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "follow_up_status"
+          }
+        },
+        {
+          "column_name": "linkage_to_other_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services_provided"
+          }
+        },
+        {
+          "column_name": "linkage_to_other_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services"
+          }
+        },
+        {
+          "column_name": "linkage_to_other_services_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services_specify"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
+          "column_name": "recovery_capital_passed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "recovery_capital_passed"
+          }
+        },
+        {
+          "column_name": "post_counselling_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "post_counselling_done"
+          }
+        },
+        {
+          "column_name": "after_care_plan_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "after_care_plan_done"
+          }
+        },
+        {
+          "column_name": "after_care_plan_participants",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "after_care_plan_participants"
+          }
+        },
+        {
+          "column_name": "facility_referrals_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referrals_provided"
+          }
+        },
+        {
+          "column_name": "facility_referrals",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referrals"
+          }
+        },
+        {
+          "column_name": "facility_referrals_other_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referrals_other_specify"
+          }
+        },
+        {
+          "column_name": "attended_recovery_meetings",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "attended_recovery_meetings"
+          }
+        },
+        {
+          "column_name": "recovery_meeting_types",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "recovery_meeting_types"
+          }
+        },
+        {
+          "column_name": "recovery_meeting_special_topic_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "recovery_meeting_special_topic_specify"
+          }
+        },
+        {
+          "column_name": "life_skills_participation",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "life_skills_participation"
+          }
+        },
+        {
+          "column_name": "counseling_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "counseling_provided"
+          }
+        },
+        {
+          "column_name": "counseling_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "counseling_type"
+          }
+        },
+        {
+          "column_name": "client_current_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_current_status"
+          }
+        },
+        {
+          "column_name": "testing_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "testing_services"
+          }
+        },
+        {
+          "column_name": "systolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "systolic"
+          }
+        },
+        {
+          "column_name": "diastolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diastolic"
+          }
+        },
+        {
+          "column_name": "weight",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "weight"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
           }
         }
       ]
