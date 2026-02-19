@@ -982,6 +982,13 @@
             "creates_case": [
               "ec_harm_reduction_sober_house_services"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mark client has started MAT",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment"
+            ]
           }
         ]
       }
