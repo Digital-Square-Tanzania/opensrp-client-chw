@@ -481,6 +481,10 @@
     <string name="select_cha">Select CHAs</string>
     <string name="select_options">Select options</string>
     <string name="all_households">All Households</string>
+    <string name="family_register_head_prompt">Who will be the head of this household?</string>
+    <string name="family_register_head_option_new">Register a new person</string>
+    <string name="family_register_head_option_existing">Use an existing client</string>
+    <string name="family_register_head_prefill_error">We couldn\'t load the selected head. Please try again.</string>
     <string name="household_register_row_title">%s Household</string>
     <string name="all_families">All Households</string>
     <string name="anc_health_facility_counselling_subtitle">Health facility counselling</string>

@@ -32,6 +32,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
@@ -804,6 +805,68 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             Timber.d("form is " + form.toString(), new Object[0]);
             return form;
+        }
+    }
+
+    public static void populateExistingHead(JSONObject form, String baseEntityId) throws Exception {
+        if (form == null || StringUtils.isBlank(baseEntityId)) {
+            return;
+        }
+
+        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        if (personObject == null) {
+            throw new IllegalArgumentException("No registered client found for id " + baseEntityId);
+        }
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), personObject.getCaseId());
+        client.setColumnmaps(personObject.getColumnmaps());
+        populateExistingHead(form, client);
+    }
+
+    public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
+        form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+
+        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+        JSONArray fields = stepTwo.getJSONArray(FIELDS);
+
+        setValueAndLock(fields, "existing_head", client.getCaseId(), true);
+        setValueAndLock(fields, "first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), true);
+        setValueAndLock(fields, "middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), true);
+        setValueAndLock(fields, "surname", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), true);
+
+        String gender = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        setValueAndLock(fields, "sex", gender, true);
+
+        String dob = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        setValueAndLock(fields, "dob", dob, true);
+        if (StringUtils.isNotBlank(dob)) {
+            int ageValue = org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+            setValueAndLock(fields, "age", String.valueOf(ageValue), true);
+        }
+
+        String uniqueId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
+        setValueAndLock(fields, "unique_id", uniqueId, true);
+
+        setValueAndLock(fields, "phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true), false);
+        setValueAndLock(fields, "other_phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.OTHER_PHONE_NUMBER, true), false);
+    }
+
+    private static void setValueAndLock(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) {
+            return;
+        }
+
+        if (StringUtils.isNotBlank(value)) {
+            field.put(JsonFormConstants.VALUE, value);
+        } else {
+            field.remove(JsonFormConstants.VALUE);
+        }
+
+        if (readOnly) {
+            field.put(READ_ONLY, "true");
+            field.put(EDITABLE, false);
         }
     }
 
