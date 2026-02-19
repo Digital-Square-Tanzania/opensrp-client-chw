@@ -39,6 +39,8 @@ import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.domain.MemberObject;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 import org.smartregister.chw.util.ReportUtils;
 
 import java.io.BufferedReader;
@@ -199,8 +201,28 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
 
 //        Do not populate the referral date
 //        populatedHtml = populatedHtml.replace("{{REFERRAL_TO_MAT}}", formatCellValue(formatMatReferralDate()));
+        populatedHtml = populatedHtml.replace("{{COMMUNITY_WORKER}}", formatCellValue(fetchProviderFullName()));
         populatedHtml = applyDemographicInfo(populatedHtml);
         return populatedHtml;
+    }
+
+    private String fetchProviderFullName() {
+        try {
+            AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+            if (allSharedPreferences == null) {
+                return "";
+            }
+
+            String userName = allSharedPreferences.getPreference("anmIdentifier");
+            if (StringUtils.isBlank(userName)) {
+                return "";
+            }
+
+            return StringUtils.defaultString(allSharedPreferences.getPreference(userName));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
     }
 
     private String applyDemographicInfo(String html) {
