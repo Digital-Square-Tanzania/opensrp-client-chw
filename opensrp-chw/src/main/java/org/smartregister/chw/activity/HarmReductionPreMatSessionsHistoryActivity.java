@@ -394,7 +394,6 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
                 }
 
                 Map<String, List<VisitDetail>> visitDetails = visit.getVisitDetails();
-                addInformationPoint(contactInfo, visitDetails, "client_status", context);
                 addInformationPoint(contactInfo, visitDetails, "health_education_provided", context);
                 addInformationPoint(contactInfo, visitDetails, "health_education_other_specify", context);
 
