@@ -85,7 +85,7 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
 
     @Override
     public void openMedicalHistory() {
-        HarmReductionVisitHistoryActivity.startMe(this, memberObject);
+        HarmReductionSoberHouseVisitHistoryActivity.startMe(this, memberObject);
     }
 
     @Override

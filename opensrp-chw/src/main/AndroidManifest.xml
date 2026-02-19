@@ -80,6 +80,9 @@
             android:name=".activity.HarmReductionVisitHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionSoberHouseVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HarmReductionPreMatSessionsHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
