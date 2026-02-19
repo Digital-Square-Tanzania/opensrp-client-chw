@@ -197,7 +197,8 @@ public class HarmReductionPreMatSessionsHistoryActivity extends CoreAncMedicalHi
             populatedHtml = populatedHtml.replace(infoPlaceholders[i], buildInformationCell(contactInfo));
         }
 
-        populatedHtml = populatedHtml.replace("{{REFERRAL_TO_MAT}}", formatCellValue(formatMatReferralDate()));
+//        Do not populate the referral date
+//        populatedHtml = populatedHtml.replace("{{REFERRAL_TO_MAT}}", formatCellValue(formatMatReferralDate()));
         populatedHtml = applyDemographicInfo(populatedHtml);
         return populatedHtml;
     }
