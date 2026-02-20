@@ -101,9 +101,15 @@ name: step1_others_services_specify
 description: Rule to control the visibility of (step1_others_services_specify)
 priority: 1
 condition: "step1_preventive_services_below_5_years.contains('other_services') ||
-            step1_preventive_services_above_5_years_below_18_years.contains('other_services') ||
-            step1_preventive_services_above_18_years.contains('other_services')
+            step1_preventive_services_above_5_years_below_18_years.contains('other_services')
             "
+actions:
+  - "isRelevant = true "
+---
+name: step1_specify_other_services_above_18
+description: Rule to control the visibility of (step1_others_services_specify)
+priority: 1
+condition: "step1_preventive_services_above_18_years.contains('other_services')"
 actions:
   - "isRelevant = true "
 ---
