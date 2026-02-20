@@ -92,6 +92,105 @@ public class JsonFormUtilsTest {
         Assert.assertEquals("", phoneField.optString(JsonFormUtils.READ_ONLY));
     }
 
+    @Test
+    public void testPopulateExistingHeadFormatsDobAndMapsGender() throws Exception {
+        JSONObject form = new JSONObject();
+        form.put(JsonFormUtils.METADATA, new JSONObject());
+
+        JSONObject stepTwo = new JSONObject();
+        JSONArray fields = new JSONArray();
+        stepTwo.put(JsonFormConstants.FIELDS, fields);
+        form.put(org.smartregister.family.util.JsonFormUtils.STEP2, stepTwo);
+
+        addField(fields, "dob");
+        addField(fields, "sex");
+        addField(fields, "age");
+
+        java.util.HashMap<String, String> columnMap = new java.util.HashMap<>();
+        columnMap.put(DBConstants.KEY.DOB, "1990-01-01");
+        columnMap.put(DBConstants.KEY.GENDER, "F");
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient("case-id", columnMap, "Jane Doe");
+        client.setColumnmaps(columnMap);
+
+        JsonFormUtils.populateExistingHead(form, client);
+
+        JSONObject dobField = findField(fields, "dob");
+        Assert.assertEquals("01-01-1990", dobField.optString(JsonFormConstants.VALUE));
+
+        JSONObject sexField = findField(fields, "sex");
+        Assert.assertEquals("Female", sexField.optString(JsonFormConstants.VALUE));
+
+        JSONObject ageField = findField(fields, "age");
+        Assert.assertNotNull(ageField);
+    }
+
+    @Test
+    public void testPopulateExistingHeadWritesAgeCalculatedWhenAgeMissing() throws Exception {
+        JSONObject form = new JSONObject();
+        form.put(JsonFormUtils.METADATA, new JSONObject());
+
+        JSONObject stepTwo = new JSONObject();
+        JSONArray fields = new JSONArray();
+        stepTwo.put(JsonFormConstants.FIELDS, fields);
+        form.put(org.smartregister.family.util.JsonFormUtils.STEP2, stepTwo);
+
+        addField(fields, "dob");
+        addField(fields, "age_calculated");
+
+        java.util.HashMap<String, String> columnMap = new java.util.HashMap<>();
+        columnMap.put(DBConstants.KEY.DOB, "1990-01-01");
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient("case-id", columnMap, "Jane Doe");
+        client.setColumnmaps(columnMap);
+
+        JsonFormUtils.populateExistingHead(form, client);
+
+        JSONObject ageCalculated = findField(fields, "age_calculated");
+        Assert.assertNotNull(ageCalculated);
+        Assert.assertTrue(ageCalculated.has(JsonFormConstants.VALUE));
+    }
+
+    @Test
+    public void testPopulateExistingHeadPrefillsStep1ForNacpFlavorCalculations() throws Exception {
+        JSONObject form = new JSONObject();
+        form.put(JsonFormUtils.METADATA, new JSONObject());
+
+        // Step 1 with client_first_name, client_middle_name, fam_name
+        JSONObject stepOne = new JSONObject();
+        JSONArray stepOneFields = new JSONArray();
+        stepOne.put(JsonFormConstants.FIELDS, stepOneFields);
+        form.put(org.smartregister.family.util.JsonFormUtils.STEP1, stepOne);
+        addField(stepOneFields, "client_first_name");
+        addField(stepOneFields, "client_middle_name");
+        addField(stepOneFields, "fam_name");
+
+        // Step 2 (minimal) so method executes normally
+        JSONObject stepTwo = new JSONObject();
+        JSONArray stepTwoFields = new JSONArray();
+        stepTwo.put(JsonFormConstants.FIELDS, stepTwoFields);
+        form.put(org.smartregister.family.util.JsonFormUtils.STEP2, stepTwo);
+        addField(stepTwoFields, "first_name");
+
+        java.util.HashMap<String, String> columnMap = new java.util.HashMap<>();
+        columnMap.put(DBConstants.KEY.FIRST_NAME, "Jane");
+        columnMap.put(DBConstants.KEY.MIDDLE_NAME, "M");
+        columnMap.put(DBConstants.KEY.LAST_NAME, "Doe");
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient("case-id", columnMap, "Jane Doe");
+        client.setColumnmaps(columnMap);
+
+        JsonFormUtils.populateExistingHead(form, client);
+
+        JSONObject s1First = findField(stepOneFields, "client_first_name");
+        JSONObject s1Middle = findField(stepOneFields, "client_middle_name");
+        JSONObject s1Fam = findField(stepOneFields, "fam_name");
+
+        Assert.assertEquals("Jane", s1First.optString(JsonFormConstants.VALUE));
+        Assert.assertEquals("M", s1Middle.optString(JsonFormConstants.VALUE));
+        Assert.assertEquals("Doe", s1Fam.optString(JsonFormConstants.VALUE));
+    }
+
     private JSONObject addField(JSONArray fields, String key) throws JSONException {
         JSONObject field = new JSONObject();
         field.put(JsonFormUtils.KEY, key);

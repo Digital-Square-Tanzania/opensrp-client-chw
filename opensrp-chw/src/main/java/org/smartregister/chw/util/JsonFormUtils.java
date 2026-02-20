@@ -830,26 +830,81 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
         JSONArray fields = stepTwo.getJSONArray(FIELDS);
 
+        // Also prefill Step 1 for flavors (e.g., nacp) whose Step 2 values are computed from Step 1
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "client_first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), false);
+                    setIfPresent(stepOneFields, "client_middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), false);
+                    // For household name, default to the client's surname when available
+                    setIfPresent(stepOneFields, "fam_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), false);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Always persist selected head id (if field exists) for downstream processing
         setValueAndLock(fields, "existing_head", client.getCaseId(), true);
+
+        // Basic identity
         setValueAndLock(fields, "first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), true);
         setValueAndLock(fields, "middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), true);
         setValueAndLock(fields, "surname", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), true);
 
-        String gender = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        // Gender: normalize common storage variants (M/F -> Male/Female)
+        String genderRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        String gender = mapGenderValue(genderRaw);
         setValueAndLock(fields, "sex", gender, true);
 
-        String dob = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-        setValueAndLock(fields, "dob", dob, true);
-        if (StringUtils.isNotBlank(dob)) {
-            int ageValue = org.smartregister.chw.util.Utils.getAgeFromDate(dob);
-            setValueAndLock(fields, "age", String.valueOf(ageValue), true);
+        // DOB: convert to dd-MM-yyyy for date_picker compatibility
+        String dobRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobDisplay = formatDobForForm(dobRaw);
+        setValueAndLock(fields, "dob", dobDisplay, true);
+
+        // Age: some flavors use "age" while others use "age_calculated"
+        if (StringUtils.isNotBlank(dobRaw)) {
+            int ageValue = org.smartregister.chw.util.Utils.getAgeFromDate(dobRaw);
+            if (!setIfPresent(fields, "age", String.valueOf(ageValue), true)) {
+                setIfPresent(fields, "age_calculated", String.valueOf(ageValue), true);
+            }
         }
 
+        // Identifier
         String uniqueId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
         setValueAndLock(fields, "unique_id", uniqueId, true);
 
+        // Contacts (keep editable)
         setValueAndLock(fields, "phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true), false);
         setValueAndLock(fields, "other_phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.OTHER_PHONE_NUMBER, true), false);
+    }
+
+    private static boolean setIfPresent(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return false;
+        setValueAndLock(fields, key, value, readOnly);
+        return true;
+    }
+
+    private static String mapGenderValue(String genderRaw) {
+        if (StringUtils.isBlank(genderRaw)) return genderRaw;
+        String g = genderRaw.trim();
+        if (g.equalsIgnoreCase("m")) return "Male";
+        if (g.equalsIgnoreCase("f")) return "Female";
+        return g; // already in display form
+    }
+
+    private static String formatDobForForm(String dobRaw) {
+        try {
+            if (StringUtils.isBlank(dobRaw)) return dobRaw;
+            Date dob = Utils.dobStringToDate(dobRaw);
+            if (dob != null) return dd_MM_yyyy.format(dob);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return dobRaw;
     }
 
     private static void setValueAndLock(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {

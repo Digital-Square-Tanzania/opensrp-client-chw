@@ -154,7 +154,14 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
                 String selectedBaseEntityId = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID);
                 if (!TextUtils.isEmpty(selectedBaseEntityId)) {
                     pendingExistingHeadId = selectedBaseEntityId;
-                    pendingExistingHeadClient = (CommonPersonObjectClient) data.getSerializableExtra(Constants.EXTRA_EXISTING_HEAD_CLIENT);
+                    try {
+                        Object extra = data.getSerializableExtra(Constants.EXTRA_EXISTING_HEAD_CLIENT);
+                        if (extra instanceof CommonPersonObjectClient) {
+                            pendingExistingHeadClient = (CommonPersonObjectClient) extra;
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
                     launchFamilyRegistrationForm();
                 } else {
                     Toast.makeText(this, R.string.family_register_head_prefill_error, Toast.LENGTH_SHORT).show();
