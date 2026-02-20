@@ -26,6 +26,13 @@ public class HarmReductionMatClientsProfileActivity extends HarmReductionProfile
     @Override
     protected void setupViews() {
         super.setupViews();
+        if (rlPreMatSessionHistory != null) {
+            rlPreMatSessionHistory.setVisibility(View.GONE);
+            rlPreMatSessionHistory.setOnClickListener(null);
+        }
+        if (preMatSessionRowDivider != null) {
+            preMatSessionRowDivider.setVisibility(View.GONE);
+        }
         if (textViewMarkClientStartedMat != null) {
             textViewMarkClientStartedMat.setVisibility(View.GONE);
         }
