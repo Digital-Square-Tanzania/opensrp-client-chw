@@ -563,6 +563,43 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     /**
+     * After a Family Registration completes, ensure the created ec_family row points to the chosen
+     * existing head. This avoids creating a duplicate head record and makes the profile header show
+     * the correct person even if they don't belong to this household's member list.
+     */
+    public static void linkExistingHeadToLatestFamily(String headBaseEntityId) {
+        if (StringUtils.isBlank(headBaseEntityId)) return;
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
+            if (db == null) return;
+
+            // Find the most recent Family Registration event to get the new family's base_entity_id
+            String familyId = null;
+            android.database.Cursor c = db.rawQuery(
+                    "SELECT baseEntityId FROM event WHERE eventType = ? ORDER BY eventDate DESC LIMIT 1",
+                    new String[]{org.smartregister.chw.util.Constants.EventType.FAMILY_REGISTRATION}
+            );
+            if (c != null) {
+                try {
+                    if (c.moveToFirst()) {
+                        int idx = c.getColumnIndex("baseEntityId");
+                        if (idx >= 0) familyId = c.getString(idx);
+                    }
+                } finally {
+                    c.close();
+                }
+            }
+
+            if (StringUtils.isBlank(familyId)) return;
+
+            db.execSQL("UPDATE ec_family SET family_head = ?, primary_caregiver = ? WHERE base_entity_id = ?",
+                    new Object[]{headBaseEntityId, headBaseEntityId, familyId});
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+    }
+
+    /**
      * Returns a value from json form field
      *
      * @param jsonObject native forms jsonObject

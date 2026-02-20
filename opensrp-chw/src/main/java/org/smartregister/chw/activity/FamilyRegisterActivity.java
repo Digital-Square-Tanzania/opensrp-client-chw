@@ -164,6 +164,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
                             if (!TextUtils.isEmpty(headId)) {
                                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, headId);
                                 data.putExtra("json", form.toString());
+                                // Apply a post-save correction to ensure ec_family points to the selected head
+                                if ("Family Registration".equalsIgnoreCase(form.optString(JsonFormUtils.ENCOUNTER_TYPE, ""))) {
+                                    // Call after save (we'll invoke again post super)
+                                }
                             }
                         }
                     }
@@ -174,6 +178,31 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        // After core save, enforce linking family to existing head if present
+        if (resultCode == Activity.RESULT_OK && data != null
+                && requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            try {
+                String json = data.getStringExtra("json");
+                if (json != null) {
+                    JSONObject form = new JSONObject(json);
+                    if ("Family Registration".equalsIgnoreCase(form.optString(JsonFormUtils.ENCOUNTER_TYPE, ""))
+                            && form.has(org.smartregister.family.util.JsonFormUtils.STEP2)) {
+                        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+                        org.json.JSONArray fields = stepTwo.getJSONArray(com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS);
+                        JSONObject existingHead = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "existing_head");
+                        if (existingHead != null) {
+                            String headId = existingHead.optString(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE);
+                            if (!TextUtils.isEmpty(headId)) {
+                                org.smartregister.chw.util.JsonFormUtils.linkExistingHeadToLatestFamily(headId);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Timber.w(e);
+            }
+        }
         if (requestCode == REQUEST_SELECT_EXISTING_HEAD) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String selectedBaseEntityId = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID);
