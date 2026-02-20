@@ -577,7 +577,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             String familyId = null;
             android.database.Cursor c = db.rawQuery(
                     "SELECT baseEntityId FROM event WHERE eventType = ? ORDER BY eventDate DESC LIMIT 1",
-                    new String[]{org.smartregister.chw.util.Constants.EventType.FAMILY_REGISTRATION}
+                    new String[]{"Family Registration"}
             );
             if (c != null) {
                 try {
