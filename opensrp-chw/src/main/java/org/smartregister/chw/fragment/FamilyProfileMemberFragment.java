@@ -49,7 +49,7 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         String familyBaseEntityId = bundle.getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String familyHead = bundle.getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = bundle.getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        presenter = new FamilyProfileMemberPresenter(this, org.smartregister.chw.model.FamilyProfileMemberModelFactory.create(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
     public void countExecute() {
