@@ -569,34 +569,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
      */
     public static void linkExistingHeadToLatestFamily(String headBaseEntityId) {
         if (StringUtils.isBlank(headBaseEntityId)) return;
-        try {
-            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
-            if (db == null) return;
-
-            // Find the most recent Family Registration event to get the new family's base_entity_id
-            String familyId = null;
-            android.database.Cursor c = db.rawQuery(
-                    "SELECT baseEntityId FROM event WHERE eventType = ? ORDER BY eventDate DESC LIMIT 1",
-                    new String[]{"Family Registration"}
-            );
-            if (c != null) {
-                try {
-                    if (c.moveToFirst()) {
-                        int idx = c.getColumnIndex("baseEntityId");
-                        if (idx >= 0) familyId = c.getString(idx);
-                    }
-                } finally {
-                    c.close();
-                }
-            }
-
-            if (StringUtils.isBlank(familyId)) return;
-
-            db.execSQL("UPDATE ec_family SET family_head = ?, primary_caregiver = ? WHERE base_entity_id = ?",
-                    new Object[]{headBaseEntityId, headBaseEntityId, familyId});
-        } catch (Exception e) {
-            Timber.w(e);
-        }
+        // No-op (reverted).
     }
 
     /**
@@ -862,6 +835,8 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
+        form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+
         JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
         JSONArray fields = stepTwo.getJSONArray(FIELDS);
 

@@ -148,58 +148,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Intercept family registration submission to enforce reuse of existing head
-        if (resultCode == Activity.RESULT_OK && data != null
-                && requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON) {
-            try {
-                String json = data.getStringExtra("json");
-                if (json != null) {
-                    JSONObject form = new JSONObject(json);
-                    if (form.has(org.smartregister.family.util.JsonFormUtils.STEP2)) {
-                        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
-                        org.json.JSONArray fields = stepTwo.getJSONArray(com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS);
-                        JSONObject existingHead = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "existing_head");
-                        if (existingHead != null) {
-                            String headId = existingHead.optString(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE);
-                            if (!TextUtils.isEmpty(headId)) {
-                                // Remove Step 2 to avoid moving existing member into this new household
-                                form.remove(org.smartregister.family.util.JsonFormUtils.STEP2);
-                                data.putExtra("json", form.toString());
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                Timber.w(e);
-            }
-        }
-
         super.onActivityResult(requestCode, resultCode, data);
-
-        // After core save, enforce linking family to existing head if present
-        if (resultCode == Activity.RESULT_OK && data != null
-                && requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON) {
-            try {
-                String json = data.getStringExtra("json");
-                if (json != null) {
-                    JSONObject form = new JSONObject(json);
-                    if ("Family Registration".equalsIgnoreCase(form.optString(JsonFormUtils.ENCOUNTER_TYPE, ""))
-                            && form.has(org.smartregister.family.util.JsonFormUtils.STEP2)) {
-                        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
-                        org.json.JSONArray fields = stepTwo.getJSONArray(com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS);
-                        JSONObject existingHead = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "existing_head");
-                        if (existingHead != null) {
-                            String headId = existingHead.optString(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE);
-                            if (!TextUtils.isEmpty(headId)) {
-                                org.smartregister.chw.util.JsonFormUtils.linkExistingHeadToLatestFamily(headId);
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                Timber.w(e);
-            }
-        }
         if (requestCode == REQUEST_SELECT_EXISTING_HEAD) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String selectedBaseEntityId = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID);
