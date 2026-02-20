@@ -872,8 +872,25 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             }
         }
 
-        // Identifier
+        // Identifier (strip hyphens; fallback to client.identifiers if column map missing)
         String uniqueId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
+        if (StringUtils.isBlank(uniqueId)) {
+            try {
+                EventClientRepository eventClientRepository = new EventClientRepository();
+                JSONObject clientJson = eventClientRepository.getClientByBaseEntityId(client.getCaseId());
+                if (clientJson != null) {
+                    Client baseClient = ChwApplication.getInstance().getEcSyncHelper().convert(clientJson, Client.class);
+                    if (baseClient != null && baseClient.getIdentifiers() != null) {
+                        uniqueId = baseClient.getIdentifiers().get(org.smartregister.family.util.Utils.metadata().uniqueIdentifierKey);
+                    }
+                }
+            } catch (Exception e) {
+                Timber.w(e);
+            }
+        }
+        if (StringUtils.isNotBlank(uniqueId)) {
+            uniqueId = uniqueId.replace("-", "");
+        }
         setValueAndLock(fields, "unique_id", uniqueId, true);
 
         // Contacts (keep editable)

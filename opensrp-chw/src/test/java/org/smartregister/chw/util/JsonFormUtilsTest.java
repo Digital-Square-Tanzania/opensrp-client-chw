@@ -93,6 +93,31 @@ public class JsonFormUtilsTest {
     }
 
     @Test
+    public void testPopulateExistingHeadStripsHyphensFromUniqueId() throws Exception {
+        JSONObject form = new JSONObject();
+        form.put(JsonFormUtils.METADATA, new JSONObject());
+
+        JSONObject stepTwo = new JSONObject();
+        JSONArray fields = new JSONArray();
+        stepTwo.put(JsonFormConstants.FIELDS, fields);
+        form.put(org.smartregister.family.util.JsonFormUtils.STEP2, stepTwo);
+
+        addField(fields, "unique_id");
+
+        java.util.HashMap<String, String> columnMap = new java.util.HashMap<>();
+        columnMap.put(DBConstants.KEY.UNIQUE_ID, "123-45-678");
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient("case-id", columnMap, "Jane Doe");
+        client.setColumnmaps(columnMap);
+
+        JsonFormUtils.populateExistingHead(form, client);
+
+        JSONObject uniqueIdField = findField(fields, "unique_id");
+        Assert.assertEquals("12345678", uniqueIdField.optString(JsonFormConstants.VALUE));
+        Assert.assertEquals("true", uniqueIdField.optString(JsonFormUtils.READ_ONLY));
+    }
+
+    @Test
     public void testPopulateExistingHeadFormatsDobAndMapsGender() throws Exception {
         JSONObject form = new JSONObject();
         form.put(JsonFormUtils.METADATA, new JSONObject());
