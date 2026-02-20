@@ -58,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, asrh_reports, cecap_reports, tb_leprosy_reports, ayp_out_school_report, kvp_reports, hps_reports"
+                app:constraint_referenced_ids="cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, harm_reduction_reports, asrh_reports, cecap_reports, tb_leprosy_reports, ayp_out_school_report, kvp_reports, hps_reports"
                 app:flow_horizontalAlign="center"
                 app:flow_horizontalGap="20dp"
                 app:flow_horizontalStyle="packed"
@@ -415,7 +415,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/asrh_reports"
+                android:id="@+id/harm_reduction_reports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
@@ -427,6 +427,64 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sbc_reports">
+
+                <ImageView
+                    android:id="@+id/iv_harm_reduction_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Harm Reduction Summary Icon"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_pmtct_cohort_report"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewTitle_harm_reduction"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/harm_reduction_reports_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle_harm_reduction"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_harm_reduction_summary"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewSubtitle_harm_reduction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/harm_reduction_reports_subtitle"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_harm_reduction_summary"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle_harm_reduction" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/asrh_reports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/reports_bg_red"
+                android:minHeight="150dp"
+                android:paddingVertical="30dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/harm_reduction_reports">
 
                 <ImageView
                     android:id="@+id/iv_asrh_summary"

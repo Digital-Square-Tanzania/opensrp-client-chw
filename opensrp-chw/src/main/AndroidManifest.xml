@@ -607,6 +607,14 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AypReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />

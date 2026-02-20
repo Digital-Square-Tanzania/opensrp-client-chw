@@ -39,6 +39,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout sbcReports;
 
+    protected ConstraintLayout harmReductionReports;
+
     protected ConstraintLayout asrhReports;
 
     protected ConstraintLayout cecapReports;
@@ -72,6 +74,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports = findViewById(R.id.agyw_reports);
         iccmReports = findViewById(R.id.iccm_reports);
         sbcReports = findViewById(R.id.sbc_reports);
+        harmReductionReports = findViewById(R.id.harm_reduction_reports);
         asrhReports = findViewById(R.id.asrh_reports);
         cecapReports = findViewById(R.id.cecap_reports);
         tbLeprosyReports = findViewById(R.id.tb_leprosy_reports);
@@ -118,6 +121,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                         sbcReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                        harmReductionReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasAsrh()) {
                         asrhReports.setVisibility(View.VISIBLE);
                     }
@@ -160,6 +167,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 sbcReports.setVisibility(View.VISIBLE);
             }
 
+            if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                harmReductionReports.setVisibility(View.VISIBLE);
+            }
+
             if (ChwApplication.getApplicationFlavor().hasAsrh()) {
                 asrhReports.setVisibility(View.VISIBLE);
             }
@@ -196,6 +207,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
+        harmReductionReports.setOnClickListener(this);
         asrhReports.setOnClickListener(this);
         cecapReports.setOnClickListener(this);
         tbLeprosyReports.setOnClickListener(this);
@@ -255,6 +267,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.sbc_reports) {
             Intent intent = new Intent(this, SbcReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.harm_reduction_reports) {
+            Intent intent = new Intent(this, HarmReductionReportsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.asrh_reports) {

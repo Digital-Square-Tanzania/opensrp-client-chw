@@ -780,6 +780,8 @@
     <string name="asrh_reports_title">Ripoti ya huduma ya afya ya uzazi kwa vijana</string>
     <string name="asrh_other_reports_title">Ripoti nyingine ya huduma ya afya ya uzazi kwa vijana</string>
     <string name="asrh_reports_subtitle">Tazama ripoti ya huduma ya afya ya uzazi kwa vijana</string>
+    <string name="harm_reduction_reports_title">Ripoti ya huduma za kupunguza madhara</string>
+    <string name="harm_reduction_reports_subtitle">Tazama ripoti ya huduma za kupunguza madhara</string>
     <string name="cecap_reports_title">Ripoti ya huduma ya saratani ya via vya uzazi</string>
     <string name="cecap_other_reports_title">Ripoti nyingine ya huduma ya saratani ya via vya uzazi</string>
     <string name="cecap_reports_subtitle">Tazama ripoti ya huduma ya saratani ya via vya uzazi</string>
