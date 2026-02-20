@@ -445,12 +445,6 @@
             "openmrs_entity_id": "person_disability"
           },
           {
-            "key": "child_born_positive_mother",
-            "text": "Child born to an HIV-positive mother",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "child_born_positive_mother"
-          },
-          {
             "key": "other",
             "text": "Other criteria",
             "openmrs_entity": "concept",
@@ -556,6 +550,12 @@
             "text": "Person with a disability",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "person_disability"
+          },
+          {
+            "key": "child_born_positive_mother",
+            "text": "Child born to an HIV-positive mother",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_born_positive_mother"
           },
           {
             "key": "other",
