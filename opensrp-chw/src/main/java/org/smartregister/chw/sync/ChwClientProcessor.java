@@ -2,6 +2,7 @@ package org.smartregister.chw.sync;
 
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
 import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
@@ -100,6 +101,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case HIVST_MOBILIZATION:
                 case TB_LEPROSY_MOBILIZATION:
                 case HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION:
+                case HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:
