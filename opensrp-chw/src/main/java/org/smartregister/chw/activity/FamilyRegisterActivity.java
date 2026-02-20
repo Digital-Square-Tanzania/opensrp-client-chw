@@ -162,12 +162,9 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
                         if (existingHead != null) {
                             String headId = existingHead.optString(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE);
                             if (!TextUtils.isEmpty(headId)) {
-                                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, headId);
+                                // Remove Step 2 to avoid moving existing member into this new household
+                                form.remove(org.smartregister.family.util.JsonFormUtils.STEP2);
                                 data.putExtra("json", form.toString());
-                                // Apply a post-save correction to ensure ec_family points to the selected head
-                                if ("Family Registration".equalsIgnoreCase(form.optString(JsonFormUtils.ENCOUNTER_TYPE, ""))) {
-                                    // Call after save (we'll invoke again post super)
-                                }
                             }
                         }
                     }

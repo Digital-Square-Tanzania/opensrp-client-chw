@@ -862,8 +862,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
-        form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-
         JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
         JSONArray fields = stepTwo.getJSONArray(FIELDS);
 
