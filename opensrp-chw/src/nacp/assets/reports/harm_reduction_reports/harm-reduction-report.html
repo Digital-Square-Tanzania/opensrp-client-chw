@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhtasari wa Taarifa ya Mwezi - Harm Reduction</title>
+    <style>
+        body {
+            padding: 8px;
+            font-size: 0.9rem;
+            font-family: "Times New Roman", serif;
+        }
+
+        h1,
+        h2 {
+            margin: 4px 0;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 6px;
+            vertical-align: top;
+            font-size: 0.75rem;
+        }
+
+        th {
+            text-align: center;
+            background: #e7e6e6;
+        }
+
+        .section-row td {
+            background: #d9e2f3;
+            font-weight: bold;
+        }
+
+        .sub-row td:first-child,
+        .sub-row td:nth-child(2) {
+            padding-left: 20px;
+        }
+
+        .value-cell {
+            text-align: center;
+            width: 100px;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<h1>Muhtasari wa Taarifa ya Mwezi - Harm Reduction</h1>
+<h2>Taarifa ya [Mwezi/Mwaka]: <span id="report_period"></span></h2>
+<h2>Kituo: <span id="reporting_facility"></span></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th style="width: 60px;">S/N</th>
+        <th>Kiashiria</th>
+        <th style="width: 110px;">Jumla</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="section-row"><td colspan="3">Matokeo 1: Ufikiaji wa wanufaika katika maeneo lengwa ya mradi</td></tr>
+    <tr><td>1</td><td>Idadi ya PWUD waliowahi kuandikishwa katika huduma za Kupunguza Madhara (HR) katika ngazi ya jamii</td><td id="hr-1" class="value-cell"></td></tr>
+    <tr><td>2</td><td>Idadi ya PWUD waliopokea angalau huduma moja ya Kupunguza Madhara (HR) katika ngazi ya jamii</td><td id="hr-2" class="value-cell"></td></tr>
+    <tr><td>3</td><td>Idadi ya PWUD wapya walioandikishwa</td><td id="hr-3" class="value-cell"></td></tr>
+
+    <tr class="section-row"><td colspan="3">Matokeo 2: Utoaji na ukusanyaji wa vifaa vya kinga kwa wanufaika kwa kiwango cha kutosha</td></tr>
+    <tr><td>4</td><td>Idadi ya IDU waliopokea sindano katika kipindi cha ripoti</td><td id="hr-4" class="value-cell"></td></tr>
+    <tr><td>5</td><td>Idadi ya sindano (NS) zilizogawanywa</td><td id="hr-5" class="value-cell"></td></tr>
+    <tr><td>6</td><td>Idadi ya sindano (NS) zilizotumika zilizokusanywa na kutupwa</td><td id="hr-6" class="value-cell"></td></tr>
+
+    <tr class="section-row"><td colspan="3">Matokeo 3: Kuimarishwa kwa upatikanaji wa huduma na rufaa kulingana na mahitaji ya walengwa</td></tr>
+    <tr><td>7</td><td>Idadi ya PWUD waliotayarishwa na kupewa rufaa ya MAT</td><td id="hr-7" class="value-cell"></td></tr>
+    <tr><td>8</td><td>Idadi ya PWUD ambao wamehamasishwa na kupewa rufaa ya upimaji wa VVU</td><td id="hr-8" class="value-cell"></td></tr>
+    <tr><td>9</td><td>Idadi ya PWUD ambao wamechunguzwa na kupewa rufaa ya upimaji wa Kifua Kikuu</td><td id="hr-9" class="value-cell"></td></tr>
+    <tr><td>10</td><td>Idadi ya PWUD ambao wamepatiwa elimu na/au wamechunguzwa na kupewa rufaa ya upimaji wa Magonjwa ya Zinaa</td><td id="hr-10" class="value-cell"></td></tr>
+    <tr><td>11</td><td>Idadi ya PWUD ambao wamehamasishwa na kupewa rufaa kwa upimaji na chanjo ya Homa ya Ini</td><td id="hr-11" class="value-cell"></td></tr>
+    <tr><td>12</td><td>Idadi ya PWUD ambao wamepokea au kupewa rufaa ya huduma nyingine</td><td id="hr-12" class="value-cell"></td></tr>
+    <tr class="sub-row"><td>12a</td><td>Walioshiriki katika shughuli za kuzalisha kipato (IGA)</td><td id="hr-12a" class="value-cell"></td></tr>
+    <tr class="sub-row"><td>12b</td><td>Waliounganishwa na nyumba za upataji nafuu wa dawa za kulevya</td><td id="hr-12b" class="value-cell"></td></tr>
+    <tr class="sub-row"><td>12c</td><td>Afya ya Akili</td><td id="hr-12c" class="value-cell"></td></tr>
+    <tr class="sub-row"><td>12d</td><td>Msaada wa kisheria</td><td id="hr-12d" class="value-cell"></td></tr>
+    <tr class="sub-row"><td>12e</td><td>Huduma Nyinginezo</td><td id="hr-12e" class="value-cell"></td></tr>
+    <tr><td>13</td><td>Idadi ya kesi za kuzidisha kiasi cha dawa kinachohitajiwa zilizoripotiwa katika jamii</td><td id="hr-13" class="value-cell"></td></tr>
+    <tr><td>14</td><td>Idadi ya vifo vilivyosababishwa na kuzidisha kiasi cha dawa kinachohitajiwa vilivyoripotiwa katika jamii</td><td id="hr-14" class="value-cell"></td></tr>
+    </tbody>
+</table>
+
+<script>
+    function loadData() {
+        const data = JSON.parse(Android.getData("clients-monthly-report") || "{}");
+        const values = data.nameValuePairs || {};
+        const keys = Object.keys(values);
+        keys.forEach((key) => {
+            const element = document.getElementById(key);
+            if (element) {
+                element.innerHTML = values[key];
+            }
+        });
+
+        const period = document.getElementById("report_period");
+        const facility = document.getElementById("reporting_facility");
+        if (period) {
+            period.innerHTML = Android.getDataPeriod();
+        }
+        if (facility) {
+            facility.innerHTML = Android.getReportingFacility();
+        }
+    }
+</script>
+</body>
+</html>

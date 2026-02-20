@@ -139,6 +139,9 @@ public class ChwRepositoryFlv {
                 case 35:
                     upgradeToVersion35(db);
                     break;
+                case 36:
+                    upgradeToVersion36(db);
+                    break;
                 default:
                     break;
             }
@@ -674,6 +677,17 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion35");
+        }
+    }
+
+    private static void upgradeToVersion36(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion36");
         }
     }
 }

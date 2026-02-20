@@ -70,6 +70,14 @@ public class ChwWebAppInterface {
             return ReportUtils.SbcReports.computeClientsReports(ReportUtils.getReportDate());
         }
 
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.HARM_REDUCTION_REPORT)) {
+            if (Constants.ReportConstants.HarmReductionReportKeys.CLIENTS_MONTHLY_REPORT.equals(key)) {
+                ReportUtils.setPrintJobName("Harm_Reduction_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                return ReportUtils.HarmReductionReports.computeClientsReports(ReportUtils.getReportDate());
+            }
+            return "";
+        }
+
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ASRH_REPORT)) {
             switch (key) {
                 case Constants.ReportConstants.CecapReportKeys.CLIENTS_MONTHLY_REPORT:
