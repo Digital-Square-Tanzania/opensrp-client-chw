@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,14 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.fp.domain.Visit;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.harmreduction.R;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
 
@@ -27,11 +33,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
     private static final int MIN_PRE_MAT_SESSIONS_FOR_MAT_START = 3;
+    private static final String YES = "yes";
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, HarmReductionProfileActivity.class);
@@ -42,8 +50,17 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
 
     @Override
     protected void setupButtons() {
+        if (textViewRecordHarmReductionVisit == null) {
+            return;
+        }
+
+        if (hasStartedMat()) {
+            textViewRecordHarmReductionVisit.setVisibility(View.GONE);
+            return;
+        }
+
         textViewRecordHarmReductionVisit.setVisibility(View.VISIBLE);
-        if (HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId()).equals("yes")) {
+        if (StringUtils.equalsIgnoreCase(HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId()), YES)) {
             textViewRecordHarmReductionVisit.setText(R.string.record_pre_mat_session);
         } else {
             textViewRecordHarmReductionVisit.setText(R.string.record_harm_reduction_community_visit);
@@ -202,6 +219,19 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     protected void onResume() {
         super.onResume();
         refreshMedicalHistory(true);
+        delayRefreshSetupViews();
+    }
+
+    private void delayRefreshSetupViews() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                setupButtons();
+                setupViews();
+                refreshMedicalHistory(true);
+            }, 500);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     private void setupPreMatSessionsHistoryLayout() {
@@ -217,6 +247,13 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private void setupMarkClientStartedMatVisibility() {
+        if (hasStartedMat()) {
+            if (textViewMarkClientStartedMat != null) {
+                textViewMarkClientStartedMat.setVisibility(View.GONE);
+            }
+            return;
+        }
+
         boolean showMarkClientStartedMat = hasMinimumPreMatSessions(MIN_PRE_MAT_SESSIONS_FOR_MAT_START);
         if (textViewMarkClientStartedMat != null) {
             textViewMarkClientStartedMat.setVisibility(showMarkClientStartedMat ? View.VISIBLE : View.GONE);
@@ -267,9 +304,33 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     private boolean hasRocConsentForMat() {
         try {
             return StringUtils.equalsIgnoreCase(
-                    "yes",
+                    YES,
                     HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId())
             );
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+    private boolean hasStartedMat() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        try {
+            String baseEntityId = memberObject.getBaseEntityId().replace("'", "''");
+            String sql = "SELECT client_started_mat FROM " + Constants.TABLES.HARM_REDUCTION_RISK_ASSESSMENT +
+                    " WHERE base_entity_id = '" + baseEntityId + "' AND is_closed = 0 " +
+                    "ORDER BY last_interacted_with DESC LIMIT 1";
+            List<Map<String, Object>> records = AbstractDao.readData(sql, new String[]{"client_started_mat"});
+
+            if (records == null || records.isEmpty() || records.get(0) == null) {
+                return false;
+            }
+
+            Object clientStartedMat = records.get(0).get("client_started_mat");
+            return StringUtils.equalsIgnoreCase(YES, clientStartedMat == null ? null : String.valueOf(clientStartedMat));
         } catch (Exception e) {
             Timber.e(e);
             return false;
