@@ -674,6 +674,7 @@
     <string name="asrh_psychosocial_support">Huduma za msaada wa kisaikolojia na kijamii</string>
     <string name="asrh_next_appointment_date">Tarehe ya tembeleo lijayo</string>
 
+    <string name="harm_reduction_mat_clients">Wateja wa MAT</string>
     <string name="harm_reduction_sober_house_visit">Hudhurio la Nyumba ya Upataji Nafuu</string>
     <string name="harm_reduction_sober_house_enrollment">Usajili wa Nyumba ya Upataji Nafuu</string>
     <string name="harm_reduction_sober_house_client_type">Aina ya mteja</string>
@@ -742,6 +743,39 @@
     <string name="harm_reduction_sober_house_stable">Yuko Imara / Thabiti</string>
     <string name="harm_reduction_sober_house_stis_reproductive">Magonjwa ya Ngono na via vya Uzazi</string>
     <string name="harm_reduction_sober_house_wounds_abscesses">Matibabu ya vidonda na Mabunyufu (majipu)</string>
+    <string name="record_services_provided_to_mat_clients">Rekodi huduma zilizotolewa kwa wateja wa MAT</string>
+    <string name="harm_reduction_mat_clients_followup_visit">Hudhurio la ufuatiliaji kwa wateja wa MAT</string>
+    <string name="harm_reduction_mat_clients_health_education_provided">Elimu iliyotolewa</string>
+    <string name="harm_reduction_mat_clients_education_delivery_method">Njia ya utoaji elimu</string>
+    <string name="harm_reduction_mat_clients_group_session">Kikao cha vikundi</string>
+    <string name="harm_reduction_mat_clients_individual_session">Kikao binafsi</string>
+    <string name="harm_reduction_mat_clients_meaning_of_drugs">Maana ya dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_types_of_drugs">Aina za dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_categories_of_drugs">Makundi ya dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_reasons_for_drug_use">Sababu za kutumia dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_methods_of_drug_use">Njia za matumizi ya dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_effects_of_drug_use">Madhara ya dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_tuberculosis">Kifua Kikuu</string>
+    <string name="harm_reduction_mat_clients_hiv_aids">VVU na UKIMWI</string>
+    <string name="harm_reduction_mat_clients_hepatitis_bc">Homa ya ini B na C</string>
+    <string name="harm_reduction_mat_clients_stis_stds">Magonjwa ya ngono</string>
+    <string name="harm_reduction_mat_clients_covid_19">Uviko 19</string>
+    <string name="harm_reduction_mat_clients_cholera">Kipindupindu</string>
+    <string name="harm_reduction_mat_clients_behavior_change">Mabadiliko ya tabia</string>
+    <string name="harm_reduction_mat_clients_positive_behavior_adherence">Ufuasi mzuri wa tabia</string>
+    <string name="harm_reduction_mat_clients_legal_support_mat_procedures">Msaada wa kisheria na taratibu za MAT</string>
+    <string name="harm_reduction_mat_clients_overdose">Uzidishaji wa kiwango cha dawa za kulevya (Ovadozi)</string>
+    <string name="harm_reduction_mat_clients_naloxone_use">Matumizi ya naloxone</string>
+    <string name="harm_reduction_mat_clients_drug_use_and_women">Matumizi ya dawa za kulevya na wanawake</string>
+    <string name="harm_reduction_mat_clients_reproductive_health_services">Huduma za afya ya uzazi</string>
+    <string name="harm_reduction_mat_clients_correct_condom_use">Matumizi sahihi ya kondomu</string>
+    <string name="harm_reduction_mat_clients_opioid_addiction_treatment_use">Matumizi sahihi ya matibabu ya uraibu afyuni (Methadone, buprenorphine, suboxone)</string>
+    <string name="harm_reduction_mat_clients_take_away_dose">Matumizi ya dawa tiba nyumbani (take away dose)</string>
+    <string name="harm_reduction_mat_clients_sti_meaning">Maana ya magonjwa ya zinaa</string>
+    <string name="harm_reduction_mat_clients_sti_types_and_symptoms">Aina na dalili za magonjwa ya zinaa</string>
+    <string name="harm_reduction_mat_clients_sti_prevention">Njia za kujikinga na magonjwa ya zinaa</string>
+    <string name="harm_reduction_mat_clients_mental_health">Afya ya akili</string>
+    <string name="harm_reduction_mat_clients_injection_related_diseases">Magonjwa yatokanayo na ujidunga</string>
 
     <string name="asrh_reports_title">Ripoti ya huduma ya afya ya uzazi kwa vijana</string>
     <string name="asrh_other_reports_title">Ripoti nyingine ya huduma ya afya ya uzazi kwa vijana</string>

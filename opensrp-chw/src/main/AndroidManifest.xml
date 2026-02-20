@@ -62,6 +62,9 @@
             android:name=".activity.HarmReductionProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionMatClientsProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HarmReductionRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -74,10 +77,16 @@
             android:name=".activity.HarmReductionVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
+            android:name=".activity.HarmReductionMatClientsVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
             android:name=".activity.HarmReductionSoberHouseVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.HarmReductionVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionMatClientsVisitHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.HarmReductionSoberHouseVisitHistoryActivity"

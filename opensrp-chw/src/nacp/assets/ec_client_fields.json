@@ -11355,6 +11355,14 @@
           }
         },
         {
+          "column_name": "client_started_mat",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_started_mat"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
