@@ -35,7 +35,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.cecap.util.VisitUtils;
+import org.smartregister.chw.ayp.util.VisitUtils;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
