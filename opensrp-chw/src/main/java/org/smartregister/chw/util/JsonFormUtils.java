@@ -796,7 +796,14 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 if (formName.equals(org.smartregister.family.util.Utils.metadata().familyRegister.formName)) {
                     if (uniqueId != null) {
                         uniqueId.remove("value");
-                        uniqueId.put("value", entityId + "_Family");
+                        uniqueId.put("value", entityId + "_family");
+                    }
+
+                    // Populate the dedicated family_unique_id field when present
+                    JSONObject familyUniqueId = getFieldJSONObject(field, "family_unique_id");
+                    if (familyUniqueId != null) {
+                        familyUniqueId.remove("value");
+                        familyUniqueId.put("value", entityId + "_family");
                     }
 
                     field = fields(form, "step2");
@@ -835,7 +842,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
-        form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+        // Do NOT override the Family Registration form entity_id. The form's entity_id should
+        // remain the newly generated household (family) base_entity_id. Overriding this with the
+        // selected existing head's base_entity_id causes ec_family.base_entity_id to equal the
+        // person's base_entity_id, which breaks the intended separation between household and person.
 
         JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
         JSONArray fields = stepTwo.getJSONArray(FIELDS);
@@ -858,6 +868,23 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
         // Always persist selected head id (if field exists) for downstream processing
         setValueAndLock(fields, "existing_head", client.getCaseId(), true);
+        setIfPresent(fields, "family_head", client.getCaseId(), true);
+
+        // Capture the current household membership to allow post-save correction (nacp only field)
+        try {
+            String originalRelId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+            if (StringUtils.isBlank(originalRelId)) {
+                // Fallback: read from ec_family_member where the definitive relational_id lives
+                CommonRepository fmRepo = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+                CommonPersonObject fmRow = fmRepo.findByBaseEntityId(client.getCaseId());
+                if (fmRow != null && fmRow.getColumnmaps() != null) {
+                    originalRelId = org.smartregister.family.util.Utils.getValue(fmRow.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+                }
+            }
+            setIfPresent(fields, "original_relational_id", originalRelId, true);
+        } catch (Exception e) {
+            Timber.w(e);
+        }
 
         // Basic identity
         setValueAndLock(fields, "first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), true);
@@ -902,6 +929,19 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             uniqueId = uniqueId.replace("-", "");
         }
         setValueAndLock(fields, "unique_id", uniqueId, true);
+
+        // Mirror family_head into Step 1 as well to ensure the family event carries it
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "family_head", client.getCaseId(), true);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
 
         // Contacts (keep editable)
         setValueAndLock(fields, "phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true), false);
