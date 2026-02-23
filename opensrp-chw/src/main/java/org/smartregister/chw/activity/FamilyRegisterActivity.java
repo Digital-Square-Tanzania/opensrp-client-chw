@@ -148,7 +148,51 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Intercept Family Registration result to remove Step 2 when an existing head was selected
+        if (resultCode == Activity.RESULT_OK && data != null
+                && requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            try {
+                String json = data.getStringExtra("json");
+                if (!android.text.TextUtils.isEmpty(json)) {
+                    JSONObject form = new JSONObject(json);
+                    if ("Family Registration".equalsIgnoreCase(form.optString(org.smartregister.chw.util.JsonFormUtils.ENCOUNTER_TYPE, ""))) {
+                        JSONObject stepTwo = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+                        if (stepTwo != null) {
+                            org.json.JSONArray stepTwoFields = stepTwo.optJSONArray(com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS);
+                            if (stepTwoFields != null) {
+                                JSONObject existingHead = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(stepTwoFields, "existing_head");
+                                String headId = existingHead != null ? existingHead.optString(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE) : "";
+                                if (!android.text.TextUtils.isEmpty(headId)) {
+                                    // Ensure Step 1 has the family_head set
+                                    JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                                    if (stepOne != null) {
+                                        org.json.JSONArray stepOneFields = stepOne.optJSONArray(com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS);
+                                        if (stepOneFields != null) {
+                                            org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(stepOneFields, "family_head");
+                                            // set value if field exists (assets were updated to include it)
+                                            try {
+                                                JSONObject fh = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(stepOneFields, "family_head");
+                                                if (fh != null) fh.put(com.vijay.jsonwizard.constants.JsonFormConstants.VALUE, headId);
+                                            } catch (Exception ignore) { }
+                                        }
+                                    }
+                                    // Drop Step 2 to prevent head-person creation and set count to 1
+                                    form.remove(org.smartregister.family.util.JsonFormUtils.STEP2);
+                                    form.put("count", "1");
+                                    data.putExtra("json", form.toString());
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                timber.log.Timber.w(e);
+            }
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
+
+        // Note: No revert needed; Step 2 is removed when existing head is selected.
         if (requestCode == REQUEST_SELECT_EXISTING_HEAD) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String selectedBaseEntityId = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID);
