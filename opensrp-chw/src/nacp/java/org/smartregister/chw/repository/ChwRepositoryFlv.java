@@ -142,6 +142,9 @@ public class ChwRepositoryFlv {
                 case 36:
                     upgradeToVersion36(db);
                     break;
+                case 37:
+                    upgradeToVersion37(db);
+                    break;
                 default:
                     break;
             }
@@ -688,6 +691,17 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion36");
+        }
+    }
+
+    private static void upgradeToVersion37(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion37");
         }
     }
 }
