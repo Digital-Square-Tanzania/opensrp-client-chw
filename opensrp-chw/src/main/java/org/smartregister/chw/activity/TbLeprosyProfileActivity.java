@@ -179,7 +179,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision())
                     || StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults()));
             boolean missingLeprosyTreatmentStartDate = observationResults != null
-                    && StringUtils.isBlank(observationResults.getLeprosyTreatmentStartDate()) && memberObject.getLeprosyClientNumber() == null;
+                    && StringUtils.isBlank(observationResults.getLeprosyTreatmentStartDate()) && StringUtils.isBlank(memberObject.getLeprosyClientNumber());
             boolean hasPoorQualitySample = observationResults != null && observationResults.isPoorQualitySample();
             boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
