@@ -123,6 +123,12 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="referral_problem_Immunisation">Huduma za chanjo</string>
     <string name="referral_problem_other_reasons">Sababu nyingine</string>
+    <string name="referral_problem_tb_screening">Uchunguzi wa Kifua Kikuu</string>
+    <string name="referral_problem_leprosy_screening">Uchunguzi wa Ukoma</string>
+    <string name="referral_problem_tpt_referral">Rufaa ya TPT</string>
+    <string name="referral_problem_challenges_faced_by_leprosy_clients">Changamoto za wateja wa ukoma</string>
+    <string name="referral_problem_challenges_faced_by_tb_clients">Changamoto za wateja wa kifua kikuu</string>
+    <string name="referral_problem_Other_reasons">Sababu nyingine</string>
     <string name="referral_problem_genital_ulcers">Michubuko/vidonda sehemu za siri</string>
     <string name="referral_problem_abnormal_vag_discharge">Kutokwa na maji maji yasiokuwa ya kawaida ukeni au kwenye njia ya haja kubwa</string>
     <string name="referral_problem_pain_during_sexual_act">Kupata maumivu wakati wa kufanya ngono</string>
