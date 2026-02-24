@@ -312,7 +312,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startHouseholdGeneration() {
-        // not -required
+        // do nothing
     }
 
     @Override
