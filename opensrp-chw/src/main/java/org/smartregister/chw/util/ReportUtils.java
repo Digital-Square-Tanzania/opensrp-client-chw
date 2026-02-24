@@ -24,6 +24,7 @@ import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
 import org.smartregister.chw.domain.harm_reduction_reports.HarmReductionReportObject;
+import org.smartregister.chw.domain.harm_reduction_sober_house_reports.HarmReductionSoberHouseReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
@@ -271,6 +272,18 @@ public class ReportUtils {
             HarmReductionReportObject harmReductionReportObject = new HarmReductionReportObject(startDate);
             try {
                 return harmReductionReportObject.getIndicatorDataAsGson(harmReductionReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class HarmReductionSoberHouseReports {
+        public static String computeClientsReports(Date startDate) {
+            HarmReductionSoberHouseReportObject reportObject = new HarmReductionSoberHouseReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

@@ -842,6 +842,8 @@
     <string name="sbc_reports_title">SBC Report</string>
     <string name="harm_reduction_reports_title">Harm Reduction Report</string>
     <string name="harm_reduction_reports_subtitle">View Harm Reduction Report</string>
+    <string name="harm_reduction_sober_house_reports_title">Sober House Report</string>
+    <string name="harm_reduction_sober_house_reports_subtitle">View Sober House Report</string>
     <string name="asrh_reports_title">AYSRH Report</string>
     <string name="asrh_other_reports_title">AYSRH Other Report</string>
     <string name="asrh_reports_subtitle">View AYSRH Report</string>
