@@ -155,6 +155,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="device_to_device_sync">Device-to-device Sync</string>
+    <string name="select_clients">Select the head of household</string>
+    <string name="search_hint">Search name or ID</string>
+    <string name="no_record">No record</string>
 
     <!-- HPS Annual Census register labels -->
     <string name="hps_annual_census_register_title">HPS Annual Census</string>
@@ -482,8 +485,9 @@
     <string name="select_options">Select options</string>
     <string name="all_households">All Households</string>
     <string name="family_register_head_prompt">Who will be the head of this household?</string>
-    <string name="family_register_head_option_new">Register a new person</string>
+    <string name="family_register_head_option_new">Register new head</string>
     <string name="family_register_head_option_existing">Use an existing client</string>
+    <string name="family_register_head_description">Select how you want to choose the household head.</string>
     <string name="family_register_head_prefill_error">We couldn\'t load the selected head. Please try again.</string>
     <string name="household_register_row_title">%s Household</string>
     <string name="all_families">All Households</string>
