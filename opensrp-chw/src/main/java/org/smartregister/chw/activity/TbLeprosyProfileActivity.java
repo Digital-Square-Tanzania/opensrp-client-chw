@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,6 +33,7 @@ import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresent
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -42,8 +45,11 @@ import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.DBConstants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.JsonFormUtils;
@@ -481,8 +487,14 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+        this.getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(this.memberObject.getBaseEntityId()));
+
+        String baseEntityId = memberObject != null ? memberObject.getBaseEntityId() : null;
+        CommonPersonObjectClient client = getCommonPersonClientForMenu(baseEntityId);
+        if (client != null) {
+            AllClientsUtils.updateOptionsMenu(menu, client);
+        }
         return true;
     }
 
@@ -497,6 +509,27 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     protected void startTbLeprosyScreening() {
         TbLeprosyRegisterActivity.startRegistration(TbLeprosyProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+    protected void startHpsEnrollment() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        HpsRegisterActivity.startRegistration(this,
+                memberObject.getBaseEntityId(),
+                org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT,
+                null);
+    }
+
+    private CommonPersonObjectClient getCommonPersonClientForMenu(String baseEntityId) {
+        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName)
+                .findByBaseEntityId(baseEntityId);
+        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                personObject.getDetails(), "");
+        commonPersonObjectClient.setColumnmaps(personObject.getColumnmaps());
+        commonPersonObjectClient.setDetails(personObject.getColumnmaps());
+        return commonPersonObjectClient;
     }
 
     private void applyObservationTypeOverrides(JSONObject form, String hiddenValue) throws JSONException {
