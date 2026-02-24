@@ -500,11 +500,48 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_tbleprosy_screening) {
+        int itemId = item.getItemId();
+        if (itemId == org.smartregister.chw.core.R.id.action_hiv_registration
+                || itemId == org.smartregister.chw.core.R.id.action_cbhs_registration) {
+            startHivRegister();
+            return true;
+        } else if (itemId == org.smartregister.chw.core.R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        } else if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
+            removeMember();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
             startTbLeprosyScreening();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHivRegister() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new com.vijay.jsonwizard.utils.FormUtils())
+                    .getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            int age = memberObject.getAge();
+            try {
+                updateAgeAndGender(fields, age, memberObject.getGender());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     protected void startTbLeprosyScreening() {
