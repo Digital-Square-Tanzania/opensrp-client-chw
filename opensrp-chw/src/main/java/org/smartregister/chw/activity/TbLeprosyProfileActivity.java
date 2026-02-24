@@ -316,11 +316,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     private void delayRefresh() {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                setupViews();
-                setupButtons();
+                TbLeprosyDao.closeTbNegativeClients();
+                memberObject = getMemberObject(memberObject.getBaseEntityId());
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
-                TbLeprosyDao.closeTbNegativeClients();
+                setupViews();
+                setupButtons();
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
