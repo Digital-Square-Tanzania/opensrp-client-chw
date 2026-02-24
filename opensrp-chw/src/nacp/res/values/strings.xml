@@ -1424,7 +1424,11 @@
     <string name="return_to_family_profile">Return to household profile</string>
     <string name="menu_all_families">All Households</string>
     <string name="add_family">Add Household</string>
+    <string name="add_new_family_member">Add new household member</string>
     <string name="add_fam">Add Household</string>
+    <string name="add_member_title">Add household member</string>
+    <string name="add_member_title_question">What kind of household member do you want to add?</string>
+    <string name="add_other_family_member">Other household member</string>
     <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
     <string name="hps_mobilization_sessions">Gatherings Sessions</string>
     <string name="hps_mobilization_sessions_menu">Gatherings</string>
