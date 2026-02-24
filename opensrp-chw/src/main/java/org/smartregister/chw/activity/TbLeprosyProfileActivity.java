@@ -310,6 +310,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 setupViews();
+                setupButtons();
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
                 TbLeprosyDao.closeTbNegativeClients();
