@@ -3,7 +3,7 @@
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "rules_file": "rule/tbleprosy_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -60,7 +60,7 @@
           "name": "referral_type",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Aina ya Rufaa"
+            "text": "Type of Referral"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "client",
-              "text": "Mteja",
+              "text": "Client",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -79,7 +79,7 @@
             },
             {
               "name": "sample",
-              "text": "Sampuli",
+              "text": "Sample",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -91,20 +91,20 @@
           "required_status": "yes:Please specify the referral status"
         },
         {
-          "name": "problem",
+          "name": "client_reason_for_referral",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Sababu ya Rufaa"
+            "text": "Client reasons for referral"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity": "client_reason_for_referral",
+            "openmrs_entity_id": ""
           },
           "options": [
             {
               "name": "tb_screening",
-              "text": "Uchunguzi wa Kifua Kikuu",
+              "text": "TB screening",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "tb_screening",
@@ -113,7 +113,7 @@
             },
             {
               "name": "leprosy_screening",
-              "text": "Uchunguzi wa Ukoma",
+              "text": "Leprosy screening",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "leprosy_screening",
@@ -122,7 +122,7 @@
             },
             {
               "name": "tpt_referral",
-              "text": "Rufaa ya TPT",
+              "text": "TPT referral",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "tpt_referral",
@@ -131,7 +131,7 @@
             },
             {
               "name": "challenges_faced_by_leprosy_clients",
-              "text": "Changamoto za Wateja wa Ukoma",
+              "text": "Challenges faced by leprosy clients",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_leprosy_clients",
@@ -140,7 +140,7 @@
             },
             {
               "name": "challenges_faced_by_tb_clients",
-              "text": "Changamoto za Wateja wa Kifua Kikuu",
+              "text": "Challenges faced by TB clients",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_tb_clients",
@@ -149,7 +149,7 @@
             },
             {
               "name": "Other_reasons",
-              "text": "Other Reasons",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Other_reasons",
@@ -157,13 +157,56 @@
               }
             }
           ],
-          "required_status": "yes:Please specify reasons for referral",
+          "required_status": "yes:Please specify client reasons for referral",
           "dependent_calculations": [
+            "problem",
             "referral_date",
             "referral_time",
             "referral_type",
             "referral_status"
-          ]
+          ],
+          "subjects": "referral_type:map"
+        },
+        {
+          "name": "sample_reason_for_referral",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Sample reasons for referral"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "sample_reason_for_referral",
+            "openmrs_entity_id": ""
+          },
+          "options": [
+            {
+              "name": "tb_screening",
+              "text": "TB screening",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "tb_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_reasons",
+              "text": "Other reasons",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify sample reasons for referral",
+          "dependent_calculations": [
+            "problem",
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ],
+          "subjects": "referral_type:map"
         },
         {
           "name": "problem_other",
@@ -178,7 +221,7 @@
             "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "required_status": "true:Please specify other reasons",
-          "subjects": "problem:map"
+          "subjects": "client_reason_for_referral:map, sample_reason_for_referral:map"
         },
         {
           "name": "chw_referral_hf",

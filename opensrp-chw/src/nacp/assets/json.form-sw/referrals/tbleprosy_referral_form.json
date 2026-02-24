@@ -3,7 +3,7 @@
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "rules_file": "rule/tbleprosy_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -91,15 +91,15 @@
           "required_status": "yes:Tafadhali taja aina ya rufaa"
         },
         {
-          "name": "problem",
+          "name": "client_reason_for_referral",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Sababu ya Rufaa"
+            "text": "Sababu za rufaa kwa mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity": "client_reason_for_referral",
+            "openmrs_entity_id": ""
           },
           "options": [
             {
@@ -131,7 +131,7 @@
             },
             {
               "name": "challenges_faced_by_leprosy_clients",
-              "text": "Changamoto za Wateja wa Ukoma",
+              "text": "Changamoto za wateja wa ukoma",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_leprosy_clients",
@@ -140,7 +140,7 @@
             },
             {
               "name": "challenges_faced_by_tb_clients",
-              "text": "Changamoto za Wateja wa Kifua Kikuu",
+              "text": "Changamoto za wateja wa kifua kikuu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_tb_clients",
@@ -149,7 +149,7 @@
             },
             {
               "name": "Other_reasons",
-              "text": "Other Reasons",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Other_reasons",
@@ -157,19 +157,62 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja sababu za rufaa",
+          "required_status": "yes:Tafadhali taja sababu za rufaa kwa mteja",
           "dependent_calculations": [
+            "problem",
             "referral_date",
             "referral_time",
             "referral_type",
             "referral_status"
-          ]
+          ],
+          "subjects": "referral_type:map"
+        },
+        {
+          "name": "sample_reason_for_referral",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Sababu za rufaa kwa sampuli"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "sample_reason_for_referral",
+            "openmrs_entity_id": ""
+          },
+          "options": [
+            {
+              "name": "tb_screening",
+              "text": "Uchunguzi wa Kifua Kikuu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "tb_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_reasons",
+              "text": "Sababu nyingine",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali taja sababu za rufaa kwa sampuli",
+          "dependent_calculations": [
+            "problem",
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ],
+          "subjects": "referral_type:map"
         },
         {
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other reasons",
+            "hint": "Sababu nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -178,7 +221,7 @@
             "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "required_status": "true:Tafadhali taja sababu nyingine",
-          "subjects": "problem:map"
+          "subjects": "client_reason_for_referral:map, sample_reason_for_referral:map"
         },
         {
           "name": "chw_referral_hf",
