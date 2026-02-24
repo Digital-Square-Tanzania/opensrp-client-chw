@@ -60,7 +60,7 @@
           "name": "referral_type",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Type of Referral"
+            "text": "Aina ya Rufaa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "client",
-              "text": "Client",
+              "text": "Mteja",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -79,7 +79,7 @@
             },
             {
               "name": "sample",
-              "text": "Sample",
+              "text": "Sampuli",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -88,13 +88,13 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the referral status"
+          "required_status": "yes:Tafadhali taja aina ya rufaa"
         },
         {
           "name": "client_reason_for_referral",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Client reasons for referral"
+            "text": "Sababu za rufaa kwa mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -104,7 +104,7 @@
           "options": [
             {
               "name": "tb_screening",
-              "text": "TB screening",
+              "text": "Uchunguzi wa Kifua Kikuu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "tb_screening",
@@ -113,7 +113,7 @@
             },
             {
               "name": "leprosy_screening",
-              "text": "Leprosy screening",
+              "text": "Uchunguzi wa Ukoma",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "leprosy_screening",
@@ -122,7 +122,7 @@
             },
             {
               "name": "tpt_referral",
-              "text": "TPT referral",
+              "text": "Rufaa ya TPT",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "tpt_referral",
@@ -131,7 +131,7 @@
             },
             {
               "name": "challenges_faced_by_leprosy_clients",
-              "text": "Challenges faced by leprosy clients",
+              "text": "Changamoto za wateja wa ukoma",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_leprosy_clients",
@@ -140,7 +140,7 @@
             },
             {
               "name": "challenges_faced_by_tb_clients",
-              "text": "Challenges faced by TB clients",
+              "text": "Changamoto za wateja wa kifua kikuu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "challenges_faced_by_tb_clients",
@@ -149,7 +149,7 @@
             },
             {
               "name": "Other_reasons",
-              "text": "Other reasons",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Other_reasons",
@@ -157,7 +157,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify client reasons for referral",
+          "required_status": "yes:Tafadhali taja sababu za rufaa kwa mteja",
           "dependent_calculations": [
             "problem",
             "referral_date",
@@ -171,7 +171,7 @@
           "name": "sample_reason_for_referral",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Sample reasons for referral"
+            "text": "Sababu za rufaa kwa sampuli"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -181,7 +181,7 @@
           "options": [
             {
               "name": "tb_screening",
-              "text": "TB screening",
+              "text": "Uchunguzi wa Kifua Kikuu",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "tb_screening",
@@ -190,7 +190,7 @@
             },
             {
               "name": "Other_reasons",
-              "text": "Other reasons",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Other_reasons",
@@ -198,7 +198,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify sample reasons for referral",
+          "required_status": "yes:Tafadhali taja sababu za rufaa kwa sampuli",
           "dependent_calculations": [
             "problem",
             "referral_date",
@@ -212,7 +212,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other reasons",
+            "hint": "Sababu nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -220,7 +220,7 @@
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-          "required_status": "true:Please specify other reasons",
+          "required_status": "true:Tafadhali taja sababu nyingine",
           "subjects": "client_reason_for_referral:map, sample_reason_for_referral:map"
         },
         {
@@ -236,7 +236,7 @@
             "searchable": "Choose referral facility"
           },
           "options": [],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha afya cha kutuma rufaa"
         },
         {
           "name": "referral_appointment_date",
@@ -252,7 +252,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
         }
       ]
     }
