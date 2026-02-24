@@ -123,8 +123,13 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
 
-            boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
-            boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
+            TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
+            boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
+            boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
+
+            boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId) && !hasTbResults;
+            boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId) && !hasLeprosyResults;
 
             if (isTbPresumptive ^ isLeprosyPresumptive) {
                 String hiddenValue = isTbPresumptive ? "tb" : "leprosy";
