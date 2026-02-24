@@ -1,13 +1,13 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.app.AlertDialog;
 
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 
@@ -84,22 +84,39 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     }
 
     private void showHeadSelectionDialog() {
-        CharSequence[] options = new CharSequence[]{
-                getString(R.string.family_register_head_option_new),
-                getString(R.string.family_register_head_option_existing)
-        };
+        android.view.LayoutInflater inflater = android.view.LayoutInflater.from(this);
+        android.view.View dialogView = inflater.inflate(org.smartregister.chw.R.layout.dialog_select_head_of_household, null, false);
 
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.family_register_head_prompt)
-                .setItems(options, (dialog, which) -> {
-                    if (which == 0) {
-                        startNewHeadRegistration();
-                    } else {
-                        launchExistingHeadPicker();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+        android.widget.TextView title = dialogView.findViewById(org.smartregister.chw.R.id.dialog_title);
+        if (title != null) title.setText(org.smartregister.chw.R.string.family_register_head_prompt);
+
+        android.view.View optionNew = dialogView.findViewById(org.smartregister.chw.R.id.option_new_head);
+        android.view.View optionExisting = dialogView.findViewById(org.smartregister.chw.R.id.option_existing_client);
+        android.view.View cancelBtn = dialogView.findViewById(org.smartregister.chw.R.id.btn_cancel);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(true)
+                .create();
+
+        // Make dialog window background transparent so rounded content background is visible
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        optionNew.setOnClickListener(v -> {
+            dialog.dismiss();
+            startNewHeadRegistration();
+        });
+        optionExisting.setOnClickListener(v -> {
+            dialog.dismiss();
+            launchExistingHeadPicker();
+        });
+        if (cancelBtn != null) {
+            cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        }
+
+        dialog.show();
     }
 
     private void startNewHeadRegistration() {
@@ -117,8 +134,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     }
 
     private void launchExistingHeadPicker() {
-        Intent intent = new Intent(this, AllClientsRegisterActivity.class);
-        intent.putExtra(Constants.EXTRA_CLIENT_PICKER_MODE, true);
+        Intent intent = new Intent(this, ClientSelectionRegisterActivity.class);
         startActivityForResult(intent, REQUEST_SELECT_EXISTING_HEAD);
     }
 
