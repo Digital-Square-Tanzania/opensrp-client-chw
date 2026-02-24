@@ -57,7 +57,7 @@
       "title": "TB/Leprosy Referral form",
       "fields": [
         {
-          "name": "aina_ya_rufaa",
+          "name": "referral_type",
           "type": "multi_choice_checkbox",
           "properties": {
             "text": "Aina ya Rufaa"
@@ -69,7 +69,7 @@
           },
           "options": [
             {
-              "name": "mteja",
+              "name": "client",
               "text": "Mteja",
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -78,17 +78,17 @@
               }
             },
             {
-              "name": "sampuli",
+              "name": "sample",
               "text": "Sampuli",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "sample",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify Aina ya Rufaa"
+          "required_status": "yes:Please specify the referral status"
         },
         {
           "name": "problem",
@@ -103,29 +103,47 @@
           },
           "options": [
             {
-              "name": "uchunguzi",
-              "text": "Uchunguzi",
+              "name": "tb_screening",
+              "text": "Uchunguzi wa Kifua Kikuu",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "uchunguzi",
+                "openmrs_entity_id": "tb_screening",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "rufaa_tpt",
+              "name": "leprosy_screening",
+              "text": "Uchunguzi wa Ukoma",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "leprosy_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tpt_referral",
               "text": "Rufaa ya TPT",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "rufaa_tpt",
+                "openmrs_entity_id": "tpt_referral",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "challenges",
-              "text": "Challenges in TB and Leprosy clients",
+              "name": "challenges_faced_by_leprosy_clients",
+              "text": "Changamoto za Wateja wa Ukoma",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "challenges",
+                "openmrs_entity_id": "challenges_faced_by_leprosy_clients",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "challenges_faced_by_tb_clients",
+              "text": "Changamoto za Wateja wa Ukoma",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "challenges_faced_by_tb_clients",
                 "openmrs_entity_parent": ""
               }
             },
