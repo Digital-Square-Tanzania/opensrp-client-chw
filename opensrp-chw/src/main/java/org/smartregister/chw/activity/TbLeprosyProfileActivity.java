@@ -235,10 +235,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
 
-            if (hasObservationResults && isLeprosyPresumptiveClient && missingLeprosyTreatmentStartDate) {
-                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
-                textViewRecordTbLeprosy.setText(R.string.record_leprosy_treatment_start_date);
-                textViewRecordTbLeprosy.setOnClickListener(view -> openRecordLeprosyTreatmentStartDate());
+            if (hasObservationResults && isLeprosyPresumptiveClient && hasLeprosyResults && missingLeprosyTreatmentStartDate) {
+                textViewRecordLeprosyTreatmentStartDate.setVisibility(View.VISIBLE);
+                textViewRecordLeprosyTreatmentStartDate.setText(R.string.record_leprosy_treatment_start_date);
+                textViewRecordLeprosyTreatmentStartDate.setOnClickListener(view -> openRecordLeprosyTreatmentStartDate());
+            } else {
+                textViewRecordLeprosyTreatmentStartDate.setVisibility(View.GONE);
             }
         } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             textViewRecordTbLeprosy.setVisibility(View.GONE);
