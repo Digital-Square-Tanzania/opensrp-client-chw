@@ -379,7 +379,7 @@
         }
       },
       {
-        "key": "diseases_signs_and_symptoms_female",
+        "key": "diseases_signs_and_symptoms_femalersetor",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diseases_signs_and_symptoms_female",
