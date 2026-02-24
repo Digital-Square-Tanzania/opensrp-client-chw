@@ -780,7 +780,7 @@
             "field": "eventType",
             "field_value": "Record Leprosy Treatment Start Date",
             "creates_case": [
-              "ec_tbleprosy_observation_results"
+              "ec_tbleprosy_screening"
             ]
           },
           {
