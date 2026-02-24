@@ -165,6 +165,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         String baseEntityId = memberObject.getBaseEntityId();
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
+        textViewRecordTbLeprosy.setOnClickListener(this);
 
         if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             manualProcessVisit.setVisibility(View.GONE);
@@ -177,6 +178,8 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             boolean hasObservationResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision())
                     || StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults()));
+            boolean missingLeprosyTreatmentStartDate = observationResults != null
+                    && StringUtils.isBlank(observationResults.getLeprosyTreatmentStartDate());
             boolean hasPoorQualitySample = observationResults != null && observationResults.isPoorQualitySample();
             boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
@@ -232,6 +235,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             } else {
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
+
+            if (hasObservationResults && isLeprosyPresumptiveClient && missingLeprosyTreatmentStartDate) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_leprosy_treatment_start_date);
+                textViewRecordTbLeprosy.setOnClickListener(view -> openRecordLeprosyTreatmentStartDate());
+            }
         } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
             textViewRecordTbLeprosy.setVisibility(View.GONE);
         }
@@ -273,6 +282,14 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         }
 
+    }
+
+    private void openRecordLeprosyTreatmentStartDate() {
+        try {
+            startForm("tbleprosy_record_leprosy_start_date");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override

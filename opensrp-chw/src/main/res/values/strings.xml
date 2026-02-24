@@ -644,6 +644,7 @@
     <string name="tbleprosy_observation_results_tpt_initiation_date">TPT initiation date</string>
     <string name="tbleprosy_observation_results_tb_treatment_start_date">TB treatment start date</string>
     <string name="tbleprosy_observation_results_leprosy_treatment_start_date">Leprosy treatment start date</string>
+    <string name="record_leprosy_treatment_start_date">Record Leprosy Treatment Start Date</string>
     <string name="tbleprosy_observation_results_hiv_tested">Has the client tested for HIV?</string>
     <string name="tbleprosy_observation_results_poor_sample_quality_prompt">Collect a new client sample to repeat the TB test.</string>
     <string name="tbleprosy_observation_results_tb">Tuberculosis (TB)</string>

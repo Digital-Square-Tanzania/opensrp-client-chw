@@ -842,5 +842,6 @@
     <string name="due">Matembeleo yaliofika</string>
     <string name="kvp_tomorrow_visits">Matembeleo ya kesho</string>
     <string name="overdue">Matemeleo yaliyopitwa na muda</string>
+    <string name="record_leprosy_treatment_start_date">Rekodi tarehe ya kuanza matibabu ya Ukoma</string>
 
 </resources>
