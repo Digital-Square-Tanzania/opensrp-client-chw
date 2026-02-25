@@ -103,7 +103,7 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
 
     @Override
     public void redrawHeader(IccmMemberObject memberObject) {
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getDob()), getBaseContext()));
         tvTitle.setText(MessageFormat.format("{0}, {1} \u00B7 {2}", memberObject.getFullName(), clientAge, getString(org.smartregister.malaria.R.string.iccm_visit)));
     }
 }

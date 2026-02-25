@@ -82,7 +82,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 medicalHistory.getJSONArray(OPTIONS).getJSONObject(0).put(VALUE, true);
             }
 
-            int age = getAgeFromDate(memberObject.getAge());
+            int age = memberObject.getAge();
             JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
             if (medicalHistory != null) {
                 medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40)));
@@ -97,7 +97,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 }
             }
 
-            if (getAgeFromDate(memberObject.getAge()) > 5) {
+            if (age > 5) {
                 JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");
@@ -171,7 +171,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             } else {
                 actionList.remove(context.getString(R.string.iccm_physical_examination));
                 isMalariaSuspect = "false";
-                int age = getAgeFromDate(memberObject.getAge());
+                int age = memberObject.getAge();
                 if (age < 5) {
                     if (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")) {
                         processPneumoniaAction(jsonObject, isMalariaSuspect);
