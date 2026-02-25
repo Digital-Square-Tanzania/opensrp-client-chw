@@ -153,7 +153,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                     JSONObject step = steps.getJSONObject(0);
                     JSONArray referralFormFields = step.getJSONArray("fields");
 
-                    int age = getAgeFromDate(memberObject.getAge());
+                    int age = memberObject.getAge();
                     boolean removePneumoniaAndDiarrheSigns = age > 5;
                     boolean removeRectalArtesunate = age > 6;
 
