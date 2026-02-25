@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Sajili mwanafamilia",
+    "title": "Sajili mwanakaya",
     "fields": [
       {
         "key": "unique_id",
@@ -838,6 +838,12 @@
             "text": "Mkulima",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_bodaboda",
+            "text": "Bodaboda",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
           },
           {
             "key": "chk_other",

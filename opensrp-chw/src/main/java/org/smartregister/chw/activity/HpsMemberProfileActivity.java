@@ -33,6 +33,7 @@ import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dao.FamilyDao;
@@ -403,7 +404,15 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         } else if (i == R.id.action_tbleprosy_screening) {
             startTbLeprosyScreening();
             return true;
-        } else if (i == R.id.action_remove_member) {
+        } else if (i == org.smartregister.chw.core.R.id.action_location_info) {
+            JSONObject preFilledForm = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this, UpdateDetailsUtil.getFamilyRegistrationDetails(UpdateDetailsUtil.getFamilyBaseEntityId(org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient(this.memberObject.getBaseEntityId()))), org.smartregister.family.util.Utils.metadata().familyRegister.updateEventType);
+            if (preFilledForm != null) {
+                UpdateDetailsUtil.startUpdateClientDetailsActivity(preFilledForm, this);
+            }
+
+            return true;
+        }
+        else if (i == R.id.action_remove_member) {
             removeIndividualProfile();
             return true;
         } else if (i == org.smartregister.chw.R.id.action_view_households) {

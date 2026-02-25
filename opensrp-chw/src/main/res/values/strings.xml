@@ -201,8 +201,10 @@
     <string name="hps_annual_census_centers_action_title">Healthcare services, education, child and elder care centers</string>
     <string name="hps_annual_census_social_economic_action_title">Social services and economic activities</string>
     <string name="hps_annual_census_committees_traditional_action_title">Committee meetings &amp; Traditional medicine</string>
+    <string name="hps_annual_census_traditional_action_title">Traditional medicine</string>
     <string name="hps_annual_census_environment_sanitation_action_title">Environmental and sanitation Inspection report</string>
     <string name="hps_annual_census_building_inspection_action_title">Building Inspection Report</string>
+    <string name="hps_annual_census_economic_acitivities_action_title">Economic Acitivities</string>
     <string name="hps_annual_census_workplace_inspection_action_title">Workplace Inspection Report</string>
     <string name="hps_annual_census_food_beverage_action_title">Food and Beverage Inspection Report</string>
     <string name="hps_annual_census_workplace_health_reports_action_title">Health Reports Affecting People in Workplaces</string>

@@ -557,7 +557,7 @@
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>
-    <string name="back_to_all_mobilization_sessions">Back to All Mobilization Sessions</string>
+    <string name="back_to_all_mobilization_sessions">Back to All Gathering Sessions</string>
     <string name="mobilization_sessions">Mobilization Session</string>
     <string name="mobilization_session_details">Mobilization Session Details</string>
 
@@ -567,7 +567,7 @@
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">SBC Mobilization Session Details</string>
     <string name="sbc_mobilization_session">SBC Mobilization Session</string>
-    <string name="sbc_back_to_all_mobilization_sessions">Back to All mobilization sessions</string>
+    <string name="sbc_back_to_all_mobilization_sessions">Back to All Gathering sessions</string>
     <string name="sbc_visit">SBC Visits</string>
     <string name="sbc_followup_visit">SBC Follow-up Visit</string>
     <string name="sbc_activity_type">Type of SBC activity provided:</string>
@@ -1112,6 +1112,7 @@
 
 
     <string name="hps_date_of_gathering">Date of gathering</string>
+    <string name="hps_gathering">Gathering</string>
     <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
     <string name="hps_loud_speakers">Loudspeakers</string>
     <string name="hps_drumming_public_announcements">Drumming (public announcements)</string>
@@ -1127,7 +1128,7 @@
     <string name="hps_national_television">National television</string>
     <string name="hps_community_television">Community Television</string>
     <string name="hps_other_method_of_education_and_awareness_used">Specify other method of education and awareness</string>
-    <string name="hps_area_where_mobilization_took_place">Area where the mobilization took place</string>
+    <string name="hps_area_where_mobilization_took_place">Area where the gathering took place</string>
     <string name="hps_at_the_market_or_stalls">At the market/stalls</string>
     <string name="hps_places_of_worship">Places of worship</string>
     <string name="hps_passenger_areas_bus_stops_airport_sea_port">Passenger areas (bus stops, airport, seaport)</string>
@@ -1411,6 +1412,12 @@
     <string name="hps_amount_of_pesticide_used_drums">Amount of pesticide used (drums)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Amount of pesticide used (barrels)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
+
+    <string name="hps_no_of_men_with_capacity_to_engage_in_economic_activities">Number of men with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_women_with_capacity_to_engage_in_economic_activities">Number of women with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_men_engaged_in_economic_activities">Number of men engaged in economic activities / producing wealth</string>
+    <string name="hps_no_of_women_engaged_in_economic_activities">Number of women engaged in economic activities / producing wealth</string>
+
     <string name="hps_none">None</string>
 
     <string name="hps_preventive_services_below_5_years">Select the preventive services provided</string>
@@ -1430,7 +1437,11 @@
     <string name="return_to_family_profile">Return to household profile</string>
     <string name="menu_all_families">All Households</string>
     <string name="add_family">Add Household</string>
+    <string name="add_new_family_member">Add new household member</string>
     <string name="add_fam">Add Household</string>
+    <string name="add_member_title">Add household member</string>
+    <string name="add_member_title_question">What kind of household member do you want to add?</string>
+    <string name="add_other_family_member">Other household member</string>
     <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
     <string name="hps_mobilization_sessions">Gatherings Sessions</string>
     <string name="hps_mobilization_sessions_menu">Gatherings</string>
