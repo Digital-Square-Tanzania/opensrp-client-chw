@@ -8,6 +8,7 @@ import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.AlertStatus;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -198,5 +199,34 @@ public class FamilyDao extends AbstractDao {
             return null;
 
         return familyProfileModels.get(0);
+    }
+
+    /**
+     * Returns all families where the provided client is the household head.
+     * This does not alter the behavior of getFamilyDetail which maps membership; this maps headship.
+     */
+    public static List<FamilyDetailsModel> getFamiliesByHead(String headClientId) {
+        String sql = String.format(
+                "SELECT ec_family.base_entity_id,\n" +
+                        "       ec_family.primary_caregiver,\n" +
+                        "       ec_family.first_name as family_name,\n" +
+                        "       ec_family.village_town as village_town,\n" +
+                        "       ec_family.family_head\n" +
+                        "FROM ec_family\n" +
+                        "WHERE ec_family.family_head = '%s'", headClientId);
+
+        DataMap<FamilyDetailsModel> dataMap = cursor -> {
+            FamilyDetailsModel familyDetailsModel = new FamilyDetailsModel(
+                    getCursorValue(cursor, "base_entity_id"),
+                    getCursorValue(cursor, "family_head"),
+                    getCursorValue(cursor, "primary_caregiver"),
+                    getCursorValue(cursor, "family_name")
+            );
+            familyDetailsModel.setVillageTown(getCursorValue(cursor, "village_town"));
+            return familyDetailsModel;
+        };
+
+        List<FamilyDetailsModel> families = readData(sql, dataMap);
+        return families != null ? families : new ArrayList<>();
     }
 }
