@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TbLeprosyObservationResultsInteractor extends CoreBaseAncMedicalHistoryInteractor {
+public class TbLeprosyMobilizationSessionDetailsInteractor extends CoreBaseAncMedicalHistoryInteractor {
 
     public static List<SortableVisit> getVisits(String memberID, String... eventTypes) {
         List<Visit> visits = new ArrayList<>();
@@ -46,22 +46,23 @@ public class TbLeprosyObservationResultsInteractor extends CoreBaseAncMedicalHis
         }
 
         Collections.sort(sortableVisits);
-
         return sortableVisits;
     }
 
     @Override
-    public void getMemberHistory(final String memberID, final Context context, final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
+    public void getMemberHistory(final String memberID, final Context context,
+                                 final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
         final Runnable runnable = () -> {
-            String[] eventTypes = new String[]{
-                    Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION,
-                    Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT,
-                    Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT,
-                    Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE
-            };
+            String[] eventTypes = new String[]{Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION};
             List<SortableVisit> visits = getVisits(memberID, eventTypes);
             final List<Visit> allVisits = new ArrayList<>(visits);
-            appExecutors.mainThread().execute(() -> callBack.onDataFetched(allVisits));
+            appExecutors.mainThread().execute(() -> {
+                if (allVisits.isEmpty()) {
+                    callBack.onDataFetched(Collections.emptyList());
+                } else {
+                    callBack.onDataFetched(Collections.singletonList(allVisits.get(allVisits.size() - 1)));
+                }
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
