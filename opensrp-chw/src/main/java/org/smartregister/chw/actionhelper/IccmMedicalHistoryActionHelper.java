@@ -90,7 +90,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
 
 
             boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getBaseEntityId()), 10, 49) && Utils.getValue(getCommonPersonObjectClient(enrollmentFormSubmissionId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
-            if (!isFemaleOfReproductiveAge) {
+            if (!isFemaleOfReproductiveAge || memberObject.getGender().equals("Male")) {
                 JSONObject isTheClientPregnant = JsonFormUtils.getFieldJSONObject(fields, "is_the_client_pregnant");
                 if (isTheClientPregnant != null) {
                     isTheClientPregnant.put(TYPE, "hidden");
