@@ -154,7 +154,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
 
             if (stepOneUniqueId != null) {
                 stepOneUniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
-                stepOneUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId + "_Family");
+                stepOneUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId + "_family");
             }
 
             JSONObject stepTwoUniqueId = getFieldJSONObject(fields(form, STEP2), Constants.JSON_FORM_KEY.UNIQUE_ID);

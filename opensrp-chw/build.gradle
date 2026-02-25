@@ -326,6 +326,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
+
     implementation('org.smartregister:opensrp-client-chw-core:2.0.3-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'

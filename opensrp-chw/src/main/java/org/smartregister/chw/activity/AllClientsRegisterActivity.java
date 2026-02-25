@@ -15,6 +15,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AllClientsRegisterFragment;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
@@ -25,10 +26,17 @@ import timber.log.Timber;
 
 public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
 
+    private boolean clientPickerMode;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        clientPickerMode = getIntent().getBooleanExtra(Constants.EXTRA_CLIENT_PICKER_MODE, false);
         ChwApplication.getInstance().notifyAppContextChange();
+    }
+
+    public boolean isClientPickerMode() {
+        return clientPickerMode;
     }
 
     @Override

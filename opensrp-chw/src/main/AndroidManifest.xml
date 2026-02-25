@@ -210,6 +210,10 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.ClientSelectionRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AllMaleClientsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
