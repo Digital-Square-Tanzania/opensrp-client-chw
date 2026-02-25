@@ -12,6 +12,7 @@ import org.smartregister.chw.actionhelper.HpsAnnualCensusStep2NutritionSourcesAc
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep3CentersActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep4SocialEconomicActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper;
+import org.smartregister.chw.actionhelper.HpsAnnualCensusStep6EconomicActivitiesActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep6EnvironmentSanitationActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep7BuildingInspectionActionHelper;
 import org.smartregister.chw.actionhelper.HpsAnnualCensusStep8WorkplaceInspectionActionHelper;
@@ -59,13 +60,15 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 evaluateStep3Centers(details);
                 evaluateStep4SocialEconomic(details);
                 evaluateStep5CommitteesTraditionalMedicine(details);
-                evaluateStep6EnvironmentSanitation(details);
-                evaluateStep7BuildingInspection(details);
-                evaluateStep8WorkplaceInspection(details);
-                evaluateStep9FoodBeverageInspection(details);
-                evaluateStep10WorkplaceHealthReports(details);
-                evaluateStep11SolidWaste(details);
-                evaluateStep12InsectBreedingControl(details);
+                evaluateStep5TraditionalMedicine(details);
+//                evaluateStep6EnvironmentSanitation(details);
+                evaluateStep6EconomicActivities(details);
+//                evaluateStep7BuildingInspection(details);
+//                evaluateStep8WorkplaceInspection(details);
+//                evaluateStep9FoodBeverageInspection(details);
+//                evaluateStep10WorkplaceHealthReports(details);
+//                evaluateStep11SolidWaste(details);
+//                evaluateStep12InsectBreedingControl(details);
             } catch (BaseHpsVisitAction.ValidationException e) {
                 Timber.e(e);
             }
@@ -90,6 +93,8 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
                 evaluateStep2Nutrition(details);
                 evaluateStep4SocialEconomic(details);
                 evaluateStep5CommitteesTraditionalMedicine(details);
+                evaluateStep5TraditionalMedicine(details);
+                evaluateStep6EconomicActivities(details);
             } catch (BaseHpsVisitAction.ValidationException e) {
                 throw new RuntimeException(e);
             }
@@ -170,92 +175,122 @@ public class HpsAnnualCensusVisitInteractor extends BaseHpsServiceVisitInteracto
         actionList.put(title, action);
     }
 
-    private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+    private void evaluateStep5TraditionalMedicine(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
         if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
             return;
         }
-        String formName = Utils.getLocalForm("hps_annual_census_step6_environment_sanitation", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_environment_sanitation_action_title);
+        String formName = Utils.getLocalForm("hps_annual_census_step5_traditional_medicine", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+        String title = getString(R.string.hps_annual_census_traditional_action_title);
         BaseHpsVisitAction action = getBuilder(title)
                 .withOptional(true)
                 .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
+                .withHelper(new HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper(householdCountValue))
                 .withFormName(formName)
                 .build();
         actionList.put(title, action);
     }
 
-    private void evaluateStep7BuildingInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step7_building_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_building_inspection_action_title);
+//    private void evaluateStep6EnvironmentSanitation(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+//            return;
+//        }
+//        String formName = Utils.getLocalForm("hps_annual_census_step6_environment_sanitation", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_environment_sanitation_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep6EnvironmentSanitationActionHelper(householdCountValue))
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
+
+    private void evaluateStep6EconomicActivities(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+        if (householdCountValue == null || householdCountValue.trim().isEmpty()) {
+            return;
+        }
+        String formName = Utils.getLocalForm("hps_annual_census_step6_economic_activities", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+        String title = getString(R.string.hps_annual_census_economic_acitivities_action_title);
         BaseHpsVisitAction action = getBuilder(title)
                 .withOptional(true)
                 .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep7BuildingInspectionActionHelper())
+                .withHelper(new HpsAnnualCensusStep6EconomicActivitiesActionHelper())
                 .withFormName(formName)
                 .build();
         actionList.put(title, action);
     }
 
-    private void evaluateStep8WorkplaceInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step8_workplace_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_workplace_inspection_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep8WorkplaceInspectionActionHelper())
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep7BuildingInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step7_building_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_building_inspection_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep7BuildingInspectionActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
-    private void evaluateStep9FoodBeverageInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step9_food_beverage_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_food_beverage_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep9FoodBeverageInspectionActionHelper())
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep8WorkplaceInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step8_workplace_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_workplace_inspection_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep8WorkplaceInspectionActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
-    private void evaluateStep10WorkplaceHealthReports(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step10_workplace_health_reports", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_workplace_health_reports_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep10WorkplaceHealthReportsActionHelper())
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep9FoodBeverageInspection(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step9_food_beverage_inspection", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_food_beverage_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep9FoodBeverageInspectionActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
-    private void evaluateStep11SolidWaste(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step11_solid_waste", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_solid_waste_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep11SolidWasteActionHelper())
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep10WorkplaceHealthReports(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step10_workplace_health_reports", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_workplace_health_reports_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep10WorkplaceHealthReportsActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
-    private void evaluateStep12InsectBreedingControl(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
-        String formName = Utils.getLocalForm("hps_annual_census_step12_insect_breeding_control", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        String title = getString(R.string.hps_annual_census_insect_breeding_control_action_title);
-        BaseHpsVisitAction action = getBuilder(title)
-                .withOptional(true)
-                .withDetails(details)
-                .withHelper(new HpsAnnualCensusStep12InsectBreedingControlActionHelper())
-                .withFormName(formName)
-                .build();
-        actionList.put(title, action);
-    }
+//    private void evaluateStep11SolidWaste(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step11_solid_waste", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_solid_waste_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep11SolidWasteActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
+
+//    private void evaluateStep12InsectBreedingControl(Map<String, List<VisitDetail>> details) throws BaseHpsVisitAction.ValidationException {
+//        String formName = Utils.getLocalForm("hps_annual_census_step12_insect_breeding_control", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+//        String title = getString(R.string.hps_annual_census_insect_breeding_control_action_title);
+//        BaseHpsVisitAction action = getBuilder(title)
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withHelper(new HpsAnnualCensusStep12InsectBreedingControlActionHelper())
+//                .withFormName(formName)
+//                .build();
+//        actionList.put(title, action);
+//    }
 
     @Override
     protected String submitVisit(final boolean editMode,

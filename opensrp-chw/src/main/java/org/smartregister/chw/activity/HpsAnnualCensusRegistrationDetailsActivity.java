@@ -390,7 +390,11 @@ public class HpsAnnualCensusRegistrationDetailsActivity extends CoreAncMedicalHi
                             "amount_of_pesticide_used_cans",
                             "amount_of_pesticide_used_drums",
                             "amount_of_pesticide_used_barrels",
-                            "amount_of_pesticide_used_coconut_shells"
+                            "amount_of_pesticide_used_coconut_shells",
+                            "no_of_men_with_capacity_to_engage_in_economic_activities",
+                            "no_of_women_with_capacity_to_engage_in_economic_activities",
+                            "no_of_men_engaged_in_economic_activities",
+                            "no_of_women_engaged_in_economic_activities"
                     };
 
                     extractVisitDetails(visits, fields, visitDetails, x, context);
