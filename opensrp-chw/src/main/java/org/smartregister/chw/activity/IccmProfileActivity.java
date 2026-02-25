@@ -418,7 +418,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         findViewById(R.id.family_malaria_head).setVisibility(View.GONE);
         findViewById(R.id.primary_malaria_caregiver).setVisibility(View.GONE);
 
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = String.valueOf(memberObject.getAge());
         textViewName.setText(String.format("%s %s %s, %s", memberObject.getFirstName(),
                 memberObject.getMiddleName(), memberObject.getLastName(), clientAge));
     }
