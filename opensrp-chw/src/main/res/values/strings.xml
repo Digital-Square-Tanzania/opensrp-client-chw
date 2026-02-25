@@ -10,6 +10,9 @@
     <string name="add_eligible_child">Eligible Client</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
+    <string name="view_households_with_count">Households (%1$d)</string>
+    <string name="select_household">Select household</string>
+    <string name="heads_n_households">Heads %1$d households</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="family_has_services_due">Family has services due</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>overdue (%2$s)</font></b>]]></string>
