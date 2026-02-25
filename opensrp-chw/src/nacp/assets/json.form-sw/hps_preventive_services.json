@@ -589,7 +589,7 @@
           },
           {
             "key": "other_services",
-            "text": "22.Huduma nyinginezo",
+            "text": "21.Huduma nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_services",
             "property": {
@@ -634,6 +634,25 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja huduma nyinginezo"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_services_above_18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_services_above_18",
+        "type": "edit_text",
+        "hint": "Taja huduma nyinginezo",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
         },
         "relevance": {
           "rules-engine": {
