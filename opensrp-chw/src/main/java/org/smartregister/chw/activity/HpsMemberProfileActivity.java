@@ -95,7 +95,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             headedFamilies = java.util.Collections.emptyList();
         }
         try {
-            invalidateOptionsMenu();
+            delayInvalidateOptionsMenu();
         } catch (Exception ignore) { }
 
         if (ChwHpsDao.wereSelfTestingKitsDistributed(memberObject.getBaseEntityId())) {
