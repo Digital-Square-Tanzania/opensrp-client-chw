@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Slight vertical nudge for tablet toolbar action -->
+    <!-- Slight vertical nudge for large screens -->
     <dimen name="toolbar_action_nudge_y">3dp</dimen>
 </resources>
 

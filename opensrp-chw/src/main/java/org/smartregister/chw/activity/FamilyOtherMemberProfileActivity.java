@@ -65,31 +65,30 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
+
             MenuItem householdsItem = menu.findItem(org.smartregister.chw.R.id.action_view_households);
             if (householdsItem == null) {
                 householdsItem = menu.add(Menu.NONE, org.smartregister.chw.R.id.action_view_households, Menu.NONE, "");
             }
-            householdsItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            householdsItem.setActionView(org.smartregister.chw.R.layout.action_households_chip);
+
             householdsItem.setVisible(count > 0);
 
-            View actionView = householdsItem.getActionView();
-            if (actionView != null) {
-                TextView chip = actionView.findViewById(org.smartregister.chw.R.id.btn_households);
-                if (chip != null) {
-                    String title = getString(org.smartregister.chw.R.string.view_households_with_count, count);
-                    chip.setText(title);
-                    chip.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
-                    chip.setContentDescription(title);
-                    chip.setOnClickListener(v -> {
-                        if (count <= 0) return;
-                        if (count == 1) {
-                            openFamilyProfile(headedFamilies.get(0));
-                        } else {
-                            handleViewHouseholdsClick();
-                        }
-                    });
+            // Inflate a single action view; resource qualifiers swap phone/tablet versions
+            householdsItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            householdsItem.setActionView(org.smartregister.chw.R.layout.action_households_action);
+            View av = householdsItem.getActionView();
+            if (av != null) {
+                android.widget.TextView tv = av.findViewById(org.smartregister.chw.R.id.tv_households_label);
+                if (tv != null) {
+                    boolean shortLabel = getResources().getBoolean(org.smartregister.chw.R.bool.use_short_hh_label);
+                    tv.setText(getString(shortLabel ? org.smartregister.chw.R.string.hh_with_count : org.smartregister.chw.R.string.household_with_count, count));
                 }
+                av.setOnClickListener(v -> {
+                    if (count <= 0) return;
+                    if (count == 1) openFamilyProfile(headedFamilies.get(0)); else handleViewHouseholdsClick();
+                });
+                String fullTitle = getString(org.smartregister.chw.R.string.view_households_with_count, count);
+                av.setContentDescription(fullTitle);
             }
         } catch (Exception e) {
             Timber.e(e);

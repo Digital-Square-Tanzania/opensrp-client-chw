@@ -39,4 +39,7 @@
 
     <dimen name="default_font_size_search_bar">@dimen/_10ssp</dimen>
 
+    <!-- Toolbar action vertical nudge (default: no nudge) -->
+    <dimen name="toolbar_action_nudge_y">0dp</dimen>
+
 </resources>
