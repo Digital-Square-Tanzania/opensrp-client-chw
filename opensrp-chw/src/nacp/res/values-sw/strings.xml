@@ -1248,5 +1248,13 @@
     <string name="remove_client">Rekodi kifo cha mteja</string>
     <string name="confirm_remove_text">Hakiki taarifa za kifo cha %s. Kukamilisha hatua hii itaondoa taarifa zote za mteja huyu toka kwenye simu yako. Baada ya kuhifadhi huwezi kutendua hatua hii.</string>
     <string name="remove">HIFADHI</string>
+    <string name="add_new_family_member">Sajili mwanakaya mpya</string>
+    <string name="add_member_title">Sajili mwanakaya</string>
+    <string name="add_member_title_question">Aina gani ya mwanakaya anayesajiliwa?</string>
+    <string name="add_other_family_member">Mwanakaya mwingine</string>
+    <string name="household_register_row_title">Kaya ya %1$s</string>
+    <string name="return_to_family_name">Rudi kwa Kaya ya %1$s</string>
+    <string name="family_profile_title">Kaya ya %1$s</string>
+    <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
 
 </resources>

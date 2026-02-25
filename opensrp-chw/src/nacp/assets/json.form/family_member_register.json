@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Family Member",
+    "title": "Add Household Member",
     "fields": [
       {
         "key": "unique_id",
