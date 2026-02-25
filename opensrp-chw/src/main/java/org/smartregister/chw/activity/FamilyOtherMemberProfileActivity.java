@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.text.TextUtils;
 import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
@@ -400,19 +402,29 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             return;
         }
 
-        String[] items = new String[headedFamilies.size()];
-        for (int i = 0; i < headedFamilies.size(); i++) {
-            items[i] = getHouseholdDisplay(headedFamilies.get(i));
+        LayoutInflater inflater = LayoutInflater.from(this);
+        android.view.View dialogView = inflater.inflate(org.smartregister.chw.R.layout.dialog_households_list, null, false);
+        ListView listView = dialogView.findViewById(org.smartregister.chw.R.id.list_households);
+        HouseholdsAdapter adapter = new HouseholdsAdapter(this, headedFamilies);
+        listView.setAdapter(adapter);
+        android.widget.TextView btnCancel = dialogView.findViewById(org.smartregister.chw.R.id.btn_cancel);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
-        new AlertDialog.Builder(this)
-                .setTitle(getString(org.smartregister.chw.R.string.select_household))
-                .setItems(items, (dialog, which) -> {
-                    if (which >= 0 && which < headedFamilies.size()) {
-                        openFamilyProfile(headedFamilies.get(which));
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, (d, w) -> d.dismiss())
-                .show();
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position >= 0 && position < headedFamilies.size()) {
+                openFamilyProfile(headedFamilies.get(position));
+                dialog.dismiss();
+            }
+        });
+        if (btnCancel != null) {
+            btnCancel.setOnClickListener(v -> dialog.dismiss());
+        }
+        dialog.show();
     }
 
     private String getHouseholdDisplay(org.smartregister.chw.model.FamilyDetailsModel family) {
@@ -440,6 +452,55 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             startActivity(intent);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static class HouseholdsAdapter extends android.widget.BaseAdapter {
+        private final java.util.List<org.smartregister.chw.model.FamilyDetailsModel> data;
+        private final android.view.LayoutInflater inflater;
+        private final android.content.Context context;
+
+        HouseholdsAdapter(android.content.Context context, java.util.List<org.smartregister.chw.model.FamilyDetailsModel> data) {
+            this.context = context;
+            this.inflater = android.view.LayoutInflater.from(context);
+            this.data = data != null ? data : java.util.Collections.emptyList();
+        }
+
+        @Override
+        public int getCount() { return data.size(); }
+
+        @Override
+        public Object getItem(int position) { return data.get(position); }
+
+        @Override
+        public long getItemId(int position) { return position; }
+
+        @Override
+        public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(org.smartregister.chw.R.layout.item_household_row, parent, false);
+                holder = new ViewHolder();
+                holder.title = convertView.findViewById(org.smartregister.chw.R.id.tv_title);
+                holder.subtitle = convertView.findViewById(org.smartregister.chw.R.id.tv_subtitle);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            org.smartregister.chw.model.FamilyDetailsModel item = data.get(position);
+            String name = item != null ? item.getFamilyName() : "";
+            String village = item != null ? item.getVillageTown() : "";
+
+            holder.title.setText(!android.text.TextUtils.isEmpty(name) ? name : context.getString(org.smartregister.chw.R.string.family_profile_title, ""));
+            holder.subtitle.setText(village);
+            convertView.setContentDescription(name + ", " + village);
+            return convertView;
+        }
+
+        static class ViewHolder {
+            android.widget.TextView title;
+            android.widget.TextView subtitle;
         }
     }
 
