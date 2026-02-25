@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.text.TextUtils;
 import android.app.AlertDialog;
 
@@ -64,14 +66,31 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
             MenuItem householdsItem = menu.findItem(org.smartregister.chw.R.id.action_view_households);
-            String title = getString(org.smartregister.chw.R.string.view_households_with_count, count);
             if (householdsItem == null) {
-                householdsItem = menu.add(Menu.NONE, org.smartregister.chw.R.id.action_view_households, Menu.NONE, title);
-                householdsItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-            } else {
-                householdsItem.setTitle(title);
+                householdsItem = menu.add(Menu.NONE, org.smartregister.chw.R.id.action_view_households, Menu.NONE, "");
             }
+            householdsItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            householdsItem.setActionView(org.smartregister.chw.R.layout.action_households_chip);
             householdsItem.setVisible(count > 0);
+
+            View actionView = householdsItem.getActionView();
+            if (actionView != null) {
+                TextView chip = actionView.findViewById(org.smartregister.chw.R.id.btn_households);
+                if (chip != null) {
+                    String title = getString(org.smartregister.chw.R.string.view_households_with_count, count);
+                    chip.setText(title);
+                    chip.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+                    chip.setContentDescription(title);
+                    chip.setOnClickListener(v -> {
+                        if (count <= 0) return;
+                        if (count == 1) {
+                            openFamilyProfile(headedFamilies.get(0));
+                        } else {
+                            handleViewHouseholdsClick();
+                        }
+                    });
+                }
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
