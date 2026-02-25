@@ -234,6 +234,8 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
 
                     if (Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT.equals(visits.get(x).getVisitType())) {
                         visitType = context.getString(R.string.hps_visit);
+                    }else if (Constants.EVENT_TYPE.HPS_MOBILIZATION.equals(visits.get(x).getVisitType())) {
+                        visitType = context.getString(R.string.hps_gathering);
                     } else {
                         visitType = visits.get(x).getVisitType();
                     }

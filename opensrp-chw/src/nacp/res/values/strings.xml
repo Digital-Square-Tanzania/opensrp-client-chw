@@ -1106,6 +1106,7 @@
 
 
     <string name="hps_date_of_gathering">Date of gathering</string>
+    <string name="hps_gathering">Gathering</string>
     <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
     <string name="hps_loud_speakers">Loudspeakers</string>
     <string name="hps_drumming_public_announcements">Drumming (public announcements)</string>
