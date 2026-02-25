@@ -102,6 +102,12 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Care of HIV-exposed infant</string>
     <string name="referral_problem_Immunisation">Immunisation</string>
     <string name="referral_problem_other_reasons">Other reasons</string>
+    <string name="referral_problem_tb_screening">TB screening</string>
+    <string name="referral_problem_leprosy_screening">Leprosy screening</string>
+    <string name="referral_problem_tpt_referral">TPT referral</string>
+    <string name="referral_problem_challenges_faced_by_leprosy_clients">Challenges faced by leprosy clients</string>
+    <string name="referral_problem_challenges_faced_by_tb_clients">Challenges faced by TB clients</string>
+    <string name="referral_problem_Other_reasons">Other reasons</string>
     <string name="referral_problem_prep">PrEP</string>
     <string name="referral_problem_pep">PEP</string>
     <string name="referral_problem_pwid_and_pwud">PWID &amp; PWUD</string>

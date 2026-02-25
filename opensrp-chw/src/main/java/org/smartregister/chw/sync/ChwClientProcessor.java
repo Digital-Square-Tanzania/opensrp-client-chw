@@ -204,6 +204,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE:
                     if (eventClient.getEvent() == null) {
                         return;
                     }

@@ -97,7 +97,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 }
             }
 
-            if (age > 5) {
+            if (memberObject.getAge() > 5) {
                 JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");
