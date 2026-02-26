@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -12,7 +13,9 @@ import org.mockito.Mockito;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.MemberObject;
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.Date;
@@ -98,6 +101,112 @@ public class TbLeprosyProfileActivityTest {
         Date parsedDate = TbLeprosyProfileActivity.parseTbLeprosyVisitDate("  ");
 
         Assert.assertNull(parsedDate);
+    }
+
+    @Test
+    public void hasReferralTaskAfterTbLeprosyVisitShouldPrioritizeTbDateForDualPresumptiveClient() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+        Mockito.doReturn(CoreConstants.TASKS_FOCUS.TBLEPROSY).when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 25, 10, 0)).when(task).getLastModified();
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+        Mockito.doReturn(task).when(activity).getTaskByEntityId("base-id");
+
+        try (MockedStatic<TbLeprosyDao> tbLeprosyDaoStatic = Mockito.mockStatic(TbLeprosyDao.class)) {
+            tbLeprosyDaoStatic.when(() -> TbLeprosyDao.getLatestTbSampleCollectionDate("base-id"))
+                    .thenReturn(new DateTime(2026, 2, 28, 8, 0).toDate());
+            tbLeprosyDaoStatic.when(() -> TbLeprosyDao.getLatestTbLeprosyScreeningDate("base-id"))
+                    .thenReturn(new DateTime(2026, 2, 20, 8, 0).toDate());
+
+            boolean hasReferralTaskAfterVisit = ReflectionHelpers.callInstanceMethod(
+                    activity,
+                    "hasReferralTaskAfterTbLeprosyVisit",
+                    ReflectionHelpers.ClassParameter.from(boolean.class, true),
+                    ReflectionHelpers.ClassParameter.from(boolean.class, true)
+            );
+
+            Assert.assertFalse(hasReferralTaskAfterVisit);
+        }
+    }
+
+    @Test
+    public void hasReferralTaskAfterTbLeprosyVisitShouldUseLeprosyDateForLeprosyOnlyClient() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+        Mockito.doReturn(CoreConstants.TASKS_FOCUS.TBLEPROSY).when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 25, 10, 0)).when(task).getLastModified();
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+        Mockito.doReturn(task).when(activity).getTaskByEntityId("base-id");
+
+        try (MockedStatic<TbLeprosyDao> tbLeprosyDaoStatic = Mockito.mockStatic(TbLeprosyDao.class)) {
+            tbLeprosyDaoStatic.when(() -> TbLeprosyDao.getLatestTbLeprosyScreeningDate("base-id"))
+                    .thenReturn(new DateTime(2026, 2, 20, 8, 0).toDate());
+
+            boolean hasReferralTaskAfterVisit = ReflectionHelpers.callInstanceMethod(
+                    activity,
+                    "hasReferralTaskAfterTbLeprosyVisit",
+                    ReflectionHelpers.ClassParameter.from(boolean.class, false),
+                    ReflectionHelpers.ClassParameter.from(boolean.class, true)
+            );
+
+            Assert.assertTrue(hasReferralTaskAfterVisit);
+        }
+    }
+
+    @Test
+    public void shouldReturnFalseForMissingReferralTaskAfterVisit() {
+        boolean hasReferralTask = TbLeprosyProfileActivity.isTbLeprosyReferralTaskAfterVisit(
+                null,
+                new DateTime(2026, 2, 25, 10, 0).toDate()
+        );
+
+        Assert.assertFalse(hasReferralTask);
+    }
+
+    @Test
+    public void shouldReturnFalseForReferralTaskWithDifferentFocus() {
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn("HIV").when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 26, 10, 0)).when(task).getLastModified();
+
+        boolean hasReferralTask = TbLeprosyProfileActivity.isTbLeprosyReferralTaskAfterVisit(
+                task,
+                new DateTime(2026, 2, 25, 10, 0).toDate()
+        );
+
+        Assert.assertFalse(hasReferralTask);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenReferralTaskIsBeforeVisitDate() {
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn(CoreConstants.TASKS_FOCUS.TBLEPROSY).when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 24, 10, 0)).when(task).getLastModified();
+
+        boolean hasReferralTask = TbLeprosyProfileActivity.isTbLeprosyReferralTaskAfterVisit(
+                task,
+                new DateTime(2026, 2, 25, 10, 0).toDate()
+        );
+
+        Assert.assertFalse(hasReferralTask);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenReferralTaskIsAfterVisitDate() {
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn(CoreConstants.TASKS_FOCUS.TBLEPROSY).when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 26, 10, 0)).when(task).getLastModified();
+
+        boolean hasReferralTask = TbLeprosyProfileActivity.isTbLeprosyReferralTaskAfterVisit(
+                task,
+                new DateTime(2026, 2, 25, 10, 0).toDate()
+        );
+
+        Assert.assertTrue(hasReferralTask);
     }
 
     @Test
