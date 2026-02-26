@@ -137,6 +137,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                     if (ChwApplication.getApplicationFlavor().hasHps()) {
                         hpsReports.setVisibility(View.VISIBLE);
                     }
+
+                    if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+                        tbLeprosyReports.setVisibility(View.VISIBLE);
+                    }
                     break;
             }
         } else {
