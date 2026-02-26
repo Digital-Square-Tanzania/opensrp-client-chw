@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +40,7 @@ import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
+import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.Visit;
@@ -51,6 +53,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Task;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.JsonFormUtils;
@@ -63,9 +66,12 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
 
 import timber.log.Timber;
 
@@ -204,8 +210,26 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
             boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
+            boolean hasReferralTaskAfterTbLeprosyVisit = hasReferralTaskAfterTbLeprosyVisit(latestTbLeprosyVisit);
+            boolean shouldShowPendingReferral = shouldShowPendingReferralAction(isTbPresumptiveClient, isLeprosyPresumptiveClient,
+                    hasTbLeprosyVisit, hasObservationResults, hasReferralTaskAfterTbLeprosyVisit);
 
-            if (isTbPresumptiveClient && !isLeprosyPresumptiveClient) {
+            if (shouldShowPendingReferral) {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText("Issue");
+                textViewVisitDone.setText("Pending Issuing of Referral");
+                textViewVisitDoneEdit.setOnClickListener(view -> Toast.makeText(this, "Issue referral", Toast.LENGTH_SHORT).show());
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            } else {
+                visitDone.setVisibility(View.GONE);
+                textViewVisitDone.setVisibility(View.GONE);
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+            }
+
+            if (!shouldShowPendingReferral && isTbPresumptiveClient && !isLeprosyPresumptiveClient) {
                 if (!hasTbLeprosyVisit) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
@@ -220,7 +244,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
                 }
-            } else if (!isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+            } else if (!shouldShowPendingReferral && !isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 if (!hasObservationResults) {
                     textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setText(R.string.record_observation_results);
@@ -231,7 +255,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                     textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
                     textViewRecordTbLeprosy.setVisibility(View.GONE);
                 }
-            } else if (isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+            } else if (!shouldShowPendingReferral && isTbPresumptiveClient && isLeprosyPresumptiveClient) {
                 textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
                 textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
 
@@ -255,7 +279,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 textViewRecordTbLeprosy.setVisibility(View.GONE);
             }
 
-            if (hasObservationResults && isLeprosyPresumptiveClient && hasLeprosyResults && missingLeprosyTreatmentStartDate) {
+            if (!shouldShowPendingReferral && hasObservationResults && isLeprosyPresumptiveClient && hasLeprosyResults && missingLeprosyTreatmentStartDate) {
                 textViewRecordLeprosyTreatmentStartDate.setVisibility(View.VISIBLE);
                 textViewRecordLeprosyTreatmentStartDate.setText(R.string.record_leprosy_treatment_start_date);
                 textViewRecordLeprosyTreatmentStartDate.setOnClickListener(view -> openRecordLeprosyTreatmentStartDate());
@@ -303,6 +327,75 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         }
 
+    }
+
+    static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
+                                                   boolean isLeprosyPresumptiveClient,
+                                                   boolean hasTbLeprosyVisit,
+                                                   boolean hasObservationResults,
+                                                   boolean hasReferralTaskAfterTbLeprosyVisit) {
+        if ((!hasTbLeprosyVisit && isTbPresumptiveClient) || hasReferralTaskAfterTbLeprosyVisit) {
+            return false;
+        }
+
+
+
+        boolean isTbPendingReferral = isTbPresumptiveClient && !hasObservationResults;
+        boolean isLeprosyOnlyPendingReferral = isLeprosyPresumptiveClient && !isTbPresumptiveClient;
+        return isTbPendingReferral || isLeprosyOnlyPendingReferral;
+    }
+
+    private boolean hasReferralTaskAfterTbLeprosyVisit(String latestTbLeprosyVisit) {
+        Date tbLeprosyVisitDate = parseTbLeprosyVisitDate(latestTbLeprosyVisit);
+        //TODO handle check for visit dates
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        Task task = ChwApplication.getInstance().getTaskRepository().getTaskByEntityId (memberObject.getBaseEntityId());
+        return task != null && task.getLastModified() != null && task.getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.TBLEPROSY);
+    }
+
+    @Nullable
+    static Date parseTbLeprosyVisitDate(String visitDateValue) {
+        if (StringUtils.isBlank(visitDateValue)) {
+            return null;
+        }
+
+        String trimmedVisitDate = visitDateValue.trim();
+        if (StringUtils.isNumeric(trimmedVisitDate)) {
+            try {
+                return new Date(Long.parseLong(trimmedVisitDate));
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        try {
+            return new DateTime(trimmedVisitDate).toDate();
+        } catch (Exception e) {
+            // Continue with explicit formats below
+        }
+
+        List<String> patterns = Arrays.asList(
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd",
+                "dd-MM-yyyy",
+                "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                "yyyy-MM-dd'T'HH:mm:ssZ"
+        );
+        for (String pattern : patterns) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                simpleDateFormat.setLenient(false);
+                return simpleDateFormat.parse(trimmedVisitDate);
+            } catch (Exception e) {
+                // Try the next known date pattern
+            }
+        }
+        return null;
     }
 
     private void openRecordLeprosyTreatmentStartDate() {
