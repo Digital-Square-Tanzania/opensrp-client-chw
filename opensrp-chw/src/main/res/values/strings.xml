@@ -622,6 +622,8 @@
     <string name="tb_leprosy_report_section_treatment_desc">Ripoti za ufuatiliaji wa waliokatiza au hawakuanza matibabu</string>
     <string name="tb_leprosy_report_section_challenges">Changamoto za Huduma ya TB na Ukoma</string>
     <string name="tb_leprosy_report_section_challenges_desc">Ripoti za changamoto zilizobainika wakati wa huduma</string>
+    <string name="tb_leprosy_report_section_merged">Ripoti Jumuishi ya TB na Ukoma</string>
+    <string name="tb_leprosy_report_section_merged_desc">Ripoti moja inayounganisha sehemu zote tano za TB/Ukoma</string>
 
     <string name="tb_leprosy_reports_subtitle">View TB/Leprosy report</string>
     <string name="tb_leprosy_monthly_report_title">TB/Leprosy Monthly Report</string>
