@@ -4,8 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.chw.R;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.tbleprosy.domain.MemberObject;
 
 import java.util.Date;
+import java.util.List;
 
 public class TbLeprosyProfileActivityTest {
 
@@ -88,6 +96,32 @@ public class TbLeprosyProfileActivityTest {
         Date parsedDate = TbLeprosyProfileActivity.parseTbLeprosyVisitDate("  ");
 
         Assert.assertNull(parsedDate);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Test
+    public void pendingReferralEditClickShouldLaunchTbLeprosyReferralForm() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+        Mockito.doReturn("TB/Leprosy Referral").when(activity).getString(R.string.tb_leprosy_referral);
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+
+        ArgumentCaptor<List> referralTypesCaptor = ArgumentCaptor.forClass(List.class);
+        ArgumentCaptor<String> baseEntityIdCaptor = ArgumentCaptor.forClass(String.class);
+
+        activity.getPendingReferralActionClickListener().onClick(null);
+
+        Mockito.verify(activity).launchClientReferralActivity(referralTypesCaptor.capture(), baseEntityIdCaptor.capture());
+        Assert.assertEquals("base-id", baseEntityIdCaptor.getValue());
+
+        List<ReferralTypeModel> referralTypeModels = (List<ReferralTypeModel>) referralTypesCaptor.getValue();
+        Assert.assertNotNull(referralTypeModels);
+        Assert.assertEquals(1, referralTypeModels.size());
+        Assert.assertEquals("TB/Leprosy Referral", referralTypeModels.get(0).getReferralType());
+        Assert.assertEquals(CoreConstants.JSON_FORM.getTbLeprosyReferralForm(), referralTypeModels.get(0).getFormName());
+        Assert.assertEquals(CoreConstants.TASKS_FOCUS.TBLEPROSY, referralTypeModels.get(0).getFocus());
     }
 
     private JSONObject buildObservationResultsForm() throws Exception {
