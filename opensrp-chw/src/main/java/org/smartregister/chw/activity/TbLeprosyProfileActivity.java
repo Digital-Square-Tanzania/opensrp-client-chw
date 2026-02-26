@@ -221,10 +221,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 textViewVisitDoneEdit.setVisibility(View.VISIBLE);
                 textViewVisitDoneEdit.setText(R.string.tbleprosy_issue_referral_action);
                 textViewVisitDone.setText(R.string.tbleprosy_pending_issuing_of_referral);
-                textViewVisitDoneEdit.setOnClickListener(view -> {
-                    Toast.makeText(this,
-                        R.string.tbleprosy_issue_referral_toast, Toast.LENGTH_SHORT).show()
-                });
+                textViewVisitDoneEdit.setOnClickListener(getPendingReferralActionClickListener());
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             } else {
                 visitDone.setVisibility(View.GONE);
@@ -330,6 +327,29 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         }
 
+    }
+
+    View.OnClickListener getPendingReferralActionClickListener() {
+        return view -> launchPendingReferralForm();
+    }
+
+    void launchPendingReferralForm() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        List<ReferralTypeModel> pendingReferralTypeModels = new ArrayList<>();
+        pendingReferralTypeModels.add(new ReferralTypeModel(
+                getString(R.string.tb_leprosy_referral),
+                CoreConstants.JSON_FORM.getTbLeprosyReferralForm(),
+                CoreConstants.TASKS_FOCUS.TBLEPROSY
+        ));
+
+        launchClientReferralActivity(pendingReferralTypeModels, memberObject.getBaseEntityId());
+    }
+
+    void launchClientReferralActivity(List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
+        Utils.launchClientReferralActivity(this, referralTypeModels, baseEntityId);
     }
 
     static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
