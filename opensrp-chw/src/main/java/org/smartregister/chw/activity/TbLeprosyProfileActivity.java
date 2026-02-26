@@ -219,9 +219,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 visitDone.setVisibility(View.VISIBLE);
                 textViewVisitDone.setVisibility(View.VISIBLE);
                 textViewVisitDoneEdit.setVisibility(View.VISIBLE);
-                textViewVisitDoneEdit.setText("Issue");
-                textViewVisitDone.setText("Pending Issuing of Referral");
-                textViewVisitDoneEdit.setOnClickListener(view -> Toast.makeText(this, "Issue referral", Toast.LENGTH_SHORT).show());
+                textViewVisitDoneEdit.setText(R.string.tbleprosy_issue_referral_action);
+                textViewVisitDone.setText(R.string.tbleprosy_pending_issuing_of_referral);
+                textViewVisitDoneEdit.setOnClickListener(view -> {
+                    Toast.makeText(this,
+                        R.string.tbleprosy_issue_referral_toast, Toast.LENGTH_SHORT).show()
+                });
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             } else {
                 visitDone.setVisibility(View.GONE);
