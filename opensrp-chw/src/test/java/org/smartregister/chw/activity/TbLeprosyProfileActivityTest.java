@@ -1,19 +1,21 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.tbleprosy.domain.MemberObject;
+import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.Date;
-import java.util.List;
 
 public class TbLeprosyProfileActivityTest {
 
@@ -98,30 +100,81 @@ public class TbLeprosyProfileActivityTest {
         Assert.assertNull(parsedDate);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Test
-    public void pendingReferralEditClickShouldLaunchTbLeprosyReferralForm() {
+    public void pendingReferralEditClickShouldLaunchTbLeprosyReferralForm() throws Exception {
         TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
         MemberObject memberObject = Mockito.mock(MemberObject.class);
+        org.smartregister.util.FormUtils formUtils = Mockito.mock(org.smartregister.util.FormUtils.class);
 
         Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
-        Mockito.doReturn("TB/Leprosy Referral").when(activity).getString(R.string.tb_leprosy_referral);
         ReflectionHelpers.setField(activity, "memberObject", memberObject);
 
-        ArgumentCaptor<List> referralTypesCaptor = ArgumentCaptor.forClass(List.class);
+        JSONObject referralFormJson = new JSONObject().put("encounter_type", "Referral Registration");
+        Mockito.doReturn(referralFormJson).when(formUtils)
+                .getFormJson(CoreConstants.JSON_FORM.getTbLeprosyReferralForm());
+
+        ArgumentCaptor<JSONObject> referralFormJsonCaptor = ArgumentCaptor.forClass(JSONObject.class);
         ArgumentCaptor<String> baseEntityIdCaptor = ArgumentCaptor.forClass(String.class);
 
-        activity.getPendingReferralActionClickListener().onClick(null);
+        try (MockedStatic<FormUtils> formUtilsStatic = Mockito.mockStatic(FormUtils.class)) {
+            formUtilsStatic.when(FormUtils::getFormUtils).thenReturn(formUtils);
+            activity.getPendingReferralActionClickListener().onClick(null);
+        }
 
-        Mockito.verify(activity).launchClientReferralActivity(referralTypesCaptor.capture(), baseEntityIdCaptor.capture());
+        Mockito.verify(activity).startPendingReferralFormActivity(baseEntityIdCaptor.capture(), referralFormJsonCaptor.capture());
         Assert.assertEquals("base-id", baseEntityIdCaptor.getValue());
+        Assert.assertEquals(
+                CoreConstants.TASKS_FOCUS.TBLEPROSY,
+                referralFormJsonCaptor.getValue().optString(org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS)
+        );
+        Mockito.verify(formUtils).getFormJson(CoreConstants.JSON_FORM.getTbLeprosyReferralForm());
+    }
 
-        List<ReferralTypeModel> referralTypeModels = (List<ReferralTypeModel>) referralTypesCaptor.getValue();
-        Assert.assertNotNull(referralTypeModels);
-        Assert.assertEquals(1, referralTypeModels.size());
-        Assert.assertEquals("TB/Leprosy Referral", referralTypeModels.get(0).getReferralType());
-        Assert.assertEquals(CoreConstants.JSON_FORM.getTbLeprosyReferralForm(), referralTypeModels.get(0).getFormName());
-        Assert.assertEquals(CoreConstants.TASKS_FOCUS.TBLEPROSY, referralTypeModels.get(0).getFocus());
+    @Test
+    public void handlePendingReferralFormResultShouldRefreshAfterSuccess() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        Mockito.doNothing().when(activity).refreshAfterReferralSubmission();
+        ReflectionHelpers.setField(activity, "pendingTbLeprosyReferralLaunch", true);
+
+        activity.handlePendingReferralFormResult(Activity.RESULT_OK);
+
+        Mockito.verify(activity).refreshAfterReferralSubmission();
+        Assert.assertFalse(ReflectionHelpers.getField(activity, "pendingTbLeprosyReferralLaunch"));
+    }
+
+    @Test
+    public void handlePendingReferralFormResultShouldNotRefreshAfterCancel() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        Mockito.doNothing().when(activity).refreshAfterReferralSubmission();
+        ReflectionHelpers.setField(activity, "pendingTbLeprosyReferralLaunch", true);
+
+        activity.handlePendingReferralFormResult(Activity.RESULT_CANCELED);
+
+        Mockito.verify(activity, Mockito.never()).refreshAfterReferralSubmission();
+        Assert.assertFalse(ReflectionHelpers.getField(activity, "pendingTbLeprosyReferralLaunch"));
+    }
+
+    @Test
+    public void handleJsonFormActivityResultShouldRefreshForReferralRegistration() throws Exception {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        Mockito.doNothing().when(activity).refreshAfterReferralSubmission();
+
+        JSONObject form = new JSONObject()
+                .put(JsonFormUtils.ENCOUNTER_TYPE, org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION);
+        activity.handleJsonFormActivityResult(form.toString());
+
+        Mockito.verify(activity).refreshAfterReferralSubmission();
+    }
+
+    @Test
+    public void handleJsonFormActivityResultShouldNotRefreshForNonReferralEncounter() throws Exception {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        Mockito.doNothing().when(activity).refreshAfterReferralSubmission();
+
+        JSONObject form = new JSONObject().put(JsonFormUtils.ENCOUNTER_TYPE, "TB Leprosy Record Visit");
+        activity.handleJsonFormActivityResult(form.toString());
+
+        Mockito.verify(activity, Mockito.never()).refreshAfterReferralSubmission();
     }
 
     private JSONObject buildObservationResultsForm() throws Exception {
