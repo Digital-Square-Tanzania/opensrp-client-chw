@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Date;
+
 public class TbLeprosyProfileActivityTest {
 
     @Test
@@ -33,6 +35,59 @@ public class TbLeprosyProfileActivityTest {
         Assert.assertNotNull(options);
         Assert.assertEquals(3, options.length());
         Assert.assertNotNull(findOption(options, "treatment_decision_algorithm"));
+    }
+
+    @Test
+    public void shouldShowPendingReferralForTbPresumptiveWithoutObservationResults() {
+        boolean shouldShow = TbLeprosyProfileActivity.shouldShowPendingReferralAction(
+                true,
+                false,
+                true,
+                false,
+                false
+        );
+
+        Assert.assertTrue(shouldShow);
+    }
+
+    @Test
+    public void shouldShowPendingReferralForLeprosyOnlyPresumptiveClientWithoutReferralTaskAfterVisit() {
+        boolean shouldShow = TbLeprosyProfileActivity.shouldShowPendingReferralAction(
+                false,
+                true,
+                true,
+                true,
+                false
+        );
+
+        Assert.assertTrue(shouldShow);
+    }
+
+    @Test
+    public void shouldNotShowPendingReferralWhenReferralTaskExistsAfterVisit() {
+        boolean shouldShow = TbLeprosyProfileActivity.shouldShowPendingReferralAction(
+                true,
+                false,
+                true,
+                false,
+                true
+        );
+
+        Assert.assertFalse(shouldShow);
+    }
+
+    @Test
+    public void shouldParseTbLeprosyVisitDate() {
+        Date parsedDate = TbLeprosyProfileActivity.parseTbLeprosyVisitDate("2026-02-25 12:30:00");
+
+        Assert.assertNotNull(parsedDate);
+    }
+
+    @Test
+    public void shouldReturnNullWhenTbLeprosyVisitDateIsBlank() {
+        Date parsedDate = TbLeprosyProfileActivity.parseTbLeprosyVisitDate("  ");
+
+        Assert.assertNull(parsedDate);
     }
 
     private JSONObject buildObservationResultsForm() throws Exception {
