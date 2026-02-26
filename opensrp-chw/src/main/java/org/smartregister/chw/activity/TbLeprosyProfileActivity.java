@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FORM_KEY.GLOBAL;
 
 import android.app.Activity;
 import android.content.Context;
@@ -128,6 +129,13 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         try {
             JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+
+            try {
+                JSONObject global = form.getJSONObject(GLOBAL);
+                global.put("age", memberObject.getAge());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
 
             TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
             boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
