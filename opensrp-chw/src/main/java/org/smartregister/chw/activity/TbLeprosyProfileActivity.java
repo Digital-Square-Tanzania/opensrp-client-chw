@@ -150,6 +150,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 applyObservationTypeOverrides(form, hiddenValue);
             }
 
+            maybeRemoveTreatmentDecisionAlgorithmOption(form, memberObject.getAge());
             startFormActivity(form);
         } catch (Exception e) {
             Timber.e(e);
@@ -609,6 +610,45 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 field.remove("v_required");
                 break;
             }
+        }
+    }
+
+    static void maybeRemoveTreatmentDecisionAlgorithmOption(JSONObject form, int clientAge) throws JSONException {
+        if (form == null || clientAge < 10) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject("step1");
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !"tb_preliminary_investigation_tests".equals(field.optString("key"))) {
+                continue;
+            }
+
+            JSONArray options = field.optJSONArray("options");
+            if (options == null) {
+                return;
+            }
+
+            JSONArray filteredOptions = new JSONArray();
+            for (int j = 0; j < options.length(); j++) {
+                JSONObject option = options.optJSONObject(j);
+                if (option != null && !"treatment_decision_algorithm".equals(option.optString("key"))) {
+                    filteredOptions.put(option);
+                }
+            }
+
+            field.put("options", filteredOptions);
+            return;
         }
     }
 
