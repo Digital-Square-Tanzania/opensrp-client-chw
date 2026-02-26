@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getLatestTbLeprosyScreeningDate;
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FORM_KEY.GLOBAL;
@@ -40,7 +41,6 @@ import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
-import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
 import org.smartregister.chw.tbleprosy.domain.Visit;
@@ -211,7 +211,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
                     || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
             boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
-            boolean hasReferralTaskAfterTbLeprosyVisit = hasReferralTaskAfterTbLeprosyVisit(latestTbLeprosyVisit);
+            boolean hasReferralTaskAfterTbLeprosyVisit = hasReferralTaskAfterTbLeprosyVisit(isTbPresumptiveClient, isLeprosyPresumptiveClient);
             boolean shouldShowPendingReferral = shouldShowPendingReferralAction(isTbPresumptiveClient, isLeprosyPresumptiveClient,
                     hasTbLeprosyVisit, hasObservationResults, hasReferralTaskAfterTbLeprosyVisit);
 
@@ -389,15 +389,38 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         return isTbPendingReferral || isLeprosyOnlyPendingReferral;
     }
 
-    private boolean hasReferralTaskAfterTbLeprosyVisit(String latestTbLeprosyVisit) {
-        Date tbLeprosyVisitDate = parseTbLeprosyVisitDate(latestTbLeprosyVisit);
-        //TODO handle check for visit dates
+    private boolean hasReferralTaskAfterTbLeprosyVisit(boolean isTbPresumptiveClient, boolean isLeprosyPresumptiveClient) {
         if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
             return false;
         }
 
-        Task task = ChwApplication.getInstance().getTaskRepository().getTaskByEntityId (memberObject.getBaseEntityId());
-        return task != null && task.getLastModified() != null && task.getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.TBLEPROSY);
+        String baseEntityId = memberObject.getBaseEntityId();
+        Date tbLeprosyVisitDate = null;
+        if (isTbPresumptiveClient)
+         tbLeprosyVisitDate = TbLeprosyDao.getLatestTbSampleCollectionDate(baseEntityId);
+        else if (isLeprosyPresumptiveClient) {
+            tbLeprosyVisitDate = getLatestTbLeprosyScreeningDate(baseEntityId);
+        }
+
+        Task task = getTaskByEntityId(baseEntityId);
+        return isTbLeprosyReferralTaskAfterVisit(task, tbLeprosyVisitDate);
+    }
+
+    @Nullable
+    Task getTaskByEntityId(@NonNull String baseEntityId) {
+        return ChwApplication.getInstance().getTaskRepository().getTaskByEntityId(baseEntityId);
+    }
+
+    static boolean isTbLeprosyReferralTaskAfterVisit(@Nullable Task task, @Nullable Date tbLeprosyVisitDate) {
+        if (task == null || task.getLastModified() == null || tbLeprosyVisitDate == null) {
+            return false;
+        }
+
+        if (!CoreConstants.TASKS_FOCUS.TBLEPROSY.equalsIgnoreCase(StringUtils.trimToEmpty(task.getFocus()))) {
+            return false;
+        }
+
+        return task.getLastModified().getMillis() > tbLeprosyVisitDate.getTime();
     }
 
     @Nullable
