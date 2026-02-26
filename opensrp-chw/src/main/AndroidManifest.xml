@@ -59,6 +59,9 @@
             android:name=".activity.TbLeprosyObservationResultsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.TbLeprosyMobilizationDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HarmReductionProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -244,6 +247,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.InAppReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ClientSelectionRegisterActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -911,6 +918,8 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 

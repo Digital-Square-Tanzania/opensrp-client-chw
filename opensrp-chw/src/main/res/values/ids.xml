@@ -7,4 +7,5 @@
     <item name="nextduevaccinelist" type="id" />
     <item name="referral_type_client" type="id" />
     <item name="referral_type_form_name" type="id" />
+    <item name="action_view_households" type="id" />
 </resources>

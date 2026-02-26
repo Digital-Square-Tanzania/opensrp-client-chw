@@ -45,8 +45,17 @@
     "household_max": ""
   },
   "step1": {
-    "title": "Number of household with basic nutrition source",
+    "title": "Upatikanaji wa Vyakula Vyenye Lishe",
     "fields": [
+      {
+        "key": "social_services",
+        "type": "label",
+        "text": "Kaya zenye Chanzo cha Lishe",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_services"
+      },
       {
         "key": "household_max",
         "openmrs_entity_parent": "",
@@ -66,7 +75,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_vegetable",
-        "hint": "Idadi ya kaya zenye chanzo cha lishe (Bustani za mbogamboga)",
+        "hint": "Idadi ya kaya zenye Bustani za mbogamboga",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -103,7 +112,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_fruit_trees",
-        "hint": "Idadi ya kaya zenye chanzo cha lishe(Miti ya matunda)",
+        "hint": "Idadi ya kaya zenye miti ya matunda",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -140,7 +149,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_domestic_animal",
-        "hint": "Idadi ya kaya zenye chanzo cha lishe(Wanyama wakufugwa)",
+        "hint": "Idadi ya kaya zenye wanyama na ndege wa kufugwa)",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {

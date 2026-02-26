@@ -39,7 +39,17 @@ public class AllClientsMemberPresenter extends CoreAllClientsMemberPresenter {
             }
             String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
             currentView.setProfileDetailOne(gender);
-            String villageTown = FamilyDao.getFamilyDetail(client.getCaseId()).getVillageTown();
+
+            // Safely resolve village/household info; independent clients might not have membership rows
+            String villageTown = "";
+            try {
+                org.smartregister.chw.model.FamilyDetailsModel oneFamily = FamilyDao.getFamilyDetail(client.getCaseId());
+                if (oneFamily != null) {
+                    villageTown = oneFamily.getVillageTown();
+                }
+            } catch (Exception e) {
+                // Keep villageTown blank on any unexpected error
+            }
             currentView.setProfileDetailTwo(villageTown);
             String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
             currentView.setProfileDetailThree(String.format(currentView.getString(org.smartregister.chw.core.R.string.id_with_value), uniqueId));

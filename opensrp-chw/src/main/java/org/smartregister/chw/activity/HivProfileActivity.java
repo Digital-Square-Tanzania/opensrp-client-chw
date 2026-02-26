@@ -776,7 +776,7 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         }
     }
 
-    public @javax.annotation.Nullable Visit getVisit(String eventType) {
+    public @Nullable Visit getVisit(String eventType) {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(getHivMemberObject().getBaseEntityId(), eventType);
     }
 

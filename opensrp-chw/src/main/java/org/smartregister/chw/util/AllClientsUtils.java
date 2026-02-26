@@ -72,6 +72,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllClientsUtils {
 
@@ -243,7 +244,6 @@ public class AllClientsUtils {
     public static void updateOptionsMenu(Menu menu, CommonPersonObjectClient commonPersonObject) {
         String baseEntityId = commonPersonObject.entityId();
         FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
-
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         // Cache menu items to avoid multiple lookups
@@ -252,6 +252,7 @@ public class AllClientsUtils {
         MenuItem sickChildFollowUp = menu.findItem(R.id.action_sick_child_follow_up);
         MenuItem malariaDiagnosis = menu.findItem(R.id.action_malaria_diagnosis);
         MenuItem removeMember = menu.findItem(R.id.action_remove_member);
+        MenuItem generateHouseHold = menu.findItem(R.id.action_generate_household);
 
         // Set visibility for the common items
         if (locationInfo != null) locationInfo.setVisible(true);
@@ -259,6 +260,15 @@ public class AllClientsUtils {
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);
         if (removeMember != null) removeMember.setVisible(true);
+
+        if (generateHouseHold != null) {
+            if (Objects.equals(commonPersonObject.getDetails().get(REGISTER_TYPE),
+                    CoreConstants.REGISTER_TYPE.INDEPENDENT) && getPersonAge(commonPersonObject) >= 15) {
+                generateHouseHold.setVisible(true);
+            } else {
+                generateHouseHold.setVisible(false);
+            }
+        }
 
         // Get shared preferences once
         AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();

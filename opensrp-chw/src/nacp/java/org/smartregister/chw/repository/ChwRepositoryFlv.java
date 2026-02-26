@@ -1,5 +1,7 @@
 package org.smartregister.chw.repository;
 
+import static org.smartregister.chw.BuildConfig.VERSION_CODE;
+
 import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -292,7 +294,7 @@ public class ChwRepositoryFlv {
             return true;
         } else {
             int savedVersion = Integer.parseInt(savedAppVersion);
-            return (BuildConfig.VERSION_CODE > savedVersion);
+            return (VERSION_CODE > savedVersion);
         }
     }
 
@@ -316,7 +318,7 @@ public class ChwRepositoryFlv {
                 reportingLibraryInstance.readConfigFile(indicatorsConfigFile, db);
                 reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, db); // This will persist the data in the DB
                 reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
             }
 
             for (String query : RepositoryUtilsFlv.UPGRADE_V15) {
@@ -486,7 +488,7 @@ public class ChwRepositoryFlv {
 
             reportingLibrary.initIndicatorData(sbcIndicatorsConfigFile, db); // This will persist the data in the DB
             reportingLibrary.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion27");
@@ -526,7 +528,7 @@ public class ChwRepositoryFlv {
             for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile, aypOutSchoolIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion28");
         }
@@ -556,7 +558,7 @@ public class ChwRepositoryFlv {
             for (String configFile : Collections.unmodifiableList(Arrays.asList(hpsIndicatorsConfigFile, hpsAnnualIndicatorsConfigFile))) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");
         }
@@ -584,7 +586,7 @@ public class ChwRepositoryFlv {
             for (String configFile : configFiles) {
                 reportingLibrary.readConfigFile(configFile, db);
             }
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion31");
         }
@@ -623,7 +625,7 @@ public class ChwRepositoryFlv {
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             reportingLibrary.readConfigFile("config/ayp-parental-monthly-report.yml", db);
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion32-config");
         }
@@ -650,7 +652,7 @@ public class ChwRepositoryFlv {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             String tbLeprosyConfigFile = "config/tbleprosy-monthly-report.yml";
             reportingLibrary.readConfigFile(tbLeprosyConfigFile, db);
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion33-config");
         }

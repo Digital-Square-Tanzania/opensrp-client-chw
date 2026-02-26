@@ -19,6 +19,8 @@ public class Constants extends CoreConstants {
     public static String pregnancyOutcome = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
+    public static final String EXTRA_CLIENT_PICKER_MODE = "client_picker_mode";
+    public static final String EXTRA_EXISTING_HEAD_CLIENT = "existing_head_client";
 
     public static final String ADDO_LINKAGE_PLAN_ID = "6270285b-5a3b-4647-b772-c0b3c52e2b72";
 
@@ -31,6 +33,8 @@ public class Constants extends CoreConstants {
     public static String ENABLE_HIV_STATUS_FILTER = "ENABLE_HIV_STATUS_FILTER";
     public static String ENABLE_PREP_STATUS_FILTER = "ENABLE_PREP_STATUS_FILTER";
     public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
+    public static String ENTITY_TYPE_EC_FAMILY_MEMBER = "ec_family_member";
+    public static String ENTITY_TYPE_EC_FAMILY = "ec_family";
 
     public static int REQUEST_FILTERS = 2004;
 
@@ -374,6 +378,7 @@ public class Constants extends CoreConstants {
             String TBLEPROSY_SPECIAL_REPORT_PATH = "tbleprosy_reports/tbleprosy-special-areas-report";
             String TBLEPROSY_TREATMENT_STATUS_REPORT_PATH = "tbleprosy_reports/tbleprosy-treatment-status-report";
             String TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH = "tbleprosy_reports/tbleprosy-service-challenges-report";
+            String TBLEPROSY_MERGED_REPORT_PATH = "tbleprosy_reports/tbleprosy-merged-report";
         }
     }
 

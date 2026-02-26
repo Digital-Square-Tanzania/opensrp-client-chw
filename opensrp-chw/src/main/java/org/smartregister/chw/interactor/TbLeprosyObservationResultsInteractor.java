@@ -56,7 +56,8 @@ public class TbLeprosyObservationResultsInteractor extends CoreBaseAncMedicalHis
             String[] eventTypes = new String[]{
                     Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION,
                     Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT,
-                    Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT
+                    Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT,
+                    Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE
             };
             List<SortableVisit> visits = getVisits(memberID, eventTypes);
             final List<Visit> allVisits = new ArrayList<>(visits);

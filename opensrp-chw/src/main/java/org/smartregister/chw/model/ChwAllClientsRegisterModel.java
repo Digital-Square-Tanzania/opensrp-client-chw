@@ -61,7 +61,7 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
 
             if (stepOneUniqueId != null) {
                 stepOneUniqueId.remove(JsonFormUtils.VALUE);
-                stepOneUniqueId.put(JsonFormUtils.VALUE, newEntityId + "_Family");
+                stepOneUniqueId.put(JsonFormUtils.VALUE, newEntityId + "_family");
             }
 
             JSONObject stepTwoUniqueId = getFieldJSONObject(fields(form, STEP2), Constants.JSON_FORM_KEY.UNIQUE_ID);

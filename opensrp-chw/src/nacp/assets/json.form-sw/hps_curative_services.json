@@ -621,11 +621,37 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "food_supplements"
+          },
+          {
+            "key": "other_treatment_provided",
+            "text": "Nyinginezo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_treatment_provided"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_treatment",
+        "type": "edit_text",
+        "hint": "Matibabu mengine yaliyotolewa",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja matibabu mengine"
         },
         "relevance": {
           "rules-engine": {

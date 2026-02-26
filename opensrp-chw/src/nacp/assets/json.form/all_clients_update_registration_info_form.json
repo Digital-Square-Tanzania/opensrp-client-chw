@@ -833,6 +833,12 @@
             "openmrs_entity_id": "chk_farmer"
           },
           {
+            "key": "chk_bodaboda",
+            "text": "Motorcycle driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
+          },
+          {
             "key": "chk_other",
             "text": "Other",
             "openmrs_entity": "concept",
