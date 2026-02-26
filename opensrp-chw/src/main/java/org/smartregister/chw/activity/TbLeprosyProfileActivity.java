@@ -85,6 +85,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     private OpdRegisterActivityContract.View newClientRegisterView;
     @Nullable
     private String pendingContactRegistrationLocationId;
+    private boolean pendingTbLeprosyReferralLaunch;
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, TbLeprosyProfileActivity.class);
@@ -337,19 +338,39 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
             return;
         }
-
-        List<ReferralTypeModel> pendingReferralTypeModels = new ArrayList<>();
-        pendingReferralTypeModels.add(new ReferralTypeModel(
-                getString(R.string.tb_leprosy_referral),
-                CoreConstants.JSON_FORM.getTbLeprosyReferralForm(),
-                CoreConstants.TASKS_FOCUS.TBLEPROSY
-        ));
-
-        launchClientReferralActivity(pendingReferralTypeModels, memberObject.getBaseEntityId());
+        try {
+            JSONObject referralFormJson = getTbLeprosyReferralFormJson();
+            pendingTbLeprosyReferralLaunch = true;
+            startPendingReferralFormActivity(memberObject.getBaseEntityId(), referralFormJson);
+        } catch (Exception e) {
+            pendingTbLeprosyReferralLaunch = false;
+            Timber.e(e);
+        }
     }
 
-    void launchClientReferralActivity(List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
-        Utils.launchClientReferralActivity(this, referralTypeModels, baseEntityId);
+    JSONObject getTbLeprosyReferralFormJson() throws JSONException {
+        org.smartregister.util.FormUtils formUtils = FormUtils.getFormUtils();
+        if (formUtils == null) {
+            throw new IllegalStateException("FormUtils is unavailable");
+        }
+
+        JSONObject formJson = formUtils.getFormJson(CoreConstants.JSON_FORM.getTbLeprosyReferralForm());
+        if (formJson == null) {
+            throw new JSONException("TB/Leprosy referral form is unavailable");
+        }
+
+        formJson.put(org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS, CoreConstants.TASKS_FOCUS.TBLEPROSY);
+        return formJson;
+    }
+
+    void startPendingReferralFormActivity(String baseEntityId, JSONObject referralFormJson) {
+        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(
+                this,
+                baseEntityId,
+                referralFormJson,
+                false,
+                false
+        );
     }
 
     static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
@@ -457,6 +478,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    void refreshAfterReferralSubmission() {
+        delayRefresh();
     }
 
     @Override
@@ -778,17 +803,49 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         if (requestCode == REQUEST_CODE_CONTACT_REGISTER && resultCode == Activity.RESULT_OK && data != null) {
             handleNewClientRegistrationResult(data);
+            return;
+        }
+
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && pendingTbLeprosyReferralLaunch) {
+            handlePendingReferralFormResult(resultCode);
+            return;
         }
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                return;
+            }
+
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-
+                if (StringUtils.isBlank(jsonString)) {
+                    return;
+                }
+                handleJsonFormActivityResult(jsonString);
             } catch (Exception e) {
                 Timber.e(e);
             }
         }
+    }
+
+    void handlePendingReferralFormResult(int resultCode) {
+        pendingTbLeprosyReferralLaunch = false;
+        if (resultCode == Activity.RESULT_OK) {
+            refreshAfterReferralSubmission();
+        }
+    }
+
+    void handleJsonFormActivityResult(@NonNull String jsonString) throws JSONException {
+        JSONObject form = new JSONObject(jsonString);
+        String encounterType = form.optString(JsonFormUtils.ENCOUNTER_TYPE);
+        if (isReferralRegistrationEncounter(encounterType)) {
+            refreshAfterReferralSubmission();
+        }
+    }
+
+    static boolean isReferralRegistrationEncounter(@Nullable String encounterType) {
+        return org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION
+                .equalsIgnoreCase(StringUtils.trimToEmpty(encounterType));
     }
 
     private void applyFollowUpReasonOverrides(JSONObject form) throws JSONException {
