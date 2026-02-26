@@ -848,6 +848,9 @@
     <string name="kvp_tomorrow_visits">Matembeleo ya kesho</string>
     <string name="overdue">Matemeleo yaliyopitwa na muda</string>
     <string name="record_leprosy_treatment_start_date">Rekodi tarehe ya kuanza matibabu ya Ukoma</string>
+    <string name="tbleprosy_issue_referral_action">Toa</string>
+    <string name="tbleprosy_pending_issuing_of_referral">Inasubiri utoaji wa rufaa</string>
+    <string name="tbleprosy_issue_referral_toast">Toa rufaa</string>
 
     <!-- Household head selection dialog -->
     <string name="family_register_head_prompt">Ni nani atakayekuwa mkuu wa kaya hii?</string>
