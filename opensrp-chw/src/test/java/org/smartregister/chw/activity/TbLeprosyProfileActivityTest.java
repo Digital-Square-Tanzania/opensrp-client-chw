@@ -210,6 +210,20 @@ public class TbLeprosyProfileActivityTest {
     }
 
     @Test
+    public void shouldReturnTrueWhenReferralTaskIsOnSameDateAsVisitDate() {
+        Task task = Mockito.mock(Task.class);
+        Mockito.doReturn(CoreConstants.TASKS_FOCUS.TBLEPROSY).when(task).getFocus();
+        Mockito.doReturn(new DateTime(2026, 2, 25, 1, 0)).when(task).getLastModified();
+
+        boolean hasReferralTask = TbLeprosyProfileActivity.isTbLeprosyReferralTaskAfterVisit(
+                task,
+                new DateTime(2026, 2, 25, 23, 59).toDate()
+        );
+
+        Assert.assertTrue(hasReferralTask);
+    }
+
+    @Test
     public void pendingReferralEditClickShouldLaunchTbLeprosyReferralForm() throws Exception {
         TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
         MemberObject memberObject = Mockito.mock(MemberObject.class);
