@@ -154,7 +154,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
 
             if (stepOneUniqueId != null) {
                 stepOneUniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
-                stepOneUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId + "_Family");
+                stepOneUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId + "_family");
             }
 
             JSONObject stepTwoUniqueId = getFieldJSONObject(fields(form, STEP2), Constants.JSON_FORM_KEY.UNIQUE_ID);
@@ -163,7 +163,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
                 stepTwoUniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, newEntityId);
             }
 
-            org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
+            org.smartregister.chw.util.JsonFormUtils.addLocHierarchyQuestions(form);
             return form;
 
         } catch (Exception e) {

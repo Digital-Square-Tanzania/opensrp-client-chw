@@ -1,0 +1,308 @@
+{
+  "count": "1",
+  "encounter_type": "Parents and Guardians’ Group Exit Assessment Tool",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "rules_file": "ayp_parenting_services_parents-guardians-group-exit-assessment-relevance-rules.yml",
+  "step1": {
+    "title": "Parents and Guardians’ Group Exit Assessment Tool",
+    "fields": [
+      {
+        "key": "region",
+        "type": "edit_text",
+        "label": "Region",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "region"
+      },
+      {
+        "key": "council",
+        "type": "edit_text",
+        "label": "Council",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "council"
+      },
+      {
+        "key": "cso",
+        "type": "edit_text",
+        "label": "CSO (if any)",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cso"
+      },
+      {
+        "key": "ward",
+        "type": "edit_text",
+        "label": "Ward",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ward"
+      },
+      {
+        "key": "village",
+        "type": "edit_text",
+        "label": "Village/Street",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "village"
+      },
+      {
+        "key": "group_name",
+        "type": "edit_text",
+        "label": "Group Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "group_name"
+      },
+      {
+        "key": "age_group",
+        "type": "native_radio",
+        "label": "Age Group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age_group",
+        "options": [
+          {
+            "key": "age_10_14",
+            "text": "10–14",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_10_14"
+          },
+          {
+            "key": "age_15_19",
+            "text": "15–19",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_15_19"
+          },
+          {
+            "key": "age_20_24",
+            "text": "20–24",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_20_24"
+          }
+        ]
+      },
+      {
+        "key": "date_group_formation",
+        "type": "date_picker",
+        "label": "Date of Group Formation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_group_formation",
+        "min_date": "today-7d",
+        "max_date": "today"
+      },
+      {
+        "key": "current_members",
+        "type": "edit_text",
+        "label": "Current Number of Group Members",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "current_members",
+        "v_numeric_integer": {
+          "value": true,
+          "err": "Please enter a whole number"
+        }
+      },
+      {
+        "key": "members_in_assessment",
+        "type": "edit_text",
+        "label": "Number of members participating in assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "members_in_assessment",
+        "v_numeric_integer": {
+          "value": true,
+          "err": "Please enter a whole number"
+        }
+      },
+      {
+        "key": "dropouts",
+        "type": "edit_text",
+        "label": "Number of drop-out group members",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dropouts",
+        "v_numeric_integer": {
+          "value": true,
+          "err": "Please enter a whole number"
+        }
+      },
+      {
+        "key": "mentor",
+        "type": "edit_text",
+        "label": "Name of Group Mentor/Supervisor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mentor"
+      },
+      {
+        "key": "chairperson",
+        "type": "edit_text",
+        "label": "Name of Group Chairperson",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson"
+      },
+      {
+        "key": "chair_phone",
+        "type": "edit_text",
+        "label": "Phone number of Chairperson",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chair_phone"
+      },
+      {
+        "key": "date_assessment",
+        "type": "date_picker",
+        "label": "Date of Assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_assessment",
+        "min_date": "today-7d",
+        "max_date": "today"
+      },
+      {
+        "key": "duration_assessment",
+        "type": "native_radio",
+        "label": "Duration of Assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "duration_assessment",
+        "options": [
+          {
+            "key": "six_months",
+            "text": "Six Months (6)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "six_months"
+          },
+          {
+            "key": "twelve_months",
+            "text": "Twelve Months (12)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "twelve_months"
+          }
+        ]
+      },
+
+      
+      { "key": "q1_completed_6months", "type": "native_radio", "label": "Has the group completed six months before being assessed?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q1_completed_6months", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q2_basic_services", "type": "native_radio", "label": "Have members completed the basic services for AYP?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q2_basic_services", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q3_constitution", "type": "native_radio", "label": "Does the group have a written constitution accepted by members?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q3_constitution", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q4_registered", "type": "native_radio", "label": "Is the group registered according to government procedures?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q4_registered", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q5_rules_familiar", "type": "native_radio", "label": "Can members outline rules in the constitution?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q5_rules_familiar", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q6_leadership_training", "type": "native_radio", "label": "Have group members been trained in leadership and governance?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q6_leadership_training", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q7_elections", "type": "native_radio", "label": "Have leaders been elected according to the constitution?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q7_elections", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q8_saving", "type": "native_radio", "label": "Do members save according to the constitution?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q8_saving", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q9_records", "type": "native_radio", "label": "Are savings and loan records maintained correctly?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q9_records", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q10_financial_mgmt", "type": "native_radio", "label": "Does the group adhere to safe financial management?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q10_financial_mgmt", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q11_grants", "type": "native_radio", "label": "Has the group ever received any grants or loans?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q11_grants", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q12_repayments", "type": "native_radio", "label": "Do members repay loans on time?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q12_repayments", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q13_dividends", "type": "native_radio", "label": "Can leaders calculate dividends correctly?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q13_dividends", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q14_investments", "type": "native_radio", "label": "Do members invest borrowed money in business?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q14_investments", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q15_business_plan", "type": "native_radio", "label": "Do members have a business plan?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q15_business_plan", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q16_health_services", "type": "native_radio", "label": "Do members know where to get counseling/health services?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q16_health_services", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q17_hiv_protection", "type": "native_radio", "label": "Do members understand correct use of protection methods (condoms, VMMC, PrEP)?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q17_hiv_protection", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q18_sti_protection", "type": "native_radio", "label": "Do members understand how to protect themselves and where to get STI treatment?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q18_sti_protection", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q19_understand_abuse", "type": "native_radio", "label": "Do members understand issues of violence and abuse?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q19_understand_abuse", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+      { "key": "q20_report_abuse", "type": "native_radio", "label": "Do members know where to report abuse/violence?", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "q20_report_abuse", "options": [ { "key": "yes", "text": "Yes", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "yes" }, { "key": "no", "text": "No", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "no" } ] },
+
+      {
+        "key": "total_score",
+        "type": "edit_text",
+        "label": "Total Score (out of 20)",
+        "read_only": true,
+        "hint": "Auto-calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "total_score"
+      },
+      {
+        "key": "score_category",
+        "type": "edit_text",
+        "label": "Performance Category",
+        "read_only": true,
+        "hint": "Auto-derived",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "score_category"
+      },
+      {
+        "key": "guidance_ready",
+        "type": "toaster_notes",
+        "label": "Guidance",
+        "text": "Ready to operate independently.\n\n- Facilitator will make visits every three months or as needed.",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "guidance_ready"
+      },
+      {
+        "key": "guidance_monthly",
+        "type": "toaster_notes",
+        "label": "Guidance",
+        "text": "Needs monthly support.\n\n- Facilitator will continue to strengthen the program and visit monthly.",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "guidance_monthly"
+      },
+      {
+        "key": "guidance_weekly",
+        "type": "toaster_notes",
+        "label": "Guidance",
+        "text": "Needs weekly support.\n\n- Facilitator will continue to strengthen the program and visit weekly.",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "guidance_weekly"
+      }
+    ]
+  }
+}

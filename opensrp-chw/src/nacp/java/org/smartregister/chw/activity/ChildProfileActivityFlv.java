@@ -20,6 +20,9 @@ public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
                     case R.id.refer_to_facility_layout:
                         presenter.referToFacility();
                         break;
+                    case R.id.refer_to_addo_layout:
+                        presenter.referToAddo();
+                        break;
                     default:
                         break;
                 }

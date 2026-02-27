@@ -10,12 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.ld.util.AppExecutors;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
+import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
@@ -68,7 +68,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
             JSONObject jsonObject = new JSONObject(jsonPayload);
             jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
 
-            int age = getAgeFromDate(memberObject.getAge());
+            int age = memberObject.getAge();
             if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
@@ -126,7 +126,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
 
         if (IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
-            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 5) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);
                     IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect);

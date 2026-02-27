@@ -5,3 +5,10 @@ priority: 1
 condition: "step1_date_died != '' && step1_dob != ''"
 actions:
   - "calculation =  helper.getDuration(step1_date_died , step1_dob)"
+---
+name: step1_dod
+description: Calculated dod
+priority: 1
+condition: "step1_date_died != '' && step1_dob != ''"
+actions:
+  - "calculation = step1_date_died"

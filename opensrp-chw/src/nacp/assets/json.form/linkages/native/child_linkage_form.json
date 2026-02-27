@@ -1,0 +1,188 @@
+{
+  "count": "1",
+  "encounter_type": "Child Addo Linkage",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "child Linkage form",
+    "fields": [
+      {
+        "key": "child_minor_ailment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "problem",
+        "type": "check_box",
+        "label": "Reasons for Linkage",
+        "exclusive": ["chk_none"],
+        "options": [
+          {
+            "key": "cough",
+            "text": "Cough",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "cough"
+          },
+          {
+            "key": "running_nose_cold",
+            "text": "Running nose/Cold",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "running_nose_cold"
+          },
+          {
+            "key": "sore_throat",
+            "text": "Sore throat",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "sore_throat"
+          },
+          {
+            "key": "chk_sneezing",
+            "text": "Sneezing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_headache",
+            "text": "Headache",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_weak",
+            "text": "Weak",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_body_chills_shivering",
+            "text": "Body chills/shivering",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_lack_of_appetite",
+            "text": "Lack of appetite",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_feels_thirsty",
+            "text": "Feels thirsty",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_mild_diarrhea",
+            "text": "Mild diarrhea without blood (less than 3 times in 24 hrs)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_skin_infections",
+            "text": "Minor skin infections",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_minor_wound",
+            "text": "Minor wounds or cuts",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "other_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id":"",
+        "hint": "If other is selected specify reason for minor ailment",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Field can not be empty"
+        },
+        "relevance": {
+          "step1:child_minor_ailment": {
+            "ex-checkbox": [
+              {
+                "or": ["chk_other"]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

@@ -10,12 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.ld.util.AppExecutors;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
+import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
@@ -130,7 +130,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             isMalariaSuspectString = "true";
         }
 
-        int age = getAgeFromDate(memberObject.getAge());
+        int age = memberObject.getAge();
         if (age > 6) {
             String malariaActionTitle = context.getString(R.string.iccm_malaria);
             if (isMalariaSuspectString.equalsIgnoreCase("true")) {
@@ -147,7 +147,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 actionList.remove(context.getString(R.string.iccm_malaria));
             }
         } else {
-            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 6)) {
+            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 6)) {
                 try {
                     String title = context.getString(R.string.iccm_pneumonia);
                     IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isDiarrheaSuspect, isMalariaSuspectString);
@@ -156,7 +156,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 } catch (Exception e) {
                     Timber.e(e);
                 }
-            } else if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
+            } else if (isDiarrheaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 5) {
                 actionList.remove(context.getString(R.string.iccm_pneumonia));
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);

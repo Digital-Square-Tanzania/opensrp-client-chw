@@ -1,0 +1,326 @@
+{
+  "count": "1",
+  "encounter_type": "education_subsidies",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Education Subsidies",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "education_subsidies_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_subsidies_provided",
+        "type": "native_radio",
+        "label": "Were Education Busidies provided?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select Yes or No"
+        }
+      },
+      {
+        "key": "education_subsidies",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_subsidies",
+        "type": "check_box",
+        "label": "Education Subsidies (ES) provided:",
+        "v_required": {
+          "value": true,
+          "err": "Please select at least one subsidy"
+        },
+        "options": [
+          {
+            "key": "exercise_books",
+            "text": "Exercise Books",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "exercise_books",
+            "value": false
+          },
+          {
+            "key": "pens",
+            "text": "Pens",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pens",
+            "value": false
+          },
+          {
+            "key": "pencils",
+            "text": "Pencils",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pencils",
+            "value": false
+          },
+          {
+            "key": "school_bag",
+            "text": "School bag",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school_bag",
+            "value": false
+          },
+          {
+            "key": "school_uniform",
+            "text": "School uniform",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school_uniform",
+            "value": false
+          },
+          {
+            "key": "school_shoes",
+            "text": "School shoes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "school_shoes",
+            "value": false
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_exercise_books_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_exercise_books_count",
+        "type": "edit_text",
+        "hint": "Number of exercise books",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "number_of_pens_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_pens_count",
+        "type": "edit_text",
+        "hint": "Number of pens",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "number_of_pencils_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_pencils_count",
+        "type": "edit_text",
+        "hint": "Number of pencils",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "school_bag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "school_bag_count",
+        "type": "edit_text",
+        "hint": "Number of school bags",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "school_uniform_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "school_uniform_count",
+        "type": "edit_text",
+        "hint": "Number of school uniforms",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "school_shoes_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "school_shoes_count",
+        "type": "edit_text",
+        "hint": "Number of school shoes",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      },
+      {
+        "key": "others_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_count",
+        "type": "edit_text",
+        "hint": "Number of other items",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in-school_education-subsidies-relevance-rules.yml"
+            }
+          }
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a whole number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter count"
+        }
+      }
+    ]
+  }
+}

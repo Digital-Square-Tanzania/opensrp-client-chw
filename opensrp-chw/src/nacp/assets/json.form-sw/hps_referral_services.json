@@ -1,0 +1,569 @@
+{
+  "count":"1",
+  "encounter_type":"HPS Referral Services",
+  "entity_id":"",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"start",
+      "openmrs_entity_id":"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"end",
+      "openmrs_entity_id":"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"deviceid",
+      "openmrs_entity_id":"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"subscriberid",
+      "openmrs_entity_id":"163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"simserial",
+      "openmrs_entity_id":"163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent":"",
+      "openmrs_entity":"concept",
+      "openmrs_data_type":"phonenumber",
+      "openmrs_entity_id":"163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location":""
+  },
+  "global": {
+  },
+  "step1": {
+    "title":"Rufaa Iliyotolewa",
+    "fields": [
+      {
+        "key":"provide_referral_services",
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"provide_referral_services",
+        "type":"native_radio",
+        "label":"Kuna huduma za rufaa zimetolewa kwa mteja?",
+        "options": [
+          {
+            "key":"yes",
+            "text":"Ndio",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"yes"
+          },
+          {
+            "key":"no",
+            "text":"Hapana",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"no"
+          }
+        ],
+        "v_required": {
+          "value":"true",
+          "err":"Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key":"referral_provided_male",
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"referral_provided_male",
+        "type":"check_box",
+        "label":"Chagua aina ya huduma za rufaa zilizotolewa kwa mteja",
+        "text_color":"#000000",
+        "combine_checkbox_option_values":"true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key":"family_planning",
+            "text":"Uzazi wa mpango",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"family_planning"
+          },
+          {
+            "key":"sexually_transmitted",
+            "text":"Upimaji wa VVU, homa ya ini na magonjwa mengine ya ngono",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"sexually_transmitted"
+          },
+          {
+            "key":"client_engagement_treatment",
+            "text":"Kumrudisha kwenye matibabu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"client_engagement_treatment"
+          },
+          {
+            "key":"vaccination",
+            "text":"Chanjo",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"vaccination"
+          },
+          {
+            "key":"child_investigation_treatment",
+            "text":"Uchunguzi na matibabu ya mtoto",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"child_investigation_treatment"
+          },
+          {
+            "key":"low_blood",
+            "text":"Upungufu wa damu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"low_blood"
+          },
+          {
+            "key":"malnutrition_treatment",
+            "text":"Matibabu ya Utapiamlo",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"malnutrition_treatment"
+          },
+          {
+            "key":"other_malaria",
+            "text":"Matibabu zaidi ya malaria",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"other_malaria"
+          },
+          {
+            "key":"tuberculosis_test",
+            "text":"Kupima kifua kikuu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"tuberculosis_test"
+          },
+          {
+            "key":"male_circumcision",
+            "text":"Tohara kwa wanaume",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"male_circumcision"
+          },
+          {
+            "key":"oral_health_care",
+            "text":"Uchunguzi na matibabu ya afya ya kinywa na meno",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"oral_health_care"
+          },
+          {
+            "key":"eye_health_care",
+            "text":"Uchunguzi na matibabu ya macho",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"eye_health_care"
+          },
+          {
+            "key":"social_welfare",
+            "text":"Huduma za ustawi wa jamii",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"social_welfare"
+          },
+          {
+            "key":"ntd_services",
+            "text":"Uchunguzi na matibabu ya magonjwa yaliyokuwa hayapewi kipaumbele",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"ntd_services"
+          },
+          {
+            "key":"ncd_services",
+            "text":"Uchunguzi na matibabu ya magonjwa yasiyoambukiza",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"ncd_services"
+          },
+          {
+            "key":"mental_health_services",
+            "text":"Uchunguzi na matibabu ya afya ya akili",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"mental_health_services"
+          },
+          {
+            "key":"animal_bites_services",
+            "text":"Uchunguzi na matibabu baada ya kungatwa na mnyama",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"animal_bites_services"
+          },
+          {
+            "key":"other_referral_services",
+            "text":"Rufaa nyinginezo kwa uchunguzi na matibabu zaidi",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"other_referral_services"
+          }
+        ],
+        "v_required": {
+          "value":"true",
+          "err":"Tafadhali jaza jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file":"hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key":"referral_provided_female",
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"referral_provided_female",
+        "type":"check_box",
+        "label":"Chagua aina ya huduma za rufaa zilizotolewa kwa mteja",
+        "text_color":"#000000",
+        "combine_checkbox_option_values":"true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key":"anc_services",
+            "text":"Huduma ya mama mjamzito",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"anc_services"
+          },
+          {
+            "key":"family_planning",
+            "text":"Uzazi wa mpango",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"family_planning"
+          },
+          {
+            "key":"sexually_transmitted",
+            "text":"Upimaji wa VVU, homa ya ini na magonjwa mengine ya ngono",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"sexually_transmitted"
+          },
+          {
+            "key":"client_engagement_treatment",
+            "text":"Kumrudisha kwenye matibabu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"client_engagement_treatment"
+          },
+          {
+            "key":"vaccination",
+            "text":"Chanjo",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"vaccination"
+          },
+          {
+            "key":"pnc_care",
+            "text":"Huduma ya mama na mtoto baada ya kujifungua",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"pnc_care"
+          },
+          {
+            "key":"child_investigation_treatment",
+            "text":"Uchunguzi na matibabu ya mtoto",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"child_investigation_treatment"
+          },
+          {
+            "key":"cervical_breast_cancer",
+            "text":"Uchunguzi wa awali wa saratani ya mlango wa kizazi na matiti",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"cervical_breast_cancer"
+          },
+          {
+            "key":"low_blood",
+            "text":"Upungufu wa damu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"low_blood"
+          },
+          {
+            "key":"malnutrition_treatment",
+            "text":"Matibabu ya Utapiamlo",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"malnutrition_treatment"
+          },
+          {
+            "key":"other_malaria",
+            "text":"Matibabu zaidi ya malaria",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"other_malaria"
+          },
+          {
+            "key":"tuberculosis_test",
+            "text":"Kupima kifua kikuu",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"tuberculosis_test"
+          },
+          {
+            "key":"oral_health_care",
+            "text":"Uchunguzi na matibabu ya afya ya kinywa na meno",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"oral_health_care"
+          },
+          {
+            "key":"eye_health_care",
+            "text":"Uchunguzi na matibabu ya macho",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"eye_health_care"
+          },
+          {
+            "key":"social_welfare",
+            "text":"Huduma za ustawi wa jamii",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"social_welfare"
+          },
+          {
+            "key":"ntd_services",
+            "text":"Uchunguzi na matibabu ya magonjwa yaliyokuwa hayapewi kipaumbele",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"ntd_services"
+          },
+          {
+            "key":"ncd_services",
+            "text":"Uchunguzi na matibabu ya magonjwa yasiyoambukiza",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"ncd_services"
+          },
+          {
+            "key":"mental_health_services",
+            "text":"Uchunguzi na matibabu ya afya ya akili",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"mental_health_services"
+          },
+          {
+            "key":"animal_bites_services",
+            "text":"Uchunguzi na matibabu baada ya kungatwa na mnyama",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"animal_bites_services"
+          },
+          {
+            "key":"other_referral_services",
+            "text":"Rufaa nyinginezo kwa uchunguzi na matibabu zaidi",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"other_referral_services"
+          }
+        ],
+        "v_required": {
+          "value":"true",
+          "err":"Tafadhali jaza jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file":"hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_provided",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key":"others_referrals_specify",
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"others_referrals_specify",
+        "type":"edit_text",
+        "hint":"Taja rufaa nyinginezo kwa uchunguzi na matibabu zaidi",
+        "v_required": {
+          "value":"true",
+          "err":"Tafadhali jaza jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file":"hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "was_there_any_referral_system_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_there_any_referral_system_used",
+        "type": "native_radio",
+        "label": "Je,kuna mfumo wa rufaa umetumika?",
+        "label_text_size": "18px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_including_ucs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_including_ucs",
+        "type": "check_box",
+        "label": "Chagua mfumo wa rufaa uliotumika",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "m_mama",
+            "text": "M-Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "m_mama"
+          },
+          {
+            "key": "ucs",
+            "text": "UCS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ucs"
+          },
+          {
+            "key": "referral_form",
+            "text": "Fomu ya Rufaa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Referral Form"
+          },
+          {
+            "key": "other_method",
+            "text": "Mfumo mwingine(elezea)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_method"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_excluding_ucs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_excluding_ucs",
+        "type": "check_box",
+        "label": "Chagua mfumo wa rufaa uliotumika",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "m_mama",
+            "text": "M-Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "m_mama"
+          },
+          {
+            "key": "referral_form",
+            "text": "Fomu ya Rufaa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Referral Form"
+          },
+          {
+            "key": "other_method",
+            "text": "Mfumo mwingine(elezea)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_method"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_system_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_system_provided",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key":"other_method_specify",
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"concept",
+        "openmrs_entity_id":"other_method_specify",
+        "type":"edit_text",
+        "hint":"Taja njia nyingine iliyotumika kutoa rufaaa",
+        "v_required": {
+          "value":"true",
+          "err":"Tafadhali taja njia nyingine iliyotumika kutoa rufaa"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file":"hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_referral_system_used",
+        "type": "toaster_notes",
+        "text": "Hakikisha fomu za rufaa za mteja zimejazwa katika mfumo huu",
+        "openmrs_entity_id": "prompt_for_referral_system_used",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_referral_services_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

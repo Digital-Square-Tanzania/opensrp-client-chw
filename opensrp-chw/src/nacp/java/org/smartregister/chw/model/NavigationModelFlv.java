@@ -47,6 +47,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             NavigationOption op21 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc, CoreConstants.DrawerMenu.SBC, 0);
             NavigationOption op22 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc_monthly_social_media_report, CoreConstants.DrawerMenu.SBC_MONTHLY_SOCIAL_MEDIA_REPORT, 0);
+            NavigationOption op23 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.asrh, CoreConstants.DrawerMenu.AYSRH, 0);
+            NavigationOption op24 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.cecap, CoreConstants.DrawerMenu.CECAP, 0);
+            NavigationOption op25 = new NavigationOption(R.drawable.hps_disactive, R.drawable.hps_active, R.string.hps, CoreConstants.DrawerMenu.HPS, 0);
+
+            NavigationOption op26 = new NavigationOption(R.drawable.ic_linkage_gray, R.drawable.ic_linkage, R.string.nav_menu_linkage, CoreConstants.DrawerMenu.ADDO_LINKAGE, 0);
+            NavigationOption op27 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_inschool, CoreConstants.DrawerMenu.AYP_IN_SCHOOL, 0);
+            NavigationOption op28 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_outschool, CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, 0);
+            NavigationOption op29 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_parental, CoreConstants.DrawerMenu.AYP_PARENTAL, 0);
+            NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -66,6 +75,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     case "iccm_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op20, op8));
                         break;
+                    case "rmncah_provider":
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8));
+                        break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
@@ -80,12 +92,32 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         if (ChwApplication.getApplicationFlavor().hasKvp()) {
                             navigationOptions.add(op18);
                         }
+                        if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+                            navigationOptions.add(op30);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasMalaria()) {
                             navigationOptions.add(op7);
                         }
                         if (ChwApplication.getApplicationFlavor().hasSbc()) {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasADDO()){
+                            navigationOptions.add(op25);
+                        }
+
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
+                            navigationOptions.add(2, op25);
+                        }
+
+                        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                            navigationOptions.add(op6);
+                        }
+
+                        if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                            navigationOptions.add(op27);
+                            navigationOptions.add(op28);
+                            navigationOptions.add(op29);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op15));
@@ -105,12 +137,32 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasKvp()) {
                     navigationOptions.add(op18);
                 }
+                if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+                    navigationOptions.add(op30);
+                }
                 if (ChwApplication.getApplicationFlavor().hasMalaria()) {
                     navigationOptions.add(op7);
                 }
+                if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                    navigationOptions.add(op24);
+                }
+
+                if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                    navigationOptions.add(op23);
+                }
+                if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                    navigationOptions.add(op27);
+                    navigationOptions.add(op28);
+                    navigationOptions.add(op29);
+                }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
-                    navigationOptions.add(op22);
                     navigationOptions.add(op21);
+                }
+                if (ChwApplication.getApplicationFlavor().hasADDO()){
+                    navigationOptions.add(op26);
+                }
+                if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
+                    navigationOptions.add(op6);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op15));
             }

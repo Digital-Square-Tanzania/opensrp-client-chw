@@ -6,6 +6,13 @@ condition: "step1_self_test_kit_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
+name: step1_client_kit_type
+description: client_kit_type relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_client_kit_batch_number
 description: client_kit_batch_number relevance
 priority: 1

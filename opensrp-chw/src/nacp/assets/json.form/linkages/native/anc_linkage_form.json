@@ -1,0 +1,149 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Addo Linkage",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "ANC Linkage form",
+    "fields": [
+      {
+        "key": "minor_ailment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "problem",
+        "type": "check_box",
+        "label": "Reasons for Linkage",
+        "exclusive": ["chk_none"],
+        "options": [
+          {
+            "key": "mild_pain",
+            "text": "Mild pain",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mild_pain"
+          },
+          {
+            "key": "mild_fever",
+            "text": "Mild fever",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mild_fever"
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "cough"
+          },
+          {
+            "key": "running_nose_cold",
+            "text": "Running nose/Cold",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "running_nose_cold"
+          },
+          {
+            "key": "sore_throat",
+            "text": "Sore throat",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "sore_throat"
+          },
+          {
+            "key": "refill_medicine",
+            "text": "Refill of medicines such as Ferrous Sulphate, folic acid, and SP for IPTp",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "refill_medicine"
+          },
+          {
+            "key": "refill_commodities",
+            "text": "Refill of other commodities such as antiseptics/soaps, delivery kit",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "refill_commodities"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "other_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id":"",
+        "hint": "If other is selected specify reason for minor ailment",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Field can not be empty"
+        },
+        "relevance": {
+          "step1:minor_ailment": {
+             "ex-checkbox": [
+            {
+              "or": ["chk_other"]
+            }
+          ]
+        }
+      }
+      }
+    ]
+  }
+}

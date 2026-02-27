@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
@@ -8,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
@@ -52,6 +55,7 @@ import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.interactor.CbhsProfileInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -64,12 +68,14 @@ import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.CbhsUtils;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Location;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.LocationRepository;
 
 import java.util.ArrayList;
@@ -583,13 +589,14 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        String dob = getHivMemberObject().getAge();
+        int age = Utils.getAgeFromDate(dob);
+
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
-            String dob = getHivMemberObject().getAge();
-            int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()) && age >= 15);
         }
         if (ChwApplication.getApplicationFlavor().hasKvp()) {
@@ -598,6 +605,15 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(getHivMemberObject().getBaseEntityId()) && age >= 10);
+        }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, getHivMemberObject().getBaseEntityId());
         return true;
     }
 
@@ -620,8 +636,18 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         } else if (itemId == R.id.action_kvp_prep_registration) {
             startKvpPrepRegistration();
             return true;
+        } else if (itemId == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, getHivMemberObject().getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     private void startKvpPrepRegistration() {
@@ -649,6 +675,10 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId());
     }
 
     protected void startAncRegister() {
@@ -746,12 +776,8 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
         }
     }
 
-    public @javax.annotation.Nullable Visit getVisit(String eventType) {
+    public @Nullable Visit getVisit(String eventType) {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(getHivMemberObject().getBaseEntityId(), eventType);
-    }
-
-    public interface Flavor {
-        // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 
     @Override
@@ -763,5 +789,8 @@ public class HivProfileActivity extends CoreHivProfileActivity implements Family
             super.setUpComingServicesStatus(service, status, nextAppointmentDate);
         }
     }
-}
 
+    public interface Flavor {
+        // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+    }
+}

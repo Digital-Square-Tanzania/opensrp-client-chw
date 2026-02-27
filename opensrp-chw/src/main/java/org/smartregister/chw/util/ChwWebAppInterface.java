@@ -49,7 +49,7 @@ public class ChwWebAppInterface {
                     return "";
             }
         }
-        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ICCM_REPORT)){
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ICCM_REPORT)) {
             switch (key) {
                 case Constants.ReportConstants.ICCMReportKeys.CLIENTS_MONTHLY_REPORT:
                     ReportUtils.setPrintJobName("ICCM_clients_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
@@ -70,6 +70,86 @@ public class ChwWebAppInterface {
             return ReportUtils.SbcReports.computeClientsReports(ReportUtils.getReportDate());
         }
 
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.ASRH_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.CecapReportKeys.CLIENTS_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("ASRH_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AsrhReports.computeClientsReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.CecapReportKeys.OTHER_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("ASRH_other_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AsrhReports.computeOtherReports(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.AYP_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.AypReportKeys.AYP_IN_SCHOOL_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("AYP_in_school_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AypReports.computeInSchoolMonthlyReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.AypReportKeys.AYP_PARENTAL_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("AYP_parental_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.AypReports.computeParentalMonthlyReport(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
+        }
+
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CECAP_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.CecapReportKeys.CLIENTS_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("CECAP_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.CecapReports.computeClientsReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.CecapReportKeys.OTHER_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("CECAP_other_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.CecapReports.computeOtherReports(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.KVP_REPORT)) {
+            ReportUtils.setPrintJobName("SBC_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.KvpReports.computeClientsReports(ReportUtils.getReportDate());
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.HPS_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.HpsReportKeys.HPS_MONTHLY_REPORT:
+                    ReportUtils.setPrintJobName("HPS_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.HpsReports.computeClientsReports(ReportUtils.getReportDate());
+                case Constants.ReportConstants.HpsReportKeys.HPS_ANNUAL_REPORT:
+                    ReportUtils.setPrintJobName("HPS_report_ya_mwaka-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.HpsReports.computeClientsAnnualReports(ReportUtils.getReportDate());
+                default:
+                    return "";
+            }
+        }
+
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.TBLEPROSY_REPORT)) {
+            switch (key) {
+                case Constants.ReportConstants.TbLeprosyReportKeys.COMMUNITY_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Community_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeCommunityReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.HOUSEHOLD_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Household_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeHouseholdReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.SPECIAL_AREAS_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Special_Areas_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeSpecialAreasReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.TREATMENT_STATUS_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Treatment_Status_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeTreatmentStatusReport(ReportUtils.getReportDate());
+                case Constants.ReportConstants.TbLeprosyReportKeys.SERVICE_CHALLENGES_REPORT:
+                    ReportUtils.setPrintJobName("TB_Leprosy_Service_Challenges_Report-" + ReportUtils.getReportPeriod() + ".pdf");
+                    return ReportUtils.TbLeprosyReports.computeServiceChallengesReport(ReportUtils.getReportDate());
+                default:
+                    return ReportUtils.TbLeprosyReports.emptyReport();
+            }
+        }
+
         return "";
     }
 
@@ -88,4 +168,9 @@ public class ChwWebAppInterface {
     public String getReportingFacility() {
         return getAllSharedPreferences().fetchCurrentLocality();
     }
+    @JavascriptInterface
+    public String getReportingChw() {
+        return getAllSharedPreferences().fetchUserLocalityName(getAllSharedPreferences().fetchRegisteredANM());
+    }
+
 }

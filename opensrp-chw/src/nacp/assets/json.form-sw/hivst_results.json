@@ -1,382 +1,389 @@
 {
-    "count": "1",
-    "encounter_type": "Self Testing Results",
-    "entity_id": "",
-    "metadata": {
-        "start": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "start",
-            "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "end": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "end",
-            "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "deviceid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "deviceid",
-            "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "subscriberid": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "subscriberid",
-            "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "simserial": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "simserial",
-            "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "phonenumber": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_data_type": "phonenumber",
-            "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "encounter_location": ""
+  "count": "1",
+  "encounter_type": "Self Testing Results",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "global": {},
-    "step1": {
-        "title": "Rekodi Matokeo ya Jipime",
-        "fields": [
-            {
-                "key": "has_the_client_been_found",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_the_client_been_found",
-                "label": "Je Mteja amepatikana?",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Please select an answer"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "disclose_result",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "disclose_result",
-                "label": "Mteja ametoa majibu yake",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "yes",
-                        "text": "Ndio",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "yes"
-                    },
-                    {
-                        "key": "no",
-                        "text": "Hapana",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "no"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "client_test_result",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_test_result",
-                "label": "Chagua majibu ya vipimo vya mteja",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "reactive",
-                        "text": "Viashiria Vipo",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "reactive"
-                    },
-                    {
-                        "key": "non_reactive",
-                        "text": "Hana viashiria",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "non_reactive"
-                    },
-                    {
-                        "key": "invalid",
-                        "text": "Jibu batili",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "invalid"
-                    },
-                    {
-                        "key": "wastage",
-                        "text": "Upotevu",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "wastage"
-                    }
-                ],
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                },
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu"
-                }
-            },
-            {
-                "key": "prompt_for_referral",
-                "type": "toaster_notes",
-                "text": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
-                "toaster_info_text": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
-                "toaster_info_title": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
-                "openmrs_entity_id": "",
-                "openmrs_entity": "",
-                "openmrs_entity_parent": "",
-                "toaster_type": "warning",
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "prompt_for_invalid_or_wastage_for_client",
-                "type": "toaster_notes",
-                "text": "Toa Kitepe cha ziada",
-                "openmrs_entity_id": "",
-                "openmrs_entity": "",
-                "openmrs_entity_parent": "",
-                "toaster_type": "warning",
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "peer_test_result",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "peer_test_result",
-                "label": "chagua majibu ya rafiki rika",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "reactive",
-                        "text": "Viashiria Vipo",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "reactive"
-                    },
-                    {
-                        "key": "non_reactive",
-                        "text": "Hana viashiria",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "non_reactive"
-                    },
-                    {
-                        "key": "invalid",
-                        "text": "Jibu Batili",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "invalid"
-                    },
-                    {
-                        "key": "wastage",
-                        "text": "Upotevu",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "wastage"
-                    },
-                    {
-                        "key": "not_returned",
-                        "text": "Majibu hayajarudi",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "not_returned"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chagua jibu"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "sexual_partner_test_result",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sexual_partner_test_result",
-                "label": "chagua majibu ya mshirika wa kingono",
-                "text_color": "#000000",
-                "type": "native_radio",
-                "options": [
-                    {
-                        "key": "reactive",
-                        "text": "Viashiria Vipo",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "reactive"
-                    },
-                    {
-                        "key": "non_reactive",
-                        "text": "Hana viashiria",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "non_reactive"
-                    },
-                    {
-                        "key": "invalid",
-                        "text": "Majibu batili",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "invalid"
-                    },
-                    {
-                        "key": "wastage",
-                        "text": "Upotevu",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "wastage"
-                    },
-                    {
-                        "key": "not_returned",
-                        "text": "Majibu hayajarudi",
-                        "openmrs_entity_parent": "",
-                        "openmrs_entity": "concept",
-                        "openmrs_entity_id": "not_returned"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": "Tafadhali chaguaa jibu"
-                },
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "prompt_for_referral_for_peer_or_sexual_partner",
-                "type": "toaster_notes",
-                "text": "Mshauri mteja akamshauri mwenza/rafiki rika kwenda kituo cha afya kuhakiki majibu ya kitepe cha JIPIME",
-                "toaster_info_text": "Mshauri mteja akamshauri mwenza/rafiki rika kwenda kituo cha afya kuhakiki majibu ya kitepe cha JIPIME",
-                "toaster_info_title": "Mshauri mteja",
-                "openmrs_entity_id": "",
-                "openmrs_entity": "",
-                "openmrs_entity_parent": "",
-                "toaster_type": "warning",
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "prompt_for_invalid_or_wastage_for_peer_or_sexual_partner",
-                "type": "toaster_notes",
-                "text": "Toa Kitepe cha ziada kwaajili ya mwenza/rafiki rika",
-                "openmrs_entity_id": "",
-                "openmrs_entity": "",
-                "openmrs_entity_parent": "",
-                "toaster_type": "warning",
-                "relevance": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_relevance.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "hivst_result",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "hivst_result",
-                "type": "hidden",
-                "calculation": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_calculation.yml"
-                        }
-                    }
-                }
-            },
-            {
-                "key": "result_date",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "result_date",
-                "type": "hidden",
-                "calculation": {
-                    "rules-engine": {
-                        "ex-rules": {
-                            "rules-file": "hivst_results_calculation.yml"
-                        }
-                    }
-                }
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Rekodi Matokeo ya Jipime",
+    "fields": [
+      {
+        "key": "has_the_client_been_found",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_the_client_been_found",
+        "label": "Je Mteja amepatikana?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
             }
-        ]
-    }
+          }
+        }
+      },
+      {
+        "key": "disclose_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "disclose_result",
+        "label": "Mteja ametoa majibu yake",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_test_result",
+        "label": "Chagua majibu ya vipimo vya mteja",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "Viashiria Vipo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reactive"
+          },
+          {
+            "key": "non_reactive",
+            "text": "Hana viashiria",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_reactive"
+          },
+          {
+            "key": "invalid",
+            "text": "Jibu batili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "invalid"
+          },
+          {
+            "key": "wastage",
+            "text": "Upotevu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "wastage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "prompt_for_referral",
+        "type": "toaster_notes",
+        "text": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
+        "toaster_info_text": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
+        "toaster_info_title": "Mteja anapaswa kupewa rufaa kwenda kituo cha afya kuhakiki majibu ya JIPIME",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_invalid_or_wastage_for_client",
+        "type": "toaster_notes",
+        "text": "Toa Kitepe cha ziada",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "peer_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_test_result",
+        "label": "chagua majibu ya rafiki rika",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "Viashiria Vipo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reactive"
+          },
+          {
+            "key": "non_reactive",
+            "text": "Hana viashiria",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_reactive"
+          },
+          {
+            "key": "invalid",
+            "text": "Jibu Batili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "invalid"
+          },
+          {
+            "key": "wastage",
+            "text": "Upotevu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "wastage"
+          },
+          {
+            "key": "not_returned",
+            "text": "Majibu hayajarudi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_returned"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sexual_partner_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_partner_test_result",
+        "label": "chagua majibu ya mshirika wa kingono",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "reactive",
+            "text": "Viashiria Vipo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reactive"
+          },
+          {
+            "key": "non_reactive",
+            "text": "Hana viashiria",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_reactive"
+          },
+          {
+            "key": "invalid",
+            "text": "Majibu batili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "invalid"
+          },
+          {
+            "key": "wastage",
+            "text": "Upotevu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "wastage"
+          },
+          {
+            "key": "not_returned",
+            "text": "Majibu hayajarudi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_returned"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chaguaa jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_referral_for_peer_or_sexual_partner",
+        "type": "toaster_notes",
+        "text": "Mshauri mteja akamshauri mwenza/rafiki rika kwenda kituo cha afya kuhakiki majibu ya kitepe cha JIPIME",
+        "toaster_info_text": "Mshauri mteja akamshauri mwenza/rafiki rika kwenda kituo cha afya kuhakiki majibu ya kitepe cha JIPIME",
+        "toaster_info_title": "Mshauri mteja",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_invalid_or_wastage_for_peer_or_sexual_partner",
+        "type": "toaster_notes",
+        "text": "Toa Kitepe cha ziada kwaajili ya mwenza/rafiki rika",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hivst_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hivst_result",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "result_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "result_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "source_form_submission_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "source_form_submission_id",
+        "type": "hidden"
+      }
+    ]
+  }
 }

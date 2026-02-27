@@ -1,10 +1,15 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_MEMBER_OBJECT;
+import static org.smartregister.chw.referral.util.JsonFormConstants.FIELDS;
+import static org.smartregister.chw.referral.util.JsonFormConstants.STEPS;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
@@ -16,6 +21,7 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -32,16 +38,19 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HivIndexContactFloatingMenu;
+import org.smartregister.chw.dao.ChwIndexDao;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -51,6 +60,7 @@ import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +87,34 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit());
+
+        String recGuid = ChwIndexDao.getIndexContactRegGuid(baseEntityID);
+        if (StringUtils.isNotBlank(recGuid)) {
+            JSONArray fields = form.getJSONArray(STEPS).getJSONObject(0).getJSONArray(FIELDS);
+
+            // Create the nested "properties" JSON object
+            JSONObject properties = new JSONObject();
+            properties.put("hint", "CTC Record GUID");
+            properties.put("text", recGuid);
+            properties.put("inputType", "none");
+
+            // Create the nested "meta_data" JSON object
+            JSONObject metaData = new JSONObject();
+            metaData.put("openmrs_entity", "concept");
+            metaData.put("openmrs_entity_id", "rec_guid");
+            metaData.put("openmrs_entity_parent", "");
+
+            // Create the main JSON object and populate it with data and nested objects
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", "rec_guid");
+            jsonObject.put("type", "text_input_edit_text");
+            jsonObject.put("properties", properties);
+            jsonObject.put("meta_data", metaData);
+            jsonObject.put("required_status", "false");
+
+            fields.put(jsonObject);
+        }
+
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
@@ -139,6 +177,12 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             } else if (itemId == R.id.action_hivst_registration) {
                 startHivstRegistration();
                 return true;
+            } else if (itemId == R.id.action_hps_enrollment) {
+                startHpsEnrollment();
+                return true;
+            } else if (itemId == R.id.action_tbleprosy_screening) {
+                startTbLeprosyScreening();
+                return true;
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -146,18 +190,37 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         return super.onOptionsItemSelected(item);
     }
 
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, getHivIndexContactObject().getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
+
+        String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivIndexContactObject().getBaseEntityId()));
         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
-            String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-            int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()) && age >= 15);
         }
         if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivIndexContactObject().getBaseEntityId()));
         }
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(getHivIndexContactObject().getBaseEntityId()) && age >= 10);
+        }
+        AllClientsUtils.addTbLeprosyMenuItem(menu, getHivIndexContactObject().getBaseEntityId());
         return true;
     }
 
@@ -303,4 +366,3 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         HivstRegisterActivity.startHivstRegistrationActivity(this, getHivIndexContactObject().getBaseEntityId(), gender);
     }
 }
-

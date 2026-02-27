@@ -258,6 +258,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasADDO() {
+        return false;
+    }
+
+    @Override
     public String[] getFTSTables() {
         return new String[]{CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.CHILD};
     }

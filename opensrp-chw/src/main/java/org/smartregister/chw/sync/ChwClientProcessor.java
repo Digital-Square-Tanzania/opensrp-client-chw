@@ -1,7 +1,9 @@
 package org.smartregister.chw.sync;
 
 
+import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
+import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
 
@@ -9,9 +11,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.PmtctDao;
+import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupDetailsRepository;
+import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
@@ -24,6 +33,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import timber.log.Timber;
@@ -61,10 +71,99 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
         }
 
+        if (eventType.equals(org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_SCREENING)) {
+            Timber.e("TB_LEPROSY_SCREENING");
+        }
+
+        // Intercept head-person creation when an existing head was selected: skip non-family entityType
+        try {
+            if (CoreConstants.EventType.FAMILY_REGISTRATION.equals(eventType) && eventClient != null && eventClient.getEvent() != null) {
+                String existingHeadIdPre = getFormValue(eventClient.getEvent(), "existing_head");
+                String entityType = eventClient.getEvent().getEntityType();
+                if (StringUtils.isNotBlank(existingHeadIdPre) && StringUtils.isNotBlank(entityType)) {
+                    // Only allow the ec_family event to go through; skip any person/independent-client event
+                    if (!CoreConstants.TABLE_NAME.FAMILY.equalsIgnoreCase(entityType)) {
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
+                case CoreConstants.EventType.FAMILY_REGISTRATION:
+                    // Ensure the new family points to the chosen existing head (if provided)
+                    try {
+                        String chosenHead = getFormValue(eventClient.getEvent(), "family_head");
+                        if (StringUtils.isBlank(chosenHead)) {
+                            chosenHead = getFormValue(eventClient.getEvent(), "existing_head");
+                        }
+                        if (StringUtils.isNotBlank(chosenHead)) {
+                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            if (db != null) {
+                                db.execSQL("UPDATE ec_family SET family_head = ? WHERE base_entity_id = ?",
+                                        new Object[]{chosenHead, baseEntityID});
+                                // Default caregiver to the head only when not explicitly set
+                                db.execSQL("UPDATE ec_family SET primary_caregiver = ? WHERE base_entity_id = ? AND (primary_caregiver IS NULL OR TRIM(primary_caregiver) = '' )",
+                                        new Object[]{chosenHead, baseEntityID});
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+                    // Post-process: if user selected an existing head during Family Registration,
+                    // revert any membership move by restoring the head's original relational_id.
+                    try {
+                        String existingHeadId = getFormValue(eventClient.getEvent(), "existing_head");
+                        String originalRelId = getFormValue(eventClient.getEvent(), "original_relational_id");
+                        if (StringUtils.isNotBlank(existingHeadId) && StringUtils.isNotBlank(originalRelId)) {
+                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            if (db != null) {
+                                db.execSQL(
+                                        "UPDATE ec_family_member SET relational_id = ? WHERE base_entity_id = ? AND relational_id != ?",
+                                        new Object[]{originalRelId, existingHeadId, originalRelId}
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+
+                    // Ensure the household's unique_id is set from the family_unique_id field
+                    // to avoid collisions with the head's unique_id.
+                    try {
+                        String familyUniqueId = getFormValue(eventClient.getEvent(), "family_unique_id");
+                        if (StringUtils.isBlank(familyUniqueId)) {
+                            // Fallback: try the generic unique_id only if it looks like a family value
+                            String maybe = getFormValue(eventClient.getEvent(), "unique_id");
+                            if (StringUtils.isNotBlank(maybe) && (maybe.endsWith("_family") || maybe.endsWith("_Family"))) {
+                                familyUniqueId = maybe;
+                            }
+                        }
+
+                        if (StringUtils.isNotBlank(familyUniqueId)) {
+                            // Normalize: if missing the suffix, append lowercase to align with DB usage
+                            if (!(familyUniqueId.endsWith("_family") || familyUniqueId.endsWith("_Family"))) {
+                                familyUniqueId = familyUniqueId + "_family";
+                            }
+
+                            String familyBaseEntityId = eventClient.getEvent().getBaseEntityId();
+                            if (StringUtils.isNotBlank(familyBaseEntityId)) {
+                                net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                                if (db != null) {
+                                    db.execSQL("UPDATE ec_family SET unique_id = ? WHERE base_entity_id = ?",
+                                            new Object[]{familyUniqueId, familyBaseEntityId});
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+                    break;
                 case CoreConstants.EventType.CHILD_HOME_VISIT:
                 case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
                 case CoreConstants.EventType.CHILD_REGISTRATION:
@@ -83,25 +182,135 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.KVP_PREP_FOLLOWUP_VISIT:
                 case Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS:
                 case HIVST_MOBILIZATION:
+                case TB_LEPROSY_MOBILIZATION:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_MONTHLY_SOCIAL_MEDIA_REPORT:
                 case FamilyPlanningConstants.EVENT_TYPE.FP_CBD_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HOME_VISIT:
+                case org.smartregister.chw.cecap.util.Constants.EVENT_TYPE.CECAP_HEALTH_EDUCATION_MOBILIZATION:
+                case org.smartregister.chw.asrh.util.Constants.EVENT_TYPE.ASRH_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_MOBILIZATION:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_IN_SCHOOL_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_SERVICES:
+                case Constants.Events.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_PARENTAL_SERVICES:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group details");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP group membership");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_DETAILS:
+                    // AYP In-school group creation/edit event
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupDetails(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group details");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_GROUP_MEMBERSHIP:
+                    // Persist selected members to group membership table
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupMembership(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
+                    }
+                    break;
+                case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT:
+                    // Persist selected members to group membership table
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    try {
+                        saveAypOutGroupFollowUpVisit(eventClient.getEvent());
+                    } catch (Exception e) {
+                        Timber.e(e, "Error saving AYP Out group membership");
+                    }
+                    break;
+                case CoreConstants.EventType.REMOVE_MEMBER:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case CoreConstants.EventType.REMOVE_CHILD:
+                    if (eventClient.getClient() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event);
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
+                case DELETE_EVENT:
+                    processDeleteEvent(eventClient.getEvent());
                 default:
                     break;
             }
         }
 
         if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            try {
+                ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
         }
+    }
+
+    private String getFormValue(Event event, String key) {
+        try {
+            if (event == null || event.getObs() == null) return "";
+            for (Obs obs : event.getObs()) {
+                try {
+                    String field = obs.getFieldCode();
+                    if (StringUtils.isBlank(field)) {
+                        field = obs.getFormSubmissionField();
+                    }
+                    if (key.equalsIgnoreCase(field)) {
+                        Object val = obs.getValue();
+                        return val != null ? String.valueOf(val) : "";
+                    }
+                } catch (Exception e) {
+                    // continue
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+        return "";
     }
 
     private void processVisitEvent(EventClient eventClient) {
@@ -139,4 +348,193 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
         return value;
     }
+
+    @Override
+    public void processDeleteEvent(Event event) {
+        try {
+            List<String> followupTables = Arrays.asList("ec_cecap_visit");
+            if (event.getDetails().containsKey(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID)) {
+                // delete from vaccine table
+                EventDao.deleteVaccineByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                // delete from visit table
+                EventDao.deleteVisitByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                // delete from recurring service table
+                EventDao.deleteServiceByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+
+                //delete from all  Case Based Management tables that use formSubmissionIds as primaryKeys
+                for (String tableName : followupTables) {
+                    try {
+                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+            } else {
+                super.processDeleteEvent(event);
+                //delete from all PMTCT Case Based Management tables that use formSubmissionIds as primaryKeys
+                for (String tableName : followupTables) {
+                    try {
+                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getFormSubmissionId());
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+            }
+
+            Timber.d("Ending processDeleteEvent: %s", event.getEventId());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypInSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupDetails(Event event) {
+        try {
+            if (event == null) return;
+            AypInSchoolGroupDetails record = new AypInSchoolGroupDetails();
+            record.setBaseEntityId(event.getBaseEntityId());
+            record.setProviderId(event.getProviderId());
+            record.setGroupName(getObsStringValue(event, "group_name"));
+            record.setGroupType(getObsStringValue(event, "group_type"));
+            record.setAgeBand(getObsStringValue(event, "age_band"));
+            record.setLastInteractedWith(System.currentTimeMillis());
+            new AypOutSchoolGroupDetailsRepository().save(record);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            List<String> ids = new ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new AypInSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupMembership(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            String membersCsv = getObsStringValue(event, "members");
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = new java.util.ArrayList<>();
+            for (String s : membersCsv.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty()) ids.add(t);
+            }
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addMembers(groupId, ids, providerId);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void saveAypOutGroupFollowUpVisit(Event event) {
+        try {
+            if (event == null) return;
+            // Extract values from Obs to match how AypInSchoolGroupProfileActivity.saveMembershipByEvent creates the event
+            String groupId = getObsStringValue(event, "group_id");
+            List<String> membersCsv = getObsArrayValue(event, "members_present");
+            String providedSbcService = getObsStringValue(event, "provided_sbc_service");
+            String nextAppointmentDate = getObsStringValue(event, "next_appointment_date");
+            List<String> chooseSbcServiceProvided = getObsArrayValue(event, "choose_sbc_service_provided");
+            List<String> economicEmpowermentServices = getObsArrayValue(event, "choose_economic_empowerment_services");
+
+            //to be removed, on live
+            if(groupId == null){
+                groupId = "ffa4b7e9-d4f8-414a-8e0d-7a589486dd29";
+            }
+
+            if (groupId == null || membersCsv == null) return;
+            String providerId = event.getProviderId();
+            java.util.List<String> ids = membersCsv;
+            if (!ids.isEmpty()) {
+                new AypOutSchoolGroupMembersRepository().addFollowUpForMembers(groupId, ids, providerId, providedSbcService, chooseSbcServiceProvided, economicEmpowermentServices,nextAppointmentDate);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private String getObsStringValue(Event event, String field) {
+        try {
+            if (event == null || event.getObs() == null) return null;
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null ? o.getFormSubmissionField() : o.getFieldCode();
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null && !vals.isEmpty()) {
+                        Object v = vals.get(0);
+                        return v != null ? String.valueOf(v) : null;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private List<String> getObsArrayValue(Event event, String field) {
+        List<String> result = new ArrayList<>();
+
+        try {
+            if (event == null || event.getObs() == null) return result;
+
+            for (Obs o : event.getObs()) {
+                String key = o.getFormSubmissionField() != null
+                        ? o.getFormSubmissionField()
+                        : o.getFieldCode();
+
+                if (key != null && key.equalsIgnoreCase(field)) {
+                    List<Object> vals = o.getValues();
+                    if (vals != null) {
+                        for (Object v : vals) {
+                            if (v != null) {
+                                result.add(String.valueOf(v));
+                            }
+                        }
+                    }
+                    break; // field found, stop looping
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return result;
+    }
+
 }

@@ -268,7 +268,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "palm_pallor",
         "openmrs_entity_parent": "",
-        "label": "Is there palm pallor?",
+        "label": "Je, kiganja chake cha mkono ni cheupe sana?",
         "options": [
           {
             "key": "yes",

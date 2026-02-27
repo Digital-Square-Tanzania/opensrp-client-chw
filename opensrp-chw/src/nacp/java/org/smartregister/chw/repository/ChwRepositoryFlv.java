@@ -1,13 +1,15 @@
 package org.smartregister.chw.repository;
 
+import static org.smartregister.chw.BuildConfig.VERSION_CODE;
+
 import android.content.Context;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.BuildConfig;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -114,6 +116,27 @@ public class ChwRepositoryFlv {
                     break;
                 case 27:
                     upgradeToVersion27(db);
+                    break;
+                case 28:
+                    upgradeToVersion28(db);
+                    break;
+                case 29:
+                    upgradeToVersion29(db);
+                    break;
+                case 30:
+                    upgradeToVersion30(db);
+                    break;
+                case 31:
+                    upgradeToVersion31(db);
+                    break;
+                case 32:
+                    upgradeToVersion32(db);
+                    break;
+                case 33:
+                    upgradeToVersion33(db);
+                    break;
+                case 34:
+                    upgradeToVersion34(db);
                     break;
                 default:
                     break;
@@ -262,7 +285,7 @@ public class ChwRepositoryFlv {
             return true;
         } else {
             int savedVersion = Integer.parseInt(savedAppVersion);
-            return (BuildConfig.VERSION_CODE > savedVersion);
+            return (VERSION_CODE > savedVersion);
         }
     }
 
@@ -286,7 +309,7 @@ public class ChwRepositoryFlv {
                 reportingLibraryInstance.readConfigFile(indicatorsConfigFile, db);
                 reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, db); // This will persist the data in the DB
                 reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
             }
 
             for (String query : RepositoryUtilsFlv.UPGRADE_V15) {
@@ -456,10 +479,189 @@ public class ChwRepositoryFlv {
 
             reportingLibrary.initIndicatorData(sbcIndicatorsConfigFile, db); // This will persist the data in the DB
             reportingLibrary.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion27");
+        }
+    }
+
+    private static void upgradeToVersion28(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_cecap_register", "ec_cecap_visit", "ec_asrh_register", "ec_asrh_follow_up_visit", "ec_cecap_mobilization_session")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_kvp_prep_followup ADD COLUMN sbcc_services_offered VARCHAR; " +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_male_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_female_condoms_issued VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_iec_distributed VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN number_of_coupons_distributed_for_social_network VARCHAR;" +
+                    " ALTER TABLE ec_kvp_prep_followup ADD COLUMN referral_to_structural_services VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+
+            String asrhIndicatorsConfigFile = "config/asrh-monthly-report.yml";
+            String asrhOtherMonthlyReportsIndicatorsConfigFile = "config/asrh-other-monthly-report.yml";
+            String cecapIndicatorsConfigFile = "config/cecap-monthly-report.yml";
+            String cecapOtherMonthlyReportsIndicatorsConfigFile = "config/cecap-other-monthly-report.yml";
+            String kvpIndicatorsConfigFile = "config/kvp-monthly-report.yml";
+            String aypOutSchoolIndicatorsConfigFile = "config/ayp-out-school-monthly-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(asrhIndicatorsConfigFile, asrhOtherMonthlyReportsIndicatorsConfigFile, cecapIndicatorsConfigFile, cecapOtherMonthlyReportsIndicatorsConfigFile, kvpIndicatorsConfigFile, aypOutSchoolIndicatorsConfigFile))) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion28");
+        }
+    }
+
+
+    private static void upgradeToVersion29(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_hps_client_register", "ec_hps_household_register", "ec_hps_client_services", "ec_hps_household_services", "ec_hps_mobilization", "ec_hps_death_register", "ec_hps_annual_census_register")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member ADD COLUMN occupation VARCHAR; ";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String hpsIndicatorsConfigFile = "config/hps-monthly-report.yml";
+            String hpsAnnualIndicatorsConfigFile = "config/hps-annual-report.yml";
+            for (String configFile : Collections.unmodifiableList(Arrays.asList(hpsIndicatorsConfigFile, hpsAnnualIndicatorsConfigFile))) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion29");
+        }
+    }
+
+
+    private static void upgradeToVersion30(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion30");
+        }
+    }
+
+    private static void upgradeToVersion31(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            List<String> configFiles = Arrays.asList(
+                    "config/ayp-in-school-monthly-report.yml",
+                    "config/ayp-parental-monthly-report.yml"
+            );
+            for (String configFile : configFiles) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion31");
+        }
+    }
+
+    private static void upgradeToVersion32(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_ayp_parenting_services_parental_group_exit")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-create-tables");
+        }
+
+        try {
+            String migrationQuery = "INSERT INTO ec_ayp_parenting_services_parental_group_exit (\n" +
+                    "event_id, form_submission_id, base_entity_id, event_type, event_date, provider_id, location_id, entity_type, last_interacted_with,\n" +
+                    "region, council, cso, ward, village, group_name, age_group, date_group_formation, current_members, members_in_assessment, dropouts,\n" +
+                    "mentor, chairperson, chair_phone, date_assessment, duration_assessment, q1_completed_6months, q2_basic_services, q3_constitution,\n" +
+                    "q4_registered, q5_rules_familiar, q6_leadership_training, q7_elections, q8_saving, q9_records, q10_financial_mgmt, q11_grants,\n" +
+                    "q12_repayments, q13_dividends, q14_investments, q15_business_plan, q16_health_services, q17_hiv_protection, q18_sti_protection,\n" +
+                    "q19_understand_abuse, q20_report_abuse, total_score, score_category)\n" +
+                    "SELECT event_id, form_submission_id, base_entity_id, event_type, event_date, provider_id, location_id, entity_type, last_interacted_with,\n" +
+                    "region, council, cso, ward, village, group_name, age_group, date_group_formation, current_members, members_in_assessment, dropouts,\n" +
+                    "mentor, chairperson, chair_phone, date_assessment, duration_assessment, q1_completed_6months, q2_basic_services, q3_constitution,\n" +
+                    "q4_registered, q5_rules_familiar, q6_leadership_training, q7_elections, q8_saving, q9_records, q10_financial_mgmt, q11_grants,\n" +
+                    "q12_repayments, q13_dividends, q14_investments, q15_business_plan, q16_health_services, q17_hiv_protection, q18_sti_protection,\n" +
+                    "q19_understand_abuse, q20_report_abuse, total_score, score_category\n" +
+                    "FROM ec_ayp_parental_services\n" +
+                    "WHERE lower(event_type) = 'parents and guardians’ group exit assessment tool'";
+            db.execSQL(migrationQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-migrate-data");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/ayp-parental-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion32-config");
+        }
+    }
+
+    private static void upgradeToVersion33(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(
+                            "ec_tbleprosy_register",
+                            "ec_tbleprosy_mobilization",
+                            "ec_tbleprosy_screening",
+                            "ec_tbleprosy_contacts",
+                            "ec_tbleprosy_observation_results",
+                            "ec_tbleprosy_followup_visit",
+                            "ec_tbleprosy_visit",
+                            "ec_tbleprosy_contact_visit")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion33-create-tables");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String tbLeprosyConfigFile = "config/tbleprosy-monthly-report.yml";
+            reportingLibrary.readConfigFile(tbLeprosyConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion33-config");
+        }
+    }
+
+    private static void upgradeToVersion34(SQLiteDatabase db) {
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE location ADD COLUMN status VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion34");
+        }
+
+        try {
+            String addMissingColumnsQuery = "ALTER TABLE ec_hivst_results ADD COLUMN source_form_submission_id VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion34");
         }
     }
 }

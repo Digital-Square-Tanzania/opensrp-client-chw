@@ -68,9 +68,7 @@
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "combine_checkbox_option_values": "true",
-        "exclusive": [
-          "chk_none"
-        ],
+        "exclusive": ["chk_none"],
         "options": [
           {
             "key": "chk_vomits",
@@ -247,6 +245,45 @@
         "text": "You should send the Baby to the health facility as soon as possible and within 24 hours for further screening.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_signs_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_facility",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_facility",
+        "openmrs_entity_parent": "",
+        "label": "Select which facility to send the referral to",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_danger_signs_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "save_n_refer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "save_n_refer",
+        "type": "button",
+        "hint": "Save and Refer to Health Facility",
+        "btn_bg_color": "#CF0800",
+        "action": {
+          "behaviour": "refer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

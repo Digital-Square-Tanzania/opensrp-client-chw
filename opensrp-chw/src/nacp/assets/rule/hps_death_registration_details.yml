@@ -1,0 +1,42 @@
+---
+name: step1_age_calculated
+description: Age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.formatDate(step1_dob,'y')"
+---
+name: step1_dob
+description: dob relevance
+priority: 1
+condition: "!step1_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age
+description: age relevance
+priority: 1
+condition: "step1_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_dob_validation_toaster
+description: Display toaster error message when DOB is not before DOD
+priority: 1
+condition: "!step1_dob.isEmpty() && !step1_dod.isEmpty() && step1_dob > step1_dod"
+actions:
+  - "isRelevant = true"
+---
+name: step1_dob_validation_toaster_hide
+description: Hide toaster when dates are valid or empty
+priority: 1
+condition: "step1_dob.isEmpty() || step1_dod.isEmpty() || step1_dob <= step1_dod"
+actions:
+  - "isRelevant = false"
+---
+name: step1_other_cause_of_death
+description: Show other cause of death field when 'other' is selected
+priority: 1
+condition: "step1_cause_of_death.contains('other')"
+actions:
+  - "isRelevant = true"

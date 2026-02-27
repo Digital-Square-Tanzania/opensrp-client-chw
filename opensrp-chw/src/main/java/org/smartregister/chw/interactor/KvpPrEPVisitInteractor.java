@@ -19,22 +19,28 @@ import org.smartregister.chw.kvp.interactor.BaseKvpVisitInteractor;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.family.util.JsonFormUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
 
 public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
+    private BaseKvpVisitContract.InteractorCallBack callBack;
+    private final Map<String, String> visitState = new HashMap<>();
+
     @Override
     protected void populateActionList(BaseKvpVisitContract.InteractorCallBack callBack) {
+        this.callBack = callBack;
         final Runnable runnable = () -> {
             try {
                 evaluateVisitType(details);
                 evaluateSBCCServices(details);
                 evaluatePreventiveServices(details);
                 evaluateStructuralServices(details);
-                evaluateReferralServices(details);
+                evaluateReferralServices(details, null);
             } catch (BaseKvpVisitAction.ValidationException e) {
                 Timber.e(e);
             }
@@ -47,7 +53,22 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateVisitType(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(memberObject.getBaseEntityId());
+        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(memberObject.getBaseEntityId(), visitState) {
+            @Override
+            public void processVisitType(String visitType) {
+                actionList.remove(context.getString(R.string.kvp_prep_referral_services));
+                actionList.remove(context.getString(R.string.kvp_prep_preventive_services));
+                actionList.remove(context.getString(R.string.kvp_prep_structural_services));
+                try {
+                    evaluatePreventiveServices(details);
+                    evaluateStructuralServices(details);
+                    evaluateReferralServices(details, visitType);
+                } catch (BaseKvpVisitAction.ValidationException e) {
+                    throw new RuntimeException(e);
+                }
+                appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));
+            }
+        };
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_visit_type))
                 .withOptional(false)
                 .withDetails(details)
@@ -68,7 +89,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 JSONArray fields = sbccServices.getJSONObject(org.smartregister.chw.util.Constants.JsonFormConstants.STEP1)
                         .getJSONArray(JsonFormConstants.FIELDS);
 
-                JSONObject sbccServicesOffered = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "sbcc_services_offered");
+                JSONObject sbccServicesOffered = JsonFormUtils.getFieldJSONObject(fields, "sbcc_services_offered");
                 JSONArray options = sbccServicesOffered.getJSONArray(OPTIONS);
 
                 JSONArray values = new JSONArray();
@@ -102,7 +123,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
     }
 
     private void evaluatePreventiveServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
-        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(memberObject.getBaseEntityId());
+        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(memberObject.getBaseEntityId(), visitState);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_preventive_services))
                 .withOptional(true)
                 .withDetails(details)
@@ -126,11 +147,11 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
         actionList.put(context.getString(R.string.kvp_prep_structural_services), action);
     }
 
-    private void evaluateReferralServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
+    private void evaluateReferralServices(Map<String, List<VisitDetail>> details, String visitType) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper();
+        KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper(visitType);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_referral_services))
-                .withOptional(true)
+                .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
                 .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.REFERRAL_SERVICES)

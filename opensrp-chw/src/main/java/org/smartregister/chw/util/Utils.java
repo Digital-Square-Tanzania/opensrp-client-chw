@@ -18,6 +18,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -39,9 +40,12 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
@@ -64,6 +68,8 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
                     Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_leprosy_referral),
+                    Constants.JSON_FORM.getTbLeprosyReferralForm(), CoreConstants.TASKS_FOCUS.TBLEPROSY));
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hts_referral),
                     CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
             if (gender.equalsIgnoreCase("Male")) {
@@ -255,5 +261,76 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
     }
 
+    public static Date truncateTimeFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 
+    public static void reprocessRegistrationEvents(String familyBaseEntityId, String baseEntityId) {
+
+        reprocessEventType(
+                familyBaseEntityId,
+                CoreConstants.EventType.FAMILY_REGISTRATION,
+                Constants.ENTITY_TYPE_EC_FAMILY
+        );
+
+        reprocessEventType(
+                familyBaseEntityId,
+                CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION,
+                Constants.ENTITY_TYPE_EC_FAMILY
+        );
+
+        reprocessEventType(
+                baseEntityId,
+                CoreConstants.EventType.FAMILY_MEMBER_REGISTRATION,
+                Constants.ENTITY_TYPE_EC_FAMILY_MEMBER
+        );
+
+        reprocessEventType(
+                baseEntityId,
+                CoreConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION,
+                Constants.ENTITY_TYPE_EC_FAMILY_MEMBER
+        );
+    }
+    private static void reprocessEventType(String baseEntityId, String eventType, String entityType) {
+        try {
+            List<org.smartregister.clientandeventmodel.Event> events =
+                    EventDao.getEvents(baseEntityId, eventType, Integer.MAX_VALUE);
+
+            reprocessEvents(events, entityType);
+
+        } catch (Exception e) {
+            Timber.e(e, "Error reprocessing event type: %s", eventType);
+        }
+    }
+
+    public static void reprocessEvents(
+            List<org.smartregister.clientandeventmodel.Event> eventList,
+            String entityType) {
+
+        if (eventList == null || eventList.isEmpty()) {
+            return;
+        }
+
+        try {
+            List<EventClient> clients = new ArrayList<>();
+            for (Event event : eventList) {
+                ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
+                JSONObject json = new JSONObject(CoreJsonFormUtils.gson.toJson(event));
+                json.put("entityType", entityType);
+                syncHelper.addEvent(event.getBaseEntityId(), json);
+                org.smartregister.domain.Event eventUpdated = CoreJsonFormUtils.gson.fromJson(
+                        json.toString(), org.smartregister.domain.Event.class);
+                clients.add(new EventClient(eventUpdated, new Client(event.getBaseEntityId())));
+            }
+            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(clients);
+        } catch (Exception e) {
+            Timber.e(e, "Error processing events for entityType: %s", entityType);
+        }
+    }
 }

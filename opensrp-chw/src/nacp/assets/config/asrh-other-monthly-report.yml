@@ -1,0 +1,1305 @@
+indicators:
+  
+  - key: "asrh-other-1-1-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-1-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-1-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-1-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-1-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-1-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%menstrual_hygiene%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  - key: "asrh-other-1-2-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-2-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-2-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-2-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-2-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-2-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%child_marriage%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-3-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-3-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-3-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-3-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-3-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-3-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%cervical_cancer_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-4-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-4-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-4-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-4-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-4-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-4-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%post_abortion_care%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-5-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-5-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-5-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-5-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-5-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-5-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%anc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-6-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-6-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-6-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-6-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-6-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-6-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%pnc%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-7-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-7-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-7-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-7-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-7-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-7-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_care_and_treatment%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-8-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-8-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-8-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-8-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-8-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-8-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%life_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-9-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-9-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-9-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-9-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  
+  - key: "asrh-other-1-9-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  
+  - key: "asrh-other-1-9-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youths educated on Menstrual hygiene"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_sexual_reproductive_health_health_education LIKE '%hiv_prevention%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+
+  - key: "asrh-other-2-1-male-10-14"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-1-female-10-14"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-1-male-15-19"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-1-female-15-19"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+
+  - key: "asrh-other-2-1-male-20-24"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-1-female-20-24"
+    grouping: "ASRH"
+    description: "Referred for RCH"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND (t.focus = 'ANC Danger Signs' OR t.focus = 'PNC Danger Signs' OR t.focus = 'Pregnancy Confirmation' OR t.focus = 'Sick Child')
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-2-male-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-2-female-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-2-male-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-2-female-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+
+  - key: "asrh-other-2-2-male-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-2-female-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND t.focus = 'FP Referral'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-3-male-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-3-female-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-3-male-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-3-female-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+
+  - key: "asrh-other-2-3-male-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-3-female-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Conventional HIV Test'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-5-male-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-5-female-10-14"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-5-male-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-5-female-15-19"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+
+  - key: "asrh-other-2-5-male-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+
+
+  - key: "asrh-other-2-5-female-20-24"
+    grouping: "ASRH"
+    description: "Referred for FP"
+    indicatorQuery: " SELECT count(DISTINCT asr.base_entity_id) as count
+                      FROM ec_asrh_register asr
+                               INNER JOIN ec_family_member efm on efm.base_entity_id = asr.base_entity_id
+                               INNER JOIN task t on efm.base_entity_id = t.for
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND t.focus = 'Suspected GBV'
+                      AND date(substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(t.authored_on / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01') =
+                            date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) "
+  
+  - key: "asrh-other-3-male-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Male')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  - key: "asrh-other-3-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  - key: "asrh-other-3-male-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Male')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  - key: "asrh-other-3-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  
+  - key: "asrh-other-3-male-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Male')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  - key: "asrh-other-3-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescent and youth reached livelihood skills"
+    indicatorQuery: "SELECT count(DISTINCT asfv.entity_id) as count
+                      FROM ec_asrh_follow_up_visit asfv
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = asfv.entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND provided_health_education LIKE '%livelihood_education_skills%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(asfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+  
+  
+  - key: "asrh-other-4-female-10-14"
+    grouping: "ASRH"
+    description: "Number of adolescents and youth who gave birth for the first time"
+    indicatorQuery: "SELECT count(DISTINCT po.base_entity_id) as count
+                      FROM ec_pregnancy_outcome po
+                      INNER JOIN ec_anc_register ar ON po.base_entity_id = ar.base_entity_id
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = po.base_entity_id
+                      WHERE 10 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) <= 14
+                      AND (efm.gender='Female')
+                      AND ar.parity = '0'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))
+                        = date(substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || '01') "
+  
+  
+  - key: "asrh-other-4-female-15-19"
+    grouping: "ASRH"
+    description: "Number of adolescents and youth who gave birth for the first time"
+    indicatorQuery: "SELECT count(DISTINCT po.base_entity_id) as count
+                      FROM ec_pregnancy_outcome po
+                      INNER JOIN ec_anc_register ar ON po.base_entity_id = ar.base_entity_id
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = po.base_entity_id
+                      WHERE 15 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 20
+                      AND (efm.gender='Female')
+                      AND ar.parity = '0'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))
+                        = date(substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || '01') "
+  
+  
+  - key: "asrh-other-4-female-20-24"
+    grouping: "ASRH"
+    description: "Number of adolescents and youth who gave birth for the first time"
+    indicatorQuery: "SELECT count(DISTINCT po.base_entity_id) as count
+                      FROM ec_pregnancy_outcome po
+                      INNER JOIN ec_anc_register ar ON po.base_entity_id = ar.base_entity_id
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = po.base_entity_id
+                      WHERE 20 <= (date('Now') - date(efm.dob))  AND (date('Now') - date(efm.dob)) < 25
+                      AND (efm.gender='Female')
+                      AND ar.parity = '0'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))
+                        = date(substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || '01') "
+  

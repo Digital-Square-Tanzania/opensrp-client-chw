@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160630245324",
+    "project_id": "unified-community-system",
+    "storage_bucket": "unified-community-system.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160630245324:android:2b1a721c068faaf35f3f69",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.moh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw2NYW4c5sRjgFIuhfXk8VrL8-LDVX2Ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

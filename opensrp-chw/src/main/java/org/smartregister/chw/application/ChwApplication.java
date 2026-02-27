@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -15,6 +16,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,10 +28,16 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.activity.AddoLinkageRegisterActivity;
 import org.smartregister.chw.activity.AgywRegisterActivity;
+import org.smartregister.chw.activity.AypInSchoolRegisterActivity;
+import org.smartregister.chw.activity.AypParentalRegisterActivity;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
+import org.smartregister.chw.activity.AsrhRegisterActivity;
+import org.smartregister.chw.activity.AypOutSchoolRegisterActivity;
 import org.smartregister.chw.activity.CdpRegisterActivity;
+import org.smartregister.chw.activity.CecapRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
@@ -37,6 +45,7 @@ import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
+import org.smartregister.chw.activity.HpsRegisterActivity;
 import org.smartregister.chw.activity.IccmRegisterActivity;
 import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.LTFURegisterActivity;
@@ -47,12 +56,16 @@ import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity;
 import org.smartregister.chw.activity.SbcRegisterActivity;
+import org.smartregister.chw.activity.TbLeprosyRegisterActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.agyw.AGYWLibrary;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.asrh.AsrhLibrary;
 import org.smartregister.chw.cdp.CdpLibrary;
+import org.smartregister.chw.ayp.AypLibrary;
+import org.smartregister.chw.cecap.CecapLibrary;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -64,6 +77,7 @@ import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
+import org.smartregister.chw.hps.HpsLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -78,6 +92,7 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.tb.TbLibrary;
+import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
@@ -114,9 +129,11 @@ import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
 
+    private static final String LOG_TAG = ChwApplication.class.getSimpleName();
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
+    private String repositoryPassword;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -181,7 +198,12 @@ public class ChwApplication extends CoreChwApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
+            boolean crashlyticsInitialized = initializeCrashlytics();
+            if (crashlyticsInitialized) {
+                Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
+            } else {
+                Timber.w("Crashlytics build ID missing; skipping Crashlytics initialization.");
+            }
         }
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
@@ -223,6 +245,17 @@ public class ChwApplication extends CoreChwApplication {
 
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
+        }
+    }
+
+    private boolean initializeCrashlytics() {
+        try {
+            CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+            Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
+            return true;
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to initialize Crashlytics", e);
+            return false;
         }
     }
 
@@ -285,8 +318,12 @@ public class ChwApplication extends CoreChwApplication {
             PmtctLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
-        if(flavor.hasKvp()){
+        if (flavor.hasKvp()) {
             KvpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasTbLeprosy()) {
+            TbLeprosyLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
         HivstLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -295,8 +332,25 @@ public class ChwApplication extends CoreChwApplication {
             //setup agyw lib
             AGYWLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
+
         if (flavor.hasSbc()) {
             SbcLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasAsrh()) {
+            AsrhLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasCecap()) {
+            CecapLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasHps()) {
+            HpsLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
+        if (flavor.hasAyp()) {
+            AypLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),
@@ -382,6 +436,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CDP_REGISTER_ACTIVITY, CdpRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.KVP_PrEP_REGISTER_ACTIVITY, KvpPrEPRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TBLEPROSY_REGISTER_ACTIVITY, TbLeprosyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ICCM_REGISTER_ACTIVITY, IccmRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
@@ -390,14 +445,27 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ASRH_REGISTER_ACTIVITY, AsrhRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_REGISTER_ACTIVITY, AypInSchoolRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_OUT_SCHOOL_REGISTER_ACTIVITY, AypOutSchoolRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_PARENTAL_REGISTER_ACTIVITY, AypParentalRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
         return registeredActivities;
     }
 
     @Override
     public Repository getRepository() {
         try {
-            if (repository == null) {
+            String currentPassword = CoreChwApplication.getInstance().getPassword();
+            if (repository == null
+                    || (StringUtils.isNotBlank(currentPassword) && !currentPassword.equals(repositoryPassword))) {
+                if (repository != null) {
+                    repository.close();
+                }
                 repository = new ChwRepository(getInstance().getApplicationContext(), context);
+                repositoryPassword = currentPassword;
             }
         } catch (UnsatisfiedLinkError e) {
             Timber.e(e);
@@ -422,6 +490,10 @@ public class ChwApplication extends CoreChwApplication {
 
     public boolean hasTB() {
         return flavor.hasTB();
+    }
+
+    public boolean hasADDO(){
+        return flavor.hasADDO();
     }
 
 
@@ -568,11 +640,23 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasKvp();
 
+        boolean hasTbLeprosy();
+
         boolean hasICCM();
 
         boolean hasAGYW();
 
         boolean hasSbc();
+
+        boolean hasHps();
+
+        boolean hasAsrh();
+
+        boolean hasCecap();
+
+        boolean hasADDO();
+
+        boolean hasAyp();
 
         String[] getFTSTables();
 

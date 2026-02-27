@@ -1,0 +1,479 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "step1": {
+    "title": "Workplace Inspection Report",
+    "fields": [
+      {
+        "key": "number_of_inspected_agriculture_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_agriculture_areas",
+        "hint": "Number of inspected agriculture areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_inspected_livestock_keeping_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_agriculture_areas",
+        "hint": "Number of inspected livestock keeping areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_inspected_fishing_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_fishing_areas",
+        "hint": "Number of inspected fishing areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_inspected_industries_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_industries_areas",
+        "hint": "Number of inspected industries areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_inspected_offices_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_offices_areas",
+        "hint": "Number of inspected offices areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_inspected_transportation_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_inspected_transportation_areas",
+        "hint": "Number of inspected transportation areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_other_inspected_areas",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_inspected_areas",
+        "hint": "Number of other inspected areas",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        }
+      },
+      {
+        "key": "number_of_agriculture_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_agriculture_areas_inspected_with_risk_indicators",
+        "hint": "Number of agriculture areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_agriculture_areas)",
+            "err": "must not be greater than number of inspected agriculture areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_livestock_keeping_areas_inspected_with_risk_indicators",
+        "hint": "Number of livestock keeping areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_livestock_keeping_areas)",
+            "err": "must not be greater than number of inspected livestock keeping areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_fishing_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_fishing_areas_inspected_with_risk_indicators",
+        "hint": "Number of fishing areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_fishing_areas)",
+            "err": "must not be greater than number of inspected fishing areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_industries_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_industries_areas_inspected_with_risk_indicators",
+        "hint": "Number of industries areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_industries_areas)",
+            "err": "must not be greater than number of inspected industries areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_offices_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_offices_areas_inspected_with_risk_indicators",
+        "hint": "Number of offices areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_offices_areas)",
+            "err": "must not be greater than number of inspected offices areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_transportation_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_transportation_areas_inspected_with_risk_indicators",
+        "hint": "Number of transportation areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_inspected_transportation_areas)",
+            "err": "must not be greater than number of inspected transportation areas"
+          }
+        ]
+      },
+      {
+        "key": "number_of_other_areas_inspected_with_risk_indicators",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_areas_inspected_with_risk_indicators",
+        "hint": "Number of other areas inspected  with risk indicators",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the correct answer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Number must be five digits"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_other_inspected_areas)",
+            "err": "must not be greater than number of other inspected areas"
+          }
+        ]
+      }
+    ]
+  }
+}

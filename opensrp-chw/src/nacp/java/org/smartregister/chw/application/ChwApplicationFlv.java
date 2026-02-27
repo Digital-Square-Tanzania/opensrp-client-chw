@@ -124,7 +124,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasCdp() {
-        return true;
+        return false;
     }
 
     @Override
@@ -143,7 +143,32 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasHps() {
+        return true;
+    }
+
+    @Override
+    public boolean hasAsrh() {
+        return true;
+    }
+
+    @Override
+    public boolean hasCecap() {
+        return true;
+    }
+
+    @Override
+    public boolean hasAyp() {
+        return true;
+    }
+
+    @Override
     public boolean hasKvp() {
+        return true;
+    }
+
+    @Override
+    public boolean hasTbLeprosy() {
         return true;
     }
 

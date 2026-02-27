@@ -1,0 +1,43 @@
+---
+name: step1_current_primary_class
+description: Show current primary class when current_class is primary
+priority: 1
+condition: "step1_current_class == 'primary'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_previous_class
+description: Show previous_class
+priority: 1
+condition: "step1_current_class == 'secondary'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_current_secondary_class
+description: Show current secondary class when current_class is secondary
+priority: 1
+condition: "step1_current_class == 'secondary' && step1_current_class != 'primary'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_previous_primary_class
+description: Show previous primary class when previous_class is primary
+priority: 1
+condition: "step1_previous_class == 'primary' || step1_current_class == 'primary'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_previous_secondary_class
+description: Show previous secondary class when previous_class is secondary
+priority: 1
+condition: "step1_previous_class == 'secondary'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_project_name_other_mention
+description: Show mention when project is other
+priority: 1
+condition: "step1_project_name == 'nyinginezo_taja'"
+actions:
+  - "isRelevant = true"
+

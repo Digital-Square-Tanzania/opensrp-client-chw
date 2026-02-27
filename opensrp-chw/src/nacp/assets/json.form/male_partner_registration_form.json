@@ -161,11 +161,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Village/Street",
+        "hint": "Mtaa/Hamlet",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please select the village or street"
+          "err": "Please select the hamlet or street"
         }
       }
     ]
@@ -310,6 +310,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -436,8 +437,8 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do you have any of the following IDs?",
         "combine_checkbox_option_values": "true",
+        "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -484,7 +485,7 @@
         "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
-        "mask_hint": "12345678912345678912",
+        "mask_hint": "00000000000000000000",
         "allowed_chars": "0123456789",
         "hint": "National ID number e.g 12345678-91234-56789-12",
         "edit_type": "number",
@@ -520,7 +521,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Voter's registration number e.g T-1234-5678-912-3",
         "edit_type": "number",
@@ -556,7 +557,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Driver's license number e.g 1234567891",
         "edit_type": "number",
@@ -591,7 +592,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Health insurance provider",
+        "hint": "Health insurance",
         "values": [
           "Community Health Fund (CHF)/(iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
@@ -738,8 +739,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
-        "label": "Type of disability",
         "combine_checkbox_option_values": "true",
+        "label": "Type of disability",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -790,6 +791,12 @@
             "text": "Invisible Disabilities",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
+          },
+          {
+            "key": "albinism",
+            "text": "Albinism",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "albinism"
           }
         ],
         "relevance": {
@@ -805,43 +812,105 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider",
+        "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Occupation of the Client",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "chk_self_employed",
-            "text": "Self-Employed",
+            "key": "chk_fisherman",
+            "text": "Fisherman",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_self_employed"
+            "openmrs_entity_id": "chk_fisherman"
           },
           {
-            "key": "chk_employed",
-            "text": "Employed",
+            "key": "chk_miner",
+            "text": "Miner",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_employed"
+            "openmrs_entity_id": "chk_miner"
           },
           {
-            "key": "chk_unemployed",
-            "text": "Unemployed",
+            "key": "chk_truck_driver",
+            "text": "Truck Driver",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unemployed"
+            "openmrs_entity_id": "chk_truck_driver"
+          },
+          {
+            "key": "chk_bus_driver",
+            "text": "Bus driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bus_driver"
+          },
+          {
+            "key": "chk_pastoralist",
+            "text": "Pastoralist",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pastoralist"
+          },
+          {
+            "key": "chk_business_person",
+            "text": "Business person",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_business_person"
           },
           {
             "key": "chk_farmer",
             "text": "Farmer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_bodaboda",
+            "text": "Motorcycle driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "male_partner_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Other Occupation",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify role"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "male_partner_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -850,8 +919,8 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
-        "label": "Any leadership role in the community?",
         "combine_checkbox_option_values": "true",
+        "label": "A leadership role in the community",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

@@ -1,0 +1,7 @@
+---
+name: step1_household_max
+description: Rule for household Max
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_household_max"

@@ -2,6 +2,8 @@ package org.smartregister.chw.dao;
 
 import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -443,6 +445,149 @@ public class ReportDao extends AbstractDao {
         } else
             return new ArrayList<>();
     }
+
+//    public static List<Map<String, String>> getHpsAnnualDynamicTablesreports(Date reportDate) {
+//        String sql = "SELECT COALESCE(ehacr.number_of_house_hold_with_road_access, '0') as count " +
+//                "FROM ec_hps_annual_census_register ehacr " +
+//                "WHERE substr('%s', 1, 4) = ehacr.year " +
+//                "UNION ALL " +
+//                "SELECT '0' as count " +
+//                "WHERE NOT EXISTS (SELECT 1 FROM ec_hps_annual_census_register WHERE substr('%s', 1, 4) = year) " +
+//                "LIMIT 1";
+//        String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
+//
+//        sql = sql.contains("%s") ? sql.replaceAll("%s", queryDate) : sql;
+//
+//        DataMap<Map<String, String>> map = cursor -> {
+//            Map<String, String> data = new HashMap<>();
+//            data.put("hps-a-1", cursor.getString(cursor.getColumnIndex("count")));
+//            Log.d("anga1", ""+cursor.getString(cursor.getColumnIndex("count")));
+//            return data;
+//        };
+//
+//        List<Map<String, String>> res = readData(sql, map);
+//
+//        if (res != null && res.size() > 0) {
+//            return res;
+//        } else
+//            return new ArrayList<>();
+//    }
+
+    public static List<Map<String, String>> getHpsAnnualDynamicTablesreports(Date reportDate, String[] keys, String[] selectors) {
+        if (keys.length != selectors.length) {
+            throw new IllegalArgumentException("Keys and selectors arrays must have the same length");
+        }
+
+        String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
+        List<Map<String, String>> resultList = new ArrayList<>();
+
+        for (int i = 0; i < selectors.length; i++) {
+            String selector = selectors[i];
+            String key = keys[i];
+
+            Log.d("anga_q",key+" : "+selector);
+
+            String sql = "SELECT COALESCE(ehacr." + selector + ", '0') as count " +
+                    "FROM ec_hps_annual_census_register ehacr " +
+                    "WHERE substr('%s', 1, 4) = ehacr.year " +
+                    "UNION ALL " +
+                    "SELECT '0' as count " +
+                    "WHERE NOT EXISTS (SELECT 1 FROM ec_hps_annual_census_register WHERE substr('%s', 1, 4) = year) " +
+                    "LIMIT 1";
+
+            sql = sql.replace("%s", queryDate); // Simple replacement
+
+            DataMap<Map<String, String>> map = cursor -> {
+                Map<String, String> data = new HashMap<>();
+                if (cursor.moveToFirst()) {
+                    data.put(key, cursor.getString(cursor.getColumnIndex("count")));
+                } else {
+                    data.put(key, "0"); // Fallback if somehow no data returned
+                }
+                return data;
+            };
+
+            List<Map<String, String>> res = readData(sql, map);
+
+            if (res != null && res.size() > 0) {
+                resultList.add(res.get(0)); // Add the first result (single row expected)
+            } else {
+                // Add default value if nothing returned (extra safe)
+                Map<String, String> defaultData = new HashMap<>();
+                defaultData.put(key, "0");
+                resultList.add(defaultData);
+            }
+        }
+
+        return resultList;
+    }
+
+
+//    public static List<Map<String, String>> getHpsAnnualDynamicTablesreports(Date reportDate, String[] keys, String[] selectors, String[] clauses) {
+//        if (keys.length != selectors.length) {
+//            throw new IllegalArgumentException("Keys and selectors arrays must have the same length");
+//        }
+//
+//        String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
+//        List<Map<String, String>> resultList = new ArrayList<>();
+//
+//        for (int i = 0; i < selectors.length; i++) {
+//            String selector = selectors[i];
+//            String key = keys[i];
+//            String sql = "";
+//
+//            if (clauses != null) {
+//                StringBuilder sqlBuilder = new StringBuilder();
+//
+//                // iterate through the clauses
+//                for (int j = 0; j < clauses.length; j++) {
+//                    String clause = clauses[j];
+//                    String singleQuery =
+//                            "SELECT COALESCE(ehacr." + selector + ", '0') as count " +
+//                                    "FROM ec_hps_annual_census_register ehacr " +
+//                                    "WHERE substr('%s', 1, 4) = ehacr.year AND ehacr.select_centers_category like '%" + clause + "%' " +
+//                                    "UNION ALL " +
+//                                    "SELECT '0' as count " +
+//                                    "WHERE NOT EXISTS (SELECT 1 FROM ec_hps_annual_census_register WHERE substr('%s', 1, 4) = year AND ehacr.select_centers_category = '" + clause + "') " +
+//                                    "LIMIT 1";
+//
+//                    sqlBuilder.append(singleQuery.replace("%s", queryDate));
+//
+//                    // If not last clause, add UNION ALL
+//                    if (j < clauses.length - 1) {
+//                        sqlBuilder.append(" UNION ALL ");
+//                    }
+//                }
+//
+//                sql = sqlBuilder.toString();
+//            }
+//
+//            sql = sql.replace("%s", queryDate);
+//
+//            DataMap<Map<String, String>> map = cursor -> {
+//                Map<String, String> data = new HashMap<>();
+//                if (cursor.moveToFirst()) {
+//                    data.put(key, cursor.getString(cursor.getColumnIndex("count")));
+//                } else {
+//                    data.put(key, "0"); // Fallback if somehow no data returned
+//                }
+//                return data;
+//            };
+//
+//            List<Map<String, String>> res = readData(sql, map);
+//
+//            if (res != null && res.size() > 0) {
+//                resultList.add(res.get(0)); // Add the first result (single row expected)
+//            } else {
+//                // Add default value if nothing returned (extra safe)
+//                Map<String, String> defaultData = new HashMap<>();
+//                defaultData.put(key, "0");
+//                resultList.add(defaultData);
+//            }
+//        }
+//
+//        return resultList;
+//    }
 
 
     @NonNull

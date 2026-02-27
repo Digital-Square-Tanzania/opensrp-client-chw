@@ -1,0 +1,40 @@
+---
+name: "problem_other_visibility"
+description: "Specify other symptoms"
+priority: 1
+condition: "problem['other_reasons'] != null"
+actions:
+  - "problem_other_visibility =  true"
+---
+name: "referral_type_calculation"
+description: "Referral type calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_type_calculation = 'community_to_addo_referral'"
+---
+name: "referral_status_calculation"
+description: "Referral type calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_status_calculation = 'PENDING'"
+---
+name: "referral_date_calculation"
+description: "Referral date calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_date_calculation =  System.currentTimeMillis()"
+---
+name: "referral_time_calculation"
+description: "Referral time calculation"
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
+    }"
+  - "referral_time_calculation = getDate('HH:mm:ss.SSS')"

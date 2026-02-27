@@ -1,0 +1,260 @@
+{
+  "form": "Referral form",
+  "encounter_type": "Referral Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/tbleprosy_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "TB/Leprosy Referral form",
+      "fields": [
+        {
+          "name": "referral_type",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Type of Referral"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "client",
+              "text": "Client",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sample",
+              "text": "Sample",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "sample",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify the referral status"
+        },
+        {
+          "name": "client_reason_for_referral",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Client reasons for referral"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "client_reason_for_referral",
+            "openmrs_entity_id": ""
+          },
+          "options": [
+            {
+              "name": "tb_screening",
+              "text": "TB screening",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "tb_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "leprosy_screening",
+              "text": "Leprosy screening",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "leprosy_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tpt_referral",
+              "text": "TPT referral",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "tpt_referral",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "challenges_faced_by_leprosy_clients",
+              "text": "Challenges faced by leprosy clients",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "challenges_faced_by_leprosy_clients",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "challenges_faced_by_tb_clients",
+              "text": "Challenges faced by TB clients",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "challenges_faced_by_tb_clients",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_reasons",
+              "text": "Other reasons",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify client reasons for referral",
+          "dependent_calculations": [
+            "problem",
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ],
+          "subjects": "referral_type:map"
+        },
+        {
+          "name": "sample_reason_for_referral",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Sample reasons for referral"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "sample_reason_for_referral",
+            "openmrs_entity_id": ""
+          },
+          "options": [
+            {
+              "name": "tb_screening",
+              "text": "TB screening",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "tb_screening",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_reasons",
+              "text": "Other reasons",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify sample reasons for referral",
+          "dependent_calculations": [
+            "problem",
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ],
+          "subjects": "referral_type:map"
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reasons",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "required_status": "true:Please specify other reasons",
+          "subjects": "client_reason_for_referral:map, sample_reason_for_referral:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Choose referral facility",
+            "searchable": "Choose referral facility"
+          },
+          "options": [],
+          "required_status": "yes:Please specify referral facility"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Please select the appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        }
+      ]
+    }
+  ]
+}

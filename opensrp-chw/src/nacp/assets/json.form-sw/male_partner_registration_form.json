@@ -161,11 +161,11 @@
         "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kijiji/Mtaa",
+        "hint": "Kitongoji/Mtaa",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali chagua kijiji au mtaa"
+          "err": "Tafadhali chagua kitongoji au mtaa"
         }
       }
     ]
@@ -310,6 +310,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "",
         "options": [
           {
@@ -463,8 +464,14 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
+            "key": "chk_passport_number",
+            "text": "Hati ya Kusafiria (Pasipoti)",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport_number"
+          },
+          {
             "key": "chk_none",
-            "text": "Hakuna",
+            "text": "Hana",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -491,7 +498,7 @@
         "v_max_length": {
           "value": "23",
           "is_fixed_size": "true",
-          "err":"Tafadhali weka namba sahihi"
+          "err": "Tafadhali weka namba sahihi"
         },
         "v_regex": {
           "value": "^\\d{8}-\\d{5}-\\d{5}-\\d{2}$",
@@ -520,7 +527,7 @@
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
-        "mask_hint": "123456789123",
+        "mask_hint": "000000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
@@ -556,7 +563,7 @@
         "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
-        "mask_hint": "1234567891",
+        "mask_hint": "0000000000",
         "allowed_chars": "0123456789",
         "hint": "Namba ya leseni ya udereva k.m 1234567891",
         "edit_type": "number",
@@ -591,7 +598,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
-        "hint": "Mtoa huduma ya bima ya afya",
+        "hint": "Bima ya Afya",
         "values": [
           "Mfuko wa Afya ya Jamii (CHF)/(iCHF)",
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
@@ -605,7 +612,7 @@
           "Bima ya afya ya Resolutions",
           "Bima ya afya ya Reliance",
           "Nyinginezo",
-          "Hakuna"
+          "Hana"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -790,6 +797,12 @@
             "text": "Ulemavu Usioonekana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
+          },
+          {
+            "key": "albinism",
+            "text": "Ualbino",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "albinism"
           }
         ],
         "relevance": {
@@ -805,43 +818,106 @@
         }
       },
       {
-        "key": "service_provider",
+        "key": "occupation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider",
+        "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "chk_self_employed",
-            "text": "Amejiajiri",
+            "key": "chk_fisherman",
+            "text": "Mvuvi",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_self_employed"
+            "openmrs_entity_id": "chk_fisherman"
           },
           {
-            "key": "chk_employed",
-            "text": "Ameajiriwa",
+            "key": "chk_miner",
+            "text": "Kazi eneo la madini",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_employed"
+            "openmrs_entity_id": "chk_miner"
           },
           {
-            "key": "chk_unemployed",
-            "text": "Hajaajiriwa",
+            "key": "chk_truck_driver",
+            "text": "Dereva wa malori",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_unemployed"
+            "openmrs_entity_id": "chk_truck_driver"
+          },
+          {
+            "key": "chk_bus_driver",
+            "text": "Dereva wa mabasi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bus_driver"
+          },
+          {
+            "key": "chk_pastoralist",
+            "text": "Mfugaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pastoralist"
+          },
+          {
+            "key": "chk_business_person",
+            "text": "Mfanyabiashara",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_business_person"
           },
           {
             "key": "chk_farmer",
             "text": "Mkulima",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_bodaboda",
+            "text": "Bodaboda",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
+          },
+          {
+            "key": "chk_other",
+            "text": "Nyinginezo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hana Kazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua angalau moja"
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "male_partner_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Kazi nyinginezo (Taja)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "male_partner_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -851,7 +927,7 @@
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Una nafasi yoyote ya uongozi katika jamii?",
+        "label": "Nafasi ya uongozi katika jamii",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

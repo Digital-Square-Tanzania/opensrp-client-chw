@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Parenting Report Form</title>
+    <style>
+        body {
+            padding: 5px;
+            font-size: 0.25rem;
+        }
+
+        body,
+        td,
+        th {
+            font-family: "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        th {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .heading-section {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .section-label {
+            background-color: #e6e6e6;
+            font-weight: 600;
+        }
+
+        .section-heading {
+            background-color: #e0e0e0;
+            font-weight: 700;
+        }
+
+        .nested-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .nested-table th,
+        .nested-table td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        .topics-header {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            body {
+                font-size: 0.65rem;
+            }
+
+            .show-on-print {
+                display: block;
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body onload="loadData()">
+<div class="show-on-print">
+    <h1 class="heading-section">Monthly Parenting Report Form</h1>
+    <h2>Reporting Period: <span id="report_period"></span></h2>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>S/N</th>
+        <th>Indicator</th>
+        <th>Grand Total</th>
+        <th>Male</th>
+        <th>Female</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Number of parents/guardians newly reached with parents’ education programme</td>
+        <td align="center" id="ayp-parental-1-grand-total"></td>
+        <td align="center" id="ayp-parental-1-male"></td>
+        <td align="center" id="ayp-parental-1-female"></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Number of parents/guardians reached with parents’ education programme</td>
+        <td align="center" id="ayp-parental-2-grand-total"></td>
+        <td align="center" id="ayp-parental-2-male"></td>
+        <td align="center" id="ayp-parental-2-female"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Number of parents/caregivers completed parenting sessions</td>
+        <td align="center" id="ayp-parental-3-grand-total"></td>
+        <td align="center" id="ayp-parental-3-male"></td>
+        <td align="center" id="ayp-parental-3-female"></td>
+    </tr>
+    <tr class="section-heading">
+        <td>4</td>
+        <td colspan="4">Number of parents/guardians reached with parents’ education programme</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="4">
+            <table class="nested-table">
+                <thead>
+                <tr class="topics-header">
+                    <th>Utangulizi</th>
+                    <th>VVU na UKIMWI, Magonjwa ya ngono na via vya uzazi na Homa ya Ini</th>
+                    <th>Kinga dhidi ya VVU, magonjwa ya ngono na Homa ya Ini</th>
+                    <th>Kumuelewa kijana na changamoto zinazomkabili</th>
+                    <th>Stadi, Malezi, na mawasiliano kwa kijana</th>
+                    <th>Afya ya uzazi kwa kijana</th>
+                    <th>Uhamasishaji wa matumizi ya huduma za VVU kwa kijana</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="ayp-parental-4-introduction"></td>
+                    <td id="ayp-parental-4-hiv-module"></td>
+                    <td id="ayp-parental-4-protection-module"></td>
+                    <td id="ayp-parental-4-understanding-youth"></td>
+                    <td id="ayp-parental-4-skills-education"></td>
+                    <td id="ayp-parental-4-reproductive-health"></td>
+                    <td id="ayp-parental-4-promote-hiv-services"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    function loadData() {
+        const data = JSON.parse(Android.getData("ayp-parental-monthly-report"));
+        const keys = Object.keys(data.nameValuePairs);
+        const reportPeriod = document.getElementById("report_period");
+        keys.forEach((key) => {
+            const element = document.getElementById(key);
+            if (element !== null && typeof element !== "undefined") {
+                element.innerHTML = data.nameValuePairs[key];
+            }
+        });
+        reportPeriod.innerHTML = Android.getDataPeriod();
+    }
+</script>
+
+</html>

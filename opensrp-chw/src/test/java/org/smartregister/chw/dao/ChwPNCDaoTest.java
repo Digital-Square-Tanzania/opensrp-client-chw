@@ -1,7 +1,7 @@
 package org.smartregister.chw.dao;
 
-import net.sqlcipher.MatrixCursor;
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic. database.MatrixCursor;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;

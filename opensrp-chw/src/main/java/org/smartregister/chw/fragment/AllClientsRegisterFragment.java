@@ -1,13 +1,18 @@
 package org.smartregister.chw.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.provider.OpdRegisterProvider;
@@ -19,6 +24,7 @@ import org.smartregister.opd.utils.OpdDbConstants;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
+    private static final String AYP_REGISTER_TAG = "AYP";
 
     @Override
     public void setupViews(View view) {
@@ -30,7 +36,37 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     @Override
     protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
 
+        Activity activity = getActivity();
+        if (activity instanceof AllClientsRegisterActivity) {
+            AllClientsRegisterActivity registerActivity = (AllClientsRegisterActivity) activity;
+            if (registerActivity.isClientPickerMode()) {
+                String selectedBaseEntityId = commonPersonObjectClient.getCaseId();
+                if (TextUtils.isEmpty(selectedBaseEntityId)) {
+                    selectedBaseEntityId = commonPersonObjectClient.entityId();
+                }
+                Intent data = new Intent();
+                data.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, selectedBaseEntityId);
+                data.putExtra(org.smartregister.chw.util.Constants.EXTRA_EXISTING_HEAD_CLIENT, commonPersonObjectClient);
+                activity.setResult(Activity.RESULT_OK, data);
+                activity.finish();
+                return;
+            }
+        }
+
+        String baseEntityId = commonPersonObjectClient.getCaseId();
+        if (TextUtils.isEmpty(baseEntityId)) {
+            baseEntityId = commonPersonObjectClient.entityId();
+        }
+        boolean isAypClient = !TextUtils.isEmpty(baseEntityId)
+                && (AypDao.isRegisteredForAypInSchoolServices(baseEntityId)
+                || AypDao.isRegisteredForAypParentalServices(baseEntityId));
+
         String registerType = commonPersonObjectClient.getDetails().get(REGISTER_TYPE);
+        if (isAypClient && TextUtils.isEmpty(registerType)) {
+            registerType = AYP_REGISTER_TAG;
+            commonPersonObjectClient.getDetails().put(REGISTER_TYPE, registerType);
+            commonPersonObjectClient.getColumnmaps().put(OpdDbConstants.KEY.REGISTER_TYPE, registerType);
+        }
 
         Bundle bundle = new Bundle();
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(commonPersonObjectClient.entityId());
@@ -76,8 +112,23 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.KVP_PrEP:
                     AllClientsUtils.goToKvpPrepProfile(this.getActivity(), commonPersonObjectClient);
                     break;
+                case CoreConstants.REGISTER_TYPE.TBLEPROSY:
+                    AllClientsUtils.goToTbLeprosyProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.AYP_OUT_SCHOOL:
+                    AllClientsUtils.goToAypProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
                 case CoreConstants.REGISTER_TYPE.SBC:
                     AllClientsUtils.goToSbcProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.CECAP:
+                    AllClientsUtils.goToCecapProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.AYSRH:
+                    AllClientsUtils.goToAsrhProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.HPS:
+                    AllClientsUtils.goToHpsProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 default:
                     AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,

@@ -1,7 +1,7 @@
 package org.smartregister.chw.activity;
 
-import static org.hl7.fhir.r4.model.codesystems.VariantState.NEGATIVE;
-import static org.hl7.fhir.r4.model.codesystems.VariantState.POSITIVE;
+import static org.smartregister.chw.hiv.util.Constants.HivStatus.NEGATIVE;
+import static org.smartregister.chw.hiv.util.Constants.HivStatus.POSITIVE;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +37,10 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
     LinearLayout actionTakenGroup;
     LinearLayout enrolledClinicGroup;
     LinearLayout feedBackViewGroup;
+    LinearLayout referralServiceLayout;
+    LinearLayout referralPrescriptionLayout;
+    CustomFontTextView referralService;
+    CustomFontTextView referralPrescription;
 
     public static void startChwReferralDetailsViewActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, ChwReferralDetailsViewActivity.class);
@@ -56,11 +60,14 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         actionTakenGroup = findViewById(R.id.referral_feedback_action_taken_group);
         enrolledClinicGroup = findViewById(R.id.referral_feedback_clinic_enrolled);
         feedBackViewGroup = findViewById(R.id.referral_details_feedback);
-
+        referralService = findViewById(R.id.referral_service);
+        referralPrescription = findViewById(R.id.referral_prescription);
+        referralServiceLayout = findViewById(R.id.referral_service_layout);
+        referralPrescriptionLayout = findViewById(R.id.referral_prescription_layout);
         setupViews();
     }
 
-    private void createCancelReferral(Task task) {
+    protected void createCancelReferral(Task task) {
         LinearLayout referralVisitBar = findViewById(R.id.record_visit_bar);
         referralVisitBar.setVisibility(View.VISIBLE);
 
@@ -76,7 +83,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
     }
 
-    private void cancelReferral(Task task) {
+    protected void cancelReferral(Task task) {
         MemberObject memberObject = getMemberObject();
         assert memberObject != null;
         task.setForEntity(memberObject.getBaseEntityId());
@@ -84,7 +91,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         CoreReferralUtils.cancelTask(task);
     }
 
-    private void closeReferralDialog(Task task) {
+    protected void closeReferralDialog(Task task) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.cancel_referral_title));
         builder.setMessage(getString(R.string.cancel_referral_message));
@@ -104,7 +111,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         alertDialog.show();
     }
 
-    private void setupViews() {
+    protected void setupViews() {
         LocationRepository locationRepository = new LocationRepository();
         Location location = locationRepository.getLocationById(getMemberObject().getChwReferralHf());
         ((CustomFontTextView) findViewById(R.id.referral_facility)).setText(location.getProperties().getName());
@@ -121,7 +128,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         }
     }
 
-    private void showFeedBackView(Task task) {
+    protected void showFeedBackView(Task task) {
 
 
         if (getMemberObject().getChwReferralService().equals(CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST)) {
@@ -139,9 +146,9 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                     tvActionTaken.setText(getTranslatedHivServicesProvided(servicesProvided));
                 }
                 if (hivStatus != null) {
-                    if (hivStatus.equalsIgnoreCase(POSITIVE.toString()))
+                    if (hivStatus.equalsIgnoreCase(POSITIVE))
                         tvTestResult.setText(getResources().getText(R.string.cbhs_positive));
-                    else if (hivStatus.equalsIgnoreCase(NEGATIVE.toString()))
+                    else if (hivStatus.equalsIgnoreCase(NEGATIVE))
                         tvTestResult.setText(getResources().getText(R.string.cbhs_negative));
                     else
                         tvTestResult.setText(hivStatus);
@@ -164,6 +171,21 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                 feedBackViewGroup.setVisibility(View.GONE);
             }
 
+        }
+        if(!ReferralDao.getServicesProvided(task.getIdentifier()).isEmpty()){
+            referralServiceLayout.setVisibility(View.VISIBLE);
+            String refServicesOffered = ReferralDao.getServicesProvided(task.getForEntity());
+            refServicesOffered = refServicesOffered.replace("[", "").replace("]", ""); // Removes the brackets
+            refServicesOffered = refServicesOffered.replace(", ", "\n");
+            referralService.setText(refServicesOffered);
+        }
+
+        if(!ReferralDao.getPrescriptionProvided(task.getIdentifier()).isEmpty()){
+            referralPrescriptionLayout.setVisibility(View.VISIBLE);
+            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getForEntity());
+            refPrescribeOffered = refPrescribeOffered.replace("[", "").replace("]", ""); // Removes the brackets
+            refPrescribeOffered = refPrescribeOffered.replace(", ", "\n");
+            referralPrescription.setText(refPrescribeOffered);
         }
     }
 

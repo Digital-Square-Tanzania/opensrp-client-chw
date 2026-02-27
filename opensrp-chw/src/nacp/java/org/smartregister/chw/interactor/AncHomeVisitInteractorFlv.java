@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import static org.smartregister.chw.core.utils.CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS;
+
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +11,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.actionhelper.AncMinorAilmentActionHelper;
 import org.smartregister.chw.actionhelper.HealthFacilityVisitAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
@@ -18,11 +21,16 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.ChwAncJsonFormUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.JsonFormUtilsFlv;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -98,6 +106,52 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateFacilityReferral(String referralPayload, Map<String, List<VisitDetail>> details,
+                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        String formName = "referral_facility_selection";
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+        Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
+        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, jsonForm);
+
+        if (details != null) ChwAncJsonFormUtils.populateForm(jsonForm, details);
+
+        JSONObject referralProblem = FacilitySelectionActionHelper.copyReferralProblem(referralPayload, "danger_signs_present");
+        FacilitySelectionActionHelper helper = new FacilitySelectionActionHelper(
+                referralProblem,
+                ANC_DANGER_SIGNS,
+                memberObject.getBaseEntityId());
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.home_visit_facility_referral))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(formName)
+                .withJsonPayload(jsonForm.toString())
+                .withHelper(helper)
+                .build();
+        actionList.put(context.getString(R.string.home_visit_facility_referral), action);
+    }
+
+    private void evaluateMinorAilment(Map<String, List<VisitDetail>> details,
+                                      final MemberObject memberObject,
+                                      Map<Integer, LocalDate> dateMap,
+                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        String formName = "linkages/native/anc_linkage_form";
+        visit_title = context.getString(R.string.anc_home_visit_minor_ailment);
+        JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Utils.getLocalForm(formName, CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager));
+        if (details != null) {
+            ChwAncJsonFormUtils.populateForm(healthFacilityVisitForm, details);
+        }
+        BaseAncHomeVisitAction minorAilmentAction = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new AncMinorAilmentActionHelper(context))
+                .withJsonPayload(healthFacilityVisitForm.toString())
+                .withFormName(formName)
+                .build();
+
+        actionList.put(visit_title, minorAilmentAction);
     }
 
     private void evaluateHealthFacilityVisit(Map<String, List<VisitDetail>> details,
@@ -247,6 +301,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public String postProcess(String s) {
             try {
                 if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
+                    actionList.remove(context.getString(R.string.home_visit_facility_referral));
+
+                    if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                        evaluateMinorAilment(details, memberObject, dateMap, context);
+                    }
+
                     evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateFamilyPlanning(details, context);
                     // evaluateNutritionStatus(details, context);
@@ -254,8 +314,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
                     evaluateRemarks(details, context);
+
                 } else {
                     Timber.d(actionList.toString());
+                    evaluateFacilityReferral(s, details, context);
+                    actionList.remove(context.getString(R.string.anc_home_visit_minor_ailment));
                     actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
                     actionList.remove(context.getString(R.string.anc_home_visit_nutrition_status));
                     actionList.remove(context.getString(R.string.anc_home_visit_counselling_task));

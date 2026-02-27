@@ -1,0 +1,461 @@
+{
+  "count": "1",
+  "encounter_type": "Linkage Follow-up Visit",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Ziara ya Kufuatilia",
+    "fields": [
+      {
+        "key": "date_chw_mfollowup",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Je, mteja alitembelea duka la dawa muhimu?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Ndiyo"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        }
+      },
+	  {
+        "key": "services_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Je, alipokea huduma husika kwenye duka la dawa muhimu?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Ndiyo"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        },
+		"relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "get_all_meds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "get_all_meds",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Umepata dawa zote ulizo hitaji?",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "yes",
+          "no"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_get_all_meds_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "not_get_all_meds_reason",
+        "type": "check_box",
+        "label": "Kama 'Hapana' kwa nini hukuweza kupata dawa unayohitaji?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "too_expensive",
+            "text": "Gharama kubwa sana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "too_expensive"
+          },
+          {
+            "key": "stock_out",
+            "text": "Zimeisha",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "other_reason",
+            "text": "Sababu nyingine (taja)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_get_all_meds_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "not_get_all_meds_reason_other",
+        "type": "edit_text",
+        "hint": "Elezea sababu nyingine kwanini mteja hakuweza kupata dawa",
+        "edit_type": "text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the person's name"
+        }
+      },
+	  {
+        "key": "reminder_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mkumbushe mteja au mlezi juu ya kufuata ushauri aliopokea kwenye duka la dawa muhimu",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+	  {
+        "key": "noservices_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Kwanini hawakupata huduma yoyote kwenye duka la dawa muhimu?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_many_people",
+            "text": "Kulikuwa na watu wengi",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_changed_mind",
+            "text": "Alibadilisha mawazo",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+		  {
+            "key": "chk_no_medication",
+            "text": "Hukupata dawa alizohitaji kwenye duka la dawa muhimu",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unavailable_service",
+            "text": "Hakukuwa na watoa huduma walio na ujuzi",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_reason",
+            "text": "Sababu nyingine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "No service reason is required"
+        },
+		"relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+	  {
+        "key": "other_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Elezea:",
+        "v_required": {
+          "value": "true",
+          "err": "Describe the other reason"
+        },
+		"relevance": {
+          "step1:noservices_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+	  {
+        "key": "novisit_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Kwa nini hakwenda kwenye duka la dawa muhimu?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_visit_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_no_time",
+            "text": "Hakuwa na muda",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_too_far",
+            "text": "Ni mbali sana",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_forgot",
+            "text": "Alisahau",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+		   {
+            "key": "chk_changed_mind",
+            "text": "Alibadilisha mawazo",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_visit_reason",
+            "text": "Sababu nyingine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "No visit reason is required"
+        },
+		"relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+	  {
+        "key": "other_reason_novisit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Elezea:",
+        "v_required": {
+          "value": "true",
+          "err": "Describe the other reason"
+        },
+		"relevance": {
+          "step1:novisit_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_visit_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+	  {
+        "key": "encourage_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mshauri na mhimize mteja au mlezi kujaribu tena kukamilisha rufaa",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      },
+	  {
+        "key": "complete_linkage",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Je, angependa kujaribu tena kukamilisha muunganisho?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Ndiyo"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        },
+		"relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "KVP PrEP Referral Services",
+  "encounter_type": "KVP Referral Services",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -140,12 +140,14 @@
           "step1:referral_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
-          }
-        },
+        }
+      },
       {
         "key": "referrals_completed_to_structural_services",
         "openmrs_entity_parent": "",
@@ -224,6 +226,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_referral_service_rules.yml"
+            }
+          }
         }
       },
       {
@@ -232,6 +241,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_referrals_completed_to_structural_services",
         "hint": "Other(specify)",
+        "type": "edit_text",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -241,10 +251,27 @@
           "step1:referrals_completed_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
+        }
+      },
+      {
+        "key": "next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "next_visit_date",
+        "type": "date_picker",
+        "label": "Select next visit date",
+        "hint": "Select next visit date",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the next visit date"
         }
       }
     ]

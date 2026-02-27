@@ -153,13 +153,13 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                     JSONObject step = steps.getJSONObject(0);
                     JSONArray referralFormFields = step.getJSONArray("fields");
 
-                    int age = getAgeFromDate(memberObject.getAge());
+                    int age = memberObject.getAge();
                     boolean removePneumoniaAndDiarrheSigns = age > 5;
                     boolean removeRectalArtesunate = age > 6;
 
                     updateProblemsAndServicesBeforeReferral(referralFormFields, removePneumoniaAndDiarrheSigns, removeRectalArtesunate, isFemaleOfReproductiveAge);
 
-                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false);
+                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false, false);
                 } else {
                     startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
                 }
@@ -418,7 +418,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         findViewById(R.id.family_malaria_head).setVisibility(View.GONE);
         findViewById(R.id.primary_malaria_caregiver).setVisibility(View.GONE);
 
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = String.valueOf(memberObject.getAge());
         textViewName.setText(String.format("%s %s %s, %s", memberObject.getFirstName(),
                 memberObject.getMiddleName(), memberObject.getLastName(), clientAge));
     }
@@ -490,7 +490,8 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
             JSONObject form = null;
-            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
+            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver() != null
+                    && memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
             String titleString = title_resource != null ? getResources().getString(title_resource) : null;
 
             if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {

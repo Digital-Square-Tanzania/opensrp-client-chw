@@ -1,0 +1,504 @@
+---
+name: step1_number_of_pre_schools_government
+description: Rule to conrol the visibility of (step3_number_of_pre_schools_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_primary_schools_government
+description: Rule to conrol the visibility of (step3_number_of_primary_schools_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_secondary_schools_government
+description: Rule to conrol the visibility of (step3_number_of_secondary_schools_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_universities_government
+description: Rule to conrol the visibility of (step3_number_of_universities_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_needs_schools_government
+description: Rule to conrol the visibility of (step3_number_of_special_needs_schools_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_dispensary_government
+description: Rule to conrol the visibility of (step3_number_of_dispensary_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_health_centers_government
+description: Rule to conrol the visibility of (step3_number_of_health_centers_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_hospital_government
+description: Rule to conrol the visibility of (step3_number_of_hospital_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_clinics_government
+description: Rule to conrol the visibility of (step3_number_of_special_clinics_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_laboratory_government
+description: Rule to conrol the visibility of (step3_number_of_laboratory_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pharmacy_government
+description: Rule to conrol the visibility of (step3_number_of_pharmacy_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_ADDO_government
+description: Rule to conrol the visibility of (step3_number_of_ADDO_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_maternity_home_government
+description: Rule to conrol the visibility of (step3_number_of_maternity_home_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_orphan_care_centers_government
+description: Rule to conrol the visibility of (step3_number_of_orphan_care_centers_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_centers_for_children_with_disabilities_government
+description: Rule to conrol the visibility of (step3_number_of_centers_for_children_with_disabilities_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_cbecdc_rehabilitation_centre_government
+description: Rule to conrol the visibility of (step3_number_of_cbecdc_rehabilitation_centre_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_day_care_centers_government
+description: Rule to conrol the visibility of (step3_number_of_day_care_centers_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_elderly_care_centers_government
+description: Rule to conrol the visibility of (step3_number_of_elderly_care_centers_government)
+priority: 1
+condition: "step1_select_centers_category.contains('government')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pre_schools_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_pre_schools_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_primary_schools_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_primary_schools_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_secondary_schools_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_secondary_schools_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_universities_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_universities_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_needs_schools_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_special_needs_schools_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_dispensary_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_dispensary_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_health_centers_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_health_centers_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_hospital_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_hospital_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_clinics_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_special_clinics_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_laboratory_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_laboratory_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pharmacy_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_pharmacy_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_ADDO_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_ADDO_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_maternity_home_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_maternity_home_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_orphan_care_centers_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_orphan_care_centers_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_centers_for_children_with_disabilities_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_centers_for_children_with_disabilities_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_cbecdc_rehabilitation_centre_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_cbecdc_rehabilitation_centre_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_day_care_centers_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_day_care_centers_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_elderly_care_centers_faith_based_organisation
+description: Rule to conrol the visibility of (step3_number_of_elderly_care_centers_faith_based_organisation)
+priority: 1
+condition: "step1_select_centers_category.contains('faith_based_organisation')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pre_schools_public
+description: Rule to conrol the visibility of (step3_number_of_pre_schools_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_primary_schools_public
+description: Rule to conrol the visibility of (step3_number_of_primary_schools_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_secondary_schools_public
+description: Rule to conrol the visibility of (step3_number_of_secondary_schools_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_universities_public
+description: Rule to conrol the visibility of (step3_number_of_universities_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_needs_schools_public
+description: Rule to conrol the visibility of (step3_number_of_special_needs_schools_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_dispensary_public
+description: Rule to conrol the visibility of (step3_number_of_dispensary_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_health_centers_public
+description: Rule to conrol the visibility of (step3_number_of_health_centers_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_hospital_public
+description: Rule to conrol the visibility of (step3_number_of_hospital_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_clinics_public
+description: Rule to conrol the visibility of (step3_number_of_special_clinics_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_laboratory_public
+description: Rule to conrol the visibility of (step3_number_of_laboratory_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pharmacy_public
+description: Rule to conrol the visibility of (step3_number_of_pharmacy_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_ADDO_public
+description: Rule to conrol the visibility of (step3_number_of_ADDO_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_maternity_home_public
+description: Rule to conrol the visibility of (step3_number_of_maternity_home_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_orphan_care_centers_public
+description: Rule to conrol the visibility of (step3_number_of_orphan_care_centers_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_centers_for_children_with_disabilities_public
+description: Rule to conrol the visibility of (step3_number_of_centers_for_children_with_disabilities_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_cbecdc_rehabilitation_centre_public
+description: Rule to conrol the visibility of (step3_number_of_cbecdc_rehabilitation_centre_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_day_care_centers_public
+description: Rule to conrol the visibility of (step3_number_of_day_care_centers_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_elderly_care_centers_public
+description: Rule to conrol the visibility of (step3_number_of_elderly_care_centers_public)
+priority: 1
+condition: "step1_select_centers_category.contains('public')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pre_schools_private
+description: Rule to conrol the visibility of (step3_number_of_pre_schools_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_primary_schools_private
+description: Rule to conrol the visibility of (step3_number_of_primary_schools_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_secondary_schools_private
+description: Rule to conrol the visibility of (step3_number_of_secondary_schools_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_universities_private
+description: Rule to conrol the visibility of (step3_number_of_universities_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_needs_schools_private
+description: Rule to conrol the visibility of (step3_number_of_special_needs_schools_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_dispensary_private
+description: Rule to conrol the visibility of (step3_number_of_dispensary_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_health_centers_private
+description: Rule to conrol the visibility of (step3_number_of_health_centers_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_hospital_private
+description: Rule to conrol the visibility of (step3_number_of_hospital_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_special_clinics_private
+description: Rule to conrol the visibility of (step3_number_of_special_clinics_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_laboratory_private
+description: Rule to conrol the visibility of (step3_number_of_laboratory_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_pharmacy_private
+description: Rule to conrol the visibility of (step3_number_of_pharmacy_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_ADDO_private
+description: Rule to conrol the visibility of (step3_number_of_ADDO_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_maternity_home_private
+description: Rule to conrol the visibility of (step3_number_of_maternity_home_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_orphan_care_centers_private
+description: Rule to conrol the visibility of (step3_number_of_orphan_care_centers_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_centers_for_children_with_disabilities_private
+description: Rule to conrol the visibility of (step3_number_of_centers_for_children_with_disabilities_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_cbecdc_rehabilitation_centre_private
+description: Rule to conrol the visibility of (step3_number_of_cbecdc_rehabilitation_centre_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_day_care_centers_private
+description: Rule to conrol the visibility of (step3_number_of_day_care_centers_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_elderly_care_centers_private
+description: Rule to conrol the visibility of (step3_number_of_elderly_care_centers_private)
+priority: 1
+condition: "step1_select_centers_category.contains('private')"
+actions:
+  - "isRelevant = true"

@@ -8,22 +8,34 @@ import android.print.PrintManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import androidx.annotation.RequiresApi;
-import androidx.webkit.WebViewAssetLoader;
-
 import androidx.webkit.WebViewAssetLoader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
+import org.smartregister.chw.domain.asrh_reports.AsrhOtherReportObject;
+import org.smartregister.chw.domain.asrh_reports.AsrhReportObject;
+import org.smartregister.chw.domain.ayp_reports.AypInSchoolReportObject;
+import org.smartregister.chw.domain.ayp_reports.AypParentalReportObject;
+import org.smartregister.chw.domain.KvpReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
+import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
+import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
+import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
 import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 import org.smartregister.chw.domain.sbc_reports.SbcReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyCommunityReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyHouseholdReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyServiceChallengesReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosySpecialAreasReportObject;
+import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyTreatmentStatusReportObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -105,7 +117,6 @@ public class ReportUtils {
 
     @SuppressLint("SetJavaScriptEnabled")
     public static void loadReportView(String reportPath, WebView mWebView, Context context, String reportType) {
-
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         final WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder().addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(context)).build();
@@ -114,7 +125,11 @@ public class ReportUtils {
 
         if (reportType.equals(Constants.ReportConstants.ReportTypes.CONDOM_DISTRIBUTION_REPORT)) {
             mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/cdp_reports/" + reportPath + ".html");
-        } else {
+        }
+        else if (reportType.equals(Constants.ReportConstants.ReportTypes.HPS_REPORT)) {
+            mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/hps_reports/" + reportPath + ".html");
+        }
+        else {
             mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/" + reportPath + ".html");
         }
 
@@ -221,6 +236,172 @@ public class ReportUtils {
             SbcReportObject sbcReportObject = new SbcReportObject(startDate);
             try {
                 return sbcReportObject.getIndicatorDataAsGson(sbcReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+
+    public static class AsrhReports {
+        public static String computeClientsReports(Date startDate) {
+            AsrhReportObject asrhReportObject = new AsrhReportObject(startDate);
+            try {
+                return asrhReportObject.getIndicatorDataAsGson(asrhReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+        public static String computeOtherReports(Date startDate) {
+            AsrhOtherReportObject asrhOtherReportObject = new AsrhOtherReportObject(startDate);
+            try {
+                return asrhOtherReportObject.getIndicatorDataAsGson(asrhOtherReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class AypReports {
+        public static String computeInSchoolMonthlyReport(Date startDate) {
+            AypInSchoolReportObject reportObject = new AypInSchoolReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeParentalMonthlyReport(Date startDate) {
+            AypParentalReportObject reportObject = new AypParentalReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+
+    public static class CecapReports {
+        public static String computeClientsReports(Date startDate) {
+            CecapReportObject cecapReportObject = new CecapReportObject(startDate);
+            try {
+                return cecapReportObject.getIndicatorDataAsGson(cecapReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeOtherReports(Date startDate) {
+            CecapOtherReportObject cecapOtherReportObject = new CecapOtherReportObject(startDate);
+            try {
+                return cecapOtherReportObject.getIndicatorDataAsGson(cecapOtherReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class TbLeprosyReports {
+        public static String computeMonthlyReport(Date startDate) {
+            TbLeprosyReportObject tbLeprosyReportObject = new TbLeprosyReportObject(startDate);
+            try {
+                return tbLeprosyReportObject.getIndicatorDataAsGson(tbLeprosyReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeCommunityReport(Date startDate) {
+            TbLeprosyCommunityReportObject reportObject = new TbLeprosyCommunityReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeHouseholdReport(Date startDate) {
+            TbLeprosyHouseholdReportObject reportObject = new TbLeprosyHouseholdReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeSpecialAreasReport(Date startDate) {
+            TbLeprosySpecialAreasReportObject reportObject = new TbLeprosySpecialAreasReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeTreatmentStatusReport(Date startDate) {
+            TbLeprosyTreatmentStatusReportObject reportObject = new TbLeprosyTreatmentStatusReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String computeServiceChallengesReport(Date startDate) {
+            TbLeprosyServiceChallengesReportObject reportObject = new TbLeprosyServiceChallengesReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return emptyReport();
+        }
+
+        public static String emptyReport() {
+            return "{\"nameValuePairs\":{}}";
+        }
+    }
+
+    public static class KvpReports {
+        public static String computeClientsReports(Date startDate) {
+            KvpReportObject kvpReportObject = new KvpReportObject(startDate);
+            try {
+                return kvpReportObject.getIndicatorDataAsGson(kvpReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class HpsReports {
+        public static String computeClientsReports(Date startDate) {
+            HpsMonthlyReportObject hpsMonthlyReportObject = new HpsMonthlyReportObject(startDate);
+            try {
+                return hpsMonthlyReportObject.getIndicatorDataAsGson(hpsMonthlyReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+        public static String computeClientsAnnualReports(Date startDate) {
+            HpsAnnualReportObject hpsAnnualReportObject = new HpsAnnualReportObject(startDate);
+            try {
+                return hpsAnnualReportObject.getIndicatorDataAsGson(hpsAnnualReportObject.getIndicatorData());
             } catch (JSONException e) {
                 Timber.e(e);
             }

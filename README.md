@@ -1,4 +1,4 @@
-
+ 
 [![Build Status](https://travis-ci.org/OpenSRP/opensrp-client-chw.svg?branch=master)](https://travis-ci.org/OpenSRP/opensrp-client-chw) [![Coverage Status](https://coveralls.io/repos/github/OpenSRP/opensrp-client-chw/badge.svg?branch=master)](https://coveralls.io/github/OpenSRP/opensrp-client-chw?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f68511a1ac164d58a3a48c1926c2326a)](https://www.codacy.com/app/OpenSRP/opensrp-client-chw?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OpenSRP/opensrp-client-chw&amp;utm_campaign=Badge_Grade)
  
 ## OpenSRP CHW Client
@@ -17,12 +17,40 @@ These instructions will get you a copy of the project up and running on your loc
 ### Steps to set up
 [OpenSRP android client app build](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619236/OpenSRP+App+Build)
 
+### Building the app locally
+
+1. Install the Android SDK tools and a Java 11+ runtime, then export `JAVA_HOME` so Gradle can locate it.
+2. Publish legacy dependencies from the checked-in cache (`legacy-opensrp-libs/`) to your local Maven cache (`mavenLocal()`):
+   ```bash
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs --dest ~/.m2/repository --overwrite
+   ```
+   You can use the positional destination form if you prefer:
+   ```bash
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs ~/.m2/repository --overwrite
+   ```
+   If you want to refresh the project-local mirror used by `opensrp-chw/build.gradle` (`${rootDir}/local-maven`), run:
+   ```bash
+   python3 scripts/sync_local_maven.py --source legacy-opensrp-libs --dest local-maven --overwrite
+   ```
+   Rerun these commands whenever `legacy-opensrp-libs/` changes.
+3. Ensure the prepackaged AARs remain under `opensrp-chw/libs/` (`circleprogressbar-1.0.8-SNAPSHOT.aar`, `MonthAndYearPicker-1.3.0.aar`, `hellocharts-android-1.5.8.aar`). Replace them if you rebuild those libraries locally.
+4. Build the client from the repository root:
+   ```bash
+   ./gradlew assemble
+   # or assemble a specific flavor, e.g.
+   ./gradlew assembleNacpDebug
+   ```
+5. The generated APKs appear under `opensrp-chw/build/outputs/apk/`.
+
 ### Running the tests
 
 [Android client unit tests](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/65570428/OpenSRP+Client)
 
 ## Deployment
 [Production releases](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/1141866503/How+to+create+a+release+APK)
+
+## Recent Fixes
+- Prevent reuse of reserved OpenSRP Unique IDs when selecting an existing client as head of household during Family Registration, ensuring unique family identifiers and reliable sync.
 
 ## Features
 -   Child health care

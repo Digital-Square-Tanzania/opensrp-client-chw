@@ -4,13 +4,18 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.activity.AncMemberProfileActivity;
+import org.smartregister.chw.activity.PncMemberProfileActivity;
+import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -27,6 +32,8 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
 
     private FormUtils formUtils;
     private String entityId;
+
+    private List<ReferralTypeModel> linkageTypeModels;
 
     public PncMemberProfilePresenter(BaseAncMemberProfileContract.View view,
                                      BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
@@ -61,6 +68,15 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     }
 
 
+    public void linkToADDO(){
+         linkageTypeModels = ((PncMemberProfileActivity) getView()).getLinkageTypeModels();
+        if (linkageTypeModels.size() == 1) {
+            linkClientToADDO();
+        } else {
+            org.smartregister.chw.util.Utils.launchClientReferralActivity((Activity) getView(), linkageTypeModels, getEntityId());
+        }
+    }
+
     public PncMemberProfileContract.View getView() {
         if (view != null) {
             return (PncMemberProfileContract.View) view.get();
@@ -75,6 +91,20 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
             getView().startFormActivity(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? getFormUtils().getFormJson(CoreConstants.JSON_FORM.getPncUnifiedReferralForm()) : getFormUtils().getFormJson(CoreConstants.JSON_FORM.getPncReferralForm()));
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void linkClientToADDO(){
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            try {
+                Activity context = ((Activity) getView());
+                JSONObject formJson = (new com.vijay.jsonwizard.utils.FormUtils()).getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.getPncUnifiedLinkageForm());
+                formJson.put(Constants.REFERRAL_TASK_FOCUS, linkageTypeModels.get(0).getFocus());
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
+                        getEntityId(), formJson, false, true);
+            } catch (Exception ex) {
+                Timber.e(ex);
+            }
         }
     }
 

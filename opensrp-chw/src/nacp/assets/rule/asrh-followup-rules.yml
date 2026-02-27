@@ -1,0 +1,7 @@
+---
+name: schedule_every_month
+description: monthly
+priority: 1
+condition: "true"
+actions:
+  - "asrhFollowupRule.isValid(0,7,365)"

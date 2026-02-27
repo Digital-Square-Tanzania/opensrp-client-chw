@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.model.BaseReferralRegisterFragmentModel;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -55,12 +56,15 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_SERVICE + "  AS " + Key.REFERRAL_SERVICE);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_DATE);
         columnList.add(Constants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.BUSINESS_STATUS + " AS " + Key.REFERRAL_STATUS);
+        //columnList.add(Constants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.STATUS + " AS " + Key.REFERRAL_STATUS);
+        columnList.add(Constants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.STATUS + " AS status");
         columnList.add(Tables.REFERRAL + "." + Key.PROBLEM);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL_OTHER);
         columnList.add(Tables.REFERRAL + "." + Key.PROBLEM_OTHER);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_APPOINTMENT_DATE);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_HF);
+        columnList.add(CoreConstants.TABLE_NAME.TASK+ "._id" + " AS "+ org.smartregister.chw.referral.util.Constants.Task.Key.TASK_ID);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
         return columnList.toArray(new String[columnList.size()]);
     }

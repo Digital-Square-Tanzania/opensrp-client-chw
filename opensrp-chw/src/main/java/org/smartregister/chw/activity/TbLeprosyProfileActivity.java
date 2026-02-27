@@ -1,0 +1,1097 @@
+package org.smartregister.chw.activity;
+
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getLatestTbLeprosyScreeningDate;
+import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FORM_KEY.GLOBAL;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.activity.CoreTbLeprosyProfileActivity;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
+import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
+import org.smartregister.chw.model.ChwAllClientsRegisterModel;
+import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
+import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
+import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
+import org.smartregister.chw.tbleprosy.domain.Visit;
+import org.smartregister.chw.tbleprosy.util.Constants;
+import org.smartregister.chw.tbleprosy.util.DBConstants;
+import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
+import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.chw.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Task;
+import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.FamilyLibrary;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.opd.contract.OpdRegisterActivityContract;
+import org.smartregister.opd.pojo.RegisterParams;
+import org.smartregister.opd.utils.OpdJsonFormUtils;
+import org.smartregister.opd.utils.OpdUtils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+
+import timber.log.Timber;
+
+
+public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity implements TbLeprosyContactRegisterPresenter.ContactRegistrationCallback {
+
+    private static final int REQUEST_CODE_CONTACT_REGISTER = 6700;
+
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private TbLeprosyContactRegisterPresenter newClientRegisterPresenter;
+    private OpdRegisterActivityContract.View newClientRegisterView;
+    @Nullable
+    private String pendingContactRegistrationLocationId;
+    private boolean pendingTbLeprosyReferralLaunch;
+
+    public static void startProfileActivity(Activity activity, String baseEntityId) {
+        Intent intent = new Intent(activity, TbLeprosyProfileActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.TBLEPROSY_PROFILE);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void openClientObservationResults() {
+        try {
+            startForm("tbleprosy_record_visit");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void observationResults() {
+        try {
+            startForm("tbleprosy_record_visit");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void openTbContactFollowUpVisit() {
+        try {
+            startForm(Constants.FORMS.TBLEPROSY_FOLLOWUP_VISIT);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void openRecordClientVisit() {
+        try {
+            startForm(Constants.FORMS.RECORD_TBLEPROSY_VISIT);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void openObservationResults() {
+        String baseEntityId = memberObject.getBaseEntityId();
+        try {
+            JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.OBSERVATION_RESULTS);
+            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+
+            try {
+                JSONObject global = form.getJSONObject(GLOBAL);
+                global.put("age", memberObject.getAge());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+            TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
+            boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
+            boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
+
+            boolean isTbPresumptive = TbLeprosyDao.isTbPresumptiveClient(baseEntityId) && !hasTbResults;
+            boolean isLeprosyPresumptive = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId) && !hasLeprosyResults;
+
+            if (isTbPresumptive ^ isLeprosyPresumptive) {
+                String hiddenValue = isTbPresumptive ? "tb" : "leprosy";
+                applyObservationTypeOverrides(form, hiddenValue);
+            }
+
+            maybeRemoveTreatmentDecisionAlgorithmOption(form, memberObject.getAge());
+            startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+    }
+
+    @Override
+    public void openFollowupVisit() {
+        try {
+            startForm(Constants.FORMS.TBLEPROSY_FOLLOWUP_VISIT);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void openRecordTbContactVisit() {
+        TbLeprosyContactVisitActivity.startTbLeprosyVisitActivity(this, memberObject.getBaseEntityId(), false);
+    }
+
+    @Override
+    public void openTbLeprosyContactRegister() {
+        Intent intent = new Intent(this, TbLeprosyContactRegister.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberObject.getBaseEntityId());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
+        startActivityForResult(intent, REQUEST_CODE_CONTACT_REGISTER);
+    }
+
+    @Override
+    protected void setupButtons() {
+
+        String baseEntityId = memberObject.getBaseEntityId();
+        boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
+        textViewRecordTbLeprosy.setOnClickListener(this);
+
+        if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
+            manualProcessVisit.setVisibility(View.GONE);
+
+            boolean isTbPresumptiveClient = TbLeprosyDao.isTbPresumptiveClient(baseEntityId);
+            boolean isLeprosyPresumptiveClient = TbLeprosyDao.isLeprosyPresumptiveClient(baseEntityId);
+            String latestTbLeprosyVisit = TbLeprosyDao.getTBleprosyVisit(baseEntityId);
+            boolean hasTbLeprosyVisit = TbLeprosyDao.hasTbLeprosyVisit(baseEntityId);
+            TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(baseEntityId);
+            boolean hasObservationResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision())
+                    || StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults()));
+            boolean missingLeprosyTreatmentStartDate = observationResults != null
+                    && StringUtils.isBlank(observationResults.getLeprosyTreatmentStartDate()) && StringUtils.isBlank(memberObject.getLeprosyClientNumber());
+            boolean hasPoorQualitySample = observationResults != null && observationResults.isPoorQualitySample();
+            boolean hasTbResults = observationResults != null && (StringUtils.isNotBlank(observationResults.getTbSampleTestResults())
+                    || StringUtils.isNotBlank(observationResults.getClinicalDecision()));
+            boolean hasLeprosyResults = observationResults != null && StringUtils.isNotBlank(observationResults.getLeprosyInvestigationResults());
+            boolean hasReferralTaskAfterTbLeprosyVisit = hasReferralTaskAfterTbLeprosyVisit(isTbPresumptiveClient, isLeprosyPresumptiveClient);
+            boolean shouldShowPendingReferral = shouldShowPendingReferralAction(isTbPresumptiveClient, isLeprosyPresumptiveClient,
+                    hasTbLeprosyVisit, hasObservationResults, hasReferralTaskAfterTbLeprosyVisit);
+
+            if (shouldShowPendingReferral) {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText(R.string.tbleprosy_issue_referral_action);
+                textViewVisitDone.setText(R.string.tbleprosy_pending_issuing_of_referral);
+                textViewVisitDoneEdit.setOnClickListener(getPendingReferralActionClickListener());
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            } else {
+                visitDone.setVisibility(View.GONE);
+                textViewVisitDone.setVisibility(View.GONE);
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+            }
+
+            if (!shouldShowPendingReferral && isTbPresumptiveClient && !isLeprosyPresumptiveClient) {
+                if (!hasTbLeprosyVisit) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (hasTbLeprosyVisit && !hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else if (hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                }
+            } else if (!shouldShowPendingReferral && !isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+                if (!hasObservationResults) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasPoorQualitySample) {
+                    textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                } else {
+                    textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    textViewRecordTbLeprosy.setVisibility(View.GONE);
+                }
+            } else if (!shouldShowPendingReferral && isTbPresumptiveClient && isLeprosyPresumptiveClient) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+
+                if (hasTbLeprosyVisit && !hasObservationResults) {
+                    textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                } else if (hasObservationResults) {
+                    if (hasPoorQualitySample) {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy);
+                    } else if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRecordTbLeprosy.setText(R.string.record_observation_results);
+                    } else {
+                        textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_client_followup_visit);
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    }
+
+                    if (!hasTbResults || !hasLeprosyResults) {
+                        textViewRegisterTBLeprosyContact.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else {
+                textViewRecordTbLeprosy.setVisibility(View.GONE);
+            }
+
+            if (!shouldShowPendingReferral && hasObservationResults && isLeprosyPresumptiveClient && hasLeprosyResults && missingLeprosyTreatmentStartDate) {
+                textViewRecordLeprosyTreatmentStartDate.setVisibility(View.VISIBLE);
+                textViewRecordLeprosyTreatmentStartDate.setText(R.string.record_leprosy_treatment_start_date);
+                textViewRecordLeprosyTreatmentStartDate.setOnClickListener(view -> openRecordLeprosyTreatmentStartDate());
+            } else {
+                textViewRecordLeprosyTreatmentStartDate.setVisibility(View.GONE);
+            }
+        } else if (TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
+            textViewRecordTbLeprosy.setVisibility(View.GONE);
+        }
+
+
+        if (isContactClient) {
+
+            if (getTbLeprosyContactVisit() == null) {
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_contact_visit);
+            }
+
+            if (getTbLeprosyContactVisit() != null) {
+
+
+                if (!getTbLeprosyContactVisit().getProcessed()) {
+                    textViewRecordTbLeprosy.setVisibility(View.GONE);
+                    manualProcessVisit.setVisibility(View.VISIBLE);
+                    textViewContinueTbLeprosy.setVisibility(View.VISIBLE);
+                    manualProcessVisit.setOnClickListener(view -> {
+                        try {
+                            TbLeprosyVisitsUtil.manualProcessVisit(getTbLeprosyContactVisit());
+                            displayToast(org.smartregister.chw.tbleprosy.R.string.tbleprosy_visit_conducted);
+                            setupViews();
+                        } catch (Exception e) {
+                            Timber.d(e);
+                        }
+                    });
+                } else {
+                    manualProcessVisit.setVisibility(View.GONE);
+                    textViewContinueTbLeprosy.setVisibility(View.GONE);
+                    rlLastVisit.setVisibility(View.VISIBLE);
+                }
+            }
+
+            if (StringUtils.isNotBlank(TbLeprosyDao.getTbLeprosyObservationResults(memberObject.getBaseEntityId()))) {
+                textViewRecordTbLeprosy.setVisibility(View.VISIBLE);
+                textViewRecordTbLeprosy.setText(R.string.record_tbleprosy_contact_visit_followup);
+            }
+
+        }
+
+    }
+
+    View.OnClickListener getPendingReferralActionClickListener() {
+        return view -> launchPendingReferralForm();
+    }
+
+    void launchPendingReferralForm() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+        try {
+            JSONObject referralFormJson = getTbLeprosyReferralFormJson();
+            pendingTbLeprosyReferralLaunch = true;
+            startPendingReferralFormActivity(memberObject.getBaseEntityId(), referralFormJson);
+        } catch (Exception e) {
+            pendingTbLeprosyReferralLaunch = false;
+            Timber.e(e);
+        }
+    }
+
+    JSONObject getTbLeprosyReferralFormJson() throws JSONException {
+        org.smartregister.util.FormUtils formUtils = FormUtils.getFormUtils();
+        if (formUtils == null) {
+            throw new IllegalStateException("FormUtils is unavailable");
+        }
+
+        JSONObject formJson = formUtils.getFormJson(CoreConstants.JSON_FORM.getTbLeprosyReferralForm());
+        if (formJson == null) {
+            throw new JSONException("TB/Leprosy referral form is unavailable");
+        }
+
+        formJson.put(org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS, CoreConstants.TASKS_FOCUS.TBLEPROSY);
+        return formJson;
+    }
+
+    void startPendingReferralFormActivity(String baseEntityId, JSONObject referralFormJson) {
+        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(
+                this,
+                baseEntityId,
+                referralFormJson,
+                false,
+                false
+        );
+    }
+
+    static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
+                                                   boolean isLeprosyPresumptiveClient,
+                                                   boolean hasTbLeprosyVisit,
+                                                   boolean hasObservationResults,
+                                                   boolean hasReferralTaskAfterTbLeprosyVisit) {
+        if ((!hasTbLeprosyVisit && isTbPresumptiveClient) || hasReferralTaskAfterTbLeprosyVisit) {
+            return false;
+        }
+
+
+
+        boolean isTbPendingReferral = isTbPresumptiveClient && !hasObservationResults;
+        boolean isLeprosyOnlyPendingReferral = isLeprosyPresumptiveClient && !isTbPresumptiveClient;
+        return isTbPendingReferral || isLeprosyOnlyPendingReferral;
+    }
+
+    private boolean hasReferralTaskAfterTbLeprosyVisit(boolean isTbPresumptiveClient, boolean isLeprosyPresumptiveClient) {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        String baseEntityId = memberObject.getBaseEntityId();
+        Date tbLeprosyVisitDate = null;
+        if (isTbPresumptiveClient)
+         tbLeprosyVisitDate = TbLeprosyDao.getLatestTbSampleCollectionDate(baseEntityId);
+        else if (isLeprosyPresumptiveClient) {
+            tbLeprosyVisitDate = getLatestTbLeprosyScreeningDate(baseEntityId);
+        }
+
+        Task task = getTaskByEntityId(baseEntityId);
+        return isTbLeprosyReferralTaskAfterVisit(task, tbLeprosyVisitDate);
+    }
+
+    @Nullable
+    Task getTaskByEntityId(@NonNull String baseEntityId) {
+        return ChwApplication.getInstance().getTaskRepository().getTaskByEntityId(baseEntityId);
+    }
+
+    static boolean isTbLeprosyReferralTaskAfterVisit(@Nullable Task task, @Nullable Date tbLeprosyVisitDate) {
+        if (task == null || task.getLastModified() == null || tbLeprosyVisitDate == null) {
+            return false;
+        }
+
+        if (!CoreConstants.TASKS_FOCUS.TBLEPROSY.equalsIgnoreCase(StringUtils.trimToEmpty(task.getFocus()))) {
+            return false;
+        }
+
+        DateTime taskLastModifiedDate = task.getLastModified().withTimeAtStartOfDay();
+        DateTime tbLeprosyVisitDateOnly = new DateTime(tbLeprosyVisitDate).withTimeAtStartOfDay();
+
+        return !taskLastModifiedDate.isBefore(tbLeprosyVisitDateOnly);
+    }
+
+    @Nullable
+    static Date parseTbLeprosyVisitDate(String visitDateValue) {
+        if (StringUtils.isBlank(visitDateValue)) {
+            return null;
+        }
+
+        String trimmedVisitDate = visitDateValue.trim();
+        if (StringUtils.isNumeric(trimmedVisitDate)) {
+            try {
+                return new Date(Long.parseLong(trimmedVisitDate));
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        try {
+            return new DateTime(trimmedVisitDate).toDate();
+        } catch (Exception e) {
+            // Continue with explicit formats below
+        }
+
+        List<String> patterns = Arrays.asList(
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd",
+                "dd-MM-yyyy",
+                "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                "yyyy-MM-dd'T'HH:mm:ssZ"
+        );
+        for (String pattern : patterns) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                simpleDateFormat.setLenient(false);
+                return simpleDateFormat.parse(trimmedVisitDate);
+            } catch (Exception e) {
+                // Try the next known date pattern
+            }
+        }
+        return null;
+    }
+
+    private void openRecordLeprosyTreatmentStartDate() {
+        try {
+            startForm("tbleprosy_record_leprosy_start_date");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        if (TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT) != null || TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION) != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        delayRefresh();
+    }
+
+    private void delayRefresh() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                TbLeprosyDao.closeTbNegativeClients();
+                memberObject = getMemberObject(memberObject.getBaseEntityId());
+                fetchProfileData();
+                profilePresenter.refreshProfileBottom();
+                setupViews();
+                setupButtons();
+            }, 500);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    void refreshAfterReferralSubmission() {
+        delayRefresh();
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        TbLeprosyObservationResultsActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected void removeMember() {
+        //do nothing
+    }
+
+    @NonNull
+    @Override
+    public CoreFamilyOtherMemberActivityPresenter presenter() {
+        return null;
+    }
+
+    @Override
+    public void setProfileImage(String s, String s1) {
+        //do nothing
+    }
+
+    @Override
+    public void setProfileDetailThree(String s) {
+        //do nothing
+    }
+
+    @Override
+    public void toggleFamilyHead(boolean b) {
+        //do nothing
+    }
+
+    @Override
+    public void togglePrimaryCaregiver(boolean b) {
+        //do nothing
+    }
+
+
+    @Override
+    public void startServiceForm() {
+//        VmmcServiceActivity.startVmmcVisitActivity(this, baseEntityId, false);
+    }
+
+    @Override
+    public void continueService() {
+//        VmmcServiceActivity.startVmmcVisitActivity(this, baseEntityId, true);
+    }
+
+
+    @Override
+    public void continueContactVisit() {
+        TbLeprosyContactVisitActivity.startTbLeprosyVisitActivity(this, memberObject.getBaseEntityId(), true);
+    }
+
+
+    @Override
+    public void refreshList() {
+        //do nothing
+    }
+
+    @Override
+    public void updateHasPhone(boolean b) {
+        //do nothing
+    }
+
+    @Override
+    public void setFamilyServiceStatus(String s) {
+        //do nothing
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        //do nothing
+    }
+
+    @Override
+    public void notifyHasPhone(boolean b) {
+        //do nothing
+    }
+
+    private void addReferralTypes() {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral), CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_leprosy_referral), CoreConstants.JSON_FORM.getTbLeprosyReferralForm(), CoreConstants.TASKS_FOCUS.TBLEPROSY));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral), CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+        }
+
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
+
+
+    @Override
+    public void initializeFloatingMenu() {
+
+        baseTbLeprosyFloatingMenu = new TbLeprosyFloatingMenu(this, memberObject);
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.vmmc_fab:
+                    ((TbLeprosyFloatingMenu) baseTbLeprosyFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((TbLeprosyFloatingMenu) baseTbLeprosyFloatingMenu).launchCallWidget();
+                    ((TbLeprosyFloatingMenu) baseTbLeprosyFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    org.smartregister.chw.util.Utils.launchClientReferralActivity(TbLeprosyProfileActivity.this, getReferralTypeModels(), memberObject.getBaseEntityId());
+                    ((TbLeprosyFloatingMenu) baseTbLeprosyFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+        };
+
+
+        ((TbLeprosyFloatingMenu) baseTbLeprosyFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseTbLeprosyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseTbLeprosyFloatingMenu, linearLayoutParams);
+    }
+
+    private void startForm(String jsonForm) {
+        JSONObject form = FormUtils.getFormUtils().getFormJson(jsonForm);
+        try {
+            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, memberObject.getBaseEntityId());
+            applyFollowUpReasonOverrides(form);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        startFormActivity(form);
+    }
+
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(this.memberObject.getBaseEntityId()));
+
+        String baseEntityId = memberObject != null ? memberObject.getBaseEntityId() : null;
+        CommonPersonObjectClient client = getCommonPersonClientForMenu(baseEntityId);
+        if (client != null) {
+            AllClientsUtils.updateOptionsMenu(menu, client);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == org.smartregister.chw.core.R.id.action_hiv_registration
+                || itemId == org.smartregister.chw.core.R.id.action_cbhs_registration) {
+            startHivRegister();
+            return true;
+        } else if (itemId == org.smartregister.chw.core.R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        } else if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
+            removeMember();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHivRegister() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new com.vijay.jsonwizard.utils.FormUtils())
+                    .getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            int age = memberObject.getAge();
+            try {
+                updateAgeAndGender(fields, age, memberObject.getGender());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(TbLeprosyProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+    protected void startHpsEnrollment() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        HpsRegisterActivity.startRegistration(this,
+                memberObject.getBaseEntityId(),
+                org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT,
+                null);
+    }
+
+    private CommonPersonObjectClient getCommonPersonClientForMenu(String baseEntityId) {
+        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName)
+                .findByBaseEntityId(baseEntityId);
+        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                personObject.getDetails(), "");
+        commonPersonObjectClient.setColumnmaps(personObject.getColumnmaps());
+        commonPersonObjectClient.setDetails(personObject.getColumnmaps());
+        return commonPersonObjectClient;
+    }
+
+    private void applyObservationTypeOverrides(JSONObject form, String hiddenValue) throws JSONException {
+        if (form == null) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject("step1");
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) {
+                continue;
+            }
+
+            if ("investigation_type".equals(field.optString("key"))) {
+                field.put("type", "hidden");
+                field.put("value", hiddenValue);
+                field.remove("options");
+                field.remove("combine_checkbox_option_values");
+                field.remove("label");
+                field.remove("label_text_style");
+                field.remove("text_color");
+                field.remove("v_required");
+                break;
+            }
+        }
+    }
+
+    static void maybeRemoveTreatmentDecisionAlgorithmOption(JSONObject form, int clientAge) throws JSONException {
+        if (form == null || clientAge < 10) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject("step1");
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !"tb_preliminary_investigation_tests".equals(field.optString("key"))) {
+                continue;
+            }
+
+            JSONArray options = field.optJSONArray("options");
+            if (options == null) {
+                return;
+            }
+
+            JSONArray filteredOptions = new JSONArray();
+            for (int j = 0; j < options.length(); j++) {
+                JSONObject option = options.optJSONObject(j);
+                if (option != null && !"treatment_decision_algorithm".equals(option.optString("key"))) {
+                    filteredOptions.put(option);
+                }
+            }
+
+            field.put("options", filteredOptions);
+            return;
+        }
+    }
+
+    protected Visit getTbLeprosyContactVisit() {
+        return TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TBLEPROSY_CONTACT_VISIT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_CONTACT_REGISTER && resultCode == Activity.RESULT_OK && data != null) {
+            handleNewClientRegistrationResult(data);
+            return;
+        }
+
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && pendingTbLeprosyReferralLaunch) {
+            handlePendingReferralFormResult(resultCode);
+            return;
+        }
+
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                return;
+            }
+
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                if (StringUtils.isBlank(jsonString)) {
+                    return;
+                }
+                handleJsonFormActivityResult(jsonString);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+    }
+
+    void handlePendingReferralFormResult(int resultCode) {
+        pendingTbLeprosyReferralLaunch = false;
+        if (resultCode == Activity.RESULT_OK) {
+            refreshAfterReferralSubmission();
+        }
+    }
+
+    void handleJsonFormActivityResult(@NonNull String jsonString) throws JSONException {
+        JSONObject form = new JSONObject(jsonString);
+        String encounterType = form.optString(JsonFormUtils.ENCOUNTER_TYPE);
+        if (isReferralRegistrationEncounter(encounterType)) {
+            refreshAfterReferralSubmission();
+        }
+    }
+
+    static boolean isReferralRegistrationEncounter(@Nullable String encounterType) {
+        return org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION
+                .equalsIgnoreCase(StringUtils.trimToEmpty(encounterType));
+    }
+
+    private void applyFollowUpReasonOverrides(JSONObject form) throws JSONException {
+        if (form == null) {
+            return;
+        }
+
+        String encounterType = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
+        if (StringUtils.isBlank(encounterType)) {
+            encounterType = form.optString(Constants.ENCOUNTER_TYPE);
+        }
+        if (!Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT.equalsIgnoreCase(encounterType)) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject(Constants.STEP_ONE);
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        JSONObject followUpReasonField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "follow_up_reason");
+        if (followUpReasonField == null) {
+            return;
+        }
+
+        TbLeprosyDao.ObservationResults observationResults = TbLeprosyDao.getLatestObservationResults(memberObject.getBaseEntityId());
+        boolean hasStartedTreatment = observationResults != null && StringUtils.isNotBlank(observationResults.getTbTreatmentStartDate());
+        boolean hasFollowUpWithTreatmentStart = TbLeprosyDao.hasFollowUpVisitWithTreatmentStartDate(memberObject.getBaseEntityId());
+        boolean hasPreviousFollowUp = TbLeprosyDao.getLatestFollowUpVisit(memberObject.getBaseEntityId()) != null;
+
+        if (hasStartedTreatment || hasFollowUpWithTreatmentStart) {
+            lockFollowUpReason(followUpReasonField, "interrupted_treatment");
+        } else if (!hasPreviousFollowUp) {
+            lockFollowUpReason(followUpReasonField, "never_started_treatment");
+        }
+    }
+
+    private void lockFollowUpReason(JSONObject followUpReasonField, String value) throws JSONException {
+        followUpReasonField.put("value", value);
+        followUpReasonField.put("read_only", true);
+        followUpReasonField.put("editable", false);
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        addReferralTypes();
+    }
+
+    private void handleNewClientRegistrationResult(@NonNull Intent data) {
+        try {
+            String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+            if (StringUtils.isBlank(jsonString)) {
+                return;
+            }
+
+            JSONObject form = new JSONObject(jsonString);
+            if (!CoreConstants.EventType.FAMILY_REGISTRATION.equals(form.optString(JsonFormUtils.ENCOUNTER_TYPE))) {
+                return;
+            }
+
+            JSONObject metadata = form.optJSONObject(CoreJsonFormUtils.METADATA);
+            pendingContactRegistrationLocationId = metadata != null ? metadata.optString(JsonFormUtils.ENCOUNTER_LOCATION) : null;
+
+            ensureNewClientRegistrationSupport();
+            RegisterParams registerParams = new RegisterParams();
+            registerParams.setEditMode(false);
+            registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
+            showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
+            newClientRegisterPresenter.saveForm(jsonString, registerParams);
+        } catch (Exception e) {
+            pendingContactRegistrationLocationId = null;
+            hideProgressDialog();
+            Timber.e(e);
+            Toast.makeText(this, org.smartregister.chw.core.R.string.error_unable_to_save_form, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void ensureNewClientRegistrationSupport() {
+        if (newClientRegisterView == null) {
+            newClientRegisterView = new ContactRegistrationView();
+            newClientRegisterPresenter = new TbLeprosyContactRegisterPresenter(newClientRegisterView,
+                    new ChwAllClientsRegisterModel(this), this);
+        }
+    }
+
+    private void saveRegisterTbLeprosyContactEvent(String indexClientBaseEntityId, String contactBaseEntityId, String locationId) {
+        if (StringUtils.isBlank(indexClientBaseEntityId) || StringUtils.isBlank(contactBaseEntityId)) {
+            return;
+        }
+
+        try {
+            AllSharedPreferences sharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+            if (StringUtils.isBlank(locationId)) {
+                locationId = sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
+            }
+
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(contactBaseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EVENT_TYPE.TBLEPROSY_CONTACTS)
+                    .withFormSubmissionId(org.smartregister.util.JsonFormUtils.generateRandomUUIDString())
+                    .withEntityType(Constants.TABLES.TBLEPROSY_CONTACTS)
+                    .withProviderId(sharedPreferences.fetchRegisteredANM())
+                    .withLocationId(locationId)
+                    .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
+                    .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
+                    .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                    .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                    .withDateCreated(new Date());
+
+            baseEvent.addObs(new Obs()
+                    .withFormSubmissionField(DBConstants.KEY.INDEX_CLIENT_ID)
+                    .withValue(indexClientBaseEntityId)
+                    .withFieldCode(DBConstants.KEY.INDEX_CLIENT_ID)
+                    .withFieldType("formsubmissionField")
+                    .withFieldDataType("text")
+                    .withParentCode("")
+                    .withHumanReadableValues(new ArrayList<>()));
+
+            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(sharedPreferences, baseEvent);
+            baseEvent.setLocationId(locationId);
+
+            JSONObject eventJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(contactBaseEntityId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext())
+                    .processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e, "TbLeprosyProfileActivity --> saveRegisterTbLeprosyContactEvent");
+        }
+    }
+
+    @Override
+    public void onContactBaseEntityIdGenerated(@Nullable String contactBaseEntityId) {
+        String locationId = pendingContactRegistrationLocationId;
+        pendingContactRegistrationLocationId = null;
+
+        if (StringUtils.isBlank(contactBaseEntityId)) {
+            Timber.w("Contact base entity ID not available after registration save");
+            return;
+        }
+
+        saveRegisterTbLeprosyContactEvent(memberObject.getBaseEntityId(), contactBaseEntityId, locationId);
+    }
+
+    private class ContactRegistrationView implements OpdRegisterActivityContract.View {
+
+        @Override
+        public Context getContext() {
+            return TbLeprosyProfileActivity.this;
+        }
+
+        @Override
+        public void displaySyncNotification() {
+            // no-op
+        }
+
+        @Override
+        public void displayToast(int resourceId) {
+            TbLeprosyProfileActivity.this.displayToast(resourceId);
+        }
+
+        @Override
+        public void displayToast(String message) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void displayShortToast(int resourceId) {
+            Toast.makeText(getContext(), getString(resourceId), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void startFormActivity(JSONObject form) {
+            // not used
+        }
+
+        @Override
+        public void refreshList(FetchStatus fetchStatus) {
+            hideProgressDialog();
+            Toast.makeText(getContext(), getString(org.smartregister.chw.R.string.tbleprosy_contact_registration_success), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void showProgressDialog(int messageStringIdentifier) {
+            TbLeprosyProfileActivity.this.showProgressDialog(messageStringIdentifier);
+        }
+
+        @Override
+        public void hideProgressDialog() {
+            TbLeprosyProfileActivity.this.hideProgressDialog();
+        }
+
+        @Override
+        public void updateInitialsText(String initials) {
+            // no-op
+        }
+
+        @Override
+        public OpdRegisterActivityContract.Presenter presenter() {
+            return newClientRegisterPresenter;
+        }
+
+        @Override
+        public void startFormActivity(String formName, String entityId, String metaData, HashMap<String, String> injectedFieldValues, String clientTable) {
+            // not used
+        }
+
+        @Override
+        public void startFormActivity(@NonNull JSONObject jsonForm, @Nullable HashMap<String, String> parcelableData) {
+            // not used
+        }
+    }
+}

@@ -15,12 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.ld.util.AppExecutors;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
+import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
@@ -82,7 +82,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 medicalHistory.getJSONArray(OPTIONS).getJSONObject(0).put(VALUE, true);
             }
 
-            int age = getAgeFromDate(memberObject.getAge());
+            int age = memberObject.getAge();
             JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
             if (medicalHistory != null) {
                 medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40)));
@@ -90,14 +90,14 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
 
 
             boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(getCommonPersonObjectClient(memberObject.getBaseEntityId()), 10, 49) && Utils.getValue(getCommonPersonObjectClient(enrollmentFormSubmissionId).getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
-            if (!isFemaleOfReproductiveAge) {
+            if (!isFemaleOfReproductiveAge || memberObject.getGender().equals("Male")) {
                 JSONObject isTheClientPregnant = JsonFormUtils.getFieldJSONObject(fields, "is_the_client_pregnant");
                 if (isTheClientPregnant != null) {
                     isTheClientPregnant.put(TYPE, "hidden");
                 }
             }
 
-            if (getAgeFromDate(memberObject.getAge()) > 5) {
+            if (memberObject.getAge() > 5) {
                 JSONObject promptForDiagnosingDiarrhea = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_diarrhea");
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");
@@ -171,7 +171,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             } else {
                 actionList.remove(context.getString(R.string.iccm_physical_examination));
                 isMalariaSuspect = "false";
-                int age = getAgeFromDate(memberObject.getAge());
+                int age = memberObject.getAge();
                 if (age < 5) {
                     if (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")) {
                         processPneumoniaAction(jsonObject, isMalariaSuspect);

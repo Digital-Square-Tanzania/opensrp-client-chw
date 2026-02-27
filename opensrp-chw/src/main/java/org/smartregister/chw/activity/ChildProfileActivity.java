@@ -1,7 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
@@ -10,6 +12,7 @@ import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -34,13 +37,17 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +57,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private List<ReferralTypeModel> linkageTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public List<ReferralTypeModel> getReferralTypeModels() {
@@ -165,7 +173,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
                 return true;
             case R.id.action_iccm_registration:
-                    startIntegratedCommunityCaseManagementEnrollment();
+                startIntegratedCommunityCaseManagementEnrollment();
+                return true;
+            case R.id.action_tbleprosy_screening:
+                startTbLeprosyScreening();
                 return true;
             default:
                 break;
@@ -177,6 +188,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         IccmRegisterActivity.startIccmRegistrationActivity(ChildProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
     }
 
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -185,15 +200,31 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(true);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
 
         if (ChwApplication.getApplicationFlavor().hasICCM() && !IccmDao.isRegisteredForIccm(memberObject.getBaseEntityId())) {
-            menu.findItem(R.id.action_iccm_registration).setVisible(true);
+//            menu.findItem(R.id.action_iccm_registration).setVisible(true);
         }
+
+        AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()));
+        }
+
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
+    }
+
+    @Override
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(ChildProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     @Override
@@ -236,6 +267,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     private void addChildReferralTypes() {
+
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getChildUnifiedReferralForm()
                         : JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.SICK_CHILD));
@@ -245,10 +277,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                     BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? CoreConstants.JSON_FORM.getMalariaReferralForm()
                             : MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
         }
+
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
                     JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
+
+        linkageTypeModels.add(new ReferralTypeModel(getString(R.string.child_minor_ailments),
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getChildUnifiedLinkageForm()
+                        : JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.ADDO.CHILD_MINOR_AILMENTS));
     }
 
     @Override
@@ -310,5 +347,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
         String getToolbarTitleName(MemberObject memberObject);
+    }
+
+    public List<ReferralTypeModel> getLinkageTypeModels() {
+        return linkageTypeModels;
     }
 }

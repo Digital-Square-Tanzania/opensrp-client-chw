@@ -12,11 +12,11 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.IccmServicesActivityInteractor;
-import org.smartregister.chw.ld.util.Constants;
 import org.smartregister.chw.malaria.activity.BaseIccmVisitActivity;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.presenter.BaseIccmVisitPresenter;
+import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -103,7 +103,7 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
 
     @Override
     public void redrawHeader(IccmMemberObject memberObject) {
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = String.valueOf(memberObject.getAge());
         tvTitle.setText(MessageFormat.format("{0}, {1} \u00B7 {2}", memberObject.getFullName(), clientAge, getString(org.smartregister.malaria.R.string.iccm_visit)));
     }
 }

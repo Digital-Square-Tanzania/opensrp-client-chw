@@ -19,7 +19,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_interacted_with AS last_interacted_with\n" +
             "FROM ec_family_member\n" +
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
-            "where ec_family_member.date_removed is null\n" +
+            "where ec_family_member.dod is null\n" +
             "  AND ec_family.entity_type = 'ec_independent_client'\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
@@ -29,11 +29,15 @@ public interface ChwQueryConstant {
             "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
             "    UNION ALL\n" +
+            "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0 AND  ec_tbleprosy_screening.screening_status != '-'\n" +
+            "    UNION ALL\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_anc_register where ec_anc_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
             "    FROM ec_pregnancy_outcome where ec_pregnancy_outcome.delivery_date is not null\n" +
+            "    AND ec_pregnancy_outcome.is_closed is 0" +
             "    UNION ALL\n" +
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +
@@ -61,8 +65,47 @@ public interface ChwQueryConstant {
             "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_cbhs_register\n" +
             "    WHERE is_closed is 0 \n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cecap_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cecap_register\n" +
+            "    WHERE is_closed is 0 \n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_ayp_out_school_enrollment.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_ayp_out_school_enrollment\n" +
+            "    WHERE is_closed is 0 \n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register\n" +
+            "    WHERE is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services = 'yes' \n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_asrh_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_asrh_register\n" +
+            "    WHERE is_closed is 0 \n" +
             ")" +
             "UNION ALL" +
+            "/* HPS REGISTER */\n" +
+            "\n" +
+            "SELECT ec_family_member.first_name               AS first_name,\n" +
+            "       ec_family_member.middle_name              AS middle_name,\n" +
+            "       ec_family_member.last_name                AS last_name,\n" +
+            "       ec_family_member.gender                   AS gender,\n" +
+            "       ec_family_member.dob                      AS dob,\n" +
+            "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
+            "       ec_family_member.id                       as _id,\n" +
+            "       'iCCHW'                                     AS register_type,\n" +
+            "       ec_family_member.relational_id            as relationalid,\n" +
+            "       ec_family.village_town                    as home_address,\n" +
+            "       ec_hps_client_register.last_interacted_with      AS last_interacted_with,\n" +
+            "       NULL                                      AS mother_first_name,\n" +
+            "       NULL                                      AS mother_last_name,\n" +
+            "       NULL                                      AS mother_middle_name\n" +
+            "FROM ec_hps_client_register\n" +
+            "         inner join ec_family_member on ec_family_member.base_entity_id = ec_hps_client_register.base_entity_id\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services = 'yes' \n" +
+            "  AND ec_hps_client_register.base_entity_id IN (%s)\n" +
+            "\n" +"UNION ALL" +
             "/* CBHS REGISTER */\n" +
             "\n" +
             "SELECT ec_family_member.first_name               AS first_name,\n" +
@@ -86,11 +129,17 @@ public interface ChwQueryConstant {
             "  AND ec_cbhs_register.is_closed is 0\n" +
             "  AND ec_cbhs_register.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register where ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services='yes' \n" +
+            "    UNION ALL\n" +
             "    SELECT ec_agyw_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_agyw_register where ec_agyw_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_anc_register\n" +
@@ -128,11 +177,17 @@ public interface ChwQueryConstant {
             "  AND (ec_family.entity_type = 'ec_family' OR ec_family.entity_type is null)\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_hps_client_register where ec_hps_client_register.is_closed is 0 AND does_the_client_consent_to_be_enrolled_in_hps_services='yes' \n" +
+            "    UNION ALL\n" +
             "    SELECT ec_agyw_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_agyw_register where ec_agyw_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_anc_register where ec_anc_register.is_closed is 0\n" +
@@ -567,6 +622,9 @@ public interface ChwQueryConstant {
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +
             "    UNION ALL\n" +
+            "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tbleprosy_screening  where ec_tbleprosy_screening.is_closed is 0  AND  ec_tbleprosy_screening.screening_status != '-'\n" +
+            "    UNION ALL\n" +
             "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
             "    FROM ec_malaria_confirmation\n" +
             "    UNION ALL\n" +
@@ -579,6 +637,206 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_cbhs_register)\n" +
+            "UNION ALL\n" +
+            "\n" +
+            "/*ONLY TBLeprosy clients*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                          as _id,\n" +
+            "       'TB/Leprosy'                             AS register_type,\n" +
+            "       ec_family_member.relational_id               as relationalid,\n" +
+            "       ec_family.village_town                       as home_address,\n" +
+            "       NULL                                         AS mother_first_name,\n" +
+            "       NULL                                         AS mother_last_name,\n" +
+            "       NULL                                         AS mother_middle_name,\n" +
+            "       ec_tbleprosy_screening.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "         inner join ec_tbleprosy_screening\n" +
+            "                    on ec_family_member.base_entity_id = ec_tbleprosy_screening.base_entity_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_tbleprosy_screening.is_closed is 0  AND (ec_tbleprosy_screening.status IS NULL OR ec_tbleprosy_screening.status = 'client') AND  ec_tbleprosy_screening.screening_status != '-' \n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_anc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_pregnancy_outcome\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_child\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_malaria_confirmation\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_sbc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_sbc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tb_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tb_register\n" +
+            "    WHERE ec_tb_register.tb_case_closure_date is null\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cbhs_register)\n" +
+            "UNION ALL\n" +
+            "\n" +
+            "/*ONLY AYP out of school clients*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                          as _id,\n" +
+            "       'AYP out of school'                             AS register_type,\n" +
+            "       ec_family_member.relational_id               as relationalid,\n" +
+            "       ec_family.village_town                       as home_address,\n" +
+            "       NULL                                         AS mother_first_name,\n" +
+            "       NULL                                         AS mother_last_name,\n" +
+            "       NULL                                         AS mother_middle_name,\n" +
+            "       ec_ayp_out_school_enrollment.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "         inner join ec_ayp_out_school_enrollment\n" +
+            "                    on ec_family_member.base_entity_id = ec_ayp_out_school_enrollment.base_entity_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_ayp_out_school_enrollment.is_closed is 0\n" +
+//            "  AND ec_ayp_out_school_enrollment.should_enroll = 'yes'\n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_anc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_kvp_prep_register where ec_kvp_prep_register.is_closed is 0\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_pregnancy_outcome\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_child\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_malaria_confirmation\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_sbc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_sbc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tb_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tb_register\n" +
+            "    WHERE ec_tb_register.tb_case_closure_date is null\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cbhs_register)\n" +
+            "UNION ALL\n" +
+            "\n" +
+            "/*ONLY CECAP clients*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                          as _id,\n" +
+            "       'Reproductive Cancers'                             AS register_type,\n" +
+            "       ec_family_member.relational_id               as relationalid,\n" +
+            "       ec_family.village_town                       as home_address,\n" +
+            "       NULL                                         AS mother_first_name,\n" +
+            "       NULL                                         AS mother_last_name,\n" +
+            "       NULL                                         AS mother_middle_name,\n" +
+            "       ec_cecap_register.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "         inner join ec_cecap_register\n" +
+            "                    on ec_family_member.base_entity_id = ec_cecap_register.base_entity_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_cecap_register.is_closed is 0\n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_anc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_pregnancy_outcome\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_child\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_malaria_confirmation\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_sbc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_sbc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tb_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tb_register\n" +
+            "    WHERE ec_tb_register.tb_case_closure_date is null\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cbhs_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_kvp_prep_register)\n" +
+            "UNION ALL\n" +
+            "\n" +
+            "/*ONLY ASRH clients*/\n" +
+            "SELECT ec_family_member.first_name,\n" +
+            "       ec_family_member.middle_name,\n" +
+            "       ec_family_member.last_name,\n" +
+            "       ec_family_member.gender,\n" +
+            "       ec_family_member.dob,\n" +
+            "       ec_family_member.base_entity_id,\n" +
+            "       ec_family_member.id                          as _id,\n" +
+            "       'AYSRH'                             AS register_type,\n" +
+            "       ec_family_member.relational_id               as relationalid,\n" +
+            "       ec_family.village_town                       as home_address,\n" +
+            "       NULL                                         AS mother_first_name,\n" +
+            "       NULL                                         AS mother_last_name,\n" +
+            "       NULL                                         AS mother_middle_name,\n" +
+            "       ec_asrh_register.last_interacted_with AS last_interacted_with\n" +
+            "FROM ec_family_member\n" +
+            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
+            "         inner join ec_asrh_register\n" +
+            "                    on ec_family_member.base_entity_id = ec_asrh_register.base_entity_id\n" +
+            "where ec_family_member.date_removed is null\n" +
+            "  AND ec_asrh_register.is_closed is 0\n" +
+            "  AND ec_family_member.base_entity_id IN (%s)\n" +
+            "  AND ec_family_member.base_entity_id NOT IN (\n" +
+            "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_anc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_pregnancy_outcome\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_child\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_malaria_confirmation.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_malaria_confirmation\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_sbc_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_sbc_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_tb_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_tb_register\n" +
+            "    WHERE ec_tb_register.tb_case_closure_date is null\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cbhs_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_kvp_prep_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_kvp_prep_register\n" +
+            "    UNION ALL\n" +
+            "    SELECT ec_cecap_register.base_entity_id AS base_entity_id\n" +
+            "    FROM ec_cecap_register)\n" +
             ")\n" +
             "ORDER BY last_interacted_with DESC;";
     String ALL_ICCM_CLIENTS_SELECT_QUERY = "SELECT * FROM (" +

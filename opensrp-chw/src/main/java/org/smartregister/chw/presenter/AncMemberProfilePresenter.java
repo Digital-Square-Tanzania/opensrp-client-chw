@@ -24,6 +24,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         implements org.smartregister.chw.contract.AncMemberProfileContract.Presenter {
 
     private List<ReferralTypeModel> referralTypeModels;
+    private List<ReferralTypeModel> addoReferralTypeModels;
 
     public AncMemberProfilePresenter(AncMemberProfileContract.View view, AncMemberProfileContract.Interactor interactor,
                                      MemberObject memberObject) {
@@ -35,6 +36,15 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         referralTypeModels = ((AncMemberProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startAncReferralForm();
+        } else {
+            Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
+        }
+    }
+
+    public void linkToADDO(){
+        addoReferralTypeModels = ((AncMemberProfileActivity) getView()).getAddoReferralTypeModels();
+        if (addoReferralTypeModels.size() == 1) {
+            startAncLinkageForm();
         } else {
             Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
         }
@@ -68,7 +78,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
                 JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.getAncUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
-                        getEntityId(), formJson, false);
+                        getEntityId(), formJson, false, false);
             } catch (Exception ex) {
                 Timber.e(ex);
             }
@@ -77,4 +87,19 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         }
 
     }
+
+    public void startAncLinkageForm(){
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            try {
+                Activity context = ((Activity) getView());
+                JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.getAncUnifiedLinkageForm());
+                formJson.put(Constants.REFERRAL_TASK_FOCUS, addoReferralTypeModels.get(0).getFocus());
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
+                        getEntityId(), formJson, false, true);
+            } catch (Exception ex) {
+                Timber.e(ex);
+            }
+        }
+    }
+
 }

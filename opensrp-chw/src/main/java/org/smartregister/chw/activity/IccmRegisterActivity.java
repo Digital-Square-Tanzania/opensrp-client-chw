@@ -123,7 +123,7 @@ public class IccmRegisterActivity extends CoreMalariaRegisterActivity {
                         updateFieldsWithDangerSignsAndPreReferralServices(referralFormFields, selectedDangerSigns, preReferralServicesGiven, isFemaleOfReproductiveAge);
 
                         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, referralFormJsonObject, false);
+                            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, referralFormJsonObject, false, false);
                         }
                     }
 

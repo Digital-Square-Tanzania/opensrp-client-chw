@@ -2,19 +2,24 @@ package org.smartregister.chw.activity;
 
 import static com.vijay.jsonwizard.utils.FormUtils.fields;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.util.JsonFormUtils.STEP1;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -34,8 +39,10 @@ import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresent
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.pmtct.PmtctLibrary;
 import org.smartregister.chw.pmtct.domain.Visit;
 import org.smartregister.chw.pmtct.util.Constants;
@@ -52,7 +59,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
 
 import timber.log.Timber;
 
@@ -143,8 +149,18 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_remove_member).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(true);
         menu.findItem(R.id.action_issue_pmtct_followup_referral).setVisible(false);
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && memberObject.getAge() >= 10);
+        }
+
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -180,6 +196,26 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
                 Timber.e(e, "MotherChampionProfileActivity -- > onActivityResult");
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        } else if (item.getItemId() == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(MotherChampionProfileActivity.this, memberObject.getBaseEntityId());
     }
 
     @Override

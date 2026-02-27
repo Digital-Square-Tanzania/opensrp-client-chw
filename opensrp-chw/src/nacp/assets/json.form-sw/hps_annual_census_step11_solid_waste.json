@@ -1,0 +1,220 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "step1": {
+    "title": "Taarifa ya Taka Ngumu & Idadi ya Vifaa vya kukusanyia Taka",
+    "fields": [
+      {
+        "key": "amount_of_solid_waste_generated_annually_tons",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_solid_waste_generated_annually_tons",
+        "hint": "Kiasi cha taka ngumu kinachozalishwa kila mwaka (Tani)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "amount_of_solid_waste_disposed_at_a_designated_site_annually_tons",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "amount_of_solid_waste_disposed_at_a_designated_site_annually_tons",
+        "hint": "Kiasi cha taka ngumu kinachotupwa kwenye eneo lililotengwa  kila mwaka (Tani)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_waste_collection_equipment_vehicles",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_waste_collection_equipment_vehicles",
+        "hint": "Idadi ya vifaa vya kukusanya taka (Magari)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_waste_collection_equipment_tractors",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_waste_collection_equipment_tractors",
+        "hint": "Idadi ya vifaa vya kukusanya taka (Trekta)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_waste_collection_equipment_carts",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_waste_collection_equipment_carts",
+        "hint": "Idadi ya vifaa vya kukusanya taka (Mikokoteni)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_waste_collection_equipment_wheelbarrows",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_waste_collection_equipment_wheelbarrows",
+        "hint": "Idadi ya vifaa vya kukusanya taka (Toroli)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_waste_collection_equipment_others",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_waste_collection_equipment_others",
+        "hint": "Idadi ya vifaa vya kukusanya taka (Vinginevyo)",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+---
+name: step1_specify_other_area_where_advertisement_feedback_took_place
+description: relevance rule to control the visibility of (step1_specify_other_area_where_advertisement_feedback_took_place)
+priority: 1
+condition: "step1_area_where_advertisement_feedback_took_place.contains('other_specify')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_tv_channels
+description: relevance rule to control the visibility of (other_tv_channels)
+priority: 1
+condition: "step1_channel_watched.contains('other_specify')"
+actions:
+  - "isRelevant = true"

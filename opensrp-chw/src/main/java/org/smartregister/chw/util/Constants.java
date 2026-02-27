@@ -13,10 +13,30 @@ public class Constants extends CoreConstants {
     public static final String DB_VERSION = "db_version";
     public static final String MALARIA_REFERRAL_FORM = "malaria_referral_form";
     public static final String ICCM_REFERRAL_FORM = "referrals/iccm_referral_form";
+    public static final String CECAP_MALE_REFERRAL_FORM = "referrals/cecap_male_referral_form";
+    public static final String CECAP_FEMALE_REFERRAL_FORM = "referrals/cecap_female_referral_form";
     public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
     public static String pregnancyOutcome = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
+    public static final String EXTRA_CLIENT_PICKER_MODE = "client_picker_mode";
+    public static final String EXTRA_EXISTING_HEAD_CLIENT = "existing_head_client";
+
+    public static final String ADDO_LINKAGE_PLAN_ID = "6270285b-5a3b-4647-b772-c0b3c52e2b72";
+
+    public static String FILTER_APPOINTMENT_DATE = "FILTER_APPOINTMENT_DATE";
+    public static String FILTER_APPOINTMENT_DATE_RANGE_START_DATE = "FILTER_APPOINTMENT_DATE_RANGE_START_DATE";
+    public static String FILTER_APPOINTMENT_DATE_RANGE_END_DATE = "FILTER_APPOINTMENT_DATE_RANGE_END_DATE";
+    public static String FILTER_HIV_STATUS = "FILTER_HIV_STATUS";
+    public static String FILTER_PREP_STATUS = "FILTER_PREP_STATUS";
+    public static String FILTERS_ENABLED = "FILTERS_ENABLED";
+    public static String ENABLE_HIV_STATUS_FILTER = "ENABLE_HIV_STATUS_FILTER";
+    public static String ENABLE_PREP_STATUS_FILTER = "ENABLE_PREP_STATUS_FILTER";
+    public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
+    public static String ENTITY_TYPE_EC_FAMILY_MEMBER = "ec_family_member";
+    public static String ENTITY_TYPE_EC_FAMILY = "ec_family";
+
+    public static int REQUEST_FILTERS = 2004;
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
@@ -38,6 +58,7 @@ public class Constants extends CoreConstants {
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
+        public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
     }
 
     public static class ChildIllnessViewType {
@@ -92,6 +113,7 @@ public class Constants extends CoreConstants {
         private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
         private static final String MOTHER_CHAMPION_SBCC_FORM = "mother_champion_sbcc_sessions";
         private static final String CBHS_REGISTRATION_FORM = "cbhs_registration";
+        private static final String TBLEPROSY_REGISTRATION_FORM = "tbleprosy_record_visit";
         private static final String PNC_HV_LOCATION = "pnc_hv_location";
         private static final String CHILD_HV_BREASTFEEDING_FORM = "child_hv_breastfeeding_form";
         private static  final  String CHILD_HOME_VISIT_DANGER_SIGN_FORM = "child_hv_danger_sign";
@@ -108,6 +130,10 @@ public class Constants extends CoreConstants {
 
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
+        }
+
+        public static String getTbLeprosyForm() {
+            return TBLEPROSY_REGISTRATION_FORM;
         }
 
         public static String getMotherChampionFollowupForm() {
@@ -129,11 +155,11 @@ public class Constants extends CoreConstants {
         public static String getPncHvLocation() {
             return PNC_HV_LOCATION;
         }
-      
+
         public static String getChildHvBreastfeedingForm() {
             return CHILD_HV_BREASTFEEDING_FORM;
         }
-      
+
         public static String getChildHomeVisitDangerSignForm() {
             return CHILD_HOME_VISIT_DANGER_SIGN_FORM;
         }
@@ -194,6 +220,10 @@ public class Constants extends CoreConstants {
         public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
 
         public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
+
+        public static final String AYP_OUT_SCHOOL_FOLLOW_UP_VISIT = "Ayp Out School Client Followup Visit";
+
+        public static final String AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT = "Ayp Out School Group Followup Visit";
     }
 
     public static final class ActionList {
@@ -202,7 +232,9 @@ public class Constants extends CoreConstants {
 
     public static class TableName {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
+
         public static final String SBCC = "ec_sbcc";
+
         public static final String CBHS_REGISTER = "ec_cbhs_register";
     }
 
@@ -217,15 +249,37 @@ public class Constants extends CoreConstants {
 
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
+
            String MOTHER_CHAMPION_REPORT = "mother_champion_report";
+
            String CONDOM_DISTRIBUTION_REPORT = "condom_distribution_report";
+
            String AGYW_REPORT = "agyw_report";
+
            String ICCM_REPORT = "iccm_report";
+
            String SBC_REPORT = "sbc_report";
+
+           String KVP_REPORT = "kvp_report";
+
+           String AYP_OUT_SCHOOL_REPORT = "ayp_out_school_report";
+
+            String HPS_REPORT = "hps_report";
+
+           String ASRH_REPORT = "asrh_report";
+
+           String AYP_REPORT = "ayp_report";
+
+           String AYP_IN_SCHOOL_REPORT = "ayp_in_school_report";
+
+           String CECAP_REPORT = "cecap_report";
+
+           String TBLEPROSY_REPORT = "tbleprosy_report";
         }
 
         public interface CDPReportKeys {
             String ISSUING_REPORTS = "issuing_reports";
+
             String RECEIVING_REPORTS = "receiving_reports";
         }
 
@@ -236,15 +290,104 @@ public class Constants extends CoreConstants {
             String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
         }
 
+
+        public interface CecapReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+
+        public interface AsrhReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+            String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+        public interface TbLeprosyReportKeys {
+            String COMMUNITY_REPORT = "tbleprosy-community-report";
+            String HOUSEHOLD_REPORT = "tbleprosy-household-report";
+            String SPECIAL_AREAS_REPORT = "tbleprosy-special-areas-report";
+            String TREATMENT_STATUS_REPORT = "tbleprosy-treatment-status-report";
+            String SERVICE_CHALLENGES_REPORT = "tbleprosy-service-challenges-report";
+        }
+
+        public interface AypReportKeys {
+            String AYP_IN_SCHOOL_MONTHLY_REPORT = "ayp-in-school-monthly-report";
+            String AYP_PARENTAL_MONTHLY_REPORT = "ayp-parental-monthly-report";
+        }
+
+        public interface HpsReportKeys {
+            String HPS_MONTHLY_REPORT = "hps-monthly-report";
+            String HPS_ANNUAL_REPORT = "hps-annual-report";
+        }
+
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
+
             String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
+
             String CONDOM_DISTRIBUTION_ISSUING_REPORT_PATH = "condom-distribution-issuing-report";
+
             String CONDOM_DISTRIBUTION_RECEIVING_REPORT_PATH = "condom-distribution-receiving-report";
+
             String ICCM_CLIENTS_REPORT_PATH = "iccm_reports/iccm-clients-monthly-report";
+
             String ICCM_DISPENSING_SUMMARY_PATH = "iccm_reports/iccm-dispensing-summary";
+
             String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
+
             String SBC_REPORT_PATH = "sbc-report";
+
+            String KVP_REPORT_PATH = "kvp-report";
+
+            String AYP_OUT_SCHOOL_REPORT_PATH = "ayp-out-school-report";
+
+            String HPS_MONTHLY_REPORT_PATH = "hps-monthly-report";
+
+            String HPS_ANNUAL_REPORT_PATH = "hps-annual-report";
+
+            String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
+
+            String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
+
+            String AYP_IN_SCHOOL_REPORT_PATH = "ayp_in_school_reports/ayp-in-school-report";
+
+            String AYP_PARENTAL_REPORT_PATH = "ayp_reports/ayp-parental-report";
+
+            String CECAP_REPORT_PATH = "cecap_reports/cecap-report";
+
+            String CECAP_OTHER_REPORT_PATH = "cecap_reports/cecap-other-report";
+
+            String TBLEPROSY_COMMUNITY_REPORT_PATH = "tbleprosy_reports/tbleprosy-community-report";
+            String TBLEPROSY_HOUSEHOLD_REPORT_PATH = "tbleprosy_reports/tbleprosy-household-report";
+            String TBLEPROSY_SPECIAL_REPORT_PATH = "tbleprosy_reports/tbleprosy-special-areas-report";
+            String TBLEPROSY_TREATMENT_STATUS_REPORT_PATH = "tbleprosy_reports/tbleprosy-treatment-status-report";
+            String TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH = "tbleprosy_reports/tbleprosy-service-challenges-report";
+            String TBLEPROSY_MERGED_REPORT_PATH = "tbleprosy_reports/tbleprosy-merged-report";
         }
     }
+
+    public static final class HomeVisitActions {
+
+        public interface ChildHomeVisitActions {
+            String CHILD_MINOR_AILMENT = "child_minor_ailment";
+        }
+
+        public interface AncHomeVisitActions {
+
+        }
+
+        public interface PncHomeVisitActions {
+
+        }
+    }
+
+    public interface AddoLinkage {
+        String BUSINESS_STATUS = "Linked";
+        String CODE = "Linkage";
+
+        String CHILD_TASK_FOCUS = "Child Minor Ailments";
+        String ANC_TASK_FOCUS = "ANC Minor Ailments";
+        String PNC_TASK_FOCUS = "PNC Minor Ailments";
+    }
+
 }

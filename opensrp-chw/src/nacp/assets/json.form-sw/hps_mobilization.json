@@ -1,0 +1,1462 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Mobilization",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Njia za Uelimishaji na Uhamasishaji Uliotumika",
+    "fields": [
+      {
+        "key": "date_of_gathering",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_gathering",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "label": "Date of gathering",
+        "hint": "Tarehe ya mkusanyiko",
+        "expanded": false,
+        "min_date": "today-1m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka tarehe ya mkusanyiko"
+        }
+      },
+      {
+        "key": "method_of_education_and_awareness_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "method_of_education_and_awareness_used",
+        "type": "native_radio",
+        "label": "Chagua  njia ya ueleimishaji na uhamasishaji iliyotumika",
+        "options": [
+          {
+            "key": "loud_speakers",
+            "text": "Vipaza sauti",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "loud_speakers"
+          },
+          {
+            "key": "drumming_public_announcements",
+            "text": "Kupiga mbiu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "drumming_public_announcements"
+          },
+          {
+            "key": "radio_tv_etc",
+            "text": "Redio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "radio_tv_etc"
+          },
+          {
+            "key": "television",
+            "text": "Televisheni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "television"
+          },
+          {
+            "key": "social_media_eg_whatsapp",
+            "text": "Mitandao ya kijamii mfano: whatsapp",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "social_media_eg_whatsapp"
+          },
+          {
+            "key": "face_to_face",
+            "text": "Ana kwa ana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "face_to_face"
+          },
+          {
+            "key": "others_specify",
+            "text": "Nyinginezo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others_specify"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua njia ya ueleimishaji na uhamasishaji iliyotumika"
+        }
+      },
+      {
+        "key": "type_radio_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_radio_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Chagua aina ya Redio iliyotumika katika uelimishaji na uhamasishaji",
+        "options": [
+          {
+            "key": "national_radio",
+            "text": "Redio ya kitaifa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_radio"
+          },
+          {
+            "key": "community_radio",
+            "text": "Redio ya kijamii",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_radio"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "type_tv_used_for_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_tv_used_for_education",
+        "type": "native_radio",
+        "label": "Chagua aina ya TV iliyotumika katika uselimishaji na uhamasishaji",
+        "options": [
+          {
+            "key": "national_television",
+            "text": "Televisheni ya kitaifa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "national_television"
+          },
+          {
+            "key": "community_television",
+            "text": "Televisheni ya kijamii",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_television"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select a value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_method_of_education_and_awareness_used",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_method_of_education_and_awareness_used",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja njia nyinginezo za ueleimishaji na uhamasishaji zilizotumika",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja njia nyinginezo za uelemishaji na uhamasishaji zilizotumika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "area_where_mobilization_took_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "area_where_mobilization_took_place",
+        "type": "native_radio",
+        "label": "Eneo uhamasishaji ulipofanyika",
+        "hint": "Eneo uhamasishaji ulipofanyika",
+        "options": [
+          {
+            "key": "at_the_market_or_stalls",
+            "text": "Sokoni/Gulioni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "at_the_market_or_stalls"
+          },
+          {
+            "key": "places_of_worship",
+            "text": "Nyumba za ibada",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "places_of_worship"
+          },
+          {
+            "key": "passenger_areas_bus_stops_airport_sea_port",
+            "text": "Maeneo ya abiria(stendi, airport, bandarini)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "passenger_areas_bus_stops_airport_sea_port"
+          },
+          {
+            "key": "industrial_compound_factory_yard",
+            "text": "Viwandani",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "industrial_compound_factory_yard"
+          },
+          {
+            "key": "celebrations_or_events",
+            "text": "Sherehe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "celebrations_or_events"
+          },
+          {
+            "key": "inside_transportation_vehicles",
+            "text": "Ndani ya vyombo vya usafiri",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inside_transportation_vehicles"
+          },
+          {
+            "key": "institutions",
+            "text": "Taasisi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "institutions"
+          },
+          {
+            "key": "meetings",
+            "text": "Mikutano",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "meetings"
+          },
+          {
+            "key": "other_specify",
+            "text": "Mengineyo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_specify"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua eneo sahihi uhamasishaji ulipofanyika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_area_where_mobilization_took_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_area_where_mobilization_took_place",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja maeneo mengineyo uhamasishaji ulipofanyika",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja maeneo mengineyo uhamasishaji ulipofanyika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_females_who_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_females_who_attended",
+        "type": "edit_text",
+        "hint": "Idadi ya watu waliofikiwa KE",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko must 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_males_who_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_males_who_attended",
+        "type": "edit_text",
+        "hint": "Idadi ya watu waliofikiwa ME",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko must 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "was_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "was_education_provided",
+        "type": "native_radio",
+        "label": "Je, elimu imetolewa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "type_of_education_title",
+        "type": "label",
+        "text": "Elimu iliyotolewa",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_education_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_provided",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "combine_checkbox_option_values": "true",
+        "save_obs_as_array": true,
+        "maxSelectable": 6,
+        "buttonText": "+ Ongeza elimu iliyotolewa",
+        "sort": false,
+        "dialogTitle": "elimu iliyotolewa",
+        "searchHint": "Elimu iliyotolewa",
+        "options": [
+          {
+            "key": "nutrition",
+            "text": "1.Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition",
+            "property": {
+              "presumed-id": "nutrition",
+              "confirmed-id": "nutrition"
+            }
+          },
+          {
+            "key": "danger_signs_of_pregnancy",
+            "text": "2.Vidokezo vya hatari wakati wa ujauzito",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "danger_signs_of_pregnancy",
+            "property": {
+              "presumed-id": "danger_signs_of_pregnancy",
+              "confirmed-id": "danger_signs_of_pregnancy"
+            }
+          },
+          {
+            "key": "family_planning",
+            "text": "3.Uzazi wa Mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning",
+              "confirmed-id": "family_planning"
+            }
+          },
+          {
+            "key": "malaria",
+            "text": "4.Malaria ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria",
+            "property": {
+              "presumed-id": "malaria",
+              "confirmed-id": "malaria"
+            }
+          },
+          {
+            "key": "tuberculosis_leprosy_and_testing",
+            "text": "5.Ugonjwa wa kifua kikuu, ukoma na upimaji.",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis_leprosy_and_testing",
+            "property": {
+              "presumed-id": "tuberculosis_leprosy_and_testing",
+              "confirmed-id": "tuberculosis_leprosy_and_testing"
+            }
+          },
+          {
+            "key": "hiv_hepatitis_and_testing",
+            "text": "6.VVU, homa ya ini na upimaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_hepatitis_and_testing",
+            "property": {
+              "presumed-id": "hiv_hepatitis_and_testing",
+              "confirmed-id": "hiv_hepatitis_and_testing"
+            }
+          },
+          {
+            "key": "epidemic_diseases",
+            "text": "7.Magonjwa ya Mlipuko ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epidemic_diseases",
+            "property": {
+              "presumed-id": "epidemic_diseases",
+              "confirmed-id": "epidemic_diseases"
+            }
+          },
+          {
+            "key": "neglected_tropical_diseases",
+            "text": "8.Magonjwa yaliokuwa hayapewi kipaumbele ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "neglected_tropical_diseases",
+            "property": {
+              "presumed-id": "neglected_tropical_diseases",
+              "confirmed-id": "neglected_tropical_diseases"
+            }
+          },
+          {
+            "key": "oral_and_dental_health",
+            "text": "9.Afya ya kinywa na meno",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oral_and_dental_health",
+            "property": {
+              "presumed-id": "oral_and_dental_health",
+              "confirmed-id": "oral_and_dental_health"
+            }
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "10.Magonjwa yasioyo ya kuambikizwa ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases",
+            "property": {
+              "presumed-id": "non_communicable_diseases",
+              "confirmed-id": "non_communicable_diseases"
+            }
+          },
+          {
+            "key": "eye_diseases_and_testing",
+            "text": "11.Magonjwa ya macho na upimaji",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eye_diseases_and_testing",
+            "property": {
+              "presumed-id": "eye_diseases_and_testing",
+              "confirmed-id": "eye_diseases_and_testing"
+            }
+          },
+          {
+            "key": "environmental_sanitation_and_care",
+            "text": "12.Usafi na Utunzaji wa mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_sanitation_and_care",
+            "property": {
+              "presumed-id": "environmental_sanitation_and_care",
+              "confirmed-id": "environmental_sanitation_and_care"
+            }
+          },
+          {
+            "key": "health_insurance_fund",
+            "text": "13.Mfuko wa bima ya afya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_insurance_fund",
+            "property": {
+              "presumed-id": "health_insurance_fund",
+              "confirmed-id": "health_insurance_fund"
+            }
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "14.Ukatili wa kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence",
+            "property": {
+              "presumed-id": "gender_based_violence",
+              "confirmed-id": "gender_based_violence"
+            }
+          },
+          {
+            "key": "harmful_effects_of_substance_abuse",
+            "text": "15.Madhara ya matumizi ya mihadarati",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "harmful_effects_of_substance_abuse",
+            "property": {
+              "presumed-id": "harmful_effects_of_substance_abuse",
+              "confirmed-id": "harmful_effects_of_substance_abuse"
+            }
+          },
+          {
+            "key": "mental_health",
+            "text": "16.Afya ya akili ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health",
+            "property": {
+              "presumed-id": "mental_health",
+              "confirmed-id": "mental_health"
+            }
+          },
+          {
+            "key": "rights_of_the_elderly_and_family_responsibilities",
+            "text": "17.Haki za wazee na wajibu wa familia ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rights_of_the_elderly_and_family_responsibilities",
+            "property": {
+              "presumed-id": "rights_of_the_elderly_and_family_responsibilities",
+              "confirmed-id": "rights_of_the_elderly_and_family_responsibilities"
+            }
+          },
+          {
+            "key": "childrens_rights_and_protection",
+            "text": "18.Haki na ulinzi wa watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childrens_rights_and_protection",
+            "property": {
+              "presumed-id": "childrens_rights_and_protection",
+              "confirmed-id": "childrens_rights_and_protection"
+            }
+          },
+          {
+            "key": "sexually_transmitted_diseases",
+            "text": "19.Magonjwa ya ngono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexually_transmitted_diseases",
+            "property": {
+              "presumed-id": "sexually_transmitted_diseases",
+              "confirmed-id": "sexually_transmitted_diseases"
+            }
+          },
+          {
+            "key": "effects_of_child_marriage_and_teenage_pregnancies",
+            "text": "20.Madhara ya ndoa na mimba za utotoni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effects_of_child_marriage_and_teenage_pregnancies",
+            "property": {
+              "presumed-id": "effects_of_child_marriage_and_teenage_pregnancies",
+              "confirmed-id": "effects_of_child_marriage_and_teenage_pregnancies"
+            }
+          },
+          {
+            "key": "immunization_services",
+            "text": "21.Huduma za chanjo ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "immunization_services",
+            "property": {
+              "presumed-id": "immunization_services",
+              "confirmed-id": "immunization_services"
+            }
+          },
+          {
+            "key": "childcare_growth_and_early_childhood",
+            "text": "22.Malezi, makuzi na maendeleo ya awali ya mtoto ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childcare_growth_and_early_childhood",
+            "property": {
+              "presumed-id": "childcare_growth_and_early_childhood",
+              "confirmed-id": "childcare_growth_and_early_childhood"
+            }
+          },
+          {
+            "key": "importance_of_birth_certificates",
+            "text": "23.Umuhimu wa cheti cha kuzaliwa ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "importance_of_birth_certificates",
+            "property": {
+              "presumed-id": "importance_of_birth_certificates",
+              "confirmed-id": "importance_of_birth_certificates"
+            }
+          },
+          {
+            "key": "entrepreneurship",
+            "text": "24.Ujasiriamali ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "entrepreneurship",
+            "property": {
+              "presumed-id": "entrepreneurship",
+              "confirmed-id": "entrepreneurship"
+            }
+          },
+          {
+            "key": "first_aid",
+            "text": "25.Huduma ya kwanza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid",
+            "property": {
+              "presumed-id": "first_aid",
+              "confirmed-id": "first_aid"
+            }
+          },
+          {
+            "key": "violence_against_children",
+            "text": "26.Ukatili dhidi ya watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children",
+            "property": {
+              "presumed-id": "violence_against_children",
+              "confirmed-id": "violence_against_children"
+            }
+          },
+          {
+            "key": "medication_adherence",
+            "text": "27.Ufuasi wa dawa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "medication_adherence",
+            "property": {
+              "presumed-id": "medication_adherence",
+              "confirmed-id": "medication_adherence"
+            }
+          },
+          {
+            "key": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
+            "text": "28.Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
+            "property": {
+              "presumed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115",
+              "confirmed-id": "education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115"
+            }
+          },
+          {
+            "key": "other_educations",
+            "text": "29.Elimu Nyinginezo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_educations",
+            "property": {
+              "presumed-id": "other_educations",
+              "confirmed-id": "other_educations"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Inahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_education_provided",
+        "type": "edit_text",
+        "hint": "Nyinginezo (Taja)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iec_materials_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_provided",
+        "type": "native_radio",
+        "label": "Je,vielelezo vya  taarifa, elimu na mawasiliano vimetolewa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "information_education_and_communication_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "information_education_and_communication_materials",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua  aina ya vielelezo vya  taarifa, elimu na mawasiliano",
+        "hint": "Chagua  aina ya vielelezo vya  taarifa, elimu na mawasiliano",
+        "options": [
+          {
+            "key": "brochures",
+            "text": "Vijarida",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "brochures"
+          },
+          {
+            "key": "posters",
+            "text": "Mabango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "posters"
+          },
+          {
+            "key": "leaflets",
+            "text": "Vipeperushi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leaflets"
+          },
+          {
+            "key": "other_iec_materials",
+            "text": "Mengineyo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_iec_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_iec_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_iec_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja vielelezo vinginevyo vya taarifa, elimu na mawasiliano",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja vielelezo vinginenvyo vya taarifa,elimu na mawasiliano kwenye vijarida"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "brochure_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "brochure_materials",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vijarida)",
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_leprosy",
+            "text": "Kifua Kikuu na Ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_leprosy"
+          },
+          {
+            "key": "mother_and_child",
+            "text": "Mama na mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother_and_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "environmental_hygiene",
+            "text": "Usafi wa mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_hygiene"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Ukatili kwa watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Saratani ya shingo ya kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "others",
+            "text": "Mengineyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_brochure_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_brochure_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja (Vijarida)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye vijarida"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_provided",
+        "type": "edit_text",
+        "hint": "Idadi ya vijarida vilivyotolewa",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "poster_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "poster_materials",
+        "combine_checkbox_option_values": "true",
+        "type": "check_box",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Mabango)",
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_leprosy",
+            "text": "Kifua Kikuu na Ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_leprosy"
+          },
+          {
+            "key": "mother_and_child",
+            "text": "Mama na mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother_and_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "environmental_hygiene",
+            "text": "Usafi wa mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_hygiene"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Ukatili kwa watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Saratani ya shingo ya kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "others",
+            "text": "Mengineyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_poster_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_poster_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja (mabango)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye mabango"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_posters_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_posters_provided",
+        "type": "edit_text",
+        "hint": "Idadi ya mabango yalivyotolewa",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali inginza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namabari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali inginza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "leaflet_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "type": "check_box",
+        "openmrs_entity_id": "leaflet_materials",
+        "combine_checkbox_option_values": "true",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vipeperushi)",
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_leprosy",
+            "text": "Kifua Kikuu na Ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_leprosy"
+          },
+          {
+            "key": "mother_and_child",
+            "text": "Mama na mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother_and_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "environmental_hygiene",
+            "text": "Usafi wa mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_hygiene"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Ukatili kwa watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Saratani ya shingo ya kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "non_communicable_diseases",
+            "text": "Magonjwa yasioambukiza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "non_communicable_diseases"
+          },
+          {
+            "key": "others",
+            "text": "Mengineyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_leaflet_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_leaflet_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja (vipeperushi)",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja vielelezo vinginevyo vya taarifa,elimu na mawasiliano kwenye vipeperushi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_leaflet_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_leaflet_provided",
+        "type": "edit_text",
+        "hint": "Idadi ya vipeperushi vilivyotolewa",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_iec_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "type": "check_box",
+        "openmrs_entity_id": "others_iec_materials",
+        "combine_checkbox_option_values": "true",
+        "label": "Vielelezo vya taarifa, elimu na mawasiliano (Vinginevyo)",
+        "options": [
+          {
+            "key": "malaria",
+            "text": "Malaria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria"
+          },
+          {
+            "key": "hiv_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids"
+          },
+          {
+            "key": "tb_leprosy",
+            "text": "Kifua Kikuu na Ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_leprosy"
+          },
+          {
+            "key": "mother_and_child",
+            "text": "Mama na mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother_and_child"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "environmental_hygiene",
+            "text": "Usafi wa mazingira",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environmental_hygiene"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Ukatili kwa watoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Saratani ya shingo ya kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer"
+          },
+          {
+            "key": "others",
+            "text": "Mengineyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "specify_other_other_iec_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_other_iec_materials",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja aina ya vielelezo  vinginenvyo vya  taarifa, elimu na mawasiliano vilivyotolewa",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja aina ya vielelezo vinginevyo vya taarifa,elimu na mawasiliano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_other_iec_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_other_iec_provided",
+        "type": "edit_text",
+        "hint": "Idadi ya vielelezo vinginenvyo vya taarifa, elimu na mawasiliano vilivyotolewa",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_mobilization_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "comments",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comments",
+        "type": "edit_text",
+        "hint": "Maoni"
+      }
+    ]
+  }
+}

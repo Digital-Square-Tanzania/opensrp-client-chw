@@ -1,0 +1,542 @@
+{
+  "count": "1",
+  "encounter_type": "AYP In-school Enrollment",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Enrollment Details",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "enrollment_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "enrollment_status",
+        "type": "native_radio",
+        "label": "Enrollment Status:",
+        "options": [
+          {
+            "key": "new_client",
+            "text": "New Client",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "new_client"
+          },
+          {
+            "key": "returning",
+            "text": "Returning",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "returning"
+          },
+          {
+            "key": "transfer_in",
+            "text": "Transfer in",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transfer_in"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select the enrollment status"
+        }
+      },
+      {
+        "key": "date_enrolled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_enrolled",
+        "type": "date_picker",
+        "hint": "Date when the client was enrolled?",
+        "max_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the enrollment date"
+        },
+        "relevance": {
+          "step1:enrollment_status": {
+            "type": "string",
+            "ex": "notEqualTo(., \"new_client\")"
+          }
+        }
+      },
+      {
+        "key": "uic_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "uic_number",
+        "type": "mask_edit_text",
+        "mask": "AA/AA.9999-99-99999",
+        "mask_hint": "PS/EM.XXXX-XX-XXXXX",
+        "hint": "UIC Number",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the UIC number"
+        }
+      },
+      {
+        "key": "parent_guardian_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parent_guardian_name",
+        "type": "edit_text",
+        "hint": "Name of Parent/Guardian",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the parent/guardian name"
+        }
+      },
+      {
+        "key": "parent_guardian_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parent_guardian_phone_number",
+        "type": "edit_text",
+        "hint": "Parent/Guardian phone number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "v_regex": {
+          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid phone number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the phone number"
+        }
+      },
+      {
+        "key": "current_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "current_class",
+        "type": "native_radio",
+        "label": "Current class of the student:",
+        "options": [
+          {
+            "key": "primary",
+            "text": "Primary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "primary"
+          },
+          {
+            "key": "secondary",
+            "text": "Secondary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "secondary"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select the current class"
+        }
+      },
+      {
+        "key": "current_primary_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "current_primary_class",
+        "type": "native_radio",
+        "label": "Current primary class:",
+        "options": [
+          {
+            "key": "std_1",
+            "text": "Std 1",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_1"
+          },
+          {
+            "key": "std_2",
+            "text": "Std 2",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_2"
+          },
+          {
+            "key": "std_3",
+            "text": "Std 3",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_3"
+          },
+          {
+            "key": "std_4",
+            "text": "Std 4",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_4"
+          },
+          {
+            "key": "std_5",
+            "text": "Std 5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_5"
+          },
+          {
+            "key": "std_6",
+            "text": "Std 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_6"
+          },
+          {
+            "key": "std_7",
+            "text": "Std 7",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_7"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select the primary class"
+        }
+      },
+      {
+        "key": "current_secondary_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "current_secondary_class",
+        "type": "native_radio",
+        "label": "Current Secondary class:",
+        "options": [
+          {
+            "key": "form_i",
+            "text": "Form I",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_i"
+          },
+          {
+            "key": "form_ii",
+            "text": "Form II",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_ii"
+          },
+          {
+            "key": "form_iii",
+            "text": "Form III",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_iii"
+          },
+          {
+            "key": "form_iv",
+            "text": "Form IV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_iv"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select the secondary class"
+        }
+      },
+      {
+        "key": "previous_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "previous_class",
+        "type": "native_radio",
+        "label": "Previous class of the student:",
+        "options": [
+          {
+            "key": "primary",
+            "text": "Primary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "primary"
+          },
+          {
+            "key": "secondary",
+            "text": "Secondary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "secondary"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select the previous class"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "previous_primary_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "previous_primary_class",
+        "type": "native_radio",
+        "label": "Previous primary class:",
+        "options": [
+          {
+            "key": "std_1",
+            "text": "Std 1",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_1"
+          },
+          {
+            "key": "std_2",
+            "text": "Std 2",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_2"
+          },
+          {
+            "key": "std_3",
+            "text": "Std 3",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_3"
+          },
+          {
+            "key": "std_4",
+            "text": "Std 4",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_4"
+          },
+          {
+            "key": "std_5",
+            "text": "Std 5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_5"
+          },
+          {
+            "key": "std_6",
+            "text": "Std 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_6"
+          },
+          {
+            "key": "std_7",
+            "text": "Std 7",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "std_7"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select the previous primary class"
+        }
+      },
+      {
+        "key": "previous_secondary_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "previous_secondary_class",
+        "type": "native_radio",
+        "label": "Previous Secondary class:",
+        "options": [
+          {
+            "key": "form_i",
+            "text": "Form I",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_i"
+          },
+          {
+            "key": "form_ii",
+            "text": "Form II",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_ii"
+          },
+          {
+            "key": "form_iii",
+            "text": "Form III",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_iii"
+          },
+          {
+            "key": "form_iv",
+            "text": "Form IV",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "form_iv"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select the previous secondary class"
+        }
+      },
+      {
+        "key": "project_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "project_name",
+        "type": "native_radio",
+        "label": "Project Name:",
+        "options": [
+          {
+            "key": "cbim",
+            "text": "CBIM",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cbim"
+          },
+          {
+            "key": "enabling_dreams",
+            "text": "Enabling DREAMS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "enabling_dreams"
+          },
+          {
+            "key": "dreams",
+            "text": "DREAMS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dreams"
+          },
+          {
+            "key": "timiza_malengo",
+            "text": "Timiza Malengo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "timiza_malengo"
+          },
+          {
+            "key": "kagis",
+            "text": "KAGIS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "kagis"
+          },
+          {
+            "key": "nyinginezo_taja",
+            "text": "Nyinginezo (taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nyinginezo_taja"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select the project"
+        }
+      },
+      {
+        "key": "project_name_other_mention",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "project_name_other_mention",
+        "type": "edit_text",
+        "hint": "Mention other project",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ayp_in_school_enrollment_relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please mention the project"
+        }
+      }
+    ]
+  }
+}

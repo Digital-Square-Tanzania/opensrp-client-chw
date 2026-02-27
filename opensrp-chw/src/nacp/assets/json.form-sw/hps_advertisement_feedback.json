@@ -1,0 +1,934 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Advertisement Feedback",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Gathering Activity",
+    "fields": [
+      {
+        "key": "date_of_advertisement_feedback",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_advertisement_feedback",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "label": "Tarehe ya kufanya mrejesho",
+        "hint": "Tarehe ya kufanya mrejesho",
+        "expanded": false,
+        "min_date": "today-1m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Ingiza Tarehe ya kufanya mrejesho"
+        }
+      },
+      {
+        "key": "area_where_advertisement_feedback_took_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "area_where_advertisement_feedback_took_place",
+        "type": "native_radio",
+        "label": "Eneo mrejesho wa matangazo ulipofanyika",
+        "hint": "Eneo mrejesho wa matangazo ulipofanyika",
+        "options": [
+          {
+            "key": "at_the_market_or_stalls",
+            "text": "Sokoni/Gulioni",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "at_the_market_or_stalls"
+          },
+          {
+            "key": "places_of_worship",
+            "text": "Nyumba za ibada",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "places_of_worship"
+          },
+          {
+            "key": "passenger_areas_bus_stops_airport_sea_port",
+            "text": "Maeneo ya abiria(stendi, airport, bandarini)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "passenger_areas_bus_stops_airport_sea_port"
+          },
+          {
+            "key": "industrial_compound_factory_yard",
+            "text": "Viwandani",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "industrial_compound_factory_yard"
+          },
+          {
+            "key": "celebrations_or_events",
+            "text": "Sherehe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "celebrations_or_events"
+          },
+          {
+            "key": "inside_transportation_vehicles",
+            "text": "Ndani ya vyombo vya usafiri",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inside_transportation_vehicles"
+          },
+          {
+            "key": "institutions",
+            "text": "Taasisi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "institutions"
+          },
+          {
+            "key": "meetings",
+            "text": "Mikutano",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "meetings"
+          },
+          {
+            "key": "other_specify",
+            "text": "Mengineyo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_specify"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "specify_other_area_where_advertisement_feedback_took_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_other_area_where_advertisement_feedback_took_place",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Taja maeneo mengineyo mrejesho wa matangazo ulipofanyika",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja maeneo mengineyo uhamasishaji ulipofanyika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_advertise_feedback_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_females_who_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_females_who_attended",
+        "type": "edit_text",
+        "hint": "Idadi ya watu waliofikiwa KE",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko must 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        }
+      },
+      {
+        "key": "number_of_males_who_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_males_who_attended",
+        "type": "edit_text",
+        "hint": "Idadi ya watu waliofikiwa ME",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko must 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        }
+      },
+      {
+        "key": "owns_radio_station",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "owns_radio_station",
+        "type": "native_radio",
+        "label": "Je, mnamiliki redio?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "number_of_radio_owners",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_radio_owners",
+        "type": "edit_text",
+        "hint": "Wangapi wanamiliki redio",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba inatakiwa iwe kubwa kuliko must 0"
+        },
+        "v_max": {
+          "value": "10000",
+          "err": "Namba inatakiwa iwe ndogo kuliko must 10000"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari"
+        },
+        "v_max_length": {
+          "value": "4",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "step1:owns_radio_station": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "mobile_phone_radio_listeners",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mobile_phone_radio_listeners",
+        "type": "native_radio",
+        "label": "Je, mnatumia simu kusikiliza redio?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "number_of_who_listens_radio_via_phone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_who_listens_radio_via_phone",
+        "type": "edit_text",
+        "hint": "Wangapi wanatumia simu kusikiliza redio?",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza nambari sahihi"
+        },
+        "relevance": {
+          "step1:mobile_phone_radio_listeners": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "radio_channel_listened",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "radio_channel_listened",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Wanasikiliza redio gani?",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja Wanasikiliza redio gani?"
+        },
+        "relevance": {
+          "step1:mobile_phone_radio_listeners": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "selected_health_education_topics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "selected_health_education_topics",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "combine_checkbox_option_values": "true",
+        "save_obs_as_array": true,
+        "maxSelectable": 6,
+        "buttonText": "+ Chagua elimu za afya mlizozisikia kwenye redio",
+        "sort": false,
+        "dialogTitle": "Elimu za afya mlizozisikia kwenye redio",
+        "searchHint": "Chagua elimu za afya mlizozisikia kwenye redio",
+        "options": [
+          {
+            "key": "about_pregnancy",
+            "text": "Kuhusu ujauzito",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "about_pregnancy",
+            "property": {
+              "presumed-id": "about_pregnancy",
+              "confirmed-id": "about_pregnancy"
+            }
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Ugonjwa wa kifua kikuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis",
+            "property": {
+              "presumed-id": "tuberculosis",
+              "confirmed-id": "tuberculosis"
+            }
+          },
+          {
+            "key": "leprosy",
+            "text": "Ugonjwa wa ukoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "leprosy",
+            "property": {
+              "presumed-id": "leprosy",
+              "confirmed-id": "leprosy"
+            }
+          },
+          {
+            "key": "hiv_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_aids",
+            "property": {
+              "presumed-id": "hiv_aids",
+              "confirmed-id": "hiv_aids"
+            }
+          },
+          {
+            "key": "hepatitis",
+            "text": "Homa ya Ini",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hepatitis",
+            "property": {
+              "presumed-id": "hepatitis",
+              "confirmed-id": "hepatitis"
+            }
+          },
+          {
+            "key": "cholera",
+            "text": "Kipindupindu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cholera",
+            "property": {
+              "presumed-id": "cholera",
+              "confirmed-id": "cholera"
+            }
+          },
+          {
+            "key": "mpox",
+            "text": "Mpox",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mpox",
+            "property": {
+              "presumed-id": "mpox",
+              "confirmed-id": "mpox"
+            }
+          },
+          {
+            "key": "marburg",
+            "text": "Marburg",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "marburg",
+            "property": {
+              "presumed-id": "marburg",
+              "confirmed-id": "marburg"
+            }
+          },
+          {
+            "key": "ebola",
+            "text": "Ebola",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ebola",
+            "property": {
+              "presumed-id": "ebola",
+              "confirmed-id": "ebola"
+            }
+          },
+          {
+            "key": "covid19",
+            "text": "UVIKO-19 ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "covid19",
+            "property": {
+              "presumed-id": "covid19",
+              "confirmed-id": "covid19"
+            }
+          },
+          {
+            "key": "measles",
+            "text": "Surua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "measles",
+            "property": {
+              "presumed-id": "measles",
+              "confirmed-id": "measles"
+            }
+          },
+          {
+            "key": "polio",
+            "text": "Polio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "polio",
+            "property": {
+              "presumed-id": "polio",
+              "confirmed-id": "polio"
+            }
+          },
+          {
+            "key": "anthrax",
+            "text": "Kimeta",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anthrax",
+            "property": {
+              "presumed-id": "anthrax",
+              "confirmed-id": "anthrax"
+            }
+          },
+          {
+            "key": "elephantiasis",
+            "text": "Matende",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "elephantiasis",
+            "property": {
+              "presumed-id": "elephantiasis",
+              "confirmed-id": "elephantiasis"
+            }
+          },
+          {
+            "key": "hydrocele",
+            "text": "Mabusha",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hydrocele",
+            "property": {
+              "presumed-id": "hydrocele",
+              "confirmed-id": "hydrocele"
+            }
+          },
+          {
+            "key": "onchocerciasis",
+            "text": "Usubi ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "onchocerciasis",
+            "property": {
+              "presumed-id": "onchocerciasis",
+              "confirmed-id": "onchocerciasis"
+            }
+          },
+          {
+            "key": "trachoma",
+            "text": "Trakoma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "trachoma",
+            "property": {
+              "presumed-id": "trachoma",
+              "confirmed-id": "trachoma"
+            }
+          },
+          {
+            "key": "worms",
+            "text": "Minyoo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "worms",
+            "property": {
+              "presumed-id": "worms",
+              "confirmed-id": "worms"
+            }
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Kansa ya mlango wa kizazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cervical_cancer",
+            "property": {
+              "presumed-id": "cervical_cancer",
+              "confirmed-id": "cervical_cancer"
+            }
+          },
+          {
+            "key": "breast_cancer",
+            "text": "MKansa ya matiti",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breast_cancer",
+            "property": {
+              "presumed-id": "breast_cancer",
+              "confirmed-id": "breast_cancer"
+            }
+          },
+          {
+            "key": "prostate",
+            "text": "Tezi dume ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prostate",
+            "property": {
+              "presumed-id": "prostate",
+              "confirmed-id": "prostate"
+            }
+          },
+          {
+            "key": "colon_cancer",
+            "text": "Kansa ya utumbo ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "colon_cancer",
+            "property": {
+              "presumed-id": "colon_cancer",
+              "confirmed-id": "colon_cancer"
+            }
+          },
+          {
+            "key": "throat_cancer",
+            "text": "Kansa ya koo ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "throat_cancer",
+            "property": {
+              "presumed-id": "throat_cancer",
+              "confirmed-id": "throat_cancer"
+            }
+          },
+          {
+            "key": "diabetes",
+            "text": "Kisukari ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diabetes",
+            "property": {
+              "presumed-id": "diabetes",
+              "confirmed-id": "diabetes"
+            }
+          },
+          {
+            "key": "high_blood_pressure",
+            "text": "Shinikizo la damu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "high_blood_pressure",
+            "property": {
+              "presumed-id": "high_blood_pressure",
+              "confirmed-id": "high_blood_pressure"
+            }
+          },
+          {
+            "key": "stroke",
+            "text": "Kiharusi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stroke",
+            "property": {
+              "presumed-id": "stroke",
+              "confirmed-id": "stroke"
+            }
+          },
+          {
+            "key": "lung_diseases",
+            "text": "Magonjwa ya mapafu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lung_diseases",
+            "property": {
+              "presumed-id": "lung_diseases",
+              "confirmed-id": "lung_diseases"
+            }
+          },
+          {
+            "key": "back_pain",
+            "text": "Maumivu ya mgongo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "back_pain",
+            "property": {
+              "presumed-id": "back_pain",
+              "confirmed-id": "back_pain"
+            }
+          },
+          {
+            "key": "other_educations",
+            "text": "Elimu Nyinginezo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_educations",
+            "property": {
+              "presumed-id": "other_educations",
+              "confirmed-id": "other_educations"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Inahitajika"
+        }
+      },
+      {
+        "key": "health_education_heard",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_education_heard",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Tafadhali taja ujumbe/hadithi wa elimu ya afya uliyoisikia",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja aina ya elimu ya afya uliyoisikia"
+        }
+      },
+      {
+        "key": "do_watch_television",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "do_watch_television",
+        "type": "native_radio",
+        "label": "Je, mnaangalia Television",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "number_watches_television",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_watches_television",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Wangapi wanaangalia television?",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja Wanasikiliza redio gani?"
+        },
+        "relevance": {
+          "step1:do_watch_television": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "channel_watched",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "channel_watched",
+        "type": "check_box",
+        "combine_checkbox_option_values": true,
+        "label": "Je, mnaangalia channel gani ?",
+        "hint": "Je, mnaangalia channel gani ?",
+        "options": [
+          {
+            "key": "azam",
+            "text": "azam",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "azam"
+          },
+          {
+            "key": "itv",
+            "text": "itv",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "itv"
+          },
+          {
+            "key": "tbc",
+            "text": "tbc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tbc"
+          },
+          {
+            "key": "other_specify",
+            "text": "Mengineyo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_specify"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:do_watch_television": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_tv_channels",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_tv_channels",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Channel nyingine za Tv",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja Channel nyingine za Tv"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_advertise_feedback_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "heard_program_advetised",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "heard_program_advetised",
+        "type": "native_radio",
+        "label": "Je, Mlishawahi kuona matangazo yoyote ya mradi husika",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "stories_heard",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stories_heard",
+        "type": "edit_text",
+        "hint": "Elezea ujumbe au hadithi mlizoona katika matangazo hayo",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza taarifa sahihi"
+        },
+        "relevance": {
+          "step1:heard_program_advetised": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "instructions_followed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "instructions_followed",
+        "type": "native_radio",
+        "label": "Mnadhani watu wanao sikiliza tangazo hili watafuata maelekezo /ujumbe unao tolewa kwenye tangazo?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "who_and_why_they_follow_instruction",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "who_and_why_they_follow_instruction",
+        "type": "edit_text",
+        "hint": "Wakina nani na kwa nini",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza taarifa sahihi"
+        },
+        "relevance": {
+          "step1:instructions_followed": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "people_behaviour_change",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "people_behaviour_change",
+        "type": "native_radio",
+        "label": "Kwa maoni yenu toka matangazo haya yaanze kurushwa redioni, mnadhani watu wamebadili tabia? \n",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu sahihi"
+        }
+      },
+      {
+        "key": "who_and_why_they_change_behaviour",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "who_and_why_they_change_behaviour",
+        "type": "edit_text",
+        "hint": "Wakina nani na kwa nini",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza taarifa sahihi"
+        },
+        "relevance": {
+          "step1:people_behaviour_change": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "reasons_people_dont_change",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_people_dont_change",
+        "type": "edit_text",
+        "hint": "Kwa maoni yenu mnadhani ni vizuizi gani vipo katika jamii vinavyo fanya watu wasibadilike?\n",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza taarifa sahihi"
+        },
+        "relevance": {
+          "step1:people_behaviour_change": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      }
+    ]
+  }
+}

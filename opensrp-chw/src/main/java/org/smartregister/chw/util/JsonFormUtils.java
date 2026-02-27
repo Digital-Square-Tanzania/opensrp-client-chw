@@ -1,12 +1,19 @@
 package org.smartregister.chw.util;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.EDITABLE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.READ_ONLY;
+
+import static org.smartregister.client.utils.constants.JsonFormConstants.STEP1;
+
 import android.content.Context;
 import android.util.Pair;
 
+import com.google.common.reflect.TypeToken;
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -25,16 +32,20 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
@@ -65,6 +76,28 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
     private static Flavor flavor = new JsonFormUtilsFlv();
+
+    /**
+     * Prepares an edit form for clients without linked family records, injecting identifiers and title.
+     */
+    public static JSONObject prepareIndependentEditForm(Context context, String formName, String baseEntityId, String title) {
+        try {
+            JSONObject jsonForm = new FormUtils(context).getFormJson(formName);
+            if (jsonForm == null) return null;
+
+            jsonForm.put("entity_id", baseEntityId);
+            jsonForm.put("relational_id", baseEntityId);
+
+            if (jsonForm.has(JsonFormConstants.STEP1)) {
+                jsonForm.getJSONObject(JsonFormConstants.STEP1).put("title", title);
+            }
+            jsonForm.put("encounter_type", title);
+            return jsonForm;
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
@@ -139,14 +172,14 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
-    private static String motherBaseEntityId(String baseEntityId){
+    private static String motherBaseEntityId(String baseEntityId) {
         try {
             EventClientRepository eventClientRepository = new EventClientRepository();
             ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
             JSONObject object = eventClientRepository.getClientByBaseEntityId(baseEntityId);
-            Client client= syncHelper.convert(object, Client.class);
+            Client client = syncHelper.convert(object, Client.class);
             List<String> motherList = client.getRelationships().get("mother");
-            if(motherList != null){
+            if (motherList != null) {
                 return motherList.get(0);
             }
             return null;
@@ -530,6 +563,16 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     /**
+     * After a Family Registration completes, ensure the created ec_family row points to the chosen
+     * existing head. This avoids creating a duplicate head record and makes the profile header show
+     * the correct person even if they don't belong to this household's member list.
+     */
+    public static void linkExistingHeadToLatestFamily(String headBaseEntityId) {
+        if (StringUtils.isBlank(headBaseEntityId)) return;
+        // No-op (reverted).
+    }
+
+    /**
      * Returns a value from json form field
      *
      * @param jsonObject native forms jsonObject
@@ -683,11 +726,325 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
+
+    public static void addLocHierarchyQuestions(JSONObject form) {
+        try {
+            List<Pair<String, String>> locationFields = FamilyLibrary.getInstance().metadata().getLocationFields();
+            ArrayList<String> allowedLevels = FamilyLibrary.getInstance().metadata().getLocationHierarchy();
+            if (locationFields != null && locationFields.size() > 0) {
+                for (Pair<String, String> locationPair : locationFields) {
+                    List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(allowedLevels);
+                    List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, allowedLevels);
+                    String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, (new TypeToken<List<String>>() {
+                    }).getType());
+                    String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, (new TypeToken<List<FormLocation>>() {
+                    }).getType());
+                    JSONArray questions = form.getJSONObject((String) locationPair.first).getJSONArray("fields");
+
+                    // Count the number of innermost nodes.
+                    DepthResult innermostCount = countInnermostNodes(new JSONArray(upToFacilitiesString));
+
+
+                    JSONObject famVillage = org.smartregister.chw.hps.util.JsonFormUtils.getFieldJSONObject(form.getJSONObject(STEP1).getJSONArray(FIELDS),"fam_village");
+                    if (innermostCount.count < 2) {
+                        famVillage.put(VALUE, innermostCount.value);
+                        famVillage.put("type", "hidden");
+                    }
+
+                    for (int i = 0; i < questions.length(); ++i) {
+                        if (questions.getJSONObject(i).getString("key").equals(locationPair.second)) {
+
+
+                            if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                                questions.getJSONObject(i).put("tree", new JSONArray(upToFacilitiesString));
+                            }
+
+                            if (StringUtils.isNotBlank(defaultFacilityString)) {
+                                questions.getJSONObject(i).put("default", defaultFacilityString);
+                            }
+
+                            if (innermostCount.count < 2) {
+                                questions.getJSONObject(i).put(VALUE, innermostCount.defaultValue);
+                                questions.getJSONObject(i).put(EDITABLE, false);
+                                questions.getJSONObject(i).put(READ_ONLY,true);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+    }
+
+    public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId) throws Exception {
+        if (form == null) {
+            return null;
+        } else {
+            String entityId = id;
+            form.getJSONObject("metadata").put("encounter_location", currentLocationId);
+            if (!org.smartregister.family.util.Utils.metadata().familyRegister.formName.equals(formName) && !org.smartregister.family.util.Utils.metadata().familyMemberRegister.formName.equals(formName)) {
+                Timber.w("Unsupported form requested for launch " + formName, new Object[0]);
+            } else {
+                if (StringUtils.isNotBlank(id)) {
+                    entityId = id.replace("-", "");
+                }
+
+                JSONArray field = fields(form, "step1");
+                JSONObject uniqueId = getFieldJSONObject(field, "unique_id");
+                if (formName.equals(org.smartregister.family.util.Utils.metadata().familyRegister.formName)) {
+                    if (uniqueId != null) {
+                        uniqueId.remove("value");
+                        uniqueId.put("value", entityId + "_family");
+                    }
+
+                    // Populate the dedicated family_unique_id field when present
+                    JSONObject familyUniqueId = getFieldJSONObject(field, "family_unique_id");
+                    if (familyUniqueId != null) {
+                        familyUniqueId.remove("value");
+                        familyUniqueId.put("value", entityId + "_family");
+                    }
+
+                    field = fields(form, "step2");
+                    uniqueId = getFieldJSONObject(field, "unique_id");
+                    if (uniqueId != null) {
+                        uniqueId.remove("value");
+                        uniqueId.put("value", entityId);
+                    }
+                } else if (uniqueId != null) {
+                    uniqueId.remove("value");
+                    uniqueId.put("value", entityId);
+                }
+
+                addLocHierarchyQuestions(form);
+            }
+
+            Timber.d("form is " + form.toString(), new Object[0]);
+            return form;
+        }
+    }
+
+    public static void populateExistingHead(JSONObject form, String baseEntityId) throws Exception {
+        if (form == null || StringUtils.isBlank(baseEntityId)) {
+            return;
+        }
+
+        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        if (personObject == null) {
+            throw new IllegalArgumentException("No registered client found for id " + baseEntityId);
+        }
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), personObject.getCaseId());
+        client.setColumnmaps(personObject.getColumnmaps());
+        populateExistingHead(form, client);
+    }
+
+    public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
+        // Do NOT override the Family Registration form entity_id. The form's entity_id should
+        // remain the newly generated household (family) base_entity_id. Overriding this with the
+        // selected existing head's base_entity_id causes ec_family.base_entity_id to equal the
+        // person's base_entity_id, which breaks the intended separation between household and person.
+
+        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+        JSONArray fields = stepTwo.getJSONArray(FIELDS);
+
+        // Also prefill Step 1 for flavors (e.g., nacp) whose Step 2 values are computed from Step 1
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "client_first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), false);
+                    setIfPresent(stepOneFields, "client_middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), false);
+                    // For household name, default to the client's surname when available
+                    setIfPresent(stepOneFields, "fam_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), false);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Always persist selected head id (if field exists) for downstream processing
+        setValueAndLock(fields, "existing_head", client.getCaseId(), true);
+        setIfPresent(fields, "family_head", client.getCaseId(), true);
+
+        // Capture the current household membership to allow post-save correction (nacp only field)
+        try {
+            String originalRelId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+            if (StringUtils.isBlank(originalRelId)) {
+                // Fallback: read from ec_family_member where the definitive relational_id lives
+                CommonRepository fmRepo = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+                CommonPersonObject fmRow = fmRepo.findByBaseEntityId(client.getCaseId());
+                if (fmRow != null && fmRow.getColumnmaps() != null) {
+                    originalRelId = org.smartregister.family.util.Utils.getValue(fmRow.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+                }
+            }
+            setIfPresent(fields, "original_relational_id", originalRelId, true);
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Basic identity
+        setValueAndLock(fields, "first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), true);
+        setValueAndLock(fields, "middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), true);
+        setValueAndLock(fields, "surname", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), true);
+
+        // Gender: normalize common storage variants (M/F -> Male/Female)
+        String genderRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        String gender = mapGenderValue(genderRaw);
+        setValueAndLock(fields, "sex", gender, true);
+
+        // DOB: convert to dd-MM-yyyy for date_picker compatibility
+        String dobRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobDisplay = formatDobForForm(dobRaw);
+        setValueAndLock(fields, "dob", dobDisplay, true);
+
+        // Age: some flavors use "age" while others use "age_calculated"
+        if (StringUtils.isNotBlank(dobRaw)) {
+            int ageValue = org.smartregister.chw.util.Utils.getAgeFromDate(dobRaw);
+            if (!setIfPresent(fields, "age", String.valueOf(ageValue), true)) {
+                setIfPresent(fields, "age_calculated", String.valueOf(ageValue), true);
+            }
+        }
+
+        // Identifier (strip hyphens; fallback to client.identifiers if column map missing)
+        String uniqueId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
+        if (StringUtils.isBlank(uniqueId)) {
+            try {
+                EventClientRepository eventClientRepository = new EventClientRepository();
+                JSONObject clientJson = eventClientRepository.getClientByBaseEntityId(client.getCaseId());
+                if (clientJson != null) {
+                    Client baseClient = ChwApplication.getInstance().getEcSyncHelper().convert(clientJson, Client.class);
+                    if (baseClient != null && baseClient.getIdentifiers() != null) {
+                        uniqueId = baseClient.getIdentifiers().get(org.smartregister.family.util.Utils.metadata().uniqueIdentifierKey);
+                    }
+                }
+            } catch (Exception e) {
+                Timber.w(e);
+            }
+        }
+        if (StringUtils.isNotBlank(uniqueId)) {
+            uniqueId = uniqueId.replace("-", "");
+        }
+        setValueAndLock(fields, "unique_id", uniqueId, true);
+
+        // Mirror family_head into Step 1 as well to ensure the family event carries it
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "family_head", client.getCaseId(), true);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Contacts (keep editable)
+        setValueAndLock(fields, "phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true), false);
+        setValueAndLock(fields, "other_phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.OTHER_PHONE_NUMBER, true), false);
+    }
+
+    private static boolean setIfPresent(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return false;
+        setValueAndLock(fields, key, value, readOnly);
+        return true;
+    }
+
+    private static String mapGenderValue(String genderRaw) {
+        if (StringUtils.isBlank(genderRaw)) return genderRaw;
+        String g = genderRaw.trim();
+        if (g.equalsIgnoreCase("m")) return "Male";
+        if (g.equalsIgnoreCase("f")) return "Female";
+        return g; // already in display form
+    }
+
+    private static String formatDobForForm(String dobRaw) {
+        try {
+            if (StringUtils.isBlank(dobRaw)) return dobRaw;
+            Date dob = Utils.dobStringToDate(dobRaw);
+            if (dob != null) return dd_MM_yyyy.format(dob);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return dobRaw;
+    }
+
+    private static void setValueAndLock(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) {
+            return;
+        }
+
+        if (StringUtils.isNotBlank(value)) {
+            field.put(JsonFormConstants.VALUE, value);
+        } else {
+            field.remove(JsonFormConstants.VALUE);
+        }
+
+        if (readOnly) {
+            field.put(READ_ONLY, "true");
+            field.put(EDITABLE, false);
+        }
+    }
+
+    /**
+     * Returns the total number of nodes (leaf objects) found at the maximum depth
+     * in the JSON tree.
+     *
+     * @param jsonArray The root JSON array.
+     * @return The count of innermost nodes.
+     */
+    public static DepthResult countInnermostNodes(JSONArray jsonArray) throws JSONException {
+        DepthResult result = new DepthResult();
+        traverseNodes(jsonArray, 1, result);
+        return result;
+    }
+
+    /**
+     * Recursively traverses the JSON tree.
+     *
+     * @param nodes  The current JSON array to process.
+     * @param depth  The current depth in the tree.
+     * @param result The running result tracking the maximum depth and count.
+     */
+    private static void traverseNodes(JSONArray nodes, int depth, DepthResult result) throws JSONException {
+        for (int i = 0; i < nodes.length(); i++) {
+            JSONObject obj = nodes.getJSONObject(i);
+            // If this object has a "nodes" array, go deeper.
+            if (obj.has("nodes") && obj.get("nodes") instanceof JSONArray) {
+                JSONArray childNodes = obj.getJSONArray("nodes");
+                result.defaultValue.put(obj.getString(KEY));
+                traverseNodes(childNodes, depth + 1, result);
+            } else {
+                // This is a leaf node.
+                if (depth > result.maxDepth) {
+                    result.maxDepth = depth;
+                    result.count = 1;
+                    result.defaultValue.put(obj.getString(KEY));
+                    result.value = obj.getString(KEY);
+                } else if (depth == result.maxDepth) {
+                    result.count++;
+                }
+            }
+        }
+    }
+
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
         void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
     }
 
-}
+    private static class DepthResult {
+        int maxDepth = 0;
+        int count = 0;
+        String value = "";
+        JSONArray defaultValue = new JSONArray();
+    }
 
+}

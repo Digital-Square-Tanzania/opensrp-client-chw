@@ -1,7 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.getClientGender;
@@ -10,6 +12,7 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
@@ -49,6 +52,7 @@ import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
@@ -57,6 +61,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.UtilsFlv;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -85,6 +90,7 @@ import timber.log.Timber;
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private List<ReferralTypeModel> addoReferralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -120,6 +126,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
         }
+
+        if (((ChwApplication) ChwApplication.getInstance()).hasADDO()) {
+            addAncADDOReferralTypes();
+        }
+
     }
 
     @Override
@@ -157,6 +168,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     ((AncMemberProfilePresenter) ancMemberProfilePresenter()).referToFacility();
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
+                case R.id.link_to_addo_layout:
+                    ((AncMemberProfilePresenter) ancMemberProfilePresenter()).linkToADDO();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                 default:
                     Timber.d("Unknown fab action");
                     break;
@@ -190,6 +204,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         }
     }
 
+    private void addAncADDOReferralTypes() {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            addoReferralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_minor_ailments),
+                    BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedLinkageForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(),
+                    CoreConstants.TASKS_FOCUS.ADDO.ANC_MINOR_AILMENTS));
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -206,15 +228,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         } else if (itemId == R.id.action_pregnancy_out_come) {
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName(), memberObject.getLastMenstrualPeriod());
             return true;
-        }
-        if (itemId == R.id.action_cbhs_registration) {
+        } else if (itemId == R.id.action_cbhs_registration) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
             startCBHSRegister(commonPersonObject);
             return true;
-        }
-        if (itemId == R.id.action_hivst_registration) {
+        } else if (itemId == R.id.action_hivst_registration) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
@@ -223,19 +243,33 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             client.setColumnmaps(commonPersonObject.getColumnmaps());
             String gender = Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
-        }
-        if (itemId == R.id.action_kvp_prep_registration) {
+        } else if (itemId == R.id.action_kvp_prep_registration) {
             String gender = getClientGender(baseEntityID);
             int age = memberObject.getAge();
             KvpPrEPRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID, gender, age);
+            return true;
+        } else if (itemId == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
+        } else if (itemId == R.id.action_tbleprosy_screening) {
+            startTbLeprosyScreening();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID, org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
+    }
+
+    protected void startTbLeprosyScreening() {
+        TbLeprosyRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        int age = memberObject.getAge();
         menu.findItem(R.id.anc_danger_signs_outcome).setVisible(false);
 
         if (ChwApplication.getApplicationFlavor().hasMalaria()) {
@@ -247,7 +281,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
-            int age = memberObject.getAge();
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityID) && age >= 15);
         }
         if (ChwApplication.getApplicationFlavor().hasKvp()) {
@@ -256,6 +289,16 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(baseEntityID, menu);
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(baseEntityID) && age >= 10);
+        }
+
+        AllClientsUtils.addTbLeprosyMenuItem(menu, baseEntityID);
         return true;
     }
 
@@ -313,7 +356,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
             JSONObject form = null;
-            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
+            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver() != null
+                    && memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
             String titleString = title_resource != null ? getResources().getString(title_resource) : null;
 
             if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
@@ -498,6 +542,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    public List<ReferralTypeModel> getAddoReferralTypeModels() {
+        return addoReferralTypeModels;
     }
 
     @Override

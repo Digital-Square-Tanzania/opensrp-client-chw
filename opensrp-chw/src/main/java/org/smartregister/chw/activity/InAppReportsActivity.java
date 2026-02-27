@@ -22,8 +22,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import java.util.Arrays;
-
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
     protected CustomFontTextView toolBarTextView;
 
@@ -40,6 +38,18 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     protected ConstraintLayout iccmReports;
 
     protected ConstraintLayout sbcReports;
+
+    protected ConstraintLayout asrhReports;
+
+    protected ConstraintLayout cecapReports;
+
+    protected ConstraintLayout tbLeprosyReports;
+
+    protected ConstraintLayout kvpReports;
+
+    protected ConstraintLayout aypOutSchoolReports;
+
+    protected ConstraintLayout hpsReports;
 
     @Override
     protected void onCreation() {
@@ -62,6 +72,12 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports = findViewById(R.id.agyw_reports);
         iccmReports = findViewById(R.id.iccm_reports);
         sbcReports = findViewById(R.id.sbc_reports);
+        asrhReports = findViewById(R.id.asrh_reports);
+        cecapReports = findViewById(R.id.cecap_reports);
+        tbLeprosyReports = findViewById(R.id.tb_leprosy_reports);
+        kvpReports = findViewById(R.id.kvp_reports);
+        aypOutSchoolReports = findViewById(R.id.ayp_out_school_report);
+        hpsReports = findViewById(R.id.hps_reports);
 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
         SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -94,12 +110,36 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                         agywReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasICCM()) {
+                        iccmReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasSbc()) {
                         sbcReports.setVisibility(View.VISIBLE);
                     }
 
+                    if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                        asrhReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                        cecapReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                        kvpReports.setVisibility(View.VISIBLE);
+                    }
+
                     if (ChwApplication.getApplicationFlavor().hasCdp()) {
                         condomDistributionReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasHps()) {
+                        hpsReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+                        tbLeprosyReports.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -124,8 +164,32 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 sbcReports.setVisibility(View.VISIBLE);
             }
 
+            if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+                asrhReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasCecap()) {
+                cecapReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
+                tbLeprosyReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasKvp()) {
+                kvpReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                aypOutSchoolReports.setVisibility(View.VISIBLE);
+            }
+
             if (ChwApplication.getApplicationFlavor().hasCdp()) {
                 condomDistributionReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasHps()) {
+                hpsReports.setVisibility(View.VISIBLE);
             }
         }
 
@@ -136,6 +200,13 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         agywReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
+        asrhReports.setOnClickListener(this);
+        cecapReports.setOnClickListener(this);
+        tbLeprosyReports.setOnClickListener(this);
+        kvpReports.setOnClickListener(this);
+        hpsReports.setOnClickListener(this);
+        aypOutSchoolReports.setOnClickListener(this);
+        hpsReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -188,6 +259,34 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
         if (id == R.id.sbc_reports) {
             Intent intent = new Intent(this, SbcReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.asrh_reports) {
+            Intent intent = new Intent(this, AsrhReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.cecap_reports) {
+            Intent intent = new Intent(this, CecapReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.tb_leprosy_reports) {
+            Intent intent = new Intent(this, TbLeprosyReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.kvp_reports) {
+            Intent intent = new Intent(this, KvpReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.hps_reports) {
+            Intent intent = new Intent(this, HpsReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.ayp_out_school_report) {
+            Intent intent = new Intent(this, AypReportsActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.hps_reports) {
+            Intent intent = new Intent(this, HpsReportsActivity.class);
             startActivity(intent);
         }
     }

@@ -1,0 +1,421 @@
+{
+  "form": "ANC Referral",
+  "encounter_type": "Adolescent Linkage",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/general_neat_linkage_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "ANC referral form",
+      "fields": [
+        {
+          "name": "problem",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Reasons for Referral"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem"
+          },
+          "options": [
+            {
+              "name": "Vaginal_bleeding",
+              "text": "Vaginal bleeding",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Vaginal_bleeding",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
+              "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "High_blood_pressure",
+              "text": "High blood pressure",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "High_blood_pressure",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Severe_abdominal_pain",
+              "text": "Severe abdominal pain",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Severe_abdominal_pain",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Severe_anaemia",
+              "text": "Severe anaemia",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Severe_anaemia",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Convulsions",
+              "text": "Convulsions",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Convulsions",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No_movement_unusual_movement_for_a_child_in_the_womb",
+              "text": "No movement / unusual movement for a child in the womb",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "No_movement_unusual_movement_for_a_child_in_the_womb",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Pregnancy_pains_before_9_months",
+              "text": "Pregnancy pains before 9 months",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Pregnancy_pains_before_9_months",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Early_age_pregnancy_below_18_years",
+              "text": "Early age pregnancy (below 18 years)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Early_age_pregnancy_below_18_years",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "A_severe_headache_dizziness",
+              "text": "A severe headache / dizziness",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "A_severe_headache_dizziness",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Swelling_of_the_face_andor_hands",
+              "text": "Swelling of the face and/or hands",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Swelling_of_the_face_andor_hands",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Fever",
+              "text": "Fever",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Fever",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Shivering_trembling",
+              "text": "Shivering/trembling",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Shivering_trembling",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Nausea_and_Vomiting",
+              "text": "Nausea and vomiting",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Nausea_and_Vomiting",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Water_sack_broke_before_contractions",
+              "text": "Water sack broke before contractions",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Water_sack_broke_before_contractions",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Cord_prolapse",
+              "text": "Cord prolapse",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Cord_prolapse",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "HIV_care_and_support_services",
+              "text": "HIV care and support services",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "HIV_care_and_support_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Family_planning_services",
+              "text": "Family planning services",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Family_planning_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "PMTCT_for_mothers",
+              "text": "PMTCT for mothers",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "PMTCT_for_mothers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Fistula",
+              "text": "Fistula",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Fistula",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Difficultly_breathing",
+              "text": "Difficultly breathing",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Difficultly_breathing",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Breast_engorgement",
+              "text": "Breast engorgement",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Breast_engorgement",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Blurred_vision",
+              "text": "Blurred vision",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Blurred_vision",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Perineum_tear",
+              "text": "Perineum tear",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Perineum_tear",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Other reasons",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify reasons for ANC referral",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
+          },
+          "properties": {
+            "hint": "Other reasons",
+            "type": "name"
+          },
+          "required_status": "true:Please specify other reasons",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "service_before_referral",
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "service_before_referral"
+          },
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Pre-referral management given."
+          },
+          "options": [
+            {
+              "name": "ORS",
+              "text": "ORS",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "ORS",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Panadol",
+              "text": "Panadol",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Panadol",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_treatment",
+              "text": "Other treatment",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_treatment",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "None",
+              "text": "None",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "None",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Pre-referral management field is required"
+        },
+        {
+          "name": "service_before_referral_other",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "service_before_referral_other",
+            "openmrs_entity_parent": "service_before_referral"
+          },
+          "properties": {
+            "hint": "Other Treatment",
+            "type": "name"
+          },
+          "required_status": "true:Please specify other treatment given",
+          "subjects": "service_before_referral:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Choose referral facility",
+            "searchable": "Choose referral facility"
+          },
+          "options": [],
+          "required_status": "yes:Please specify referral facility"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Please select the appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        }
+      ]
+    }
+  ]
+}

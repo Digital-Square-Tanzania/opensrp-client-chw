@@ -1,0 +1,134 @@
+{
+  "count": "1",
+  "encounter_type": "service status",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Hali ya Huduma",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "service_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_status",
+        "type": "native_radio",
+        "label": "Chagua hali ya huduma ya mteja",
+        "options": [
+          {
+            "key": "in_service",
+            "text": "Anaendelea kupokea huduma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "in_service"
+          },
+          {
+            "key": "not_in_service",
+            "text": "Hapokei huduma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_in_service"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        }
+      },
+      {
+        "key": "not_in_service_reasons",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "not_in_service_reasons",
+        "type": "native_radio",
+        "label": "Sababu",
+        "options": [
+          {
+            "key": "transferred",
+            "text": "Amehama kwenda eneo jingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transferred"
+          },
+          {
+            "key": "dead",
+            "text": "Amefariki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dead"
+          },
+          {
+            "key": "discontinued",
+            "text": "Amejiondoa kwenye programu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "discontinued"
+          },
+          {
+            "key": "married",
+            "text": "Ameolewa/Ameoa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "married"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:service_status": {
+            "type": "string",
+            "ex": "equalTo(., \"not_in_service\")"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+---
+name: step1_type_of_education_provided
+description: hps type of education provided
+priority: 1
+condition: "step1_provision_of_preventive_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_type_of_education_title
+description: hps type of education provided
+priority: 1
+condition: "step1_provision_of_preventive_services.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_other_education_provided
+description: hps other education provided
+priority: 1
+condition: "step1_type_of_education_provided.contains('other_educations')"
+actions:
+  - "isRelevant = true"

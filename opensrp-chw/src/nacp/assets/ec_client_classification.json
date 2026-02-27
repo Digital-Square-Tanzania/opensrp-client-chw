@@ -153,7 +153,8 @@
             "field": "eventType",
             "field_value": "ANC First Facility Visit",
             "creates_case": [
-              "ec_anc_hf_data"
+              "ec_anc_hf_data",
+              "ec_anc_register"
             ]
           },
           {
@@ -301,6 +302,27 @@
           {
             "field": "eventType",
             "field_value": "Malaria Referral",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Child Minor Ailments",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Minor Ailments",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Minor Ailments",
             "creates_case": [
               "ec_referral"
             ]
@@ -522,7 +544,7 @@
             ]
           },
           {
-            "field":"eventType",
+            "field": "eventType",
             "field_value": "ANC Partner Community Followup Referral",
             "creates_case": [
               "ec_anc_partner_community_followup"
@@ -615,8 +637,15 @@
           {
             "field": "eventType",
             "field_value": "HIVST Mobilization Session",
-            "creates_case":[
+            "creates_case": [
               "ec_hivst_mobilization"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Mobilization Session",
+            "creates_case":[
+              "ec_tbleprosy_mobilization"
             ]
           },
           {
@@ -721,7 +750,67 @@
             "field": "eventType",
             "field_value": "Kvp PrEP Follow-up Visit",
             "creates_case": [
+              "ec_kvp_prep_register",
               "ec_kvp_prep_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "KVP Registration",
+            "creates_case": [
+              "ec_facility_kvp_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Screening",
+            "creates_case": [
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLEPROSY Observation Results",
+            "creates_case": [
+              "ec_tbleprosy_observation_results",
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Record Leprosy Treatment Start Date",
+            "creates_case": [
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Follow-up Visit",
+            "creates_case": [
+              "ec_tbleprosy_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Visit",
+            "creates_case": [
+              "ec_tbleprosy_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TbLeprosy Contact Registration",
+            "creates_case": [
+              "ec_tbleprosy_contacts"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TBLeprosy Contact Visit",
+            "creates_case": [
+              "ec_tbleprosy_contact_visit",
+              "ec_tbleprosy_screening",
+              "ec_tbleprosy_visit"
             ]
           },
           {
@@ -750,6 +839,119 @@
             "field_value": "Monthly Social Media Report",
             "creates_case": [
               "ec_sbc_monthly_social_media_report"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Community Enrollment",
+            "creates_case": [
+              "ec_cecap_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Home Visit",
+            "creates_case": [
+              "ec_cecap_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CECAP Health Education Mobilization",
+            "creates_case": [
+              "ec_cecap_mobilization_session"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYSRH Enrollment",
+            "creates_case": [
+              "ec_asrh_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYSRH Follow-up Visit",
+            "creates_case": [
+              "ec_asrh_register",
+              "ec_asrh_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP In-school Enrollment",
+            "creates_case": [
+              "ec_ayp_in_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP Parental Service Enrollment",
+            "creates_case": [
+              "ec_ayp_parental_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AYP Out-school Enrollment",
+            "creates_case": [
+              "ec_ayp_out_school_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Client Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_client_followup_visits"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Ayp Out School Group Followup Visit",
+            "creates_case": [
+              "ec_ayp_out_school_group_followup_visits"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Client Enrollment",
+            "creates_case": [
+              "ec_hps_client_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Enrollment",
+            "creates_case": [
+              "ec_hps_household_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Client Follow-up Visit",
+            "creates_case": [
+              "ec_hps_client_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HPS Household Services",
+            "creates_case": [
+              "ec_hps_household_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Remove Family Member",
+            "creates_case": [
+              "ec_hps_death_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Remove Child Under 5",
+            "creates_case": [
+              "ec_hps_death_register"
             ]
           }
         ]

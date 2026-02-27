@@ -46,7 +46,7 @@ public class FamilyPlanningMemberProfilePresenter extends CoreFamilyPlanningProf
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
                 JSONObject formJson = getFormUtils().getFormJson(Constants.JSON_FORM.getFamilyPlanningUnifiedReferralForm(fpMemberObject.getGender()));
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
-                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView(), fpMemberObject.getBaseEntityId(), formJson, false);
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView(), fpMemberObject.getBaseEntityId(), formJson, false, false);
             } else {
                 getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender())), fpMemberObject);
             }

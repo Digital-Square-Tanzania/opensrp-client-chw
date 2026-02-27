@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +18,10 @@ import com.google.android.material.appbar.AppBarLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.ReportUtils;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.Locale;
 
 public class ChwReportsViewActivity  extends AppCompatActivity {
     protected static final String ARG_REPORT_PATH = "ARG_REPORT_PATH";
@@ -33,6 +37,16 @@ public class ChwReportsViewActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports_view);
+
+        String language = LangUtils.getLanguage(this);
+
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
         String reportPath = getIntent().getStringExtra(ARG_REPORT_PATH);
         String reportDate = getIntent().getStringExtra(ARG_REPORT_DATE);
         String reportType = getIntent().getStringExtra(ARG_REPORT_TYPE);

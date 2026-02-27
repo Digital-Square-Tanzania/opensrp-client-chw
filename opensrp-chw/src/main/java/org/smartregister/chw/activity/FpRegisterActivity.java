@@ -20,13 +20,6 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void registerBottomNavigation() {
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-    }
-
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {

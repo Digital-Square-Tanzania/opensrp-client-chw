@@ -25,7 +25,7 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
             fragment.vaccineDisplays.put(vaccineDisplay.getVaccineWrapper().getName(), vaccineDisplay);
         }
 
-        if (details != null && details.size() > 0) {
+        if (details != null && !details.isEmpty()) {
             fragment.jsonObject = NCUtils.getVisitJSONFromVisitDetails(view.getMyContext(), baseEntityID, details, vaccineDisplays);
             JsonFormUtils.populateForm(fragment.jsonObject, details);
         }

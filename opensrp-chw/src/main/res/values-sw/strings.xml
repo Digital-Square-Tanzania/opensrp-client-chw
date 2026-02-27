@@ -1,15 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="login_title">Boresha Afya App</string>
     <string name="logo">Nembo</string>
 
     <string name="title_family_detail">Taarifa za kaya</string>
     <string name="not_done">Haujafanyika</string>
-    <string name="done">Umefanyika</string>
-    <string name="subtask_not_done">Haujafanyika</string>
+    <string name="done" tools:ignore="ExtraTranslation">Hifadhi</string>
+    <string name="subtask_not_done" tools:ignore="ExtraTranslation">Haujafanyika</string>
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
-    <string name="add_eligible_child">Mtoto stahiki</string>
+    <string name="add_eligible_child">Mteja stahiki</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
@@ -21,7 +21,7 @@
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
     <string name="upcoming_services">Huduma zinazokaribia</string>
-    <string name="delivery_kit">Kitanda cha utoaji</string>
+    <string name="delivery_kit" tools:ignore="ExtraTranslation">Kitanda cha utoaji</string>
     <string name="overdue_3_oct">Imepita(3 oct)</string>
     <string name="view_medical_history">Angalia historia ya matibabu</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s iliyopita</string>
@@ -178,10 +178,17 @@
     <string name="yes">Ndiyo</string>
     <string name="no">Hapana</string>
     <string name="device_to_device_sync">Device-to-device Sync</string>
+    <string name="select_clients">Chagua mkuu wa kaya</string>
+    <string name="search_hint">Tafuta jina au nambari ya utambulisho</string>
+    <string name="no_record">Hakuna rekodi</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
+    <string name="home_visit_facility_referral">Rufaa Kwenda kituo cha afya</string>
     <string name="anc_home_visit_facility_visit">Hudhurio la kliniki ya wajawazito katika kituo cha afya</string>
+    <string name="anc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="child_home_visit_minor_ailment">Magonjwa madogo madogo</string>
+    <string name="pnc_home_visit_minor_ailment">Magonjwa madogo madogo</string>
     <string name="anc_home_visit_family_planning">Uzazi wa Mpango</string>
     <string name="anc_home_visit_nutrition_status">Hali ya lishe</string>
     <string name="anc_home_visit_counselling_task">Ushauri</string>
@@ -190,7 +197,7 @@
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
-    <string name="anc_woman_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
+    <string name="anc_woman_delivery_kit_received" tools:ignore="ExtraTranslation">Vifaa vya kujifungua vimepokelewa</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Analala kwenye chandarua chenye viuwatilifu cha muda mrefu</string>
     <string name="anc_home_visit_counseling">Ushauri kuhusu kliniki ya wajawazito</string>
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
@@ -335,6 +342,10 @@
     <string name="pnc_danger_signs_baby_task">Dalili za hatari - Mtoto </string>
     <string name="pnc_skin_to_skin">Ushauri juu ya matunzo ya ngozi kwa ngozi (KMC)</string>
 
+    <string name="pnc_minor_ailment_mama"> Maradhi ya mama </string>
+
+    <string name="child_minor_illness"> Maradhi ya mtoto ({0}) </string>
+
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - ndani ya masaa 48</string>
     <string name="pnc_health_facility_visit_days_three_to_seven">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - siku 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">Hudhurio katika kituo cha kutolea huduma za afya kwa huduma ya mtoto na mama baada ya kujifungua - siku 8 - 28</string>
@@ -359,6 +370,18 @@
     <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
     <string name="anc_danger_signs">Dalili za hatari ya ujazito</string>
     <string name="suspected_malaria">Malaria inayodhaniwa</string>
+    <string name="cecap_referral">Huduma ya saratani ya via vya uzazi</string>
+
+
+    <!--Addo Minor Ailments-->
+    <string name="child_minor_ailments"> Maradhi ya mtoto</string>
+    <string name="anc_minor_ailments"> Maradhi ya mama mjamzito </string>
+    <string name="pnc_minor_ailments"> Maradhi ya mama liyejifungua </string>
+    <string name="adolescent_minor_ailments"> Maradhi ya kijana balehe </string>
+
+    <string name="linked_to_addo_message"> Ameunganishwa kwa DLDM</string>
+
+    <string name="child_minor_ailment_action"> Maradhi ya mtoto </string>
 
     <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 
@@ -413,7 +436,7 @@
     <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
     <string name="select_communities">Chagua jamii</string>
 
-    <string name="created">Imeumbwa: %s</string>
+    <string name="created">Imesajiliwa: %s</string>
     <string name="anc_health_facility_counselling_subtitle">Ushauri katika Kituo cha Afya</string>
     <string name="anc_nutrition_status_normal">Kawaida/Kijani</string>
     <string name="anc_nutrition_status_moderate">Wastani/Njano</string>
@@ -523,7 +546,7 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_prep_visit_type">Aina ya Hudhurio la Dawa Kinga</string>
+    <string name="kvp_prep_visit_type">Aina ya Hudhurio </string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
     <string name="kvp_prep_followup_visit">Hudhurio la marudio</string>
     <string name="kvp_client_hiv_status">Hali ya mteja ya maambukizi ya VVU:</string>
@@ -621,4 +644,323 @@
     <string name="malnutrition_screening">Kuchunguza utapia mlo na upungufu wa damu</string>
     <string name="map_cue">Alama ya eneo la makazi</string>
     <string name="street_name">Jina la mtaa au Kitongoji</string>
+
+    <string name="tb_leprosy_reports_title">Ripoti za Kifua Kikuu/Ukoma</string>
+    <string name="tb_leprosy_report_section_community">Uchunguzi wa awali wa Kifua Kikuu na Ukoma katika jamii</string>
+    <string name="tb_leprosy_report_section_community_desc">Ripoti za uchunguzi katika jamii kwa umri na jinsia</string>
+    <string name="tb_leprosy_report_section_household">Uchunguzi kwa wanaoishi pamoja au karibu na mgonjwa wa Kifua Kikuu/Ukoma</string>
+    <string name="tb_leprosy_report_section_household_desc">Ripoti za uchunguzi kwa wanafamilia na kaya</string>
+    <string name="tb_leprosy_report_section_special">Uchunguzi katika maeneo maalumu</string>
+    <string name="tb_leprosy_report_section_special_desc">Ripoti za uchunguzi katika maeneo maalumu kama masokoni na migodini</string>
+    <string name="tb_leprosy_report_section_treatment">Waliokatiza au hawakuanza matibabu</string>
+    <string name="tb_leprosy_report_section_treatment_desc">Ripoti za ufuatiliaji wa waliokatiza au hawakuanza matibabu</string>
+    <string name="tb_leprosy_report_section_challenges">Changamoto za huduma za Kifua Kikuu na Ukoma</string>
+    <string name="tb_leprosy_report_section_challenges_desc">Ripoti za changamoto zilizobainika wakati wa huduma</string>
+    <string name="tb_leprosy_report_section_merged">Ripoti jumuishi ya Kifua Kikuu na Ukoma</string>
+    <string name="tb_leprosy_report_section_merged_desc">Ripoti moja inayounganisha sehemu zote tano za Kifua Kikuu/Ukoma</string>
+    <string name="tb_leprosy_reports_subtitle">Tazama ripoti ya Kifua Kikuu/Ukoma</string>
+    <string name="tb_leprosy_monthly_report_title">Ripoti ya mwezi ya Kifua Kikuu/Ukoma</string>
+
+    <string name="successful_linkages">Miunganisho iliyofanikiwa</string>
+
+
+    <!--    HPS   -->
+
+    <string name="hps_provision_of_preventive_services">Je elimu imetolewa?</string>
+    <string name="hps_yes">Ndio</string>
+    <string name="hps_no">Hapana</string>
+    <string name="hps_type_of_education_provided">Aina ya elimu iliyotolewa</string>
+    <string name="hps_nutrition">Lishe</string>
+    <string name="hps_anc_danger_signs">Vidokezo vya hatari wakati wa ujauzito</string>
+    <string name="hps_family_planning">Uzazi wa Mpango</string>
+    <string name="hps_malaria">Malaria</string>
+    <string name="hps_tb_leprosy_lab_diagnostics">Ugonjwa wa kifua kikuu, ukoma na upimaji</string>
+    <string name="hps_hiv_aids_hepatitis_lab_diagnostics">VVU, homa ya ini na upimaji</string>
+    <string name="hps_communicable_diseases">Magonjwa ya Mlipuko</string>
+    <string name="hps_neglected_tropical_diseases">Magonjwa yaliokuwa hayapewi kipaumbele</string>
+    <string name="hps_oral_health">Afya ya kinywa na meno</string>
+    <string name="hps_non_communicable_diseases">Magonjwa yasiyo ya kuambukizwa</string>
+    <string name="hps_eye_diseases_diagnostics">Magonjwa ya macho na upimaji</string>
+    <string name="hps_environmental_hygiene">Usafi na Utunzaji wa mazingira</string>
+    <string name="hps_nhif_ichf">Mfuko wa bima ya afya</string>
+    <string name="hps_gender_based_violence">Ukatili wa kijinsia</string>
+    <string name="hps_drug_substance_abuse">Madhara ya matumizi ya mihadarati</string>
+    <string name="hps_mental_health">Afya ya akili</string>
+    <string name="hps_elderly_family_rights_protection">Haki za wazee na wajibu wa familia</string>
+    <string name="hps_child_protection_rights">Haki na ulinzi wa watoto</string>
+    <string name="hps_sexual_transmission_infections">Magonjwa ya ngono</string>
+    <string name="hps_early_child_marriage_pregnancy">Madhara ya ndoa na mimba za utotoni</string>
+    <string name="hps_vaccination_services">Huduma za chanjo</string>
+    <string name="hps_early_child_developments">Malezi, makuzi na maendeleo ya awali ya mtoto</string>
+    <string name="hps_importance_of_registered_birth_certificate">Umuhimu wa cheti cha kuzaliwa</string>
+    <string name="hps_income_generated_activities">Ujasiriamali</string>
+    <string name="hps_first_aid">Huduma ya kwanza</string>
+    <string name="hps_violence_against_children">Ukatili dhidi ya watoto</string>
+    <string name="hps_drug_adherence">Ufuasi wa dawa</string>
+    <string name="hps_m_mama_system">Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115</string>
+    <string name="hps_other_educations">Elimu nyinginezo</string>
+    <string name="hps_other_education_provided">Nyinginezo(Taja)</string>
+
+    <string name="hps_provision_of_curative_services">Je mgonjwa amepata huduma za tiba?</string>
+    <string name="hps_diseases_signs_and_symptoms">Dalili za ugonjwa</string>
+    <string name="hps_specify_signs_and_symptoms_provided">Nyinginezo (Taja)</string>
+    <string name="hps_is_disease_test_conducted">Je vipimo vya ugonjwa vimefanywa?</string>
+
+
+    <string name="hps_fever">Homa</string>
+    <string name="hps_vaginal_blood_discharge">Kutokwa na damu sehemu za siri</string>
+    <string name="hps_nausea_and_vomiting">Kichefuchefu na Kutapika</string>
+    <string name="hps_dizziness">Kizunguzungu</string>
+    <string name="hps_headache">Kuumwa kichwa</string>
+    <string name="hps_child_excessive_crying">Mtoto kulia sana</string>
+    <string name="hps_loss_of_appetite">Kukosa hamu ya kula</string>
+    <string name="hps_diarrhoea">Kuharisha</string>
+    <string name="hps_vaginal_watery_discharge">Kutokwa na harufu mbaya au maji maji yasiyo kawaida sehemu za siri</string>
+    <string name="hps_lower_limb">Miguu kuvimba</string>
+    <string name="hps_soft_and_coloured_hair">Nywele kuwa laini na kubadilika rangi</string>
+    <string name="hps_palm_parror">Viganja kuwa vyeupe</string>
+    <string name="hps_body_malaise">Kulegea mwili (mgonjwa hawezi kukaa au kusimama bila msaada)</string>
+    <string name="hps_body_convulsion">Degedege</string>
+    <string name="hps_unconsciousness">Kupoteza fahamu</string>
+    <string name="hps_mental_confusion">Kuchanganyikiwa</string>
+    <string name="hps_cough">Kikohozi</string>
+    <string name="hps_blood_sputum">Makohozi yenye damu/usaha</string>
+    <string name="hps_difficult_in_breathing">Kupumua kwa shida</string>
+    <string name="hps_weight_loss">Kupungua Uzito</string>
+    <string name="hps_obesity">Uzito Uliopitiliza</string>
+    <string name="hps_excessive_sweating">Kutokwa jasho jingi</string>
+    <string name="hps_skin_loss_of_sense">Baka/mabaka yasio na hisia kwenye ngozi</string>
+    <string name="hps_skin_nodules">Ngozi kuota Vinundu</string>
+    <string name="hps_arm_and_limb_numbness">Ganzi Mikononi/Miguuni</string>
+    <string name="hps_disability_chronic_wounds">Kupata ulemavu /Vidonda sugu</string>
+    <string name="hps_arm_limp_swelling_breast_enlargement">Kuvimba Miguu/Mikono/ziwa</string>
+    <string name="hps_scrotal_swelling">Kuvimba Korodani</string>
+    <string name="hps_eye_lashes_scratching_eyelid">Kope kupinda na kugusa kioo cha jicho</string>
+    <string name="hps_skin_itching_seborrhea">Ngozi kuwasha sana na kuwa na ukurutu usiotibika</string>
+    <string name="hps_bloody_stool">Kinyesi kilichochanganyika na damu</string>
+    <string name="hps_bloody_urine">Kukojoa damu</string>
+    <string name="hps_skin_blood_discharge">Kutokwa damu sehemu za wazi za mwili</string>
+    <string name="hps_eye_itching">Macho kuwasha</string>
+    <string name="hps_red_eyes">Macho mekundu</string>
+    <string name="hps_low_vision">Uoni hafifu/upofu</string>
+    <string name="hps_swelling">Uvimbe</string>
+    <string name="hps_body_injury">Majeraha ya mwili</string>
+    <string name="hps_puss_body_lashes">Vipele vyenye usaha</string>
+    <string name="hps_blood_vomit">Kutapika damu</string>
+    <string name="hps_gum_swelling_and_tooth_ache">Fizi kuvimba, kutoa damu au meno kutoboka</string>
+    <string name="hps_other_signs_and_symptoms">Dalili nyinginezo</string>
+    <string name="hps_diseases_test_conducted">Vipimo vilivyofanyika</string>
+    <string name="hps_blood_pressure_measurement">Kipimo cha shinikizo la damu (BP)</string>
+    <string name="hps_malaria_mrdt">Malaria (mRDT)</string>
+    <string name="hps_blood_sugar">Kipimo cha sukari kwenye damu (RBG)</string>
+    <string name="hps_hiv_testing_kits">Upimaji wa VVU kutumia vitepe vya Jipime</string>
+    <string name="hps_body_temperature">Joto la mwili</string>
+    <string name="hps_arm_circumference">Mzingo wa Mkono (MUAC)</string>
+    <string name="hps_body_weight">Uzito</string>
+    <string name="hps_body_height">Urefu</string>
+    <string name="hps_systolic">Shinikizo la juu la damu</string>
+    <string name="hps_diastolic">Shinikizo la chini la damu</string>
+    <string name="hps_malaria_mrdt_result">Chagua majibu ya Malaria (mrDT)</string>
+    <string name="hps_blood_sugar_result">Majibu ya Kipimo cha sukari kwenye damu (RBG)</string>
+    <string name="hps_hiv_testing_kits_result">Chagua majibu ya Upimaji wa VVU kutumia vitepe vya Jipime</string>
+    <string name="hps_body_temperature_result">Joto la mwili (℃)</string>
+    <string name="hps_arm_circumference_result">Mzingo wa Mkono</string>
+    <string name="hps_body_weight_result">Uzito (KG)</string>
+    <string name="hps_body_height_result">Urefu (CM)</string>
+    <string name="hps_is_treatment_provided">Je mteja alipata matibabu?</string>
+    <string name="hps_treatment_provided">Matibabu yaliyotolewa</string>
+    <string name="hps_oral_rehydration_solutions">Oral rehydration solutions (ORS)</string>
+    <string name="hps_ped_zinc">Ped Zinc</string>
+    <string name="hps_amoxicillin_dt">Amoxicillin DT</string>
+    <string name="hps_malaria_drugs">Dawa mseto za malaria (ALu)</string>
+    <string name="hps_anti_pain">Dawa za kutuliza maumivu (panadol)</string>
+    <string name="hps_food_supplements">Chakula dawa (RUTF)</string>
+
+    <string name="hps_household_consent_to_be_enrolled_in_hps_services">"Je kaya imeridhia kujiandikisha katika Elimu ya Afya kwa Umma?</string>
+
+    <string name="hps_was_preventive_service_provided">Je huduma za kinga zilitolewa?</string>
+    <string name="hps_preventive_services_provided">Chagua huduma za kinga zilizotolewa</string>
+
+
+    <string name="hps_health_education_title">Elimu ya afya</string>
+    <string name="hps_name_of_hamlet">Jina la kitongoji</string>
+    <string name="hps_visit_type">Chagua aina ya tembeleo</string>
+    <string name="hps_new_visit">Mpya</string>
+    <string name="hps_return_visit">Marudio</string>
+    <string name="hps_number_of_household_members_reached">Idadi ya wanakaya</string>
+    <string name="hps_education_provided">Elimu iliyotolewa</string>
+    <string name="hps_danger_signs_of_pregnancy">Vidokezo vya hatari wakati wa ujauzito</string>
+    <string name="hps_tuberculosis_leprosy_and_testing">Ugonjwa wa kifua kikuu, ukoma na upimaji</string>
+    <string name="hps_hiv_hepatitis_and_testing">VVU, homa ya ini na upimaji</string>
+    <string name="hps_epidemic_diseases">Magonjwa ya Mlipuko</string>
+    <string name="hps_oral_and_dental_health">Afya ya kinywa na meno</string>
+    <string name="hps_eye_diseases_and_testing">Magonjwa ya macho na upimaji</string>
+    <string name="hps_environmental_sanitation_and_care">Usafi na Utunzaji wa mazingira</string>
+    <string name="hps_health_insurance_fund">Mfuko wa bima ya afya</string>
+    <string name="hps_harmful_effects_of_substance_abuse">Madhara ya matumizi ya mihadarati</string>
+    <string name="hps_rights_of_the_elderly_and_family_responsibilities">Haki za wazee na wajibu wa familia</string>
+    <string name="hps_childrens_rights_and_protection">Haki na ulinzi wa watoto</string>
+    <string name="hps_sexually_transmitted_diseases">Magonjwa ya ngono</string>
+    <string name="hps_effects_of_child_marriage_and_teenage_pregnancies">Madhara ya ndoa na mimba za utotoni</string>
+    <string name="hps_immunization_services">Huduma za chanjo</string>
+    <string name="hps_childcare_growth_and_early_childhood_development">Malezi, makuzi na maendeleo ya awali ya mtoto</string>
+    <string name="hps_importance_of_birth_certificates">Umuhimu wa cheti cha kuzaliwa</string>
+    <string name="hps_entrepreneurship">Ujasiriamali</string>
+    <string name="hps_medication_adherence">Ufuasi wa dawa</string>
+    <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115</string>
+    <string name="hps_was_curative_service_provided">Je huduma za kinga zilitolewa?</string>
+    <string name="hps_curative_services_provided">Chagua huduma za tiba zilizotolewa</string>
+    <string name="hps_counselling">Ushauri nasaha</string>
+    <string name="hps_multi_nutrient_powder">Vyakula vilivyoongezewa virutubisho (MNP)</string>
+    <string name="hps_llins">Ugawaji wa vyandarua</string>
+    <string name="hps_chlorine_water_treatment">Ugawaji wa dawa za kutibu maji ya kunywa</string>
+    <string name="hps_psychological_counselling">Ushauri wa Kisaikolojia</string>
+    <string name="hps_others">Huduma nyinginezo</string>
+    <string name="hps_others_specify">Nyinginezo (Taja)</string>
+    <string name="child_name_label">Jina la mtoto</string>
+    <string name="client_details">Taarifa za mteja</string>
+    <string name="chw_details">Taarifa za mja</string>
+    <string name="multiselect_msg_on_item_added">Imeongezwa</string>
+    <string name="forgot_your_password">Je, umesahau nenosiri lako?</string>
+
+      <!-- HPS Annual Census register labels (Kiswahili) -->
+    <string name="hps_annual_census_register_title">Sensa ya Mwaka ya HPS</string>
+    <string name="hps_annual_census_year"><![CDATA[<b>Mwaka:</b> %1$s]]></string>
+    <string name="hps_annual_census_status_incomplete">Haijakamilika</string>
+    <string name="hps_annual_census_status_partial">Imejazwa sehemu</string>
+
+    <!-- HPS Annual Census visit action titles -->
+    <string name="hps_annual_census_population_action_title">Taarifa za Kaya</string>
+    <string name="hps_annual_census_basic_nutrition_action_title">Vyanzo vya lishe</string>
+    <string name="hps_annual_census_centers_action_title">Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee</string>
+    <string name="hps_annual_census_social_economic_action_title">Vyanzo vinavyotumiwa zaidi na kaya</string>
+    <string name="hps_annual_census_committees_traditional_action_title">Ufanisi wa Vikao vya Kamati vya Afya</string>
+    <string name="hps_annual_census_traditional_action_title">Huduma za Tiba Mbadala Zinazotolewa</string>
+    <string name="hps_annual_census_environment_sanitation_action_title">Taarifa ya Ukaguzi na Usafi wa Mazingira</string>
+    <string name="hps_annual_census_building_inspection_action_title">Taarifa Ya Ukaguzi wa Majengo</string>
+    <string name="hps_annual_census_economic_acitivities_action_title">Kazi za Kiuchumi</string>
+    <string name="hps_annual_census_workplace_inspection_action_title">Taarifa ya ukaguzi Sehemu ya Kazi</string>
+    <string name="hps_annual_census_food_beverage_action_title">Taarifa za Ukaguzi wa Vyakula na Vinywaji</string>
+    <string name="hps_annual_census_workplace_health_reports_action_title">Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi</string>
+    <string name="hps_annual_census_solid_waste_action_title">Taarifa ya Taka Ngumu &amp; Idadi ya Vifaa vya kukusanyia Taka</string>
+    <string name="hps_annual_census_insect_breeding_control_action_title">Utambuzi wa Mazalia ya Wadudu na Udhibiti</string>
+
+    <!-- Filters -->
+    <string name="filter">Chuja</string>
+    <string name="filter_status_on">Imewashwa</string>
+    <string name="filter_status_off">Imezimwa</string>
+    <string name="filter_applied">Zimechujwa</string>
+    <string name="hiv_status_filter_title">HIV Status</string>
+    <string name="prep_status_filter_title">PrEP Client Status</string>
+    <string name="referred_from_community_filter_title">Referred From Community</string>
+    <string name="next_visit_date_filter_title">Tarehe ya tembeleo lijalo</string>
+    <string name="next_visit_date_range_filter_title">Kipindi cha matembeleo yajayo</string>
+    <string name="start_date">Tarehe ya Kuanzia</string>
+    <string name="end_date">Tarehe ya Kuishia</string>
+
+    <!-- Kvp PrEP register tabs -->
+    <string name="all_kvp_clients">Wateja wote</string>
+    <string name="due">Matembeleo yaliofika</string>
+    <string name="kvp_tomorrow_visits">Matembeleo ya kesho</string>
+    <string name="overdue">Matemeleo yaliyopitwa na muda</string>
+    <string name="record_leprosy_treatment_start_date">Rekodi tarehe ya kuanza matibabu ya Ukoma</string>
+    <string name="tbleprosy_contact_registration_success">Usajili wa mhisiwa wa Kifua Kikuu/Ukoma umehifadhiwa</string>
+    <string name="tbleprosy_no_contacts_available">Hakuna wateja wanaokidhi vigezo</string>
+    <string name="tbleprosy_issue_referral_action">Toa rufaa</string>
+    <string name="tbleprosy_pending_issuing_of_referral">Bado rufaa haijatolewa</string>
+    <string name="tbleprosy_issue_referral_toast">Toa rufaa</string>
+    <string name="tbleprosy_contact_family_header">Wanafamilia</string>
+    <string name="tbleprosy_contact_other_header">Wateja wengine</string>
+    <string name="tbleprosy_contact_search_hint">Tafuta jina au nambari ya utambulisho</string>
+    <string name="tbleprosy_contact_no_match">Hakuna mteja aliyelingana na utafutaji wako</string>
+    <string name="tbleprosy_contact_family_dialog_title">Chagua mwanafamilia</string>
+    <string name="tbleprosy_contact_all_clients_dialog_title">Chagua mteja</string>
+    <string name="tbleprosy_visit_history_title">Hudhurio za Kifua Kikuu/Ukoma</string>
+    <string name="tbleprosy_observation_results_history">Matokeo ya uchunguzi</string>
+    <string name="tbleprosy_observation_results_visit_title">Hudhurio la matokeo ya uchunguzi</string>
+    <string name="tbleprosy_observation_results_investigation_type">Aina ya uchunguzi</string>
+    <string name="tbleprosy_observation_results_tb_preliminary_investigation_tests">Chagua vipimo vya awali vya uchunguzi wa Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_tb_preliminary_investigation_results">Matokeo ya uchunguzi wa awali</string>
+    <string name="tbleprosy_observation_results_tb_diagnostic_test_type">Aina ya kipimo cha ugunduzi kilichotumika kupima Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_tb_sample_test_results">Matokeo ya sampuli ya Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_clinical_decision">Maamuzi ya kitabibu</string>
+    <string name="tbleprosy_observation_results_leprosy_diagnostic_method">Aina ya uchunguzi uliyotumika kupima ukoma</string>
+    <string name="tbleprosy_observation_results_leprosy_investigation_results">Matokeo ya uchunguzi wa Ukoma</string>
+    <string name="tbleprosy_observation_results_tb_treatment_initiated">Je, ameanza tiba ya TB/DR TB?</string>
+    <string name="tbleprosy_observation_results_leprosy_treatment_initiated">Je, ameanza tiba ya Ukoma?</string>
+    <string name="tbleprosy_observation_results_eligible_for_tpt">Je, mteja anastahili kuanzishiwa TPT?</string>
+    <string name="tbleprosy_observation_results_tpt_initiation_date">Tarehe ya kuanzishiwa TPT</string>
+    <string name="tbleprosy_observation_results_tb_treatment_start_date">Tarehe ya kuanza tiba ya Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_leprosy_treatment_start_date">Tarehe ya kuanza tiba ya Ukoma</string>
+    <string name="tbleprosy_observation_results_hiv_tested">Je, amepima VVU?</string>
+    <string name="tbleprosy_observation_results_poor_sample_quality_prompt">Kusanya sampuli ya mteja kwa ajili ya kurudia kufanya kipimo cha Kifua Kikuu.</string>
+    <string name="tbleprosy_observation_results_tb">Kifua Kikuu (TB)</string>
+    <string name="tbleprosy_observation_results_leprosy">Ukoma</string>
+    <string name="tbleprosy_observation_results_screening_questionnaire">Dodoso la uchunguzi</string>
+    <string name="tbleprosy_observation_results_xray">Mashine ya mionzi</string>
+    <string name="tbleprosy_observation_results_scorechart">Chati ya alama</string>
+    <string name="tbleprosy_observation_results_treatment_decision_algorithm">Kanuni ya uamuzi wa matibabu (TDA)</string>
+    <string name="tbleprosy_observation_results_tb_indicative">Ana viashiria vya Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_no_tb_indications">Hana viashiria vya Kifua Kikuu</string>
+    <string name="tbleprosy_observation_results_genexpert">GeneXpert</string>
+    <string name="tbleprosy_observation_results_trunati">Trunati</string>
+    <string name="tbleprosy_observation_results_smear_microscopy">Smear Microscopy</string>
+    <string name="tbleprosy_observation_results_lflam">LFLAM</string>
+    <string name="tbleprosy_observation_results_pulmonary_tb">Kifua kikuu cha mapafu</string>
+    <string name="tbleprosy_observation_results_extra_pulmonary_tb">Kifua kikuu nje ya mapafu</string>
+    <string name="tbleprosy_observation_results_drug_resistant_tb">Kifua Kikuu sugu (DR-TB)</string>
+    <string name="tbleprosy_observation_results_tb_dr_tb_undetected">TB, DR-TB haijagundulika</string>
+    <string name="tbleprosy_observation_results_poor_quality_sample">Sampuli haina ubora</string>
+    <string name="tbleprosy_observation_results_suggestive">Inaashiria</string>
+    <string name="tbleprosy_observation_results_non_suggestive">Haiashirii</string>
+    <string name="tbleprosy_observation_results_hadubini">Hadubini</string>
+    <string name="tbleprosy_observation_results_clinical_decision_method">Maamuzi ya kitabibu</string>
+    <string name="tbleprosy_observation_results_leprosy_confirmed">Amegundulika na Ukoma</string>
+    <string name="tbleprosy_observation_results_no_leprosy_detected">Hana Ukoma</string>
+    <string name="tbleprosy_observation_results_yes">Ndiyo</string>
+    <string name="tbleprosy_observation_results_no">Hapana</string>
+    <string name="tbleprosy_observation_results_yes_hiv_tested">Ndiyo</string>
+    <string name="tbleprosy_observation_results_no_hiv_not_tested">Hapana</string>
+    <string name="tbleprosy_followup_visit_title">Hudhurio la ufuatiliaji wa Kifua Kikuu na Ukoma</string>
+    <string name="tbleprosy_followup_visit_follow_up_reason">Sababu ya ufuatiliaji</string>
+    <string name="tbleprosy_followup_visit_interrupted_treatment">Amekatiza dawa</string>
+    <string name="tbleprosy_followup_visit_never_started_treatment">Hakuanza dawa</string>
+    <string name="tbleprosy_followup_visit_follow_up_outcome">Matokeo ya ufuatiliaji</string>
+    <string name="tbleprosy_followup_visit_client_found">Amepatikana</string>
+    <string name="tbleprosy_followup_visit_client_not_found">Hajapatikana</string>
+    <string name="tbleprosy_followup_visit_client_deceased">Amefariki</string>
+    <string name="tbleprosy_followup_visit_reason_client_not_found">Taja sababu ya kutopatikana mteja</string>
+    <string name="tbleprosy_followup_visit_returned_to_treatment">Amerudi kwenye matibabu?</string>
+    <string name="tbleprosy_followup_visit_service_access_challenges">Je, kuna changamoto anazokumbana nazo katika upatikanaji wa huduma?</string>
+    <string name="tbleprosy_followup_visit_reasons_for_not_returning_to_services_while_not_facing_challenges">Taja sababu ya kutokuanza/kukatiza dawa</string>
+    <string name="tbleprosy_followup_visit_client_challenge_types">Chagua aina ya changamoto mteja aliyopata</string>
+    <string name="tbleprosy_followup_visit_family_challenges">Katika familia</string>
+    <string name="tbleprosy_followup_visit_health_facility_challenges">Katika kituo cha kutolea huduma za afya</string>
+    <string name="tbleprosy_followup_visit_community_challenges">Katika jamii</string>
+    <string name="tbleprosy_followup_visit_other">Changamoto nyinginezo</string>
+    <string name="tbleprosy_followup_visit_health_facility_challenges_detail">Chagua changamoto katika kituo cha kutolea huduma za afya</string>
+    <string name="tbleprosy_followup_visit_verbal_abuse">Kutukanwa/Kufokewa</string>
+    <string name="tbleprosy_followup_visit_denied_information_on_condition">Kunyimwa taarifa juu ya ugonjwa na matibabu</string>
+    <string name="tbleprosy_followup_visit_neglected_or_delayed">Kutelekezwa au kucheleweshwa</string>
+    <string name="tbleprosy_followup_visit_limited_service_access">Upatikanaji mdogo wa huduma</string>
+    <string name="tbleprosy_followup_visit_discriminated">Kudharauliwa</string>
+    <string name="tbleprosy_followup_visit_medication_denied">Kunyimwa dawa</string>
+    <string name="tbleprosy_followup_visit_return_to_treatment_prompt">Mshauri mteja kurudi kwenye matibabu</string>
+    <string name="tbleprosy_followup_visit_yes">Ndiyo</string>
+    <string name="tbleprosy_followup_visit_no">Hapana</string>
+    <string name="tbleprosy_record_visit_visit_title">Hudhurio la mteja wa Kifua Kikuu/Ukoma</string>
+    <string name="tbleprosy_record_visit_has_sample_been_collected">Je, mteja amechukuliwa sampuli?</string>
+    <string name="tbleprosy_record_visit_sample_collection_date">Tarehe ya kuchukuliwa sampuli</string>
+    <string name="tbleprosy_record_visit_sputum_container_provided">Je, mteja amepewa kontena la makohozi?</string>
+    <string name="tbleprosy_record_visit_extra_sputum_container_required">Je, mteja anahitaji kontena la ziada la makohozi?</string>
+    <string name="tbleprosy_record_visit_yes">Ndiyo</string>
+    <string name="tbleprosy_record_visit_no">Hapana</string>
+
+    <!-- Household head selection dialog -->
+    <string name="family_register_head_prompt">Ni nani atakayekuwa mkuu wa kaya hii?</string>
+    <string name="family_register_head_option_new">Sajili mkuu mpya</string>
+    <string name="family_register_head_option_existing">Tumia mteja aliyepo</string>
+    <string name="family_register_head_prefill_error">Hatukuweza kupakia mkuu wa kaya uliyemchagua. Tafadhali jaribu tena.</string>
+    <string name="family_register_head_description">Chagua jinsi unavyotaka kuchagua mkuu wa kaya.</string>
+
 </resources>

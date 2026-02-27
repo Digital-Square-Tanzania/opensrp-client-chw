@@ -1,0 +1,71 @@
+---
+name: step1_services_hf
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_visit_hf.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_reminder_toaster
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_services_hf.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_get_all_meds
+description: determine if the client got all the medication or not
+priority: 1
+condition: "step1_services_hf.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_not_get_all_meds_reason
+description: Reasons for not getting all the medications
+priority: 1
+condition: "step1_get_all_meds == 'no'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_not_get_all_meds_reason_other
+description: Other reason for not getting all the medication
+priority: 1
+condition: "step1_not_get_all_meds_reason.contains('other_reason')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_noservices_reason
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_services_hf.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_novisit_reason
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_visit_hf.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_encourage_toaster
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_services_hf.contains('No') || step1_visit_hf.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_complete_linkage
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_services_hf.contains('No') || step1_visit_hf.contains('No')"
+actions:
+  - "isRelevant = true"

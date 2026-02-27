@@ -52,8 +52,52 @@
     }
   },
   "step1": {
-    "title": "Remove Family Member",
+    "title": "Mark as deceased",
     "fields": [
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kwanza"
+        }
+      },
+      {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "middle_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kati"
+        }
+      },
+      {
+        "key": "last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_name",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la mwisho"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex",
+        "type": "hidden",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
@@ -90,35 +134,15 @@
         "key": "remove_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Reason for removal",
-        "v_required": {
-          "value": "true",
-          "err": "Select the reason for removing the family member's record"
-        },
-        "values": [
-          "Death",
-          "Moved away",
-          "Other"
-        ],
-        "keys": [
-          "Death",
-          "Moved away",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
+        "openmrs_entity_id": "remove_reason",
+        "type": "hidden",
+        "value": "Death"
       },
       {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "dob",
         "type": "spacer",
         "expanded": false,
         "read_only": "true",
@@ -186,6 +210,20 @@
         }
       },
       {
+        "key": "dod",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dod",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_remove_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "age_at_death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -207,6 +245,76 @@
               "rules-file": "family_remove_calculation.yml"
             }
           }
+        }
+      },
+      {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "maternal_death",
+            "text": "Maternal Death",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_death"
+          },
+          {
+            "key": "msb",
+            "text": "Macerated Stillbirth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msb"
+          },
+          {
+            "key": "fsb",
+            "text": "Fresh Stillbirth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsb"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents and injuries",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Other causes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "other_cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_cause_of_death",
+        "hint": "Please specify other cause of death",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify other cause of death"
         }
       }
     ]

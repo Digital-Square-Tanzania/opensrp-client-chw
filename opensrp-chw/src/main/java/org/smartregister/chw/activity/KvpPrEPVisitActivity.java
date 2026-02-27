@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.interactor.KvpPrEPVisitInteractor;
 import org.smartregister.chw.kvp.activity.BaseKvpVisitActivity;
@@ -38,7 +39,7 @@ public class KvpPrEPVisitActivity extends BaseKvpVisitActivity {
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
-        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+        form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);

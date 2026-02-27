@@ -51,6 +51,9 @@ import timber.log.Timber;
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     private List<ReferralTypeModel> referralTypeModels;
+    private List<ReferralTypeModel> addoReferralTypeModels;
+
+    private boolean isAddoLinkage = false;
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         super(childView, model, childBaseEntityId);
@@ -88,14 +91,31 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
                 JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(getView().getContext(), Constants.JSON_FORM.getChildUnifiedReferralForm());
+                assert formJson != null;
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
-                        getChildBaseEntityId(), formJson, false);
+                        getChildBaseEntityId(), formJson, false, isAddoLinkage);
             } catch (Exception e) {
                 Timber.e(e);
             }
         } else {
             super.startSickChildReferralForm();
+        }
+    }
+
+    public void startAddoLinkageForm(){
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH){
+            try {
+                JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(getView().getContext(), Constants.JSON_FORM.getChildUnifiedLinkageForm());
+                assert formJson != null;
+                formJson.put(Constants.REFERRAL_TASK_FOCUS, addoReferralTypeModels.get(0).getFocus());
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
+                        getChildBaseEntityId(), formJson, false, isAddoLinkage);
+            }catch (Exception e){
+                Timber.e(e);
+            }
+        }else{
+            //Implement linking using native form
         }
     }
 
@@ -148,6 +168,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     public void referToFacility() {
+        isAddoLinkage = false;
         referralTypeModels = ((ChildProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startSickChildReferralForm();
@@ -199,7 +220,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             super.updateFamilyMemberServiceDue(serviceDueStatus);
         } else {
             if (getView() != null) {
-                 if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
+                if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
                     getView().setFamilyHasServiceDue();
                 } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
                     getView().setFamilyHasServiceOverdue();
@@ -244,6 +265,14 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             }
         }
 
+    }
+
+    public void referToAddo() {
+        addoReferralTypeModels = ((ChildProfileActivity) getView()).getLinkageTypeModels();
+        if (addoReferralTypeModels.size() == 1) {
+            isAddoLinkage = true;
+            startAddoLinkageForm();
+        }
     }
 
 }

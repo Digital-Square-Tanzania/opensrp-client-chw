@@ -80,7 +80,7 @@ public class ClientReferralActivity extends SecuredActivity implements ClientRef
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             //TODO Define custom layout on referral library for family planning referrals otherwise do not use custom layout for now
             ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
-                    baseEntityId, jsonObject, false);
+                    baseEntityId, jsonObject, false, false);
         } else {
             startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
                     Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);

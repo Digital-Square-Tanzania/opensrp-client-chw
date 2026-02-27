@@ -1,0 +1,97 @@
+---
+name: step1_year
+description: Rule for calculation of the year
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {        
+      import java.util.*;        
+      import java.text.SimpleDateFormat;        
+      return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());   
+    }"
+  - "calculation = getDate('yyyy')"
+---
+name: step1_number_of_male_by_age_group_less_1
+description: Rule to control visibility for number_of_male_by_age_group_less_1
+priority: 1
+condition: "step1_select_age_group.contains('age_group_less_1')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_less_1
+description: Rule to control visibility for number_of_female_by_age_group_less_1
+priority: 1
+condition: "step1_select_age_group.contains('age_group_less_1')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_male_by_age_group_1_4
+description: Rule to control visibility for number_of_male_by_age_group_1_4
+priority: 1
+condition: "step1_select_age_group.contains('age_group_1_4')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_1_4
+description: Rule to control visibility for number_of_female_by_age_group_1_4
+priority: 1
+condition: "step1_select_age_group.contains('age_group_1_4')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_male_by_age_group_5_14
+description: Rule to control visibility for number_of_male_by_age_group_5_14
+priority: 1
+condition: "step1_select_age_group.contains('age_group_5_14')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_5_14
+description: Rule to control visibility for number_of_female_by_age_group_5_14
+priority: 1
+condition: "step1_select_age_group.contains('age_group_5_14')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_male_by_age_group_15_49
+description: Rule to control visibility for number_of_male_by_age_group_15_49
+priority: 1
+condition: "step1_select_age_group.contains('age_group_15_49')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_15_49
+description: Rule to control visibility for number_of_female_by_age_group_15_49
+priority: 1
+condition: "step1_select_age_group.contains('age_group_15_49')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_male_by_age_group_50_59
+description: Rule to control visibility for number_of_male_by_age_group_50_59
+priority: 1
+condition: "step1_select_age_group.contains('age_group_50_59')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_50_59
+description: Rule to control visibility for number_of_female_by_age_group_50_59
+priority: 1
+condition: "step1_select_age_group.contains('age_group_50_59')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_male_by_age_group_equal_and_above_60
+description: Rule to control visibility for number_of_male_by_age_group_equal_and_above_60
+priority: 1
+condition: "step1_select_age_group.contains('age_group_equal_and_above_60')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_female_by_age_group_equal_and_above_60
+description: Rule to control visibility for number_of_female_by_age_group_equal_and_above_60
+priority: 1
+condition: "step1_select_age_group.contains('age_group_equal_and_above_60')"
+actions:
+  - "isRelevant = true"
+
