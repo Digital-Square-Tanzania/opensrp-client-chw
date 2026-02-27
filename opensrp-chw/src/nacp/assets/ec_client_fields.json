@@ -5501,6 +5501,13 @@
             "field": "obs.fieldCode",
             "concept": "status"
           }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -5642,6 +5649,13 @@
             "field": "obs.fieldCode",
             "concept": "leprosy_investigation_results"
           }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -5748,6 +5762,13 @@
             "field": "obs.fieldCode",
             "concept": "client_challenge_types"
           }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -5797,6 +5818,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "sample_container_provided"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
           }
         }
       ]

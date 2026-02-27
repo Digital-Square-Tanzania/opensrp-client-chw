@@ -638,6 +638,9 @@
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="tbleprosy_contact_registration_success">TB contact saved</string>
     <string name="tbleprosy_no_contacts_available">No eligible contacts available</string>
+    <string name="tbleprosy_issue_referral_action">Issue</string>
+    <string name="tbleprosy_pending_issuing_of_referral">Pending Issuing of Referral</string>
+    <string name="tbleprosy_issue_referral_toast">Issue referral</string>
     <string name="tbleprosy_contact_family_header">Family members</string>
     <string name="tbleprosy_contact_other_header">Other clients</string>
     <string name="tbleprosy_contact_search_hint">Search by name or ID</string>
