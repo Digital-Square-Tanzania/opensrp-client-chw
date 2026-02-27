@@ -420,7 +420,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             return false;
         }
 
-        return task.getLastModified().getMillis() > tbLeprosyVisitDate.getTime();
+        DateTime taskLastModifiedDate = task.getLastModified().withTimeAtStartOfDay();
+        DateTime tbLeprosyVisitDateOnly = new DateTime(tbLeprosyVisitDate).withTimeAtStartOfDay();
+
+        return !taskLastModifiedDate.isBefore(tbLeprosyVisitDateOnly);
     }
 
     @Nullable
