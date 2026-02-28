@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
+import org.smartregister.chw.tbleprosy.domain.MemberObject;
 import org.smartregister.chw.tbleprosy.domain.Visit;
 import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.DBConstants;
@@ -190,7 +192,15 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     protected void setupButtons() {
-        if (isClientDeceased()) {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            updateDeceasedClientStatusTag(false);
+            hideDeceasedClientActionViews();
+            return;
+        }
+
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient);
+        if (deceasedClient) {
             hideDeceasedClientActionViews();
             return;
         }
@@ -502,7 +512,22 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 TbLeprosyDao.closeTbNegativeClients();
-                memberObject = getMemberObject(memberObject.getBaseEntityId());
+                if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+                    Timber.w("Skipping TB/Leprosy profile refresh because memberObject is missing");
+                    return;
+                }
+
+                String baseEntityId = memberObject.getBaseEntityId();
+                MemberObject refreshedMemberObject = getMemberObject(baseEntityId);
+                if (refreshedMemberObject != null) {
+                    memberObject = refreshedMemberObject;
+                }
+
+                if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+                    Timber.w("Skipping TB/Leprosy profile refresh because refreshed memberObject is missing");
+                    return;
+                }
+
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
                 setupViews();
@@ -527,12 +552,39 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     void applyTbLeprosyDeceasedHandling() {
-        if (!isClientDeceased()) {
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient);
+        if (!deceasedClient) {
             return;
         }
 
         hideDeceasedClientActionViews();
         autoMarkTbLeprosyClientAsDeceased();
+    }
+
+    void updateDeceasedClientStatusTag(boolean isClientDeceased) {
+        TextView clientStatusTag = getClientStatusTagView();
+        if (clientStatusTag == null) {
+            return;
+        }
+
+        if (isClientDeceased) {
+            clientStatusTag.setText(R.string.tbleprosy_followup_visit_client_deceased);
+            clientStatusTag.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        clientStatusTag.setVisibility(View.GONE);
+    }
+
+    @Nullable
+    TextView getClientStatusTagView() {
+        try {
+            return findViewById(R.id.family_tbleprosy_head);
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return null;
+        }
     }
 
     private void autoMarkTbLeprosyClientAsDeceased() {
