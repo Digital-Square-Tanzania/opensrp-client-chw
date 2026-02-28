@@ -733,6 +733,8 @@
     <string name="family_profile_title">%1$s Household</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="return_to_family_name">Return to %1$s Household</string>
+    <string name="add_existing_family_member">Add existing household member</string>
+
 
     <string name="harm_reduction_download_pre_mat_report">Download pre-MAT report</string>
     <string name="harm_reduction_used_needles_collection">Used Needle and Syringes Collection</string>

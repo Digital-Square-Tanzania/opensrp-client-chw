@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -43,6 +45,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
 import org.smartregister.chw.tbleprosy.TbLeprosyLibrary;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
+import org.smartregister.chw.tbleprosy.domain.MemberObject;
 import org.smartregister.chw.tbleprosy.domain.Visit;
 import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.DBConstants;
@@ -189,9 +192,22 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     protected void setupButtons() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            updateDeceasedClientStatusTag(false);
+            hideDeceasedClientActionViews();
+            return;
+        }
+
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient);
+        if (deceasedClient) {
+            hideDeceasedClientActionViews();
+            return;
+        }
 
         String baseEntityId = memberObject.getBaseEntityId();
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
+
         textViewRecordTbLeprosy.setOnClickListener(this);
 
         if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
@@ -488,14 +504,30 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     @Override
     protected void onResume() {
         super.onResume();
+        applyTbLeprosyDeceasedHandling();
         delayRefresh();
     }
 
-    private void delayRefresh() {
+    protected void delayRefresh() {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 TbLeprosyDao.closeTbNegativeClients();
-                memberObject = getMemberObject(memberObject.getBaseEntityId());
+                if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+                    Timber.w("Skipping TB/Leprosy profile refresh because memberObject is missing");
+                    return;
+                }
+
+                String baseEntityId = memberObject.getBaseEntityId();
+                MemberObject refreshedMemberObject = getMemberObject(baseEntityId);
+                if (refreshedMemberObject != null) {
+                    memberObject = refreshedMemberObject;
+                }
+
+                if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+                    Timber.w("Skipping TB/Leprosy profile refresh because refreshed memberObject is missing");
+                    return;
+                }
+
                 fetchProfileData();
                 profilePresenter.refreshProfileBottom();
                 setupViews();
@@ -503,6 +535,90 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    protected boolean isClientDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        try {
+            return TbLeprosyDao.isClientDeceased(memberObject.getBaseEntityId());
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return false;
+        }
+    }
+
+    void applyTbLeprosyDeceasedHandling() {
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient);
+        if (!deceasedClient) {
+            return;
+        }
+
+        hideDeceasedClientActionViews();
+        autoMarkTbLeprosyClientAsDeceased();
+    }
+
+    void updateDeceasedClientStatusTag(boolean isClientDeceased) {
+        TextView clientStatusTag = getClientStatusTagView();
+        if (clientStatusTag == null) {
+            return;
+        }
+
+        if (isClientDeceased) {
+            clientStatusTag.setText(R.string.tbleprosy_followup_visit_client_deceased);
+            clientStatusTag.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        clientStatusTag.setVisibility(View.GONE);
+    }
+
+    @Nullable
+    TextView getClientStatusTagView() {
+        try {
+            return findViewById(R.id.family_tbleprosy_head);
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return null;
+        }
+    }
+
+    private void autoMarkTbLeprosyClientAsDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            JSONObject removeFamilyMemberForm = (new com.vijay.jsonwizard.utils.FormUtils())
+                    .getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
+            org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(
+                    removeFamilyMemberForm,
+                    memberObject.getBaseEntityId(),
+                    org.smartregister.Context.getInstance().allSharedPreferences()
+                            .getPreference(AllConstants.CURRENT_LOCATION_ID)
+            );
+
+            JSONArray jsonArray = removeFamilyMemberForm.getJSONObject(org.smartregister.chw.anc.util.JsonFormUtils.STEP1).getJSONArray(org.smartregister.util.JsonFormUtils.FIELDS);
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "remove_reason", "Death");
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", String.valueOf(memberObject.getAge()));
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", memberObject.getAge() + "y");
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+            Utils.removeUser(null, removeFamilyMemberForm, Utils.context().allSharedPreferences().fetchRegisteredANM());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    void hideDeceasedClientActionViews() {
+        if (textViewRecordTbLeprosy != null) {
+            textViewRecordTbLeprosy.setVisibility(View.GONE);
+        }
+        if (textViewRecordLeprosyTreatmentStartDate != null) {
+            textViewRecordLeprosyTreatmentStartDate.setVisibility(View.GONE);
         }
     }
 
@@ -829,28 +945,36 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         if (requestCode == REQUEST_CODE_CONTACT_REGISTER && resultCode == Activity.RESULT_OK && data != null) {
             handleNewClientRegistrationResult(data);
+            applyTbLeprosyDeceasedHandling();
             return;
         }
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && pendingTbLeprosyReferralLaunch) {
             handlePendingReferralFormResult(resultCode);
+            applyTbLeprosyDeceasedHandling();
             return;
         }
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             if (data == null) {
+                applyTbLeprosyDeceasedHandling();
                 return;
             }
 
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 if (StringUtils.isBlank(jsonString)) {
+                    applyTbLeprosyDeceasedHandling();
                     return;
                 }
                 handleJsonFormActivityResult(jsonString);
+                applyTbLeprosyDeceasedHandling();
             } catch (Exception e) {
                 Timber.e(e);
+                applyTbLeprosyDeceasedHandling();
             }
+        } else {
+            applyTbLeprosyDeceasedHandling();
         }
     }
 
