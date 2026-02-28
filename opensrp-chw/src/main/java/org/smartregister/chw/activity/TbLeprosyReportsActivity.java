@@ -40,6 +40,8 @@ public class TbLeprosyReportsActivity extends SecuredActivity implements View.On
 
     protected ConstraintLayout tbLeprosyServiceChallengesReport;
 
+    protected ConstraintLayout tbLeprosyMergedReport;
+
     protected AppBarLayout appBarLayout;
 
     private Menu menu;
@@ -59,12 +61,14 @@ public class TbLeprosyReportsActivity extends SecuredActivity implements View.On
         tbLeprosySpecialAreasReport = findViewById(R.id.tb_leprosy_report_special_areas);
         tbLeprosyTreatmentStatusReport = findViewById(R.id.tb_leprosy_report_treatment);
         tbLeprosyServiceChallengesReport = findViewById(R.id.tb_leprosy_report_challenges);
+        tbLeprosyMergedReport = findViewById(R.id.tb_leprosy_report_merged);
 
         tbLeprosyCommunityReport.setOnClickListener(this);
         tbLeprosyHouseholdReport.setOnClickListener(this);
         tbLeprosySpecialAreasReport.setOnClickListener(this);
         tbLeprosyTreatmentStatusReport.setOnClickListener(this);
         tbLeprosyServiceChallengesReport.setOnClickListener(this);
+        tbLeprosyMergedReport.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -133,6 +137,11 @@ public class TbLeprosyReportsActivity extends SecuredActivity implements View.On
             TbLeprosyReportsViewActivity.startMe(this,
                     Constants.ReportConstants.ReportPaths.TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH,
                     R.string.tb_leprosy_report_section_challenges,
+                    reportPeriod);
+        } else if (id == R.id.tb_leprosy_report_merged) {
+            TbLeprosyReportsViewActivity.startMe(this,
+                    Constants.ReportConstants.ReportPaths.TBLEPROSY_MERGED_REPORT_PATH,
+                    R.string.tb_leprosy_report_section_merged,
                     reportPeriod);
         } else {
             Toast.makeText(this, R.string.action_not_defined, Toast.LENGTH_SHORT).show();

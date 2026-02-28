@@ -362,6 +362,7 @@ public class Constants extends CoreConstants {
             String TBLEPROSY_SPECIAL_REPORT_PATH = "tbleprosy_reports/tbleprosy-special-areas-report";
             String TBLEPROSY_TREATMENT_STATUS_REPORT_PATH = "tbleprosy_reports/tbleprosy-treatment-status-report";
             String TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH = "tbleprosy_reports/tbleprosy-service-challenges-report";
+            String TBLEPROSY_MERGED_REPORT_PATH = "tbleprosy_reports/tbleprosy-merged-report";
         }
     }
 
