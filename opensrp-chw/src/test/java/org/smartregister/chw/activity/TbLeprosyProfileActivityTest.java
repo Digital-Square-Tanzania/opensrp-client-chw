@@ -14,6 +14,7 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
@@ -49,6 +50,44 @@ public class TbLeprosyProfileActivityTest extends BaseUnitTest {
     }
 
     @Test
+    public void applyTbLeprosyDeceasedHandlingShouldShowStatusTagWhenClientIsDeceased() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        TextView statusTag = Mockito.mock(TextView.class);
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+        Mockito.doReturn(statusTag).when(activity).findViewById(R.id.family_tbleprosy_head);
+
+        try (MockedStatic<TbLeprosyDao> tbLeprosyDaoStatic = Mockito.mockStatic(TbLeprosyDao.class)) {
+            tbLeprosyDaoStatic.when(() -> TbLeprosyDao.isClientDeceased("base-id")).thenReturn(true);
+
+            activity.applyTbLeprosyDeceasedHandling();
+
+            Mockito.verify(statusTag).setText(R.string.tbleprosy_followup_visit_client_deceased);
+            Mockito.verify(statusTag).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Test
+    public void applyTbLeprosyDeceasedHandlingShouldHideStatusTagWhenClientIsNotDeceased() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        TextView statusTag = Mockito.mock(TextView.class);
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+        Mockito.doReturn(statusTag).when(activity).findViewById(R.id.family_tbleprosy_head);
+
+        try (MockedStatic<TbLeprosyDao> tbLeprosyDaoStatic = Mockito.mockStatic(TbLeprosyDao.class)) {
+            tbLeprosyDaoStatic.when(() -> TbLeprosyDao.isClientDeceased("base-id")).thenReturn(false);
+
+            activity.applyTbLeprosyDeceasedHandling();
+
+            Mockito.verify(statusTag).setVisibility(View.GONE);
+            Mockito.verify(statusTag, Mockito.never()).setText(Mockito.anyInt());
+        }
+    }
+
+    @Test
     public void shouldHideRecordActionsWhenClientIsDeceased() {
         TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
         MemberObject memberObject = Mockito.mock(MemberObject.class);
@@ -70,6 +109,22 @@ public class TbLeprosyProfileActivityTest extends BaseUnitTest {
             Mockito.verify(recordLeprosyTreatmentStartDateButton).setVisibility(View.GONE);
             tbLeprosyDaoStatic.verify(() -> TbLeprosyDao.isClientDeceased("base-id"));
         }
+    }
+
+    @Test
+    public void setupButtonsShouldHideRecordActionsWhenMemberObjectIsNull() {
+        TbLeprosyProfileActivity activity = Mockito.mock(TbLeprosyProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        TextView recordTbLeprosyButton = Mockito.mock(TextView.class);
+        TextView recordLeprosyTreatmentStartDateButton = Mockito.mock(TextView.class);
+
+        ReflectionHelpers.setField(activity, "memberObject", null);
+        ReflectionHelpers.setField(activity, "textViewRecordTbLeprosy", recordTbLeprosyButton);
+        ReflectionHelpers.setField(activity, "textViewRecordLeprosyTreatmentStartDate", recordLeprosyTreatmentStartDateButton);
+
+        activity.setupButtons();
+
+        Mockito.verify(recordTbLeprosyButton).setVisibility(View.GONE);
+        Mockito.verify(recordLeprosyTreatmentStartDateButton).setVisibility(View.GONE);
     }
 
     @Test
