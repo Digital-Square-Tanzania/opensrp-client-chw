@@ -30,7 +30,7 @@ actions:
 name: step2_marital_status
 description: marital_status relevance
 priority: 1
-condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10)"
+condition: "(step2_sex == 'Female' && ((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10))) || (step2_sex == 'Male' && ((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 15) || (step2_age != '' && step2_age >= 15)))"
 actions:
   - "isRelevant = true"
 ---
