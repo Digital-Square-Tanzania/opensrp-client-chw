@@ -320,7 +320,7 @@
       {
         "key": "prompt_for_diagnosing_pneumonia",
         "type": "toaster_notes",
-        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia.",
+        "text": "The child has pneumonia. Refer the child to the health facility immediately.",
         "openmrs_entity_id": "prompt_for_diagnosing_pneumonia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

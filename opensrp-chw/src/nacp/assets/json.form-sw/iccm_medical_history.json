@@ -267,14 +267,7 @@
         "type": "hidden",
         "openmrs_entity_id": "is_pneumonia_suspect",
         "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_medical_history_calculation.yml"
-            }
-          }
-        }
+        "openmrs_entity_parent": ""
       },
       {
         "key": "prompt_for_conducting_mrdt",
@@ -327,7 +320,7 @@
       {
         "key": "prompt_for_diagnosing_pneumonia",
         "type": "toaster_notes",
-        "text": "Mteja ana dalili za Nimonia. Ainisha kuwa mteja ana nimonia",
+        "text": "Mtoto ana nimonia. Mpe mtoto rufaa kwenda kituo cha kutolea huduma za afya mara moja",
         "openmrs_entity_id": "prompt_for_diagnosing_pneumonia",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
