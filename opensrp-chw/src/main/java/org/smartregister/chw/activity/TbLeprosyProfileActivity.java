@@ -26,6 +26,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -189,9 +190,14 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     @Override
     protected void setupButtons() {
+        if (isClientDeceased()) {
+            hideDeceasedClientActionViews();
+            return;
+        }
 
         String baseEntityId = memberObject.getBaseEntityId();
         boolean isContactClient = getTbLeprosyClientStatus(baseEntityId).equalsIgnoreCase("contact");
+
         textViewRecordTbLeprosy.setOnClickListener(this);
 
         if (!isContactClient && !TbLeprosyDao.isClientTbOrLeprosyNegative(baseEntityId)) {
@@ -488,10 +494,11 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     @Override
     protected void onResume() {
         super.onResume();
+        applyTbLeprosyDeceasedHandling();
         delayRefresh();
     }
 
-    private void delayRefresh() {
+    protected void delayRefresh() {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 TbLeprosyDao.closeTbNegativeClients();
@@ -503,6 +510,63 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    protected boolean isClientDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        try {
+            return TbLeprosyDao.isClientDeceased(memberObject.getBaseEntityId());
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return false;
+        }
+    }
+
+    void applyTbLeprosyDeceasedHandling() {
+        if (!isClientDeceased()) {
+            return;
+        }
+
+        hideDeceasedClientActionViews();
+        autoMarkTbLeprosyClientAsDeceased();
+    }
+
+    private void autoMarkTbLeprosyClientAsDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            JSONObject removeFamilyMemberForm = (new com.vijay.jsonwizard.utils.FormUtils())
+                    .getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
+            org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(
+                    removeFamilyMemberForm,
+                    memberObject.getBaseEntityId(),
+                    org.smartregister.Context.getInstance().allSharedPreferences()
+                            .getPreference(AllConstants.CURRENT_LOCATION_ID)
+            );
+
+            JSONArray jsonArray = removeFamilyMemberForm.getJSONObject(org.smartregister.chw.anc.util.JsonFormUtils.STEP1).getJSONArray(org.smartregister.util.JsonFormUtils.FIELDS);
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "remove_reason", "Death");
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", String.valueOf(memberObject.getAge()));
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", memberObject.getAge() + "y");
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+            Utils.removeUser(null, removeFamilyMemberForm, Utils.context().allSharedPreferences().fetchRegisteredANM());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    void hideDeceasedClientActionViews() {
+        if (textViewRecordTbLeprosy != null) {
+            textViewRecordTbLeprosy.setVisibility(View.GONE);
+        }
+        if (textViewRecordLeprosyTreatmentStartDate != null) {
+            textViewRecordLeprosyTreatmentStartDate.setVisibility(View.GONE);
         }
     }
 
@@ -829,28 +893,36 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
         if (requestCode == REQUEST_CODE_CONTACT_REGISTER && resultCode == Activity.RESULT_OK && data != null) {
             handleNewClientRegistrationResult(data);
+            applyTbLeprosyDeceasedHandling();
             return;
         }
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && pendingTbLeprosyReferralLaunch) {
             handlePendingReferralFormResult(resultCode);
+            applyTbLeprosyDeceasedHandling();
             return;
         }
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             if (data == null) {
+                applyTbLeprosyDeceasedHandling();
                 return;
             }
 
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 if (StringUtils.isBlank(jsonString)) {
+                    applyTbLeprosyDeceasedHandling();
                     return;
                 }
                 handleJsonFormActivityResult(jsonString);
+                applyTbLeprosyDeceasedHandling();
             } catch (Exception e) {
                 Timber.e(e);
+                applyTbLeprosyDeceasedHandling();
             }
+        } else {
+            applyTbLeprosyDeceasedHandling();
         }
     }
 
