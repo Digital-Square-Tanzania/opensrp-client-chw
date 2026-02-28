@@ -327,7 +327,7 @@ dependencies {
     }
 
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.5-ALPHA2-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.0-ALPHA2-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'
