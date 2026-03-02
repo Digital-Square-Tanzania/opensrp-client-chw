@@ -38,6 +38,8 @@ public class Constants extends CoreConstants {
 
     public static int REQUEST_FILTERS = 2004;
 
+    public enum PneumoniaStatus {ENABLED, DISABLED}
+
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}

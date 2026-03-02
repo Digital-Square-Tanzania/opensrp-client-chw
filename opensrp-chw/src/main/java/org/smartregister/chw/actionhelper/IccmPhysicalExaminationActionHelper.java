@@ -2,6 +2,8 @@ package org.smartregister.chw.actionhelper;
 
 import static org.smartregister.util.Utils.getAgeFromDate;
 
+import static java.lang.Boolean.FALSE;
+
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +22,7 @@ import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.chw.util.Constants.PneumoniaStatus;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -50,6 +53,8 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
     private final boolean hasAnySymptom;
 
     private final IccmMemberObject memberObject;
+
+    private final PneumoniaStatus pneumoniaStatus = PneumoniaStatus.DISABLED;
 
     public IccmPhysicalExaminationActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect, String isDiarrheaSuspect, String isPneumoniaSuspect, boolean hasAnySymptom) {
         this.context = context;
@@ -112,6 +117,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
         JSONObject jsonObject = null;
         String isMalariaSuspectAfterPhysicalExamination = "false";
         String clientPastMalariaTreatmentHistory = "";
+
         try {
             jsonObject = new JSONObject(jsonPayload);
             JSONArray fields = JsonFormUtils.fields(jsonObject);
@@ -147,7 +153,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 actionList.remove(context.getString(R.string.iccm_malaria));
             }
         } else {
-            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 6)) {
+            if(pneumoniaStatus == PneumoniaStatus.ENABLED && ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 6)))  {
                 try {
                     String title = context.getString(R.string.iccm_pneumonia);
                     IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isDiarrheaSuspect, isMalariaSuspectString);

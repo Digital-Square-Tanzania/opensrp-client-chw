@@ -27,6 +27,7 @@ import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.JsonFormUtils;
+import org.smartregister.chw.util.Constants.PneumoniaStatus;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -51,6 +52,8 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private IccmMemberObject memberObject;
+
+    private final PneumoniaStatus pneumoniaStatus = PneumoniaStatus.DISABLED;
 
     public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack) {
         this.context = context;
@@ -173,7 +176,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 isMalariaSuspect = "false";
                 int age = memberObject.getAge();
                 if (age < 5) {
-                    if (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")) {
+                    if(pneumoniaStatus == PneumoniaStatus.ENABLED && (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")))  {
                         processPneumoniaAction(jsonObject, isMalariaSuspect);
                     } else if (isDiarrheaSuspect.equalsIgnoreCase("true")) {
                         actionList.remove(context.getString(R.string.iccm_pneumonia));
