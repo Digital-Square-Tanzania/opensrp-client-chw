@@ -84,7 +84,7 @@ public class HpsAdvertisementFeedbackDetailsActivity extends CoreAncMedicalHisto
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
         tvTitle.setText(getString(R.string.sbc_back_to_all_mobilization_sessions));
 
-        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_mobilization_session_details));
+        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.hps_advertisement_session_details));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class HpsAdvertisementFeedbackDetailsActivity extends CoreAncMedicalHisto
         flavor.processViewData(visits, this);
         displayLoadingState(false);
         TextView visitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        visitTitle.setText(R.string.hps_mobilization_sessions_title);
+        visitTitle.setText(R.string.hps_advertisement_sessions_title);
         return view;
     }
 
