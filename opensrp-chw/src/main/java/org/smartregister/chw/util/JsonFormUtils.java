@@ -1033,6 +1033,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             // Occupation (native_radio keys like chk_farmer)
             String occupation = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "occupation", false);
+            if (StringUtils.isBlank(occupation)) {
+                // Fallback: derive occupation from latest relevant event obs
+                occupation = findLatestObsValue(client.getCaseId(), new String[]{"occupation"});
+            }
             prefillNativeRadio(stepTwoFields, "occupation", occupation);
             if ("chk_other".equalsIgnoreCase(occupation)) {
                 setValueAndLock(stepTwoFields, "occupation_other",
@@ -1044,6 +1048,21 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             if (StringUtils.isBlank(leader)) {
                 // Some flavors persist attribute key name
                 leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Community_Leader", false);
+            }
+            if (StringUtils.isBlank(leader)) {
+                // Last resort: read from Client JSON attributes
+                try {
+                    EventClientRepository repo = new EventClientRepository();
+                    JSONObject cj = repo.getClientByBaseEntityId(client.getCaseId());
+                    if (cj != null && cj.has("attributes")) {
+                        JSONObject attrs = cj.optJSONObject("attributes");
+                        if (attrs != null) {
+                            leader = attrs.optString("Community_Leader", leader);
+                        }
+                    }
+                } catch (Exception e) {
+                    Timber.w(e);
+                }
             }
             prefillCheckbox(stepTwoFields, "leader", leader);
             setValueAndLock(stepTwoFields, "leader_other",
@@ -1173,8 +1192,58 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         if (StringUtils.isBlank(selectedKeysFlat)) return;
         JSONObject field = getFieldJSONObject(fields, key);
         if (field == null) return;
-        // Use the choice-id processor to set checkbox values where possible
-        processValueWithChoiceIds(field, selectedKeysFlat);
+        JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
+        if (options == null) {
+            // fallback to generic processor
+            processValueWithChoiceIds(field, selectedKeysFlat);
+            return;
+        }
+
+        // Normalize incoming selections into a set (split on commas, spaces, semicolons, pipes) and parse JSON array strings
+        java.util.Set<String> tokens = new java.util.HashSet<>();
+        java.util.Set<String> normTokens = new java.util.HashSet<>();
+        boolean parsedArray = false;
+        try {
+            String trimmed = selectedKeysFlat.trim();
+            if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+                org.json.JSONArray arr = new org.json.JSONArray(trimmed);
+                for (int i = 0; i < arr.length(); i++) {
+                    String v = String.valueOf(arr.get(i));
+                    if (StringUtils.isNotBlank(v)) {
+                        String cleaned = v.trim().replace("\"", "");
+                        if (!cleaned.isEmpty()) {
+                            tokens.add(cleaned);
+                            normTokens.add(normalizeKey(cleaned));
+                        }
+                    }
+                }
+                parsedArray = true;
+            }
+        } catch (Exception ignore) { }
+
+        if (!parsedArray) {
+            for (String part : selectedKeysFlat.split("[\\s,;|]+")) {
+                if (StringUtils.isNotBlank(part)) {
+                    String cleaned = part.trim().replace("\"", "");
+                    if (!cleaned.isEmpty()) {
+                        tokens.add(cleaned);
+                        normTokens.add(normalizeKey(cleaned));
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < options.length(); i++) {
+            JSONObject opt = options.getJSONObject(i);
+            String k = opt.optString("key");
+            String t = opt.optString("text");
+            String oeid = opt.optString(OPENMRS_ENTITY_ID);
+            boolean selected = containsIgnoreCase(tokens, k) || containsIgnoreCase(tokens, t) || containsIgnoreCase(tokens, oeid)
+                    || containsIgnoreCase(normTokens, normalizeKey(k)) || containsIgnoreCase(normTokens, normalizeKey(oeid));
+            if (selected) {
+                opt.put(JsonFormConstants.VALUE, true);
+            }
+        }
     }
 
     private static void prefillNativeRadio(JSONArray fields, String key, String rawValue) throws JSONException {
@@ -1219,6 +1288,52 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             if (s.equalsIgnoreCase(value)) return true;
         }
         return false;
+    }
+
+    private static String normalizeKey(String s) {
+        if (s == null) return null;
+        String t = s.trim().toLowerCase(java.util.Locale.ROOT);
+        // replace all non-alphanumeric with underscore, collapse repeats
+        t = t.replaceAll("[^a-z0-9]+", "_");
+        // trim leading/trailing underscores
+        t = t.replaceAll("^_+|_+$", "");
+        return t;
+    }
+
+    private static String findLatestObsValue(String baseEntityId, String[] fields) {
+        try {
+            java.util.List<String> eventTypes = new java.util.ArrayList<>();
+            eventTypes.add(org.smartregister.chw.core.utils.CoreConstants.EventType.FAMILY_REGISTRATION);
+            eventTypes.add("Update Family Registration");
+
+            org.smartregister.clientandeventmodel.Event ev = org.smartregister.chw.dao.EventDao.getLatestEvent(baseEntityId, eventTypes);
+            if (ev == null || ev.getObs() == null) return null;
+
+            for (Obs o : ev.getObs()) {
+                String key = o.getFormSubmissionField() != null ? o.getFormSubmissionField() : o.getFieldCode();
+                if (key == null) continue;
+                for (String f : fields) {
+                    if (f.equalsIgnoreCase(key)) {
+                        java.util.List<Object> vals = o.getValues();
+                        if (vals != null && !vals.isEmpty()) {
+                            // For multi-select, return a comma-separated string of raw values
+                            if (vals.size() == 1) return String.valueOf(vals.get(0));
+                            StringBuilder sb = new StringBuilder();
+                            for (Object v : vals) {
+                                if (v != null) {
+                                    if (sb.length() > 0) sb.append(",");
+                                    sb.append(String.valueOf(v));
+                                }
+                            }
+                            return sb.toString();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+        return null;
     }
 
     
@@ -1288,12 +1403,3 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 }
-    private static String normalizeKey(String s) {
-        if (s == null) return null;
-        String t = s.trim().toLowerCase(java.util.Locale.ROOT);
-        // replace all non-alphanumeric with underscore, collapse repeats
-        t = t.replaceAll("[^a-z0-9]+", "_");
-        // trim leading/trailing underscores
-        t = t.replaceAll("^_+|_+$", "");
-        return t;
-    }
