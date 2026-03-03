@@ -42,13 +42,21 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     private final IccmMemberObject memberObject;
 
-    public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect) {
+    private final String isPneumoniaSuspect;
+
+    private final String clientPastMalariaTreatmentHistory;
+
+    private String diarrheaSigns;
+
+    public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect, String isPneumoniaSuspect, String clientPastMalariaTreatmentHistory) {
         this.context = context;
         this.isMalariaSuspect = isMalariaSuspect;
         this.actionList = actionList;
         this.callBack = callBack;
         this.details = details;
         this.memberObject = IccmDao.getMember(enrollmentFormSubmissionId);
+        this.isPneumoniaSuspect = isPneumoniaSuspect;
+        this.clientPastMalariaTreatmentHistory = clientPastMalariaTreatmentHistory;
     }
 
     @Override
@@ -73,7 +81,7 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         try {
             checkObject.clear();
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            String diarrheaSigns = CoreJsonFormUtils.getValue(jsonObject, "diarrhea_signs");
+            diarrheaSigns = CoreJsonFormUtils.getValue(jsonObject, "diarrhea_signs");
             checkObject.put("diarrhea_signs", StringUtils.isNotBlank(diarrheaSigns));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -109,13 +117,15 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         String malariaActionTitle = context.getString(R.string.iccm_malaria);
         if (isMalariaSuspect.equalsIgnoreCase("true")) {
             try {
-                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(memberObject.getIccmEnrollmentFormSubmissionId());
+                IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), details, actionList, callBack, isPneumoniaSuspect, diarrheaSigns);
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                 if (!actionList.containsKey(malariaActionTitle))
                     actionList.put(malariaActionTitle, action);
             } catch (Exception e) {
                 Timber.e(e);
             }
+        } else if (isPneumoniaSuspect.equalsIgnoreCase("true") || clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes") || (!diarrheaSigns.isBlank() && !diarrheaSigns.contains("none"))){
+            processReferralAction();
         } else {
             //Removing the malaria actions  the client is not a malaria suspect.
             actionList.remove(context.getString(R.string.iccm_malaria));
@@ -150,5 +160,17 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
     @Override
     public void onPayloadReceived(BaseIccmVisitAction baseIccmVisitAction) {
         //overridden
+    }
+
+    private void processReferralAction() {
+        try {
+            String title = context.getString(R.string.iccm_referral);
+            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper();
+            BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(referralActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmReferral()).build();
+            if (!actionList.containsKey(context.getString(R.string.iccm_referral)))
+                actionList.put(title, action);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

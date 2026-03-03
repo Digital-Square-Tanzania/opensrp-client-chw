@@ -126,6 +126,8 @@ public class Constants extends CoreConstants {
         private static final String ICCM_MALARIA = "iccm_malaria";
         private static final String ICCM_PNEUMONIA = "iccm_pneumonia";
         private static final String ICCM_DIARRHEA = "iccm_diarrhea";
+
+        private static final String ICCM_REFERRAL_NATIVE_FORM = "referrals/iccm_referral_native_form";
         private static final String CHILD_HV_MALNUTRITION_SCREENING = "child_hv_malnutrition_screening";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
@@ -188,6 +190,10 @@ public class Constants extends CoreConstants {
         }
         public static String getIccmDiarrhea() {
             return ICCM_DIARRHEA;
+        }
+
+        public static String getIccmReferral() {
+            return ICCM_REFERRAL_NATIVE_FORM;
         }
 
         public static String getChildHvMalnutritionScreening() {
