@@ -132,8 +132,8 @@
       {
         "key": "family_unique_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_unique_id",
         "type": "hidden",
         "value": ""
       },
