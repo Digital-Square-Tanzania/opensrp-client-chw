@@ -204,6 +204,7 @@ public class FamilyDao extends AbstractDao {
     /**
      * Returns all families where the provided client is the household head.
      * This does not alter the behavior of getFamilyDetail which maps membership; this maps headship.
+     * Excluding independent clients as they are not considered families and may have a head that is not a member of the family.
      */
     public static List<FamilyDetailsModel> getFamiliesByHead(String headClientId) {
         String sql = String.format(
@@ -213,7 +214,8 @@ public class FamilyDao extends AbstractDao {
                         "       ec_family.village_town as village_town,\n" +
                         "       ec_family.family_head\n" +
                         "FROM ec_family\n" +
-                        "WHERE ec_family.family_head = '%s'", headClientId);
+                        "WHERE ec_family.entity_type != 'ec_independent_client' AND " +
+                        "ec_family.family_head = '%s'", headClientId);
 
         DataMap<FamilyDetailsModel> dataMap = cursor -> {
             FamilyDetailsModel familyDetailsModel = new FamilyDetailsModel(
