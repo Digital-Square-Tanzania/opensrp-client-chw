@@ -1024,7 +1024,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         safeSetSpinner(stepTwoFields, "disabilities", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "disabilities", true));
 
             // Type of disability (checkbox keys e.g., physical_impairments, other_disabilities)
-            String disabilityTypes = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "type_of_disability", true);
+            String disabilityTypes = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "type_of_disability", false);
             prefillCheckbox(stepTwoFields, "type_of_disability", disabilityTypes);
 
             // If other disability previously specified
@@ -1032,7 +1032,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                     org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "specify_other_disabilities", true), false);
 
             // Occupation (native_radio keys like chk_farmer)
-            String occupation = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "occupation", true);
+            String occupation = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "occupation", false);
             prefillNativeRadio(stepTwoFields, "occupation", occupation);
             if ("chk_other".equalsIgnoreCase(occupation)) {
                 setValueAndLock(stepTwoFields, "occupation_other",
@@ -1040,10 +1040,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             }
 
             // Leadership role (checkbox under person_attribute Community_Leader)
-            String leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "leader", true);
+            String leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "leader", false);
             if (StringUtils.isBlank(leader)) {
                 // Some flavors persist attribute key name
-                leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Community_Leader", true);
+                leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Community_Leader", false);
             }
             prefillCheckbox(stepTwoFields, "leader", leader);
             setValueAndLock(stepTwoFields, "leader_other",
@@ -1051,7 +1051,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             // Identity availability (native_radio) and dependent ID numbers
             // Prefer direct stored id_avail if present
-            String idAvail = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "id_avail", true);
+            String idAvail = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "id_avail", false);
             String nationalId = coalesce(
                     org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "national_id", true),
                     org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "National_ID", true)
@@ -1106,8 +1106,67 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         if (StringUtils.isBlank(rawValue)) return;
         JSONObject field = getFieldJSONObject(fields, key);
         if (field == null) return;
-        String mapped = processValueWithChoiceIds(field, rawValue);
-        field.put(JsonFormConstants.VALUE, mapped);
+
+        String selectedKey = null;
+        String rawNorm = normalizeKey(rawValue);
+
+        // 1) Try openmrs_choice_ids map (value -> key)
+        if (field.has("openmrs_choice_ids")) {
+            JSONObject choice = field.optJSONObject("openmrs_choice_ids");
+            if (choice != null && choice.names() != null) {
+                for (int i = 0; i < choice.names().length(); i++) {
+                    String k = choice.names().getString(i);
+                    String v = choice.optString(k);
+                    if (equalsIgnoreCase(rawValue, v) || equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                        selectedKey = k;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 2) Try keys/values arrays
+        if (selectedKey == null) {
+            if (field.has("keys") && field.has("values")) {
+                JSONArray keys = field.optJSONArray("keys");
+                JSONArray values = field.optJSONArray("values");
+                if (keys != null && values != null) {
+                    for (int i = 0; i < keys.length(); i++) {
+                        String k = keys.optString(i);
+                        String v = values.optString(i);
+                        if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, v) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                            selectedKey = k;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3) Try options array (objects with key/text/openmrs_entity_id)
+        if (selectedKey == null && field.has(Constants.JSON_FORM_KEY.OPTIONS)) {
+            JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
+            if (options != null) {
+                for (int i = 0; i < options.length(); i++) {
+                    JSONObject opt = options.optJSONObject(i);
+                    if (opt == null) continue;
+                    String k = opt.optString("key");
+                    String t = opt.optString("text");
+                    String oeid = opt.optString(OPENMRS_ENTITY_ID);
+                    if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, t) || equalsIgnoreCase(rawValue, oeid) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                        selectedKey = k;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Fallback: set rawValue as-is
+        if (selectedKey == null) {
+            selectedKey = rawValue;
+        }
+
+        field.put(JsonFormConstants.VALUE, selectedKey);
     }
 
     private static void prefillCheckbox(JSONArray fields, String key, String selectedKeysFlat) throws JSONException {
@@ -1124,6 +1183,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         if (field == null) return;
 
         String selectedKey = null;
+        String rawNorm = normalizeKey(rawValue);
 
         // Only options array is expected for native_radio
         JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
@@ -1134,8 +1194,11 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 String k = opt.optString("key");
                 String t = opt.optString("text");
                 String oeid = opt.optString(OPENMRS_ENTITY_ID);
-                if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, t) || equalsIgnoreCase(rawValue, oeid)) {
+                if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, t) || equalsIgnoreCase(rawValue, oeid)
+                        || equalsIgnoreCase(rawNorm, normalizeKey(k)) || equalsIgnoreCase(rawNorm, normalizeKey(oeid))) {
                     selectedKey = k;
+                    // mark the matching option selected so the UI toggles
+                    opt.put(JsonFormConstants.VALUE, true);
                     break;
                 }
             }
@@ -1225,3 +1288,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 }
+    private static String normalizeKey(String s) {
+        if (s == null) return null;
+        String t = s.trim().toLowerCase(java.util.Locale.ROOT);
+        // replace all non-alphanumeric with underscore, collapse repeats
+        t = t.replaceAll("[^a-z0-9]+", "_");
+        // trim leading/trailing underscores
+        t = t.replaceAll("^_+|_+$", "");
+        return t;
+    }
