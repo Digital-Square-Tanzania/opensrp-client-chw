@@ -31,3 +31,7 @@ native/
 /opensrp-chw/libs/
 android/
 android.lock
+.gradle-home/
+jdks/
+notifications/
+legacy-opensrp-libs/
