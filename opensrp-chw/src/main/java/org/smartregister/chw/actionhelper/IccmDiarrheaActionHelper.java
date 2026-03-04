@@ -16,6 +16,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.IccmVisitStateTracker;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
@@ -47,6 +48,8 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
     private final String clientPastMalariaTreatmentHistory;
 
     private String diarrheaSigns;
+
+    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
 
     public IccmDiarrheaActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack, String isMalariaSuspect, String isPneumoniaSuspect, String clientPastMalariaTreatmentHistory) {
         this.context = context;
@@ -126,9 +129,12 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
             }
         } else if (isPneumoniaSuspect.equalsIgnoreCase("true") || clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes") || (!diarrheaSigns.isBlank() && !diarrheaSigns.contains("none"))){
             processReferralAction();
+            iccmVisitStateTracker.setIccmReferralModuleActive(true);
         } else {
             //Removing the malaria actions  the client is not a malaria suspect.
             actionList.remove(context.getString(R.string.iccm_malaria));
+
+            iccmVisitStateTracker.setIccmReferralModuleActive(false);
         }
 
         //Calling the callback method to preload the actions in the actions list.

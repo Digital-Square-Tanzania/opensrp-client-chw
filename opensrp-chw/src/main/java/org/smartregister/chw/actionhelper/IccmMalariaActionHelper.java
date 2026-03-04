@@ -16,6 +16,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.IccmVisitStateTracker;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
     private final String diarrheaSigns;
 
     private String interpretationForMrdtTwo;
+
+    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, Map<String, List<VisitDetail>> details, LinkedHashMap<String, BaseIccmVisitAction> actionList, BaseIccmVisitContract.InteractorCallBack callBack, String isPneumoniaSuspect, String diarrheaSigns) {
         this.context = context;
@@ -112,6 +115,9 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
             if(isPneumoniaSuspect.equalsIgnoreCase("true") || (!interpretationForMrdtTwo.isBlank() && !interpretationForMrdtTwo.contains("control")) || (!diarrheaSigns.isBlank() && !diarrheaSigns.contains("none"))){
                 processReferralAction();
+                iccmVisitStateTracker.setIccmReferralModuleActive(true);
+            }else{
+                iccmVisitStateTracker.setIccmReferralModuleActive(false);
             }
         } catch (Exception e) {
             Timber.e(e);

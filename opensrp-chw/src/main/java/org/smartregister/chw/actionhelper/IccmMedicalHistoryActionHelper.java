@@ -4,9 +4,7 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.TYPE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge;
-import static org.smartregister.chw.util.Constants.ICCM_REFERRAL_FORM;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.OPTIONS;
-import static org.smartregister.util.Utils.getAgeFromDate;
 
 import android.content.Context;
 
@@ -24,6 +22,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.IccmVisitStateTracker;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.DBConstants;
@@ -55,6 +54,8 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     private IccmMemberObject memberObject;
 
     private final PneumoniaStatus pneumoniaStatus = PneumoniaStatus.DISABLED;
+
+    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
 
     public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack) {
         this.context = context;
@@ -184,14 +185,18 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                         processDiarrheaAction(isMalariaSuspect, isPneumoniaSuspect, clientPastMalariaTreatmentHistory);
                     } else if (isPneumoniaSuspect.equalsIgnoreCase("true") || clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")){
                         processReferralAction();
+                        iccmVisitStateTracker.setIccmReferralModuleActive(true);
                     } else {
+                        iccmVisitStateTracker.setIccmReferralModuleActive(false);
                         actionList.remove(context.getString(R.string.iccm_pneumonia));
                         actionList.remove(context.getString(R.string.iccm_diarrhea));
                     }
                 } else {
                     if (clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")){
                         processReferralAction();
+                        iccmVisitStateTracker.setIccmReferralModuleActive(true);
                     }
+                    iccmVisitStateTracker.setIccmReferralModuleActive(false);
                     actionList.remove(context.getString(R.string.iccm_malaria));
                 }
             }
