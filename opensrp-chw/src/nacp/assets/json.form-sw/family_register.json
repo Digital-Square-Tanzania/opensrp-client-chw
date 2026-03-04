@@ -67,7 +67,7 @@
         "key": "fam_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "fam_name",
+        "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "hint": "Jina la Ukoo",
         "edit_type": "name",
@@ -84,7 +84,7 @@
         "key": "client_first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "client_first_name",
+        "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "hint": "Jina la Kwanza la Mkuu wa Familia",
         "edit_type": "name",
@@ -101,7 +101,7 @@
         "key": "client_middle_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "client_middle_name",
+        "openmrs_entity_id": "middle_name",
         "type": "edit_text",
         "hint": "Jina la Kati la Mkuu wa Familia",
         "edit_type": "name",
@@ -118,7 +118,7 @@
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "unique_id",
+        "openmrs_entity_id": "opensrp_id",
         "hidden": "true",
         "type": "edit_text",
         "barcode_type": "qrcode",
@@ -131,8 +131,8 @@
       },
       {
         "key": "family_unique_id",
-        "openmrs_entity_parent": "person_identifier",
-        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "family_unique_id",
         "type": "hidden",
         "value": ""
@@ -141,7 +141,7 @@
         "key": "fam_village",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "fam_village",
+        "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
         "hint": "Jina la Kitongoji/Mtaa",
@@ -223,7 +223,7 @@
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "spacer",
+        "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "15dp"
       },
@@ -249,7 +249,7 @@
       {
         "key": "existing_head",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "existing_head",
         "type": "hidden",
         "value": ""
@@ -257,7 +257,7 @@
       {
         "key": "original_relational_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "original_relational_id",
         "type": "hidden",
         "value": ""
@@ -266,7 +266,7 @@
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "unique_id",
+        "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "hint": "",
         "value": "0",
@@ -334,7 +334,7 @@
         "key": "surname",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "surname",
+        "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "hint": "Jina la mwisho",
         "edit_type": "name",
@@ -355,7 +355,7 @@
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "dob",
+        "openmrs_entity_id": "birthdate",
         "type": "date_picker",
         "hint": "Tarehe ya kuzaliwa (DOB)",
         "expanded": false,
@@ -380,7 +380,7 @@
         "key": "age_calculated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "age_calculated",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -394,7 +394,7 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "dob_unknown",
+        "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "",
@@ -411,7 +411,7 @@
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age",
+        "openmrs_entity_id": "age_entered",
         "type": "edit_text",
         "hint": "Umri",
         "v_numeric_integer": {
@@ -451,7 +451,7 @@
         "key": "sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "sex",
+        "openmrs_entity_id": "gender",
         "type": "spinner",
         "hint": "Jinsi",
         "values": [
@@ -602,7 +602,7 @@
         "key": "national_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "national_id",
+        "openmrs_entity_id": "National_ID",
         "type": "mask_edit_text",
         "mask": "########-#####-#####-##",
         "mask_hint": "00000000000000000000",
@@ -634,7 +634,7 @@
         "key": "voter_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "voter_id",
+        "openmrs_entity_id": "Voter_Registration_Number",
         "type": "mask_edit_text",
         "mask": "T-####-####-###-#",
         "mask_hint": "000000000000",
@@ -666,7 +666,7 @@
         "key": "driver_license",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "driver_license",
+        "openmrs_entity_id": "Driver_License_Number",
         "type": "mask_edit_text",
         "mask": "##########",
         "mask_hint": "0000000000",
@@ -730,7 +730,7 @@
         "key": "insurance_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "insurance_provider",
+        "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
         "hint": "Chagua bima ya afya ambayo mteja anayo",
         "options": [
@@ -762,7 +762,7 @@
         "key": "insurance_provider_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "insurance_provider_other",
+        "openmrs_entity_id": "Other_Health_Insurance_Type",
         "type": "edit_text",
         "hint": "Mtoa huduma mwingine wa bima ya afya",
         "v_required": {
@@ -781,7 +781,7 @@
         "key": "wra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "wra",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -795,7 +795,7 @@
         "key": "mra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "mra",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "values": ""
       },
@@ -1033,7 +1033,7 @@
         "key": "leader",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "leader",
+        "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Nafasi ya uongozi katika jamii",
@@ -1047,37 +1047,37 @@
             "key": "chk_religious",
             "text": "Kiongozi wa dini",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_religious"
+            "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Kiongozi wa jadi",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_traditional"
+            "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_political",
             "text": "Kiongozi wa kisiasa",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_political"
+            "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Kiongozi mwenye ushawishi",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_influential"
+            "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_other",
             "text": "Nyingine",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_other"
+            "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
             "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_none"
+            "openmrs_entity_id": "Not_a_Community_Leader"
           }
         ],
         "v_required": {
@@ -1089,7 +1089,7 @@
         "key": "leader_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "leader_other",
+        "openmrs_entity_id": "Other_Community_Leader_Type_Name",
         "type": "edit_text",
         "hint": "Taja nafasi nyingine katika jamii",
         "edit_type": "name",
