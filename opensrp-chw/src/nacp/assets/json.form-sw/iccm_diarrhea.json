@@ -438,6 +438,10 @@
         "openmrs_entity_id": "other_reasons_for_not_dispensing_diarrhea_medication",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
         "relevance": {
           "step1:reasons_for_not_dispensing_diarrhea_medication": {
             "type": "string",
