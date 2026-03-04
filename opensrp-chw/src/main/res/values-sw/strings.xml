@@ -965,4 +965,11 @@
     <string name="add_existing_family_member">Ongeza mwanakaya aliyepo</string>
 
 
+    <!-- Household member removal reason -->
+    <string name="household_member_removal_reason_title">Sababu ya kuondoa mwanakaya?</string>
+    <string name="select_household_member_removal_reason_hint">Tafadhali chagua sababu ya kuondolewa kwa mwanakaya</string>
+    <string name="reason_death">Kifo</string>
+    <string name="convert_to_independent_client">Mfanye Awe Mteja Huru</string>
+    <string name="set_up_new_household">Mtengenezee Kaya Mpya</string>
+
 </resources>

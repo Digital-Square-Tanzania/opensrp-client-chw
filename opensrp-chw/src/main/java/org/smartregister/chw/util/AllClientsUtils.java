@@ -246,7 +246,6 @@ public class AllClientsUtils {
         MenuItem sickChildFollowUp = menu.findItem(R.id.action_sick_child_follow_up);
         MenuItem malariaDiagnosis = menu.findItem(R.id.action_malaria_diagnosis);
         MenuItem removeMember = menu.findItem(R.id.action_remove_member);
-        MenuItem generateHouseHold = menu.findItem(R.id.action_generate_household);
 
         // Set visibility for the common items
         if (locationInfo != null) locationInfo.setVisible(true);
@@ -254,15 +253,6 @@ public class AllClientsUtils {
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);
         if (removeMember != null) removeMember.setVisible(true);
-
-        if (generateHouseHold != null) {
-            if (Objects.equals(commonPersonObject.getDetails().get(REGISTER_TYPE),
-                    CoreConstants.REGISTER_TYPE.INDEPENDENT) && getPersonAge(commonPersonObject) >= 15) {
-                generateHouseHold.setVisible(true);
-            } else {
-                generateHouseHold.setVisible(false);
-            }
-        }
 
         // Get shared preferences once
         AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();

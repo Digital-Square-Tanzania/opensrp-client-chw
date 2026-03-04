@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.Utils.getClientGender;
-import static org.smartregister.chw.util.Utils.reprocessRegistrationEvents;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.content.Context;
@@ -194,21 +193,6 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         AypOutSchoolRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
-    @Override
-    protected void startHouseholdGeneration() {
-        try {
-            reprocessRegistrationEvents(familyBaseEntityId, baseEntityId);
-            Intent intent = new Intent(this, FamilyProfileActivity.class);
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, familyName);
-            startActivity(intent);
-            finish();
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
     @Override
     protected void startAypParentalEnrollment() {
         AypParentalRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
