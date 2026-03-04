@@ -1,7 +1,13 @@
 package org.smartregister.chw.fragment;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static org.smartregister.util.Utils.getAgeFromDate;
+import static org.smartregister.util.Utils.getValue;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -83,6 +89,7 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
         android.view.LayoutInflater inflater = android.view.LayoutInflater.from(getActivity());
         android.view.View dialogView = inflater.inflate(R.layout.dialog_member_remove_reason_selection, null, false);
 
+
         android.widget.TextView title = dialogView.findViewById(R.id.dialog_title);
         if (title != null) title.setText(org.smartregister.chw.R.string.household_member_removal_reason_title);
 
@@ -98,6 +105,15 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
         // Make dialog window background transparent so rounded content background is visible
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        String dob = getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.DOB, false);
+        int age = getAgeFromDate(dob);
+
+        if (age < 15 ) {
+            optionStartedNewFamily.setVisibility(GONE);
+        } else {
+            optionStartedNewFamily.setVisibility(VISIBLE);
         }
 
         optionDeath.setOnClickListener(v -> {
