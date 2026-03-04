@@ -962,6 +962,8 @@
     <string name="family_register_head_option_existing">Tumia mteja aliyepo</string>
     <string name="family_register_head_prefill_error">Hatukuweza kupakia mkuu wa kaya uliyemchagua. Tafadhali jaribu tena.</string>
     <string name="family_register_head_description">Chagua jinsi unavyotaka kuchagua mkuu wa kaya.</string>
+    <string name="add_existing_family_member">Ongeza mwanakaya aliyepo</string>
+
 
     <!-- Household member removal reason -->
     <string name="household_member_removal_reason_title">Sababu ya kuondoa mwanakaya?</string>

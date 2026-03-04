@@ -738,5 +738,7 @@
     <string name="reason_death">Death</string>
     <string name="convert_to_independent_client">Convert to Independent Client</string>
     <string name="set_up_new_household">Set Up New Household</string>
+    <string name="add_existing_family_member">Add existing household member</string>
+
 
 </resources>
