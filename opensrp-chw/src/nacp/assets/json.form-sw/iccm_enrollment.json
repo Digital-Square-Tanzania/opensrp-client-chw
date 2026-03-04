@@ -505,6 +505,7 @@
         "openmrs_entity_id": "administered_artesunate",
         "label": "Je, mtoto alipatiwa Artesunate ya puru?",
         "text_color": "#000000",
+        "hidden": "true",
         "type": "native_radio",
         "options": [
           {

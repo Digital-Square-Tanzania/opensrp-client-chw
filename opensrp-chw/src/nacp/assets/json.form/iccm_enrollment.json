@@ -506,6 +506,7 @@
         "label": "Was Rectal Artesunate administered to the child?",
         "text_color": "#000000",
         "type": "native_radio",
+        "hidden": "true",
         "options": [
           {
             "key": "yes",
