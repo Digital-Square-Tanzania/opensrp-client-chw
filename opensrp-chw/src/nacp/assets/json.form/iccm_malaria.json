@@ -348,6 +348,10 @@
         "openmrs_entity_id": "other_reasons_for_not_dispensing_alu",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
