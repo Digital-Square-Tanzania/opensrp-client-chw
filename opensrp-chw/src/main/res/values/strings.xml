@@ -733,5 +733,10 @@
     <string name="family_profile_title">%1$s Household</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="return_to_family_name">Return to %1$s Household</string>
+    <string name="household_member_removal_reason_title">Reason for removing a household member?</string>
+    <string name="select_household_member_removal_reason_hint">Select the reason for removing a household member</string>
+    <string name="reason_death">Death</string>
+    <string name="convert_to_independent_client">Convert to Independent Client</string>
+    <string name="set_up_new_household">Set Up New Household</string>
 
 </resources>
