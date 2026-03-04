@@ -323,6 +323,10 @@
           "value": "3",
           "err": "Pakiti za ORS hazitakiwi kuzidi 3"
         },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -346,6 +350,10 @@
         "v_max": {
           "value": "10",
           "err": "Vidonge vya Zinc havitakiwi kuzidi 10"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "step1:diarrhea_medication_dispensed": {
@@ -374,6 +382,10 @@
         "v_max": {
           "value": "8",
           "err": "idadi ya pakiti za Zinc ORS Co-pack hazitakiwi kuzidi 8"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "rules-engine": {
