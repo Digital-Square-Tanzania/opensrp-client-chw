@@ -2,14 +2,20 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.LocationUtils;
+import org.smartregister.chw.util.IccmVisitUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +24,7 @@ import timber.log.Timber;
 public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper{
     private String jsonPayload;
     private Map<String, List<VisitDetail>> details;
+    private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
@@ -41,7 +48,27 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
+        try {
+            checkObject.clear();
+            JSONObject jsonObject = new JSONObject(jsonPayload);
 
+            String problem = CoreJsonFormUtils.getValue(jsonObject, "problem");
+            String problemOther = CoreJsonFormUtils.getValue(jsonObject, "problem_other");
+            String serviceBeforeReferral = CoreJsonFormUtils.getValue(jsonObject, "service_before_referral");
+            String referralFacility = CoreJsonFormUtils.getValue(jsonObject, "chw_referral_hf");
+            String referralAppointmentDate = CoreJsonFormUtils.getValue(jsonObject, "referral_appointment_date");
+
+            checkObject.put("problem", hasValue(problem));
+            checkObject.put("service_before_referral", hasValue(serviceBeforeReferral));
+            checkObject.put("chw_referral_hf", hasValue(referralFacility));
+            checkObject.put("referral_appointment_date", hasValue(referralAppointmentDate));
+
+            if (containsOption(problem, "other_reasons")) {
+                checkObject.put("problem_other", hasValue(problemOther));
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -56,7 +83,7 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     @Override
     public String postProcess(String jsonPayload) {
-        return "";
+        return null;
     }
 
     @Override
@@ -66,7 +93,14 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
 
     @Override
     public BaseIccmVisitAction.Status evaluateStatusOnPayload() {
-        return BaseIccmVisitAction.Status.COMPLETED;
+        String status = IccmVisitUtils.getActionStatus(checkObject);
+        if (status.equalsIgnoreCase(IccmVisitUtils.Complete)) {
+            return BaseIccmVisitAction.Status.COMPLETED;
+        }
+        if (status.equalsIgnoreCase(IccmVisitUtils.Ongoing)) {
+            return BaseIccmVisitAction.Status.PARTIALLY_COMPLETED;
+        }
+        return BaseIccmVisitAction.Status.PENDING;
     }
 
     @Override
@@ -93,40 +127,23 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
             return;
         }
 
-        JSONObject referralFacilityField = findFieldByKey(jsonForm, "chw_referral_hf");
+        JSONArray jsonArray = JsonFormUtils.fields(jsonForm);
+        JSONObject referralFacilityField = JsonFormUtils.getFieldJSONObject(jsonArray, "chw_referral_hf");
+
         if (referralFacilityField != null) {
             referralFacilityField.put("value", selectedFacility);
         }
     }
 
-    private JSONObject findFieldByKey(Object node, String fieldKey) {
-        if (node instanceof JSONObject) {
-            JSONObject jsonObject = (JSONObject) node;
-            String key = jsonObject.optString("key", jsonObject.optString("name"));
-            if (fieldKey.equals(key)) {
-                return jsonObject;
-            }
+    private boolean hasValue(String value) {
+        String normalizedValue = StringUtils.trimToEmpty(value);
+        return StringUtils.isNotBlank(normalizedValue)
+                && !"[]".equals(normalizedValue)
+                && !"{}".equals(normalizedValue)
+                && !"null".equalsIgnoreCase(normalizedValue);
+    }
 
-            JSONArray names = jsonObject.names();
-            if (names != null) {
-                for (int index = 0; index < names.length(); index++) {
-                    String name = names.optString(index);
-                    JSONObject match = findFieldByKey(jsonObject.opt(name), fieldKey);
-                    if (match != null) {
-                        return match;
-                    }
-                }
-            }
-        } else if (node instanceof JSONArray) {
-            JSONArray jsonArray = (JSONArray) node;
-            for (int index = 0; index < jsonArray.length(); index++) {
-                JSONObject match = findFieldByKey(jsonArray.opt(index), fieldKey);
-                if (match != null) {
-                    return match;
-                }
-            }
-        }
-
-        return null;
+    private boolean containsOption(String value, String optionKey) {
+        return hasValue(value) && StringUtils.containsIgnoreCase(value, optionKey);
     }
 }

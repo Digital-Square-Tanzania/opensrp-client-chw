@@ -1,0 +1,35 @@
+---
+name: step1_problem_other
+description: Show other reasons when Non iCCM Condition is selected
+priority: 1
+condition: "!step1_problem.isEmpty() && step1_problem.contains('other_reasons')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_date
+description: Date ICCM referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "calculation = System.currentTimeMillis()"
+---
+name: step1_referral_type
+description: Referral type
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'community_to_facility_referral'"
+---
+name: step1_referral_status
+description: Referral status
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'PENDING'"
+---
+name: step1_service_before_referral_calculation
+description: Service before referral default
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'None'"
