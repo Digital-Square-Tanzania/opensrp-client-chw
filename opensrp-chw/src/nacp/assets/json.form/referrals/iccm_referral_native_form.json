@@ -232,9 +232,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chw_referral_hf",
         "type": "spinner",
-        "label": "Choose referral facility",
         "hint": "Choose referral facility",
-        "values": [],
+        "options": [],
         "openmrs_choice_ids": {},
         "v_required": {
           "value": "yes",
