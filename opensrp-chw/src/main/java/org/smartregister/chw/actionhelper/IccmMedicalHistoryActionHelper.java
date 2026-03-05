@@ -173,9 +173,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 isMalariaSuspect = "false";
                 int age = memberObject.getAge();
                 if (age < 5) {
-                    if (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")) {
-                        processPneumoniaAction(jsonObject, isMalariaSuspect);
-                    } else if (isDiarrheaSuspect.equalsIgnoreCase("true")) {
+                    if (isDiarrheaSuspect.equalsIgnoreCase("true")) {
                         actionList.remove(context.getString(R.string.iccm_pneumonia));
                         processDiarrheaAction(isMalariaSuspect);
                     } else {
@@ -197,18 +195,6 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             return jsonObject.toString();
         }
         return null;
-    }
-
-    private void processPneumoniaAction(JSONObject jsonObject, String isMalariaSuspect) {
-        try {
-            String title = context.getString(R.string.iccm_pneumonia);
-            IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect"), isMalariaSuspect);
-            BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
-            if (!actionList.containsKey(context.getString(R.string.iccm_pneumonia)))
-                actionList.put(title, action);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
     }
 
     private void processDiarrheaAction(String isMalariaSuspect) {

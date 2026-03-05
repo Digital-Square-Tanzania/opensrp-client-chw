@@ -60,6 +60,9 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
         //Clearing the action List before recreation
         actionList.clear();
 
+        // Option 1: hide Pneumonia from ICCM workflow tabs/actions.
+        map.remove(getString(R.string.iccm_pneumonia));
+
         //Rearranging the actions according to a specific arrangement
         if (map.containsKey(getString(R.string.iccm_medical_history))) {
             actionList.put(getString(R.string.iccm_medical_history), map.get(getString(R.string.iccm_medical_history)));
@@ -67,10 +70,6 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
 
         if (map.containsKey(getString(R.string.iccm_physical_examination))) {
             actionList.put(getString(R.string.iccm_physical_examination), map.get(getString(R.string.iccm_physical_examination)));
-        }
-
-        if (map.containsKey(getString(R.string.iccm_pneumonia))) {
-            actionList.put(getString(R.string.iccm_pneumonia), map.get(getString(R.string.iccm_pneumonia)));
         }
 
         if (map.containsKey(getString(R.string.iccm_diarrhea))) {

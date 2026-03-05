@@ -147,17 +147,9 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 actionList.remove(context.getString(R.string.iccm_malaria));
             }
         } else {
-            if ((memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) || (isPneumoniaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 6)) {
-                try {
-                    String title = context.getString(R.string.iccm_pneumonia);
-                    IccmPneumoniaActionHelper pneumoniaActionHelper = new IccmPneumoniaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isDiarrheaSuspect, isMalariaSuspectString);
-                    BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(pneumoniaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPneumonia()).build();
-                    actionList.put(title, action);
-                } catch (Exception e) {
-                    Timber.e(e);
-                }
-            } else if (isDiarrheaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 5) {
-                actionList.remove(context.getString(R.string.iccm_pneumonia));
+            // Pneumonia action is disabled in the workflow.
+            actionList.remove(context.getString(R.string.iccm_pneumonia));
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 5) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);
                     IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspectString);
@@ -180,7 +172,6 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 }
             } else {
                 actionList.remove(context.getString(R.string.iccm_malaria));
-                actionList.remove(context.getString(R.string.iccm_pneumonia));
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
             }
         }
