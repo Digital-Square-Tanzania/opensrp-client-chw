@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.IccmMedicalHistoryActionHelper;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -24,9 +25,11 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ReferralUtils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -126,10 +129,31 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
             return;
         }
 
-        String referralProblems = JsonFormUtils.getCheckBoxValue(new JSONObject(referralFormPayload), "problem");
+        JSONObject referralFormJson = new JSONObject(referralFormPayload);
 
-        ReferralUtils.processReferral(referralFormPayload, memberID, CoreConstants.TASKS_FOCUS.ICCM_REFERRAL, referralProblems);
+        JSONObject appointmentDateJsonObject = CoreJsonFormUtils.getJsonField(referralFormJson, "step1", "referral_appointment_date");
+        String appointmentDateFieldValue = CoreJsonFormUtils.getValue(referralFormJson, "referral_appointment_date");
+        String normalizedDateValue = appointmentDateFieldValue != null ? appointmentDateFieldValue.trim() : "";
+        Long epochMillis = normalizedDateValue.isEmpty() ? null : parseDateToEpochMillis(normalizedDateValue);
+        if (appointmentDateJsonObject != null && epochMillis != null){
+            appointmentDateJsonObject.put("value", String.valueOf(epochMillis));
+        }
+
+        String referralProblems = JsonFormUtils.getCheckBoxValue(referralFormJson, "problem");
+
+        ReferralUtils.processReferral(referralFormJson.toString(), memberID, CoreConstants.TASKS_FOCUS.ICCM_REFERRAL, referralProblems);
         notifyReferralSubmitted();
+    }
+
+    private Long parseDateToEpochMillis(String dateValue) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            format.setLenient(false);
+            java.util.Date date = format.parse(dateValue);
+            return date != null ? date.getTime() : null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     protected void notifyReferralSubmitted() {

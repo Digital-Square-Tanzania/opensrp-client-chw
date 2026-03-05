@@ -38,9 +38,6 @@ public class ReferralUtils extends CoreReferralUtils {
 
         final Event baseEvent = JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(facilitySelectionForm, baseEntityId), CoreConstants.TABLE_NAME.REFERRAL);
 
-        // Add eventId
-        baseEvent.setEventId(UUID.randomUUID().toString());
-
         addReferralDetails(baseEvent, referralType, referralProblems);
 
         JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);

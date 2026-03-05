@@ -262,7 +262,7 @@
         "type": "date_picker",
         "hint": "Chagua tarehe ya tembeleo",
         "min_date": "today",
-        "max_date": "",
+        "max_date": "today+30d",
         "v_required": {
           "value": "true",
           "err": "Please specify the appointment date"
