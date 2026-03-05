@@ -1,13 +1,18 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
+import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -15,16 +20,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
+import org.smartregister.chw.custom_view.HarmReductionFloatingMenu;
 import org.smartregister.chw.harmreduction.R;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
@@ -34,6 +42,7 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.MemberProfileUtils;
@@ -48,6 +57,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +66,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private static final int MIN_PRE_MAT_SESSIONS_FOR_MAT_START = 3;
     private static final String YES = "yes";
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
@@ -91,6 +102,66 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         super.setupViews();
         setupPreMatSessionsHistoryLayout();
         setupMarkClientStartedMatVisibility();
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        if (memberObject == null) {
+            return;
+        }
+
+        baseHarmReductionFloatingMenu = new HarmReductionFloatingMenu(this, memberObject);
+        OnClickFloatingMenu onFloatingMenuClick = viewId -> {
+            switch (viewId) {
+                case R.id.harm_reduction_fab:
+                    checkPhoneNumberProvided();
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                case R.id.harm_reduction_call_layout:
+                case R.id.harm_reduction_call_fab:
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).launchCallWidget();
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                case R.id.harm_reduction_refer_to_facility_layout:
+                case R.id.harm_reduction_refer_to_facility_fab:
+                    List<ReferralTypeModel> referralTypes = getReferralTypeModels();
+                    if (!referralTypes.isEmpty()) {
+                        launchClientReferralActivity(HarmReductionProfileActivity.this, referralTypes, memberObject.getBaseEntityId());
+                    }
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+        };
+
+        ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).setFloatMenuClickListener(onFloatingMenuClick);
+
+        checkPhoneNumberProvided();
+
+        baseHarmReductionFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseHarmReductionFloatingMenu, linearLayoutParams);
+        baseHarmReductionFloatingMenu.setVisibility(View.VISIBLE);
+        baseHarmReductionFloatingMenu.bringToFront();
+    }
+
+    private void checkPhoneNumberProvided() {
+        if (baseHarmReductionFloatingMenu != null) {
+            ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).redraw(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
+        }
+    }
+
+    private List<ReferralTypeModel> getReferralTypeModels() {
+        referralTypeModels.clear();
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            List<ReferralTypeModel> commonReferralTypes = getCommonReferralTypes(this, memberObject.getBaseEntityId());
+            if (commonReferralTypes != null) {
+                referralTypeModels.addAll(commonReferralTypes);
+            }
+        }
+        return referralTypeModels;
     }
 
     @Override
