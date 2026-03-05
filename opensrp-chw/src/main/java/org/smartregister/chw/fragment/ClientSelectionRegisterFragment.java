@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
-import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
+import org.smartregister.chw.provider.ExistingAllClientsSelectionQueryProvider;
 import org.smartregister.chw.provider.OpdRegisterProvider;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -34,7 +34,7 @@ public class ClientSelectionRegisterFragment extends CoreAllClientsRegisterFragm
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Provide a minimal OPD configuration: reuse queries and rows, disable bottom nav
-        OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
+        OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(ExistingAllClientsSelectionQueryProvider.class)
                 .setBottomNavigationEnabled(false)
                 .setOpdRegisterRowOptions(AllClientsRegisterRowOptions.class)
                 .build();

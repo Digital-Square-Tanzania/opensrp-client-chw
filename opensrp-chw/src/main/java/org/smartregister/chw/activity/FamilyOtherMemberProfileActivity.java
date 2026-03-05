@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Utils.getClientGender;
-import static org.smartregister.chw.util.Utils.reprocessRegistrationEvents;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
@@ -13,7 +12,6 @@ import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.text.TextUtils;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -363,11 +361,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         AypOutSchoolRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId,gender,age);
-    }
-
-    @Override
-    protected void startHouseholdGeneration() {
-        // do nothing
     }
 
     @Override

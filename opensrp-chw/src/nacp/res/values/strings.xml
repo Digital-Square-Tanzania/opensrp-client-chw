@@ -1396,8 +1396,24 @@
     <string name="hps_institutions">Institutions</string>
     <string name="hps_meetings">Meetings</string>
     <string name="hps_specify_other_area_where_mobilization_took_place">Others (Specify)</string>
-    <string name="hps_number_of_females_who_attended">Number of females who attended</string>
+    <string name="hps_date_of_advertisement_feedback">Date of gathering</string>
+    <string name="hps_area_where_advertisement_feedback_took_place">Area where the advertisement feedback took place</string>
+    <string name="hps_owns_radio_station">Owns a radio</string>
+    <string name="hps_number_of_radio_owners">How many own radios</string>
+    <string name="hps_mobile_phone_radio_listeners">Do you listen to the radio via a phone</string>
+    <string name="hps_number_of_who_listens_radio_via_phone">How many listen via phone radio</string>
+    <string name="hps_radio_channel_listened">They listen to which radio channel</string>
+    <string name="hps_selected_health_education_topics">Health education topics you heard on the radio</string>
+    <string name="hps_health_education_heard">Health education message/story you heard</string>
+    <string name="hps_number_watches_television">How many watch television</string>
+    <string name="hps_channel_watched">Which channel do you watch</string>
+    <string name="hps_heard_program_advetised">Any advertisements related to the project</string>
+    <string name="hps_stories_heard">story you saw in those advertisements</string>
+    <string name="hps_instructions_followed">Instructions/message provided in the advertisement</string>
+    <string name="hps_who_and_why_they_follow_instruction">Who are them and why</string>
+    <string name="hps_people_behaviour_change">Who and why they change behaviour</string>
     <string name="hps_number_of_males_who_attended">Number of males who attended</string>
+    <string name="hps_number_of_females_who_attended">Number of females who attended</string>
     <string name="hps_was_education_provided">Was education provided?</string>
     <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Education on the M-Mama system and proper use of the toll-free number 115</string>
     <string name="hps_information_education_and_communication_materials">Select Information, Education, and Communication Materials</string>
@@ -1701,8 +1717,10 @@
     <string name="add_member_title_question">What kind of household member do you want to add?</string>
     <string name="add_other_family_member">Other household member</string>
     <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
+    <string name="hps_advertisement_session_details">iCCHW Advertisement Details</string>
     <string name="hps_mobilization_sessions">Gatherings Sessions</string>
     <string name="hps_mobilization_sessions_menu">Gatherings</string>
     <string name="hps_mobilization_sessions_title">iCCHW Gatherings Sessions</string>
+    <string name="hps_advertisement_sessions_title">iCCHW Advertisement</string>
 
 </resources>
