@@ -3,10 +3,17 @@ package org.smartregister.chw.interactor;
 import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import com.google.gson.JsonArray;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.IccmMedicalHistoryActionHelper;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -17,6 +24,8 @@ import org.smartregister.chw.malaria.interactor.BaseIccmVisitInteractor;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
+import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.ReferralUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
@@ -98,6 +107,45 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
     }
 
     @Override
+    protected void submitVisit(boolean editMode, String memberID, Map<String, BaseIccmVisitAction> map, String parentEventType) throws Exception {
+        try {
+            sendIccmReferral(editMode, memberID, map);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        super.submitVisit(editMode, memberID, map, parentEventType);
+    }
+
+    protected void sendIccmReferral(boolean editMode, String memberID, Map<String, BaseIccmVisitAction> map) throws Exception {
+        if (editMode || map == null || context == null) {
+            return;
+        }
+
+        BaseIccmVisitAction referralAction = map.get(context.getString(R.string.iccm_referral));
+        if (referralAction == null) {
+            return;
+        }
+
+        String referralFormPayload = referralAction.getJsonPayload();
+        if (StringUtils.isBlank(referralFormPayload)) {
+            return;
+        }
+
+        String referralProblems = JsonFormUtils.getCheckBoxValue(new JSONObject(referralFormPayload), "problem");
+
+        ReferralUtils.processReferral(referralFormPayload, memberID, CoreConstants.TASKS_FOCUS.ICCM_REFERRAL, referralProblems);
+        notifyReferralSubmitted();
+    }
+
+    protected void notifyReferralSubmitted() {
+        if (context == null) {
+            return;
+        }
+        appExecutors.mainThread().execute(() ->
+                Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show());
+    }
+
+    @Override
     protected void processExternalVisits(Visit visit, Map<String, BaseIccmVisitAction> externalVisits, String memberID) throws Exception {
         //super.processExternalVisits(visit, externalVisits, memberID);
         if (visit != null && !externalVisits.isEmpty()) {
@@ -135,5 +183,12 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
         return Utils.context().allSharedPreferences();
     }
 
+    private boolean hasValue(String value) {
+        String normalizedValue = StringUtils.trimToEmpty(value);
+        return StringUtils.isNotBlank(normalizedValue)
+                && !"[]".equals(normalizedValue)
+                && !"{}".equals(normalizedValue)
+                && !"null".equalsIgnoreCase(normalizedValue);
+    }
 
 }

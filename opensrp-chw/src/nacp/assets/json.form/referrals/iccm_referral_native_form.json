@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ICCM Services Referral",
+  "encounter_type": "Referral Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -173,7 +173,7 @@
       {
         "key": "service_before_referral",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "service_before_referral",
         "type": "check_box",
         "label": "Treatment given before the referral",
@@ -249,81 +249,6 @@
         },
         "duration": {
           "label": ""
-        }
-      },
-      {
-        "key": "referral_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_referral_native_form_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_time",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_time",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_referral_native_form_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_type",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_referral_native_form_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_status",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_referral_native_form_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "service_before_referral_calculation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_before_referral_calculation",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_referral_native_form_rules.yml"
-            }
-          }
         }
       }
     ]
