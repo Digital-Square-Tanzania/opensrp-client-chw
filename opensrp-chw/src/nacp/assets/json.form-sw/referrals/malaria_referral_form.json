@@ -297,15 +297,6 @@
           },
           "options": [
             {
-              "name": "Rectal_artesunate",
-              "text": "Rectal artesunate",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "71561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "Panadol",
               "text": "Panadol",
               "meta_data": {
