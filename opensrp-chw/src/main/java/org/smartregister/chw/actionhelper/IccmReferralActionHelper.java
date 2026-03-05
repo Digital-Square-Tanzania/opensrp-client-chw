@@ -12,7 +12,6 @@ import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.IccmVisitUtils;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 
 import java.util.HashMap;
@@ -38,7 +37,6 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
             JSONObject jsonForm = new JSONObject(jsonPayload);
             Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
             JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, jsonForm);
-            populateSelectedFacility(jsonForm);
             return jsonForm.toString();
         } catch (JSONException e) {
             Timber.e(e);
@@ -106,33 +104,6 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
     @Override
     public void onPayloadReceived(BaseIccmVisitAction ldVisitAction) {
 
-    }
-
-    private void populateSelectedFacility(JSONObject jsonForm) throws JSONException {
-        if (details == null || details.isEmpty()) {
-            return;
-        }
-
-        List<VisitDetail> visitDetails = details.get("chw_referral_hf");
-        if (visitDetails == null || visitDetails.isEmpty() || visitDetails.get(0) == null) {
-            return;
-        }
-
-        String selectedFacility = visitDetails.get(0).getDetails();
-        if (selectedFacility == null || selectedFacility.trim().isEmpty()) {
-            selectedFacility = visitDetails.get(0).getHumanReadable();
-        }
-
-        if (selectedFacility == null || selectedFacility.trim().isEmpty()) {
-            return;
-        }
-
-        JSONArray jsonArray = JsonFormUtils.fields(jsonForm);
-        JSONObject referralFacilityField = JsonFormUtils.getFieldJSONObject(jsonArray, "chw_referral_hf");
-
-        if (referralFacilityField != null) {
-            referralFacilityField.put("value", selectedFacility);
-        }
     }
 
     private boolean hasValue(String value) {
