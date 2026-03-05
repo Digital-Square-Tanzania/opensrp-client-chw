@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -22,13 +21,11 @@ import timber.log.Timber;
 
 public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitActionHelper{
     private String jsonPayload;
-    private Map<String, List<VisitDetail>> details;
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
         this.jsonPayload = jsonString;
-        this.details = details;
     }
 
     @Override

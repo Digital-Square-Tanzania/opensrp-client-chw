@@ -5,15 +5,11 @@ import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVI
 import android.content.Context;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.IccmMedicalHistoryActionHelper;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.malaria.contract.BaseIccmVisitContract;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -26,7 +22,6 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ReferralUtils;
-import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.HashMap;
@@ -180,15 +175,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
-        return Utils.context().allSharedPreferences();
-    }
-
-    private boolean hasValue(String value) {
-        String normalizedValue = StringUtils.trimToEmpty(value);
-        return StringUtils.isNotBlank(normalizedValue)
-                && !"[]".equals(normalizedValue)
-                && !"{}".equals(normalizedValue)
-                && !"null".equalsIgnoreCase(normalizedValue);
+        return org.smartregister.family.util.Utils.context().allSharedPreferences();
     }
 
 }
