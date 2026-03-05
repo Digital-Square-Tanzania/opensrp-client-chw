@@ -115,7 +115,7 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
     }
 
     protected void sendIccmReferral(boolean editMode, String memberID, Map<String, BaseIccmVisitAction> map) throws Exception {
-        if (editMode || map == null || context == null) {
+        if (map == null || context == null) {
             return;
         }
 
