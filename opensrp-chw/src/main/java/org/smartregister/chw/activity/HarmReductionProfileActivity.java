@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
-import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,18 +25,18 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionProfileActivity;
-import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HarmReductionFloatingMenu;
+import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.harmreduction.R;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
-import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
@@ -66,9 +65,9 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
-    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private static final int MIN_PRE_MAT_SESSIONS_FOR_MAT_START = 3;
     private static final String YES = "yes";
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
@@ -113,21 +112,16 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         baseHarmReductionFloatingMenu = new HarmReductionFloatingMenu(this, memberObject);
         OnClickFloatingMenu onFloatingMenuClick = viewId -> {
             switch (viewId) {
-                case R.id.harm_reduction_fab:
+                case org.smartregister.chw.harmreduction.R.id.harm_reduction_fab:
                     checkPhoneNumberProvided();
                     ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
                     break;
-                case R.id.harm_reduction_call_layout:
-                case R.id.harm_reduction_call_fab:
+                case org.smartregister.chw.R.id.call_layout:
                     ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).launchCallWidget();
                     ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
                     break;
-                case R.id.harm_reduction_refer_to_facility_layout:
-                case R.id.harm_reduction_refer_to_facility_fab:
-                    List<ReferralTypeModel> referralTypes = getReferralTypeModels();
-                    if (!referralTypes.isEmpty()) {
-                        launchClientReferralActivity(HarmReductionProfileActivity.this, referralTypes, memberObject.getBaseEntityId());
-                    }
+                case org.smartregister.chw.R.id.refer_to_facility_layout:
+                    org.smartregister.chw.util.Utils.launchClientReferralActivity(HarmReductionProfileActivity.this, getReferralTypeModels(), memberObject.getBaseEntityId());
                     ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
                     break;
                 default:
