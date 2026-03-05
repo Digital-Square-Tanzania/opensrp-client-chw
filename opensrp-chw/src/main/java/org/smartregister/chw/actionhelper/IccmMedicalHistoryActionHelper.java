@@ -82,10 +82,10 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 medicalHistory.getJSONArray(OPTIONS).getJSONObject(0).put(VALUE, true);
             }
 
-            int age = memberObject.getAge();
-            JSONObject medicalHistory = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
-            if (medicalHistory != null) {
-                medicalHistory.put(VALUE, memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40)));
+            JSONObject pneumoniaSuspect = JsonFormUtils.getFieldJSONObject(fields, "is_pneumonia_suspect");
+            if (pneumoniaSuspect != null) {
+                // Pneumonia action is disabled in this workflow.
+                pneumoniaSuspect.put(VALUE, false);
             }
 
 
@@ -102,11 +102,11 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 if (promptForDiagnosingDiarrhea != null) {
                     promptForDiagnosingDiarrhea.put(TYPE, "hidden");
                 }
+            }
 
-                JSONObject promptForDiagnosingPneumonia = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_pneumonia");
-                if (promptForDiagnosingPneumonia != null) {
-                    promptForDiagnosingPneumonia.put(TYPE, "hidden");
-                }
+            JSONObject promptForDiagnosingPneumonia = JsonFormUtils.getFieldJSONObject(fields, "prompt_for_diagnosing_pneumonia");
+            if (promptForDiagnosingPneumonia != null) {
+                promptForDiagnosingPneumonia.put(TYPE, "hidden");
             }
 
             return jsonObject.toString();
@@ -150,7 +150,8 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
             jsonObject = new JSONObject(jsonPayload);
 
             isDiarrheaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_diarrhea_suspect");
-            isPneumoniaSuspect = CoreJsonFormUtils.getValue(jsonObject, "is_pneumonia_suspect");
+            // Pneumonia action is disabled in this workflow.
+            isPneumoniaSuspect = "false";
 
             JSONArray fields = org.smartregister.family.util.JsonFormUtils.fields(jsonObject);
             JSONObject medicalHistoryCompletionStatus = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, "medical_history_completion_status");

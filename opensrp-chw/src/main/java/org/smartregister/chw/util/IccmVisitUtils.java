@@ -113,11 +113,6 @@ public class IccmVisitUtils extends VisitUtils {
                     if (isDiarrheaSuspect != null && isDiarrheaSuspect.equalsIgnoreCase("true")) {
                         completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
                     }
-
-                    String isPneumoniaSuspect = getFieldValue(obs, "is_pneumonia_suspect");
-                    if (isPneumoniaSuspect != null && isPneumoniaSuspect.equalsIgnoreCase("true")) {
-                        completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
-                    }
                 }
 
 
