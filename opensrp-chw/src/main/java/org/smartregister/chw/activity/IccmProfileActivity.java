@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -468,7 +469,10 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         TextView processVisitBtn = findViewById(R.id.textview_process_visit);
         processVisitBtn.setOnClickListener(v -> {
             try {
-                IccmVisitUtils.manualProcessVisit(visit);
+                boolean referralSent = IccmVisitUtils.manualProcessVisit(visit);
+                if (referralSent) {
+                    Toast.makeText(this, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                }
                 if (!memberObject.getBaseEntityId().isEmpty()) {
                     memberObject = IccmDao.getMember(baseEntityId);
                 }
