@@ -131,7 +131,7 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             Timber.e(e);
         }
 
-        if ((isMalariaSuspectString.equalsIgnoreCase("true") && clientPastMalariaTreatmentHistory.isBlank()) || (isMalariaSuspectAfterPhysicalExamination.equalsIgnoreCase("true") && (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")))) {
+        if ((isMalariaSuspectString.equalsIgnoreCase("true") && clientPastMalariaTreatmentHistory.isBlank()) || (isMalariaSuspectAfterPhysicalExamination.equalsIgnoreCase("true") && (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || (!clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes") && !isMalariaSuspectString.equalsIgnoreCase("true"))))) {
             isMalariaSuspectString = "true";
         }else{
             isMalariaSuspectString = "false";
@@ -181,6 +181,9 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
                 String malariaActionTitle = context.getString(R.string.iccm_malaria);
                 try {
+                    if(!isPneumoniaSuspect.equalsIgnoreCase("true")){
+                        iccmVisitStateTracker.setIccmReferralModuleActive(false);
+                    }
                     IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), details, actionList, callBack, isPneumoniaSuspect, "");
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
@@ -203,9 +206,6 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
             actionList.remove(context.getString(R.string.iccm_malaria));
         }
 
-        if(!isPneumoniaSuspect.equalsIgnoreCase("true") && !clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
-            iccmVisitStateTracker.setIccmReferralModuleActive(false);
-        }
 
         //Calling the callback method to preload the actions in the actions list.
         new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));

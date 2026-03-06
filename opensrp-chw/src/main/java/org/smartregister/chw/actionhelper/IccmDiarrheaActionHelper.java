@@ -120,6 +120,9 @@ public class IccmDiarrheaActionHelper implements BaseIccmVisitAction.IccmVisitAc
         String malariaActionTitle = context.getString(R.string.iccm_malaria);
         if (isMalariaSuspect.equalsIgnoreCase("true")) {
             try {
+                if (!("true".equalsIgnoreCase(isPneumoniaSuspect) || "yes".equalsIgnoreCase(clientPastMalariaTreatmentHistory) || StringUtils.isNotBlank(diarrheaSigns) && !diarrheaSigns.contains("none"))) {
+                    iccmVisitStateTracker.setIccmReferralModuleActive(false);
+                }
                 IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), details, actionList, callBack, isPneumoniaSuspect, diarrheaSigns);
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                 if (!actionList.containsKey(malariaActionTitle))
