@@ -182,12 +182,6 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "rectal_artesunate",
-            "text": "Rectal artesunate",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "rectal_artesunate"
-          },
-          {
             "key": "anti_pyretic",
             "text": "Anti-pyretic",
             "openmrs_entity": "concept",
