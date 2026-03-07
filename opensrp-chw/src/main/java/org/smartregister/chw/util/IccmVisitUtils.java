@@ -70,6 +70,7 @@ public class IccmVisitUtils extends VisitUtils {
         }
         if (iccmServicesVisits.size() > 0) {
             processVisits(iccmServicesVisits, visitRepository, visitDetailsRepository);
+            processIccmReferrals(iccmServicesVisits);
         }
     }
 
@@ -92,6 +93,7 @@ public class IccmVisitUtils extends VisitUtils {
 
         if (iccmServicesVisits.size() > 0) {
             processVisits(iccmServicesVisits, visitRepository, visitDetailsRepository);
+            processIccmReferrals(iccmServicesVisits);
         }
     }
 
@@ -228,6 +230,20 @@ public class IccmVisitUtils extends VisitUtils {
                 CoreConstants.TASKS_FOCUS.ICCM_REFERRAL, referralProblems);
 
         return true;
+    }
+
+    private static void processIccmReferrals(List<Visit> visits) {
+        if (visits == null || visits.isEmpty()) {
+            return;
+        }
+
+        for (Visit visit : visits) {
+            try {
+                processIccmReferral(visit);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
     }
 
     private static boolean hasRequiredReferralValues(JSONObject referralFormJson) {
