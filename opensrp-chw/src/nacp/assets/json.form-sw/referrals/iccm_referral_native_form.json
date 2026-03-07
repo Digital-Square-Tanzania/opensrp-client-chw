@@ -182,12 +182,6 @@
         "text_color": "#C0C0C0",
         "options": [
           {
-            "key": "rectal_artesunate",
-            "text": "Artesunate ya puru",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "rectal_artesunate"
-          },
-          {
             "key": "anti_pyretic",
             "text": "Dawa ya kushusha homa",
             "openmrs_entity": "concept",
