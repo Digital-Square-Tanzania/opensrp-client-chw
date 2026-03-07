@@ -723,6 +723,9 @@
         <service android:name=".anc.intent.HomeVisitIntentService"
             android:foregroundServiceType="dataSync"/>
 
+        <service android:name=".intent.ChwHomeVisitIntentService"
+            android:foregroundServiceType="dataSync"/>
+
         <service android:name=".sync.intent.ChwSyncTaskIntentService"
             android:foregroundServiceType="dataSync"/>
 
