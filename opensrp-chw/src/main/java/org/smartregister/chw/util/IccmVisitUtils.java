@@ -120,13 +120,11 @@ public class IccmVisitUtils extends VisitUtils {
                     if (isDiarrheaSuspect != null && isDiarrheaSuspect.equalsIgnoreCase("true")) {
                         completionObject.put("isDiarrheaDiagnosisComplete", computeCompletionStatusForAction(obs, "diarrhea_completion_status"));
                     }
-
-                    String isPneumoniaSuspect = getFieldValue(obs, "is_pneumonia_suspect");
-                    if (isPneumoniaSuspect != null && isPneumoniaSuspect.equalsIgnoreCase("true")) {
-                        completionObject.put("isPneumoniaDiagnosisComplete", computeCompletionStatusForAction(obs, "pneumonia_completion_status"));
-                    }
                 }
 
+                if (isIccmReferralRequired(obs)) {
+                    completionObject.put("isReferralComplete", hasRequiredReferralValues(obs));
+                }
 
                 if (!completionObject.containsValue(false)) {
                     isComplete = true;
@@ -242,6 +240,51 @@ public class IccmVisitUtils extends VisitUtils {
         if (!hasValue(problem) || !hasValue(serviceBeforeReferral) || !hasValue(referralFacility) || !hasValue(referralAppointmentDate)) {
             return false;
         }
+        if (containsOption(problem, "other_reasons")) {
+            return hasValue(problemOther);
+        }
+
+        return true;
+    }
+
+    private static boolean isIccmReferralRequired(JSONArray obs) throws JSONException {
+        String clientPastMalariaTreatmentHistory = getFieldValue(obs, "client_past_malaria_treatment_history");
+        if ("yes".equalsIgnoreCase(StringUtils.trimToEmpty(clientPastMalariaTreatmentHistory))) {
+            return true;
+        }
+
+        String isPneumoniaSuspect = getFieldValue(obs, "is_pneumonia_suspect");
+        if ("true".equalsIgnoreCase(StringUtils.trimToEmpty(isPneumoniaSuspect))) {
+            return true;
+        }
+
+        String diarrheaSigns = getFieldValue(obs, "diarrhea_signs");
+        if (hasValue(diarrheaSigns) && !containsOption(diarrheaSigns, "none")) {
+            return true;
+        }
+
+        String interpretationForMrdtTwo = getFieldValue(obs, "interpretation_for_mrdt_two");
+        if (hasValue(interpretationForMrdtTwo) && !containsOption(interpretationForMrdtTwo, "control")) {
+            return true;
+        }
+
+        return hasValue(getFieldValue(obs, "problem"))
+                || hasValue(getFieldValue(obs, "service_before_referral"))
+                || hasValue(getFieldValue(obs, "chw_referral_hf"))
+                || hasValue(getFieldValue(obs, "referral_appointment_date"));
+    }
+
+    private static boolean hasRequiredReferralValues(JSONArray obs) throws JSONException {
+        String problem = getFieldValue(obs, "problem");
+        String problemOther = getFieldValue(obs, "problem_other");
+        String serviceBeforeReferral = getFieldValue(obs, "service_before_referral");
+        String referralFacility = getFieldValue(obs, "chw_referral_hf");
+        String referralAppointmentDate = getFieldValue(obs, "referral_appointment_date");
+
+        if (!hasValue(problem) || !hasValue(serviceBeforeReferral) || !hasValue(referralFacility) || !hasValue(referralAppointmentDate)) {
+            return false;
+        }
+
         if (containsOption(problem, "other_reasons")) {
             return hasValue(problemOther);
         }
