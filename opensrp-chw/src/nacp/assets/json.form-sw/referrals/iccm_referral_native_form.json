@@ -231,7 +231,7 @@
         "openmrs_choice_ids": {},
         "v_required": {
           "value": "true",
-          "err": "Please specify referral facility"
+          "err": "Tafadhali chagua kituo cha rufaa"
         }
       },
       {
@@ -245,7 +245,7 @@
         "max_date": "today+30d",
         "v_required": {
           "value": "true",
-          "err": "Please specify the appointment date"
+          "err": "Tafadhali chagua tarehe ya tembeleo"
         },
         "duration": {
           "label": ""
