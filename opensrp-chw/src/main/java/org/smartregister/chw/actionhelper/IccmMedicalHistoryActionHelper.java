@@ -251,7 +251,7 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     private void processReferralAction() {
         try {
             String title = context.getString(R.string.iccm_referral);
-            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper();
+            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(memberObject.getIccmEnrollmentFormSubmissionId(), actionList);
             BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(referralActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmReferral()).build();
             if (!actionList.containsKey(context.getString(R.string.iccm_referral)))
                 actionList.put(title, action);
