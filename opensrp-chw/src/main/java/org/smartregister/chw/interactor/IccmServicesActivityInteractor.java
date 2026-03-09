@@ -17,8 +17,6 @@ import org.smartregister.chw.malaria.interactor.BaseIccmVisitInteractor;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.IccmVisitUtils;
-import org.smartregister.family.util.Utils;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -130,10 +128,4 @@ public class IccmServicesActivityInteractor extends BaseIccmVisitInteractor {
         }
 
     }
-
-    public AllSharedPreferences getAllSharedPreferences() {
-        return Utils.context().allSharedPreferences();
-    }
-
-
 }
