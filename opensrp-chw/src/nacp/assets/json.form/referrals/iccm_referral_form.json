@@ -169,7 +169,7 @@
             },
             {
               "name": "sever_pneumonia",
-              "text": "Severe Pneumonia",
+              "text": "Pneumonia",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "sever_pneumonia",
