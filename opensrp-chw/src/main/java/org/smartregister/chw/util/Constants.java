@@ -398,4 +398,16 @@ public class Constants extends CoreConstants {
         String PNC_TASK_FOCUS = "PNC Minor Ailments";
     }
 
+    public interface iCCMTreatment{
+        String FIELD_SERVICE_BEFORE_REFERRAL = "service_before_referral";
+        String FIELD_DISPENSED_ANTI_PYRETIC = "dispensed_anti_pyretic";
+        String FIELD_DIARRHEA_MEDICATION_DISPENSED = "diarrhea_medication_dispensed";
+        String FIELD_DIARRHEA_MEDICATION_REFERRED_CLIENT = "diarrhea_medication_dispensed_for_referred_clients";
+        String TREATMENT_ANTI_PYRETIC = "anti_pyretic";
+        String TREATMENT_ORS = "ors";
+        String TREATMENT_ZINC_SOURCE = "zinc";
+        String TREATMENT_ORS_ZINC_CO_PACK = "ors_zinc_co_pack";
+        String TREATMENT_ZINC_ORS_CO_PACK_SOURCE = "zinc_ors_co_pack";
+    }
+
 }
