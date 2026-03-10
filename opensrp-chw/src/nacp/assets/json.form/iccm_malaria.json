@@ -60,6 +60,113 @@
         "toaster_type": "info"
       },
       {
+        "key": "able_conduct_mrdt_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "able_conduct_mrdt_test",
+        "label": "Are you able to conduct mRDT Test?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral_to_health_facility",
+        "type": "toaster_notes",
+        "text": "Refer the client to the health facility.",
+        "openmrs_entity_id": "prompt_for_providing_referral_to_health_facility",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_not_conducting_mrdt_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_not_conducting_mrdt_test",
+        "label": "Reason for not conducting the mRDT test",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "deterioration_client_condition",
+            "text": "Deterioration of client condition",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deterioration_client_condition"
+          },
+          {
+            "key": "others",
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_conducting_mrdt_test",
+        "type": "edit_text",
+        "hint": "Please specify the other reason(s)",
+        "openmrs_entity_id": "other_reasons_for_not_conducting_mrdt_test",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "interpretation_for_mrdt",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -101,6 +208,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -348,6 +462,10 @@
         "openmrs_entity_id": "other_reasons_for_not_dispensing_alu",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

@@ -319,7 +319,7 @@ dependencies {
         implementation 'com.github.joeShuff:MonthAndYearPicker:1.3.0'
     }
 
-    def helloChartsAar = new File(libsDir, 'hellocharts-android-1.5.8')
+    def helloChartsAar = new File(libsDir, 'hellocharts-android-1.5.8.aar')
     if (helloChartsAar.exists()) {
         implementation files(helloChartsAar)
     } else {

@@ -58,13 +58,21 @@ public class ReferralUtils extends CoreReferralUtils {
         obsMap.put("referral_type", "community_to_facility_referral");
         obsMap.put("referral_date", referralDate);
         obsMap.put("referral_time", new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(referralDate));
-        obsMap.put("problem", referralProblems);
+
+        // ICCM referrals should keep referralProblems for Task description only.
+        if (!isIccmReferral(referralType)) {
+            obsMap.put("problem", referralProblems);
+        }
 
         for (String key : obsMap.keySet()) {
             List<Object> value = Collections.singletonList(obsMap.get(key));
             baseEvent.addObs(new Obs("concept", "text", key, "", value, value, "", key));
         }
 
+    }
+
+    private static boolean isIccmReferral(String referralType) {
+        return CoreConstants.TASKS_FOCUS.ICCM_REFERRAL.equalsIgnoreCase(referralType);
     }
 
     private static void createReferralTask(AllSharedPreferences allSharedPreferences, String baseEntityId, String formSubmissionId, String referralProblems, String selectedFacility, String referralFocus) {

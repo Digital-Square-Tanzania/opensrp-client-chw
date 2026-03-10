@@ -5,7 +5,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.OPTIONS;
-import static org.smartregister.util.Utils.getAgeFromDate;
 
 import android.content.Context;
 
@@ -23,10 +22,12 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.IccmVisitStateTracker;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.JsonFormUtils;
+import org.smartregister.chw.util.Constants.PneumoniaStatus;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -51,6 +52,10 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
 
     private IccmMemberObject memberObject;
+
+    private final PneumoniaStatus pneumoniaStatus = PneumoniaStatus.DISABLED;
+
+    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
 
     public IccmMedicalHistoryActionHelper(Context context, String enrollmentFormSubmissionId, LinkedHashMap<String, BaseIccmVisitAction> actionList, Map<String, List<VisitDetail>> details, BaseIccmVisitContract.InteractorCallBack callBack) {
         this.context = context;
@@ -164,6 +169,15 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
 
         try {
             if (!clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")) {
+                if (!"true".equalsIgnoreCase(isMalariaSuspect)) {
+                    actionList.remove(context.getString(R.string.iccm_malaria));
+                    isMalariaSuspect = "false";
+                }
+                if (!(memberObject.getAge() < 5 && "true".equalsIgnoreCase(isDiarrheaSuspect))) {
+                    actionList.remove(context.getString(R.string.iccm_diarrhea));
+                }
+                iccmVisitStateTracker.setIccmReferralModuleActive(false);
+
                 String title = context.getString(R.string.iccm_physical_examination);
                 IccmPhysicalExaminationActionHelper actionHelper = new IccmPhysicalExaminationActionHelper(context, enrollmentFormSubmissionId, actionList, details, callBack, isMalariaSuspect, isDiarrheaSuspect, isPneumoniaSuspect, !CoreJsonFormUtils.getValue(jsonObject, "medical_history").contains("none"));
                 BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmPhysicalExamination()).build();
@@ -173,16 +187,26 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
                 isMalariaSuspect = "false";
                 int age = memberObject.getAge();
                 if (age < 5) {
-                    if (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")) {
+                    if(pneumoniaStatus == PneumoniaStatus.ENABLED && (memberObject.getRespiratoryRate() != null && (age < 1 && memberObject.getRespiratoryRate() >= 50 || age >= 1 && memberObject.getRespiratoryRate() >= 40) || isPneumoniaSuspect.equalsIgnoreCase("true")))  {
                         processPneumoniaAction(jsonObject, isMalariaSuspect);
                     } else if (isDiarrheaSuspect.equalsIgnoreCase("true")) {
                         actionList.remove(context.getString(R.string.iccm_pneumonia));
-                        processDiarrheaAction(isMalariaSuspect);
+                        processDiarrheaAction(isMalariaSuspect, isPneumoniaSuspect, clientPastMalariaTreatmentHistory);
+                    } else if (isPneumoniaSuspect.equalsIgnoreCase("true") || clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")){
+                        processReferralAction();
+                        iccmVisitStateTracker.setIccmReferralModuleActive(true);
                     } else {
+                        iccmVisitStateTracker.setIccmReferralModuleActive(false);
                         actionList.remove(context.getString(R.string.iccm_pneumonia));
                         actionList.remove(context.getString(R.string.iccm_diarrhea));
                     }
                 } else {
+                    if (clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes")){
+                        processReferralAction();
+                        iccmVisitStateTracker.setIccmReferralModuleActive(true);
+                    }else{
+                        iccmVisitStateTracker.setIccmReferralModuleActive(false);
+                    }
                     actionList.remove(context.getString(R.string.iccm_malaria));
                 }
             }
@@ -211,13 +235,25 @@ public class IccmMedicalHistoryActionHelper implements BaseIccmVisitAction.IccmV
         }
     }
 
-    private void processDiarrheaAction(String isMalariaSuspect) {
+    private void processDiarrheaAction(String isMalariaSuspect, String isPneumoniaSuspect, String clientPastMalariaTreatmentHistory) {
         actionList.remove(context.getString(R.string.iccm_pneumonia));
         try {
             String title = context.getString(R.string.iccm_diarrhea);
-            IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect);
+            IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect, isPneumoniaSuspect, clientPastMalariaTreatmentHistory);
             BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
             if (!actionList.containsKey(context.getString(R.string.iccm_diarrhea)))
+                actionList.put(title, action);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void processReferralAction() {
+        try {
+            String title = context.getString(R.string.iccm_referral);
+            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(memberObject.getIccmEnrollmentFormSubmissionId(), actionList);
+            BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(referralActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmReferral()).build();
+            if (!actionList.containsKey(context.getString(R.string.iccm_referral)))
                 actionList.put(title, action);
         } catch (Exception e) {
             Timber.e(e);

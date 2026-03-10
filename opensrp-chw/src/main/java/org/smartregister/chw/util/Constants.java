@@ -38,6 +38,8 @@ public class Constants extends CoreConstants {
 
     public static int REQUEST_FILTERS = 2004;
 
+    public enum PneumoniaStatus {ENABLED, DISABLED}
+
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}
@@ -124,6 +126,8 @@ public class Constants extends CoreConstants {
         private static final String ICCM_MALARIA = "iccm_malaria";
         private static final String ICCM_PNEUMONIA = "iccm_pneumonia";
         private static final String ICCM_DIARRHEA = "iccm_diarrhea";
+
+        private static final String ICCM_REFERRAL_NATIVE_FORM = "referrals/iccm_referral_native_form";
         private static final String CHILD_HV_MALNUTRITION_SCREENING = "child_hv_malnutrition_screening";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
@@ -186,6 +190,10 @@ public class Constants extends CoreConstants {
         }
         public static String getIccmDiarrhea() {
             return ICCM_DIARRHEA;
+        }
+
+        public static String getIccmReferral() {
+            return ICCM_REFERRAL_NATIVE_FORM;
         }
 
         public static String getChildHvMalnutritionScreening() {
@@ -404,6 +412,18 @@ public class Constants extends CoreConstants {
         String CHILD_TASK_FOCUS = "Child Minor Ailments";
         String ANC_TASK_FOCUS = "ANC Minor Ailments";
         String PNC_TASK_FOCUS = "PNC Minor Ailments";
+    }
+
+    public interface iCCMTreatment{
+        String FIELD_SERVICE_BEFORE_REFERRAL = "service_before_referral";
+        String FIELD_DISPENSED_ANTI_PYRETIC = "dispensed_anti_pyretic";
+        String FIELD_DIARRHEA_MEDICATION_DISPENSED = "diarrhea_medication_dispensed";
+        String FIELD_DIARRHEA_MEDICATION_REFERRED_CLIENT = "diarrhea_medication_dispensed_for_referred_clients";
+        String TREATMENT_ANTI_PYRETIC = "anti_pyretic";
+        String TREATMENT_ORS = "ors";
+        String TREATMENT_ZINC_SOURCE = "zinc";
+        String TREATMENT_ORS_ZINC_CO_PACK = "ors_zinc_co_pack";
+        String TREATMENT_ZINC_ORS_CO_PACK_SOURCE = "zinc_ors_co_pack";
     }
 
 }

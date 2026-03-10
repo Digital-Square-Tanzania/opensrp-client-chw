@@ -52,7 +52,7 @@ public class ChwJobCreator implements JobCreator {
             case P2pServiceJob.TAG:
                 return new P2pServiceJob();
             case HomeVisitServiceJob.TAG:
-                return new HomeVisitServiceJob();
+                return new ChwHomeVisitServiceJob();
             case ChwIndicatorGeneratingJob.TAG:
                 return new ChwIndicatorGeneratingJob();
             case BasePncCloseJob.TAG:
