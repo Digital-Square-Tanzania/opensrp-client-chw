@@ -322,8 +322,12 @@
         "openmrs_entity_id": "id_avail",
         "type": "native_radio",
         "label": "Do you have any of the following IDs?",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_national_id",
@@ -389,10 +393,14 @@
           "err": "Please enter a valid national ID"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_national_id"
+                ]
+              }
+            ]
           }
         }
       },
@@ -421,10 +429,14 @@
           "err": "Please enter a valid voters registration number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_voters_id"
+                ]
+              }
+            ]
           }
         }
       },
@@ -453,10 +465,14 @@
           "err": "Please enter a valid driver's license number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_drivers_license"
+                ]
+              }
+            ]
           }
         }
       },
@@ -485,10 +501,14 @@
           "err": "Please enter a valid driver's license number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_passport_number"
+                ]
+              }
+            ]
           }
         }
       },
@@ -697,10 +717,14 @@
           "err": "Please specify disabilities"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:type_of_disability": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_disabilities"
+                ]
+              }
+            ]
           }
         }
       },
@@ -875,10 +899,14 @@
           "err": "Please specify role"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
+          "step1:occupation": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
           }
         }
       },
