@@ -844,7 +844,7 @@
     <string name="hps_partner">Partner</string>
     <string name="hps_other_criteria_specify">Specify Other Criterion</string>
 
-    <string name="hps_provision_of_preventive_services">Is type of education provided?</string>
+    <string name="hps_provision_of_health_education">Is type of education provided?</string>
     <string name="hps_yes">Yes</string>
     <string name="hps_no">No</string>
     <string name="hps_type_of_education_provided">Type of Education provided</string>

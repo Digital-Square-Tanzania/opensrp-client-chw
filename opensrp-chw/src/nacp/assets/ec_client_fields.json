@@ -7072,11 +7072,11 @@
           }
         },
         {
-          "column_name": "provision_of_preventive_services",
+          "column_name": "provision_of_health_education",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "provision_of_preventive_services"
+            "concept": "provision_of_health_education"
           }
         },
         {

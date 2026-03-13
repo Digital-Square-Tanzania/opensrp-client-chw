@@ -666,7 +666,7 @@
 
     <!--    HPS   -->
 
-    <string name="hps_provision_of_preventive_services">Je elimu imetolewa?</string>
+    <string name="hps_provision_of_health_education">Je elimu imetolewa?</string>
     <string name="hps_yes">Ndio</string>
     <string name="hps_no">Hapana</string>
     <string name="hps_type_of_education_provided">Aina ya elimu iliyotolewa</string>

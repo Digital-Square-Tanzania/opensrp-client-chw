@@ -114,7 +114,7 @@ public class HpsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
                     }
 
                     String[] visitTypeParams = {
-                            "client_criteria", "provision_of_preventive_services", "type_of_education_provided", "other_education_provided","provide_iec_materials", "type_of_iec_material",
+                            "client_criteria", "provision_of_health_education", "type_of_education_provided", "other_education_provided","provide_iec_materials", "type_of_iec_material",
                             "others_type_of_iec_material", "type_of_message_leaflets", "number_of_leaflets", "others_type_of_leaflets", "type_of_message_posters", "number_of_posters",
                             "others_type_of_posters", "type_of_message_brochures", "others_type_of_brochures", "number_of_brochures", "preventive_services_provided", "preventive_services",
                             "others_services_specify", "provision_of_curative_services","diseases_signs_and_symptoms","specify_signs_and_symptoms_provided","is_disease_test_conducted",
