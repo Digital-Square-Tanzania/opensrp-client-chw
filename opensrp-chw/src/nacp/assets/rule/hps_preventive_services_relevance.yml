@@ -76,53 +76,19 @@ condition: "step1_provide_iec_materials.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true "
 ---
-name: step1_preventive_services_below_5_years
-description: Rule to control the visibility of (step1_preventive_services_below_5_years)
-priority: 1
-condition: "global_age < 5 && step1_preventive_services_provided.equalsIgnoreCase('yes')"
-actions:
-  - "isRelevant = true "
----
-name: step1_preventive_services_above_5_years_below_18_years
-description: Rule to control the visibility of (step1_preventive_services_above_5_years_below_18_years)
-priority: 1
-condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5 && global_age < 18"
-actions:
-  - "isRelevant = true "
----
-name: step1_preventive_services_above_18_years
-description: Rule to control the visibility of (step1_preventive_services_above_18_years)
-priority: 1
-condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 18"
-actions:
-  - "isRelevant = true "
----
-name: step1_others_services_specify
-description: Rule to control the visibility of (step1_others_services_specify)
-priority: 1
-condition: "step1_preventive_services_below_5_years.contains('other_services') ||
-            step1_preventive_services_above_5_years_below_18_years.contains('other_services')
-            "
-actions:
-  - "isRelevant = true "
----
-name: step1_specify_other_services_above_18
-description: Rule to control the visibility of step1_specify_other_services_above_18
-priority: 1
-condition: "global_age >= 18 && step1_preventive_services.contains('other_services')"
-actions:
-  - "isRelevant = true "
----
 name: step1_preventive_services
-description: Rule to control the value of (step1_preventive_services)
+description: Rule to control the visibility of (step1_preventive_services)
 priority: 1
 condition: "step1_preventive_services_provided.equalsIgnoreCase('yes')"
 actions:
-  - "calculation =  if (global_age < 5) { return step1_preventive_services_below_5_years }
-                    else if(global_age >= 5 && global_age < 18) { return step1_preventive_services_above_5_years_below_18_years } 
-                    else if(global_age >= 18) { return step1_preventive_services_above_18_years }
-                    else {return '' }
-   "
+  - "isRelevant = true "
+---
+name: step1_specify_other_services
+description: Rule to control the visibility of step1_specify_other_services
+priority: 1
+condition: "step1_preventive_services.contains('other_services')"
+actions:
+  - "isRelevant = true "
 ---
 name: step1_type_of_message_leaflets_title
 description: if step1_type_of_message_leaflets_title
@@ -156,5 +122,12 @@ name: step1_record_hivst_details_note
 description: Rule to control the visibility of (record_hivst_details_note)
 priority: 1
 condition: "step1_preventive_services.contains('hiv_self_test_kits')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_services_specify
+description: Rule to control the visibility of (others_services_specify)
+priority: 1
+condition: "step1_preventive_services.contains('other_services')"
 actions:
   - "isRelevant = true "
