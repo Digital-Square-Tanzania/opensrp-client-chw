@@ -128,7 +128,7 @@
           },
           {
             "key": "sever_pneumonia",
-            "text": "Severe Pneumonia",
+            "text": "Pneumonia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sever_pneumonia"
           },
