@@ -59,6 +59,10 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+
+        // ✅ Legacy OpenSRP plan evaluator jar folder (NEW)
+        flatDir { dirs "${rootDir}/legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9" }
+
         mavenCentral()
         mavenLocal()
         maven { url uri("${rootDir}/local-maven") }
@@ -270,6 +274,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
             buildConfigField "int", "DATABASE_VERSION", '34'
+            buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "false"
         }
     }
 
@@ -315,14 +320,15 @@ dependencies {
         implementation 'com.github.joeShuff:MonthAndYearPicker:1.3.0'
     }
 
-    def helloChartsAar = new File(libsDir, 'hellocharts-android-1.5.8')
+    def helloChartsAar = new File(libsDir, 'hellocharts-android-1.5.8.aar')
     if (helloChartsAar.exists()) {
         implementation files(helloChartsAar)
     } else {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.2-MOH-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.6-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'

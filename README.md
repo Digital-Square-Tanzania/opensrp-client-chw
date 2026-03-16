@@ -49,6 +49,9 @@ These instructions will get you a copy of the project up and running on your loc
 ## Deployment
 [Production releases](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/1141866503/How+to+create+a+release+APK)
 
+## Recent Fixes
+- Prevent reuse of reserved OpenSRP Unique IDs when selecting an existing client as head of household during Family Registration, ensuring unique family identifiers and reliable sync.
+
 ## Features
 -   Child health care
 -   Antenatal care (ANC)

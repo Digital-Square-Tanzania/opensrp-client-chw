@@ -32,6 +32,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
@@ -562,6 +563,16 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     /**
+     * After a Family Registration completes, ensure the created ec_family row points to the chosen
+     * existing head. This avoids creating a duplicate head record and makes the profile header show
+     * the correct person even if they don't belong to this household's member list.
+     */
+    public static void linkExistingHeadToLatestFamily(String headBaseEntityId) {
+        if (StringUtils.isBlank(headBaseEntityId)) return;
+        // No-op (reverted).
+    }
+
+    /**
      * Returns a value from json form field
      *
      * @param jsonObject native forms jsonObject
@@ -785,7 +796,14 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 if (formName.equals(org.smartregister.family.util.Utils.metadata().familyRegister.formName)) {
                     if (uniqueId != null) {
                         uniqueId.remove("value");
-                        uniqueId.put("value", entityId + "_Family");
+                        uniqueId.put("value", entityId + "_family");
+                    }
+
+                    // Populate the dedicated family_unique_id field when present
+                    JSONObject familyUniqueId = getFieldJSONObject(field, "family_unique_id");
+                    if (familyUniqueId != null) {
+                        familyUniqueId.remove("value");
+                        familyUniqueId.put("value", entityId + "_family");
                     }
 
                     field = fields(form, "step2");
@@ -806,6 +824,528 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             return form;
         }
     }
+
+    public static void populateExistingHead(JSONObject form, String baseEntityId) throws Exception {
+        if (form == null || StringUtils.isBlank(baseEntityId)) {
+            return;
+        }
+
+        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        if (personObject == null) {
+            throw new IllegalArgumentException("No registered client found for id " + baseEntityId);
+        }
+
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), personObject.getCaseId());
+        client.setColumnmaps(personObject.getColumnmaps());
+        populateExistingHead(form, client);
+    }
+
+    public static void populateExistingHead(JSONObject form, CommonPersonObjectClient client) throws JSONException {
+        // Do NOT override the Family Registration form entity_id. The form's entity_id should
+        // remain the newly generated household (family) base_entity_id. Overriding this with the
+        // selected existing head's base_entity_id causes ec_family.base_entity_id to equal the
+        // person's base_entity_id, which breaks the intended separation between household and person.
+
+        JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+        JSONArray fields = stepTwo.getJSONArray(FIELDS);
+
+        // Also prefill Step 1 for flavors (e.g., nacp) whose Step 2 values are computed from Step 1
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "client_first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), false);
+                    setIfPresent(stepOneFields, "client_middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), false);
+                    // For household name, default to the client's surname when available
+                    setIfPresent(stepOneFields, "fam_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), false);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Always persist selected head id (if field exists) for downstream processing
+        setValueAndLock(fields, "existing_head", client.getCaseId(), true);
+        setIfPresent(fields, "family_head", client.getCaseId(), true);
+
+        // Capture the current household membership to allow post-save correction (nacp only field)
+        try {
+            String originalRelId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+            if (StringUtils.isBlank(originalRelId)) {
+                // Fallback: read from ec_family_member where the definitive relational_id lives
+                CommonRepository fmRepo = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+                CommonPersonObject fmRow = fmRepo.findByBaseEntityId(client.getCaseId());
+                if (fmRow != null && fmRow.getColumnmaps() != null) {
+                    originalRelId = org.smartregister.family.util.Utils.getValue(fmRow.getColumnmaps(), DBConstants.KEY.RELATIONAL_ID, true);
+                }
+            }
+            setIfPresent(fields, "original_relational_id", originalRelId, true);
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Basic identity
+        setValueAndLock(fields, "first_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true), true);
+        setValueAndLock(fields, "middle_name", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true), true);
+        setValueAndLock(fields, "surname", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true), true);
+
+        // Gender: normalize common storage variants (M/F -> Male/Female)
+        String genderRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        String gender = mapGenderValue(genderRaw);
+        setValueAndLock(fields, "sex", gender, true);
+
+        // DOB: convert to dd-MM-yyyy for date_picker compatibility
+        String dobRaw = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobDisplay = formatDobForForm(dobRaw);
+        setValueAndLock(fields, "dob", dobDisplay, true);
+
+        // Age: some flavors use "age" while others use "age_calculated"
+        if (StringUtils.isNotBlank(dobRaw)) {
+            int ageValue = org.smartregister.chw.util.Utils.getAgeFromDate(dobRaw);
+            if (!setIfPresent(fields, "age", String.valueOf(ageValue), true)) {
+                setIfPresent(fields, "age_calculated", String.valueOf(ageValue), true);
+            }
+        }
+
+        // Identifier (strip hyphens; fallback to client.identifiers if column map missing)
+        String uniqueId = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
+        if (StringUtils.isBlank(uniqueId)) {
+            try {
+                EventClientRepository eventClientRepository = new EventClientRepository();
+                JSONObject clientJson = eventClientRepository.getClientByBaseEntityId(client.getCaseId());
+                if (clientJson != null) {
+                    Client baseClient = ChwApplication.getInstance().getEcSyncHelper().convert(clientJson, Client.class);
+                    if (baseClient != null && baseClient.getIdentifiers() != null) {
+                        uniqueId = baseClient.getIdentifiers().get(org.smartregister.family.util.Utils.metadata().uniqueIdentifierKey);
+                    }
+                }
+            } catch (Exception e) {
+                Timber.w(e);
+            }
+        }
+        if (StringUtils.isNotBlank(uniqueId)) {
+            uniqueId = uniqueId.replace("-", "");
+        }
+        setValueAndLock(fields, "unique_id", uniqueId, true);
+
+        // Mirror family_head into Step 1 as well to ensure the family event carries it
+        try {
+            JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            if (stepOne != null) {
+                JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                if (stepOneFields != null) {
+                    setIfPresent(stepOneFields, "family_head", client.getCaseId(), true);
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
+        // Contacts (keep editable)
+        setValueAndLock(fields, "phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true), false);
+        setValueAndLock(fields, "other_phone_number", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.OTHER_PHONE_NUMBER, true), false);
+
+        // Additional demographic and attributes (prefill for review; these are not persisted from this flow)
+        prefillAdditionalHoHFields(form, fields, client);
+    }
+
+    private static boolean setIfPresent(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return false;
+        setValueAndLock(fields, key, value, readOnly);
+        return true;
+    }
+
+    private static String mapGenderValue(String genderRaw) {
+        if (StringUtils.isBlank(genderRaw)) return genderRaw;
+        String g = genderRaw.trim();
+        if (g.equalsIgnoreCase("m")) return "Male";
+        if (g.equalsIgnoreCase("f")) return "Female";
+        return g; // already in display form
+    }
+
+    private static String formatDobForForm(String dobRaw) {
+        try {
+            if (StringUtils.isBlank(dobRaw)) return dobRaw;
+            Date dob = Utils.dobStringToDate(dobRaw);
+            if (dob != null) return dd_MM_yyyy.format(dob);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return dobRaw;
+    }
+
+    private static void setValueAndLock(JSONArray fields, String key, String value, boolean readOnly) throws JSONException {
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) {
+            return;
+        }
+
+        if (StringUtils.isNotBlank(value)) {
+            field.put(JsonFormConstants.VALUE, value);
+        } else {
+            field.remove(JsonFormConstants.VALUE);
+        }
+
+        if (readOnly) {
+            field.put(READ_ONLY, "true");
+            field.put(EDITABLE, false);
+        }
+    }
+
+    private static void prefillAdditionalHoHFields(JSONObject form, JSONArray stepTwoFields, CommonPersonObjectClient client) {
+        try {
+            // Marital status (spinner with keys matching stored values)
+            safeSetSpinner(stepTwoFields, "marital_status", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "marital_status", true));
+
+            // Insurance fields
+            String insuranceProvider = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "insurance_provider", true);
+            if (StringUtils.isBlank(insuranceProvider)) {
+                // Some flavors use attributes.Health_Insurance_Type mapping; also seen as Health_Insurance_Type
+                insuranceProvider = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Health_Insurance_Type", true);
+            }
+            safeSetSpinner(stepTwoFields, "insurance_provider", insuranceProvider);
+
+            String insuranceProviderOther = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "insurance_provider_other", true);
+            if (StringUtils.isBlank(insuranceProviderOther)) {
+                insuranceProviderOther = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Other_Health_Insurance_Type", true);
+            }
+            setValueAndLock(stepTwoFields, "insurance_provider_other", insuranceProviderOther, false);
+
+            String insuranceNumber = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "insurance_provider_number", true);
+            if (StringUtils.isBlank(insuranceNumber)) {
+                insuranceNumber = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Health_Insurance_Number", true);
+            }
+            setValueAndLock(stepTwoFields, "insurance_provider_number", insuranceNumber, false);
+
+        // Disabilities (Yes/No)
+        safeSetSpinner(stepTwoFields, "disabilities", org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "disabilities", true));
+
+            // Type of disability (checkbox keys e.g., physical_impairments, other_disabilities)
+            String disabilityTypes = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "type_of_disability", false);
+            prefillCheckbox(stepTwoFields, "type_of_disability", disabilityTypes);
+
+            // If other disability previously specified
+            setValueAndLock(stepTwoFields, "specify_other_disabilities",
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "specify_other_disabilities", true), false);
+
+            // Occupation (native_radio keys like chk_farmer)
+            String occupation = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "occupation", false);
+            if (StringUtils.isBlank(occupation)) {
+                // Fallback: derive occupation from latest relevant event obs
+                occupation = findLatestObsValue(client.getCaseId(), new String[]{"occupation"});
+            }
+            prefillNativeRadio(stepTwoFields, "occupation", occupation);
+            if ("chk_other".equalsIgnoreCase(occupation)) {
+                setValueAndLock(stepTwoFields, "occupation_other",
+                        org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "occupation_other", true), false);
+            }
+
+            // Leadership role (checkbox under person_attribute Community_Leader)
+            String leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "leader", false);
+            if (StringUtils.isBlank(leader)) {
+                // Some flavors persist attribute key name
+                leader = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Community_Leader", false);
+            }
+            if (StringUtils.isBlank(leader)) {
+                // Last resort: read from Client JSON attributes
+                try {
+                    EventClientRepository repo = new EventClientRepository();
+                    JSONObject cj = repo.getClientByBaseEntityId(client.getCaseId());
+                    if (cj != null && cj.has("attributes")) {
+                        JSONObject attrs = cj.optJSONObject("attributes");
+                        if (attrs != null) {
+                            leader = attrs.optString("Community_Leader", leader);
+                        }
+                    }
+                } catch (Exception e) {
+                    Timber.w(e);
+                }
+            }
+            prefillCheckbox(stepTwoFields, "leader", leader);
+            setValueAndLock(stepTwoFields, "leader_other",
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "leader_other", true), false);
+
+            // Identity availability (native_radio) and dependent ID numbers
+            // Prefer direct stored id_avail if present
+            String idAvail = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "id_avail", false);
+            String nationalId = coalesce(
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "national_id", true),
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "National_ID", true)
+            );
+            String voterId = coalesce(
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "voter_id", true),
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Voter_Registration_Number", true)
+            );
+            String driverLicense = coalesce(
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "driver_license", true),
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Driver_License_Number", true)
+            );
+            String passportNum = coalesce(
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "passport", true),
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "Passport_Number", true),
+                    org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), "passport_number", true)
+            );
+
+            if (StringUtils.isBlank(idAvail)) {
+                if (StringUtils.isNotBlank(nationalId)) idAvail = "chk_national_id";
+                else if (StringUtils.isNotBlank(voterId)) idAvail = "chk_voters_id";
+                else if (StringUtils.isNotBlank(driverLicense)) idAvail = "chk_drivers_license";
+                else if (StringUtils.isNotBlank(passportNum)) idAvail = "chk_passport_number";
+                else idAvail = "chk_none";
+            }
+            prefillNativeRadio(stepTwoFields, "id_avail", idAvail);
+
+            // Prefill the dependent ID fields
+            setValueAndLock(stepTwoFields, "national_id", nationalId, false);
+            setValueAndLock(stepTwoFields, "voter_id", voterId, false);
+            setValueAndLock(stepTwoFields, "driver_license", driverLicense, false);
+            setValueAndLock(stepTwoFields, "passport", passportNum, false);
+
+            // Mirror any head id changes back to Step 1 if required fields exist (already done above for family_head)
+            try {
+                JSONObject stepOne = form.optJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                if (stepOne != null) {
+                    JSONArray stepOneFields = stepOne.optJSONArray(FIELDS);
+                    if (stepOneFields != null) {
+                        // No-op for now; hook retained for future additions
+                    }
+                }
+            } catch (Exception e) {
+                Timber.w(e);
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+    }
+
+    private static void safeSetSpinner(JSONArray fields, String key, String rawValue) throws JSONException {
+        if (StringUtils.isBlank(rawValue)) return;
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return;
+
+        String selectedKey = null;
+        String rawNorm = normalizeKey(rawValue);
+
+        // 1) Try openmrs_choice_ids map (value -> key)
+        if (field.has("openmrs_choice_ids")) {
+            JSONObject choice = field.optJSONObject("openmrs_choice_ids");
+            if (choice != null && choice.names() != null) {
+                for (int i = 0; i < choice.names().length(); i++) {
+                    String k = choice.names().getString(i);
+                    String v = choice.optString(k);
+                    if (equalsIgnoreCase(rawValue, v) || equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                        selectedKey = k;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 2) Try keys/values arrays
+        if (selectedKey == null) {
+            if (field.has("keys") && field.has("values")) {
+                JSONArray keys = field.optJSONArray("keys");
+                JSONArray values = field.optJSONArray("values");
+                if (keys != null && values != null) {
+                    for (int i = 0; i < keys.length(); i++) {
+                        String k = keys.optString(i);
+                        String v = values.optString(i);
+                        if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, v) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                            selectedKey = k;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3) Try options array (objects with key/text/openmrs_entity_id)
+        if (selectedKey == null && field.has(Constants.JSON_FORM_KEY.OPTIONS)) {
+            JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
+            if (options != null) {
+                for (int i = 0; i < options.length(); i++) {
+                    JSONObject opt = options.optJSONObject(i);
+                    if (opt == null) continue;
+                    String k = opt.optString("key");
+                    String t = opt.optString("text");
+                    String oeid = opt.optString(OPENMRS_ENTITY_ID);
+                    if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, t) || equalsIgnoreCase(rawValue, oeid) || equalsIgnoreCase(rawNorm, normalizeKey(k))) {
+                        selectedKey = k;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Fallback: set rawValue as-is
+        if (selectedKey == null) {
+            selectedKey = rawValue;
+        }
+
+        field.put(JsonFormConstants.VALUE, selectedKey);
+    }
+
+    private static void prefillCheckbox(JSONArray fields, String key, String selectedKeysFlat) throws JSONException {
+        if (StringUtils.isBlank(selectedKeysFlat)) return;
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return;
+        JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
+        if (options == null) {
+            // fallback to generic processor
+            processValueWithChoiceIds(field, selectedKeysFlat);
+            return;
+        }
+
+        // Normalize incoming selections into a set (split on commas, spaces, semicolons, pipes) and parse JSON array strings
+        java.util.Set<String> tokens = new java.util.HashSet<>();
+        java.util.Set<String> normTokens = new java.util.HashSet<>();
+        boolean parsedArray = false;
+        try {
+            String trimmed = selectedKeysFlat.trim();
+            if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+                org.json.JSONArray arr = new org.json.JSONArray(trimmed);
+                for (int i = 0; i < arr.length(); i++) {
+                    String v = String.valueOf(arr.get(i));
+                    if (StringUtils.isNotBlank(v)) {
+                        String cleaned = v.trim().replace("\"", "");
+                        if (!cleaned.isEmpty()) {
+                            tokens.add(cleaned);
+                            normTokens.add(normalizeKey(cleaned));
+                        }
+                    }
+                }
+                parsedArray = true;
+            }
+        } catch (Exception ignore) { }
+
+        if (!parsedArray) {
+            for (String part : selectedKeysFlat.split("[\\s,;|]+")) {
+                if (StringUtils.isNotBlank(part)) {
+                    String cleaned = part.trim().replace("\"", "");
+                    if (!cleaned.isEmpty()) {
+                        tokens.add(cleaned);
+                        normTokens.add(normalizeKey(cleaned));
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < options.length(); i++) {
+            JSONObject opt = options.getJSONObject(i);
+            String k = opt.optString("key");
+            String t = opt.optString("text");
+            String oeid = opt.optString(OPENMRS_ENTITY_ID);
+            boolean selected = containsIgnoreCase(tokens, k) || containsIgnoreCase(tokens, t) || containsIgnoreCase(tokens, oeid)
+                    || containsIgnoreCase(normTokens, normalizeKey(k)) || containsIgnoreCase(normTokens, normalizeKey(oeid));
+            if (selected) {
+                opt.put(JsonFormConstants.VALUE, true);
+            }
+        }
+    }
+
+    private static void prefillNativeRadio(JSONArray fields, String key, String rawValue) throws JSONException {
+        if (StringUtils.isBlank(rawValue)) return;
+        JSONObject field = getFieldJSONObject(fields, key);
+        if (field == null) return;
+
+        String selectedKey = null;
+        String rawNorm = normalizeKey(rawValue);
+
+        // Only options array is expected for native_radio
+        JSONArray options = field.optJSONArray(Constants.JSON_FORM_KEY.OPTIONS);
+        if (options != null) {
+            for (int i = 0; i < options.length(); i++) {
+                JSONObject opt = options.optJSONObject(i);
+                if (opt == null) continue;
+                String k = opt.optString("key");
+                String t = opt.optString("text");
+                String oeid = opt.optString(OPENMRS_ENTITY_ID);
+                if (equalsIgnoreCase(rawValue, k) || equalsIgnoreCase(rawValue, t) || equalsIgnoreCase(rawValue, oeid)
+                        || equalsIgnoreCase(rawNorm, normalizeKey(k)) || equalsIgnoreCase(rawNorm, normalizeKey(oeid))) {
+                    selectedKey = k;
+                    // mark the matching option selected so the UI toggles
+                    opt.put(JsonFormConstants.VALUE, true);
+                    break;
+                }
+            }
+        }
+
+        if (selectedKey == null) selectedKey = rawValue;
+        setValueAndLock(fields, key, selectedKey, false);
+    }
+
+    private static boolean equalsIgnoreCase(String a, String b) {
+        if (a == null || b == null) return false;
+        return a.equalsIgnoreCase(b);
+    }
+
+    private static boolean containsIgnoreCase(java.util.Set<String> set, String value) {
+        if (set == null || set.isEmpty() || StringUtils.isBlank(value)) return false;
+        for (String s : set) {
+            if (s.equalsIgnoreCase(value)) return true;
+        }
+        return false;
+    }
+
+    private static String normalizeKey(String s) {
+        if (s == null) return null;
+        String t = s.trim().toLowerCase(java.util.Locale.ROOT);
+        // replace all non-alphanumeric with underscore, collapse repeats
+        t = t.replaceAll("[^a-z0-9]+", "_");
+        // trim leading/trailing underscores
+        t = t.replaceAll("^_+|_+$", "");
+        return t;
+    }
+
+    private static String findLatestObsValue(String baseEntityId, String[] fields) {
+        try {
+            java.util.List<String> eventTypes = new java.util.ArrayList<>();
+            eventTypes.add(org.smartregister.chw.core.utils.CoreConstants.EventType.FAMILY_REGISTRATION);
+            eventTypes.add("Update Family Registration");
+
+            org.smartregister.clientandeventmodel.Event ev = org.smartregister.chw.dao.EventDao.getLatestEvent(baseEntityId, eventTypes);
+            if (ev == null || ev.getObs() == null) return null;
+
+            for (Obs o : ev.getObs()) {
+                String key = o.getFormSubmissionField() != null ? o.getFormSubmissionField() : o.getFieldCode();
+                if (key == null) continue;
+                for (String f : fields) {
+                    if (f.equalsIgnoreCase(key)) {
+                        java.util.List<Object> vals = o.getValues();
+                        if (vals != null && !vals.isEmpty()) {
+                            // For multi-select, return a comma-separated string of raw values
+                            if (vals.size() == 1) return String.valueOf(vals.get(0));
+                            StringBuilder sb = new StringBuilder();
+                            for (Object v : vals) {
+                                if (v != null) {
+                                    if (sb.length() > 0) sb.append(",");
+                                    sb.append(String.valueOf(v));
+                                }
+                            }
+                            return sb.toString();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+        return null;
+    }
+
+    
+
+    private static String coalesce(String... values) {
+        for (String v : values) {
+            if (StringUtils.isNotBlank(v)) return v;
+        }
+        return null;
+    }
+
+    
 
     /**
      * Returns the total number of nodes (leaf objects) found at the maximum depth

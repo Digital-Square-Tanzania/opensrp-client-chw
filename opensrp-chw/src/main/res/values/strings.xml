@@ -10,6 +10,11 @@
     <string name="add_eligible_child">Eligible Client</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
+    <string name="view_households_with_count">Households (%1$d)</string>
+    <string name="select_household">Select household</string>
+    <string name="heads_n_households">Heads %1$d households</string>
+    <string name="hh_with_count">HH (%1$d)</string>
+    <string name="household_with_count">Household (%1$d)</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="family_has_services_due">Family has services due</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>overdue (%2$s)</font></b>]]></string>
@@ -155,6 +160,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="device_to_device_sync">Device-to-device Sync</string>
+    <string name="select_clients">Select the head of household</string>
+    <string name="search_hint">Search name or ID</string>
+    <string name="no_record">No record</string>
 
     <!-- HPS Annual Census register labels -->
     <string name="hps_annual_census_register_title">HPS Annual Census</string>
@@ -193,8 +201,10 @@
     <string name="hps_annual_census_centers_action_title">Healthcare services, education, child and elder care centers</string>
     <string name="hps_annual_census_social_economic_action_title">Social services and economic activities</string>
     <string name="hps_annual_census_committees_traditional_action_title">Committee meetings &amp; Traditional medicine</string>
+    <string name="hps_annual_census_traditional_action_title">Traditional medicine</string>
     <string name="hps_annual_census_environment_sanitation_action_title">Environmental and sanitation Inspection report</string>
     <string name="hps_annual_census_building_inspection_action_title">Building Inspection Report</string>
+    <string name="hps_annual_census_economic_acitivities_action_title">Economic Acitivities</string>
     <string name="hps_annual_census_workplace_inspection_action_title">Workplace Inspection Report</string>
     <string name="hps_annual_census_food_beverage_action_title">Food and Beverage Inspection Report</string>
     <string name="hps_annual_census_workplace_health_reports_action_title">Health Reports Affecting People in Workplaces</string>
@@ -481,6 +491,11 @@
     <string name="select_cha">Select CHAs</string>
     <string name="select_options">Select options</string>
     <string name="all_households">All Households</string>
+    <string name="family_register_head_prompt">Who will be the head of this household?</string>
+    <string name="family_register_head_option_new">Register new head</string>
+    <string name="family_register_head_option_existing">Use an existing client</string>
+    <string name="family_register_head_description">Select how you want to choose the household head.</string>
+    <string name="family_register_head_prefill_error">We couldn\'t load the selected head. Please try again.</string>
     <string name="household_register_row_title">%s Household</string>
     <string name="all_families">All Households</string>
     <string name="anc_health_facility_counselling_subtitle">Health facility counselling</string>
@@ -607,6 +622,8 @@
     <string name="tb_leprosy_report_section_treatment_desc">Ripoti za ufuatiliaji wa waliokatiza au hawakuanza matibabu</string>
     <string name="tb_leprosy_report_section_challenges">Changamoto za Huduma ya TB na Ukoma</string>
     <string name="tb_leprosy_report_section_challenges_desc">Ripoti za changamoto zilizobainika wakati wa huduma</string>
+    <string name="tb_leprosy_report_section_merged">Ripoti Jumuishi ya TB na Ukoma</string>
+    <string name="tb_leprosy_report_section_merged_desc">Ripoti moja inayounganisha sehemu zote tano za TB/Ukoma</string>
 
     <string name="tb_leprosy_reports_subtitle">View TB/Leprosy report</string>
     <string name="tb_leprosy_monthly_report_title">TB/Leprosy Monthly Report</string>
@@ -621,6 +638,9 @@
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="tbleprosy_contact_registration_success">TB contact saved</string>
     <string name="tbleprosy_no_contacts_available">No eligible contacts available</string>
+    <string name="tbleprosy_issue_referral_action">Issue</string>
+    <string name="tbleprosy_pending_issuing_of_referral">Pending Issuing of Referral</string>
+    <string name="tbleprosy_issue_referral_toast">Issue referral</string>
     <string name="tbleprosy_contact_family_header">Family members</string>
     <string name="tbleprosy_contact_other_header">Other clients</string>
     <string name="tbleprosy_contact_search_hint">Search by name or ID</string>
@@ -644,6 +664,7 @@
     <string name="tbleprosy_observation_results_tpt_initiation_date">TPT initiation date</string>
     <string name="tbleprosy_observation_results_tb_treatment_start_date">TB treatment start date</string>
     <string name="tbleprosy_observation_results_leprosy_treatment_start_date">Leprosy treatment start date</string>
+    <string name="record_leprosy_treatment_start_date">Record Leprosy Treatment Start Date</string>
     <string name="tbleprosy_observation_results_hiv_tested">Has the client tested for HIV?</string>
     <string name="tbleprosy_observation_results_poor_sample_quality_prompt">Collect a new client sample to repeat the TB test.</string>
     <string name="tbleprosy_observation_results_tb">Tuberculosis (TB)</string>
@@ -712,5 +733,12 @@
     <string name="family_profile_title">%1$s Household</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="return_to_family_name">Return to %1$s Household</string>
+    <string name="household_member_removal_reason_title">Reason for removing a household member?</string>
+    <string name="select_household_member_removal_reason_hint">Select the reason for removing a household member</string>
+    <string name="reason_death">Death</string>
+    <string name="convert_to_independent_client">Convert to Independent Client</string>
+    <string name="set_up_new_household">Set Up New Household</string>
+    <string name="add_existing_family_member">Add existing household member</string>
+
 
 </resources>

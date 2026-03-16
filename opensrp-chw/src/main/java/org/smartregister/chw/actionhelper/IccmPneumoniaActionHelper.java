@@ -68,7 +68,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
             JSONObject jsonObject = new JSONObject(jsonPayload);
             jsonObject.getJSONObject("global").put("weight", memberObject.getWeight());
 
-            int age = getAgeFromDate(memberObject.getAge());
+            int age = memberObject.getAge();
             if (memberObject.getRespiratoryRate() != null && ((age < 1 && memberObject.getRespiratoryRate() >= 50) || (age >= 1 && age < 5 && memberObject.getRespiratoryRate() >= 40))) {
                 JSONArray fields = jsonObject.getJSONObject(Constants.JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject pneumoniaSignsField = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "pneumonia_signs");
@@ -126,10 +126,10 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
 
 
         if (IccmVisitUtils.getActionStatus(checkObject).equalsIgnoreCase(IccmVisitUtils.Complete)) {
-            if (isDiarrheaSuspect.equalsIgnoreCase("true") && getAgeFromDate(memberObject.getAge()) < 5) {
+            if (isDiarrheaSuspect.equalsIgnoreCase("true") && memberObject.getAge() < 5) {
                 try {
                     String title = context.getString(R.string.iccm_diarrhea);
-                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect);
+                    IccmDiarrheaActionHelper diarrheaActionHelper = new IccmDiarrheaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), actionList, details, callBack, isMalariaSuspect, "false", "no");
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(diarrheaActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmDiarrhea()).build();
                     actionList.put(title, action);
                 } catch (Exception e) {
@@ -139,7 +139,7 @@ public class IccmPneumoniaActionHelper implements BaseIccmVisitAction.IccmVisitA
                 actionList.remove(context.getString(R.string.iccm_diarrhea));
                 String malariaActionTitle = context.getString(R.string.iccm_malaria);
                 try {
-                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(memberObject.getIccmEnrollmentFormSubmissionId());
+                    IccmMalariaActionHelper actionHelper = new IccmMalariaActionHelper(context, memberObject.getIccmEnrollmentFormSubmissionId(), details, actionList, callBack, "", "");
                     BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, malariaActionTitle).withOptional(true).withHelper(actionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmMalaria()).build();
                     if (!actionList.containsKey(malariaActionTitle))
                         actionList.put(malariaActionTitle, action);

@@ -130,7 +130,8 @@ public class TbLeprosyObservationResultsActivity extends CoreAncMedicalHistoryAc
                         days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
                     }
 
-                    if (StringUtils.equalsIgnoreCase(visit.getVisitType(), Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION)) {
+                    if (StringUtils.equalsIgnoreCase(visit.getVisitType(), Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION) ||
+                            StringUtils.equalsIgnoreCase(visit.getVisitType(), Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE)) {
                         LinkedHashMap<String, String> details = extractVisitDetails(visits, OBSERVATION_PARAMS, index, context);
                         visitItems.add(new VisitDisplayItem(details, OBSERVATION_PREFIX, R.string.tbleprosy_observation_results_visit_title, visit));
                     } else if (StringUtils.equalsIgnoreCase(visit.getVisitType(), Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT)) {

@@ -28,7 +28,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
-                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                      WHERE client_testing_history = 'no' OR client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+1 months') > date('now'))
                         AND (efm.gender = 'Male')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
@@ -40,7 +40,7 @@ indicators:
     description: "Mahudhurio ya kwanza/wagonjwa wapya (kwenye kituo husika kwa tatizo fulani la kiafya)"
     indicatorQuery: " SELECT count(DISTINCT eie.base_entity_id) as count FROM ec_iccm_enrollment eie
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = eie.entity_id
-                      WHERE client_testing_history = 'yes' AND client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
+                      WHERE client_testing_history = 'no' OR client_testing_history_at_affiliated_health_facility_or_iccm_post = 'no'
                         AND (date(efm.dob, '+1 months') > date('now'))
                         AND (efm.gender = 'Female')
                         AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =

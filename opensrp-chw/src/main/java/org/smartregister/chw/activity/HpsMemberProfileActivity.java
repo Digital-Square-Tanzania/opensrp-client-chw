@@ -11,6 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.ListView;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,8 +33,10 @@ import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.dao.ChwHpsDao;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
@@ -64,6 +71,7 @@ import timber.log.Timber;
 public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private java.util.List<org.smartregister.chw.model.FamilyDetailsModel> headedFamilies = java.util.Collections.emptyList();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, HpsMemberProfileActivity.class);
@@ -79,6 +87,17 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+
+        // Load households headed by this client for HH chip
+        try {
+            headedFamilies = FamilyDao.getFamiliesByHead(memberObject.getBaseEntityId());
+        } catch (Exception e) {
+            Timber.e(e);
+            headedFamilies = java.util.Collections.emptyList();
+        }
+        try {
+            delayInvalidateOptionsMenu();
+        } catch (Exception ignore) { }
 
         if (ChwHpsDao.wereSelfTestingKitsDistributed(memberObject.getBaseEntityId())) {
             if (HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId())) {
@@ -292,6 +311,36 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             menu.findItem(R.id.action_cancer_preventive_services_registration).setVisible(!CecapDao.isRegisteredForCecap(memberObject.getBaseEntityId()) && age >= 14);
         }
         AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
+
+        // Add/Update HH chip action (Households HH (N))
+        try {
+            int hhCount = headedFamilies != null ? headedFamilies.size() : 0;
+
+            MenuItem householdsItem = menu.findItem(org.smartregister.chw.R.id.action_view_households);
+            if (householdsItem == null) {
+                householdsItem = menu.add(Menu.NONE, org.smartregister.chw.R.id.action_view_households, Menu.NONE, "");
+            }
+
+            householdsItem.setVisible(hhCount > 0);
+            householdsItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            householdsItem.setActionView(org.smartregister.chw.R.layout.action_households_action);
+            View av = householdsItem.getActionView();
+            if (av != null) {
+                android.widget.TextView tv = av.findViewById(org.smartregister.chw.R.id.tv_households_label);
+                if (tv != null) {
+                    boolean shortLabel = getResources().getBoolean(org.smartregister.chw.R.bool.use_short_hh_label);
+                    tv.setText(getString(shortLabel ? org.smartregister.chw.R.string.hh_with_count : org.smartregister.chw.R.string.household_with_count, hhCount));
+                }
+                av.setOnClickListener(v -> {
+                    if (hhCount <= 0) return;
+                    if (hhCount == 1) openFamilyProfile(headedFamilies.get(0)); else handleViewHouseholdsClick();
+                });
+                String fullTitle = getString(org.smartregister.chw.R.string.view_households_with_count, hhCount);
+                av.setContentDescription(fullTitle);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         return true;
     }
 
@@ -355,10 +404,125 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         } else if (i == R.id.action_tbleprosy_screening) {
             startTbLeprosyScreening();
             return true;
-        } else if (i == R.id.action_remove_member) {
+        } else if (i == org.smartregister.chw.core.R.id.action_location_info) {
+            JSONObject preFilledForm = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this, UpdateDetailsUtil.getFamilyRegistrationDetails(UpdateDetailsUtil.getFamilyBaseEntityId(org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient(this.memberObject.getBaseEntityId()))), org.smartregister.family.util.Utils.metadata().familyRegister.updateEventType);
+            if (preFilledForm != null) {
+                UpdateDetailsUtil.startUpdateClientDetailsActivity(preFilledForm, this);
+            }
+
+            return true;
+        }
+        else if (i == R.id.action_remove_member) {
             removeIndividualProfile();
+            return true;
+        } else if (i == org.smartregister.chw.R.id.action_view_households) {
+            handleViewHouseholdsClick();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleViewHouseholdsClick() {
+        if (headedFamilies == null || headedFamilies.isEmpty()) return;
+        if (headedFamilies.size() == 1) {
+            openFamilyProfile(headedFamilies.get(0));
+            return;
+        }
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        android.view.View dialogView = inflater.inflate(org.smartregister.chw.R.layout.dialog_households_list, null, false);
+        ListView listView = dialogView.findViewById(org.smartregister.chw.R.id.list_households);
+        HouseholdsAdapter adapter = new HouseholdsAdapter(this, headedFamilies);
+        listView.setAdapter(adapter);
+        android.widget.TextView btnCancel = dialogView.findViewById(org.smartregister.chw.R.id.btn_cancel);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position >= 0 && position < headedFamilies.size()) {
+                openFamilyProfile(headedFamilies.get(position));
+                dialog.dismiss();
+            }
+        });
+        if (btnCancel != null) {
+            btnCancel.setOnClickListener(v -> dialog.dismiss());
+        }
+        dialog.show();
+    }
+
+    private void openFamilyProfile(org.smartregister.chw.model.FamilyDetailsModel family) {
+        try {
+            Intent intent = new Intent(this, FamilyProfileActivity.class);
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, family.getBaseEntityId());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, family.getFamilyHead());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, family.getPrimaryCareGiver());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, family.getFamilyName());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.VILLAGE_TOWN, family.getVillageTown());
+            startActivity(intent);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void delayInvalidateOptionsMenu() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(this::invalidateOptionsMenu, 2000);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static class HouseholdsAdapter extends android.widget.BaseAdapter {
+        private final java.util.List<org.smartregister.chw.model.FamilyDetailsModel> data;
+        private final android.view.LayoutInflater inflater;
+        private final android.content.Context context;
+
+        HouseholdsAdapter(android.content.Context context, java.util.List<org.smartregister.chw.model.FamilyDetailsModel> data) {
+            this.context = context;
+            this.inflater = android.view.LayoutInflater.from(context);
+            this.data = data != null ? data : java.util.Collections.emptyList();
+        }
+
+        @Override
+        public int getCount() { return data.size(); }
+
+        @Override
+        public Object getItem(int position) { return data.get(position); }
+
+        @Override
+        public long getItemId(int position) { return position; }
+
+        @Override
+        public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(org.smartregister.chw.R.layout.item_household_row, parent, false);
+                holder = new ViewHolder();
+                holder.title = convertView.findViewById(org.smartregister.chw.R.id.tv_title);
+                holder.subtitle = convertView.findViewById(org.smartregister.chw.R.id.tv_subtitle);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            org.smartregister.chw.model.FamilyDetailsModel item = data.get(position);
+            String name = item != null ? item.getFamilyName() : "";
+            String village = item != null ? item.getVillageTown() : "";
+
+            holder.title.setText(!android.text.TextUtils.isEmpty(name) ? name : context.getString(org.smartregister.chw.R.string.family_profile_title, ""));
+            holder.subtitle.setText(village);
+            convertView.setContentDescription(name + ", " + village);
+            return convertView;
+        }
+
+        static class ViewHolder {
+            android.widget.TextView title;
+            android.widget.TextView subtitle;
+        }
     }
 
 

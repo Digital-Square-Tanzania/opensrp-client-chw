@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="12dp">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_households_dark_24"
+        android:tint="@color/chw_primary"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/medical_bar"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="Family Name" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:textSize="13sp"
+            android:text="Village" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+        android:tint="@color/medical_bar"
+        android:contentDescription="@null" />
+
+</LinearLayout>

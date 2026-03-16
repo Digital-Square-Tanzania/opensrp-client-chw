@@ -56,7 +56,7 @@ public class TbLeprosySpecialAreasReportObject extends ReportObject {
                 "ibada",
                 "shule",
                 "sokoni",
-                "wavuvu",
+                "wavuvi",
                 "maskani",
                 "kwingineko");
         return Collections.unmodifiableList(locations);

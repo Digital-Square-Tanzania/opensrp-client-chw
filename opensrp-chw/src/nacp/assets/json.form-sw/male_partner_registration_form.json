@@ -871,6 +871,12 @@
             "openmrs_entity_id": "chk_farmer"
           },
           {
+            "key": "chk_bodaboda",
+            "text": "Bodaboda",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
+          },
+          {
             "key": "chk_other",
             "text": "Nyinginezo",
             "openmrs_entity": "concept",

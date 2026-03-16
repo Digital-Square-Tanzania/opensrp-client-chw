@@ -11,6 +11,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.util.IccmVisitStateTracker;
 import org.smartregister.chw.interactor.IccmServicesActivityInteractor;
 import org.smartregister.chw.malaria.activity.BaseIccmVisitActivity;
 import org.smartregister.chw.malaria.domain.IccmMemberObject;
@@ -78,10 +79,21 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
         }
 
         if (map.containsKey(getString(R.string.iccm_malaria))) {
+            actionList.remove(getString(R.string.iccm_malaria));
             actionList.put(getString(R.string.iccm_malaria), map.get(getString(R.string.iccm_malaria)));
         }
 
+        if (map.containsKey(getString(R.string.iccm_referral))) {
+            actionList.remove(getString(R.string.iccm_referral));
+            actionList.put(getString(R.string.iccm_referral), map.get(getString(R.string.iccm_referral)));
+        }
+
         //====================End of Necessary evil ====================================
+
+        IccmVisitStateTracker iccmVisitStateTracker=IccmVisitStateTracker.getInstance();
+        if(!iccmVisitStateTracker.getIsIccmReferralModouleActive()){
+            map.remove(getString(R.string.iccm_referral));
+        }
 
 
         for (Map.Entry<String, BaseIccmVisitAction> entry : map.entrySet()) {
@@ -103,7 +115,7 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
 
     @Override
     public void redrawHeader(IccmMemberObject memberObject) {
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = String.valueOf(memberObject.getAge());
         tvTitle.setText(MessageFormat.format("{0}, {1} \u00B7 {2}", memberObject.getFullName(), clientAge, getString(org.smartregister.malaria.R.string.iccm_visit)));
     }
 }

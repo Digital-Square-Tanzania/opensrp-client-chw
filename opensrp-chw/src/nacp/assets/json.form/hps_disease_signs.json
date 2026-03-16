@@ -255,7 +255,7 @@
           },
           {
             "key": "arm_limp_swelling_breast_enlargement",
-            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "text": "Arm & Limp Swelling/ Breast enlargement",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"
@@ -572,7 +572,7 @@
           },
           {
             "key": "arm_limp_swelling_breast_enlargement",
-            "text": "Arm &Limp Swelling/ Breast enlargement",
+            "text": "Arm & Limp Swelling/ Breast enlargement",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "arm_limp_swelling_breast_enlargement"

@@ -60,6 +60,113 @@
         "toaster_type": "info"
       },
       {
+        "key": "able_conduct_mrdt_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "able_conduct_mrdt_test",
+        "label": "Je, unaweza kufanya kipimo cha haraka cha malaria (mRDT) ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu swali"
+        }
+      },
+      {
+        "key": "prompt_for_providing_referral_to_health_facility",
+        "type": "toaster_notes",
+        "text": "Mpe mteja rufaa kwenda kituo cha kutolea huduma za afya.",
+        "openmrs_entity_id": "prompt_for_providing_referral_to_health_facility",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_not_conducting_mrdt_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_not_conducting_mrdt_test",
+        "label": "Sababu ya kutofanya kipimo cha haraka cha malaria (mRDT) ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Hakuna mRDT",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stock_out"
+          },
+          {
+            "key": "deterioration_client_condition",
+            "text": "Hali ya mteja imekuwa mbaya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deterioration_client_condition"
+          },
+          {
+            "key": "others",
+            "text": "Sababu nyingine (Taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu swali"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_conducting_mrdt_test",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine",
+        "openmrs_entity_id": "other_reasons_for_not_conducting_mrdt_test",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Jibu swali"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "interpretation_for_mrdt",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -101,6 +208,13 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua jibu sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "iccm_malaria_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -348,6 +462,10 @@
         "openmrs_entity_id": "other_reasons_for_not_dispensing_alu",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

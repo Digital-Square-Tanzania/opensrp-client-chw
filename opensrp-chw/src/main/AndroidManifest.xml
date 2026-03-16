@@ -55,6 +55,9 @@
             android:name=".activity.TbLeprosyObservationResultsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.TbLeprosyMobilizationDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.KvpPrEPProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -204,6 +207,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.InAppReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ClientSelectionRegisterActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -714,6 +721,9 @@
             android:foregroundServiceType="dataSync"/>
 
         <service android:name=".anc.intent.HomeVisitIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".intent.ChwHomeVisitIntentService"
             android:foregroundServiceType="dataSync"/>
 
         <service android:name=".sync.intent.ChwSyncTaskIntentService"

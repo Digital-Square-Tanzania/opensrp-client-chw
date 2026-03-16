@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Family Member",
+    "title": "Add Household Member",
     "fields": [
       {
         "key": "unique_id",
@@ -825,6 +825,12 @@
             "text": "Farmer",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_bodaboda",
+            "text": "Motorcycle driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
           },
           {
             "key": "chk_other",

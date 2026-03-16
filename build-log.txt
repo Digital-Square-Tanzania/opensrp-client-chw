@@ -1,0 +1,251 @@
+
+> Configure project :opensrp-chw
+WARNING:The option setting 'android.useNewApkCreator=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 8.0 of the Android Gradle plugin.
+WARNING:DSL element 'dexOptions' is obsolete and should be removed.
+It will be removed in version 8.0 of the Android Gradle plugin.
+Using it has no effect, and the AndroidGradle plugin optimizes dexing automatically.
+Mapbox key config variables is not set in your local.properties
+WARNING:DSL element 'dexOptions' is obsolete and should be removed.
+It will be removed in version 8.0 of the Android Gradle plugin.
+Using it has no effect, and the AndroidGradle plugin optimizes dexing automatically.
+WARNING:Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Task :opensrp-chw:preBuild UP-TO-DATE
+> Task :opensrp-chw:preNacpDebugBuild UP-TO-DATE
+> Task :opensrp-chw:compileNacpDebugRenderscript NO-SOURCE
+> Task :opensrp-chw:generateNacpDebugResValues UP-TO-DATE
+> Task :opensrp-chw:extractDeepLinksNacpDebug UP-TO-DATE
+
+> Task :opensrp-chw:processNacpDebugMainManifest FAILED
+package="org.smartregister.chw" found in source AndroidManifest.xml: /work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+[androidx.vectordrawable:vectordrawable-animated:1.0.0] /work/android-projects/ucs-projects/opensrp-client-chw/.gradle-home/caches/transforms-3/f726e3df8f4121ce217534c82f668c98/transformed/vectordrawable-animated-1.0.0/AndroidManifest.xml Warning:
+	Namespace 'androidx.vectordrawable' used in: androidx.vectordrawable:vectordrawable-animated:1.0.0, androidx.vectordrawable:vectordrawable:1.0.1.
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:609:9-610:55 Warning:
+	Element service#org.smartregister.immunization.service.intent.VaccineIntentService at AndroidManifest.xml:609:9-610:55 duplicated with element declared at AndroidManifest.xml:550:9-551:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:612:9-613:55 Warning:
+	Element service#org.smartregister.immunization.service.intent.RecurringIntentService at AndroidManifest.xml:612:9-613:55 duplicated with element declared at AndroidManifest.xml:553:9-554:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:615:9-616:55 Warning:
+	Element service#org.smartregister.sync.intent.PullUniqueIdsIntentService at AndroidManifest.xml:615:9-616:55 duplicated with element declared at AndroidManifest.xml:556:9-557:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:618:9-619:55 Warning:
+	Element service#org.smartregister.sync.intent.ExtendedSyncIntentService at AndroidManifest.xml:618:9-619:55 duplicated with element declared at AndroidManifest.xml:559:9-560:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:621:9-622:55 Warning:
+	Element service#org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService at AndroidManifest.xml:621:9-622:55 duplicated with element declared at AndroidManifest.xml:562:9-563:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:624:9-625:55 Warning:
+	Element service#org.smartregister.sync.intent.DocumentConfigurationIntentService at AndroidManifest.xml:624:9-625:55 duplicated with element declared at AndroidManifest.xml:565:9-566:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:627:9-628:55 Warning:
+	Element service#org.smartregister.sync.intent.ValidateIntentService at AndroidManifest.xml:627:9-628:55 duplicated with element declared at AndroidManifest.xml:568:9-569:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:630:9-631:55 Warning:
+	Element service#org.smartregister.service.ImageUploadSyncService at AndroidManifest.xml:630:9-631:55 duplicated with element declared at AndroidManifest.xml:571:9-572:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:633:9-634:55 Warning:
+	Element service#org.smartregister.chw.anc.intent.HomeVisitIntentService at AndroidManifest.xml:633:9-634:55 duplicated with element declared at AndroidManifest.xml:574:9-575:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:636:9-637:55 Warning:
+	Element service#org.smartregister.chw.sync.intent.ChwSyncTaskIntentService at AndroidManifest.xml:636:9-637:55 duplicated with element declared at AndroidManifest.xml:577:9-578:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:639:9-640:55 Warning:
+	Element service#org.smartregister.sync.intent.PlanIntentService at AndroidManifest.xml:639:9-640:55 duplicated with element declared at AndroidManifest.xml:580:9-581:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:642:9-643:55 Warning:
+	Element service#org.smartregister.chw.intent.ChwPncCloseDateIntent at AndroidManifest.xml:642:9-643:55 duplicated with element declared at AndroidManifest.xml:583:9-584:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:645:9-646:55 Warning:
+	Element service#org.smartregister.reporting.service.IndicatorGeneratorIntentService at AndroidManifest.xml:645:9-646:55 duplicated with element declared at AndroidManifest.xml:586:9-587:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:648:9-649:55 Warning:
+	Element service#org.smartregister.chw.service.SchedulesIntentService at AndroidManifest.xml:648:9-649:55 duplicated with element declared at AndroidManifest.xml:589:9-590:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:651:9-652:55 Warning:
+	Element service#org.smartregister.chw.sync.ChwSyncIntentService at AndroidManifest.xml:651:9-652:55 duplicated with element declared at AndroidManifest.xml:592:9-593:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:654:9-655:55 Warning:
+	Element service#org.smartregister.chw.core.service.StockUsageReportService at AndroidManifest.xml:654:9-655:55 duplicated with element declared at AndroidManifest.xml:595:9-596:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:657:9-658:55 Warning:
+	Element service#org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService at AndroidManifest.xml:657:9-658:55 duplicated with element declared at AndroidManifest.xml:598:9-599:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:660:9-661:55 Warning:
+	Element service#org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService at AndroidManifest.xml:660:9-661:55 duplicated with element declared at AndroidManifest.xml:601:9-602:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml:663:9-664:55 Warning:
+	Element service#org.smartregister.chw.sync.intent.PncCloseDateIntentService at AndroidManifest.xml:663:9-664:55 duplicated with element declared at AndroidManifest.xml:604:9-605:55
+/work/android-projects/ucs-projects/opensrp-client-chw/opensrp-chw/src/main/AndroidManifest.xml Error:
+	uses-sdk:minSdkVersion 21 cannot be smaller than version 22 declared in library [org.smartregister:opensrp-chw-kvp:1.0.11-SNAPSHOT] /work/android-projects/ucs-projects/opensrp-client-chw/.gradle-home/caches/transforms-3/690d115e62d48a3066d6a75d8793a319/transformed/jetified-opensrp-chw-kvp-1.0.11-SNAPSHOT/AndroidManifest.xml as the library might be using APIs not available in 21
+	Suggestion: use a compatible library with a minSdk of at most 21,
+		or increase this project's minSdk version to at least 22,
+		or use tools:overrideLibrary="org.smartregister.chw.kvp" to force usage (may lead to runtime failures)
+
+See https://developer.android.com/r/studio-ui/build/manifest-merger for more information about the manifest merger.
+
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':opensrp-chw:processNacpDebugMainManifest'.
+> Manifest merger failed with multiple errors, see logs
+
+* Try:
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':opensrp-chw:processNacpDebugMainManifest'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:142)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:282)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:140)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:128)
+	at org.gradle.api.internal.tasks.execution.CleanupStaleOutputsExecuter.execute(CleanupStaleOutputsExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:56)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:69)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:327)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:307)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:293)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:417)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:339)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+Caused by: java.lang.RuntimeException: Manifest merger failed with multiple errors, see logs
+	at com.android.build.gradle.internal.tasks.manifest.ManifestHelperKt.mergeManifests(ManifestHelper.kt:100)
+	at com.android.build.gradle.tasks.ProcessApplicationManifest.doTaskAction(ProcessApplicationManifest.kt:168)
+	at com.android.build.gradle.internal.tasks.NonIncrementalTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:66)
+	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+	at com.android.build.gradle.internal.tasks.NonIncrementalTask.taskAction(NonIncrementalTask.kt:97)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:236)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:68)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:221)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:204)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:187)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:165)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:89)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:40)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:53)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:50)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:50)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:40)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:41)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:74)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:51)
+	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:29)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.executeDelegateBroadcastingChanges(CaptureStateAfterExecutionStep.java:124)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:80)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:58)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:48)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:36)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:181)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:71)
+	at org.gradle.internal.Either$Right.fold(Either.java:175)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:59)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:69)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:47)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:25)
+	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:36)
+	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:22)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:110)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:56)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:56)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:38)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:73)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:44)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+	at org.gradle.internal.execution.steps.ResolveCachingStateStep.execute(ResolveCachingStateStep.java:89)
+	at org.gradle.internal.execution.steps.ResolveCachingStateStep.execute(ResolveCachingStateStep.java:50)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:114)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:57)
+	at org.gradle.internal.execution.steps.CaptureStateBeforeExecutionStep.execute(CaptureStateBeforeExecutionStep.java:76)
+	at org.gradle.internal.execution.steps.CaptureStateBeforeExecutionStep.execute(CaptureStateBeforeExecutionStep.java:50)
+	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.executeWithNoEmptySources(SkipEmptyWorkStep.java:254)
+	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.execute(SkipEmptyWorkStep.java:91)
+	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.execute(SkipEmptyWorkStep.java:56)
+	at org.gradle.internal.execution.steps.RemoveUntrackedExecutionStateStep.execute(RemoveUntrackedExecutionStateStep.java:32)
+	at org.gradle.internal.execution.steps.RemoveUntrackedExecutionStateStep.execute(RemoveUntrackedExecutionStateStep.java:21)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:43)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:31)
+	at org.gradle.internal.execution.steps.AssignWorkspaceStep.lambda$execute$0(AssignWorkspaceStep.java:40)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:281)
+	at org.gradle.internal.execution.steps.AssignWorkspaceStep.execute(AssignWorkspaceStep.java:40)
+	at org.gradle.internal.execution.steps.AssignWorkspaceStep.execute(AssignWorkspaceStep.java:30)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:37)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:27)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:33)
+	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:76)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:139)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:128)
+	at org.gradle.api.internal.tasks.execution.CleanupStaleOutputsExecuter.execute(CleanupStaleOutputsExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:56)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:69)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:327)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:307)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:293)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:417)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:339)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+
+
+* Get more help at https://help.gradle.org
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/7.5/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD FAILED in 2s
+3 actionable tasks: 1 executed, 2 up-to-date

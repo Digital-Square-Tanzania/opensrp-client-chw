@@ -56,6 +56,14 @@
     "next": "step2",
     "fields": [
       {
+        "key": "family_head",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": ""
+      },
+      {
         "key": "fam_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -120,6 +128,14 @@
           "value": "true",
           "err": "Please enter a valid ID"
         }
+      },
+      {
+        "key": "family_unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_unique_id",
+        "type": "hidden",
+        "value": ""
       },
       {
         "key": "fam_village",
@@ -230,6 +246,22 @@
   "step2": {
     "title": "Head of household",
     "fields": [
+      {
+        "key": "existing_head",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "existing_head",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "original_relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "original_relational_id",
+        "type": "hidden",
+        "value": ""
+      },
       {
         "key": "unique_id",
         "openmrs_entity_parent": "",
@@ -947,6 +979,12 @@
             "openmrs_entity_id": "chk_farmer"
           },
           {
+            "key": "chk_bodaboda",
+            "text": "Motorcycle driver",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bodaboda"
+          },
+          {
             "key": "chk_other",
             "text": "Other",
             "openmrs_entity": "concept",
@@ -1073,3 +1111,4 @@
     ]
   }
 }
+

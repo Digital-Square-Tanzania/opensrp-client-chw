@@ -2535,9 +2535,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col1_ke_wavuvu"
+  - key: "tbleprosy_area_col1_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya watu waliochunguzwa TB au ukoma - Kambi za Wavuvu (KE)"
+    description: "Idadi ya watu waliochunguzwa TB au ukoma - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       WHERE efm.gender='Female'
@@ -2546,9 +2546,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col1_me_wavuvu"
+  - key: "tbleprosy_area_col1_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya watu waliochunguzwa TB au ukoma - Kambi za Wavuvu (ME)"
+    description: "Idadi ya watu waliochunguzwa TB au ukoma - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       WHERE efm.gender='Male'
@@ -2557,9 +2557,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col2_ke_wavuvu"
+  - key: "tbleprosy_area_col2_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kambi za Wavuvu (KE)"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       WHERE efm.gender='Female'
@@ -2569,9 +2569,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col2_me_wavuvu"
+  - key: "tbleprosy_area_col2_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kambi za Wavuvu (ME)"
+    description: "Idadi ya wahisiwa wa kifua kikuu au ukoma - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       WHERE efm.gender='Male'
@@ -2581,9 +2581,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col3_ke_wavuvu"
+  - key: "tbleprosy_area_col3_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB (Sampuli + Mteja) au ukoma - Kambi za Wavuvu (KE)"
+    description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB (Sampuli + Mteja) au ukoma - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       INNER JOIN task t ON efm.base_entity_id = t.for
@@ -2595,9 +2595,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col3_me_wavuvu"
+  - key: "tbleprosy_area_col3_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB (Sampuli + Mteja) au ukoma - Kambi za Wavuvu (ME)"
+    description: "Idadi ya wahisiwa walipewa rufaa ya upimaji wa TB (Sampuli + Mteja) au ukoma - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT ets.base_entity_id) as count FROM ec_tbleprosy_screening ets 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = ets.base_entity_id
                       INNER JOIN task t ON efm.base_entity_id = t.for
@@ -2609,9 +2609,9 @@ indicators:
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(ets.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col4_ke_wavuvu"
+  - key: "tbleprosy_area_col4_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kambi za Wavuvu (KE)"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2621,9 +2621,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col4_me_wavuvu"
+  - key: "tbleprosy_area_col4_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kambi za Wavuvu (ME)"
+    description: "Idadi ya sampuli au wateja waliopimwa TB au ukoma - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2633,9 +2633,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col5_ke_wavuvu"
+  - key: "tbleprosy_area_col5_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kambi za Wavuvu (KE)"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2646,9 +2646,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col5_me_wavuvu"
+  - key: "tbleprosy_area_col5_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kambi za Wavuvu (ME)"
+    description: "Idadi ya wagonjwa waliogundulika kuwa na TB au ukoma - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2659,9 +2659,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col6_ke_wavuvu"
+  - key: "tbleprosy_area_col6_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu - Kambi za Wavuvu (KE)"
+    description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2672,9 +2672,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col6_me_wavuvu"
+  - key: "tbleprosy_area_col6_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu - Kambi za Wavuvu (ME)"
+    description: "Idadi ya wagonjwa wa TB au ukoma walioanza matibabu - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2685,9 +2685,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col7_ke_wavuvu"
+  - key: "tbleprosy_area_col7_ke_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU - Kambi za Wavuvu (KE)"
+    description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU - Kambi za wavuvi (KE)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id
@@ -2698,9 +2698,9 @@ indicators:
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
                       datetime(etor.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
-  - key: "tbleprosy_area_col7_me_wavuvu"
+  - key: "tbleprosy_area_col7_me_wavuvi"
     grouping: "TBLeprosy Special Areas"
-    description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU - Kambi za Wavuvu (ME)"
+    description: "Idadi ya wagonjwa wanaojua hali yao ya maambukizi ya VVU - Kambi za wavuvi (ME)"
     indicatorQuery: " SELECT count(DISTINCT etor.base_entity_id) as count FROM ec_tbleprosy_observation_results etor 
                       INNER JOIN ec_family_member efm ON efm.base_entity_id = etor.base_entity_id
                       INNER JOIN ec_tbleprosy_screening ets ON ets.base_entity_id = etor.base_entity_id

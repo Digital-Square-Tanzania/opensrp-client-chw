@@ -18,12 +18,18 @@ public class FamilyProfileMemberPresenter extends CoreFamilyProfileMemberPresent
     }
 
     public String getMainCondition() {
-        return String.format(" %s.%s = '%s' and (%s.%s is null or %s.%s is not null ) and (%s.%s is null or %s.%s is not null ) ",
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID, this.familyBaseEntityId,
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED,
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DOD,
-                CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED,
-                CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DOD
+        // Include: members linked to this family via relational_id OR the household head referenced by ec_family.family_head
+        return String.format(
+                " ( %1$s.%2$s = '%3$s' OR %1$s.%4$s = (SELECT family_head FROM ec_family WHERE base_entity_id = '%3$s') ) " +
+                        " and ( %1$s.%5$s is null or %1$s.%6$s is not null ) " +
+                        " and ( %7$s.%5$s is null or %7$s.%6$s is not null ) ",
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER,              // %1$s
+                DBConstants.KEY.RELATIONAL_ID,                       // %2$s
+                this.familyBaseEntityId,                              // %3$s
+                DBConstants.KEY.BASE_ENTITY_ID,                      // %4$s
+                DBConstants.KEY.DATE_REMOVED,                        // %5$s
+                DBConstants.KEY.DOD,                                 // %6$s
+                CoreConstants.TABLE_NAME.CHILD                        // %7$s
         );
     }
 
