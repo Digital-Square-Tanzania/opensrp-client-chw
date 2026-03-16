@@ -185,7 +185,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
         if(!ReferralDao.getPrescriptionProvided(task.getIdentifier()).isEmpty()){
             referralPrescriptionLayout.setVisibility(View.VISIBLE);
-            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getForEntity());
+            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getIdentifier());
             refPrescribeOffered = refPrescribeOffered.replace("[", "").replace("]", ""); // Removes the brackets
             refPrescribeOffered = refPrescribeOffered.replace(", ", "\n");
             referralPrescription.setText(refPrescribeOffered);
