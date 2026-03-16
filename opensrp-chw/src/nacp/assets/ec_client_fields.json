@@ -2152,6 +2152,14 @@
             "field": "obs.formSubmissionField",
             "concept": "prescriptions"
           }
+        },
+        {
+          "column_name": "outcomes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "outcomes"
+          }
         }
       ]
     },
