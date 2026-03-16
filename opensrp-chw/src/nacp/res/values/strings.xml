@@ -102,6 +102,12 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Care of HIV-exposed infant</string>
     <string name="referral_problem_Immunisation">Immunisation</string>
     <string name="referral_problem_other_reasons">Other reasons</string>
+    <string name="referral_problem_tb_screening">TB screening</string>
+    <string name="referral_problem_leprosy_screening">Leprosy screening</string>
+    <string name="referral_problem_tpt_referral">TPT referral</string>
+    <string name="referral_problem_challenges_faced_by_leprosy_clients">Challenges faced by leprosy clients</string>
+    <string name="referral_problem_challenges_faced_by_tb_clients">Challenges faced by TB clients</string>
+    <string name="referral_problem_Other_reasons">Other reasons</string>
     <string name="referral_problem_prep">PrEP</string>
     <string name="referral_problem_pep">PEP</string>
     <string name="referral_problem_pwid_and_pwud">PWID &amp; PWUD</string>
@@ -551,7 +557,7 @@
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>
-    <string name="back_to_all_mobilization_sessions">Back to All Mobilization Sessions</string>
+    <string name="back_to_all_mobilization_sessions">Back to All Gathering Sessions</string>
     <string name="mobilization_sessions">Mobilization Session</string>
     <string name="mobilization_session_details">Mobilization Session Details</string>
 
@@ -561,7 +567,7 @@
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">SBC Mobilization Session Details</string>
     <string name="sbc_mobilization_session">SBC Mobilization Session</string>
-    <string name="sbc_back_to_all_mobilization_sessions">Back to All mobilization sessions</string>
+    <string name="sbc_back_to_all_mobilization_sessions">Back to All Gathering sessions</string>
     <string name="sbc_visit">SBC Visits</string>
     <string name="sbc_followup_visit">SBC Follow-up Visit</string>
     <string name="sbc_activity_type">Type of SBC activity provided:</string>
@@ -838,7 +844,7 @@
     <string name="hps_partner">Partner</string>
     <string name="hps_other_criteria_specify">Specify Other Criterion</string>
 
-    <string name="hps_provision_of_preventive_services">Is type of education provided?</string>
+    <string name="hps_provision_of_health_education">Is type of education provided?</string>
     <string name="hps_yes">Yes</string>
     <string name="hps_no">No</string>
     <string name="hps_type_of_education_provided">Type of Education provided</string>
@@ -1106,6 +1112,7 @@
 
 
     <string name="hps_date_of_gathering">Date of gathering</string>
+    <string name="hps_gathering">Gathering</string>
     <string name="hps_method_of_education_and_awareness_used">Select the method of education and awareness used</string>
     <string name="hps_loud_speakers">Loudspeakers</string>
     <string name="hps_drumming_public_announcements">Drumming (public announcements)</string>
@@ -1121,7 +1128,7 @@
     <string name="hps_national_television">National television</string>
     <string name="hps_community_television">Community Television</string>
     <string name="hps_other_method_of_education_and_awareness_used">Specify other method of education and awareness</string>
-    <string name="hps_area_where_mobilization_took_place">Area where the mobilization took place</string>
+    <string name="hps_area_where_mobilization_took_place">Area where the gathering took place</string>
     <string name="hps_at_the_market_or_stalls">At the market/stalls</string>
     <string name="hps_places_of_worship">Places of worship</string>
     <string name="hps_passenger_areas_bus_stops_airport_sea_port">Passenger areas (bus stops, airport, seaport)</string>
@@ -1131,8 +1138,24 @@
     <string name="hps_institutions">Institutions</string>
     <string name="hps_meetings">Meetings</string>
     <string name="hps_specify_other_area_where_mobilization_took_place">Others (Specify)</string>
-    <string name="hps_number_of_females_who_attended">Number of females who attended</string>
+    <string name="hps_date_of_advertisement_feedback">Date of gathering</string>
+    <string name="hps_area_where_advertisement_feedback_took_place">Area where the advertisement feedback took place</string>
+    <string name="hps_owns_radio_station">Owns a radio</string>
+    <string name="hps_number_of_radio_owners">How many own radios</string>
+    <string name="hps_mobile_phone_radio_listeners">Do you listen to the radio via a phone</string>
+    <string name="hps_number_of_who_listens_radio_via_phone">How many listen via phone radio</string>
+    <string name="hps_radio_channel_listened">They listen to which radio channel</string>
+    <string name="hps_selected_health_education_topics">Health education topics you heard on the radio</string>
+    <string name="hps_health_education_heard">Health education message/story you heard</string>
+    <string name="hps_number_watches_television">How many watch television</string>
+    <string name="hps_channel_watched">Which channel do you watch</string>
+    <string name="hps_heard_program_advetised">Any advertisements related to the project</string>
+    <string name="hps_stories_heard">story you saw in those advertisements</string>
+    <string name="hps_instructions_followed">Instructions/message provided in the advertisement</string>
+    <string name="hps_who_and_why_they_follow_instruction">Who are them and why</string>
+    <string name="hps_people_behaviour_change">Who and why they change behaviour</string>
     <string name="hps_number_of_males_who_attended">Number of males who attended</string>
+    <string name="hps_number_of_females_who_attended">Number of females who attended</string>
     <string name="hps_was_education_provided">Was education provided?</string>
     <string name="hps_education_on_the_m_mama_system_and_power_use_of_the_toll_free_number_115">Education on the M-Mama system and proper use of the toll-free number 115</string>
     <string name="hps_information_education_and_communication_materials">Select Information, Education, and Communication Materials</string>
@@ -1405,6 +1428,12 @@
     <string name="hps_amount_of_pesticide_used_drums">Amount of pesticide used (drums)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Amount of pesticide used (barrels)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Amount of pesticide used (coconut shells)</string>
+
+    <string name="hps_no_of_men_with_capacity_to_engage_in_economic_activities">Number of men with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_women_with_capacity_to_engage_in_economic_activities">Number of women with the capacity to engage in economic activities / produce wealth</string>
+    <string name="hps_no_of_men_engaged_in_economic_activities">Number of men engaged in economic activities / producing wealth</string>
+    <string name="hps_no_of_women_engaged_in_economic_activities">Number of women engaged in economic activities / producing wealth</string>
+
     <string name="hps_none">None</string>
 
     <string name="hps_preventive_services_below_5_years">Select the preventive services provided</string>
@@ -1416,7 +1445,24 @@
     <string name="manual_process_visit">Process Visit</string>
     <string name="hps_view_visit_history">View visit history</string>
     <string name="confirm_remove_text">Verify the death information of %s. Completing this step will remove all information about this client from your phone. Once saved, you cannot undo this action.</string>
-
+    <string name="family_profile_title">%1$s Household</string>
+    <string name="family_profile_title_with_firstname">%1$s %2$s Household</string>
     <string name="remove">SAVE</string>
+    <string name="family_head">Head of Household</string>
+    <string name="return_to_all_families">Return to all households</string>
+    <string name="return_to_family_profile">Return to household profile</string>
+    <string name="menu_all_families">All Households</string>
+    <string name="add_family">Add Household</string>
+    <string name="add_new_family_member">Add new household member</string>
+    <string name="add_fam">Add Household</string>
+    <string name="add_member_title">Add household member</string>
+    <string name="add_member_title_question">What kind of household member do you want to add?</string>
+    <string name="add_other_family_member">Other household member</string>
+    <string name="hps_mobilization_session_details">iCCHW Gatherings Session Details</string>
+    <string name="hps_advertisement_session_details">iCCHW Advertisement Details</string>
+    <string name="hps_mobilization_sessions">Gatherings Sessions</string>
+    <string name="hps_mobilization_sessions_menu">Gatherings</string>
+    <string name="hps_mobilization_sessions_title">iCCHW Gatherings Sessions</string>
+    <string name="hps_advertisement_sessions_title">iCCHW Advertisement</string>
 
 </resources>

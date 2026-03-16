@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -153,7 +154,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
                     JSONObject step = steps.getJSONObject(0);
                     JSONArray referralFormFields = step.getJSONArray("fields");
 
-                    int age = getAgeFromDate(memberObject.getAge());
+                    int age = memberObject.getAge();
                     boolean removePneumoniaAndDiarrheSigns = age > 5;
                     boolean removeRectalArtesunate = age > 6;
 
@@ -418,7 +419,7 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         findViewById(R.id.family_malaria_head).setVisibility(View.GONE);
         findViewById(R.id.primary_malaria_caregiver).setVisibility(View.GONE);
 
-        String clientAge = (org.smartregister.chw.core.utils.Utils.getTranslatedDate(org.smartregister.chw.core.utils.Utils.getDuration(memberObject.getAge()), getBaseContext()));
+        String clientAge = String.valueOf(memberObject.getAge());
         textViewName.setText(String.format("%s %s %s, %s", memberObject.getFirstName(),
                 memberObject.getMiddleName(), memberObject.getLastName(), clientAge));
     }
@@ -468,7 +469,10 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         TextView processVisitBtn = findViewById(R.id.textview_process_visit);
         processVisitBtn.setOnClickListener(v -> {
             try {
-                IccmVisitUtils.manualProcessVisit(visit);
+                boolean referralSent = IccmVisitUtils.manualProcessVisit(visit);
+                if (referralSent) {
+                    Toast.makeText(this, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                }
                 if (!memberObject.getBaseEntityId().isEmpty()) {
                     memberObject = IccmDao.getMember(baseEntityId);
                 }

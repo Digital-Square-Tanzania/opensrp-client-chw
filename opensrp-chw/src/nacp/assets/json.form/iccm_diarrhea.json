@@ -323,6 +323,10 @@
           "value": "3",
           "err": "Tablets sachets should not exceed 3"
         },
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -347,6 +351,10 @@
           "value": "10",
           "err": "Tablets dispensed should not exceed 10"
         },
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -370,6 +378,10 @@
         "v_max": {
           "value": "8",
           "err": "Co-packs dispensed should not exceed 8"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
         },
         "relevance": {
           "rules-engine": {
@@ -422,6 +434,10 @@
         "openmrs_entity_id": "other_reasons_for_not_dispensing_diarrhea_medication",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
         "relevance": {
           "step1:reasons_for_not_dispensing_diarrhea_medication": {
             "type": "string",

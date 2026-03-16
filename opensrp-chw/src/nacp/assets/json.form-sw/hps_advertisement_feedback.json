@@ -810,7 +810,6 @@
         "openmrs_entity_id": "stories_heard",
         "type": "edit_text",
         "hint": "Elezea ujumbe au hadithi mlizoona katika matangazo hayo",
-        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza taarifa sahihi"
@@ -855,7 +854,6 @@
         "openmrs_entity_id": "who_and_why_they_follow_instruction",
         "type": "edit_text",
         "hint": "Wakina nani na kwa nini",
-        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza taarifa sahihi"

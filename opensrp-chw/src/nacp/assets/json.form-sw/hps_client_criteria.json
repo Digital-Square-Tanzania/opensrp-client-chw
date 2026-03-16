@@ -439,12 +439,6 @@
             "openmrs_entity_id":"person_disability"
           },
           {
-            "key":"child_born_positive_mother",
-            "text":"Mtoto aliyezaliwa na mama mwenye VVU",
-            "openmrs_entity":"concept",
-            "openmrs_entity_id":"child_born_positive_mother"
-          },
-          {
             "key":"other",
             "text":"Kigezo kingine",
             "openmrs_entity":"concept",
@@ -550,6 +544,12 @@
             "text":"Mlemavu",
             "openmrs_entity":"concept",
             "openmrs_entity_id":"person_disability"
+          },
+          {
+            "key":"child_born_positive_mother",
+            "text":"Mtoto aliyezaliwa na mama mwenye VVU",
+            "openmrs_entity":"concept",
+            "openmrs_entity_id":"child_born_positive_mother"
           },
           {
             "key":"other",

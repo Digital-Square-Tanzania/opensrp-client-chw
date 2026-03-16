@@ -45,10 +45,10 @@
     "title": "Elimu iliyotolewa",
     "fields": [
       {
-        "key": "provision_of_preventive_services",
+        "key": "provision_of_health_education",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "provision_of_preventive_services",
+        "openmrs_entity_id": "provision_of_health_education",
         "label": "Je elimu imetolewa?",
         "text_color": "#000000",
         "type": "native_radio",
@@ -526,7 +526,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -545,7 +545,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -561,7 +561,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -908,7 +908,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -927,7 +927,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -963,7 +963,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -979,7 +979,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1326,7 +1326,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1345,7 +1345,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1381,7 +1381,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1397,7 +1397,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1744,7 +1744,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1763,7 +1763,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }
@@ -1799,7 +1799,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hps_preventive_services_relevance.yml"
+              "rules-file": "hps_education_behavioral_change.yml"
             }
           }
         }

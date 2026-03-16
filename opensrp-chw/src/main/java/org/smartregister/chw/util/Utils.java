@@ -18,6 +18,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -44,6 +45,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static final String dd_MMM_yyyy = "dd MMM yyyy";
@@ -65,8 +68,6 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
                     Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_leprosy_referral),
-                    Constants.JSON_FORM.getTbLeprosyReferralForm(), CoreConstants.TASKS_FOCUS.TBLEPROSY));
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hts_referral),
                     CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
             if (gender.equalsIgnoreCase("Male")) {
@@ -267,5 +268,4 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
-
 }

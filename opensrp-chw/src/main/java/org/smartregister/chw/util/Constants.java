@@ -19,6 +19,8 @@ public class Constants extends CoreConstants {
     public static String pregnancyOutcome = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
+    public static final String EXTRA_CLIENT_PICKER_MODE = "client_picker_mode";
+    public static final String EXTRA_EXISTING_HEAD_CLIENT = "existing_head_client";
 
     public static final String ADDO_LINKAGE_PLAN_ID = "6270285b-5a3b-4647-b772-c0b3c52e2b72";
 
@@ -31,8 +33,12 @@ public class Constants extends CoreConstants {
     public static String ENABLE_HIV_STATUS_FILTER = "ENABLE_HIV_STATUS_FILTER";
     public static String ENABLE_PREP_STATUS_FILTER = "ENABLE_PREP_STATUS_FILTER";
     public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
+    public static String ENTITY_TYPE_EC_FAMILY_MEMBER = "ec_family_member";
+    public static String ENTITY_TYPE_EC_FAMILY = "ec_family";
 
     public static int REQUEST_FILTERS = 2004;
+
+    public enum PneumoniaStatus {ENABLED, DISABLED}
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
@@ -120,6 +126,8 @@ public class Constants extends CoreConstants {
         private static final String ICCM_MALARIA = "iccm_malaria";
         private static final String ICCM_PNEUMONIA = "iccm_pneumonia";
         private static final String ICCM_DIARRHEA = "iccm_diarrhea";
+
+        private static final String ICCM_REFERRAL_NATIVE_FORM = "referrals/iccm_referral_native_form";
         private static final String CHILD_HV_MALNUTRITION_SCREENING = "child_hv_malnutrition_screening";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
@@ -182,6 +190,10 @@ public class Constants extends CoreConstants {
         }
         public static String getIccmDiarrhea() {
             return ICCM_DIARRHEA;
+        }
+
+        public static String getIccmReferral() {
+            return ICCM_REFERRAL_NATIVE_FORM;
         }
 
         public static String getChildHvMalnutritionScreening() {
@@ -358,6 +370,7 @@ public class Constants extends CoreConstants {
             String TBLEPROSY_SPECIAL_REPORT_PATH = "tbleprosy_reports/tbleprosy-special-areas-report";
             String TBLEPROSY_TREATMENT_STATUS_REPORT_PATH = "tbleprosy_reports/tbleprosy-treatment-status-report";
             String TBLEPROSY_SERVICE_CHALLENGES_REPORT_PATH = "tbleprosy_reports/tbleprosy-service-challenges-report";
+            String TBLEPROSY_MERGED_REPORT_PATH = "tbleprosy_reports/tbleprosy-merged-report";
         }
     }
 
@@ -383,6 +396,18 @@ public class Constants extends CoreConstants {
         String CHILD_TASK_FOCUS = "Child Minor Ailments";
         String ANC_TASK_FOCUS = "ANC Minor Ailments";
         String PNC_TASK_FOCUS = "PNC Minor Ailments";
+    }
+
+    public interface iCCMTreatment{
+        String FIELD_SERVICE_BEFORE_REFERRAL = "service_before_referral";
+        String FIELD_DISPENSED_ANTI_PYRETIC = "dispensed_anti_pyretic";
+        String FIELD_DIARRHEA_MEDICATION_DISPENSED = "diarrhea_medication_dispensed";
+        String FIELD_DIARRHEA_MEDICATION_REFERRED_CLIENT = "diarrhea_medication_dispensed_for_referred_clients";
+        String TREATMENT_ANTI_PYRETIC = "anti_pyretic";
+        String TREATMENT_ORS = "ors";
+        String TREATMENT_ZINC_SOURCE = "zinc";
+        String TREATMENT_ORS_ZINC_CO_PACK = "ors_zinc_co_pack";
+        String TREATMENT_ZINC_ORS_CO_PACK_SOURCE = "zinc_ors_co_pack";
     }
 
 }

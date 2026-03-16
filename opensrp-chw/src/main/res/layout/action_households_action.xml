@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/households_action"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:minWidth="48dp"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp"
+    android:layout_marginStart="8dp">
+
+    <ImageView
+        android:id="@+id/iv_households"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_households_dark_24"
+        android:tint="@color/chw_primary"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/tv_households_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/chw_primary"
+        android:textSize="13sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="HH (0)" />
+
+</LinearLayout>
+

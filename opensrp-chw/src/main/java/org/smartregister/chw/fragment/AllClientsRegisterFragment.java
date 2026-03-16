@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.ayp.dao.AypDao;
@@ -32,6 +35,23 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
 
     @Override
     protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
+
+        Activity activity = getActivity();
+        if (activity instanceof AllClientsRegisterActivity) {
+            AllClientsRegisterActivity registerActivity = (AllClientsRegisterActivity) activity;
+            if (registerActivity.isClientPickerMode()) {
+                String selectedBaseEntityId = commonPersonObjectClient.getCaseId();
+                if (TextUtils.isEmpty(selectedBaseEntityId)) {
+                    selectedBaseEntityId = commonPersonObjectClient.entityId();
+                }
+                Intent data = new Intent();
+                data.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, selectedBaseEntityId);
+                data.putExtra(org.smartregister.chw.util.Constants.EXTRA_EXISTING_HEAD_CLIENT, commonPersonObjectClient);
+                activity.setResult(Activity.RESULT_OK, data);
+                activity.finish();
+                return;
+            }
+        }
 
         String baseEntityId = commonPersonObjectClient.getCaseId();
         if (TextUtils.isEmpty(baseEntityId)) {

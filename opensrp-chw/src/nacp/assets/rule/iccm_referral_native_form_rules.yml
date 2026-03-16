@@ -1,0 +1,7 @@
+---
+name: step1_problem_other
+description: Show other reasons when Non iCCM Condition is selected
+priority: 1
+condition: "!step1_problem.isEmpty() && step1_problem.contains('other_reasons')"
+actions:
+  - "isRelevant = true"

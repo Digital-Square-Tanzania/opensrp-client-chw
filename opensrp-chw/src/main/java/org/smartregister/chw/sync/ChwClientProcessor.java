@@ -75,10 +75,95 @@ public class ChwClientProcessor extends CoreClientProcessor {
             Timber.e("TB_LEPROSY_SCREENING");
         }
 
+        // Intercept head-person creation when an existing head was selected: skip non-family entityType
+        try {
+            if (CoreConstants.EventType.FAMILY_REGISTRATION.equals(eventType) && eventClient != null && eventClient.getEvent() != null) {
+                String existingHeadIdPre = getFormValue(eventClient.getEvent(), "existing_head");
+                String entityType = eventClient.getEvent().getEntityType();
+                if (StringUtils.isNotBlank(existingHeadIdPre) && StringUtils.isNotBlank(entityType)) {
+                    // Only allow the ec_family event to go through; skip any person/independent-client event
+                    if (!CoreConstants.TABLE_NAME.FAMILY.equalsIgnoreCase(entityType)) {
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
+                case CoreConstants.EventType.FAMILY_REGISTRATION:
+                    // Ensure the new family points to the chosen existing head (if provided)
+                    try {
+                        String chosenHead = getFormValue(eventClient.getEvent(), "family_head");
+                        if (StringUtils.isBlank(chosenHead)) {
+                            chosenHead = getFormValue(eventClient.getEvent(), "existing_head");
+                        }
+                        if (StringUtils.isNotBlank(chosenHead)) {
+                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            if (db != null) {
+                                db.execSQL("UPDATE ec_family SET family_head = ? WHERE base_entity_id = ?",
+                                        new Object[]{chosenHead, baseEntityID});
+                                // Default caregiver to the head only when not explicitly set
+                                db.execSQL("UPDATE ec_family SET primary_caregiver = ? WHERE base_entity_id = ? AND (primary_caregiver IS NULL OR TRIM(primary_caregiver) = '' )",
+                                        new Object[]{chosenHead, baseEntityID});
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+                    // Post-process: if user selected an existing head during Family Registration,
+                    // revert any membership move by restoring the head's original relational_id.
+                    try {
+                        String existingHeadId = getFormValue(eventClient.getEvent(), "existing_head");
+                        String originalRelId = getFormValue(eventClient.getEvent(), "original_relational_id");
+                        if (StringUtils.isNotBlank(existingHeadId) && StringUtils.isNotBlank(originalRelId)) {
+                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            if (db != null) {
+                                db.execSQL(
+                                        "UPDATE ec_family_member SET relational_id = ? WHERE base_entity_id = ? AND relational_id != ?",
+                                        new Object[]{originalRelId, existingHeadId, originalRelId}
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+
+                    // Ensure the household's unique_id is set from the family_unique_id field
+                    // to avoid collisions with the head's unique_id.
+                    try {
+                        String familyUniqueId = getFormValue(eventClient.getEvent(), "family_unique_id");
+                        if (StringUtils.isBlank(familyUniqueId)) {
+                            // Fallback: try the generic unique_id only if it looks like a family value
+                            String maybe = getFormValue(eventClient.getEvent(), "unique_id");
+                            if (StringUtils.isNotBlank(maybe) && (maybe.endsWith("_family") || maybe.endsWith("_Family"))) {
+                                familyUniqueId = maybe;
+                            }
+                        }
+
+                        if (StringUtils.isNotBlank(familyUniqueId)) {
+                            // Normalize: if missing the suffix, append lowercase to align with DB usage
+                            if (!(familyUniqueId.endsWith("_family") || familyUniqueId.endsWith("_Family"))) {
+                                familyUniqueId = familyUniqueId + "_family";
+                            }
+
+                            String familyBaseEntityId = eventClient.getEvent().getBaseEntityId();
+                            if (StringUtils.isNotBlank(familyBaseEntityId)) {
+                                net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                                if (db != null) {
+                                    db.execSQL("UPDATE ec_family SET unique_id = ? WHERE base_entity_id = ?",
+                                            new Object[]{familyUniqueId, familyBaseEntityId});
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.w(e);
+                    }
+                    break;
                 case CoreConstants.EventType.CHILD_HOME_VISIT:
                 case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
                 case CoreConstants.EventType.CHILD_REGISTRATION:
@@ -109,6 +194,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_CLIENT_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_MOBILIZATION:
+                case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ADVERTISEMENT_FEEDBACK:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_DEATH_REGISTRATION:
                 case org.smartregister.chw.hps.util.Constants.EVENT_TYPE.HPS_ANNUAL_CENSUS:
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_FOLLOW_UP_VISIT:
@@ -119,6 +205,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_CLIENT_OBSERVATION:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
+                case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
@@ -202,6 +289,29 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 Timber.e(e);
             }
         }
+    }
+
+    private String getFormValue(Event event, String key) {
+        try {
+            if (event == null || event.getObs() == null) return "";
+            for (Obs obs : event.getObs()) {
+                try {
+                    String field = obs.getFieldCode();
+                    if (StringUtils.isBlank(field)) {
+                        field = obs.getFormSubmissionField();
+                    }
+                    if (key.equalsIgnoreCase(field)) {
+                        Object val = obs.getValue();
+                        return val != null ? String.valueOf(val) : "";
+                    }
+                } catch (Exception e) {
+                    // continue
+                }
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+        return "";
     }
 
     private void processVisitEvent(EventClient eventClient) {

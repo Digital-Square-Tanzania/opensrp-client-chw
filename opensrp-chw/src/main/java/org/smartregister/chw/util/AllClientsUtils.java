@@ -70,6 +70,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllClientsUtils {
 
@@ -237,7 +238,6 @@ public class AllClientsUtils {
     public static void updateOptionsMenu(Menu menu, CommonPersonObjectClient commonPersonObject) {
         String baseEntityId = commonPersonObject.entityId();
         FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
-
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         // Cache menu items to avoid multiple lookups

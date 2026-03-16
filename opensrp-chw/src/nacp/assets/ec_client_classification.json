@@ -778,6 +778,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Record Leprosy Treatment Start Date",
+            "creates_case": [
+              "ec_tbleprosy_screening"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "TbLeprosy Follow-up Visit",
             "creates_case": [
               "ec_tbleprosy_followup_visit"

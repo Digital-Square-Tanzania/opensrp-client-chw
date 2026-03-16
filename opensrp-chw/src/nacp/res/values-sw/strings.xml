@@ -29,7 +29,7 @@
     <string name="cbhs_follow_up_visit">Ziara inayofuata ya ufuatiliaji wa </string>
     <string name="hiv_follow_up_visit">Ufuatiliaji wa VVU</string>
     <string name="hiv_service_due"><![CDATA[%1$s <font color=#000000>HUWANYU (%2$s)</font></b>]]></string>
-    <string name="optional">Hiari</string>
+    <string name="optional">Hiyari</string>
     <string name="action_received_anc_partner_followup_referrals">Ufuatiliji wa Mwenza</string>
     <string name="partner_registration_action_title">Usajili wa Mwenza</string>
     <string name="back_to_pmtct">Rudi kwa Wateja wa Ufuatiliaji wa Mama Kinara</string>
@@ -123,6 +123,12 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="referral_problem_Immunisation">Huduma za chanjo</string>
     <string name="referral_problem_other_reasons">Sababu nyingine</string>
+    <string name="referral_problem_tb_screening">Uchunguzi wa Kifua Kikuu</string>
+    <string name="referral_problem_leprosy_screening">Uchunguzi wa Ukoma</string>
+    <string name="referral_problem_tpt_referral">Rufaa ya TPT</string>
+    <string name="referral_problem_challenges_faced_by_leprosy_clients">Changamoto za wateja wa ukoma</string>
+    <string name="referral_problem_challenges_faced_by_tb_clients">Changamoto za wateja wa kifua kikuu</string>
+    <string name="referral_problem_Other_reasons">Sababu nyingine</string>
     <string name="referral_problem_genital_ulcers">Michubuko/vidonda sehemu za siri</string>
     <string name="referral_problem_abnormal_vag_discharge">Kutokwa na maji maji yasiokuwa ya kawaida ukeni au kwenye njia ya haja kubwa</string>
     <string name="referral_problem_pain_during_sexual_act">Kupata maumivu wakati wa kufanya ngono</string>
@@ -851,6 +857,7 @@
     <string name="hps_non_reactive">Hana Viashiria</string>
 
     <string name="hps_date_of_gathering">Tarehe ya mkusanyiko</string>
+    <string name="hps_gathering">Mkusanyiko</string>
     <string name="hps_method_of_education_and_awareness_used">Chagua njia ya ueleimishaji na uhamasishaji iliyotumika</string>
     <string name="hps_loud_speakers">Vipaza sauti</string>
     <string name="hps_drumming_public_announcements">Kupiga mbiu</string>
@@ -876,6 +883,22 @@
     <string name="hps_institutions">Taasisi</string>
     <string name="hps_meetings">Mikutano</string>
     <string name="hps_specify_other_area_where_mobilization_took_place">Taja maeneo mengineyo uhamasishaji ulipofanyika</string>
+    <string name="hps_date_of_advertisement_feedback">Tarehe ya ukusanyaji</string>
+    <string name="hps_area_where_advertisement_feedback_took_place">Eneo ambako maoni ya tangazo yalifanyika</string>
+    <string name="hps_owns_radio_station">Anamiliki redio</string>
+    <string name="hps_number_of_radio_owners">Ni wangapi wanaomiliki redio</string>
+    <string name="hps_mobile_phone_radio_listeners">Je, unasikiliza redio kupitia simu</string>
+    <string name="hps_number_of_who_listens_radio_via_phone">Ni wangapi wanasikiliza redio kupitia simu</string>
+    <string name="hps_radio_channel_listened">Wanasikiliza kituo gani cha redio</string>
+    <string name="hps_selected_health_education_topics">Mada za elimu ya afya ulizozisikia kwenye redio</string>
+    <string name="hps_health_education_heard">Ujumbe/hadithi ya elimu ya afya uliyosikia</string>
+    <string name="hps_number_watches_television">Ni wangapi wanaotazama televisheni</string>
+    <string name="hps_channel_watched">Unatazama kituo gani</string>
+    <string name="hps_heard_program_advetised">Je, kuna matangazo yoyote yanayohusiana na mradi</string>
+    <string name="hps_stories_heard">Hadithi uliyoyaona kwenye matangazo hayo</string>
+    <string name="hps_instructions_followed">Maelekezo/ujumbe uliotolewa kwenye tangazo</string>
+    <string name="hps_who_and_why_they_follow_instruction">Ni nani na kwa nini wanafuata maelekezo</string>
+    <string name="hps_people_behaviour_change">Ni nani na kwa nini wanabadilisha tabia</string>
     <string name="hps_number_of_females_who_attended">Idadi ya watu waliofikiwa KE</string>
     <string name="hps_number_of_males_who_attended">Idadi ya watu waliofikiwa ME</string>
     <string name="hps_was_education_provided">Je, elimu imetolewa?</string>
@@ -923,7 +946,7 @@
     <string name="hps_negative_mrdt">Hasa</string>
 
 
-    <string name="hps_provision_of_preventive_services">Je,elimu imetolewa?</string>
+    <string name="hps_provision_of_health_education">Je,elimu imetolewa?</string>
     <string name="hps_yes">Ndiyo</string>
     <string name="hps_no">Hapana</string>
     <string name="hps_type_of_education_provided">Elimu iliyotolewa</string>
@@ -1228,6 +1251,11 @@
     <string name="hps_amount_of_pesticide_used_drums">Kiasi cha kiuatilifu kilichotumika(Madebe)</string>
     <string name="hps_amount_of_pesticide_used_barrels">Kiasi cha kiuatilifu kilichotumika(Mapipa)</string>
     <string name="hps_amount_of_pesticide_used_coconut_shells">Kiasi cha kiuatilifu kilichotumika(Vifuu vya nazi)</string>
+    <string name="hps_no_of_men_with_capacity_to_engage_in_economic_activities">Idadi ya wanaume wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali</string>
+    <string name="hps_no_of_women_with_capacity_to_engage_in_economic_activities">Idadi ya wanawake wenye uwezo wa kufanya kazi za kiuchumi / Kuzalisha mali</string>
+    <string name="hps_no_of_men_engaged_in_economic_activities">Idadi ya wanaume wanaofanya shughuli za uchumi / Wanaozalisha mali</string>
+    <string name="hps_no_of_women_engaged_in_economic_activities">Idadi ya wanawake wanaofanya shughuli za uchumi / Wanaozalisha mali</string>
+
     <string name="hps_none">Hakuna</string>
     <string name="hps_number_of_male_capable_of_engaging_in_economic_activities">Idadi ya wanaume wanaoweza kushiriki katika shughuli za kiuchumi</string>
     <string name="hps_number_of_female_capable_of_engaging_in_economic_activities">Idadi ya wanawake wanaoweza kushiriki katika shughuli za kiuchumi</string>
@@ -1242,5 +1270,13 @@
     <string name="remove_client">Rekodi kifo cha mteja</string>
     <string name="confirm_remove_text">Hakiki taarifa za kifo cha %s. Kukamilisha hatua hii itaondoa taarifa zote za mteja huyu toka kwenye simu yako. Baada ya kuhifadhi huwezi kutendua hatua hii.</string>
     <string name="remove">HIFADHI</string>
+    <string name="add_new_family_member">Sajili mwanakaya mpya</string>
+    <string name="add_member_title">Sajili mwanakaya</string>
+    <string name="add_member_title_question">Aina gani ya mwanakaya anayesajiliwa?</string>
+    <string name="add_other_family_member">Mwanakaya mwingine</string>
+    <string name="household_register_row_title">Kaya ya %1$s</string>
+    <string name="return_to_family_name">Rudi kwa Kaya ya %1$s</string>
+    <string name="family_profile_title">Kaya ya %1$s</string>
+    <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
 
 </resources>
