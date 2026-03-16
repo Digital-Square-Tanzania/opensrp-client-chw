@@ -61,7 +61,7 @@ allprojects {
         }
 
         // ✅ Legacy OpenSRP plan evaluator jar folder (NEW)
-        flatDir { dirs "${rootDir}/legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9" }
+//        flatDir { dirs "${rootDir}/legacy-opensrp-libs/org.smartregister/opensrp-plan-evaluator/0.0.19-SNAPSHOT/486f4df02be42f6a1ac7fa83892c48f1e6bcb5d9" }
 
         mavenCentral()
         mavenLocal()
