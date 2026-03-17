@@ -77,6 +77,10 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza jina la kwanza"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Tafadhali ingiza jina sahihi"
         }
       },
       {
@@ -90,6 +94,10 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza jina la kati"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Tafadhali ingiza jina sahihi"
         }
       },
       {
@@ -103,6 +111,10 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza jina la mwisho"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Tafadhali ingiza jina sahihi"
         }
       },
       {
