@@ -146,6 +146,9 @@ android {
             applicationIdSuffix ".moh"
             minifyEnabled false
             zipAlignEnabled true
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '500'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
@@ -254,7 +257,7 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            versionCode 51
+            versionCode 52
             versionName "2.1.1"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
@@ -346,6 +349,7 @@ dependencies {
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
         exclude group: 'com.github.lecho', module: 'hellocharts-library'
+        exclude group: 'io.ona.kujaku', module: 'library'
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
@@ -364,13 +368,11 @@ dependencies {
     // causing missing com.github.ybq.android.spinkit.* classes.
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
+    implementation 'com.cocoahero.android:geojson:1.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.3.3'
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation 'com.getkeepsafe.relinker:relinker:1.4.3'
     implementation 'org.mozilla:rhino:1.7.13'
-    implementation('io.ona.kujaku:library:0.9.0') {
-        exclude group: 'com.android.volley', module: 'volley'
-        exclude group: 'stax', module: 'stax-api'
-    }
 
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
