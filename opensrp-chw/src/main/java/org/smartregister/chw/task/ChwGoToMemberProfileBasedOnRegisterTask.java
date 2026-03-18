@@ -16,13 +16,17 @@ import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.task.CoreChwNotificationGoToMemberProfileTask;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
+import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.Constants;
+import org.smartregister.opd.utils.OpdDbConstants;
 
 public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotificationGoToMemberProfileTask {
 
@@ -48,6 +52,21 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
     @Override
     protected void goToTbProfile(String baseEntityId, Activity activity) {
         TbProfileActivity.startTbProfileActivity(activity, TbDao.getMember(baseEntityId));
+    }
+
+    @Override
+    protected void goToOtherMemberProfile(String baseEntityId,CommonPersonObjectClient commonPersonObjectClient, Activity activity) {
+        Bundle bundle = new Bundle();
+        FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(baseEntityId);
+
+        if (familyDetailsModel != null) {
+            bundle.putString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyDetailsModel.getBaseEntityId());
+            bundle.putString(Constants.INTENT_KEY.FAMILY_HEAD, familyDetailsModel.getFamilyHead());
+            bundle.putString(Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyDetailsModel.getPrimaryCareGiver());
+            bundle.putString(Constants.INTENT_KEY.FAMILY_NAME, familyDetailsModel.getFamilyName());
+            bundle.putString(Constants.INTENT_KEY.VILLAGE_TOWN, commonPersonObjectClient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
+        }
+
     }
 
     @Override
