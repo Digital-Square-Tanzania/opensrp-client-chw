@@ -24,6 +24,7 @@ import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.tb.dao.TbDao;
+import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.opd.utils.OpdDbConstants;
@@ -66,6 +67,10 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
             bundle.putString(Constants.INTENT_KEY.FAMILY_NAME, familyDetailsModel.getFamilyName());
             bundle.putString(Constants.INTENT_KEY.VILLAGE_TOWN, commonPersonObjectClient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
         }
+
+        assert familyDetailsModel != null;
+        AllClientsUtils.goToOtherMemberProfile(activity, commonPersonObjectClient, bundle,
+                familyDetailsModel.getFamilyHead(), familyDetailsModel.getPrimaryCareGiver());
 
     }
 
