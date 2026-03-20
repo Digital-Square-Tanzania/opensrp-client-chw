@@ -15,13 +15,13 @@ import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.activity.CoreHarmReductionSoberHouseProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.domain.SortableVisit;
-import org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseProfileActivity;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
 import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
@@ -43,7 +43,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSoberHouseProfileActivity {
+public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSoberHouseProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
@@ -164,6 +164,11 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
         HarmReductionSoberHouseVisitActivity.startHarmReductionSoberHouseVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
+    @Override
+    public void startHivstRegistration() {
+        MemberProfileUtils.startHivstRegistration(this, memberObject.getBaseEntityId(), memberObject.getGender());
+    }
+
     public void refreshList() {
         // no-op
     }
@@ -264,7 +269,10 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
         }
 
         AllClientsUtils.setMenuItemVisibility(menu, org.smartregister.chw.R.id.action_harm_reduction_assessment, false);
-        AllClientsUtils.setMenuItemVisibility(menu, org.smartregister.chw.R.id.action_harm_reduction_sober_house_enrollment, false);
+        if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+            boolean isRegisteredForSoberHouse = HarmReductionDao.getSoberHouseMember(baseEntityId) != null;
+            AllClientsUtils.setMenuItemVisibility(menu, org.smartregister.chw.R.id.action_harm_reduction_sober_house_enrollment, !isRegisteredForSoberHouse && age >= 14);
+        }
 
         AllClientsUtils.addTbLeprosyMenuItem(menu, baseEntityId);
         return true;
@@ -321,6 +329,9 @@ public class HarmReductionSoberHouseProfileActivity extends BaseHarmReductionSob
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_cancer_preventive_services_registration) {
             MemberProfileUtils.startCancerPreventiveServicesRegistration(this, memberObject.getBaseEntityId());
+            return true;
+        } else if (i == org.smartregister.chw.R.id.action_harm_reduction_sober_house_enrollment) {
+            HarmReductionSoberHouseRegisterActivity.startRegistration(this, memberObject.getBaseEntityId());
             return true;
         } else if (i == org.smartregister.chw.R.id.action_tbleprosy_screening) {
             startTbLeprosyScreening();
