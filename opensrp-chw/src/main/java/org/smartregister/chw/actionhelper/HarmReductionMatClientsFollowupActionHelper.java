@@ -3,6 +3,7 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.harmreduction.domain.VisitDetail;
@@ -34,6 +35,9 @@ public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmRedu
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
             healthEducationProvided = JsonFormUtils.getValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
+            if (StringUtils.isBlank(healthEducationProvided)) {
+                healthEducationProvided = getFieldValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
+            }
             if (StringUtils.isBlank(healthEducationProvided)) {
                 healthEducationProvided = JsonFormUtils.getCheckBoxValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
             }
@@ -67,6 +71,30 @@ public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmRedu
         return StringUtils.isNotBlank(healthEducationProvided)
                 ? BaseHarmReductionVisitAction.Status.COMPLETED
                 : BaseHarmReductionVisitAction.Status.PENDING;
+    }
+
+    private String getFieldValue(JSONObject jsonObject, String key) {
+        try {
+            JSONObject step = jsonObject.optJSONObject("step1");
+            if (step == null) {
+                return "";
+            }
+
+            JSONArray fields = step.optJSONArray("fields");
+            if (fields == null) {
+                return "";
+            }
+
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject field = fields.optJSONObject(i);
+                if (field != null && StringUtils.equalsIgnoreCase(key, field.optString("key"))) {
+                    return field.optString("value");
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
     }
 
     @Override

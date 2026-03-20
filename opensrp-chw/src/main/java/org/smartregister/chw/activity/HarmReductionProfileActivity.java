@@ -48,7 +48,6 @@ import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.dao.AbstractDao;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
@@ -60,13 +59,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import timber.log.Timber;
 
 public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivity {
     private static final int MIN_PRE_MAT_SESSIONS_FOR_MAT_START = 3;
     private static final String YES = "yes";
+    private final HarmReductionDao harmReductionDao = new HarmReductionDao();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
@@ -83,7 +82,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
             return;
         }
 
-        if (hasStartedMat()) {
+        if (harmReductionDao.hasStartedMat(memberObject.getBaseEntityId())) {
             textViewRecordHarmReductionVisit.setVisibility(View.GONE);
             return;
         }
@@ -499,7 +498,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private void setupMarkClientStartedMatVisibility() {
-        if (hasStartedMat()) {
+        if (harmReductionDao.hasStartedMat(memberObject.getBaseEntityId())) {
             if (textViewMarkClientStartedMat != null) {
                 textViewMarkClientStartedMat.setVisibility(View.GONE);
             }
@@ -593,30 +592,6 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
                     YES,
                     HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId())
             );
-        } catch (Exception e) {
-            Timber.e(e);
-            return false;
-        }
-    }
-
-    private boolean hasStartedMat() {
-        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
-            return false;
-        }
-
-        try {
-            String baseEntityId = memberObject.getBaseEntityId().replace("'", "''");
-            String sql = "SELECT client_started_mat FROM " + Constants.TABLES.HARM_REDUCTION_RISK_ASSESSMENT +
-                    " WHERE base_entity_id = '" + baseEntityId + "' AND is_closed = 0 " +
-                    "ORDER BY last_interacted_with DESC LIMIT 1";
-            List<Map<String, Object>> records = AbstractDao.readData(sql, new String[]{"client_started_mat"});
-
-            if (records == null || records.isEmpty() || records.get(0) == null) {
-                return false;
-            }
-
-            Object clientStartedMat = records.get(0).get("client_started_mat");
-            return StringUtils.equalsIgnoreCase(YES, clientStartedMat == null ? null : String.valueOf(clientStartedMat));
         } catch (Exception e) {
             Timber.e(e);
             return false;
