@@ -56,6 +56,19 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
 
     @Override
     protected void setupButtons() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            updateDeceasedClientStatusTag(false, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+            hideDeceasedClientActionViews();
+            return;
+        }
+
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+        if (deceasedClient) {
+            hideDeceasedClientActionViews();
+            return;
+        }
+
         textViewRecordHarmReductionVisit.setVisibility(View.GONE);
         textViewRecordSoberHouseVisit.setVisibility(View.VISIBLE);
     }
@@ -64,7 +77,7 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
     protected void setupViews() {
         super.setupViews();
         TextView toolbarTitle = findViewById(org.smartregister.chw.R.id.toolbar_title);
-        toolbarTitle.setText(org.smartregister.chw.R.string.return_to_sober_house_clients);
+        toolbarTitle.setText(org.smartregister.chw.harmreduction.R.string.return_to_sober_house_clients);
     }
 
     @Override
@@ -200,7 +213,31 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
     @Override
     protected void onResume() {
         super.onResume();
+        applyHarmReductionSoberHouseDeceasedHandling();
         refreshMedicalHistory(true);
+    }
+
+    protected boolean isClientDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        try {
+            return HarmReductionDao.isSoberHouseClientDeceased(memberObject.getBaseEntityId());
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return false;
+        }
+    }
+
+    void applyHarmReductionSoberHouseDeceasedHandling() {
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+        if (!deceasedClient) {
+            return;
+        }
+
+        hideDeceasedClientActionViews();
     }
 
     @Override

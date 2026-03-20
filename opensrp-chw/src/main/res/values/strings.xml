@@ -702,6 +702,7 @@
     <string name="tbleprosy_followup_visit_client_found">Client found</string>
     <string name="tbleprosy_followup_visit_client_not_found">Client not found</string>
     <string name="tbleprosy_followup_visit_client_deceased">Client deceased</string>
+    <string name="harm_reduction_followup_visit_client_deceased">Client deceased</string>
     <string name="tbleprosy_followup_visit_reason_client_not_found">Specify the reason the client was not found</string>
     <string name="tbleprosy_followup_visit_returned_to_treatment">Has the client resumed treatment?</string>
     <string name="tbleprosy_followup_visit_service_access_challenges">Is the client facing challenges accessing services?</string>

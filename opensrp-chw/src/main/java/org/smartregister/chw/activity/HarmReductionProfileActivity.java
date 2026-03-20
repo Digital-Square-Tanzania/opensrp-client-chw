@@ -82,6 +82,19 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
             return;
         }
 
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            updateDeceasedClientStatusTag(false, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+            hideDeceasedClientActionViews();
+            return;
+        }
+
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+        if (deceasedClient) {
+            hideDeceasedClientActionViews();
+            return;
+        }
+
         if (harmReductionDao.hasStartedMat(memberObject.getBaseEntityId())) {
             textViewRecordHarmReductionVisit.setVisibility(View.GONE);
             return;
@@ -306,6 +319,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     @Override
     protected void onResume() {
         super.onResume();
+        applyHarmReductionDeceasedHandling();
         refreshMedicalHistory(true);
         delayRefreshSetupViews();
     }
@@ -479,6 +493,7 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
                 setupButtons();
                 setupViews();
                 refreshMedicalHistory(true);
+                applyHarmReductionDeceasedHandling();
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
@@ -498,6 +513,13 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     private void setupMarkClientStartedMatVisibility() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId()) || isClientDeceased()) {
+            if (textViewMarkClientStartedMat != null) {
+                textViewMarkClientStartedMat.setVisibility(View.GONE);
+            }
+            return;
+        }
+
         if (harmReductionDao.hasStartedMat(memberObject.getBaseEntityId())) {
             if (textViewMarkClientStartedMat != null) {
                 textViewMarkClientStartedMat.setVisibility(View.GONE);
@@ -509,6 +531,29 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         if (textViewMarkClientStartedMat != null) {
             textViewMarkClientStartedMat.setVisibility(showMarkClientStartedMat ? View.VISIBLE : View.GONE);
         }
+    }
+
+    protected boolean isClientDeceased() {
+        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
+            return false;
+        }
+
+        try {
+            return HarmReductionDao.isCommunityClientDeceased(memberObject.getBaseEntityId());
+        } catch (Throwable throwable) {
+            Timber.e(throwable);
+            return false;
+        }
+    }
+
+    void applyHarmReductionDeceasedHandling() {
+        boolean deceasedClient = isClientDeceased();
+        updateDeceasedClientStatusTag(deceasedClient, org.smartregister.chw.R.string.harm_reduction_followup_visit_client_deceased);
+        if (!deceasedClient) {
+            return;
+        }
+
+        hideDeceasedClientActionViews();
     }
 
     private void startTbLeprosyScreening() {

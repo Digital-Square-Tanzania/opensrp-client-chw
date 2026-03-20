@@ -939,6 +939,7 @@
     <string name="tbleprosy_followup_visit_client_found">Amepatikana</string>
     <string name="tbleprosy_followup_visit_client_not_found">Hajapatikana</string>
     <string name="tbleprosy_followup_visit_client_deceased">Amefariki</string>
+    <string name="harm_reduction_followup_visit_client_deceased">Amefariki</string>
     <string name="tbleprosy_followup_visit_reason_client_not_found">Taja sababu ya kutopatikana mteja</string>
     <string name="tbleprosy_followup_visit_returned_to_treatment">Amerudi kwenye matibabu?</string>
     <string name="tbleprosy_followup_visit_service_access_challenges">Je, kuna changamoto anazokumbana nazo katika upatikanaji wa huduma?</string>
