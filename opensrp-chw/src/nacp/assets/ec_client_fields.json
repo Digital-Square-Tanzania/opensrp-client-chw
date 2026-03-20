@@ -11433,6 +11433,38 @@
           }
         },
         {
+          "column_name": "cause_of_death",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "cause_of_death"
+          }
+        },
+        {
+          "column_name": "place_of_death",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "place_of_death"
+          }
+        },
+        {
+          "column_name": "overdose_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "overdose_reason"
+          }
+        },
+        {
+          "column_name": "place_of_overdose",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "place_of_overdose"
+          }
+        },
+        {
           "column_name": "pregnancy_breastfeeding_status",
           "type": "Event",
           "json_mapping": {
