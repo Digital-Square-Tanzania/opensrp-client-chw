@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -57,6 +58,13 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
     protected void setupButtons() {
         textViewRecordHarmReductionVisit.setVisibility(View.GONE);
         textViewRecordSoberHouseVisit.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        TextView toolbarTitle = findViewById(org.smartregister.chw.R.id.toolbar_title);
+        toolbarTitle.setText(org.smartregister.chw.R.string.return_to_sober_house_clients);
     }
 
     @Override
