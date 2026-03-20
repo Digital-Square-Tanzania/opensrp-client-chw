@@ -1,7 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.harmreduction.actionhelper.HarmReductionHealthEducationActionHelper;
+import org.smartregister.chw.actionhelper.HarmReductionMatClientsFollowupActionHelper;
 import org.smartregister.chw.harmreduction.contract.BaseHarmReductionVisitContract;
 import org.smartregister.chw.harmreduction.domain.VisitDetail;
 import org.smartregister.chw.harmreduction.interactor.BaseHarmReductionVisitInteractor;
@@ -42,7 +42,7 @@ public class HarmReductionMatClientsVisitInteractor extends BaseHarmReductionVis
 
     private void evaluateMatClientsFollowup(Map<String, List<VisitDetail>> details)
             throws BaseHarmReductionVisitAction.ValidationException {
-        HarmReductionHealthEducationActionHelper actionHelper = new HarmReductionHealthEducationActionHelper();
+        HarmReductionMatClientsFollowupActionHelper actionHelper = new HarmReductionMatClientsFollowupActionHelper();
         BaseHarmReductionVisitAction action = getBuilder(context.getString(R.string.harm_reduction_mat_clients_followup_visit))
                 .withOptional(false)
                 .withDetails(details)
