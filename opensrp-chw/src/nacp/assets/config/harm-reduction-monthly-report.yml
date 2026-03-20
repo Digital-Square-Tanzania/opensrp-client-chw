@@ -223,9 +223,8 @@ indicators:
     indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
                       FROM ec_harm_reduction_followup_visit ehfv
                       WHERE (
-                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%overdose_management%' OR
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%overdose%' OR
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%ovadozi%'
+                        lower(ifnull(ehfv.client_status, '')) LIKE '%overdose%' OR
+                        lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%'
                       )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -237,13 +236,10 @@ indicators:
     indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
                       FROM ec_harm_reduction_followup_visit ehfv
                       WHERE (
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%overdose%' OR
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%ovadozi%'
+                        lower(ifnull(ehfv.client_status, '')) LIKE '%client_deceased%'
                       )
                       AND (
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%death%' OR
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%died%' OR
-                        lower(ifnull(ehfv.remarks_comments, '')) LIKE '%kifo%'
+                        lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%'
                       )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
