@@ -71,6 +71,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
                 "Hiv Index Contact Registration",
                 "HIV Index Contact Community Followup Referral",
                 Constants.Events.LTFU_FEEDBACK,
+                "LTF Referral Registration",
                 "HIV Index Contact CHW Followup"
         );
     }

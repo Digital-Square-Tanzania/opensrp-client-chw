@@ -34,6 +34,7 @@ public class ChwSyncIntentService extends SyncIntentService {
     private static final String EVENT_TYPE = "eventType";
     private static final String TEAM_ID_SCOPED_EVENT_TYPES_PREFIX = "teamId:";
     private static final String UTF_8 = "UTF-8";
+    public static final String LIMIT = "limit";
     private long totalRecords;
     private int fetchedRecords;
     private boolean teamScopedSyncActive;
@@ -202,7 +203,7 @@ public class ChwSyncIntentService extends SyncIntentService {
                 case AllConstants.SERVER_VERSION:
                     requestPayload.put(entry.getKey(), Long.parseLong(entry.getValue()));
                     break;
-                case AllConstants.LIMIT:
+                case LIMIT:
                     requestPayload.put(entry.getKey(), Integer.parseInt(entry.getValue()));
                     break;
                 case AllConstants.RETURN_COUNT:
@@ -228,7 +229,7 @@ public class ChwSyncIntentService extends SyncIntentService {
         requestParams.put(SyncFilter.TEAM_ID.value(), getDefaultTeamId());
         requestParams.put(EVENT_TYPE, getTeamScopedEventTypeFilter());
         requestParams.put(AllConstants.SERVER_VERSION, String.valueOf(lastSyncDatetime));
-        requestParams.put(AllConstants.LIMIT, String.valueOf(getEventPullLimit()));
+        requestParams.put(LIMIT, String.valueOf(getEventPullLimit()));
         requestParams.put(AllConstants.RETURN_COUNT, String.valueOf(returnCount));
         return requestParams;
     }
