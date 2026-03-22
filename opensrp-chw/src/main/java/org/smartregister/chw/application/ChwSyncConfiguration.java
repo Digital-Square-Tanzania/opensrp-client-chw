@@ -3,6 +3,8 @@ package org.smartregister.chw.application;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 
 import java.util.Arrays;
@@ -63,6 +65,10 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean isSyncUsingPost() {
         return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
+    }
+
+    public List<String> getTeamIdScopedEventTypes() {
+        return Arrays.asList(CoreConstants.EventType.CLOSE_REFERRAL, Constants.Events.LTFU_FEEDBACK);
     }
 
     @Override
