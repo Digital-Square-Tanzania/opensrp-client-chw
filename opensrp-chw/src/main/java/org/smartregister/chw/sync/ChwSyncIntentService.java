@@ -38,9 +38,13 @@ public class ChwSyncIntentService extends SyncIntentService {
     private static final String BASE_ENTITY_ID = "baseEntityId";
     private static final String BASE_ENTITY_IDS = "baseEntityIds";
     private static final int BASE_ENTITY_ID_BACKFILL_BATCH_SIZE = 1000;
+    private static final String CLIENT_SEARCH_BY_CRITERIA_URL = "/rest/client/searchByCriteria";
+    private static final String CLIENT_TYPE = "clientType";
     private static final String CLIENTS = "clients";
     private static final String EVENT_TYPE = "eventType";
     private static final String EVENTS = "events";
+    private static final String FAMILY_REGISTRATION = "Family Registration";
+    private static final String HOUSEHOLD_MEMBER = "householdMember";
     private static final String SYNC_BY_BASE_ENTITY_IDS_URL = "/rest/event/sync-by-base-entity-ids";
     private static final String TEAM_ID_SCOPED_EVENT_TYPES_PREFIX = "teamId:";
     private static final String UTF_8 = "UTF-8";
@@ -279,27 +283,21 @@ public class ChwSyncIntentService extends SyncIntentService {
     }
 
     protected boolean syncRelatedClientEventsByBaseEntityIds(JSONObject jsonObject) throws Exception {
-        List<String> baseEntityIds = new ArrayList<>(extractBaseEntityIds(jsonObject));
-        if (baseEntityIds.isEmpty()) {
-            return true;
+        LinkedHashSet<String> syncedBaseEntityIds = new LinkedHashSet<>(extractBaseEntityIds(jsonObject));
+        LinkedHashSet<String> familyBaseEntityIds = new LinkedHashSet<>(extractFamilyRegistrationBaseEntityIds(jsonObject));
+
+        if (!syncClientEventsByBaseEntityIds(syncedBaseEntityIds, true, familyBaseEntityIds)) {
+            return false;
         }
 
-        for (int start = 0; start < baseEntityIds.size(); start += getBaseEntityBackfillBatchSize()) {
-            int end = Math.min(start + getBaseEntityBackfillBatchSize(), baseEntityIds.size());
-            JSONArray baseEntityIdsBatch = new JSONArray();
-            for (int i = start; i < end; i++) {
-                baseEntityIdsBatch.put(baseEntityIds.get(i));
-            }
+        LinkedHashSet<String> householdMemberBaseEntityIds = fetchHouseholdMemberBaseEntityIds(familyBaseEntityIds);
+        if (householdMemberBaseEntityIds == null) {
+            return false;
+        }
 
-            Response<String> response = fetchClientEventsByBaseEntityIds(baseEntityIdsBatch);
-            if (response == null || response.payload() == null || response.isFailure()
-                    || response.isTimeoutError() || response.isUrlError()) {
-                return false;
-            }
-
-            if (!processRelatedClientEvents(new JSONObject(response.payload()))) {
-                return false;
-            }
+        householdMemberBaseEntityIds.removeAll(syncedBaseEntityIds);
+        if (!syncClientEventsByBaseEntityIds(householdMemberBaseEntityIds, false, null)) {
+            return false;
         }
 
         return true;
@@ -321,12 +319,21 @@ public class ChwSyncIntentService extends SyncIntentService {
     }
 
     protected Response<String> fetchClientEventsByBaseEntityIds(JSONArray baseEntityIds) throws Exception {
+        return fetchClientEventsByBaseEntityIds(baseEntityIds, true);
+    }
+
+    protected Response<String> fetchClientEventsByBaseEntityIds(JSONArray baseEntityIds, boolean withFamilyEvents)
+            throws Exception {
         JSONObject syncParams = new JSONObject();
         syncParams.put(BASE_ENTITY_IDS, baseEntityIds);
-        syncParams.put(WITH_FAMILY_EVENTS, true);
+        syncParams.put(WITH_FAMILY_EVENTS, withFamilyEvents);
         syncParams.put(AllConstants.SERVER_VERSION, 0);
         return getHttpAgent().postWithJsonResponse(getFormattedBaseUrl() + SYNC_BY_BASE_ENTITY_IDS_URL,
                 syncParams.toString());
+    }
+
+    protected Response<String> fetchHouseholdMembersByFamilyId(String familyBaseEntityId) {
+        return getHttpAgent().fetch(buildHouseholdMemberSearchUrl(familyBaseEntityId));
     }
 
     protected boolean processRelatedClientEvents(JSONObject jsonObject) {
@@ -337,6 +344,13 @@ public class ChwSyncIntentService extends SyncIntentService {
             processClient(serverVersionPair);
         }
         return isSaved;
+    }
+
+    protected String buildHouseholdMemberSearchUrl(String familyBaseEntityId) {
+        LinkedHashMap<String, String> requestParams = new LinkedHashMap<>();
+        requestParams.put(CLIENT_TYPE, HOUSEHOLD_MEMBER);
+        requestParams.put(BASE_ENTITY_ID, familyBaseEntityId);
+        return getFormattedBaseUrl() + CLIENT_SEARCH_BY_CRITERIA_URL + "?" + encodeQueryString(requestParams);
     }
 
     private String encodeQueryString(Map<String, String> requestParams) {
@@ -365,6 +379,84 @@ public class ChwSyncIntentService extends SyncIntentService {
         retryReturnCount = true;
         totalRecords = 0;
         fetchedRecords = 0;
+    }
+
+    private boolean syncClientEventsByBaseEntityIds(Set<String> baseEntityIds, boolean withFamilyEvents,
+                                                    Set<String> familyBaseEntityIds) throws Exception {
+        List<String> uniqueBaseEntityIds = new ArrayList<>(baseEntityIds);
+        if (uniqueBaseEntityIds.isEmpty()) {
+            return true;
+        }
+
+        for (int start = 0; start < uniqueBaseEntityIds.size(); start += getBaseEntityBackfillBatchSize()) {
+            int end = Math.min(start + getBaseEntityBackfillBatchSize(), uniqueBaseEntityIds.size());
+            JSONArray baseEntityIdsBatch = new JSONArray();
+            for (int i = start; i < end; i++) {
+                baseEntityIdsBatch.put(uniqueBaseEntityIds.get(i));
+            }
+
+            Response<String> response = fetchClientEventsByBaseEntityIds(baseEntityIdsBatch, withFamilyEvents);
+            if (response == null || response.payload() == null || response.isFailure()
+                    || response.isTimeoutError() || response.isUrlError()) {
+                return false;
+            }
+
+            JSONObject relatedPayload = new JSONObject(response.payload());
+            if (familyBaseEntityIds != null) {
+                familyBaseEntityIds.addAll(extractFamilyRegistrationBaseEntityIds(relatedPayload));
+            }
+
+            if (!processRelatedClientEvents(relatedPayload)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private LinkedHashSet<String> fetchHouseholdMemberBaseEntityIds(Set<String> familyBaseEntityIds) throws Exception {
+        LinkedHashSet<String> householdMemberBaseEntityIds = new LinkedHashSet<>();
+        for (String familyBaseEntityId : familyBaseEntityIds) {
+            Response<String> response = fetchHouseholdMembersByFamilyId(familyBaseEntityId);
+            if (response == null || response.payload() == null || response.isFailure()
+                    || response.isTimeoutError() || response.isUrlError()) {
+                return null;
+            }
+
+            appendBaseEntityIds(new JSONObject(response.payload()).optJSONArray(CLIENTS), householdMemberBaseEntityIds);
+        }
+
+        return householdMemberBaseEntityIds;
+    }
+
+    private Set<String> extractFamilyRegistrationBaseEntityIds(JSONObject jsonObject) {
+        LinkedHashSet<String> familyBaseEntityIds = new LinkedHashSet<>();
+        if (jsonObject == null) {
+            return familyBaseEntityIds;
+        }
+
+        JSONArray events = jsonObject.optJSONArray(EVENTS);
+        if (events == null) {
+            return familyBaseEntityIds;
+        }
+
+        for (int i = 0; i < events.length(); i++) {
+            JSONObject event = events.optJSONObject(i);
+            if (event == null) {
+                continue;
+            }
+
+            if (!FAMILY_REGISTRATION.equals(StringUtils.trimToEmpty(event.optString(EVENT_TYPE)))) {
+                continue;
+            }
+
+            String baseEntityId = StringUtils.trimToNull(event.optString(BASE_ENTITY_ID));
+            if (baseEntityId != null) {
+                familyBaseEntityIds.add(baseEntityId);
+            }
+        }
+
+        return familyBaseEntityIds;
     }
 
     private void appendBaseEntityIds(JSONArray jsonArray, Set<String> baseEntityIds) {
