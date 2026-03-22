@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.smartregister.chw.sync.ChwSyncIntentService.LIMIT;
 
 import org.json.JSONObject;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class ChwSyncIntentServiceTest extends BaseUnitTest {
         assertEquals("test-team-id", params.get("teamId"));
         assertEquals(TEAM_SCOPED_EVENT_TYPES_PARAM, params.get("eventType"));
         assertEquals("25", params.get(AllConstants.SERVER_VERSION));
-        assertEquals("500", params.get(AllConstants.LIMIT));
+        assertEquals("500", params.get(LIMIT));
         assertEquals("true", params.get(AllConstants.RETURN_COUNT));
     }
 
@@ -56,7 +57,7 @@ public class ChwSyncIntentServiceTest extends BaseUnitTest {
         assertEquals("test-team-id", payload.getString("teamId"));
         assertEquals(TEAM_SCOPED_EVENT_TYPES_PARAM, payload.getString("eventType"));
         assertEquals(42L, payload.getLong(AllConstants.SERVER_VERSION));
-        assertEquals(500, payload.getInt(AllConstants.LIMIT));
+        assertEquals(500, payload.getInt(LIMIT));
         assertEquals(false, payload.getBoolean(AllConstants.RETURN_COUNT));
     }
 
