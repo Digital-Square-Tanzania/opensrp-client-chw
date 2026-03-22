@@ -4,7 +4,6 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 
 import java.util.Arrays;
@@ -68,7 +67,12 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     }
 
     public List<String> getTeamIdScopedEventTypes() {
-        return Arrays.asList(CoreConstants.EventType.CLOSE_REFERRAL, Constants.Events.LTFU_FEEDBACK);
+        return Arrays.asList(
+                "Hiv Index Contact Registration",
+                "HIV Index Contact Community Followup Referral",
+                Constants.Events.LTFU_FEEDBACK,
+                "HIV Index Contact CHW Followup"
+        );
     }
 
     @Override
