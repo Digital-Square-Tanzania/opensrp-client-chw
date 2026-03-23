@@ -174,9 +174,42 @@
 </table>
 </body>
 <script type="text/javascript">
+    function isValidValue(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
+        const normalized = String(value).trim().toLowerCase();
+        return normalized !== "" && normalized !== "undefined" && normalized !== "null";
+    }
+
+    function resolveReportingFacility(data) {
+        if (data && data.nameValuePairs && isValidValue(data.nameValuePairs.reporting_facility)) {
+            return data.nameValuePairs.reporting_facility;
+        }
+
+        try {
+            if (typeof Android.getReportingFacility === "function") {
+                const reportingFacility = Android.getReportingFacility();
+                if (isValidValue(reportingFacility)) {
+                    return reportingFacility;
+                }
+            }
+        } catch (e) {}
+
+        try {
+            if (typeof Android.getReportingChw === "function") {
+                const reportingChw = Android.getReportingChw();
+                if (isValidValue(reportingChw)) {
+                    return reportingChw;
+                }
+            }
+        } catch (e) {}
+
+        return "";
+    }
+
     function onLoad() {
-<!--        const facilityNameElement = document.getElementById("reporting_facility");-->
-<!--        facilityNameElement.innerHTML = Android.getReportingFacility();-->
+        const facilityNameElement = document.getElementById("reporting_facility");
         const dateElement = document.getElementById("report_period");
         dateElement.innerHTML = Android.getDataPeriod();
         const data = JSON.parse(Android.getData("iccm-dispensing-summary"));
@@ -185,9 +218,13 @@
             let elementKey = key
             const element = document.getElementById(elementKey)
             if (element !== null && element !== undefined) {
-                element.innerHTML = data.nameValuePairs[key]
+                const value = data.nameValuePairs[key];
+                element.innerHTML = (value === null || value === undefined) ? "" : value;
             }
         })
+        if (facilityNameElement) {
+            facilityNameElement.innerHTML = resolveReportingFacility(data);
+        }
     }
 
 
