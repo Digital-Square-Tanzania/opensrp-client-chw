@@ -16,7 +16,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.IccmVisitStateTracker;
+import org.smartregister.chw.util.IccmReferralActionUtils;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
@@ -46,8 +46,6 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
     private final String diarrheaSigns;
 
     private String interpretationForMrdtTwo;
-
-    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, Map<String, List<VisitDetail>> details, LinkedHashMap<String, BaseIccmVisitAction> actionList, BaseIccmVisitContract.InteractorCallBack callBack, String isPneumoniaSuspect, String diarrheaSigns) {
         this.context = context;
@@ -113,12 +111,12 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             assert malariaCompletionStatus != null;
             malariaCompletionStatus.put(JsonFormConstants.VALUE, IccmVisitUtils.getActionStatus(checkObject));
 
-            if(isPneumoniaSuspect.equalsIgnoreCase("true") || (!interpretationForMrdtTwo.isBlank() && !interpretationForMrdtTwo.contains("control")) || (!diarrheaSigns.isBlank() && !diarrheaSigns.contains("none"))){
-                processReferralAction();
-                iccmVisitStateTracker.setIccmReferralModuleActive(true);
-            }else{
-                iccmVisitStateTracker.setIccmReferralModuleActive(false);
-            }
+            boolean shouldRetainReferralAction = IccmReferralActionUtils.shouldKeepReferralFromMalaria(
+                    isPneumoniaSuspect,
+                    interpretationForMrdtTwo,
+                    diarrheaSigns
+            );
+            syncReferralAction(shouldRetainReferralAction, shouldRetainReferralAction);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -153,16 +151,16 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
         //overridden
     }
 
-    private void processReferralAction() {
-        try {
-            String title = context.getString(R.string.iccm_referral);
-            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(memberObject.getIccmEnrollmentFormSubmissionId(), actionList);
-            BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(referralActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmReferral()).build();
-            if (!actionList.containsKey(context.getString(R.string.iccm_referral)))
-                actionList.put(title, action);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+    private void syncReferralAction(boolean shouldRetainReferralAction, boolean addIfMissing) {
+        IccmReferralActionUtils.updateReferralAction(
+                context,
+                memberObject,
+                memberObject.getIccmEnrollmentFormSubmissionId(),
+                actionList,
+                details,
+                shouldRetainReferralAction,
+                addIfMissing
+        );
     }
 
 }
