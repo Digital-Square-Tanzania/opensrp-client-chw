@@ -330,14 +330,46 @@ public class ChwClientProcessor extends CoreClientProcessor {
             if (StringUtils.isBlank(value) || (object != null && !(object instanceof Obs))) {
                 return value;
             }
-            // Skip human readable values and just get values which would aid in translations
+            // Default behavior in this flavor is to use coded values for concept responses.
             final String VALUES = "values";
+            final String HUMAN_READABLE_VALUES = "humanReadableValues";
+            final String FORM_SUBMISSION_FIELD = "formSubmissionField";
             List values = new ArrayList();
 
             Object valueObject = getValue(object, VALUES);
             if (valueObject instanceof List) {
                 values = (List) valueObject;
             }
+
+            // For close referral feedback, persist what the user selected/readable text instead of concept code.
+            // This is required for ec_close_referral.servicesProvided.
+            String formSubmissionField = String.valueOf(getValue(object, FORM_SUBMISSION_FIELD));
+            if ("servicesProvided".equalsIgnoreCase(formSubmissionField)) {
+                List humanReadableValues = new ArrayList();
+                Object humanReadableValueObject = getValue(object, HUMAN_READABLE_VALUES);
+                if (humanReadableValueObject instanceof List) {
+                    humanReadableValues = (List) humanReadableValueObject;
+                }
+                if (!humanReadableValues.isEmpty()) {
+                    return humanReadableValues.size() == 1
+                            ? humanReadableValues.get(0).toString()
+                            : humanReadableValues.toString();
+                }
+            }
+
+            if ("prescriptions".equalsIgnoreCase(formSubmissionField)) {
+                List humanReadableValues = new ArrayList();
+                Object humanReadableValueObject = getValue(object, HUMAN_READABLE_VALUES);
+                if (humanReadableValueObject instanceof List) {
+                    humanReadableValues = (List) humanReadableValueObject;
+                }
+                if (!humanReadableValues.isEmpty()) {
+                    return humanReadableValues.size() == 1
+                            ? humanReadableValues.get(0).toString()
+                            : humanReadableValues.toString();
+                }
+            }
+
             if (object == null || values.isEmpty()) {
                 return value;
             }
