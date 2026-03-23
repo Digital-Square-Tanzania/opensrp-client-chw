@@ -147,31 +147,71 @@ indicators:
     description: "Wengineo"
     indicatorQuery: "SELECT 0 as count"
 
-  # Marital status fields are not captured in the allowed sober-house tables.
+  # Marital status is sourced from ec_family_member via the sober-house service client id.
   - key: "sh-6"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
     description: "Hali ya ndoa ya wakazi"
-    indicatorQuery: "SELECT 0 as count"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND trim(ifnull(efm.marital_status, '')) <> ''
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   - key: "sh-6a"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
     description: "Hajaoa/Hajaolewa"
-    indicatorQuery: "SELECT 0 as count"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'single'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   - key: "sh-6b"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
     description: "Kaoa/Kaolewa"
-    indicatorQuery: "SELECT 0 as count"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) IN ('married', 'cohabitation')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   - key: "sh-6c"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
     description: "Watalikiwa"
-    indicatorQuery: "SELECT 0 as count"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'divorced'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   - key: "sh-6d"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
     description: "Wajane/Wagane"
-    indicatorQuery: "SELECT 0 as count"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'widowed'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
 
   - key: "sh-7"
     grouping: "HARM_REDUCTION_SOBER_HOUSE"
