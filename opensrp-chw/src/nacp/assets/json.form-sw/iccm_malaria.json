@@ -64,7 +64,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "able_conduct_mrdt_test",
-        "label": "Je, unaweza kufanya kipimo cha haraka cha malaria (mRDT) ?",
+        "label": "Je kipimo cha haraka cha kupima malaria(mRDT) kimefanyika ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
