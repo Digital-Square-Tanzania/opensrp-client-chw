@@ -174,15 +174,18 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         }
         if(!ReferralDao.getServicesProvided(task.getIdentifier()).isEmpty()){
             referralServiceLayout.setVisibility(View.VISIBLE);
-            String refServicesOffered = ReferralDao.getServicesProvided(task.getForEntity());
-            refServicesOffered = refServicesOffered.replace("[", "").replace("]", ""); // Removes the brackets
-            refServicesOffered = refServicesOffered.replace(", ", "\n");
-            referralService.setText(refServicesOffered);
+            String refServicesOffered = ReferralDao.getServicesProvided(task.getIdentifier());
+            if (!refServicesOffered.isEmpty()) {
+                referralServiceLayout.setVisibility(View.VISIBLE);
+                refServicesOffered = refServicesOffered.replace("[", "").replace("]", "");
+                refServicesOffered = refServicesOffered.replace(", ", "\n");
+                referralService.setText(refServicesOffered);
+            }
         }
 
         if(!ReferralDao.getPrescriptionProvided(task.getIdentifier()).isEmpty()){
             referralPrescriptionLayout.setVisibility(View.VISIBLE);
-            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getForEntity());
+            String refPrescribeOffered = ReferralDao.getPrescriptionProvided(task.getIdentifier());
             refPrescribeOffered = refPrescribeOffered.replace("[", "").replace("]", ""); // Removes the brackets
             refPrescribeOffered = refPrescribeOffered.replace(", ", "\n");
             referralPrescription.setText(refPrescribeOffered);
