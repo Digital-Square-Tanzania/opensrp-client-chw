@@ -69,8 +69,8 @@ subprojects {
     group = 'org.smartregister'
 
     ext.androidMinSdkVersion = 22
-    ext.androidCompileSdkVersion = 34
-    ext.androidTargetSdkVersion = 34
+    ext.androidCompileSdkVersion = 35
+    ext.androidTargetSdkVersion = 35
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
