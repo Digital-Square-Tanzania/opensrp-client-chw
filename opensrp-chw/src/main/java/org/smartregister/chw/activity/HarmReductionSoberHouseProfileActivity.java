@@ -1,27 +1,34 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHarmReductionSoberHouseProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
+import org.smartregister.chw.custom_view.HarmReductionFloatingMenu;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.util.Constants;
@@ -30,6 +37,7 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.HarmReductionVisitHistoryInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.MemberProfileUtils;
@@ -39,6 +47,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +55,7 @@ import timber.log.Timber;
 
 public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSoberHouseProfileActivity {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, HarmReductionSoberHouseProfileActivity.class);
@@ -78,6 +88,61 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
         super.setupViews();
         TextView toolbarTitle = findViewById(org.smartregister.chw.R.id.toolbar_title);
         toolbarTitle.setText(org.smartregister.chw.harmreduction.R.string.return_to_sober_house_clients);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        if (memberObject == null) {
+            return;
+        }
+
+        baseHarmReductionFloatingMenu = new HarmReductionFloatingMenu(this, memberObject);
+        OnClickFloatingMenu onFloatingMenuClick = viewId -> {
+            switch (viewId) {
+                case org.smartregister.chw.harmreduction.R.id.harm_reduction_fab:
+                    checkPhoneNumberProvided();
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                case org.smartregister.chw.R.id.call_layout:
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).launchCallWidget();
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                case org.smartregister.chw.R.id.refer_to_facility_layout:
+                    org.smartregister.chw.util.Utils.launchClientReferralActivity(HarmReductionSoberHouseProfileActivity.this, getReferralTypeModels(), memberObject.getBaseEntityId());
+                    ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+        };
+
+        ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).setFloatMenuClickListener(onFloatingMenuClick);
+
+        checkPhoneNumberProvided();
+
+        baseHarmReductionFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseHarmReductionFloatingMenu, linearLayoutParams);
+        baseHarmReductionFloatingMenu.setVisibility(View.VISIBLE);
+        baseHarmReductionFloatingMenu.bringToFront();
+    }
+
+    private void checkPhoneNumberProvided() {
+        if (baseHarmReductionFloatingMenu != null) {
+            ((HarmReductionFloatingMenu) baseHarmReductionFloatingMenu).redraw(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
+        }
+    }
+
+    private List<ReferralTypeModel> getReferralTypeModels() {
+        referralTypeModels.clear();
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            List<ReferralTypeModel> commonReferralTypes = getCommonReferralTypes(this, memberObject.getBaseEntityId());
+            if (commonReferralTypes != null) {
+                referralTypeModels.addAll(commonReferralTypes);
+            }
+        }
+        return referralTypeModels;
     }
 
     @Override
