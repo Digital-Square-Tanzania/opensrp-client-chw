@@ -3,7 +3,7 @@
   "encounter_type": "HPS Annual Census",
   "entity_id": "",
   "step1": {
-    "title": "Economic Activities",
+    "title": "Shughuli za Kiuchumi",
     "fields": [
       {
         "key": "no_of_men_with_capacity_to_engage_in_economic_activities",

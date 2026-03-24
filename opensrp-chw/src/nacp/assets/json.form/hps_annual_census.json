@@ -603,7 +603,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "The value must be equal or less than the number of households entered"
         },
         "v_numeric": {
           "value": "true",
@@ -640,7 +640,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "The value must be equal or less than the number of households entered"
         },
         "v_numeric": {
           "value": "true",
@@ -683,7 +683,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "The value must be equal or less than the number of households entered"
         },
         "v_numeric": {
           "value": "true",
@@ -720,7 +720,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "The value must be equal or less than the number of households entered"
         },
         "v_numeric": {
           "value": "true",
@@ -757,7 +757,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "The value must be equal or less than the number of households entered"
         },
         "v_numeric": {
           "value": "true",
