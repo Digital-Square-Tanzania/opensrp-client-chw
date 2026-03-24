@@ -47,6 +47,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
     private String ableConductMrdtTest;
 
+    private String isClientPregnant;
+
     private String interpretationForMrdtTwo;
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, Map<String, List<VisitDetail>> details, LinkedHashMap<String, BaseIccmVisitAction> actionList, BaseIccmVisitContract.InteractorCallBack callBack, String isPneumoniaSuspect, String diarrheaSigns) {
@@ -87,6 +89,7 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             checkObject.put("mrdt_results", StringUtils.isNotBlank(mrdtResults));
 
             ableConductMrdtTest = CoreJsonFormUtils.getValue(jsonObject, "able_conduct_mrdt_test");
+            isClientPregnant = getClientPregnancyStatusFromMedicalHistoryAction();
             interpretationForMrdtTwo = CoreJsonFormUtils.getValue(jsonObject, "interpretation_for_mrdt_two");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -118,7 +121,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
                     isPneumoniaSuspect,
                     interpretationForMrdtTwo,
                     diarrheaSigns,
-                    ableConductMrdtTest
+                    ableConductMrdtTest,
+                    isClientPregnant
             );
             syncReferralAction(shouldRetainReferralAction, shouldRetainReferralAction);
         } catch (Exception e) {
@@ -165,6 +169,32 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
                 shouldRetainReferralAction,
                 addIfMissing
         );
+    }
+
+    private String getClientPregnancyStatusFromMedicalHistoryAction() {
+        if (actionList == null || actionList.isEmpty()) {
+            return "";
+        }
+
+        try {
+            for (BaseIccmVisitAction action : actionList.values()) {
+                if (action == null || !Constants.JsonForm.getIccmMedicalHistory().equalsIgnoreCase(action.getFormName())) {
+                    continue;
+                }
+
+                String medicalHistoryPayload = action.getJsonPayload();
+                if (StringUtils.isBlank(medicalHistoryPayload)) {
+                    continue;
+                }
+
+                JSONObject jsonObject = new JSONObject(medicalHistoryPayload);
+                return CoreJsonFormUtils.getValue(jsonObject, "is_the_client_pregnant");
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return "";
     }
 
 }
