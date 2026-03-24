@@ -257,8 +257,8 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            versionCode 52
-            versionName "2.1.1"
+            versionCode 53
+            versionName "2.1.2"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
