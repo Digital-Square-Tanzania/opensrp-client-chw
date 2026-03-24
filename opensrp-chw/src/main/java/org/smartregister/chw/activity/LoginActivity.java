@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -35,6 +36,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Android 15 enforces edge-to-edge for targetSdk 35; keep the login screen
+        // below a visible status bar instead of drawing the form behind it.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         super.onCreate(savedInstanceState);
         ImageView imageView = findViewById(R.id.login_logo);
         if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
