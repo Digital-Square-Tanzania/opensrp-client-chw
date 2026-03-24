@@ -3,8 +3,7 @@
     android:id="@+id/canvasSV"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:fitsSystemWindows="true"
+    android:background="@color/login_background"
     android:isScrollContainer="true">
 
     <RelativeLayout
