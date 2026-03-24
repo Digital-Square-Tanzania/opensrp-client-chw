@@ -82,7 +82,7 @@ public class HpsAdvertisementFeedbackRegisterFragment extends BaseHpsRegisterFra
 
         CustomFontTextView titleView = view.findViewById(org.smartregister.hivst.R.id.txt_title_label);
         if (titleView != null) {
-            titleView.setText(getString(R.string.hps_advertisement_feedback_menu));
+//            titleView.setText(getString(R.string.hps_advertisement_feedback_menu));
             titleView.setPadding(0, titleView.getTop(), titleView.getPaddingRight(), titleView.getPaddingBottom());
         }
 
@@ -228,7 +228,7 @@ public class HpsAdvertisementFeedbackRegisterFragment extends BaseHpsRegisterFra
                     if (form != null) {
                         String randomId = generateRandomUUIDString();
                         form.put(ENTITY_ID, randomId);
-                        requireActivity().startActivityForResult(getStartEditFormIntent(form, requireActivity().getString(R.string.hps_advertisement_feedback_menu), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
+//                        requireActivity().startActivityForResult(getStartEditFormIntent(form, requireActivity().getString(R.string.hps_advertisement_feedback_menu), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
                     }
                 } catch (JSONException e) {
                     Timber.e(e);
