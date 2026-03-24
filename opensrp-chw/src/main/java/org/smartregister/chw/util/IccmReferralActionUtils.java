@@ -66,11 +66,13 @@ public class IccmReferralActionUtils {
 
     public static boolean shouldKeepReferralFromMalaria(String isPneumoniaSuspect,
                                                         String interpretationForMrdtTwo,
-                                                        String diarrheaSigns) {
+                                                        String diarrheaSigns,
+                                                        String ableConductMrdtTest) {
         return hasAnyReferralTrigger(
                 isTrue(isPneumoniaSuspect),
                 hasMeaningfulSelection(interpretationForMrdtTwo, "control"),
-                hasMeaningfulSelection(diarrheaSigns, "none")
+                hasMeaningfulSelection(diarrheaSigns, "none"),
+                isNo(ableConductMrdtTest)
         );
     }
 
@@ -93,6 +95,10 @@ public class IccmReferralActionUtils {
 
     public static boolean isYes(String value) {
         return "yes".equalsIgnoreCase(StringUtils.trimToEmpty(value));
+    }
+
+    public static boolean isNo(String value) {
+        return "no".equalsIgnoreCase(StringUtils.trimToEmpty(value));
     }
 
     static boolean hasMeaningfulSelection(String value, String ignoredSelection) {

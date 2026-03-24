@@ -45,6 +45,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
     private final String diarrheaSigns;
 
+    private String ableConductMrdtTest;
+
     private String interpretationForMrdtTwo;
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, Map<String, List<VisitDetail>> details, LinkedHashMap<String, BaseIccmVisitAction> actionList, BaseIccmVisitContract.InteractorCallBack callBack, String isPneumoniaSuspect, String diarrheaSigns) {
@@ -84,6 +86,7 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             String mrdtResults = CoreJsonFormUtils.getValue(jsonObject, "mrdt_results");
             checkObject.put("mrdt_results", StringUtils.isNotBlank(mrdtResults));
 
+            ableConductMrdtTest = CoreJsonFormUtils.getValue(jsonObject, "able_conduct_mrdt_test");
             interpretationForMrdtTwo = CoreJsonFormUtils.getValue(jsonObject, "interpretation_for_mrdt_two");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,7 +117,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             boolean shouldRetainReferralAction = IccmReferralActionUtils.shouldKeepReferralFromMalaria(
                     isPneumoniaSuspect,
                     interpretationForMrdtTwo,
-                    diarrheaSigns
+                    diarrheaSigns,
+                    ableConductMrdtTest
             );
             syncReferralAction(shouldRetainReferralAction, shouldRetainReferralAction);
         } catch (Exception e) {
