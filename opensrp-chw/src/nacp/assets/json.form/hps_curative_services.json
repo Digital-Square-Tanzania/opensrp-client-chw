@@ -602,13 +602,6 @@
             "openmrs_entity_id": "amoxicillin_dt"
           },
           {
-            "key": "malaria_drugs",
-            "text": "Malaria drugs (ALu)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "malaria_drugs"
-          },
-          {
             "key": "anti_pain",
             "text": "Anti-pain (panadol)",
             "openmrs_entity_parent": "",
@@ -630,11 +623,66 @@
             "openmrs_entity_id": "other_treatment_provided"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_drugs_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_drugs_treatment",
+        "label": "Malaria Treatment Provided",
+        "text_color": "#000000",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "malaria_drugs",
+            "text": "Malaria drugs (ALu)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_drugs"
+          },
+          {
+            "key": "malaria_none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "malaria_none"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_provided_guard",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_provided_guard",
+        "type": "edit_text",
+        "hidden": "true",
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
         },
         "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        },
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_curative_services.yml"
