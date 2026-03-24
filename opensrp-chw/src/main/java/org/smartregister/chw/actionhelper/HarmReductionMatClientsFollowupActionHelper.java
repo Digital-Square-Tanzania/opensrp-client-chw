@@ -16,9 +16,9 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmReductionVisitAction.HarmReductionVisitActionHelper {
-    private static final String HEALTH_EDUCATION_PROVIDED_FIELD_KEY = "health_education_provided";
+    private static final String METHADONE_TREATMENT_STATUS_KEY = "methadone_treatment_status";
 
-    private String healthEducationProvided;
+    private String methadoneTreatmentStatus;
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
@@ -34,12 +34,12 @@ public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmRedu
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            healthEducationProvided = JsonFormUtils.getValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
-            if (StringUtils.isBlank(healthEducationProvided)) {
-                healthEducationProvided = getFieldValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
+            methadoneTreatmentStatus = JsonFormUtils.getValue(jsonObject, METHADONE_TREATMENT_STATUS_KEY);
+            if (StringUtils.isBlank(methadoneTreatmentStatus)) {
+                methadoneTreatmentStatus = getFieldValue(jsonObject, METHADONE_TREATMENT_STATUS_KEY);
             }
-            if (StringUtils.isBlank(healthEducationProvided)) {
-                healthEducationProvided = JsonFormUtils.getCheckBoxValue(jsonObject, HEALTH_EDUCATION_PROVIDED_FIELD_KEY);
+            if (StringUtils.isBlank(methadoneTreatmentStatus)) {
+                methadoneTreatmentStatus = JsonFormUtils.getCheckBoxValue(jsonObject, METHADONE_TREATMENT_STATUS_KEY);
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -68,7 +68,7 @@ public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmRedu
 
     @Override
     public BaseHarmReductionVisitAction.Status evaluateStatusOnPayload() {
-        return StringUtils.isNotBlank(healthEducationProvided)
+        return StringUtils.isNotBlank(methadoneTreatmentStatus)
                 ? BaseHarmReductionVisitAction.Status.COMPLETED
                 : BaseHarmReductionVisitAction.Status.PENDING;
     }
