@@ -85,7 +85,7 @@
 <div class="show-on-print">
     <h1>Taarifa ya Mwezi kutoka Huduma za iCCM</h1>
     <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
-<!--    <h2>KIJIJI: <span id="reporting_facility"></span></h2>-->
+    <h2>KIJIJI: <span id="reporting_facility"></span></h2>
 </div>
 <table border="1">
     <thead>
@@ -255,28 +255,6 @@
     </tr>
     <tr>
         <th>5</th>
-        <th>Pneumonia non severe</th>
-        <td id="iccm-5-less-than-1-month-ME"></td>
-        <td id="iccm-5-less-than-1-month-KE"></td>
-        <td id="iccm-5-less-than-1-month-jumla"></td>
-        <td id="iccm-5-less-than-1-year-ME"></td>
-        <td id="iccm-5-less-than-1-year-KE"></td>
-        <td id="iccm-5-less-than-1-year-jumla"></td>
-        <td id="iccm-5-between-1-to-5-years-ME"></td>
-        <td id="iccm-5-between-1-to-5-years-KE"></td>
-        <td id="iccm-5-between-1-to-5-years-jumla"></td>
-        <td class="table-title"></td>
-        <td class="table-title"></td>
-        <td class="table-title"></td>
-        <td class="table-title"></td>
-        <td class="table-title"></td>
-        <td class="table-title"></td>
-        <td id="iccm-5-ME-jumla"></td>
-        <td id="iccm-5-KE-jumla"></td>
-        <td id="iccm-5-jumla"></td>
-    </tr>
-    <tr>
-        <th>6</th>
         <th>Diarrhoea with no dehydration</th>
         <td id="iccm-6-less-than-1-month-ME"></td>
         <td id="iccm-6-less-than-1-month-KE"></td>
@@ -306,9 +284,42 @@
 </table>
 </body>
 <script type="text/javascript">
+    function isValidValue(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
+        const normalized = String(value).trim().toLowerCase();
+        return normalized !== "" && normalized !== "undefined" && normalized !== "null";
+    }
+
+    function resolveReportingFacility(data) {
+        if (data && data.nameValuePairs && isValidValue(data.nameValuePairs.reporting_facility)) {
+            return data.nameValuePairs.reporting_facility;
+        }
+
+        try {
+            if (typeof Android.getReportingFacility === "function") {
+                const reportingFacility = Android.getReportingFacility();
+                if (isValidValue(reportingFacility)) {
+                    return reportingFacility;
+                }
+            }
+        } catch (e) {}
+
+        try {
+            if (typeof Android.getReportingChw === "function") {
+                const reportingChw = Android.getReportingChw();
+                if (isValidValue(reportingChw)) {
+                    return reportingChw;
+                }
+            }
+        } catch (e) {}
+
+        return "";
+    }
+
     function onLoad() {
-<!--        const facilityNameElement = document.getElementById("reporting_facility");-->
-<!--        facilityNameElement.innerHTML = Android.getReportingFacility();-->
+        const facilityNameElement = document.getElementById("reporting_facility");
         const dateElement = document.getElementById("report_period");
         dateElement.innerHTML = Android.getDataPeriod();
         const data = JSON.parse(Android.getData("iccm-clients-monthly-report"));
@@ -317,9 +328,13 @@
             let elementKey = key
             const element = document.getElementById(elementKey)
             if (element !== null && element !== undefined) {
-                element.innerHTML = data.nameValuePairs[key]
+                const value = data.nameValuePairs[key];
+                element.innerHTML = (value === null || value === undefined) ? "" : value;
             }
         })
+        if (facilityNameElement) {
+            facilityNameElement.innerHTML = resolveReportingFacility(data);
+        }
     }
 
 
