@@ -1,5 +1,7 @@
 package org.smartregister.chw.task;
 
+import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
+
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -16,8 +18,9 @@ import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.task.CoreChwNotificationGoToMemberProfileTask;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.dao.FamilyDao;
-import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
@@ -56,7 +59,7 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
     }
 
     @Override
-    protected void goToOtherMemberProfile(String baseEntityId,CommonPersonObjectClient commonPersonObjectClient, Activity activity) {
+    protected void goToOtherMemberProfile(String baseEntityId, CommonPersonObjectClient commonPersonObjectClient, Activity activity) {
         Bundle bundle = new Bundle();
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(baseEntityId);
 
@@ -65,10 +68,16 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
             bundle.putString(Constants.INTENT_KEY.FAMILY_HEAD, familyDetailsModel.getFamilyHead());
             bundle.putString(Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyDetailsModel.getPrimaryCareGiver());
             bundle.putString(Constants.INTENT_KEY.FAMILY_NAME, familyDetailsModel.getFamilyName());
-            bundle.putString(Constants.INTENT_KEY.VILLAGE_TOWN, commonPersonObjectClient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
+            bundle.putString(Constants.INTENT_KEY.VILLAGE_TOWN, familyDetailsModel.getVillageTown());
+            commonPersonObjectClient.getDetails().put(OpdDbConstants.KEY.HOME_ADDRESS, familyDetailsModel.getVillageTown());
         }
 
         assert familyDetailsModel != null;
+
+        if (UpdateDetailsUtil.isIndependentClient(baseEntityId)) {
+            commonPersonObjectClient.getDetails().put(REGISTER_TYPE, CoreConstants.REGISTER_TYPE.INDEPENDENT);
+        }
+
         AllClientsUtils.goToOtherMemberProfile(activity, commonPersonObjectClient, bundle,
                 familyDetailsModel.getFamilyHead(), familyDetailsModel.getPrimaryCareGiver());
 
