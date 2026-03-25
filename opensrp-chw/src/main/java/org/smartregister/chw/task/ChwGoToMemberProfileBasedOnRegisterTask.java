@@ -1,5 +1,6 @@
 package org.smartregister.chw.task;
 
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.task.CoreChwNotificationGoToMemberProfileTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
@@ -28,6 +30,7 @@ import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.opd.utils.OpdDbConstants;
@@ -62,6 +65,12 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
     protected void goToOtherMemberProfile(String baseEntityId, CommonPersonObjectClient commonPersonObjectClient, Activity activity) {
         Bundle bundle = new Bundle();
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(baseEntityId);
+        if (commonPersonObjectClient == null || commonPersonObjectClient.getDetails() == null) {
+            commonPersonObjectClient = Utils.getCommonPersonObjectClient(baseEntityId);
+            final CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName)
+                    .findByBaseEntityId(baseEntityId);
+            commonPersonObjectClient.setDetails(personObject.getColumnmaps());
+        }
 
         if (familyDetailsModel != null) {
             bundle.putString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyDetailsModel.getBaseEntityId());
