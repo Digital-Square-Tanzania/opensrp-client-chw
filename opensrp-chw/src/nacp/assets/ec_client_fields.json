@@ -11098,6 +11098,14 @@
           "json_mapping": {
             "field": "eventDate"
           }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
+          }
         }
       ]
     }
