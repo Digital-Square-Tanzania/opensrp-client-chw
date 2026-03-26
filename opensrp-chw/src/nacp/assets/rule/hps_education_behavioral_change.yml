@@ -293,17 +293,451 @@ condition: "step1_type_of_message_leaflets.contains('others')"
 actions:
   - "isRelevant = true "
 ---
-name: step1_number_of_posters
-description: if step1_number_of_posters
+name: step1_number_of_posters_hiv_aids
+description: if step1_number_of_posters_hiv_aids
 priority: 1
-condition: "step1_type_of_iec_material.contains('posters')"
+condition: "step1_type_of_message_posters.contains('hiv_aids')"
 actions:
   - "isRelevant = true "
 ---
-name: step1_number_of_brochures
-description: if step1_number_of_brochures
+name: step1_number_of_posters_epidemic_diseases
+description: if step1_number_of_posters_epidemic_diseases
 priority: 1
-condition: "step1_type_of_iec_material.contains('brochure')"
+condition: "step1_type_of_message_posters.contains('epidemic_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_oral_dental_health
+description: if step1_number_of_posters_oral_dental_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('oral_dental_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_neaurological_disorders
+description: if step1_number_of_posters_neaurological_disorders
+priority: 1
+condition: "step1_type_of_message_posters.contains('neaurological_disorders')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_skin_health
+description: if step1_number_of_posters_skin_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('skin_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_infectious_diseases
+description: if step1_number_of_posters_infectious_diseases
+priority: 1
+condition: "step1_type_of_message_posters.contains('infectious_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_tb_and_leprosy
+description: if step1_number_of_posters_tb_and_leprosy
+priority: 1
+condition: "step1_type_of_message_posters.contains('tb_and_leprosy')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_ear_throat_nose_health
+description: if step1_number_of_posters_ear_throat_nose_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('ear_throat_nose_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_neglected_tropical_diseases
+description: if step1_number_of_posters_neglected_tropical_diseases
+priority: 1
+condition: "step1_type_of_message_posters.contains('neglected_tropical_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_eye_health
+description: if step1_number_of_posters_eye_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('eye_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_malaria
+description: if step1_number_of_posters_malaria
+priority: 1
+condition: "step1_type_of_message_posters.contains('malaria')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_non_communicable_diseases
+description: if step1_number_of_posters_non_communicable_diseases
+priority: 1
+condition: "step1_type_of_message_posters.contains('non_communicable_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_family_planning
+description: if step1_number_of_posters_family_planning
+priority: 1
+condition: "step1_type_of_message_posters.contains('family_planning')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_reproductive_maternal_adolescent_health
+description: if step1_number_of_posters_reproductive_maternal_adolescent_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('reproductive_maternal_adolescent_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_nutrition
+description: if step1_number_of_posters_nutrition
+priority: 1
+condition: "step1_type_of_message_posters.contains('nutrition')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_public_health_emergencies
+description: if step1_number_of_posters_public_health_emergencies
+priority: 1
+condition: "step1_type_of_message_posters.contains('public_health_emergencies')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_one_health
+description: if step1_number_of_posters_one_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('one_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_poisoning
+description: if step1_number_of_posters_poisoning
+priority: 1
+condition: "step1_type_of_message_posters.contains('poisoning')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_antimicrobial_resistance
+description: if step1_number_of_posters_antimicrobial_resistance
+priority: 1
+condition: "step1_type_of_message_posters.contains('antimicrobial_resistance')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_safe_clean_water_sanitation
+description: if step1_number_of_posters_safe_clean_water_sanitation
+priority: 1
+condition: "step1_type_of_message_posters.contains('safe_clean_water_sanitation')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_accidents_injuries
+description: if step1_number_of_posters_accidents_injuries
+priority: 1
+condition: "step1_type_of_message_posters.contains('accidents_injuries')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_vaccination
+description: if step1_number_of_posters_vaccination
+priority: 1
+condition: "step1_type_of_message_posters.contains('vaccination')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_mental_health
+description: if step1_number_of_posters_mental_health
+priority: 1
+condition: "step1_type_of_message_posters.contains('mental_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_substance_abuse_drug_addiction
+description: if step1_number_of_posters_substance_abuse_drug_addiction
+priority: 1
+condition: "step1_type_of_message_posters.contains('substance_abuse_drug_addiction')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_gender_based_violence
+description: if step1_number_of_posters_gender_based_violence
+priority: 1
+condition: "step1_type_of_message_posters.contains('gender_based_violence')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_psychological_support
+description: if step1_number_of_posters_psychological_support
+priority: 1
+condition: "step1_type_of_message_posters.contains('psychological_support')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_violence_against_children
+description: if step1_number_of_posters_violence_against_children
+priority: 1
+condition: "step1_type_of_message_posters.contains('violence_against_children')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_rights_special_group
+description: if step1_number_of_posters_rights_special_group
+priority: 1
+condition: "step1_type_of_message_posters.contains('rights_special_group')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_health_services_awareness
+description: if step1_number_of_posters_health_services_awareness
+priority: 1
+condition: "step1_type_of_message_posters.contains('health_services_awareness')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_universal_health_insurance
+description: if step1_number_of_posters_universal_health_insurance
+priority: 1
+condition: "step1_type_of_message_posters.contains('universal_health_insurance')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_cancer
+description: if step1_number_of_posters_cancer
+priority: 1
+condition: "step1_type_of_message_posters.contains('cancer')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters_others
+description: if step1_number_of_posters_others
+priority: 1
+condition: "step1_type_of_message_posters.contains('others')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_hiv_aids
+description: if step1_number_of_brochures_hiv_aids
+priority: 1
+condition: "step1_type_of_message_brochures.contains('hiv_aids')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_epidemic_diseases
+description: if step1_number_of_brochures_epidemic_diseases
+priority: 1
+condition: "step1_type_of_message_brochures.contains('epidemic_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_oral_dental_health
+description: if step1_number_of_brochures_oral_dental_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('oral_dental_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_neaurological_disorders
+description: if step1_number_of_brochures_neaurological_disorders
+priority: 1
+condition: "step1_type_of_message_brochures.contains('neaurological_disorders')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_skin_health
+description: if step1_number_of_brochures_skin_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('skin_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_infectious_diseases
+description: if step1_number_of_brochures_infectious_diseases
+priority: 1
+condition: "step1_type_of_message_brochures.contains('infectious_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_tb_and_leprosy
+description: if step1_number_of_brochures_tb_and_leprosy
+priority: 1
+condition: "step1_type_of_message_brochures.contains('tb_and_leprosy')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_ear_throat_nose_health
+description: if step1_number_of_brochures_ear_throat_nose_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('ear_throat_nose_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_neglected_tropical_diseases
+description: if step1_number_of_brochures_neglected_tropical_diseases
+priority: 1
+condition: "step1_type_of_message_brochures.contains('neglected_tropical_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_eye_health
+description: if step1_number_of_brochures_eye_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('eye_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_malaria
+description: if step1_number_of_brochures_malaria
+priority: 1
+condition: "step1_type_of_message_brochures.contains('malaria')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_non_communicable_diseases
+description: if step1_number_of_brochures_non_communicable_diseases
+priority: 1
+condition: "step1_type_of_message_brochures.contains('non_communicable_diseases')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_family_planning
+description: if step1_number_of_brochures_family_planning
+priority: 1
+condition: "step1_type_of_message_brochures.contains('family_planning')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_reproductive_maternal_adolescent_health
+description: if step1_number_of_brochures_reproductive_maternal_adolescent_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('reproductive_maternal_adolescent_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_nutrition
+description: if step1_number_of_brochures_nutrition
+priority: 1
+condition: "step1_type_of_message_brochures.contains('nutrition')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_public_health_emergencies
+description: if step1_number_of_brochures_public_health_emergencies
+priority: 1
+condition: "step1_type_of_message_brochures.contains('public_health_emergencies')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_one_health
+description: if step1_number_of_brochures_one_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('one_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_poisoning
+description: if step1_number_of_brochures_poisoning
+priority: 1
+condition: "step1_type_of_message_brochures.contains('poisoning')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_antimicrobial_resistance
+description: if step1_number_of_brochures_antimicrobial_resistance
+priority: 1
+condition: "step1_type_of_message_brochures.contains('antimicrobial_resistance')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_safe_clean_water_sanitation
+description: if step1_number_of_brochures_safe_clean_water_sanitation
+priority: 1
+condition: "step1_type_of_message_brochures.contains('safe_clean_water_sanitation')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_accidents_injuries
+description: if step1_number_of_brochures_accidents_injuries
+priority: 1
+condition: "step1_type_of_message_brochures.contains('accidents_injuries')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_vaccination
+description: if step1_number_of_brochures_vaccination
+priority: 1
+condition: "step1_type_of_message_brochures.contains('vaccination')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_mental_health
+description: if step1_number_of_brochures_mental_health
+priority: 1
+condition: "step1_type_of_message_brochures.contains('mental_health')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_substance_abuse_drug_addiction
+description: if step1_number_of_brochures_substance_abuse_drug_addiction
+priority: 1
+condition: "step1_type_of_message_brochures.contains('substance_abuse_drug_addiction')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_gender_based_violence
+description: if step1_number_of_brochures_gender_based_violence
+priority: 1
+condition: "step1_type_of_message_brochures.contains('gender_based_violence')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_psychological_support
+description: if step1_number_of_brochures_psychological_support
+priority: 1
+condition: "step1_type_of_message_brochures.contains('psychological_support')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_violence_against_children
+description: if step1_number_of_brochures_violence_against_children
+priority: 1
+condition: "step1_type_of_message_brochures.contains('violence_against_children')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_rights_special_group
+description: if step1_number_of_brochures_rights_special_group
+priority: 1
+condition: "step1_type_of_message_brochures.contains('rights_special_group')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_health_services_awareness
+description: if step1_number_of_brochures_health_services_awareness
+priority: 1
+condition: "step1_type_of_message_brochures.contains('health_services_awareness')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_universal_health_insurance
+description: if step1_number_of_brochures_universal_health_insurance
+priority: 1
+condition: "step1_type_of_message_brochures.contains('universal_health_insurance')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_cancer
+description: if step1_number_of_brochures_cancer
+priority: 1
+condition: "step1_type_of_message_brochures.contains('cancer')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures_others
+description: if step1_number_of_brochures_others
+priority: 1
+condition: "step1_type_of_message_brochures.contains('others')"
 actions:
   - "isRelevant = true "
 ---
