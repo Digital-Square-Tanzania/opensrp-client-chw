@@ -3,10 +3,14 @@ package org.smartregister.chw.activity;
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +21,10 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -34,13 +41,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity {
+public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private ChildProfileActivity.Flavor flavor = new ChildProfileActivityFlv();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -149,6 +172,7 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
         if (i == R.id.family_has_row) {
             openFamilyDueTab();
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     private void openFamilyDueTab() {
@@ -193,6 +217,11 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
                     CoreConstants.JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
 }
