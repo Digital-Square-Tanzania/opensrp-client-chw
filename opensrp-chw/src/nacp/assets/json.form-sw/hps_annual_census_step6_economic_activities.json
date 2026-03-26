@@ -93,7 +93,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:no_of_men_with_capacity_to_engage_in_economic_activities)",
+            "err": "Haitakiwi kuwa kubwa kuliko idadi ya wanaume wenye uwezo wa kufanya kazi za kiuchumi/kuzalisha mali"
+          }
+        ]
       },
       {
         "key": "no_of_women_engaged_in_economic_activities",
@@ -123,7 +130,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:no_of_women_with_capacity_to_engage_in_economic_activities)",
+            "err": "Haitakiwi kuwa kubwa kuliko idadi ya wanawake wenye uwezo wa kufanya kazi za kiuchumi/kuzalisha mali"
+          }
+        ]
       }
     ]
   }

@@ -329,7 +329,7 @@
           "err": "Please enter the blood sugar result"
         },
         "v_max_length": {
-          "value": "2",
+          "value": "4",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
         },
@@ -342,7 +342,7 @@
           "err": "Blood sugar must be equal or less than 45 (mmol/L)"
         },
         "v_regex": {
-          "value": "^(\\d{1,2}|\\d{1,2}\\.\\d{1})$",
+          "value": "^\\d{1,2}(\\.\\d)?$",
           "err": "Please enter valid input, eg: 4 or 10.9"
         },
       "relevance": {

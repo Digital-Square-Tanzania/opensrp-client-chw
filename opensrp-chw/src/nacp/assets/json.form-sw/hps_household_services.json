@@ -120,7 +120,11 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "health_education_title"
+        "openmrs_entity_id": "health_education_title",
+        "v_required": {
+          "value": true,
+          "err": "Inahitajika"
+        }
       },
       {
         "key": "education_provided",

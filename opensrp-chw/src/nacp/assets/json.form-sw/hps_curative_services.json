@@ -342,7 +342,7 @@
           "err": "Kipimo cha sukari kwenye damu kinatakiwa kiwe sawa au kidogo kuliko 45 (mmol/L)"
         },
         "v_regex": {
-          "value": "^(\\d{1,2}|\\d{1,2}\\.\\d{1})$",
+          "value": "^\\d{1,2}(\\.\\d)?$",
           "err": "Tafadhali ingiza namba sahihi, mfano: 4 au 10.9"
         },
         "relevance": {

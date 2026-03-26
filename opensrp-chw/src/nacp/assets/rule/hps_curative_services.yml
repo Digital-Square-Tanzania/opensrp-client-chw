@@ -124,7 +124,7 @@ actions:
 name: step1_prompt_for_rbg
 description: prompt for random blood sugar
 priority: 1
-condition: "(Float.parseFloat(step1_blood_sugar_result) <= 7 || Float.parseFloat(step1_blood_sugar_result) >= 11)"
+condition: "(Float.parseFloat(step1_blood_sugar_result) <= 3.5 || Float.parseFloat(step1_blood_sugar_result) >= 11.1)"
 actions:
   - "isRelevant = true"
 ---

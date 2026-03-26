@@ -568,7 +568,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold",
-        "hint": "Number of house hold",
+        "hint": "Number of households",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -598,7 +598,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_road_access",
-        "hint": "Number of house hold with road access",
+        "hint": "Number of households with road access",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
