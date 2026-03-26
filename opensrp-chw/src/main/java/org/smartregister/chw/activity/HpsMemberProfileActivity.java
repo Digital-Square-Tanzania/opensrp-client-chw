@@ -1,21 +1,25 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.getValue;
 
+import android.app.AlertDialog;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Pair;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.widget.ListView;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,10 +32,13 @@ import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreHpsProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
@@ -68,10 +75,18 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
+public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements OnRetrieveNotifications {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private java.util.List<org.smartregister.chw.model.FamilyDetailsModel> headedFamilies = java.util.Collections.emptyList();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, HpsMemberProfileActivity.class);
@@ -158,6 +173,9 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
         memberObject = HpsDao.getMember(memberObject.getBaseEntityId());
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     private void addReferralTypes() {
@@ -188,6 +206,12 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -620,5 +644,10 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
         } else {
             rlLastVisit.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }

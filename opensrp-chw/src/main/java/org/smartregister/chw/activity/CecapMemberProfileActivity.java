@@ -5,10 +5,14 @@ import static org.smartregister.chw.cecap.interactor.BaseCecapProfileInteractor.
 import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.CECAP_FEMALE_REFERRAL_FORM;
 import static org.smartregister.chw.util.Constants.CECAP_MALE_REFERRAL_FORM;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,10 +39,13 @@ import org.smartregister.chw.cecap.util.CecapJsonFormUtils;
 import org.smartregister.chw.cecap.util.Constants;
 import org.smartregister.chw.cecap.util.VisitUtils;
 import org.smartregister.chw.core.activity.CoreCecapMemberProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.presenter.CoreCecapProfilePresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.CecapFloatingMenu;
@@ -68,9 +75,17 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
+public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity implements OnRetrieveNotifications {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, CecapMemberProfileActivity.class);
@@ -300,6 +315,9 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
         setupViews();
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     private void addReferralTypes() {
@@ -324,6 +342,12 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -440,5 +464,10 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
 
         IndividualProfileRemoveActivity.startIndividualProfileActivity(CecapMemberProfileActivity.this,
                 client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), FamilyRegisterActivity.class.getCanonicalName());
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }

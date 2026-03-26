@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.ayp.dao.AypDao.isAypOutSchoolServiceToday;
 import static org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_OUT_SCHOOL_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.ayp.util.Constants.FORMS.AYP_OUT_SCHOOL_GRADUATION;
@@ -9,7 +11,9 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +31,11 @@ import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
 import org.smartregister.chw.ayp.util.DBConstants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.AypOutSchoolDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -49,7 +57,16 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
+public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity implements OnRetrieveNotifications {
+
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypOutSchoolMemberProfileActivity.class);
@@ -383,6 +400,9 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
         super.onResumption();
         setupViews();
         refreshMedicalHistory(true);
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -401,6 +421,17 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity {
     @Override
     public void openMedicalHistory() {
         AypOutSchoolMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
 }

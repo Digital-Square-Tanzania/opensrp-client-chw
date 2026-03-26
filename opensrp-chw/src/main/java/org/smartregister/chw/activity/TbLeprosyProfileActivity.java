@@ -3,14 +3,18 @@ package org.smartregister.chw.activity;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getLatestTbLeprosyScreeningDate;
 import static org.smartregister.chw.tbleprosy.dao.TbLeprosyDao.getTbLeprosyClientStatus;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FORM_KEY.GLOBAL;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,8 +37,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbLeprosyProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
@@ -79,16 +86,24 @@ import java.util.Locale;
 import timber.log.Timber;
 
 
-public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity implements TbLeprosyContactRegisterPresenter.ContactRegistrationCallback {
+public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity implements TbLeprosyContactRegisterPresenter.ContactRegistrationCallback, OnRetrieveNotifications {
 
     private static final int REQUEST_CODE_CONTACT_REGISTER = 6700;
 
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private TbLeprosyContactRegisterPresenter newClientRegisterPresenter;
     private OpdRegisterActivityContract.View newClientRegisterView;
     @Nullable
     private String pendingContactRegistrationLocationId;
     private boolean pendingTbLeprosyReferralLaunch;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, TbLeprosyProfileActivity.class);
@@ -575,6 +590,9 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
                 profilePresenter.refreshProfileBottom();
                 setupViews();
                 setupButtons();
+                notificationListAdapter.canOpen = true;
+                ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                        memberObject.getBaseEntityId(), TbLeprosyProfileActivity.this);
             }, 500);
         } catch (Exception e) {
             Timber.e(e);
@@ -750,6 +768,11 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         //do nothing
     }
 
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
+    }
+
     private void addReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
 
@@ -877,6 +900,12 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 
     protected void startTbLeprosyScreening() {
         TbLeprosyRegisterActivity.startRegistration(TbLeprosyProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     protected void startHpsEnrollment() {

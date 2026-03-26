@@ -34,7 +34,7 @@ public class UpdateRegisterDetailsActivity extends BaseChwNotificationDetailsAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (hideViewProfileAction) {
-            viewProfileTextView.setVisibility(View.GONE);
+//            viewProfileTextView.setVisibility(View.GONE);
         }
     }
 
