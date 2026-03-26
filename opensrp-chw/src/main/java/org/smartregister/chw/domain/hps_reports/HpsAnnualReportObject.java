@@ -62,7 +62,7 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_female_capable_of_engaging_in_economic_activities",
             "number_of_female_engaged_in_economic_activities",
             "number_of_health_committee_members_for_effective_committee_meetings",
-            "number_of_committee_members_attended_fisrt_quarter",
+            "number_of_committee_members_attended_first_quarter",
             "number_of_registered_alternative_medicine_service_providers",
             "number_of_registered_traditional_medicine_service_providers",
             "number_of_unregistered_alternative_medicine_service_providers",

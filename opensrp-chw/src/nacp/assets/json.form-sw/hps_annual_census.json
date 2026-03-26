@@ -4386,10 +4386,10 @@
         }
       },
       {
-        "key": "number_of_committee_members_attended_fisrt_quarter",
+        "key": "number_of_committee_members_attended_first_quarter",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_committee_members_attended_fisrt_quarter",
+        "openmrs_entity_id": "number_of_committee_members_attended_first_quarter",
         "hint": "Wajumbe waliohudhuria katika robo ya kwanza ya mwaka",
         "text_color": "#000000",
         "type": "edit_text",

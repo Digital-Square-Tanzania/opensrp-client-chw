@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import org.smartregister.chw.hps.presenter.BaseHpsVisitPresenter;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.interactor.HpsAnnualCensusVisitInteractor;
 import org.smartregister.family.util.Utils;
+import org.smartregister.util.LangUtils;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -46,6 +48,12 @@ public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter.initialize();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
     }
 
     @Override
