@@ -10,6 +10,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                   as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'Independent'                         AS register_type,\n" +
             "       ec_family_member.relational_id        as relationalid,\n" +
             "       ec_family.village_town                as home_address,\n" +
@@ -92,6 +93,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                      AS dob,\n" +
             "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
             "       ec_family_member.id                       as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'iCCHW'                                     AS register_type,\n" +
             "       ec_family_member.relational_id            as relationalid,\n" +
             "       ec_family.village_town                    as home_address,\n" +
@@ -115,6 +117,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                      AS dob,\n" +
             "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
             "       ec_family_member.id                       as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'CBHS'                                     AS register_type,\n" +
             "       ec_family_member.relational_id            as relationalid,\n" +
             "       ec_family.village_town                    as home_address,\n" +
@@ -164,6 +167,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                   as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       NULL                                  AS register_type,\n" +
             "       ec_family_member.relational_id        as relationalid,\n" +
             "       ec_family.village_town                as home_address,\n" +
@@ -227,6 +231,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                 AS dob,\n" +
             "       ec_family_member.base_entity_id      AS base_entity_id,\n" +
             "       ec_family_member.id                  as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'ANC'                                AS register_type,\n" +
             "       ec_family_member.relational_id       as relationalid,\n" +
             "       ec_family.village_town               as home_address,\n" +
@@ -252,6 +257,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                      AS dob,\n" +
             "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
             "       ec_family_member.id                       as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'PNC'                                     AS register_type,\n" +
             "       ec_family_member.relational_id            as relationalid,\n" +
             "       ec_family.village_town                    as home_address,\n" +
@@ -279,6 +285,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob            AS dob,\n" +
             "       ec_family_member.base_entity_id AS base_entity_id,\n" +
             "       ec_family_member.id             as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'Child'                         AS register_type,\n" +
             "       ec_family_member.relational_id  as relationalid,\n" +
             "       ec_family.village_town          as home_address,\n" +
@@ -311,6 +318,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob                      AS dob,\n" +
             "       ec_family_member.base_entity_id           AS base_entity_id,\n" +
             "       ec_family_member.id                       as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'TB'                                      AS register_type,\n" +
             "       ec_family_member.relational_id            as relationalid,\n" +
             "       ec_family.village_town                    as home_address,\n" +
@@ -351,6 +359,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'Malaria'                                    AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -401,6 +410,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_iccm_enrollment.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'iCCM'                                    AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -457,6 +467,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'Family Planning'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -506,6 +517,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'AGYW'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -552,6 +564,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'SBC'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -598,6 +611,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'KVP/PrEP'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -647,6 +661,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'TB/Leprosy'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -696,6 +711,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'AYP out of school'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -746,6 +762,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'Reproductive Cancers'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
@@ -795,6 +812,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       'AYSRH'                             AS register_type,\n" +
             "       ec_family_member.relational_id               as relationalid,\n" +
             "       ec_family.village_town                       as home_address,\n" +
