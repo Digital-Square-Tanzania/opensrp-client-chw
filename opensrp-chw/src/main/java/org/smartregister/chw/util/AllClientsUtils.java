@@ -28,6 +28,8 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivityFlv;
+import org.smartregister.chw.activity.HarmReductionProfileActivity;
+import org.smartregister.chw.activity.HarmReductionSoberHouseProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
@@ -137,6 +139,13 @@ public class AllClientsUtils {
         TbLeprosyProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
+    public static void goToHarmReductionProfile(Activity activity, CommonPersonObjectClient client) {
+        HarmReductionProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToHarmReductionSoberHouseProfile(Activity activity, CommonPersonObjectClient client) {
+        HarmReductionSoberHouseProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
     public static void goToSbcProfile(Activity activity, CommonPersonObjectClient client) {
         SbcMemberProfileActivity.startMe(activity, client.getCaseId());
     }
