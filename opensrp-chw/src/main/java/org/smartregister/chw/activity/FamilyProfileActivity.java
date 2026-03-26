@@ -273,7 +273,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         if (ChwApplication.getApplicationFlavor().hasHps()) {
-            menu.findItem(R.id.action_hps_enrollment).setVisible(!HpsDao.isHouseholdRegisteredForHps(familyHead));
+            menu.findItem(R.id.action_hps_enrollment).setVisible(!HpsDao.isHouseholdRegisteredForHps(familyBaseEntityId));
         }
         return true;
     }
