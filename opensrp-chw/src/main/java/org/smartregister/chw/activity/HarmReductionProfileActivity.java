@@ -101,11 +101,16 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
         }
 
         textViewRecordHarmReductionVisit.setVisibility(View.VISIBLE);
-        if (StringUtils.equalsIgnoreCase(HarmReductionDao.getRocConsentForJoiningMatServices(memberObject.getBaseEntityId()), YES)) {
+        if (shouldStartPreMatSession(memberObject.getBaseEntityId())) {
             textViewRecordHarmReductionVisit.setText(R.string.record_pre_mat_session);
         } else {
             textViewRecordHarmReductionVisit.setText(R.string.record_harm_reduction_community_visit);
         }
+    }
+
+    static boolean shouldStartPreMatSession(String baseEntityId) {
+        return YES.equalsIgnoreCase(HarmReductionDao.getRocMatPreSession(baseEntityId))
+                || YES.equalsIgnoreCase(HarmReductionDao.getRocConsentForJoiningMatServices(baseEntityId));
     }
 
     @Override

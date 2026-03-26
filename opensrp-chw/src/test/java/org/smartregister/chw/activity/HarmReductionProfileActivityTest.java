@@ -10,6 +10,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.harmreduction.domain.MemberObject;
+import org.smartregister.chw.harmreduction.R;
 
 public class HarmReductionProfileActivityTest extends BaseUnitTest {
 
@@ -109,6 +110,31 @@ public class HarmReductionProfileActivityTest extends BaseUnitTest {
 
             Mockito.verify(recordVisitButton, Mockito.never()).setVisibility(View.GONE);
             Mockito.verify(markClientStartedMatButton, Mockito.never()).setVisibility(View.GONE);
+        }
+    }
+
+    @Test
+    public void setupButtonsShouldShowPreMatSessionWhenRiskAssessmentRequiresIt() {
+        HarmReductionProfileActivity activity = Mockito.mock(HarmReductionProfileActivity.class, Mockito.CALLS_REAL_METHODS);
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        HarmReductionDao harmReductionDao = Mockito.mock(HarmReductionDao.class);
+        TextView recordVisitButton = Mockito.mock(TextView.class);
+        Mockito.doReturn("base-id").when(memberObject).getBaseEntityId();
+
+        ReflectionHelpers.setField(activity, "memberObject", memberObject);
+        ReflectionHelpers.setField(activity, "harmReductionDao", harmReductionDao);
+        ReflectionHelpers.setField(activity, "textViewRecordHarmReductionVisit", recordVisitButton);
+        Mockito.doReturn(false).when(harmReductionDao).hasStartedMat("base-id");
+
+        try (MockedStatic<HarmReductionDao> harmReductionDaoStatic = Mockito.mockStatic(HarmReductionDao.class)) {
+            harmReductionDaoStatic.when(() -> HarmReductionDao.isCommunityClientDeceased("base-id")).thenReturn(false);
+            harmReductionDaoStatic.when(() -> HarmReductionDao.getRocMatPreSession("base-id")).thenReturn("yes");
+            harmReductionDaoStatic.when(() -> HarmReductionDao.getRocConsentForJoiningMatServices("base-id")).thenReturn("");
+
+            activity.setupButtons();
+
+            Mockito.verify(recordVisitButton).setVisibility(View.VISIBLE);
+            Mockito.verify(recordVisitButton).setText(R.string.record_pre_mat_session);
         }
     }
 }
