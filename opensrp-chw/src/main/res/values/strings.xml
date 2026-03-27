@@ -165,7 +165,7 @@
     <string name="no_record">No record</string>
 
     <!-- HPS Annual Census register labels -->
-    <string name="hps_annual_census_register_title">HPS Annual Census</string>
+    <string name="hps_annual_census_register_title">CHW Annual Census</string>
     <string name="hps_annual_census_year"><![CDATA[<b>Year:</b> %1$s]]></string>
     <string name="hps_annual_census_status_incomplete">Incomplete</string>
     <string name="hps_annual_census_status_partial">Partially filled</string>
@@ -197,6 +197,9 @@
 
     <!-- HPS Annual Census visit action titles -->
     <string name="hps_annual_census_population_action_title">Population</string>
+    <string name="hps_annual_census_population_subtitle_households">Households %1$s</string>
+    <string name="hps_annual_census_population_subtitle_male">Male %1$s</string>
+    <string name="hps_annual_census_population_subtitle_female">Female %1$s</string>
     <string name="hps_annual_census_basic_nutrition_action_title">Number of households with basic nutrition source</string>
     <string name="hps_annual_census_centers_action_title">Healthcare services, education, child and elder care centers</string>
     <string name="hps_annual_census_social_economic_action_title">Social services and economic activities</string>
@@ -210,6 +213,25 @@
     <string name="hps_annual_census_workplace_health_reports_action_title">Health Reports Affecting People in Workplaces</string>
     <string name="hps_annual_census_solid_waste_action_title">Solid waste &amp; waste collection equipments</string>
     <string name="hps_annual_census_insect_breeding_control_action_title">Identification and Control of Insect Breeding Sites</string>
+    <string name="hps_annual_census_basic_nutrition_subtitle">Veg:%1$s  Fruit:%2$s  Animal:%3$s</string>
+    <string name="hps_annual_census_category_government">Government</string>
+    <string name="hps_annual_census_category_faith_based_organisation">Faith Based Organization</string>
+    <string name="hps_annual_census_category_public">Public</string>
+    <string name="hps_annual_census_category_private">Private</string>
+    <string name="hps_annual_census_centers_subtitle_categories">Categories: %1$s</string>
+    <string name="hps_annual_census_centers_subtitle_government">Gov: Hospitals %1$s, Primary schools %2$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_tap_water">Tap water %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_lighting_electricity">Lighting-elec %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_cooking_gas">Cooking-gas %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_capable">Capable M%1$s F%2$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_engaged">Engaged M%1$s F%2$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle_committee">Committee %1$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle">Attendance Q1:%1$s Q2:%2$s Q3:%3$s Q4:%4$s | Registered Alt:%5$s Trad:%6$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle_unregistered">Unregistered Alt:%1$s Trad:%2$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_capacity_men">Capacity Men %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_capacity_women">Capacity Women %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_men_engaged">Men Engaged %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_women_engaged">Women Engaged %1$s</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
@@ -739,6 +761,8 @@
     <string name="convert_to_independent_client">Convert to Independent Client</string>
     <string name="set_up_new_household">Set Up New Household</string>
     <string name="add_existing_family_member">Add existing household member</string>
+    <string name="cbhs_reports_title">CBHS Summary Report</string>
+    <string name="cbhs_reports_subtitle">View Monthly Summary Report</string>
 
 
 </resources>

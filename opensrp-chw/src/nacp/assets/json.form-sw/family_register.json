@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Maelezo ya Kaya",
+    "title": "Taarifa za Kaya",
     "next": "step2",
     "fields": [
       {
@@ -86,7 +86,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Jina la Kwanza la Mkuu wa Familia",
+        "hint": "Jina la Kwanza la Mkuu wa Kaya",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -103,7 +103,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Jina la Kati la Mkuu wa Familia",
+        "hint": "Jina la Kati la Mkuu wa Kaya",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
@@ -244,7 +244,7 @@
     ]
   },
   "step2": {
-    "title": "Mkuu wa Kaya",
+    "title": "Mkuu wa kaya",
     "fields": [
       {
         "key": "existing_head",

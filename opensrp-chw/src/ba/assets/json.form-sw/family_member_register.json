@@ -631,7 +631,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Ni mlezi mkuu wa familia?",
+        "hint": "Ni mlezi au mkuu wa kaya?",
         "values": [
           "Ndiyo",
           "Hapana"

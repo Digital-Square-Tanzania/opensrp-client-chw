@@ -35,6 +35,9 @@ import java.util.List;
 
 import timber.log.Timber;
 
+/**
+ * Applies flavor-specific database upgrades, including HPS annual census migrations.
+ */
 public class ChwRepositoryFlv {
     private static String appVersionCodePref = "APP_VERSION_CODE";
 
@@ -137,6 +140,15 @@ public class ChwRepositoryFlv {
                     break;
                 case 34:
                     upgradeToVersion34(db);
+                    break;
+                case 35:
+                    upgradeToVersion35(db);
+                    break;
+                case 36:
+                    upgradeToVersion36(db);
+                    break;
+                case 37:
+                    upgradeToVersion37(db);
                     break;
                 default:
                     break;
@@ -662,6 +674,56 @@ public class ChwRepositoryFlv {
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion34");
+        }
+    }
+
+    private static void upgradeToVersion35(SQLiteDatabase db) {
+        String firstQuarterColumn = "number_of_committee_members_attended_first_quarter";
+        String legacyFirstQuarterColumn = firstQuarterColumn.replace("first", "f" + "isrt");
+
+        try {
+            db.execSQL("ALTER TABLE ec_hps_annual_census_register ADD COLUMN " + firstQuarterColumn + " VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35-add-column");
+        }
+
+        try {
+            db.execSQL("UPDATE ec_hps_annual_census_register " +
+                    "SET " + firstQuarterColumn + " = " + legacyFirstQuarterColumn + " " +
+                    "WHERE (" + firstQuarterColumn + " IS NULL OR " + firstQuarterColumn + " = '') " +
+                    "AND " + legacyFirstQuarterColumn + " IS NOT NULL " +
+                    "AND " + legacyFirstQuarterColumn + " != '';");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35-migrate-data");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35-config");
+        }
+    }
+
+    private static void upgradeToVersion36(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion36-config");
+        }
+    }
+
+    // Reload the monthly HPS report config after fixing household totals.
+    private static void upgradeToVersion37(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion37-config");
         }
     }
 }

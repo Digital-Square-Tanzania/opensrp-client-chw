@@ -7858,7 +7858,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_by_age_group_under1"
+            "concept": "number_of_male_by_age_group_less_1"
           }
         },
         {
@@ -7866,7 +7866,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_by_age_group_under1"
+            "concept": "number_of_female_by_age_group_less_1"
           }
         },
         {
@@ -7938,7 +7938,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_by_age_group_60_plus"
+            "concept": "number_of_male_by_age_group_equal_and_above_60"
           }
         },
         {
@@ -7946,7 +7946,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_by_age_group_60_plus"
+            "concept": "number_of_female_by_age_group_equal_and_above_60"
           }
         },
         {
@@ -8090,7 +8090,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_government"
+            "concept": "number_of_ADDO_government"
           }
         },
         {
@@ -8234,7 +8234,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_faith_based_organisation"
+            "concept": "number_of_ADDO_faith_based_organisation"
           }
         },
         {
@@ -8378,7 +8378,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_public"
+            "concept": "number_of_ADDO_public"
           }
         },
         {
@@ -8522,7 +8522,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_private"
+            "concept": "number_of_ADDO_private"
           }
         },
         {
@@ -9314,7 +9314,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_capable_of_engaging_in_economic_activities"
+            "concept": "no_of_men_with_capacity_to_engage_in_economic_activities"
           }
         },
         {
@@ -9322,7 +9322,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_capable_of_engaging_in_economic_activities"
+            "concept": "no_of_women_with_capacity_to_engage_in_economic_activities"
           }
         },
         {
@@ -9330,7 +9330,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_engaged_in_economic_activities"
+            "concept": "no_of_men_engaged_in_economic_activities"
           }
         },
         {
@@ -9338,7 +9338,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_engaged_in_economic_activities"
+            "concept": "no_of_women_engaged_in_economic_activities"
           }
         },
         {
@@ -9494,11 +9494,11 @@
           }
         },
         {
-          "column_name": "number_of_committee_members_attended_fisrt_quarter",
+          "column_name": "number_of_committee_members_attended_first_quarter",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_committee_members_attended_fisrt_quarter"
+            "concept": "number_of_committee_members_attended_first_quarter"
           }
         },
         {

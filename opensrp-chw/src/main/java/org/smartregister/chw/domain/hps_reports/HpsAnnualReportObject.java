@@ -16,6 +16,9 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+/**
+ * Maps annual census database fields into the HPS annual report payload.
+ */
 public class HpsAnnualReportObject extends ReportObject {
     public static String[] selectorsForSimpleKeys = {
             "number_of_male_by_age_group_under1",
@@ -62,7 +65,7 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_female_capable_of_engaging_in_economic_activities",
             "number_of_female_engaged_in_economic_activities",
             "number_of_health_committee_members_for_effective_committee_meetings",
-            "number_of_committee_members_attended_fisrt_quarter",
+            "number_of_committee_members_attended_first_quarter",
             "number_of_registered_alternative_medicine_service_providers",
             "number_of_registered_traditional_medicine_service_providers",
             "number_of_unregistered_alternative_medicine_service_providers",
@@ -113,10 +116,10 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_pharmacy_faith_based_organisation",
             "number_of_pharmacy_public",
             "number_of_pharmacy_private",
-            "number_of_ADDO_government",
-            "number_of_ADDO_faith_based_organisation",
-            "number_of_ADDO_public",
-            "number_of_ADDO_private",
+            "number_of_addo_government",
+            "number_of_addo_faith_based_organisation",
+            "number_of_addo_public",
+            "number_of_addo_private",
             "number_of_maternity_home_government",
             "number_of_maternity_home_faith_based_organisation",
             "number_of_maternity_home_public",

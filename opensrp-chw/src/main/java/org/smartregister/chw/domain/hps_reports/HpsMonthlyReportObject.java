@@ -55,11 +55,12 @@ public class HpsMonthlyReportObject extends ReportObject {
         for (String questionGroup : hpsQuestionsGroups) {   //rows
             for (String genderGroup : hpsGenderGroups) {
                     for (String ageGroup : hpsAgeGroups) {
-                        jsonObject.put("hps" + "-" + questionGroup + "-" + genderGroup + "-" + ageGroup,
-                                ReportDao.getReportPerIndicatorCode("hps" + "-" + questionGroup + "-" + genderGroup + "-" + ageGroup, reportDate));
+                        jsonObject.put(getIndicatorKey(questionGroup, genderGroup, ageGroup),
+                                ReportDao.getReportPerIndicatorCode(getIndicatorKey(questionGroup, genderGroup, ageGroup), reportDate));
                     }
             }
         }
+        combineClientTotals();
         for (String qns : hpsQuestionsGroupsWithOnlyTotal){
             jsonObject.put("hps" + "-" + qns + "-grand-total",
                     ReportDao.getReportPerIndicatorCode("hps" + "-" + qns + "-grand-total", reportDate));
@@ -68,6 +69,17 @@ public class HpsMonthlyReportObject extends ReportObject {
         getTotalPerIndicator3C();
 
         return jsonObject;
+    }
+
+    // Keep the total client row aligned with new plus return visits for each bucket.
+    private void combineClientTotals() throws JSONException {
+        for (String genderGroup : hpsGenderGroups) {
+            for (String ageGroup : hpsAgeGroups) {
+                int totalClients = jsonObject.optInt(getIndicatorKey("1a", genderGroup, ageGroup))
+                        + jsonObject.optInt(getIndicatorKey("1b", genderGroup, ageGroup));
+                jsonObject.put(getIndicatorKey("1c", genderGroup, ageGroup), totalClients);
+            }
+        }
     }
 
     private void funcGetGenderIndicatorTotal() throws JSONException {
@@ -84,8 +96,7 @@ public class HpsMonthlyReportObject extends ReportObject {
         int  totalOfGenderGiven = 0;
         int returnedValue = 0;
         for (String age: hpsAgeGroups){
-                totalOfGenderGiven += (ReportDao.getReportPerIndicatorCode(
-                        "hps" + "-" + question + "-" + hpsgenderGroup + "-" + age, reportDate));
+                totalOfGenderGiven += jsonObject.optInt(getIndicatorKey(question, hpsgenderGroup, age));
             jsonObject.put("hps"+"-"+question+"-"+hpsgenderGroup+"-total",totalOfGenderGiven);  //display the total for both gender
             returnedValue = totalOfGenderGiven;
         }
@@ -104,6 +115,10 @@ public class HpsMonthlyReportObject extends ReportObject {
             }
             totalofthewholehpsgroup = 0;
         }
+    }
+
+    private String getIndicatorKey(String questionGroup, String genderGroup, String ageGroup) {
+        return "hps" + "-" + questionGroup + "-" + genderGroup + "-" + ageGroup;
     }
 
 }

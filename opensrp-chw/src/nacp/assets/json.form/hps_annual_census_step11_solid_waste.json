@@ -63,7 +63,14 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:amount_of_solid_waste_generated_annually_tons)",
+            "err": "must not be greater than amount of solid waste generated annually"
+          }
+        ]
       },
       {
         "key": "number_of_waste_collection_equipment_vehicles",
