@@ -4,6 +4,8 @@ import static com.vijay.jsonwizard.utils.FormUtils.fields;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.util.JsonFormUtils.STEP1;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -11,6 +13,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +36,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
@@ -62,9 +69,17 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
+public class MotherChampionProfileActivity extends CorePmtctProfileActivity implements OnRetrieveNotifications {
     private static String baseEntityId;
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startProfile(Activity activity, String baseEntityId) {
         MotherChampionProfileActivity.baseEntityId = baseEntityId;
@@ -103,6 +118,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
             }
             startFormActivity(formJsonObject);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -356,5 +372,13 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     protected void onResume() {
         super.onResume();
         refreshMedicalHistory(true);
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }

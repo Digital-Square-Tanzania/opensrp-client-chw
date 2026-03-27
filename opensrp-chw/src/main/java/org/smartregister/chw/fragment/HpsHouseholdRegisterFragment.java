@@ -61,7 +61,7 @@ public class HpsHouseholdRegisterFragment extends CoreHpsRegisterFragment {
 
     protected void goToPatientDetailActivity(CommonPersonObjectClient patient,
                                              boolean goToDuePage) {
-        HpsHouseholdProfileActivity.startMe(getActivity(), Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+        HpsHouseholdProfileActivity.startMe(getActivity(), Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
     }
 
 }

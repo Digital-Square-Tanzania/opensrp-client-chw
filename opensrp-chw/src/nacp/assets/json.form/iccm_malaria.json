@@ -64,7 +64,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "able_conduct_mrdt_test",
-        "label": "Are you able to conduct mRDT Test?",
+        "label": "was mRDT test conducted ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
