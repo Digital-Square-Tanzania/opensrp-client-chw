@@ -206,7 +206,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         kvpReports.setOnClickListener(this);
         hpsReports.setOnClickListener(this);
         aypOutSchoolReports.setOnClickListener(this);
-        hpsReports.setOnClickListener(this);
     }
 
     public void setUpToolbar() {
@@ -237,57 +236,31 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        // Route each report tile once to keep the back stack clean.
         if (id == R.id.cbhs_summary) {
-            Intent intent = new Intent(this, CBHSReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.mother_champion_reports) {
-            Intent intent = new Intent(this, MotherChampionReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.cdp_reports) {
-            Intent intent = new Intent(this, CdpReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.agyw_reports) {
-            Intent intent = new Intent(this, AGYWReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.iccm_reports) {
-            Intent intent = new Intent(this, IccmReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.sbc_reports) {
-            Intent intent = new Intent(this, SbcReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.asrh_reports) {
-            Intent intent = new Intent(this, AsrhReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.cecap_reports) {
-            Intent intent = new Intent(this, CecapReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.tb_leprosy_reports) {
-            Intent intent = new Intent(this, TbLeprosyReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.kvp_reports) {
-            Intent intent = new Intent(this, KvpReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.hps_reports) {
-            Intent intent = new Intent(this, HpsReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.ayp_out_school_report) {
-            Intent intent = new Intent(this, AypReportsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.hps_reports) {
-            Intent intent = new Intent(this, HpsReportsActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, CBHSReportsActivity.class));
+        } else if (id == R.id.mother_champion_reports) {
+            startActivity(new Intent(this, MotherChampionReportsActivity.class));
+        } else if (id == R.id.cdp_reports) {
+            startActivity(new Intent(this, CdpReportsActivity.class));
+        } else if (id == R.id.agyw_reports) {
+            startActivity(new Intent(this, AGYWReportsActivity.class));
+        } else if (id == R.id.iccm_reports) {
+            startActivity(new Intent(this, IccmReportsActivity.class));
+        } else if (id == R.id.sbc_reports) {
+            startActivity(new Intent(this, SbcReportsActivity.class));
+        } else if (id == R.id.asrh_reports) {
+            startActivity(new Intent(this, AsrhReportsActivity.class));
+        } else if (id == R.id.cecap_reports) {
+            startActivity(new Intent(this, CecapReportsActivity.class));
+        } else if (id == R.id.tb_leprosy_reports) {
+            startActivity(new Intent(this, TbLeprosyReportsActivity.class));
+        } else if (id == R.id.kvp_reports) {
+            startActivity(new Intent(this, KvpReportsActivity.class));
+        } else if (id == R.id.hps_reports) {
+            startActivity(new Intent(this, HpsReportsActivity.class));
+        } else if (id == R.id.ayp_out_school_report) {
+            startActivity(new Intent(this, AypReportsActivity.class));
         }
     }
 

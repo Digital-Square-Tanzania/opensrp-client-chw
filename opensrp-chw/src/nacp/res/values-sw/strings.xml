@@ -398,7 +398,8 @@
     <string name="cdp_receiving_report">Ripoti za kupokea kondomu</string>
     <string name="agyw_visit">Matembeleo ya Msichana Rika Balehe na Mwanamke Kijana</string>
 
-
+    <string name="cbhs_reports_title">Muhtasari wa taarifa za HUWANYU</string>
+    <string name="cbhs_reports_subtitle">Tazama muhtasari wa taarifa za mwezi</string>
     <!--    KVP Community-->
     <string name="kvp_prep_visit_type">Aina ya Hudhurio</string>
     <string name="kvp_visit_type">Aina ya hudhurio la mteja:</string>
@@ -622,6 +623,9 @@
     <!--    ICCM Visit History-->
     <string name="iccm_visit">Matembeleo ya huduma za iCCM</string>
     <string name="cecap_topics_covered">Mada zilizotolewa:</string>
+    <string name="iccm_reports_title">Taarifa za ICCM</string>
+    <string name="iccm_reports_subtitle">Tazama taarifa za ICCM</string>
+    <string name="iccm_client_report">Taarifa za wateja wa ICCM</string>
 
     <!--    ASRH   -->
     <string name="asrh_client_status">Hali ya Mteja:</string>
