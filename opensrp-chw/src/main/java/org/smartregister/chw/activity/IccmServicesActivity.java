@@ -61,40 +61,46 @@ public class IccmServicesActivity extends BaseIccmVisitActivity {
         //Clearing the action List before recreation
         actionList.clear();
 
+        String medicalHistoryTitle = getString(R.string.iccm_medical_history);
+        String physicalExaminationTitle = getString(R.string.iccm_physical_examination);
+        String pneumoniaTitle = getString(R.string.iccm_pneumonia);
+        String diarrheaTitle = getString(R.string.iccm_diarrhea);
+        String malariaTitle = getString(R.string.iccm_malaria);
+        String referralTitle = getString(R.string.iccm_referral);
+        boolean isReferralActive = IccmVisitStateTracker.getInstance().getIsIccmReferralModouleActive();
+
+        if (!isReferralActive) {
+            map.remove(referralTitle);
+        }
+
         //Rearranging the actions according to a specific arrangement
-        if (map.containsKey(getString(R.string.iccm_medical_history))) {
-            actionList.put(getString(R.string.iccm_medical_history), map.get(getString(R.string.iccm_medical_history)));
+        if (map.containsKey(medicalHistoryTitle)) {
+            actionList.put(medicalHistoryTitle, map.get(medicalHistoryTitle));
         }
 
-        if (map.containsKey(getString(R.string.iccm_physical_examination))) {
-            actionList.put(getString(R.string.iccm_physical_examination), map.get(getString(R.string.iccm_physical_examination)));
+        if (map.containsKey(physicalExaminationTitle)) {
+            actionList.put(physicalExaminationTitle, map.get(physicalExaminationTitle));
         }
 
-        if (map.containsKey(getString(R.string.iccm_pneumonia))) {
-            actionList.put(getString(R.string.iccm_pneumonia), map.get(getString(R.string.iccm_pneumonia)));
+        if (map.containsKey(pneumoniaTitle)) {
+            actionList.put(pneumoniaTitle, map.get(pneumoniaTitle));
         }
 
-        if (map.containsKey(getString(R.string.iccm_diarrhea))) {
-            actionList.put(getString(R.string.iccm_diarrhea), map.get(getString(R.string.iccm_diarrhea)));
+        if (map.containsKey(diarrheaTitle)) {
+            actionList.put(diarrheaTitle, map.get(diarrheaTitle));
         }
 
-        if (map.containsKey(getString(R.string.iccm_malaria))) {
-            actionList.remove(getString(R.string.iccm_malaria));
-            actionList.put(getString(R.string.iccm_malaria), map.get(getString(R.string.iccm_malaria)));
+        if (map.containsKey(malariaTitle)) {
+            actionList.remove(malariaTitle);
+            actionList.put(malariaTitle, map.get(malariaTitle));
         }
 
-        if (map.containsKey(getString(R.string.iccm_referral))) {
-            actionList.remove(getString(R.string.iccm_referral));
-            actionList.put(getString(R.string.iccm_referral), map.get(getString(R.string.iccm_referral)));
+        if (isReferralActive && map.containsKey(referralTitle)) {
+            actionList.remove(referralTitle);
+            actionList.put(referralTitle, map.get(referralTitle));
         }
 
         //====================End of Necessary evil ====================================
-
-        IccmVisitStateTracker iccmVisitStateTracker=IccmVisitStateTracker.getInstance();
-        if(!iccmVisitStateTracker.getIsIccmReferralModouleActive()){
-            map.remove(getString(R.string.iccm_referral));
-        }
-
 
         for (Map.Entry<String, BaseIccmVisitAction> entry : map.entrySet()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

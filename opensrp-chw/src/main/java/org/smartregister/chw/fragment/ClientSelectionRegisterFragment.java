@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.util.Utils.reprocessIndependentClientRegistrationEvents;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +13,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.smartregister.chw.R;
+import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
+import org.smartregister.chw.dao.FamilyDao;
+import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.provider.ExistingAllClientsSelectionQueryProvider;
 import org.smartregister.chw.provider.OpdRegisterProvider;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.opd.configuration.OpdConfiguration;
 import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 import org.smartregister.family.util.Constants;
+
+import timber.log.Timber;
 
 /**
  * Minimal client selection register fragment for picking an existing client.
@@ -99,13 +107,38 @@ public class ClientSelectionRegisterFragment extends CoreAllClientsRegisterFragm
         if (activity == null) return;
 
         String selectedBaseEntityId = commonPersonObjectClient.getCaseId();
-        if (TextUtils.isEmpty(selectedBaseEntityId)) {
-            selectedBaseEntityId = commonPersonObjectClient.entityId();
+        String entityTpe = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
+        FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(commonPersonObjectClient.entityId());
+
+        if (entityTpe.equalsIgnoreCase("ec_independent_client") && familyDetailsModel != null) {
+
+            try {
+                reprocessIndependentClientRegistrationEvents(familyDetailsModel.getBaseEntityId(), selectedBaseEntityId);
+                Intent intent = getIntent(familyDetailsModel);
+                startActivity(intent);
+                activity.finish();
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        } else {
+            if (TextUtils.isEmpty(selectedBaseEntityId)) {
+                selectedBaseEntityId = commonPersonObjectClient.entityId();
+            }
+            Intent data = new Intent();
+            data.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, selectedBaseEntityId);
+            activity.setResult(Activity.RESULT_OK, data);
+            activity.finish();
         }
-        Intent data = new Intent();
-        data.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, selectedBaseEntityId);
-        activity.setResult(Activity.RESULT_OK, data);
-        activity.finish();
+    }
+
+    @NonNull
+    private Intent getIntent(FamilyDetailsModel familyDetailsModel) {
+        Intent intent = new Intent(getContext(), FamilyProfileActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyDetailsModel.getBaseEntityId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyDetailsModel.getFamilyHead());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyDetailsModel.getPrimaryCareGiver());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, familyDetailsModel.getFamilyName());
+        return intent;
     }
 
     @Override

@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
@@ -10,6 +12,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,9 +28,12 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivstProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.interactor.CoreHivstProfileInteractor;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.presenter.CoreHivstMemberProfilePresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -42,10 +49,29 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 
+import java.util.List;
+
 import timber.log.Timber;
 
 
-public class HivstProfileActivity extends CoreHivstProfileActivity {
+public class HivstProfileActivity extends CoreHivstProfileActivity implements OnRetrieveNotifications {
+
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
+    }
 
     public static void startProfile(Activity activity, String baseEntityId, boolean openIssueSelfTestingKitsForm) {
         Intent intent = new Intent(activity, HivstProfileActivity.class);
@@ -120,6 +146,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         } else {
             super.onClick(view);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -249,5 +276,10 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public void refreshFamilyStatus(AlertStatus status) {
         super.refreshFamilyStatus(status);
         rlFamilyServicesDue.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }

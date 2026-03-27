@@ -2152,6 +2152,14 @@
             "field": "obs.formSubmissionField",
             "concept": "prescriptions"
           }
+        },
+        {
+          "column_name": "outcomes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "outcomes"
+          }
         }
       ]
     },
@@ -11032,6 +11040,71 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "score_category"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_facility_to_community_linkage",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reason"
+          }
+        },
+        {
+          "column_name": "identifier_value",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "identifier_value"
+          }
+        },
+        {
+          "column_name": "identifier_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "identifier_type"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
           }
         }
       ]

@@ -1,17 +1,26 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.SbcFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -31,8 +40,20 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
+public class SbcMemberProfileActivity extends BaseSbcProfileActivity implements OnRetrieveNotifications {
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        androidx.recyclerview.widget.RecyclerView notificationAndReferralRecyclerView =
+                findViewById(org.smartregister.chw.core.R.id.notification_and_referral_recycler_view);
+        if (notificationAndReferralRecyclerView != null) {
+            notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        }
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, SbcMemberProfileActivity.class);
@@ -66,6 +87,9 @@ public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
         setupViews();
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     private void addReferralTypes() {
@@ -94,6 +118,12 @@ public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -171,5 +201,10 @@ public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
 
     protected void startTbLeprosyScreening() {
         TbLeprosyRegisterActivity.startRegistration(SbcMemberProfileActivity.this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }
