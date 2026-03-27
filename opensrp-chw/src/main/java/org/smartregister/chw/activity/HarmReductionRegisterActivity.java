@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHarmReductionRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -16,10 +19,13 @@ import org.smartregister.chw.fragment.HarmReductionMatClientsRegisterFragment;
 import org.smartregister.chw.fragment.HarmReductionRegisterFragment;
 import org.smartregister.chw.fragment.HarmReductionUsedNeedlesAndSyringesCollectionFragment;
 import org.smartregister.chw.harmreduction.util.Constants;
+import org.smartregister.chw.harmreduction.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActivity {
+    private static final String YES = "yes";
+    private static final String ROC_MAT_PRE_SESSION_FIELD = "roc_mat_pre_session";
 
     public static void startRegistration(Activity activity, String memberBaseEntityID) {
         Intent intent = new Intent(activity, HarmReductionRegisterActivity.class);
@@ -80,5 +86,52 @@ public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActi
         if (menu != null) {
             menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.HARM_REDUCTION);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        maybeOpenPreMatVisit(requestCode, resultCode, data);
+    }
+
+    void maybeOpenPreMatVisit(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK
+                || requestCode != org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON
+                || data == null) {
+            return;
+        }
+
+        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        if (StringUtils.isBlank(jsonString)) {
+            return;
+        }
+
+        try {
+            JSONObject form = new JSONObject(jsonString);
+            if (!shouldLaunchPreMatSession(form)) {
+                return;
+            }
+
+            String baseEntityId = form.optString(org.smartregister.util.JsonFormUtils.ENTITY_ID);
+            if (StringUtils.isBlank(baseEntityId)) {
+                return;
+            }
+
+            Intent intent = new Intent(this, HarmReductionVisitActivity.class);
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, false);
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.HARM_REDUCTION_PROFILE);
+            startActivity(intent);
+        } catch (JSONException e) {
+            timber.log.Timber.e(e);
+        }
+    }
+
+    static boolean shouldLaunchPreMatSession(JSONObject form) {
+        return form != null
+                && Constants.EVENT_TYPE.HARM_REDUCTION_RISK_ASSESSMENT.equalsIgnoreCase(
+                form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE)
+        )
+                && YES.equalsIgnoreCase(JsonFormUtils.getValue(form, ROC_MAT_PRE_SESSION_FIELD));
     }
 }
