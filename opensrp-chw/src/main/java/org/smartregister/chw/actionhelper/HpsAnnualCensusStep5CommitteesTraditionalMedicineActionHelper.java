@@ -14,6 +14,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Summarizes committee attendance and traditional medicine provider counts.
+ */
 public class HpsAnnualCensusStep5CommitteesTraditionalMedicineActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     private final String householdMax;

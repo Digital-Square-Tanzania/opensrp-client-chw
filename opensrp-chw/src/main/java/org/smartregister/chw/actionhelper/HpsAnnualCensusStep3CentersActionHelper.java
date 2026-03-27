@@ -14,6 +14,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Summarizes selected center categories and key government facility counts.
+ */
 public class HpsAnnualCensusStep3CentersActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     private Context context;

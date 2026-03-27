@@ -58,6 +58,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Renders saved annual census visits and routes the latest visit back into edit mode.
+ */
 public class HpsAnnualCensusRegistrationDetailsActivity extends CoreAncMedicalHistoryActivity {
     private static String baseEntityId;
 
@@ -136,6 +139,9 @@ public class HpsAnnualCensusRegistrationDetailsActivity extends CoreAncMedicalHi
         return false;
     }
 
+    /**
+     * Formats annual census visit details for display on the history screen.
+     */
     private static class AnnualCensusRegisterDetailsActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
         private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
 

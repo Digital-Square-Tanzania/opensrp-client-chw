@@ -14,6 +14,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Injects the household limit and summarizes social-economic highlights.
+ */
 public class HpsAnnualCensusStep4SocialEconomicActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
     private final String householdMax;
     private Context context;

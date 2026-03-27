@@ -35,6 +35,9 @@ import java.util.List;
 
 import timber.log.Timber;
 
+/**
+ * Applies flavor-specific database upgrades, including HPS annual census migrations.
+ */
 public class ChwRepositoryFlv {
     private static String appVersionCodePref = "APP_VERSION_CODE";
 

@@ -14,6 +14,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Injects the household limit and summarizes nutrition source counts.
+ */
 public class HpsAnnualCensusStep2NutritionSourcesActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     private final String householdMax;

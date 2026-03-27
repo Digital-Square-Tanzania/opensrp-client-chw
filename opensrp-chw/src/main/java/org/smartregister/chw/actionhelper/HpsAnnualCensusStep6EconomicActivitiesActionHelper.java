@@ -13,6 +13,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Summarizes capacity and participation counts for economic activities.
+ */
 public class HpsAnnualCensusStep6EconomicActivitiesActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     private Context context;

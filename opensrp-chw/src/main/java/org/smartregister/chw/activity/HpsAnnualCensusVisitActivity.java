@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Action-based HPS Annual Census visit flow.
+ * Hosts the action-based HPS annual census flow and preserves step order.
  */
 public class HpsAnnualCensusVisitActivity extends BaseHpsVisitActivity {
 

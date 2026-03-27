@@ -16,6 +16,9 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+/**
+ * Maps annual census database fields into the HPS annual report payload.
+ */
 public class HpsAnnualReportObject extends ReportObject {
     public static String[] selectorsForSimpleKeys = {
             "number_of_male_by_age_group_under1",

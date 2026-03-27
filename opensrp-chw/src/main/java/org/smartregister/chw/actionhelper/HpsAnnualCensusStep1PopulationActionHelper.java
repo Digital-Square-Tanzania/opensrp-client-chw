@@ -13,6 +13,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Builds the population step subtitle from household and age-band totals.
+ */
 public class HpsAnnualCensusStep1PopulationActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     public interface Callback {
