@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Maelezo ya familia",
+    "title": "Maelezo ya Kaya",
     "next": "step2",
     "fields": [
       {
@@ -244,7 +244,7 @@
     ]
   },
   "step2": {
-    "title": "Mkuu wa familia",
+    "title": "Mkuu wa Kaya",
     "fields": [
       {
         "key": "existing_head",

@@ -104,7 +104,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
         setupViews();
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
-        memberObject = HpsDao.getMember(memberObject.getBaseEntityId());
+        memberObject = HpsDao.getHouseholdMember(baseEntityId);
     }
 
     private void addReferralTypes() {
@@ -188,12 +188,17 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
-        addReferralTypes();
+        memberObject = HpsDao.getHouseholdMember(baseEntityId);
+        /*
+          Commented this function call because here we are dealing with the household in general not a member
+         */
+//        addReferralTypes();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem addMember = menu.findItem(org.smartregister.chw.core.R.id.add_member);
+        /*
+        * MenuItem addMember = menu.findItem(org.smartregister.chw.core.R.id.add_member);
         if (addMember != null) {
             addMember.setVisible(false);
         }
@@ -254,7 +259,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
         if (ChwApplication.getApplicationFlavor().hasCecap()) {
             menu.findItem(R.id.action_cancer_preventive_services_registration).setVisible(!CecapDao.isRegisteredForCecap(memberObject.getBaseEntityId()) && age >= 14);
-        }
+        }*/
         return true;
     }
 
@@ -402,12 +407,12 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
 
     @Override
     public void startServiceForm() {
-        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+        HpsClientServicesVisitActivity.startMe(this, baseEntityId, false);
     }
 
     @Override
     public void continueService() {
-        HpsClientServicesVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+        HpsClientServicesVisitActivity.startMe(this, baseEntityId, true);
     }
 
     @Override
@@ -417,7 +422,7 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
             jsonObject = CecapJsonFormUtils.getFormAsJson(Constants.FORMS.HPS_HOUSEHOLD_VISIT);
 
             String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            HpsJsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
+            HpsJsonFormUtils.getRegistrationForm(jsonObject, baseEntityId, locationId);
             startFormActivity(jsonObject);
         } catch (Exception e) {
             Timber.e(e);
@@ -443,6 +448,6 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     protected Visit getServiceVisit() {
         if (memberObject == null)
             memberObject = getMemberObject(baseEntityId);
-        return HpsLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
+        return HpsLibrary.getInstance().visitRepository().getLatestVisit(baseEntityId, Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
     }
 }
