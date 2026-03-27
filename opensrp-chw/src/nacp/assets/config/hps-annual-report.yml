@@ -268,25 +268,25 @@ indicators:
     grouping: HPS
     expectedIndicators: ["h1zM7FcXR4q", "DjmGl8dUMtT"]
     description: Number of addo government
-    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_government) FROM ec_hps_annual_census_register
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_addo_government) FROM ec_hps_annual_census_register
       WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-n-2
     grouping: HPS
     expectedIndicators: ["Pkkkrt1bVyK", "DjmGl8dUMtT"]
     description: Number of addo faith based organisation
-    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_faith_based_organisation)
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_addo_faith_based_organisation)
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-n-3
     grouping: HPS
     expectedIndicators: ["ScTDV3EQhbp", "DjmGl8dUMtT"]
     description: Number of addo public
-    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_public) FROM ec_hps_annual_census_register
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_addo_public) FROM ec_hps_annual_census_register
       WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-n-4
     grouping: HPS
     expectedIndicators: ["KyNdJr5PcPY", "DjmGl8dUMtT"]
     description: Number of addo private
-    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_ADDO_private) FROM ec_hps_annual_census_register
+    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_addo_private) FROM ec_hps_annual_census_register
       WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-o-1
     grouping: HPS

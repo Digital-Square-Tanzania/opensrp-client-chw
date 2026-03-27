@@ -144,6 +144,9 @@ public class ChwRepositoryFlv {
                 case 35:
                     upgradeToVersion35(db);
                     break;
+                case 36:
+                    upgradeToVersion36(db);
+                    break;
                 default:
                     break;
             }
@@ -697,6 +700,16 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion35-config");
+        }
+    }
+
+    private static void upgradeToVersion36(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion36-config");
         }
     }
 }
