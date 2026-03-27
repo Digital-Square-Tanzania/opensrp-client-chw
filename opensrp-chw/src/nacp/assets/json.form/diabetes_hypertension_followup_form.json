@@ -92,9 +92,6 @@
         "type": "check_box",
         "label": "What are the reasons for not visiting health facility?",
         "label_text_style": "bold",
-        "exclusive": [
-          "chk_other_visit_reason"
-        ],
         "options": [
           {
             "key": "lack_of_transport_fare",
@@ -173,6 +170,29 @@
           "step1:visit_hf": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_visiting",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reasons_for_not_visiting",
+        "type": "edit_text",
+        "hint": "What other reason for not visiting health facility?",
+        "v_required": {
+          "value": "true",
+          "err": "Describe the other reason"
+        },
+        "relevance": {
+          "step1:reasons_for_not_visiting": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_visit_reason"
+                ]
+              }
+            ]
           }
         }
       },
@@ -397,15 +417,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_no_medication",
-            "text": "ADDO didn't have the medication needed",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_changed_mind"
           },
           {
             "key": "chk_unavailable_service",
@@ -420,7 +432,7 @@
             "text": "Other",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_other_reason"
           }
         ],
         "v_required": {
@@ -452,29 +464,6 @@
               {
                 "or": [
                   "chk_other_reason"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "other_reason_novisit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "What other reason?",
-        "v_required": {
-          "value": "true",
-          "err": "Describe the other reason"
-        },
-        "relevance": {
-          "step1:reasons_for_not_visiting": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_other_visit_reason"
                 ]
               }
             ]

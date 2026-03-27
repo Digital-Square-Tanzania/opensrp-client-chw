@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Record Vitals",
+    "title": "Fomu ya vipimo",
     "fields": [
       {
         "key": "measurement_date",

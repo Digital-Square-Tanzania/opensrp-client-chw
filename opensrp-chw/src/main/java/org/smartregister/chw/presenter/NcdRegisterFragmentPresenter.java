@@ -20,8 +20,9 @@ public class NcdRegisterFragmentPresenter extends BaseNcdRegisterFragmentPresent
         String riskScoreExpr = "CAST(IFNULL(NULLIF(" + mainTable + ".risk_score,''),'0') AS REAL) >= " + DIABETES_RISK_THRESHOLD;
         String systolicExpr = "CAST(IFNULL(NULLIF(" + mainTable + ".systolic_bp,''),'0') AS REAL) >= " + SYSTOLIC_BP_THRESHOLD;
         String diastolicExpr = "CAST(IFNULL(NULLIF(" + mainTable + ".diastolic_bp,''),'0') AS REAL) >= " + DIASTOLIC_BP_THRESHOLD;
+        String followUpExpr= "(dhf.base_entity_id is null OR (dhf.hypertension_test_result is null AND dhf.diabetes_test_result is null))";
 
-        return " " + mainTable + ".is_closed = 0 AND dhf.base_entity_id is null AND dhc.base_entity_id is null"
+        return " " + mainTable + ".is_closed = 0 AND " + followUpExpr + " AND dhc.base_entity_id is null"
                 + " AND (" + riskScoreExpr + " OR " + systolicExpr + " OR " + diastolicExpr + ") ";
     }
 }

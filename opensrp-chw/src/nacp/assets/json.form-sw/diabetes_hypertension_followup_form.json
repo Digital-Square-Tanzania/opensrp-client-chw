@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Follow-up Visit",
+    "title": "Tembeleo la ufuatiliaji",
     "fields": [
       {
         "key": "date_chw_followup",
@@ -92,9 +92,6 @@
         "type": "check_box",
         "label": "Sababu za kutotembelea kituo cha afya",
         "label_text_style": "bold",
-        "exclusive": [
-          "chk_other_visit_reason"
-        ],
         "options": [
           {
             "key": "lack_of_transport_fare",
@@ -119,6 +116,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no_time"
+          },
+          {
+            "key": "chk_costly",
+            "text": "Transport was too costly",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fear_of_diagnosis",
@@ -165,6 +170,29 @@
           "step1:visit_hf": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_visiting",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reasons_for_not_visiting",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine za kutotembelea kituo cha kutolea afya?",
+        "v_required": {
+          "value": "true",
+          "err": "Elezea sababu nyingine"
+        },
+        "relevance": {
+          "step1:reasons_for_not_visiting": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_visit_reason"
+                ]
+              }
+            ]
           }
         }
       },
@@ -353,7 +381,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Ni muhimu kutembelea kituo cha afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
+        "text": "Kumbusha mteja au mlezi kufuata maagizo ya dawa au ushauri alioupokea katika kituo kuhusu lishe, mazoezi, na mabadiliko ya mtindo wa maisha.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -377,7 +405,7 @@
         "options": [
           {
             "key": "chk_many_people",
-            "text": "There were too many people",
+            "text": "Watu wengi sana",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -385,23 +413,15 @@
           },
           {
             "key": "chk_changed_mind",
-            "text": "They changed their mind",
+            "text": "Alibadilisha mawazo",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_no_medication",
-            "text": "ADDO didn't have the medication needed",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_changed_mind"
           },
           {
             "key": "chk_unavailable_service",
-            "text": "There were no skilled service providers",
+            "text": "Hakukuwa na huduma inayohitajika",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -409,15 +429,15 @@
           },
           {
             "key": "chk_other_reason",
-            "text": "Other",
+            "text": "Sababu nyingine, tafadhali taja",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_other_reason"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "No service reason is required"
+          "err": "Tafadhali chagua sababu moja au zaidi"
         },
         "relevance": {
           "rules-engine": {
@@ -433,10 +453,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "What other reason?",
+        "hint": "Tafadhali taja sababu nyingine",
         "v_required": {
           "value": "true",
-          "err": "Describe the other reason"
+          "err": "Elezea sababu nyingine"
         },
         "relevance": {
           "step1:noservices_reason": {
@@ -451,99 +471,12 @@
         }
       },
       {
-        "key": "novisit_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "Why they did not go to the facility?",
-        "label_text_style": "bold",
-        "exclusive": [
-          "chk_other_visit_reason"
-        ],
-        "options": [
-          {
-            "key": "chk_no_time",
-            "text": "I did not have time",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_too_far",
-            "text": "It's too far",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_forgot",
-            "text": "I forgot",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_changed_mind",
-            "text": "I changed my mind",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_other_visit_reason",
-            "text": "Other",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "No visit reason is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_followup_relevance.yml.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_reason_novisit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "What other reason?",
-        "v_required": {
-          "value": "true",
-          "err": "Describe the other reason"
-        },
-        "relevance": {
-          "step1:novisit_reason": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_other_visit_reason"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
         "key": "encourage_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Advise and encourage the client or caretaker to complete the referral at the health facility",
+        "text": "Ni muhimu kutembelea kituo cha afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {

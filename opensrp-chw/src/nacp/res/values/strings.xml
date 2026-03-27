@@ -785,6 +785,6 @@
     <string name="nav_menu_ncd">NCD Clients</string>
 
     <string name="diabetes_and_hypertension_screening_form_title">Diabetes &amp; Hypertension Screening</string>
-    <string name="record_diabetes_hypertension">Record Diabetes and Hypertension</string>
+    <string name="record_diabetes_hypertension">Conduct Diabetes and Hypertension Visit</string>
 
 </resources>
