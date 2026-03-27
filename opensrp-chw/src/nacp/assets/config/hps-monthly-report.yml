@@ -23423,12 +23423,21 @@ indicators:
   - key: "hps-2c-grand-total"
     grouping: "HPS"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 60+"
-    indicatorQuery: "SELECT count(DISTINCT ehhr.base_entity_id) as count FROM ec_hps_household_register ehhr
+    indicatorQuery: "SELECT (
+					  SELECT count(DISTINCT ehhr.base_entity_id) FROM ec_hps_household_register ehhr
 					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
-					  WHERE ehhs.visit_type = 'new_visit' OR ehhs.visit_type = 'return_visit'
+					  WHERE ehhs.visit_type = 'new_visit'
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
-					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+					  ) + (
+					  SELECT count(DISTINCT ehhr.base_entity_id) FROM ec_hps_household_register ehhr
+					  INNER JOIN ec_hps_household_services ehhs ON ehhr.base_entity_id = ehhs.entity_id
+					  WHERE ehhs.visit_type = 'return_visit'
+					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
+					  datetime(ehhs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+					  ) as count"
 
   - key: "hps-2C1-grand-total"
     grouping: "HPS"
@@ -24685,4 +24694,3 @@ indicators:
 					  AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) = date(substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' || substr(strftime('%Y-%m-%d',
 					  datetime(ehcs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-

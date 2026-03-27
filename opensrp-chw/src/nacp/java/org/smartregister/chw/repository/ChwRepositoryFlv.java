@@ -147,6 +147,9 @@ public class ChwRepositoryFlv {
                 case 36:
                     upgradeToVersion36(db);
                     break;
+                case 37:
+                    upgradeToVersion37(db);
+                    break;
                 default:
                     break;
             }
@@ -710,6 +713,17 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion36-config");
+        }
+    }
+
+    // Reload the monthly HPS report config after fixing household totals.
+    private static void upgradeToVersion37(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion37-config");
         }
     }
 }
