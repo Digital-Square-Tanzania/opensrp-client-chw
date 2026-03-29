@@ -20,15 +20,19 @@ public class IccmReferralActionUtilsTest {
 
     @Test
     public void shouldKeepReferralFromMalariaWhenAnyTriggerRemainsTrue() {
-        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("true", "control", "none"));
-        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "parasites_detected", "none"));
-        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "bloody_stool"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("true", "control", "none", "yes", "no"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "parasites_detected", "none", "yes", "no"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "bloody_stool", "yes", "no"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none", "no", "no"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none", "yes", "yes"));
+        Assert.assertTrue(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none", "no", "yes"));
     }
 
     @Test
     public void shouldNotKeepReferralFromMalariaWhenAllTriggersAreFalse() {
-        Assert.assertFalse(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none"));
-        Assert.assertFalse(IccmReferralActionUtils.shouldKeepReferralFromMalaria("", "", ""));
+        Assert.assertFalse(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none", "yes", "no"));
+        Assert.assertFalse(IccmReferralActionUtils.shouldKeepReferralFromMalaria("", "", "", "", ""));
+        Assert.assertFalse(IccmReferralActionUtils.shouldKeepReferralFromMalaria("false", "control", "none", "", "yes"));
     }
 
     @Test
