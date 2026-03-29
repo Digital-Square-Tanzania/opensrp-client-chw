@@ -131,9 +131,6 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.HPS:
                     AllClientsUtils.goToHpsProfile(this.getActivity(), commonPersonObjectClient);
                     break;
-                case CoreConstants.REGISTER_TYPE.HARM_REDUCTION:
-                    AllClientsUtils.goToHarmReductionProfile(this.getActivity(), commonPersonObjectClient);
-                    break;
                 case HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE:
                     AllClientsUtils.goToHarmReductionSoberHouseProfile(this.getActivity(), commonPersonObjectClient);
                     break;

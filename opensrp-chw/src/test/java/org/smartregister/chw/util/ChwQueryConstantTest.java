@@ -21,16 +21,8 @@ public class ChwQueryConstantTest {
     }
 
     @Test
-    public void testHarmReductionBranchExcludesOpenSoberHouseEnrollment() {
-        String query = ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY;
-        int harmReductionIndex = query.indexOf("/*ONLY Harm Reduction clients*/");
-        int soberHouseIndex = query.indexOf("/*ONLY Sober House clients*/");
-
-        Assert.assertTrue(harmReductionIndex >= 0);
-        Assert.assertTrue(soberHouseIndex > harmReductionIndex);
-
-        String harmReductionSection = query.substring(harmReductionIndex, soberHouseIndex);
-        Assert.assertTrue(harmReductionSection.contains("SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id"));
-        Assert.assertTrue(harmReductionSection.contains("ec_harm_reduction_sober_house_enrollment.is_closed is 0"));
+    public void testQueryDoesNotAddGenericHarmReductionRegisterType() {
+        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("/*ONLY Harm Reduction clients*/"));
+        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("'HARM REDUCTION'                             AS register_type"));
     }
 }

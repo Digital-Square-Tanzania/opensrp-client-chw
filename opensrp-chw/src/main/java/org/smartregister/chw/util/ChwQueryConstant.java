@@ -33,9 +33,6 @@ public interface ChwQueryConstant {
             "    SELECT ec_tbleprosy_screening.base_entity_id AS base_entity_id\n" +
             "    FROM ec_tbleprosy_screening where ec_tbleprosy_screening.is_closed is 0 AND  ec_tbleprosy_screening.screening_status != '-'\n" +
             "    UNION ALL\n" +
-            "    SELECT ec_harm_reduction_risk_assessment.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_harm_reduction_risk_assessment  where ec_harm_reduction_risk_assessment.is_closed is 0 \n" +
-            "    UNION ALL\n" +
             "    SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0 \n" +
             "    UNION ALL\n" +
@@ -707,35 +704,6 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_cbhs_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_cbhs_register)\n" +
-            "UNION ALL\n" +
-            "\n" +
-            "/*ONLY Harm Reduction clients*/\n" +
-            "SELECT ec_family_member.first_name,\n" +
-            "       ec_family_member.middle_name,\n" +
-            "       ec_family_member.last_name,\n" +
-            "       ec_family_member.gender,\n" +
-            "       ec_family_member.dob,\n" +
-            "       ec_family_member.base_entity_id,\n" +
-            "       ec_family_member.id                          as _id,\n" +
-            "       ec_family_member.entity_type,\n" +
-            "       'HARM REDUCTION'                             AS register_type,\n" +
-            "       ec_family_member.relational_id               as relationalid,\n" +
-            "       ec_family.village_town                       as home_address,\n" +
-            "       NULL                                         AS mother_first_name,\n" +
-            "       NULL                                         AS mother_last_name,\n" +
-            "       NULL                                         AS mother_middle_name,\n" +
-            "       ec_harm_reduction_risk_assessment.last_interacted_with AS last_interacted_with\n" +
-            "FROM ec_family_member\n" +
-            "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
-            "         inner join ec_harm_reduction_risk_assessment\n" +
-            "                    on ec_family_member.base_entity_id = ec_harm_reduction_risk_assessment.base_entity_id\n" +
-            "where ec_family_member.date_removed is null\n  AND ec_harm_reduction_risk_assessment.is_closed is 0 " +
-            "  AND ec_family_member.base_entity_id IN (%s)\n" +
-            "  AND ec_family_member.base_entity_id NOT IN (\n" +
-            "    SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0\n" +
-            ")\n" +
-            "\n" +
             "UNION ALL\n" +
             "\n" +
             "/*ONLY Sober House clients*/\n" +
