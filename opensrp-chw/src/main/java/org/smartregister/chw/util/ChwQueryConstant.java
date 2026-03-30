@@ -1,6 +1,10 @@
 package org.smartregister.chw.util;
 
 public interface ChwQueryConstant {
+    String ACTIVE_SOBER_HOUSE_ENROLLMENT_CONDITION =
+            "ec_harm_reduction_sober_house_enrollment.is_closed is 0 " +
+                    "AND ec_harm_reduction_sober_house_enrollment.detoxification_done = 'yes'";
+
     String ALL_CLIENTS_SELECT_QUERY = "SELECT * FROM (" +
             "/*INDEPENDENT MEMBERS*/\n" +
             "SELECT ec_family_member.first_name,\n" +
@@ -37,7 +41,7 @@ public interface ChwQueryConstant {
             "    FROM ec_harm_reduction_risk_assessment  where ec_harm_reduction_risk_assessment.is_closed is 0 \n" +
             "    UNION ALL\n" +
             "    SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0 \n" +
+            "    FROM ec_harm_reduction_sober_house_enrollment where " + ACTIVE_SOBER_HOUSE_ENROLLMENT_CONDITION + " \n" +
             "    UNION ALL\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_anc_register where ec_anc_register.is_closed is 0\n" +
@@ -739,7 +743,7 @@ public interface ChwQueryConstant {
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0\n" +
+            "    FROM ec_harm_reduction_sober_house_enrollment where " + ACTIVE_SOBER_HOUSE_ENROLLMENT_CONDITION + "\n" +
             ")\n" +
             "\n" +
             "UNION ALL\n" +
@@ -765,7 +769,7 @@ public interface ChwQueryConstant {
             "         inner join ec_harm_reduction_sober_house_enrollment\n" +
             "                    on ec_family_member.base_entity_id = ec_harm_reduction_sober_house_enrollment.base_entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
-            "  AND ec_harm_reduction_sober_house_enrollment.is_closed is 0\n" +
+            "  AND " + ACTIVE_SOBER_HOUSE_ENROLLMENT_CONDITION + "\n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "\n" +
             "UNION ALL\n" +

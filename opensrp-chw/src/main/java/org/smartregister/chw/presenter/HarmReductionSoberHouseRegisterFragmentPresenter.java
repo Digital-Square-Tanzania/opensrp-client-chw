@@ -20,7 +20,7 @@ public class HarmReductionSoberHouseRegisterFragmentPresenter extends BaseHarmRe
 
     @Override
     public String getMainCondition() {
-        return getMainTable() + ".is_closed = 0";
+        return getMainTable() + ".is_closed = 0 AND " + getMainTable() + ".detoxification_done = 'yes'";
     }
 
     @Override

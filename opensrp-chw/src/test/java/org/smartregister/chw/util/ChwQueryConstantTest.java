@@ -9,7 +9,7 @@ public class ChwQueryConstantTest {
     public void testIndependentClientsExcludeOpenSoberHouseEnrollment() {
         Assert.assertTrue(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains(
                 "SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id\n" +
-                        "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0"
+                        "    FROM ec_harm_reduction_sober_house_enrollment where ec_harm_reduction_sober_house_enrollment.is_closed is 0 AND ec_harm_reduction_sober_house_enrollment.detoxification_done = 'yes'"
         ));
     }
 
@@ -31,7 +31,7 @@ public class ChwQueryConstantTest {
 
         String harmReductionSection = query.substring(harmReductionIndex, soberHouseIndex);
         Assert.assertTrue(harmReductionSection.contains("SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id"));
-        Assert.assertTrue(harmReductionSection.contains("ec_harm_reduction_sober_house_enrollment.is_closed is 0"));
+        Assert.assertTrue(harmReductionSection.contains("ec_harm_reduction_sober_house_enrollment.is_closed is 0 AND ec_harm_reduction_sober_house_enrollment.detoxification_done = 'yes'"));
     }
 
     @Test
