@@ -150,15 +150,6 @@ public class ChwRepositoryFlv {
                 case 37:
                     upgradeToVersion37(db);
                     break;
-                case 35:
-                    upgradeToVersion35(db);
-                    break;
-                case 36:
-                    upgradeToVersion36(db);
-                    break;
-                case 37:
-                    upgradeToVersion37(db);
-                    break;
                 default:
                     break;
             }
