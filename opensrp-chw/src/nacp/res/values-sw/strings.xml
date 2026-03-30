@@ -43,6 +43,9 @@
     <string name="register_partner">Sajili Mwenza</string>
     <string name="new_client">Mteja Mpya</string>
     <string name="existing_client">Mteja Aliyepo</string>
+    <string name="harm_reduction_registration_type_prompt">Chagua aina ya usajili wa huduma za Harm Reduction</string>
+    <string name="harm_reduction_new_client_registration">Usajili wa Mteja Mpya</string>
+    <string name="harm_reduction_existing_client_registration">Usajili wa Mteja Aliyekuwepo</string>
     <string name="cancel_referral">Futa Rufaa</string>
     <string name="cancel_referral_title">Futa Rufaa?</string>
     <string name="record_mother_champion_follouwp_visit">Rekodi Hudhurio la Mama Kinara katika Jamii</string>

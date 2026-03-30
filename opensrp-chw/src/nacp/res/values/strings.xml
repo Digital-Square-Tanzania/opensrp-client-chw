@@ -43,6 +43,9 @@
     <string name="partner_registration_action_title">Partner Registration</string>
     <string name="new_client">New Client</string>
     <string name="existing_client">Existing Client</string>
+    <string name="harm_reduction_registration_type_prompt">Select Harm Reduction registration type</string>
+    <string name="harm_reduction_new_client_registration">New Client Registration</string>
+    <string name="harm_reduction_existing_client_registration">Existing Client Registration</string>
     <string name="all_male_clients">All Male Clients</string>
     <string name="register_partner_dialog_title">Register this client as Partner?</string>
     <string name="view_partner_prefile">View Partner Profile</string>

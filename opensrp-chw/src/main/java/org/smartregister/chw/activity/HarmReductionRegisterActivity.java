@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 
 import androidx.annotation.MenuRes;
@@ -24,14 +25,27 @@ import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActivity {
+    static final String EXTRA_SHOW_REGISTRATION_CHOOSER = "show_harm_reduction_registration_chooser";
+    static final String HARM_REDUCTION_REGISTER_EXISTING_CLIENT_FORM = "harm_reduction_register_existing_client";
     private static final String YES = "yes";
     private static final String ROC_MAT_PRE_SESSION_FIELD = "roc_mat_pre_session";
+    private static final int EXISTING_CLIENT_REGISTRATION_INDEX = 1;
 
     public static void startRegistration(Activity activity, String memberBaseEntityID) {
         Intent intent = new Intent(activity, HarmReductionRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.HARM_REDUCTION_FORM_NAME, Constants.FORMS.HARM_REDUCTION_RISK_ASSESSMENT);
+        intent.putExtra(EXTRA_SHOW_REGISTRATION_CHOOSER, true);
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onStartActivityWithAction() {
+        if (shouldShowRegistrationChooser(getIntent())) {
+            showRegistrationChooser(true);
+            return;
+        }
+
+        super.onStartActivityWithAction();
     }
 
     @Override
@@ -94,6 +108,23 @@ public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActi
         maybeOpenPreMatVisit(requestCode, resultCode, data);
     }
 
+    void showRegistrationChooser(boolean finishOnDismiss) {
+        String[] options = {
+                getString(R.string.harm_reduction_new_client_registration),
+                getString(R.string.harm_reduction_existing_client_registration)
+        };
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.harm_reduction_registration_type_prompt)
+                .setItems(options, (dialog, which) -> startFormActivity(resolveRegistrationFormName(which), BASE_ENTITY_ID, null))
+                .setOnCancelListener(dialog -> {
+                    if (finishOnDismiss) {
+                        finish();
+                    }
+                })
+                .show();
+    }
+
     void maybeOpenPreMatVisit(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK
                 || requestCode != org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON
@@ -125,6 +156,18 @@ public class HarmReductionRegisterActivity extends CoreHarmReductionRegisterActi
         } catch (JSONException e) {
             timber.log.Timber.e(e);
         }
+    }
+
+    static boolean shouldShowRegistrationChooser(Intent intent) {
+        return intent != null && intent.getBooleanExtra(EXTRA_SHOW_REGISTRATION_CHOOSER, false);
+    }
+
+    static String resolveRegistrationFormName(int selectedIndex) {
+        if (selectedIndex == EXISTING_CLIENT_REGISTRATION_INDEX) {
+            return HARM_REDUCTION_REGISTER_EXISTING_CLIENT_FORM;
+        }
+
+        return Constants.FORMS.HARM_REDUCTION_RISK_ASSESSMENT;
     }
 
     static boolean shouldLaunchPreMatSession(JSONObject form) {
