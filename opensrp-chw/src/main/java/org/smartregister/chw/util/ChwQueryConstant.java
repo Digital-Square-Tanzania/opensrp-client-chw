@@ -721,6 +721,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_name,\n" +
             "       ec_family_member.gender,\n" +
             "       ec_family_member.dob,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
             "       'HARM REDUCTION'                             AS register_type,\n" +
@@ -749,6 +750,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.last_name,\n" +
             "       ec_family_member.gender,\n" +
             "       ec_family_member.dob,\n" +
+            "       ec_family_member.entity_type,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                          as _id,\n" +
             "       'Harm Reduction Sober House'                 AS register_type,\n" +

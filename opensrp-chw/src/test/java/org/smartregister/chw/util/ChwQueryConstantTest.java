@@ -33,4 +33,10 @@ public class ChwQueryConstantTest {
         Assert.assertTrue(harmReductionSection.contains("SELECT ec_harm_reduction_sober_house_enrollment.base_entity_id AS base_entity_id"));
         Assert.assertTrue(harmReductionSection.contains("ec_harm_reduction_sober_house_enrollment.is_closed is 0"));
     }
+
+    @Test
+    public void testQueryDoesNotAddGenericHarmReductionRegisterType() {
+        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("/*ONLY Harm Reduction clients*/"));
+        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("'HARM REDUCTION'                             AS register_type"));
+    }
 }

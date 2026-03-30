@@ -104,6 +104,15 @@
             android:name=".activity.KvpPrEPProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionSoberHouseProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.KvpReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
