@@ -11999,6 +11999,14 @@
           }
         },
         {
+          "column_name": "client_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_status"
+          }
+        },
+        {
           "column_name": "screening_tests_done",
           "type": "Event",
           "json_mapping": {
