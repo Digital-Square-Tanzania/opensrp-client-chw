@@ -1,0 +1,623 @@
+indicators:
+  - key: "sh-1"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Idadi ya wakazi waliopata huduma katika nyumba ya upataji nafuu katika kipindi cha ripoti"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Kiwango cha elimu cha wakazi waliopata huduma katika nyumba katika kipindi cha ripoti"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE trim(ifnull(ehshe.education_level, '')) <> ''
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wasiosoma kabisa"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.education_level, '')) = 'no_education'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wasiomaliza shule ya msingi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.education_level, '')) = 'incomplete_primary'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliomaliza shule ya msingi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.education_level, '')) = 'completed_primary'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliomaliza elimu ya sekondari"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.education_level, '')) = 'completed_secondary'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-2e"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliofikia elimu ya chuo kikuu"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.education_level, '')) = 'university'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-4"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Uraia wa wakazi waliopata huduma"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE trim(ifnull(ehshe.nationality, '')) <> ''
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-4a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wakazi ambao ni raia wa Tanzania"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.nationality, '')) = 'tanzanian'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-4b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wakazi ambao si raia wa Tanzania"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.nationality, '')) = 'non_tanzanian'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  # Employment status fields are not captured in the allowed sober-house tables.
+  - key: "sh-5"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Hali ya ajira/kazi kwa wakazi"
+    indicatorQuery: "SELECT 0 as count"
+
+  - key: "sh-5a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wenye ajira ya kudumu"
+    indicatorQuery: "SELECT 0 as count"
+
+  - key: "sh-5b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliojiajiri wenyewe"
+    indicatorQuery: "SELECT 0 as count"
+
+  - key: "sh-5c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wasiokuwa na ajira"
+    indicatorQuery: "SELECT 0 as count"
+
+  - key: "sh-5d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wanafunzi"
+    indicatorQuery: "SELECT 0 as count"
+
+  - key: "sh-5e"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wengineo"
+    indicatorQuery: "SELECT 0 as count"
+
+  # Marital status is sourced from ec_family_member via the sober-house service client id.
+  - key: "sh-6"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Hali ya ndoa ya wakazi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND trim(ifnull(efm.marital_status, '')) <> ''
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-6a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Hajaoa/Hajaolewa"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'single'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-6b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Kaoa/Kaolewa"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) IN ('married', 'cohabitation')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-6c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Watalikiwa"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'divorced'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-6d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wajane/Wagane"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_family_member efm
+                        ON efm.base_entity_id = ehshs.entity_id
+                      WHERE efm.date_removed IS NULL
+                      AND lower(ifnull(efm.marital_status, '')) = 'widowed'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Aina za vilevi zilizopelekea kuhitaji huduma ya upataji nafuu"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE trim(ifnull(ehshe.substances_leading_to_services, '')) <> ''
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Pombe"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%alcohol%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Bangi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%cannabis%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Mirungi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%khat%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Heroin"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%heroin%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7e"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Valium/Diazepam"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%valium_diazepam%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7f"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Tramadol"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%tramadol%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7g"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Methamphetamine"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%methamphetamine%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-7h"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Vilevi vinginevyo"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe
+                        ON ehshe.base_entity_id = ehshs.entity_id
+                      WHERE (
+                        lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%other%' OR
+                        trim(ifnull(ehshe.other_substances_specify, '')) <> ''
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Magonjwa yaliyoripotiwa katika kipindi cha kuripoti"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE (
+                        lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR
+                        lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR
+                        trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "VVU na UKIMWI"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.hiv_result, '')) = 'positive'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Magonjwa ya ngono"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Magonjwa ya moyo"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Magonjwa ya afya ya akili"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8e"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Homa ya ini aina ya B"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8f"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Homa ya ini aina ya C"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  # Proxy mapping: "Homa nyengine za ini" is not explicitly captured.
+  - key: "sh-8g"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Homa nyengine za ini (proxy kutoka other_conditions_specify)"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8h"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Ugonjwa wa kisukari"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8i"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Ugonjwa wa kifua kikuu"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-8j"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Magonjwa mengineyo"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      AND lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wakazi waliopatiwa tiba kwa magonjwa yaliyoripotiwa"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND (
+                        lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR
+                        lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR
+                        lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR
+                        trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - VVU na UKIMWI"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.hiv_result, '')) = 'positive'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Magonjwa ya ngono"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Magonjwa ya moyo"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9d"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Magonjwa ya afya ya akili"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9e"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Homa ya ini aina ya B"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9f"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Homa ya ini aina ya C"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  # Proxy mapping: "Homa nyengine za ini" is not explicitly captured.
+  - key: "sh-9g"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Homa nyengine za ini (proxy)"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9h"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Ugonjwa wa kisukari"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9i"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Ugonjwa wa kifua kikuu"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-9j"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliopatiwa tiba - Magonjwa mengineyo"
+    indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
+                      FROM ec_harm_reduction_sober_house_enrollment ehshe
+                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
+                      AND trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      AND lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-10"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Wakazi ambao hawakukamilisha huduma ya upataji nafuu"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      WHERE (
+                        lower(ifnull(ehshs.follow_up_status, '')) IN ('absconded', 'died') OR
+                        lower(ifnull(ehshs.client_type, '')) = 'relapsed_client'
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-10a"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Utoro"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      WHERE lower(ifnull(ehshs.follow_up_status, '')) = 'absconded'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-10b"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Waliorudia matumizi"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      WHERE lower(ifnull(ehshs.client_type, '')) = 'relapsed_client'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "sh-10c"
+    grouping: "HARM_REDUCTION_SOBER_HOUSE"
+    description: "Vifo"
+    indicatorQuery: "SELECT count(DISTINCT ehshs.entity_id) as count
+                      FROM ec_harm_reduction_sober_house_services ehshs
+                      WHERE lower(ifnull(ehshs.follow_up_status, '')) = 'died'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehshs.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

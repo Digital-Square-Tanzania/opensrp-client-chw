@@ -271,7 +271,7 @@ android {
         nacp {
             dimension = 'baseDimension'
             versionCode 40
-            versionName "2.0.0"
+            versionName "2.0.0-Harm Reduction-Alpha3"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
@@ -340,7 +340,7 @@ dependencies {
     }
 
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.9-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.0-ALPHA4-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         exclude group: 'com.android.support', module: 'appcompat-v7'

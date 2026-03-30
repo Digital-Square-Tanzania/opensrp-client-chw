@@ -6,10 +6,10 @@ import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -140,6 +140,15 @@ public class ChwRepositoryFlv {
                     break;
                 case 34:
                     upgradeToVersion34(db);
+                    break;
+                case 35:
+                    upgradeToVersion35(db);
+                    break;
+                case 36:
+                    upgradeToVersion36(db);
+                    break;
+                case 37:
+                    upgradeToVersion37(db);
                     break;
                 case 35:
                     upgradeToVersion35(db);
@@ -571,8 +580,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
-                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment", "ec_ayp_out_school_enrollment", "ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members", "ec_ayp_out_school_group_members", "ec_ayp_out_school_client_followup_visits", "ec_ayp_out_school_group_followup_visits")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
@@ -726,4 +735,34 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion37-config");
         }
     }
+
+    private static void upgradeToVersion38(SQLiteDatabase db) {
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion36");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion37");
+        }
+    }
+
 }

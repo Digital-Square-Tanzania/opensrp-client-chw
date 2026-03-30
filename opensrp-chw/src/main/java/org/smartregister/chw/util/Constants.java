@@ -276,6 +276,10 @@ public class Constants extends CoreConstants {
 
            String ASRH_REPORT = "asrh_report";
 
+           String HARM_REDUCTION_REPORT = "harm_reduction_report";
+
+           String HARM_REDUCTION_SOBER_HOUSE_REPORT = "harm_reduction_sober_house_report";
+
            String AYP_REPORT = "ayp_report";
 
            String AYP_IN_SCHOOL_REPORT = "ayp_in_school_report";
@@ -308,6 +312,14 @@ public class Constants extends CoreConstants {
         public interface AsrhReportKeys {
             String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
             String OTHER_MONTHLY_REPORT = "other-monthly-report";
+        }
+
+        public interface HarmReductionReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+        }
+
+        public interface HarmReductionSoberHouseReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
         }
 
         public interface TbLeprosyReportKeys {
@@ -356,6 +368,10 @@ public class Constants extends CoreConstants {
             String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
 
             String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
+
+            String HARM_REDUCTION_REPORT_PATH = "harm_reduction_reports/harm-reduction-report";
+
+            String HARM_REDUCTION_SOBER_HOUSE_REPORT_PATH = "harm_reduction_sober_house_reports/harm-reduction-sober-house-report";
 
             String AYP_IN_SCHOOL_REPORT_PATH = "ayp_in_school_reports/ayp-in-school-report";
 
