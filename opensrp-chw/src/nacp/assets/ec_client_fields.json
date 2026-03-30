@@ -625,7 +625,7 @@
           "column_name": "insurance_provider",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.insurance_provider"
+            "field": "attributes.Health_Insurance_Type"
           }
         },
         {
