@@ -824,13 +824,16 @@
     <string name="forgot_your_password">Je, umesahau nenosiri lako?</string>
 
       <!-- HPS Annual Census register labels (Kiswahili) -->
-    <string name="hps_annual_census_register_title">Sensa ya Mwaka ya HPS</string>
+    <string name="hps_annual_census_register_title">Sensa ya Mwaka ya CHW</string>
     <string name="hps_annual_census_year"><![CDATA[<b>Mwaka:</b> %1$s]]></string>
     <string name="hps_annual_census_status_incomplete">Haijakamilika</string>
     <string name="hps_annual_census_status_partial">Imejazwa sehemu</string>
 
     <!-- HPS Annual Census visit action titles -->
     <string name="hps_annual_census_population_action_title">Taarifa za Kaya</string>
+    <string name="hps_annual_census_population_subtitle_households">Kaya %1$s</string>
+    <string name="hps_annual_census_population_subtitle_male">Wanaume %1$s</string>
+    <string name="hps_annual_census_population_subtitle_female">Wanawake %1$s</string>
     <string name="hps_annual_census_basic_nutrition_action_title">Vyanzo vya lishe</string>
     <string name="hps_annual_census_centers_action_title">Huduma za Afya, Elimu, Vituo vya Kulelea Watoto na Wazee</string>
     <string name="hps_annual_census_social_economic_action_title">Vyanzo vinavyotumiwa zaidi na kaya</string>
@@ -844,6 +847,25 @@
     <string name="hps_annual_census_workplace_health_reports_action_title">Taarifa za Kiafya Zilizoathiri Watu Katika Maeneo ya Kazi</string>
     <string name="hps_annual_census_solid_waste_action_title">Taarifa ya Taka Ngumu &amp; Idadi ya Vifaa vya kukusanyia Taka</string>
     <string name="hps_annual_census_insect_breeding_control_action_title">Utambuzi wa Mazalia ya Wadudu na Udhibiti</string>
+    <string name="hps_annual_census_basic_nutrition_subtitle">Mboga:%1$s  Matunda:%2$s  Wanyama:%3$s</string>
+    <string name="hps_annual_census_category_government">Serikali</string>
+    <string name="hps_annual_census_category_faith_based_organisation">Mashirika ya Kidini</string>
+    <string name="hps_annual_census_category_public">Umma</string>
+    <string name="hps_annual_census_category_private">Binafsi</string>
+    <string name="hps_annual_census_centers_subtitle_categories">Makundi: %1$s</string>
+    <string name="hps_annual_census_centers_subtitle_government">Serikali: Hospitali %1$s, Shule za msingi %2$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_tap_water">Maji ya bomba %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_lighting_electricity">Taa-umeme %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_cooking_gas">Kupikia-gesi %1$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_capable">Wenye uwezo Wanaume %1$s Wanawake %2$s</string>
+    <string name="hps_annual_census_social_economic_subtitle_engaged">Waliojihusisha Wanaume %1$s Wanawake %2$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle_committee">Kamati %1$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle">Mahudhurio Q1:%1$s Q2:%2$s Q3:%3$s Q4:%4$s | Waliosajiliwa Mbadala:%5$s Jadi:%6$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle_unregistered">Wasiosajiliwa Mbadala:%1$s Jadi:%2$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_capacity_men">Wenye uwezo wanaume %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_capacity_women">Wenye uwezo wanawake %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_men_engaged">Wanaume wanaojihusisha %1$s</string>
+    <string name="hps_annual_census_economic_activities_subtitle_women_engaged">Wanawake wanaojihusisha %1$s</string>
 
     <!-- Filters -->
     <string name="filter">Chuja</string>

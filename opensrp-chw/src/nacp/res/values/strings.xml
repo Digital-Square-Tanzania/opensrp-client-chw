@@ -890,7 +890,8 @@
 
     <string name="sbc_reports">SBC Reports</string>
     <string name="sbc_reports_subtitle">View SBC Report</string>
-    <string name="hps_annual_reports_title">iCCHW ANNUAL REPORTS</string>
+    <string name="hps_monthly_reports_title">iCCHW Monthly Reports</string>
+    <string name="hps_annual_reports_title">iCCHW Annual Reports</string>
     <string name="hps_reports_title">iCCHW Report</string>
     <string name="hps_reports">iCCHW REPORTS</string>
     <string name="hps_reports_subtitle">View Reports For iCCHW</string>
@@ -1461,14 +1462,14 @@
     <string name="hps_number_of_female_by_age_group_1_4">Number of female (1–4)</string>
     <string name="hps_number_of_male_by_age_group_5_14">Number of male (5–14)</string>
     <string name="hps_number_of_female_by_age_group_5_14">Number of female (5–14)</string>
-    <string name="hps_number_of_male_by_age_group_15_49">6Number of male (15–49)</string>
+    <string name="hps_number_of_male_by_age_group_15_49">Number of male (15–49)</string>
     <string name="hps_number_of_female_by_age_group_15_49">Number of female (15–49)</string>
     <string name="hps_number_of_male_by_age_group_50_59">Number of male (50–59)</string>
     <string name="hps_number_of_female_by_age_group_50_59">Number of female (50–59)</string>
     <string name="hps_number_of_male_by_age_group_equal_and_above_60">Number of male (60+)</string>
     <string name="hps_number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
     <string name="number_of_female_by_age_group_equal_and_above_60">Number of female (60+)</string>
-    <string name="hps_number_of_house_hold">Number of house hold</string>
+    <string name="hps_number_of_house_hold">Number of households</string>
     <string name="hps_number_of_house_hold_with_road_access">Number of house hold with road access</string>
     <string name="hps_number_of_house_holds_with_at_least_one_landline_or_mobile_phone">Number of households with at least one mobile or landline phone</string>
     <string name="hps_number_of_house_hold_with_basic_nutrition_source_vegetable">Number of houshold with basic nutrition source(Vegetable garden)</string>
@@ -1486,7 +1487,7 @@
     <string name="hps_number_of_special_needs_schools_government">Number of Special needs schools (government)</string>
     <string name="hps_number_of_dispensary_government">Number of Dispensary (government)</string>
     <string name="hps_number_of_health_centers_government">Number of health centers (government)</string>
-    <string name="hps_number_of_hospital_government">6Number of hospital (government)</string>
+    <string name="hps_number_of_hospital_government">Number of hospital (government)</string>
     <string name="hps_number_of_special_clinics_government">Number of special clinics (government)</string>
     <string name="hps_number_of_laboratory_government">Number of laboratory (government)</string>
     <string name="hps_number_of_pharmacy_government">Number of pharmacy (government)</string>
@@ -1576,7 +1577,7 @@
     <string name="hps_number_of_female_engaged_in_economic_activities">Number of female engaged in economic activities</string>
     <string name="hps_number_of_people_engaged_in_economic_activities">Number of people engaged in economic activities</string>
     <string name="hps_number_of_health_committee_members_for_effective_committee_meetings">Number of health committee members for effective committee meetings</string>
-    <string name="hps_number_of_committee_members_attended_fisrt_quarter">Number of committee members attended fisrt quarter</string>
+    <string name="hps_number_of_committee_members_attended_first_quarter">Number of committee members attended first quarter</string>
     <string name="hps_number_of_committee_members_attended_second_quarter">Number of committee members attended second quarter</string>
     <string name="hps_number_of_committee_members_attended_third_quarter">Number of committee members attended third quarter</string>
     <string name="hps_number_of_committee_members_attended_fourth_quarter">Number of committee members attended fourth quarter</string>

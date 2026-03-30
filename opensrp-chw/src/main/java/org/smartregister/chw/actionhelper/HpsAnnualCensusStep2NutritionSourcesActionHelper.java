@@ -3,6 +3,7 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
@@ -13,9 +14,13 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Injects the household limit and summarizes nutrition source counts.
+ */
 public class HpsAnnualCensusStep2NutritionSourcesActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
     private final String householdMax;
+    private Context context;
     private String jsonPayload;
     private String submittedPayload;
 
@@ -26,6 +31,7 @@ public class HpsAnnualCensusStep2NutritionSourcesActionHelper implements BaseHps
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
         this.jsonPayload = jsonPayload;
+        this.context = context;
     }
 
     @Override
@@ -76,6 +82,9 @@ public class HpsAnnualCensusStep2NutritionSourcesActionHelper implements BaseHps
             fruit = fruit == null ? "" : fruit.trim();
             animal = animal == null ? "" : animal.trim();
             if (veg.isEmpty() && fruit.isEmpty() && animal.isEmpty()) return null;
+            if (context != null) {
+                return context.getString(R.string.hps_annual_census_basic_nutrition_subtitle, veg, fruit, animal);
+            }
             return String.format("Veg:%s  Fruit:%s  Animal:%s", veg, fruit, animal);
         } catch (Exception e) {
             return null;

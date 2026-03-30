@@ -3,6 +3,7 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
@@ -13,14 +14,19 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Summarizes selected center categories and key government facility counts.
+ */
 public class HpsAnnualCensusStep3CentersActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
 
+    private Context context;
     private String jsonPayload;
     private String submittedPayload;
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
         this.jsonPayload = jsonPayload;
+        this.context = context;
     }
 
     @Override
@@ -57,8 +63,11 @@ public class HpsAnnualCensusStep3CentersActionHelper implements BaseHpsVisitActi
             // Summarize selected categories
             String categories = JsonFormUtils.getCheckBoxValue(json, "select_centers_category");
             if (categories != null && !categories.trim().isEmpty()) {
-                return "Categories: " + categories.replaceAll(
-                        "(?i)faith_based_organisation", "FBO");
+                String localizedCategories = localizeCategories(categories);
+                if (context != null) {
+                    return context.getString(R.string.hps_annual_census_centers_subtitle_categories, localizedCategories);
+                }
+                return "Categories: " + localizedCategories;
             }
             // Fallback to a couple of numeric highlights if present
             String hospitalsGov = CoreJsonFormUtils.getValue(json, "number_of_hospital_government");
@@ -66,6 +75,9 @@ public class HpsAnnualCensusStep3CentersActionHelper implements BaseHpsVisitActi
             if ((hospitalsGov != null && !hospitalsGov.trim().isEmpty()) || (schoolsGov != null && !schoolsGov.trim().isEmpty())) {
                 hospitalsGov = hospitalsGov == null ? "" : hospitalsGov.trim();
                 schoolsGov = schoolsGov == null ? "" : schoolsGov.trim();
+                if (context != null) {
+                    return context.getString(R.string.hps_annual_census_centers_subtitle_government, hospitalsGov, schoolsGov);
+                }
                 return String.format("Gov: Hospitals %s, Primary schools %s", hospitalsGov, schoolsGov);
             }
             return null;
@@ -136,5 +148,39 @@ public class HpsAnnualCensusStep3CentersActionHelper implements BaseHpsVisitActi
 
     @Override
     public void onPayloadReceived(BaseHpsVisitAction baseHpsVisitAction) { /* no-op */ }
-}
 
+    private String localizeCategories(String categories) {
+        String[] categoryParts = categories.split(",");
+        StringBuilder builder = new StringBuilder();
+        for (String categoryPart : categoryParts) {
+            String normalized = categoryPart == null ? "" : categoryPart.trim();
+            if (normalized.isEmpty()) {
+                continue;
+            }
+            if (builder.length() > 0) {
+                builder.append(", ");
+            }
+            builder.append(localizeCategory(normalized));
+        }
+        return builder.toString();
+    }
+
+    private String localizeCategory(String category) {
+        if (context == null) {
+            return category.replace("faith_based_organisation", "FBO");
+        }
+
+        switch (category) {
+            case "government":
+                return context.getString(R.string.hps_annual_census_category_government);
+            case "faith_based_organisation":
+                return context.getString(R.string.hps_annual_census_category_faith_based_organisation);
+            case "public":
+                return context.getString(R.string.hps_annual_census_category_public);
+            case "private":
+                return context.getString(R.string.hps_annual_census_category_private);
+            default:
+                return category;
+        }
+    }
+}

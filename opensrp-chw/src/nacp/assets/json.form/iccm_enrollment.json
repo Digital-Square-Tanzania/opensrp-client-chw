@@ -231,7 +231,7 @@
       {
         "key": "prompt_for_respiratory_rate",
         "type": "toaster_notes",
-        "text": "<b>The client has symptoms for Pneumonia.</b><br>Diagnose the Client for pneumonia if the client has no other danger signs.",
+        "text": "<b>The client has symptoms for Pneumonia.</b><br>Refer the Client for pneumonia if the client has no other danger signs.",
         "openmrs_entity_id": "prompt_for_respiratory_rate",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -471,29 +471,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "iccm_enrollment_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_number_of_number_of_suppository_to_dispense",
-        "type": "toaster_notes",
-        "text": "Administer {suppository} suppository to the client with weight of {weight} kgs",
-        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_enrollment_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_enrollment_relevance.yml"
             }
           }
         }
