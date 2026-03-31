@@ -562,6 +562,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_leaflets_title",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2024,6 +2028,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_posters_title",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -3486,6 +3494,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_brochures_title",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
