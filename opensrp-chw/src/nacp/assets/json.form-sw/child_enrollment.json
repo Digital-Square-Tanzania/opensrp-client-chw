@@ -284,25 +284,6 @@
         }
       },
       {
-        "key": "insurance_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Other_Health_Insurance_Type",
-        "type": "edit_text",
-        "hint": "Mtoa huduma mwingine wa bima ya afya",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali ingiza mtoa huduma ya bima"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
