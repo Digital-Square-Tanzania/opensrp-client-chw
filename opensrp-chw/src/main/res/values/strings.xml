@@ -226,7 +226,7 @@
     <string name="hps_annual_census_social_economic_subtitle_capable">Capable M%1$s F%2$s</string>
     <string name="hps_annual_census_social_economic_subtitle_engaged">Engaged M%1$s F%2$s</string>
     <string name="hps_annual_census_committees_traditional_subtitle_committee">Committee %1$s</string>
-    <string name="hps_annual_census_committees_traditional_subtitle">Attendance Q1:%1$s Q2:%2$s Q3:%3$s Q4:%4$s | Registered Alt:%5$s Trad:%6$s</string>
+    <string name="hps_annual_census_committees_traditional_subtitle">Registered Alt:%5$s Trad:%6$s</string>
     <string name="hps_annual_census_committees_traditional_subtitle_unregistered">Unregistered Alt:%1$s Trad:%2$s</string>
     <string name="hps_annual_census_economic_activities_subtitle_capacity_men">Capacity Men %1$s</string>
     <string name="hps_annual_census_economic_activities_subtitle_capacity_women">Capacity Women %1$s</string>

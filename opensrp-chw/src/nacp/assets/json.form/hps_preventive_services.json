@@ -83,6 +83,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preventive_services_title",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

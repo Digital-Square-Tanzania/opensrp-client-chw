@@ -42,9 +42,9 @@
         "v_numeric": {"value": "true", "err": ""},
         "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
         "v_max": {"value": "100000", "err": "Number must be five digits"},
-        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter the correct answer"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "Must be equal or less than the number of households"}
         ]
       },
       {
@@ -58,9 +58,9 @@
         "v_numeric": {"value": "true", "err": ""},
         "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
         "v_max": {"value": "100000", "err": "Number must be five digits"},
-        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter the correct answer"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "Must be equal or less than the number of households"}
         ]
       },
       {
@@ -74,9 +74,9 @@
         "v_numeric": {"value": "true", "err": ""},
         "v_min": {"value": "0", "err": "Number must be equal or greater than 0"},
         "v_max": {"value": "100000", "err": "Number must be five digits"},
-        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter a valid input"},
+        "v_max_length": {"value": "5", "is_fixed_size": "true", "err": "Please enter the correct answer"},
         "constraints": [
-          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "must not be greater than number of house hold"}
+          {"type": "numeric", "ex": "lessThanEqualTo(., step1:household_max)", "err": "Must be equal or less than the number of households"}
         ]
       }
     ]

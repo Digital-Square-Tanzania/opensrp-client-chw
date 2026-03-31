@@ -268,17 +268,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "cause_of_death",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death_stillbirth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "label": "Sababu ya kifo",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {
-            "key": "maternal_death",
-            "text": "Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "maternal_death"
-          },
           {
             "key": "msb",
             "text": "Watoto waliofia tumboni (MSB)",
@@ -308,6 +315,92 @@
             "openmrs_entity_id": "other"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "cause_of_death_female_wra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Sababu ya kifo",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "maternal_death",
+            "text": "Vifo vinavyotokana na uzazi (ujauzito/uzazi/siku 42 baada ya kujifungua)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_death"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Ajali",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Sababu nyinginezo (Taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "cause_of_death_general",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Sababu ya kifo",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "accidents_injuries",
+            "text": "Ajali",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Sababu nyinginezo (Taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua jibu"
