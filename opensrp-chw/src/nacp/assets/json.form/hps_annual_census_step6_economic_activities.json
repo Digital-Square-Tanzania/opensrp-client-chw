@@ -98,7 +98,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:no_of_men_with_capacity_to_engage_in_economic_activities)",
-            "err": "Must not be greater than number of men with the capacity to engage in economic activities / produce wealth"
+            "err": "Must be less than or equal to the number of men with the capacity to engage in economic activities / produce wealth"
           }
         ]
       },
@@ -135,7 +135,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:no_of_women_with_capacity_to_engage_in_economic_activities)",
-            "err": "Must not be greater than number of women with the capacity to engage in economic activities / produce wealth"
+            "err": "Must be less than or equal to the number of women with the capacity to engage in economic activities / produce wealth"
           }
         ]
       }

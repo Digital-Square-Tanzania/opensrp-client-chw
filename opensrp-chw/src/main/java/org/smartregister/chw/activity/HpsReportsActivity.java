@@ -102,7 +102,7 @@ public class HpsReportsActivity extends SecuredActivity implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.hps_report) {
-            HpsReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.HPS_MONTHLY_REPORT_PATH, R.string.hps_reports_title, reportPeriod);
+            HpsReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.HPS_MONTHLY_REPORT_PATH, R.string.hps_monthly_reports_title, reportPeriod);
         }else if (id == R.id.hps_annual_report) {
             HpsReportsViewActivity.startMe(this, Constants.ReportConstants.ReportPaths.HPS_ANNUAL_REPORT_PATH, R.string.hps_annual_reports_title, reportPeriod);
         } else {
