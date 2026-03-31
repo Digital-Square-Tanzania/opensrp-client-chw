@@ -4,7 +4,7 @@ description: Age calculated
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.formatDate(step1_dob,'y')"
+  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.getDifferenceYears(step1_dod, step1_dob)"
 ---
 name: step1_dob
 description: dob relevance
@@ -27,16 +27,37 @@ condition: "!step1_dob.isEmpty() && !step1_dod.isEmpty() && step1_dob > step1_do
 actions:
   - "isRelevant = true"
 ---
-name: step1_dob_validation_toaster_hide
-description: Hide toaster when dates are valid or empty
+name: step1_cause_of_death_stillbirth
+description: Show stillbirth causes for stillbirth records
 priority: 1
-condition: "step1_dob.isEmpty() || step1_dod.isEmpty() || step1_dob <= step1_dod"
+condition: "!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0"
 actions:
-  - "isRelevant = false"
+  - "isRelevant = true"
+---
+name: step1_cause_of_death_female_wra
+description: Show maternal causes for females aged 10 to 49 at death
+priority: 1
+condition: "(!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) != 0) && step1_sex.equalsIgnoreCase('female') && !step1_age_calculated.isEmpty() && step1_age_calculated >= 10 && step1_age_calculated <= 49"
+actions:
+  - "isRelevant = true"
+---
+name: step1_cause_of_death_general
+description: Show general causes for all other deaths
+priority: 1
+condition: "(step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && (!step1_sex.equalsIgnoreCase('female') || step1_age_calculated.isEmpty() || step1_age_calculated < 10 || step1_age_calculated > 49)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_cause_of_death
+description: Persist the selected cause from the relevant death cause radio
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0) ? step1_cause_of_death_stillbirth : (step1_sex.equalsIgnoreCase('female') && !step1_age_calculated.isEmpty() && step1_age_calculated >= 10 && step1_age_calculated <= 49) ? step1_cause_of_death_female_wra : step1_cause_of_death_general"
 ---
 name: step1_other_cause_of_death
 description: Show other cause of death field when 'other' is selected
 priority: 1
-condition: "step1_cause_of_death.contains('other')"
+condition: "((!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0) && step1_cause_of_death_stillbirth.contains('other')) || (((step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && step1_sex.equalsIgnoreCase('female') && !step1_age_calculated.isEmpty() && step1_age_calculated >= 10 && step1_age_calculated <= 49) && step1_cause_of_death_female_wra.contains('other')) || (((step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && (!step1_sex.equalsIgnoreCase('female') || step1_age_calculated.isEmpty() || step1_age_calculated < 10 || step1_age_calculated > 49)) && step1_cause_of_death_general.contains('other'))"
 actions:
   - "isRelevant = true"
