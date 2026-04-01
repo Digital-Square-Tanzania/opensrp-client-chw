@@ -44,7 +44,7 @@ actions:
 name: step1_cause_of_death_general
 description: Show general causes for non-female deaths excluding stillbirth
 priority: 1
-condition: "(step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && !step1_sex.equalsIgnoreCase('female')"
+condition: "(step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && step1_sex.equalsIgnoreCase('male')"
 actions:
   - "isRelevant = true"
 ---
