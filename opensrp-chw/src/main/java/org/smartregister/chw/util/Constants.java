@@ -43,6 +43,7 @@ public class Constants extends CoreConstants {
         public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
         public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
+        public static final String NCD_MONTHLY_FOLLOWUP = "NCD Monthly Follow-Up";
     }
 
     public static class ChildIllnessViewType {
@@ -233,6 +234,8 @@ public class Constants extends CoreConstants {
         public static final String SBCC = "ec_sbcc";
 
         public static final String CBHS_REGISTER = "ec_cbhs_register";
+
+        public static final String NCD_CASE_MANAGEMENT_FOLLOWUP = "ec_ncd_case_management_followup";
     }
 
     public static class DBConstants{

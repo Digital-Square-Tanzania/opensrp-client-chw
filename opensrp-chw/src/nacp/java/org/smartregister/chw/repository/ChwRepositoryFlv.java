@@ -122,6 +122,9 @@ public class ChwRepositoryFlv {
                 case 29:
                     upgradeToVersion29(db);
                     break;
+                case 30:
+                    upgradeToVersion30(db);
+                    break;
                 default:
                     break;
             }
@@ -517,6 +520,18 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion29");
+        }
+    }
+
+    private static void upgradeToVersion30(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList(
+                            org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP
+                    )),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion30");
         }
     }
 }

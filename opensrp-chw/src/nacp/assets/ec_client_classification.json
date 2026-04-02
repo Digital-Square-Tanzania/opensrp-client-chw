@@ -838,6 +838,13 @@
             "creates_case": [
               "ec_diabetes_hypertension_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Monthly Follow-Up",
+            "creates_case": [
+              "ec_ncd_case_management_followup"
+            ]
           }
         ]
       }
