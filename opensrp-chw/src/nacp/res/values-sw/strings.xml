@@ -763,6 +763,11 @@
     <string name="harm_reduction_mat_clients_education_delivery_method">Njia ya utoaji elimu</string>
     <string name="harm_reduction_mat_clients_group_session">Kikao cha vikundi</string>
     <string name="harm_reduction_mat_clients_individual_session">Kikao binafsi</string>
+    <string name="harm_reduction_mat_clients_drug_education">Dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_drug_use_related_diseases">Magonjwa yanayoambatana na matumizi ya dawa za kulevya</string>
+    <string name="harm_reduction_mat_clients_epidemic_diseases">Magonjwa ya mlipuko</string>
+    <string name="harm_reduction_mat_clients_treatment_adherence">Ufuasi mzuri wa tiba</string>
+    <string name="harm_reduction_mat_clients_life_and_job_skills">Stadi za maisha na stadi za kazi</string>
     <string name="harm_reduction_mat_clients_meaning_of_drugs">Maana ya dawa za kulevya</string>
     <string name="harm_reduction_mat_clients_types_of_drugs">Aina za dawa za kulevya</string>
     <string name="harm_reduction_mat_clients_categories_of_drugs">Makundi ya dawa za kulevya</string>

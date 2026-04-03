@@ -740,6 +740,11 @@
     <string name="harm_reduction_mat_clients_education_delivery_method">Education Delivery Method</string>
     <string name="harm_reduction_mat_clients_group_session">Group session</string>
     <string name="harm_reduction_mat_clients_individual_session">Individual session</string>
+    <string name="harm_reduction_mat_clients_drug_education">Drug education</string>
+    <string name="harm_reduction_mat_clients_drug_use_related_diseases">Diseases associated with drug use</string>
+    <string name="harm_reduction_mat_clients_epidemic_diseases">Epidemic diseases</string>
+    <string name="harm_reduction_mat_clients_treatment_adherence">Treatment adherence</string>
+    <string name="harm_reduction_mat_clients_life_and_job_skills">Life and job skills</string>
     <string name="harm_reduction_mat_clients_meaning_of_drugs">Meaning of drugs</string>
     <string name="harm_reduction_mat_clients_types_of_drugs">Types of drugs</string>
     <string name="harm_reduction_mat_clients_categories_of_drugs">Categories of drugs</string>
