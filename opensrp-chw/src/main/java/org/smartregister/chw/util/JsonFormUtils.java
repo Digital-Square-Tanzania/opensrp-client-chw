@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.EDITABLE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.READ_ONLY;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import static org.smartregister.client.utils.constants.JsonFormConstants.STEP1;
 
@@ -49,6 +50,10 @@ import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -93,6 +98,42 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             }
             jsonForm.put("encounter_type", title);
             return jsonForm;
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    public static JSONObject getLocalizedFormJson(Context context, String formName) {
+        if (context == null) {
+            return null;
+        }
+
+        try {
+            FormUtils formUtils = FormUtils.getInstance(context);
+            Locale locale = CoreConstants.JSON_FORM.locale;
+            if (locale == null) {
+                locale = context.getResources().getConfiguration().locale;
+            }
+
+            if (locale == null || Locale.ENGLISH.getLanguage().equalsIgnoreCase(locale.getLanguage())) {
+                return formUtils.getFormJson(formName);
+            }
+
+            String localizedPath = "json.form-" + locale.getLanguage() + "/" + formName + AllConstants.JSON_FILE_EXTENSION;
+            try (InputStream inputStream = context.getAssets().open(localizedPath);
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, UTF_8))) {
+                StringBuilder formJson = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    formJson.append(line);
+                }
+                return new JSONObject(formJson.toString());
+            } catch (FileNotFoundException e) {
+                Timber.d("Localized form not found at %s. Falling back to default asset", localizedPath);
+            }
+
+            return formUtils.getFormJson(formName);
         } catch (Exception e) {
             Timber.e(e);
             return null;
