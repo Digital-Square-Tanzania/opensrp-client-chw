@@ -1,87 +1,353 @@
 package org.smartregister.chw.domain.harm_reduction_sober_house_reports;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class HarmReductionSoberHouseReportObject extends ReportObject {
-    private final Date reportDate;
 
-    private final List<String> indicatorCodes = Arrays.asList(
-            "sh-1",
-            "sh-2",
-            "sh-2a",
-            "sh-2b",
-            "sh-2c",
-            "sh-2d",
-            "sh-2e",
-            "sh-4",
-            "sh-4a",
-            "sh-4b",
-            "sh-5",
-            "sh-5a",
-            "sh-5b",
-            "sh-5c",
-            "sh-5d",
-            "sh-5e",
-            "sh-6",
-            "sh-6a",
-            "sh-6b",
-            "sh-6c",
-            "sh-6d",
-            "sh-7",
-            "sh-7a",
-            "sh-7b",
-            "sh-7c",
-            "sh-7d",
-            "sh-7e",
-            "sh-7f",
-            "sh-7g",
-            "sh-7h",
-            "sh-8",
-            "sh-8a",
-            "sh-8b",
-            "sh-8c",
-            "sh-8d",
-            "sh-8e",
-            "sh-8f",
-            "sh-8g",
-            "sh-8h",
-            "sh-8i",
-            "sh-8j",
-            "sh-9",
-            "sh-9a",
-            "sh-9b",
-            "sh-9c",
-            "sh-9d",
-            "sh-9e",
-            "sh-9f",
-            "sh-9g",
-            "sh-9h",
-            "sh-9i",
-            "sh-9j",
-            "sh-10",
-            "sh-10a",
-            "sh-10b",
-            "sh-10c"
-    );
+    private static final SimpleDateFormat QUERY_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+    private static final String SERVICE_ID_COLUMN = "ehshs.entity_id";
+    private static final String ENROLLMENT_ID_COLUMN = "ehshe.base_entity_id";
+
+    private static final String SERVICE_FROM_CLAUSE =
+            "ec_harm_reduction_sober_house_services ehshs " +
+                    "LEFT JOIN ec_family_member efm " +
+                    "ON efm.base_entity_id = ehshs.entity_id AND efm.date_removed IS NULL";
+
+    private static final String SERVICE_WITH_ENROLLMENT_FROM_CLAUSE =
+            SERVICE_FROM_CLAUSE + " " +
+                    "INNER JOIN ec_harm_reduction_sober_house_enrollment ehshe " +
+                    "ON ehshe.base_entity_id = ehshs.entity_id";
+
+    private static final String ENROLLMENT_FROM_CLAUSE =
+            "ec_harm_reduction_sober_house_enrollment ehshe " +
+                    "LEFT JOIN ec_family_member efm " +
+                    "ON efm.base_entity_id = ehshe.base_entity_id AND efm.date_removed IS NULL";
+
+    private static final List<BreakdownColumn> BREAKDOWN_COLUMNS = createBreakdownColumns();
+    private static final List<String> RESULT_COLUMNS = createResultColumns();
+    private static final List<IndicatorDefinition> INDICATOR_DEFINITIONS = createIndicatorDefinitions();
 
     public HarmReductionSoberHouseReportObject(Date reportDate) {
         super(reportDate);
-        this.reportDate = reportDate;
     }
 
     @Override
     public JSONObject getIndicatorData() throws JSONException {
         JSONObject indicatorDataObject = new JSONObject();
-        for (String indicatorCode : indicatorCodes) {
-            indicatorDataObject.put(indicatorCode, ReportDao.getReportPerIndicatorCode(indicatorCode, reportDate));
+        String reportMonth = QUERY_DATE_FORMAT.format(getReportDate());
+
+        for (IndicatorDefinition definition : INDICATOR_DEFINITIONS) {
+            Map<String, Integer> breakdown = definition.isZeroOnly()
+                    ? Collections.emptyMap()
+                    : ReportDao.getReportBreakdown(buildIndicatorQuery(definition, reportMonth), RESULT_COLUMNS);
+            putIndicatorValues(indicatorDataObject, definition.getKey(), breakdown);
         }
+
         return indicatorDataObject;
+    }
+
+    private void putIndicatorValues(JSONObject indicatorDataObject, String indicatorKey, Map<String, Integer> breakdown) throws JSONException {
+        indicatorDataObject.put(indicatorKey, getValueOrZero(breakdown, "total"));
+        for (BreakdownColumn breakdownColumn : BREAKDOWN_COLUMNS) {
+            indicatorDataObject.put(
+                    indicatorKey + "-" + breakdownColumn.getJsonSuffix(),
+                    getValueOrZero(breakdown, breakdownColumn.getColumnAlias())
+            );
+        }
+    }
+
+    private int getValueOrZero(Map<String, Integer> breakdown, String key) {
+        Integer value = breakdown.get(key);
+        return value == null ? 0 : value;
+    }
+
+    @NonNull
+    private String buildIndicatorQuery(IndicatorDefinition definition, String reportMonth) {
+        StringBuilder queryBuilder = new StringBuilder()
+                .append("SELECT COUNT(DISTINCT ")
+                .append(definition.getIdColumn())
+                .append(") AS total");
+
+        String ageExpression = buildAgeExpression(reportMonth);
+        for (BreakdownColumn breakdownColumn : BREAKDOWN_COLUMNS) {
+            queryBuilder.append(", COUNT(DISTINCT CASE WHEN ")
+                    .append(breakdownColumn.getCondition(ageExpression))
+                    .append(" THEN ")
+                    .append(definition.getIdColumn())
+                    .append(" END) AS ")
+                    .append(breakdownColumn.getColumnAlias());
+        }
+
+        queryBuilder.append(" FROM ")
+                .append(definition.getFromClause())
+                .append(" WHERE ")
+                .append(definition.getWhereClause())
+                .append(" AND ")
+                .append(buildMonthClause(definition.getMonthColumn(), reportMonth));
+
+        return queryBuilder.toString();
+    }
+
+    @NonNull
+    private String buildAgeExpression(String reportMonth) {
+        return "CAST((julianday(date('" + reportMonth + "', 'start of month', '+1 month', '-1 day')) - " +
+                "julianday(efm.dob)) / 365.25 AS INTEGER)";
+    }
+
+    @NonNull
+    private String buildMonthClause(String monthColumn, String reportMonth) {
+        return "strftime('%Y-%m', datetime(" + monthColumn + " / 1000, 'unixepoch', 'localtime')) = " +
+                "strftime('%Y-%m', '" + reportMonth + "')";
+    }
+
+    @NonNull
+    private static List<BreakdownColumn> createBreakdownColumns() {
+        return Collections.unmodifiableList(Arrays.asList(
+                new BreakdownColumn("male_total", "male-total", "lower(ifnull(efm.gender, '')) = 'male'"),
+                new BreakdownColumn("male_18_25", "male-18-25", "lower(ifnull(efm.gender, '')) = 'male' AND %s BETWEEN 18 AND 25"),
+                new BreakdownColumn("male_26_35", "male-26-35", "lower(ifnull(efm.gender, '')) = 'male' AND %s BETWEEN 26 AND 35"),
+                new BreakdownColumn("male_36_45", "male-36-45", "lower(ifnull(efm.gender, '')) = 'male' AND %s BETWEEN 36 AND 45"),
+                new BreakdownColumn("male_46_55", "male-46-55", "lower(ifnull(efm.gender, '')) = 'male' AND %s BETWEEN 46 AND 55"),
+                // Keep the age buckets non-overlapping while preserving the source form label.
+                new BreakdownColumn("male_55_plus", "male-55-plus", "lower(ifnull(efm.gender, '')) = 'male' AND %s >= 56"),
+                new BreakdownColumn("female_total", "female-total", "lower(ifnull(efm.gender, '')) = 'female'"),
+                new BreakdownColumn("female_18_25", "female-18-25", "lower(ifnull(efm.gender, '')) = 'female' AND %s BETWEEN 18 AND 25"),
+                new BreakdownColumn("female_26_35", "female-26-35", "lower(ifnull(efm.gender, '')) = 'female' AND %s BETWEEN 26 AND 35"),
+                new BreakdownColumn("female_36_45", "female-36-45", "lower(ifnull(efm.gender, '')) = 'female' AND %s BETWEEN 36 AND 45"),
+                new BreakdownColumn("female_46_55", "female-46-55", "lower(ifnull(efm.gender, '')) = 'female' AND %s BETWEEN 46 AND 55"),
+                new BreakdownColumn("female_56_plus", "female-56-plus", "lower(ifnull(efm.gender, '')) = 'female' AND %s >= 56")
+        ));
+    }
+
+    @NonNull
+    private static List<String> createResultColumns() {
+        return Collections.unmodifiableList(Arrays.asList(
+                "total",
+                "male_total",
+                "male_18_25",
+                "male_26_35",
+                "male_36_45",
+                "male_46_55",
+                "male_55_plus",
+                "female_total",
+                "female_18_25",
+                "female_26_35",
+                "female_36_45",
+                "female_46_55",
+                "female_56_plus"
+        ));
+    }
+
+    @NonNull
+    private static List<IndicatorDefinition> createIndicatorDefinitions() {
+        return Collections.unmodifiableList(Arrays.asList(
+                serviceIndicator("sh-1", "1 = 1"),
+                serviceEnrollmentIndicator("sh-2", "trim(ifnull(ehshe.education_level, '')) <> ''"),
+                serviceEnrollmentIndicator("sh-2a", "lower(ifnull(ehshe.education_level, '')) = 'no_education'"),
+                serviceEnrollmentIndicator("sh-2b", "lower(ifnull(ehshe.education_level, '')) = 'incomplete_primary'"),
+                serviceEnrollmentIndicator("sh-2c", "lower(ifnull(ehshe.education_level, '')) = 'completed_primary'"),
+                serviceEnrollmentIndicator("sh-2d", "lower(ifnull(ehshe.education_level, '')) = 'completed_secondary'"),
+                serviceEnrollmentIndicator("sh-2e", "lower(ifnull(ehshe.education_level, '')) = 'university'"),
+                serviceEnrollmentIndicator("sh-4", "trim(ifnull(ehshe.nationality, '')) <> ''"),
+                serviceEnrollmentIndicator("sh-4a", "lower(ifnull(ehshe.nationality, '')) = 'tanzanian'"),
+                serviceEnrollmentIndicator("sh-4b", "lower(ifnull(ehshe.nationality, '')) = 'non_tanzanian'"),
+                zeroIndicator("sh-5"),
+                zeroIndicator("sh-5a"),
+                zeroIndicator("sh-5b"),
+                zeroIndicator("sh-5c"),
+                zeroIndicator("sh-5d"),
+                zeroIndicator("sh-5e"),
+                serviceIndicator("sh-6", "trim(ifnull(efm.marital_status, '')) <> ''"),
+                serviceIndicator("sh-6a", "lower(ifnull(efm.marital_status, '')) = 'single'"),
+                serviceIndicator("sh-6b", "lower(ifnull(efm.marital_status, '')) IN ('married', 'cohabitation')"),
+                serviceIndicator("sh-6c", "lower(ifnull(efm.marital_status, '')) = 'divorced'"),
+                serviceIndicator("sh-6d", "lower(ifnull(efm.marital_status, '')) = 'widowed'"),
+                serviceEnrollmentIndicator("sh-7", "trim(ifnull(ehshe.substances_leading_to_services, '')) <> ''"),
+                serviceEnrollmentIndicator("sh-7a", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%alcohol%'"),
+                serviceEnrollmentIndicator("sh-7b", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%cannabis%'"),
+                serviceEnrollmentIndicator("sh-7c", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%khat%'"),
+                serviceEnrollmentIndicator("sh-7d", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%heroin%'"),
+                serviceEnrollmentIndicator("sh-7e", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%valium_diazepam%'"),
+                serviceEnrollmentIndicator("sh-7f", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%tramadol%'"),
+                serviceEnrollmentIndicator("sh-7g", "lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%methamphetamine%'"),
+                serviceEnrollmentIndicator("sh-7h",
+                        "(lower(ifnull(ehshe.substances_leading_to_services, '')) LIKE '%other%' OR " +
+                                "trim(ifnull(ehshe.other_substances_specify, '')) <> '')"),
+                enrollmentIndicator("sh-8",
+                        "(" +
+                                "lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR " +
+                                "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR " +
+                                "trim(ifnull(ehshe.other_conditions_specify, '')) <> ''" +
+                                ")"),
+                enrollmentIndicator("sh-8a", "lower(ifnull(ehshe.hiv_result, '')) = 'positive'"),
+                enrollmentIndicator("sh-8b", "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8c", "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8d", "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8e", "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8f", "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8g", "lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'"),
+                enrollmentIndicator("sh-8h", "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8i", "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-8j",
+                        "trim(ifnull(ehshe.other_conditions_specify, '')) <> '' AND " +
+                                "lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'"),
+                enrollmentIndicator("sh-9",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND (" +
+                                "lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR " +
+                                "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR " +
+                                "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR " +
+                                "trim(ifnull(ehshe.other_conditions_specify, '')) <> ''" +
+                                ")"),
+                enrollmentIndicator("sh-9a",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.hiv_result, '')) = 'positive'"),
+                enrollmentIndicator("sh-9b",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9c",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9d",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9e",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9f",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9g",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'"),
+                enrollmentIndicator("sh-9h",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9i",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'"),
+                enrollmentIndicator("sh-9j",
+                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
+                                "trim(ifnull(ehshe.other_conditions_specify, '')) <> '' AND " +
+                                "lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'"),
+                serviceIndicator("sh-10",
+                        "(" +
+                                "lower(ifnull(ehshs.follow_up_status, '')) IN ('absconded', 'died') OR " +
+                                "lower(ifnull(ehshs.client_type, '')) = 'relapsed_client'" +
+                                ")"),
+                serviceIndicator("sh-10a", "lower(ifnull(ehshs.follow_up_status, '')) = 'absconded'"),
+                serviceIndicator("sh-10b", "lower(ifnull(ehshs.client_type, '')) = 'relapsed_client'"),
+                serviceIndicator("sh-10c", "lower(ifnull(ehshs.follow_up_status, '')) = 'died'")
+        ));
+    }
+
+    @NonNull
+    private static IndicatorDefinition serviceIndicator(String key, String whereClause) {
+        return new IndicatorDefinition(key, SERVICE_FROM_CLAUSE, SERVICE_ID_COLUMN, "ehshs.last_interacted_with", whereClause, false);
+    }
+
+    @NonNull
+    private static IndicatorDefinition serviceEnrollmentIndicator(String key, String whereClause) {
+        return new IndicatorDefinition(key, SERVICE_WITH_ENROLLMENT_FROM_CLAUSE, SERVICE_ID_COLUMN, "ehshs.last_interacted_with", whereClause, false);
+    }
+
+    @NonNull
+    private static IndicatorDefinition enrollmentIndicator(String key, String whereClause) {
+        return new IndicatorDefinition(key, ENROLLMENT_FROM_CLAUSE, ENROLLMENT_ID_COLUMN, "ehshe.last_interacted_with", whereClause, false);
+    }
+
+    @NonNull
+    private static IndicatorDefinition zeroIndicator(String key) {
+        return new IndicatorDefinition(key, "", "", "", "", true);
+    }
+
+    private static class BreakdownColumn {
+        private final String columnAlias;
+        private final String jsonSuffix;
+        private final String conditionTemplate;
+
+        BreakdownColumn(String columnAlias, String jsonSuffix, String conditionTemplate) {
+            this.columnAlias = columnAlias;
+            this.jsonSuffix = jsonSuffix;
+            this.conditionTemplate = conditionTemplate;
+        }
+
+        String getColumnAlias() {
+            return columnAlias;
+        }
+
+        String getJsonSuffix() {
+            return jsonSuffix;
+        }
+
+        String getCondition(String ageExpression) {
+            return String.format(Locale.ENGLISH, conditionTemplate, ageExpression);
+        }
+    }
+
+    private static class IndicatorDefinition {
+        private final String key;
+        private final String fromClause;
+        private final String idColumn;
+        private final String monthColumn;
+        private final String whereClause;
+        private final boolean zeroOnly;
+
+        IndicatorDefinition(String key, String fromClause, String idColumn, String monthColumn, String whereClause, boolean zeroOnly) {
+            this.key = key;
+            this.fromClause = fromClause;
+            this.idColumn = idColumn;
+            this.monthColumn = monthColumn;
+            this.whereClause = whereClause;
+            this.zeroOnly = zeroOnly;
+        }
+
+        String getKey() {
+            return key;
+        }
+
+        String getFromClause() {
+            return fromClause;
+        }
+
+        String getIdColumn() {
+            return idColumn;
+        }
+
+        String getMonthColumn() {
+            return monthColumn;
+        }
+
+        String getWhereClause() {
+            return whereClause;
+        }
+
+        boolean isZeroOnly() {
+            return zeroOnly;
+        }
     }
 }
