@@ -1,0 +1,7 @@
+---
+name: peer_support_prompt
+description: Show peer support linkage prompt when not linked
+priority: 1
+condition: "step1_peer_support_linked == 'no'"
+actions:
+  - "isRelevant = true"

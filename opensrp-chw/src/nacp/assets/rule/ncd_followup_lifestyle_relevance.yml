@@ -1,0 +1,21 @@
+---
+name: salt_prompt
+description: Show salt reduction prompt when target not met
+priority: 1
+condition: "step1_salt_intake_target_met == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: sugar_prompt
+description: Show sugar reduction prompt when target not met
+priority: 2
+condition: "step1_sugar_intake_target_met == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: activity_prompt
+description: Show physical activity prompt when target not met
+priority: 3
+condition: "step1_physical_activity_target_met == 'no'"
+actions:
+  - "isRelevant = true"

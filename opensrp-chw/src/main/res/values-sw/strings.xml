@@ -663,4 +663,20 @@
     <string name="ncd_visit_topic_warning_signs">Dalili za hatari na wakati sahihi wa kupata huduma</string>
     <string name="ncd_visit_topic_none">Hakuna vipimo vilivyochukuliwa</string>
     <string name="ncd_visit_topic_other">Nyingine</string>
+
+    <!-- NCD Case Management Follow-Up -->
+    <string name="ncd_case_management_visit_title">Ufuatiliaji wa Kila Mwezi wa NCD</string>
+    <string name="ncd_followup_action_clinical_adherence">Ufuatiliaji wa Dawa na Kliniki</string>
+    <string name="ncd_followup_action_danger_signs">Dalili za Hatari</string>
+    <string name="ncd_followup_action_lifestyle">Mtindo wa Maisha</string>
+    <string name="ncd_followup_action_psychosocial">Msaada wa Kisaikolojia</string>
+    <string name="ncd_followup_clinical_adherence_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_danger_signs_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_danger_signs_none">Hakuna dalili za hatari</string>
+    <string name="ncd_followup_danger_signs_detected">Dalili za hatari %1$d zimegunduliwa</string>
+    <string name="ncd_followup_lifestyle_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_lifestyle_targets_met">Malengo %1$d/3 yamefikiwa</string>
+    <string name="ncd_followup_psychosocial_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_psychosocial_linked">Ameunganishwa na kikundi cha msaada</string>
+    <string name="ncd_followup_psychosocial_not_linked">Hajaunganishwa na kikundi cha msaada</string>
 </resources>

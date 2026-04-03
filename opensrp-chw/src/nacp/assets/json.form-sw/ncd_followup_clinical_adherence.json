@@ -1,0 +1,224 @@
+{
+  "count": "1",
+  "encounter_type": "NCD Monthly Follow-Up",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Ufuatiliaji wa Dawa na Huduma za Zahanati",
+    "fields": [
+      {
+        "key": "clinic_attendance",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_attendance",
+        "type": "native_radio",
+        "label": "Je, mteja alihudhuria kliniki mwezi uliopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "medication_adherence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medication_adherence",
+        "type": "native_radio",
+        "label": "Je, mteja alichukua dawa kila siku katika siku 7 zilizopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "no_adherence_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason",
+        "type": "spinner",
+        "hint": "Ni sababu gani ya kutokuchukua dawa?",
+        "values": [
+          "Alisahau",
+          "Alihisi Vizuri",
+          "Madhara ya Dawa",
+          "Dawa Ziliisha Zahanati",
+          "Gharama ya Usafiri"
+        ],
+        "keys": [
+          "forgot",
+          "felt_better",
+          "side_effects",
+          "stock_out",
+          "transport_cost"
+        ],
+        "openmrs_choice_ids": {
+          "forgot": "forgot",
+          "felt_better": "felt_better",
+          "side_effects": "side_effects",
+          "stock_out": "stock_out",
+          "transport_cost": "transport_cost"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_felt_better",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ushauri: Muuaji wa Kimya\n\nNi jambo jema sana kwamba unahisi vizuri! Hata hivyo, Kisukari na Shinikizo la Damu ni magonjwa ya maisha yote \u2014 yanayojulikana kama 'wauaji wa kimya' kwa sababu yanasababisha uharibifu mkubwa moyoni, figo, na macho \u2014 hata bila dalili zozote.\n\nKuacha dawa unapohisi vizuri ni kosa la hatari zaidi. Dawa yako inasaidia kudhibiti shinikizo la damu na sukari ya damu. Bila dawa, uharibifu unaendelea bila kujua.\n\nTafadhali endelea kuchukua dawa yako kila siku.",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "yellow_alert_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TAHADHARI YA NJANO \u2014 Rufaa Isiyokuwa ya Dharura Inahitajika\n\nSababu: Hakuhudhuria kliniki na/au madhara ya dawa yameripotiwa. Kazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_yellow_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_yellow_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_side_effects_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_side_effects_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_missed_clinic_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_missed_clinic_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
