@@ -75,6 +75,10 @@
             android:theme="@style/ChwTheme.NoActionBar"
             android:exported="false" />
         <activity
+            android:name="org.smartregister.chw.activity.NcdCaseManagementVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".activity.AgywProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
