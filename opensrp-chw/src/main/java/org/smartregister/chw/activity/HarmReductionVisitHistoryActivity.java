@@ -40,6 +40,8 @@ import timber.log.Timber;
 
 public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static MemberObject harmReductionMemberObject;
+    static final String SUBSTANCES_USED = "substances_used";
+    static final String RISKY_BEHAVIOURS = "risky_behaviours";
 
     private final Flavor flavor = new HarmReductionHistoryActivityFlv();
     private ProgressBar progressBar;
@@ -81,6 +83,74 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
     @Override
     public void displayLoadingState(boolean state) {
         progressBar.setVisibility(state ? View.VISIBLE : View.GONE);
+    }
+
+    static List<String> parseHistoryValues(String rawValue) {
+        List<String> parsedValues = new ArrayList<>();
+        if (StringUtils.isBlank(rawValue)) {
+            return parsedValues;
+        }
+
+        String normalizedValue = rawValue.trim();
+        if (StringUtils.isBlank(normalizedValue)) {
+            return parsedValues;
+        }
+
+        if (!normalizedValue.startsWith("[") || !normalizedValue.endsWith("]")) {
+            parsedValues.add(normalizeHistoryValue(normalizedValue));
+            return parsedValues;
+        }
+
+        String bracketedContent = normalizedValue.substring(1, normalizedValue.length() - 1).trim();
+        if (StringUtils.isBlank(bracketedContent)) {
+            return parsedValues;
+        }
+
+        String[] values = bracketedContent.split(",");
+        boolean looksLikeIdentifierList = true;
+        for (String value : values) {
+            if (!normalizeHistoryValue(value).matches("[a-z0-9_]+")) {
+                looksLikeIdentifierList = false;
+                break;
+            }
+        }
+
+        if (!looksLikeIdentifierList) {
+            parsedValues.add(normalizeHistoryValue(bracketedContent));
+            return parsedValues;
+        }
+
+        for (String value : values) {
+            parsedValues.add(normalizeHistoryValue(value));
+        }
+        return parsedValues;
+    }
+
+    static boolean shouldSkipHiddenAggregateField(Map<String, String> vals, String valueKey) {
+        if (SUBSTANCES_USED.equals(valueKey)) {
+            return hasAnyValue(vals, "substances_used_injecting_only", "substances_used_non_injecting_only", "substances_used_all");
+        }
+
+        if (RISKY_BEHAVIOURS.equals(valueKey)) {
+            return hasAnyValue(vals, "risky_behaviours_injecting_only", "risky_behaviours_non_injecting_only");
+        }
+
+        return false;
+    }
+
+    private static boolean hasAnyValue(Map<String, String> vals, String... keys) {
+        for (String key : keys) {
+            if (StringUtils.isNotBlank(vals.get(key))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static String normalizeHistoryValue(String value) {
+        return value.trim()
+                .replaceAll("^\"|\"$", "")
+                .replaceFirst("^\\d+\\.\\s*", "");
     }
 
     private static class HarmReductionHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
@@ -247,19 +317,23 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
         }
 
         private void evaluateView(Context context, Map<String, String> vals, TextView tv, String valueKey, int viewTitleStringResource) {
+            if (shouldSkipHiddenAggregateField(vals, valueKey)) {
+                tv.setVisibility(View.GONE);
+                return;
+            }
+
             if (StringUtils.isNotBlank(getMapValue(vals, valueKey))) {
                 SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
                 spannableStringBuilder.append(context.getString(viewTitleStringResource), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
 
-                String stringValue = getMapValue(vals, valueKey);
-                if (stringValue.contains(",")) {
-                    String[] stringValueArray = stringValue.split(",");
-                    for (String value : stringValueArray) {
-                        String mValue = value.trim().replaceAll("^\\[|]$", "");
-                        spannableStringBuilder.append(getStringResource(context, mValue) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                List<String> parsedValues = parseHistoryValues(getMapValue(vals, valueKey));
+                if (parsedValues.size() > 1) {
+                    for (String value : parsedValues) {
+                        spannableStringBuilder.append(getStringResource(context, value) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 } else {
-                    spannableStringBuilder.append(getStringResource(context, stringValue)).append("\n");
+                    String translatedValue = parsedValues.isEmpty() ? getMapValue(vals, valueKey) : parsedValues.get(0);
+                    spannableStringBuilder.append(getStringResource(context, translatedValue)).append("\n");
                 }
                 tv.setText(spannableStringBuilder);
             } else {
