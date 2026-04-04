@@ -96,32 +96,26 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             return parsedValues;
         }
 
-        if (!normalizedValue.startsWith("[") || !normalizedValue.endsWith("]")) {
-            parsedValues.add(normalizeHistoryValue(normalizedValue));
+        String content = normalizedValue;
+        if (normalizedValue.startsWith("[") && normalizedValue.endsWith("]")) {
+            content = normalizedValue.substring(1, normalizedValue.length() - 1).trim();
+        }
+
+        if (StringUtils.isBlank(content)) {
             return parsedValues;
         }
 
-        String bracketedContent = normalizedValue.substring(1, normalizedValue.length() - 1).trim();
-        if (StringUtils.isBlank(bracketedContent)) {
+        String[] values = content.split(",");
+        if (!looksLikeIdentifierList(values)) {
+            parsedValues.add(normalizeHistoryValue(content));
             return parsedValues;
         }
 
-        String[] values = bracketedContent.split(",");
-        boolean looksLikeIdentifierList = true;
         for (String value : values) {
-            if (!normalizeHistoryValue(value).matches("[a-z0-9_]+")) {
-                looksLikeIdentifierList = false;
-                break;
+            String cleanedValue = normalizeHistoryValue(value);
+            if (StringUtils.isNotBlank(cleanedValue)) {
+                parsedValues.add(cleanedValue);
             }
-        }
-
-        if (!looksLikeIdentifierList) {
-            parsedValues.add(normalizeHistoryValue(bracketedContent));
-            return parsedValues;
-        }
-
-        for (String value : values) {
-            parsedValues.add(normalizeHistoryValue(value));
         }
         return parsedValues;
     }
@@ -145,6 +139,19 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             }
         }
         return false;
+    }
+
+    private static boolean looksLikeIdentifierList(String[] values) {
+        if (values.length <= 1) {
+            return false;
+        }
+
+        for (String value : values) {
+            if (!normalizeHistoryValue(value).matches("[a-z0-9_]+")) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static String normalizeHistoryValue(String value) {
