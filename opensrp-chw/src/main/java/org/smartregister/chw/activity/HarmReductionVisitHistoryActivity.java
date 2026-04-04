@@ -91,19 +91,38 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             return parsedValues;
         }
 
-        String normalizedValue = rawValue.trim().replaceAll("^\\[|]$", "");
+        String normalizedValue = rawValue.trim();
         if (StringUtils.isBlank(normalizedValue)) {
             return parsedValues;
         }
 
-        String[] values = normalizedValue.split(",");
+        if (!normalizedValue.startsWith("[") || !normalizedValue.endsWith("]")) {
+            parsedValues.add(normalizeHistoryValue(normalizedValue));
+            return parsedValues;
+        }
+
+        String bracketedContent = normalizedValue.substring(1, normalizedValue.length() - 1).trim();
+        if (StringUtils.isBlank(bracketedContent)) {
+            return parsedValues;
+        }
+
+        String[] values = bracketedContent.split(",");
+        boolean looksLikeIdentifierList = true;
         for (String value : values) {
-            String cleanedValue = value.trim().replaceAll("^\"|\"$", "");
-            if (StringUtils.isNotBlank(cleanedValue)) {
-                parsedValues.add(cleanedValue);
+            if (!normalizeHistoryValue(value).matches("[a-z0-9_]+")) {
+                looksLikeIdentifierList = false;
+                break;
             }
         }
 
+        if (!looksLikeIdentifierList) {
+            parsedValues.add(normalizeHistoryValue(bracketedContent));
+            return parsedValues;
+        }
+
+        for (String value : values) {
+            parsedValues.add(normalizeHistoryValue(value));
+        }
         return parsedValues;
     }
 
@@ -126,6 +145,12 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             }
         }
         return false;
+    }
+
+    private static String normalizeHistoryValue(String value) {
+        return value.trim()
+                .replaceAll("^\"|\"$", "")
+                .replaceFirst("^\\d+\\.\\s*", "");
     }
 
     private static class HarmReductionHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {

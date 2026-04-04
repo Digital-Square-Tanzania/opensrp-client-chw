@@ -28,6 +28,22 @@ public class HarmReductionVisitHistoryActivityTest extends BaseUnitTest {
     }
 
     @Test
+    public void parseHistoryValuesShouldKeepPlainTextWithCommasAsSingleValue() {
+        List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("7. Reproductive health, father, mother, child and adolescents");
+
+        Assert.assertEquals(1, values.size());
+        Assert.assertEquals("Reproductive health, father, mother, child and adolescents", values.get(0));
+    }
+
+    @Test
+    public void parseHistoryValuesShouldKeepBracketedTextWithCommasAsSingleValue() {
+        List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("[7. Reproductive health, father, mother, child and adolescents]");
+
+        Assert.assertEquals(1, values.size());
+        Assert.assertEquals("Reproductive health, father, mother, child and adolescents", values.get(0));
+    }
+
+    @Test
     public void shouldSkipHiddenAggregateFieldShouldSkipSubstancesUsedWhenSpecificFieldExists() {
         Map<String, String> values = new HashMap<>();
         values.put("substances_used_injecting_only", "[heroine]");
