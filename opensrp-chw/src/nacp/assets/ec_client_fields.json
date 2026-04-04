@@ -11144,6 +11144,22 @@
           }
         },
         {
+          "column_name": "uic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic"
+          }
+        },
+        {
+          "column_name": "service_start_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "service_start_date"
+          }
+        },
+        {
           "column_name": "received_harm_reduction_services",
           "type": "Event",
           "json_mapping": {
@@ -11440,11 +11456,35 @@
           }
         },
         {
+          "column_name": "roc_group_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "roc_group_type"
+          }
+        },
+        {
+          "column_name": "follow_up_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "follow_up_status"
+          }
+        },
+        {
           "column_name": "status",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "status"
+          }
+        },
+        {
+          "column_name": "client_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_status"
           }
         },
         {
@@ -11535,6 +11575,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "place_of_overdose"
+          }
+        },
+        {
+          "column_name": "follow_up_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "follow_up_status"
           }
         },
         {
@@ -11815,6 +11863,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "drug_adherence_status_ctc"
+          }
+        },
+        {
+          "column_name": "enrolled_into_ctc_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "enrolled_into_ctc_services"
+          }
+        },
+        {
+          "column_name": "ctc_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctc_id"
           }
         },
         {
