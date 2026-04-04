@@ -28,6 +28,16 @@ public class HarmReductionVisitHistoryActivityTest extends BaseUnitTest {
     }
 
     @Test
+    public void parseHistoryValuesShouldHandleMultipleUnbracketedIdentifierValues() {
+        List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("hiv_aids, epidemic_diseases, communicable_diseases");
+
+        Assert.assertEquals(3, values.size());
+        Assert.assertEquals("hiv_aids", values.get(0));
+        Assert.assertEquals("epidemic_diseases", values.get(1));
+        Assert.assertEquals("communicable_diseases", values.get(2));
+    }
+
+    @Test
     public void parseHistoryValuesShouldKeepPlainTextWithCommasAsSingleValue() {
         List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("7. Reproductive health, father, mother, child and adolescents");
 
