@@ -46,6 +46,10 @@ public class Constants extends CoreConstants {
         public static final String NCD_MONTHLY_FOLLOWUP = "NCD Monthly Follow-Up";
     }
 
+    public static class ScheduleType {
+        public static final String NCD_CASE_MANAGEMENT_VISIT = "NCD_CASE_MANAGEMENT_VISIT";
+    }
+
     public static class ChildIllnessViewType {
         public static final int RADIO_BUTTON = 0;
         public static final int EDIT_TEXT = 1;

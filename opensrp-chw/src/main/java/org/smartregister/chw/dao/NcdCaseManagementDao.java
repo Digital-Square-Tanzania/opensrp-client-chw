@@ -4,7 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.dao.AbstractDao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -13,9 +16,75 @@ import java.util.Map;
 public class NcdCaseManagementDao extends AbstractDao {
 
     private static final String TABLE = Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP;
+    private static final String CONFIRMATION_TABLE = "ec_diabetes_hypertension_confirmation";
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     private NcdCaseManagementDao() {
         // no-op
+    }
+
+    /**
+     * Returns the NCD confirmation date for a client from ec_diabetes_hypertension_confirmation,
+     * or null if no confirmation record exists.
+     */
+    public static Date getConfirmationDate(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return null;
+        }
+
+        String sql = String.format(Locale.US,
+                "SELECT visit_date FROM %s WHERE base_entity_id = '%s' " +
+                        "ORDER BY CASE WHEN last_interacted_with IS NOT NULL " +
+                        "THEN last_interacted_with ELSE visit_date END DESC LIMIT 1",
+                CONFIRMATION_TABLE, baseEntityId);
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "visit_date");
+        List<String> results = readData(sql, dataMap);
+
+        if (results != null && !results.isEmpty() && StringUtils.isNotBlank(results.get(0))) {
+            try {
+                return DATE_FORMAT.parse(results.get(0));
+            } catch (ParseException e) {
+                // Try parsing as timestamp (milliseconds)
+                try {
+                    return new Date(Long.parseLong(results.get(0)));
+                } catch (NumberFormatException ignored) {
+                    return null;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the date of the most recent NCD case management follow-up visit,
+     * or null if no follow-up has been completed.
+     */
+    public static Date getLastFollowUpDate(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return null;
+        }
+
+        String sql = String.format(Locale.US,
+                "SELECT visit_date FROM %s WHERE entity_id = '%s' " +
+                        "ORDER BY visit_date DESC LIMIT 1",
+                TABLE, baseEntityId);
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "visit_date");
+        List<String> results = readData(sql, dataMap);
+
+        if (results != null && !results.isEmpty() && StringUtils.isNotBlank(results.get(0))) {
+            try {
+                return DATE_FORMAT.parse(results.get(0));
+            } catch (ParseException e) {
+                try {
+                    return new Date(Long.parseLong(results.get(0)));
+                } catch (NumberFormatException ignored) {
+                    return null;
+                }
+            }
+        }
+        return null;
     }
 
     /**
