@@ -35,9 +35,23 @@ public class NcdDangerSignsActionHelper implements BaseNcdVisitAction.NcdVisitAc
 
     private final Map<String, String> cachedResults = new HashMap<>();
 
+    private boolean unresolvedRedAlert;
+
     private Context context;
     private Map<String, List<VisitDetail>> details;
     private String jsonPayload;
+
+    /**
+     * Sets the unresolved RED alert flag. When true, the form will display
+     * a warning banner about an unresolved urgent referral from the previous visit.
+     */
+    public void setUnresolvedRedAlert(boolean unresolvedRedAlert) {
+        this.unresolvedRedAlert = unresolvedRedAlert;
+    }
+
+    public boolean hasUnresolvedRedAlert() {
+        return unresolvedRedAlert;
+    }
 
     @Override
     public void onJsonFormLoaded(String json, Context context, Map<String, List<VisitDetail>> details) {
@@ -48,6 +62,42 @@ public class NcdDangerSignsActionHelper implements BaseNcdVisitAction.NcdVisitAc
         if (TextUtils.isEmpty(jsonPayload)) {
             jsonPayload = fetchStoredPayload();
         }
+
+        if (unresolvedRedAlert && StringUtils.isNotBlank(jsonPayload)) {
+            try {
+                JSONObject form = new JSONObject(jsonPayload);
+                JSONObject step = form.optJSONObject(STEP_ONE);
+                if (step != null) {
+                    JSONArray fields = step.optJSONArray("fields");
+                    if (fields != null) {
+                        injectUnresolvedRedAlertField(fields);
+                        jsonPayload = form.toString();
+                    }
+                }
+            } catch (Exception e) {
+                Timber.e(e, "Failed to inject unresolved RED alert field");
+            }
+        }
+    }
+
+    private void injectUnresolvedRedAlertField(JSONArray fields) throws Exception {
+        // Set the hidden flag
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field != null && "unresolved_red_alert".equals(field.optString("key"))) {
+                field.put("value", "true");
+                return;
+            }
+        }
+        // If hidden field doesn't exist in form, add it
+        JSONObject hiddenField = new JSONObject();
+        hiddenField.put("key", "unresolved_red_alert");
+        hiddenField.put("type", "hidden");
+        hiddenField.put("value", "true");
+        hiddenField.put("openmrs_entity", "concept");
+        hiddenField.put("openmrs_entity_id", "unresolved_red_alert");
+        hiddenField.put("openmrs_entity_parent", "");
+        fields.put(hiddenField);
     }
 
     @Override

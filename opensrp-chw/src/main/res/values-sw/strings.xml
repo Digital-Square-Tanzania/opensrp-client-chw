@@ -679,4 +679,5 @@
     <string name="ncd_followup_psychosocial_pending">Bado haijakamilika</string>
     <string name="ncd_followup_psychosocial_linked">Ameunganishwa na kikundi cha msaada</string>
     <string name="ncd_followup_psychosocial_not_linked">Hajaunganishwa na kikundi cha msaada</string>
+    <string name="ncd_unresolved_red_alert_warning">ONYO: Rufaa ya dharura kutoka ziara iliyopita haijatatuliwa. Kagua dalili za hatari na hali ya rufaa.</string>
 </resources>

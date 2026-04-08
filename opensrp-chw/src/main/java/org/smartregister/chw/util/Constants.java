@@ -50,6 +50,13 @@ public class Constants extends CoreConstants {
         public static final String NCD_CASE_MANAGEMENT_VISIT = "NCD_CASE_MANAGEMENT_VISIT";
     }
 
+    public static class NcdReferral {
+        public static final String URGENT_REFERRAL_CODE = "ncd_urgent_referral";
+        public static final String NON_EMERGENCY_REFERRAL_CODE = "ncd_non_emergency_referral";
+        public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
+        public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
+    }
+
     public static class ChildIllnessViewType {
         public static final int RADIO_BUTTON = 0;
         public static final int EDIT_TEXT = 1;

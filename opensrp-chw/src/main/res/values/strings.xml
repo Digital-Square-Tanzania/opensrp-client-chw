@@ -558,5 +558,6 @@
     <string name="ncd_followup_psychosocial_pending">Not yet completed</string>
     <string name="ncd_followup_psychosocial_linked">Linked to support group</string>
     <string name="ncd_followup_psychosocial_not_linked">Not linked to support group</string>
+    <string name="ncd_unresolved_red_alert_warning">WARNING: Unresolved urgent referral from previous visit. Review danger signs and referral status.</string>
 
 </resources>
