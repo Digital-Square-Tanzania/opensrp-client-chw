@@ -17,7 +17,6 @@ import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.TbVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
-import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -178,7 +177,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new NcdCaseManagementVisitScheduler());
 
-        addToClassifers(Constants.EncounterType.NCD_MONTHLY_FOLLOWUP, classifier, scheduleServices);
+        addToClassifers(org.smartregister.chw.util.Constants.EncounterType.NCD_MONTHLY_FOLLOWUP, classifier, scheduleServices);
         addToClassifers(org.smartregister.chw.ncd.util.Constants.EVENT_TYPE.DIABETES_HYPERTENSION_CONFIRMATION_EVENT, classifier, scheduleServices);
     }
 }
