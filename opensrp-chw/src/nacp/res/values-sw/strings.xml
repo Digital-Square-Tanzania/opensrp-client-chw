@@ -845,6 +845,7 @@
     <string name="harm_reduction_risky_behaviours_injecting_only">Tabia hatarishi</string>
     <string name="harm_reduction_risky_behaviours_non_injecting_only">Tabia hatarishi</string>
     <string name="harm_reduction_risky_behaviours_other_specify">Ikiwa ni nyinginezo, taja</string>
+    <string name="harm_reduction_roc_consent_joining_mat_services">Je, mpokea huduma ameridhia kujiunga na huduma za MAT?</string>
     <string name="harm_reduction_safe_injection">Udungaji salama</string>
     <string name="harm_reduction_safe_injection_tools">Huduma za sindano salama zinazotolewa - Aina ya vifaa</string>
     <string name="harm_reduction_sharing_needles_syringes">Kuchangia kifaa cha kujidunga na mtu mwingine</string>
