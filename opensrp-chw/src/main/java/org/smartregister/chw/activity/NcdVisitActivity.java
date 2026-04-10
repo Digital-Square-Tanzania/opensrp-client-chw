@@ -22,6 +22,7 @@ import org.smartregister.family.util.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NcdVisitActivity extends BaseNcdVisitActivity {
@@ -137,8 +138,8 @@ public class NcdVisitActivity extends BaseNcdVisitActivity {
         TextView textView = (TextView) view;
         textView.setIncludeFontPadding(false);
         textView.setPaintFlags(textView.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        textView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+        textView.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             textView.setLetterSpacing(0f);
