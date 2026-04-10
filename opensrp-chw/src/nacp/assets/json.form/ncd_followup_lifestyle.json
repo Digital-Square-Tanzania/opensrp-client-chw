@@ -88,7 +88,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_lifestyle_relevance.yml"
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
             }
           }
         }
@@ -132,7 +132,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_lifestyle_relevance.yml"
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
             }
           }
         }
@@ -176,7 +176,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_lifestyle_relevance.yml"
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
             }
           }
         }

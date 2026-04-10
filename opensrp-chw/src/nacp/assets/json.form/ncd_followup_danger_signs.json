@@ -172,7 +172,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_danger_signs_relevance.yml"
+              "rules-file": "ncd_followup_danger_signs_relevance.yml"
             }
           }
         }
@@ -186,7 +186,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_danger_signs_calculation.yml"
+              "rules-file": "ncd_followup_danger_signs_calculation.yml"
             }
           }
         }
@@ -200,7 +200,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "rule/ncd_followup_danger_signs_calculation.yml"
+              "rules-file": "ncd_followup_danger_signs_calculation.yml"
             }
           }
         }

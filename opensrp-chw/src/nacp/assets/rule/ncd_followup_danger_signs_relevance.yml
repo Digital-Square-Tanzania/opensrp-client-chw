@@ -1,5 +1,5 @@
 ---
-name: red_alert_toaster
+name: step1_red_alert_toaster
 description: Show RED ALERT when any danger sign is present
 priority: 1
 condition: "step1_non_healing_wounds == 'yes' || step1_neuropathy == 'yes' || step1_vision_changes == 'yes' || step1_chest_pain == 'yes'"

@@ -5830,8 +5830,7 @@
           "column_name": "visit_date",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "end"
+            "field": "eventDate"
           }
         },
         {
