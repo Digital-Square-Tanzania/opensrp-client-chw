@@ -3,11 +3,14 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -17,15 +20,22 @@ import org.json.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.NcdCaseManagementVisitActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.dao.NcdCaseManagementDao;
 import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.ncd.activity.BaseNcdProfileActivity;
 import org.smartregister.chw.ncd.util.Constants;
+import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.util.AppExecutors;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -43,12 +53,14 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     private static final String COLUMN_LAST_INTERACTED_WITH = "last_interacted_with";
     private static final String COLUMN_VISIT_DATE = "visit_date";
     private static final int FOLLOW_UP_WAIT_PERIOD_DAYS = 3;
+    private static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat("dd MMM yyyy", Locale.US);
 
     private boolean isConfirmedNcd = false;
     private Date lastDiabetesScreeningDate;
     private boolean followUpButtonHiddenByWaitPeriod;
     private Integer originalRecordVisitRowVisibility;
     private Integer originalRecordVisitButtonVisibility;
+    private final AppExecutors appExecutors = new AppExecutors();
 
     /**
      * Use this method to start the NcdProfileActivity.
@@ -87,6 +99,9 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     protected void onResume() {
         super.onResume();
         enforceFollowUpWaitPeriod();
+        if (isConfirmedNcd && memberObject != null) {
+            loadCaseSummary();
+        }
     }
 
     @Override
@@ -97,7 +112,7 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         }
 
         if (shouldOpenNcdVisit(memberObject.getBaseEntityId())) {
-            NcdVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+            NcdCaseManagementVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
             return;
         }
 
@@ -284,5 +299,212 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
                 || "confirmed".equals(normalized)
                 || "yes".equals(normalized)
                 || "true".equals(normalized);
+    }
+
+    private void loadCaseSummary() {
+        final String baseEntityId = memberObject.getBaseEntityId();
+        appExecutors.diskIO().execute(() -> {
+            // All DAO calls on background thread
+            String diagnosisType = NcdCaseManagementDao.getDiagnosisType(baseEntityId);
+            Date confirmationDate = NcdCaseManagementDao.getConfirmationDate(baseEntityId);
+            Map<String, String> lastFollowUp = NcdCaseManagementDao.getLastFollowUpEvent(baseEntityId);
+            Date lastVisitDate = NcdCaseManagementDao.getLastFollowUpDate(baseEntityId);
+            String referralType = NcdCaseManagementDao.getOpenReferralType(baseEntityId);
+            List<Map<String, String>> visitHistory = NcdCaseManagementDao.getVisitHistory(baseEntityId, 3);
+
+            Date nextDueDate = null;
+            if (confirmationDate != null) {
+                NcdCaseManagementFollowupRule rule = new NcdCaseManagementFollowupRule(confirmationDate, lastVisitDate);
+                nextDueDate = rule.getDueDate();
+            }
+
+            final String fDiagnosisType = diagnosisType;
+            final Date fConfirmationDate = confirmationDate;
+            final Map<String, String> fLastFollowUp = lastFollowUp;
+            final Date fLastVisitDate = lastVisitDate;
+            final Date fNextDueDate = nextDueDate;
+            final String fReferralType = referralType;
+            final List<Map<String, String>> fVisitHistory = visitHistory;
+
+            appExecutors.mainThread().execute(() ->
+                    populateCaseSummary(fDiagnosisType, fConfirmationDate, fLastFollowUp,
+                            fLastVisitDate, fNextDueDate, fReferralType, fVisitHistory));
+        });
+    }
+
+    private void populateCaseSummary(String diagnosisType, Date confirmationDate,
+                                     Map<String, String> lastFollowUp, Date lastVisitDate,
+                                     Date nextDueDate, String referralType,
+                                     List<Map<String, String>> visitHistory) {
+        View container = findViewById(R.id.ncd_cs_container);
+        if (container == null || diagnosisType == null) {
+            return;
+        }
+
+        // Diagnosis section
+        TextView diagnosisView = findViewById(R.id.ncd_cs_diagnosis_type);
+        TextView confirmationView = findViewById(R.id.ncd_cs_confirmation_date);
+        if (diagnosisView != null) {
+            int diagResId;
+            switch (diagnosisType) {
+                case "DM_HTN":
+                    diagResId = R.string.ncd_cs_diagnosis_dm_htn;
+                    break;
+                case "HTN":
+                    diagResId = R.string.ncd_cs_diagnosis_htn;
+                    break;
+                default:
+                    diagResId = R.string.ncd_cs_diagnosis_dm;
+                    break;
+            }
+            diagnosisView.setText(diagResId);
+        }
+        if (confirmationView != null && confirmationDate != null) {
+            confirmationView.setText(getString(R.string.ncd_cs_confirmed_on,
+                    DISPLAY_DATE_FORMAT.format(confirmationDate)));
+        }
+
+        // Alert status section
+        View alertSection = findViewById(R.id.ncd_cs_alert_section);
+        View alertDivider = findViewById(R.id.ncd_cs_alert_divider);
+        if (lastFollowUp != null && alertSection != null) {
+            String alertStatus = lastFollowUp.get("alert_status");
+            TextView alertBadge = findViewById(R.id.ncd_cs_alert_badge);
+            if (alertBadge != null && !TextUtils.isEmpty(alertStatus)) {
+                String normalized = alertStatus.trim().toUpperCase(Locale.US);
+                int badgeColorRes;
+                int labelResId;
+                if ("RED".equals(normalized)) {
+                    badgeColorRes = org.smartregister.R.color.alert_urgent_red;
+                    labelResId = R.string.ncd_cs_alert_red;
+                } else if ("YELLOW".equals(normalized)) {
+                    badgeColorRes = org.smartregister.R.color.alert_in_progress_blue;
+                    labelResId = R.string.ncd_cs_alert_yellow;
+                } else {
+                    badgeColorRes = org.smartregister.R.color.alert_complete_green;
+                    labelResId = R.string.ncd_cs_alert_none;
+                }
+                alertBadge.setText(labelResId);
+                GradientDrawable bg = new GradientDrawable();
+                bg.setCornerRadius(12f);
+                bg.setColor(ContextCompat.getColor(this, badgeColorRes));
+                alertBadge.setBackground(bg);
+                alertSection.setVisibility(View.VISIBLE);
+                if (alertDivider != null) alertDivider.setVisibility(View.VISIBLE);
+            }
+        }
+
+        // Visit dates section
+        View datesSection = findViewById(R.id.ncd_cs_dates_section);
+        View datesDivider = findViewById(R.id.ncd_cs_dates_divider);
+        if (datesSection != null && confirmationDate != null) {
+            TextView lastVisitView = findViewById(R.id.ncd_cs_last_visit_date);
+            TextView nextDueView = findViewById(R.id.ncd_cs_next_due_date);
+            if (lastVisitView != null) {
+                lastVisitView.setText(lastVisitDate != null ? DISPLAY_DATE_FORMAT.format(lastVisitDate) : "—");
+            }
+            if (nextDueView != null) {
+                nextDueView.setText(nextDueDate != null ? DISPLAY_DATE_FORMAT.format(nextDueDate) : "—");
+            }
+            datesSection.setVisibility(View.VISIBLE);
+            if (datesDivider != null) datesDivider.setVisibility(View.VISIBLE);
+        }
+
+        // Referral section
+        View referralSection = findViewById(R.id.ncd_cs_referral_section);
+        View referralDivider = findViewById(R.id.ncd_cs_referral_divider);
+        if (referralSection != null && !TextUtils.isEmpty(referralType)) {
+            TextView referralTypeView = findViewById(R.id.ncd_cs_referral_type);
+            if (referralTypeView != null) {
+                int refResId = "ncd_urgent_referral".equals(referralType)
+                        ? R.string.ncd_cs_referral_urgent
+                        : R.string.ncd_cs_referral_non_emergency;
+                referralTypeView.setText(refResId);
+            }
+            referralSection.setVisibility(View.VISIBLE);
+            if (referralDivider != null) referralDivider.setVisibility(View.VISIBLE);
+        }
+
+        // Visit history section
+        View historySection = findViewById(R.id.ncd_cs_history_section);
+        if (historySection != null && !visitHistory.isEmpty()) {
+            int[][] historyViewIds = {
+                    {R.id.ncd_cs_history_row_1, R.id.ncd_cs_history_dot_1, R.id.ncd_cs_history_date_1, R.id.ncd_cs_history_summary_1},
+                    {R.id.ncd_cs_history_row_2, R.id.ncd_cs_history_dot_2, R.id.ncd_cs_history_date_2, R.id.ncd_cs_history_summary_2},
+                    {R.id.ncd_cs_history_row_3, R.id.ncd_cs_history_dot_3, R.id.ncd_cs_history_date_3, R.id.ncd_cs_history_summary_3},
+            };
+
+            for (int i = 0; i < Math.min(visitHistory.size(), 3); i++) {
+                Map<String, String> visit = visitHistory.get(i);
+                View row = findViewById(historyViewIds[i][0]);
+                View dot = findViewById(historyViewIds[i][1]);
+                TextView dateView = findViewById(historyViewIds[i][2]);
+                TextView summaryView = findViewById(historyViewIds[i][3]);
+
+                if (row == null) continue;
+
+                // Date
+                if (dateView != null) {
+                    String visitDate = visit.get("visit_date");
+                    dateView.setText(!TextUtils.isEmpty(visitDate) ? visitDate : "—");
+                }
+
+                // Dot color based on alert status
+                if (dot != null) {
+                    String status = visit.get("alert_status");
+                    int dotColor;
+                    if ("RED".equalsIgnoreCase(status)) {
+                        dotColor = ContextCompat.getColor(this, org.smartregister.R.color.alert_urgent_red);
+                    } else if ("YELLOW".equalsIgnoreCase(status)) {
+                        dotColor = ContextCompat.getColor(this, org.smartregister.R.color.alert_in_progress_blue);
+                    } else {
+                        dotColor = ContextCompat.getColor(this, org.smartregister.R.color.alert_complete_green);
+                    }
+                    GradientDrawable dotBg = new GradientDrawable();
+                    dotBg.setShape(GradientDrawable.OVAL);
+                    dotBg.setColor(dotColor);
+                    dot.setBackground(dotBg);
+                }
+
+                // Clinical summary
+                if (summaryView != null) {
+                    summaryView.setText(buildClinicalSummary(visit));
+                }
+
+                row.setVisibility(View.VISIBLE);
+            }
+            historySection.setVisibility(View.VISIBLE);
+        }
+
+        // Show the master container
+        container.setVisibility(View.VISIBLE);
+    }
+
+    private String buildClinicalSummary(Map<String, String> visit) {
+        StringBuilder sb = new StringBuilder();
+        appendFlag(sb, visit.get("clinic_attendance"), "Clinic");
+        appendFlag(sb, visit.get("medication_adherence"), "Meds");
+        appendFlag(sb, visit.get("non_healing_wounds"), "Wounds");
+        appendFlag(sb, visit.get("neuropathy"), "Neuropathy");
+        appendFlag(sb, visit.get("vision_changes"), "Vision");
+        appendFlag(sb, visit.get("chest_pain"), "Chest pain");
+        return sb.length() > 0 ? sb.toString() : "—";
+    }
+
+    private void appendFlag(StringBuilder sb, String value, String label) {
+        if (!TextUtils.isEmpty(value) && !"no".equalsIgnoreCase(value.trim())
+                && !"none".equalsIgnoreCase(value.trim())
+                && !"false".equalsIgnoreCase(value.trim())) {
+            if (sb.length() > 0) sb.append(" · ");
+            sb.append(label);
+        }
+    }
+
+    @Override
+    protected String getVisitButtonStatus(String baseEntityId) {
+        Date confirmationDate = NcdCaseManagementDao.getConfirmationDate(baseEntityId);
+        Date lastFollowUpDate = NcdCaseManagementDao.getLastFollowUpDate(baseEntityId);
+        return new NcdCaseManagementFollowupRule(confirmationDate,
+                lastFollowUpDate).getButtonStatus();
     }
 }
