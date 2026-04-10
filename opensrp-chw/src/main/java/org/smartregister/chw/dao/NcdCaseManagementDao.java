@@ -154,6 +154,69 @@ public class NcdCaseManagementDao extends AbstractDao {
     }
 
     /**
+     * Returns the diagnosis type for a confirmed NCD client: "DM", "HTN", or "DM_HTN".
+     * Returns null if no confirmation record exists.
+     */
+    public static String getDiagnosisType(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return null;
+        }
+
+        String sql = String.format(Locale.US,
+                "SELECT diabetes_result, hypertension_result FROM %s WHERE base_entity_id = '%s' " +
+                        "ORDER BY CASE WHEN last_interacted_with IS NOT NULL " +
+                        "THEN last_interacted_with ELSE visit_date END DESC LIMIT 1",
+                CONFIRMATION_TABLE, baseEntityId);
+
+        DataMap<String[]> dataMap = cursor -> new String[]{
+                getCursorValue(cursor, "diabetes_result"),
+                getCursorValue(cursor, "hypertension_result")
+        };
+
+        List<String[]> results = readData(sql, dataMap);
+        if (results != null && !results.isEmpty()) {
+            String[] row = results.get(0);
+            boolean dm = isPositiveResult(row[0]);
+            boolean htn = isPositiveResult(row[1]);
+            if (dm && htn) return "DM_HTN";
+            if (dm) return "DM";
+            if (htn) return "HTN";
+        }
+        return null;
+    }
+
+    /**
+     * Returns the referral type code for an open referral, or null if none exists.
+     * Codes: "ncd_urgent_referral" or "ncd_non_emergency_referral".
+     */
+    public static String getOpenReferralType(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return null;
+        }
+
+        String sql = String.format(Locale.US,
+                "SELECT code FROM task " +
+                        "WHERE for_entity = '%s' " +
+                        "AND (code = 'ncd_urgent_referral' OR code = 'ncd_non_emergency_referral') " +
+                        "AND status IN ('READY', 'IN_PROGRESS') " +
+                        "ORDER BY authored_on DESC LIMIT 1",
+                baseEntityId);
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "code");
+        List<String> results = readData(sql, dataMap);
+        return (results != null && !results.isEmpty()) ? results.get(0) : null;
+    }
+
+    private static boolean isPositiveResult(String result) {
+        if (StringUtils.isBlank(result)) {
+            return false;
+        }
+        String normalized = result.trim().toLowerCase(Locale.US);
+        return "positive".equals(normalized) || "confirmed".equals(normalized)
+                || "yes".equals(normalized) || "true".equals(normalized);
+    }
+
+    /**
      * Checks if there is an open (non-closed) referral task for the given client
      * of type ncd_urgent_referral or ncd_non_emergency_referral.
      * Reads from the local task store only — no network query.
