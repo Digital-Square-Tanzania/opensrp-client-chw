@@ -17,7 +17,6 @@ import org.smartregister.chw.actionhelper.NcdLifestyleActionHelper;
 import org.smartregister.chw.actionhelper.NcdPsychosocialActionHelper;
 import org.smartregister.chw.dao.NcdCaseManagementDao;
 import org.smartregister.chw.ncd.contract.BaseNcdVisitContract;
-import org.smartregister.chw.ncd.domain.Visit;
 import org.smartregister.chw.ncd.interactor.BaseNcdVisitInteractor;
 import org.smartregister.chw.ncd.model.BaseNcdVisitAction;
 import org.smartregister.chw.util.Constants;
@@ -102,14 +101,41 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         appExecutors.diskIO().execute(task);
     }
 
+    /**
+     * Computes alert status from action payloads and injects it before the combined event is saved.
+     * With COMBINED processing mode, all fields land in one event/row.
+     */
     @Override
-    protected void processExternalVisits(Visit parentVisit,
-                                         Map<String, BaseNcdVisitAction> actionMap,
-                                         String baseEntityId) throws Exception {
-        BaseNcdVisitAction dangerSignsAction = findActionByFormName(actionMap, NCD_FOLLOWUP_DANGER_SIGNS);
-        BaseNcdVisitAction clinicalAction = findActionByFormName(actionMap, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
+    protected String submitVisit(boolean editMode, String memberID,
+                                 Map<String, BaseNcdVisitAction> map,
+                                 String parentEventType) throws Exception {
+        // Compute and inject alert status before forms are combined into one event
+        computeAndInjectAlertStatus(map);
 
-        // Parse each payload once, extract all needed flags
+        String result = super.submitVisit(editMode, memberID, map, parentEventType);
+
+        // Create referral task if needed (after visit is saved)
+        if (!ALERT_NONE.equals(lastComputedAlertStatus) && StringUtils.isBlank(parentEventType)) {
+            String description = buildReferralDescription(lastComputedAlertStatus,
+                    lastHasSideEffects, lastHasMissedClinic);
+            NcdReferralTaskHelper.createReferralIfNeeded(
+                    memberID,
+                    null,
+                    lastComputedAlertStatus,
+                    description);
+        }
+
+        return result;
+    }
+
+    private String lastComputedAlertStatus = ALERT_NONE;
+    private boolean lastHasSideEffects = false;
+    private boolean lastHasMissedClinic = false;
+
+    private void computeAndInjectAlertStatus(Map<String, BaseNcdVisitAction> map) {
+        BaseNcdVisitAction dangerSignsAction = findActionByFormName(map, NCD_FOLLOWUP_DANGER_SIGNS);
+        BaseNcdVisitAction clinicalAction = findActionByFormName(map, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
+
         boolean isRedAlert = false;
         if (dangerSignsAction != null) {
             isRedAlert = "true".equalsIgnoreCase(
@@ -117,38 +143,27 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         }
 
         boolean isYellowAlert = false;
-        boolean hasSideEffects = false;
-        boolean hasMissedClinic = false;
+        lastHasSideEffects = false;
+        lastHasMissedClinic = false;
         if (clinicalAction != null) {
             JSONArray clinicalFields = getFieldsArray(clinicalAction.getJsonPayload());
             if (clinicalFields != null) {
                 isYellowAlert = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_YELLOW_ALERT));
-                hasSideEffects = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_SIDE_EFFECTS_ALERT));
-                hasMissedClinic = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_MISSED_CLINIC_ALERT));
+                lastHasSideEffects = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_SIDE_EFFECTS_ALERT));
+                lastHasMissedClinic = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_MISSED_CLINIC_ALERT));
             }
         }
 
-        String alertStatus;
         if (isRedAlert) {
-            alertStatus = ALERT_RED;
+            lastComputedAlertStatus = ALERT_RED;
         } else if (isYellowAlert) {
-            alertStatus = ALERT_YELLOW;
+            lastComputedAlertStatus = ALERT_YELLOW;
         } else {
-            alertStatus = ALERT_NONE;
+            lastComputedAlertStatus = ALERT_NONE;
         }
 
-        injectAlertStatusIntoPayload(dangerSignsAction, alertStatus, hasSideEffects, hasMissedClinic);
-
-        super.processExternalVisits(parentVisit, actionMap, baseEntityId);
-
-        if (!ALERT_NONE.equals(alertStatus) && parentVisit != null) {
-            String description = buildReferralDescription(alertStatus, hasSideEffects, hasMissedClinic);
-            NcdReferralTaskHelper.createReferralIfNeeded(
-                    baseEntityId,
-                    parentVisit.getFormSubmissionId(),
-                    alertStatus,
-                    description);
-        }
+        injectAlertStatusIntoPayload(dangerSignsAction, lastComputedAlertStatus,
+                lastHasSideEffects, lastHasMissedClinic);
     }
 
     /**
@@ -290,7 +305,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                 .withFormName(formName)
                 .withDetails(details)
                 .withHelper(helper)
-                .withProcessingMode(BaseNcdVisitAction.ProcessingMode.SEPARATE);
+                .withProcessingMode(BaseNcdVisitAction.ProcessingMode.COMBINED);
 
         if (memberObject != null && StringUtils.isNotBlank(memberObject.getBaseEntityId())) {
             builder = builder.withBaseEntityID(memberObject.getBaseEntityId());
