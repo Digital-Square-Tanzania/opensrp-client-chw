@@ -670,6 +670,7 @@
     <string name="ncd_followup_action_danger_signs">Dalili za Hatari</string>
     <string name="ncd_followup_action_lifestyle">Mtindo wa Maisha</string>
     <string name="ncd_followup_action_psychosocial">Msaada wa Kisaikolojia</string>
+    <string name="ncd_followup_action_vitals">Vipimo (Shinikizo la Damu &amp; Sukari)</string>
     <string name="ncd_followup_clinical_adherence_pending">Bado haijakamilika</string>
     <string name="ncd_followup_danger_signs_pending">Bado haijakamilika</string>
     <string name="ncd_followup_danger_signs_none">Hakuna dalili za hatari</string>

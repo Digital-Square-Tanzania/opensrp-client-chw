@@ -4,6 +4,7 @@ import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_CLINICA
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_DANGER_SIGNS;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_LIFESTYLE;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_PSYCHOSOCIAL;
+import static org.smartregister.chw.util.Constants.JsonForm.NCD_VITALS_FORM;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,7 @@ import org.smartregister.chw.actionhelper.NcdClinicalAdherenceActionHelper;
 import org.smartregister.chw.actionhelper.NcdDangerSignsActionHelper;
 import org.smartregister.chw.actionhelper.NcdLifestyleActionHelper;
 import org.smartregister.chw.actionhelper.NcdPsychosocialActionHelper;
+import org.smartregister.chw.actionhelper.NcdVitalsActionHelper;
 import org.smartregister.chw.dao.NcdCaseManagementDao;
 import org.smartregister.chw.ncd.contract.BaseNcdVisitContract;
 import org.smartregister.chw.ncd.interactor.BaseNcdVisitInteractor;
@@ -67,6 +69,11 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                     dangerSignsHelper.setUnresolvedRedAlert(true);
                 }
 
+                BaseNcdVisitAction vitals = buildAction(
+                        context.getString(R.string.ncd_followup_action_vitals),
+                        NCD_VITALS_FORM,
+                        new NcdVitalsActionHelper());
+
                 BaseNcdVisitAction clinicalAdherence = buildAction(
                         context.getString(R.string.ncd_followup_action_clinical_adherence),
                         NCD_FOLLOWUP_CLINICAL_ADHERENCE,
@@ -87,6 +94,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                         NCD_FOLLOWUP_PSYCHOSOCIAL,
                         new NcdPsychosocialActionHelper());
 
+                actionMap.put(context.getString(R.string.ncd_followup_action_vitals), vitals);
                 actionMap.put(context.getString(R.string.ncd_followup_action_clinical_adherence), clinicalAdherence);
                 actionMap.put(context.getString(R.string.ncd_followup_action_danger_signs), dangerSigns);
                 actionMap.put(context.getString(R.string.ncd_followup_action_lifestyle), lifestyle);
@@ -116,16 +124,27 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
 
         // Create referral task if needed (after visit is saved)
         if (!ALERT_NONE.equals(lastComputedAlertStatus) && StringUtils.isBlank(parentEventType)) {
+            String formSubmissionId = extractFormSubmissionId(result);
             String description = buildReferralDescription(lastComputedAlertStatus,
                     lastHasSideEffects, lastHasMissedClinic);
             NcdReferralTaskHelper.createReferralIfNeeded(
                     memberID,
-                    null,
+                    formSubmissionId,
                     lastComputedAlertStatus,
                     description);
         }
 
         return result;
+    }
+
+    private String extractFormSubmissionId(String visitJson) {
+        if (StringUtils.isBlank(visitJson)) return null;
+        try {
+            return new JSONObject(visitJson).optString("formSubmissionId", null);
+        } catch (Exception e) {
+            Timber.e(e, "Failed to extract formSubmissionId from visit JSON");
+            return null;
+        }
     }
 
     private String lastComputedAlertStatus = ALERT_NONE;

@@ -22,6 +22,8 @@ import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.NcdCaseManagementVisitActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.ncd.NcdLibrary;
+import org.smartregister.chw.ncd.domain.Visit;
 import org.smartregister.chw.dao.NcdCaseManagementDao;
 import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.ncd.activity.BaseNcdProfileActivity;
@@ -105,6 +107,14 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     }
 
     @Override
+    protected Visit getCaseManagementVisit() {
+        if (memberObject == null) return null;
+        return NcdLibrary.getInstance().visitRepository().getLatestVisit(
+                memberObject.getBaseEntityId(),
+                org.smartregister.chw.util.Constants.EncounterType.NCD_MONTHLY_FOLLOWUP);
+    }
+
+    @Override
     public void openFollowupVisit() {
         if (memberObject == null) {
             Timber.w("Member object is null, cannot continue with NCD visit");
@@ -112,7 +122,9 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         }
 
         if (shouldOpenNcdVisit(memberObject.getBaseEntityId())) {
-            NcdCaseManagementVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+            Visit unprocessed = getCaseManagementVisit();
+            boolean editMode = unprocessed != null && !unprocessed.getProcessed();
+            NcdCaseManagementVisitActivity.startMe(this, memberObject.getBaseEntityId(), editMode);
             return;
         }
 
