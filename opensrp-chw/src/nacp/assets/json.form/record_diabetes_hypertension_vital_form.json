@@ -70,11 +70,14 @@
         "openmrs_entity_id": "blood_sugar_result",
         "type": "edit_text",
         "hint": "Blood sugar (mmol/L)",
-        "input_type": "numberDecimal",
         "min_length": 1,
         "v_required": {
           "value": "true",
           "err": "Enter the blood sugar reading"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
         }
       },
       {
@@ -92,9 +95,12 @@
         "openmrs_entity_id": "blood_pressure_systolic",
         "type": "edit_text",
         "hint": "Systolic (mmHg)",
-        "input_type": "number",
         "min_length": 2,
         "max_length": 3,
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "v_min": {
           "value": "50",
           "err": "Enter a valid systolic value"
@@ -115,9 +121,12 @@
         "openmrs_entity_id": "blood_pressure_diastolic",
         "type": "edit_text",
         "hint": "Diastolic (mmHg)",
-        "input_type": "number",
         "min_length": 2,
         "max_length": 3,
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
         "v_min": {
           "value": "30",
           "err": "Enter a valid diastolic value"
