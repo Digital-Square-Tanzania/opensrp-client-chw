@@ -19,6 +19,8 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.json.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.NcdCaseManagementVisitActivity;
 import org.smartregister.chw.application.ChwApplication;
@@ -58,6 +60,7 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     private static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat("dd MMM yyyy", Locale.US);
 
     private boolean isConfirmedNcd = false;
+    private int overdueByDays = 0;
     private Date lastDiabetesScreeningDate;
     private boolean followUpButtonHiddenByWaitPeriod;
     private Integer originalRecordVisitRowVisibility;
@@ -103,6 +106,32 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         enforceFollowUpWaitPeriod();
         if (isConfirmedNcd && memberObject != null) {
             loadCaseSummary();
+        }
+    }
+
+    @Override
+    protected String getVisitButtonStatus(String baseEntityId) {
+        if (!isConfirmedNcd) return CoreConstants.VISIT_STATE.NOT_DUE_YET;
+        Date confirmationDate = NcdCaseManagementDao.getConfirmationDate(baseEntityId);
+        if (confirmationDate == null) return CoreConstants.VISIT_STATE.NOT_DUE_YET;
+        Date lastVisitDate = NcdCaseManagementDao.getLastFollowUpDate(baseEntityId);
+        NcdCaseManagementFollowupRule rule = new NcdCaseManagementFollowupRule(confirmationDate, lastVisitDate);
+        String status = rule.getButtonStatus();
+        if (CoreConstants.VISIT_STATE.OVERDUE.equals(status) && rule.getOverDueDate() != null) {
+            overdueByDays = Days.daysBetween(
+                    new DateTime(rule.getOverDueDate()).toLocalDate(),
+                    DateTime.now().toLocalDate()).getDays();
+        }
+        return status;
+    }
+
+    @Override
+    public void setOverDueColor() {
+        super.setOverDueColor();
+        if (textViewOverdueAlert != null) {
+            textViewOverdueAlert.setText(getString(
+                    org.smartregister.chw.ncd.R.string.ncd_visit_overdue_alert, overdueByDays));
+            textViewOverdueAlert.setVisibility(View.VISIBLE);
         }
     }
 
@@ -488,8 +517,27 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
             historySection.setVisibility(View.VISIBLE);
         }
 
+        // Update rlLastVisit row label with days-since-last-visit
+        updateLastVisitRowLabel(lastVisitDate);
+
         // Show the master container
         container.setVisibility(View.VISIBLE);
+    }
+
+    private void updateLastVisitRowLabel(Date lastVisitDate) {
+        if (textViewLastVisitRow == null) return;
+        if (lastVisitDate == null) {
+            textViewLastVisitRow.setText(org.smartregister.chw.ncd.R.string.view_medical_history);
+            return;
+        }
+        int numOfDays = Days.daysBetween(
+                new DateTime(lastVisitDate).toLocalDate(),
+                DateTime.now().toLocalDate()).getDays();
+        String timeAgo = numOfDays <= 0
+                ? getString(org.smartregister.chw.ncd.R.string.ncd_last_visit_less_than_24h)
+                : numOfDays + " " + getString(org.smartregister.chw.ncd.R.string.ncd_last_visit_days);
+        textViewLastVisitRow.setText(
+                getString(org.smartregister.chw.ncd.R.string.last_visit_40_days_ago, timeAgo));
     }
 
     private String buildClinicalSummary(Map<String, String> visit) {
@@ -512,11 +560,4 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         }
     }
 
-    @Override
-    protected String getVisitButtonStatus(String baseEntityId) {
-        Date confirmationDate = NcdCaseManagementDao.getConfirmationDate(baseEntityId);
-        Date lastFollowUpDate = NcdCaseManagementDao.getLastFollowUpDate(baseEntityId);
-        return new NcdCaseManagementFollowupRule(confirmationDate,
-                lastFollowUpDate).getButtonStatus();
-    }
 }
