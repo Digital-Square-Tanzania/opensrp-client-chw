@@ -6018,6 +6018,30 @@
             "field": "obs.formSubmissionField",
             "concept": "is_missed_clinic_alert"
           }
+        },
+        {
+          "column_name": "diabetes_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_test_result"
+          }
+        },
+        {
+          "column_name": "blood_pressure_systolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "blood_pressure_systolic"
+          }
+        },
+        {
+          "column_name": "blood_pressure_diastolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "blood_pressure_diastolic"
+          }
         }
       ]
     },
