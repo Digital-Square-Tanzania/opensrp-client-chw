@@ -303,16 +303,39 @@
 </table>
 </body>
 <script type="text/javascript">
-    function onLoad() { < !--const facilityNameElement = document.getElementById("reporting_facility"); --><!--facilityNameElement.innerHTML = Android.getReportingFacility(); -->const dateElement = document.getElementById("report_period");
-      const facilityElement = document.getElementById("reporting_facility");
-      const villageElement = document.getElementById("village_name");
-      dateElement.innerHTML = Android.getDataPeriod(); < !--facilityElement.innerHTML = Android.getReportingFacility(); -->villageElement.innerHTML = Android.getCHWVillageName();
-      const data = JSON.parse(Android.getData("ecd-clients-monthly-report"));
-      const keys = Object.keys(data.nameValuePairs) keys.forEach(key = >{
-        let elementKey = key const element = document.getElementById(elementKey) if (element !== null && element !== undefined) {
-          element.innerHTML = data.nameValuePairs[key]
+    function onLoad() {
+        const dateElement = document.getElementById("report_period");
+        const facilityElement = document.getElementById("reporting_facility");
+        const villageElement = document.getElementById("village_name");
+
+        if (dateElement) {
+            dateElement.innerHTML = Android.getDataPeriod();
         }
-      })
+
+        if (facilityElement) {
+            facilityElement.innerHTML = Android.getReportingFacility();
+        }
+
+        if (villageElement) {
+            villageElement.innerHTML = Android.getCHWVillageName();
+        }
+
+        const rawData = Android.getData("ecd-clients-monthly-report");
+        if (!rawData) {
+            return;
+        }
+
+        const data = JSON.parse(rawData);
+        if (!data || !data.nameValuePairs) {
+            return;
+        }
+
+        Object.keys(data.nameValuePairs).forEach((key) => {
+            const element = document.getElementById(key);
+            if (element) {
+                element.innerHTML = data.nameValuePairs[key];
+            }
+        });
     }
 </script>
 

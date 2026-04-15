@@ -281,9 +281,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateImmediateNewBornCare() throws BaseAncHomeVisitAction.ValidationException {
-        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
-                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
-                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
             BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
                     context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
                     .withOptional(false)
