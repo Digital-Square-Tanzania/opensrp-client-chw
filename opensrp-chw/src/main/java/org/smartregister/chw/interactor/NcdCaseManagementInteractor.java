@@ -150,15 +150,27 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private String lastComputedAlertStatus = ALERT_NONE;
     private boolean lastHasSideEffects = false;
     private boolean lastHasMissedClinic = false;
+    private String lastVitalsAlertReason = null;
 
     private void computeAndInjectAlertStatus(Map<String, BaseNcdVisitAction> map) {
         BaseNcdVisitAction dangerSignsAction = findActionByFormName(map, NCD_FOLLOWUP_DANGER_SIGNS);
-        BaseNcdVisitAction clinicalAction = findActionByFormName(map, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
+        BaseNcdVisitAction clinicalAction    = findActionByFormName(map, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
+        BaseNcdVisitAction vitalsAction      = findActionByFormName(map, NCD_VITALS_FORM);
 
         boolean isRedAlert = false;
         if (dangerSignsAction != null) {
             isRedAlert = "true".equalsIgnoreCase(
                     extractFieldValue(dangerSignsAction.getJsonPayload(), KEY_IS_RED_ALERT));
+        }
+
+        // Vitals threshold breach escalates to RED regardless of danger signs result
+        lastVitalsAlertReason = null;
+        if (vitalsAction != null) {
+            String vitalsAlert = extractFieldValue(vitalsAction.getJsonPayload(), "is_vitals_alert");
+            if ("true".equalsIgnoreCase(vitalsAlert)) {
+                isRedAlert = true;
+                lastVitalsAlertReason = extractFieldValue(vitalsAction.getJsonPayload(), "vitals_alert_reason");
+            }
         }
 
         boolean isYellowAlert = false;
@@ -232,7 +244,17 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
             if (hasSideEffects && hasMissedClinic) desc.append(", ");
             if (hasSideEffects) desc.append("medication side effects");
         }
-        return desc.toString();
+
+        if (StringUtils.isNotBlank(lastVitalsAlertReason)) {
+            switch (lastVitalsAlertReason) {
+                case "high_bp":             desc.append(" Elevated blood pressure."); break;
+                case "high_glucose":        desc.append(" Elevated blood glucose.");  break;
+                case "high_bp_and_glucose": desc.append(" Elevated BP and glucose."); break;
+                default:                    break;
+            }
+        }
+
+        return desc.toString().trim();
     }
 
     /**

@@ -28,6 +28,15 @@ public class NcdVitalsActionHelper implements BaseNcdVisitAction.NcdVisitActionH
     private static final String KEY_BLOOD_PRESSURE_SYSTOLIC = "blood_pressure_systolic";
     private static final String KEY_BLOOD_PRESSURE_DIASTOLIC = "blood_pressure_diastolic";
 
+    // Alert flags injected into the payload for the interactor to consume
+    private static final String KEY_IS_VITALS_ALERT    = "is_vitals_alert";
+    private static final String KEY_VITALS_ALERT_REASON = "vitals_alert_reason";
+
+    // Clinical thresholds — sourced from DiabeticRiskCalculator and screening rules
+    private static final double THRESHOLD_SYSTOLIC  = 140.0;
+    private static final double THRESHOLD_DIASTOLIC = 90.0;
+    private static final double THRESHOLD_GLUCOSE   = 7.0;
+
     private final Map<String, String> cachedResults = new HashMap<>();
 
     private Context context;
@@ -66,9 +75,63 @@ public class NcdVitalsActionHelper implements BaseNcdVisitAction.NcdVisitActionH
         return evaluateSubTitle();
     }
 
+    /**
+     * Evaluates collected vitals against clinical thresholds and injects alert flags into
+     * the payload when any threshold is breached. The interactor reads these flags in
+     * computeAndInjectAlertStatus() to escalate alert_status to RED.
+     */
     @Override
     public String postProcess(String payload) {
-        return payload;
+        if (TextUtils.isEmpty(payload)) return payload;
+        try {
+            boolean highBp      = isAboveThreshold(extractResult(KEY_BLOOD_PRESSURE_SYSTOLIC), THRESHOLD_SYSTOLIC)
+                                || isAboveThreshold(extractResult(KEY_BLOOD_PRESSURE_DIASTOLIC), THRESHOLD_DIASTOLIC);
+            boolean highGlucose = isAboveThreshold(extractResult(KEY_BLOOD_SUGAR_RESULT), THRESHOLD_GLUCOSE);
+
+            if (!highBp && !highGlucose) return payload;
+
+            String reason = (highBp && highGlucose) ? "high_bp_and_glucose"
+                          : highBp                  ? "high_bp"
+                          :                           "high_glucose";
+            return injectVitalsAlertFlags(payload, reason);
+        } catch (Exception e) {
+            Timber.e(e, "Failed to evaluate vitals alert thresholds");
+            return payload;
+        }
+    }
+
+    private boolean isAboveThreshold(String valueStr, double threshold) {
+        if (StringUtils.isBlank(valueStr)) return false;
+        try {
+            return Double.parseDouble(valueStr.trim()) >= threshold;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private String injectVitalsAlertFlags(String payload, String reason) throws Exception {
+        JSONObject form = new JSONObject(payload);
+        JSONObject step = form.optJSONObject(STEP_ONE);
+        if (step == null) return payload;
+        JSONArray fields = step.optJSONArray("fields");
+        if (fields == null) return payload;
+
+        fields.put(buildHiddenField(KEY_IS_VITALS_ALERT, "true"));
+        fields.put(buildHiddenField(KEY_VITALS_ALERT_REASON, reason));
+
+        step.put("fields", fields);
+        form.put(STEP_ONE, step);
+        return form.toString();
+    }
+
+    private JSONObject buildHiddenField(String key, String value) throws Exception {
+        JSONObject field = new JSONObject();
+        field.put("key", key);
+        field.put("type", "hidden");
+        field.put("value", value);
+        field.put("openmrs_entity", "");
+        field.put("openmrs_entity_id", "");
+        return field;
     }
 
     @Override
