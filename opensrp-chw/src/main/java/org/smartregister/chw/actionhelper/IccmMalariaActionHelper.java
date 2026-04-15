@@ -16,7 +16,7 @@ import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.malaria.util.AppExecutors;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.IccmVisitStateTracker;
+import org.smartregister.chw.util.IccmReferralActionUtils;
 import org.smartregister.chw.util.IccmVisitUtils;
 
 import java.util.HashMap;
@@ -45,9 +45,11 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
 
     private final String diarrheaSigns;
 
-    private String interpretationForMrdtTwo;
+    private String ableConductMrdtTest;
 
-    IccmVisitStateTracker iccmVisitStateTracker = IccmVisitStateTracker.getInstance();
+    private String isClientPregnant;
+
+    private String interpretationForMrdtTwo;
 
     public IccmMalariaActionHelper(Context context, String enrollmentFormSubmissionId, Map<String, List<VisitDetail>> details, LinkedHashMap<String, BaseIccmVisitAction> actionList, BaseIccmVisitContract.InteractorCallBack callBack, String isPneumoniaSuspect, String diarrheaSigns) {
         this.context = context;
@@ -86,6 +88,8 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             String mrdtResults = CoreJsonFormUtils.getValue(jsonObject, "mrdt_results");
             checkObject.put("mrdt_results", StringUtils.isNotBlank(mrdtResults));
 
+            ableConductMrdtTest = CoreJsonFormUtils.getValue(jsonObject, "able_conduct_mrdt_test");
+            isClientPregnant = getClientPregnancyStatusFromMedicalHistoryAction();
             interpretationForMrdtTwo = CoreJsonFormUtils.getValue(jsonObject, "interpretation_for_mrdt_two");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,12 +117,14 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
             assert malariaCompletionStatus != null;
             malariaCompletionStatus.put(JsonFormConstants.VALUE, IccmVisitUtils.getActionStatus(checkObject));
 
-            if(isPneumoniaSuspect.equalsIgnoreCase("true") || (!interpretationForMrdtTwo.isBlank() && !interpretationForMrdtTwo.contains("control")) || (!diarrheaSigns.isBlank() && !diarrheaSigns.contains("none"))){
-                processReferralAction();
-                iccmVisitStateTracker.setIccmReferralModuleActive(true);
-            }else{
-                iccmVisitStateTracker.setIccmReferralModuleActive(false);
-            }
+            boolean shouldRetainReferralAction = IccmReferralActionUtils.shouldKeepReferralFromMalaria(
+                    isPneumoniaSuspect,
+                    interpretationForMrdtTwo,
+                    diarrheaSigns,
+                    ableConductMrdtTest,
+                    isClientPregnant
+            );
+            syncReferralAction(shouldRetainReferralAction, shouldRetainReferralAction);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -153,16 +159,42 @@ public class IccmMalariaActionHelper implements BaseIccmVisitAction.IccmVisitAct
         //overridden
     }
 
-    private void processReferralAction() {
+    private void syncReferralAction(boolean shouldRetainReferralAction, boolean addIfMissing) {
+        IccmReferralActionUtils.updateReferralAction(
+                context,
+                memberObject,
+                memberObject.getIccmEnrollmentFormSubmissionId(),
+                actionList,
+                details,
+                shouldRetainReferralAction,
+                addIfMissing
+        );
+    }
+
+    private String getClientPregnancyStatusFromMedicalHistoryAction() {
+        if (actionList == null || actionList.isEmpty()) {
+            return "";
+        }
+
         try {
-            String title = context.getString(R.string.iccm_referral);
-            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(memberObject.getIccmEnrollmentFormSubmissionId(), actionList);
-            BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title).withOptional(true).withHelper(referralActionHelper).withDetails(details).withBaseEntityID(memberObject.getBaseEntityId()).withFormName(Constants.JsonForm.getIccmReferral()).build();
-            if (!actionList.containsKey(context.getString(R.string.iccm_referral)))
-                actionList.put(title, action);
+            for (BaseIccmVisitAction action : actionList.values()) {
+                if (action == null || !Constants.JsonForm.getIccmMedicalHistory().equalsIgnoreCase(action.getFormName())) {
+                    continue;
+                }
+
+                String medicalHistoryPayload = action.getJsonPayload();
+                if (StringUtils.isBlank(medicalHistoryPayload)) {
+                    continue;
+                }
+
+                JSONObject jsonObject = new JSONObject(medicalHistoryPayload);
+                return CoreJsonFormUtils.getValue(jsonObject, "is_the_client_pregnant");
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
+
+        return "";
     }
 
 }

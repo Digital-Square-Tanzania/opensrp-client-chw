@@ -183,6 +183,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -213,6 +220,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -243,6 +257,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -273,6 +294,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -303,6 +331,13 @@
           "value": "5",
           "is_fixed_size": "true",
           "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -316,6 +351,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the correct answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -329,6 +371,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the correct answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -342,6 +391,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the correct answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -355,6 +411,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the correct answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -368,6 +431,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the correct answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -393,6 +463,13 @@
         "v_max": {
           "value": "100000",
           "err": "Number must be five digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -418,6 +495,13 @@
         "v_max": {
           "value": "100000",
           "err": "Number must be five digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -443,6 +527,13 @@
         "v_max": {
           "value": "100000",
           "err": "Number must be five digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -468,6 +559,13 @@
         "v_max": {
           "value": "100000",
           "err": "Number must be five digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       },
       {
@@ -493,6 +591,13 @@
         "v_max": {
           "value": "100000",
           "err": "Number must be five digits"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_insect_breeding_control.yml"
+            }
+          }
         }
       }
     ]

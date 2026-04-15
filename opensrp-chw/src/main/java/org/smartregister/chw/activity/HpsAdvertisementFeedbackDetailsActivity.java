@@ -228,7 +228,7 @@ public class HpsAdvertisementFeedbackDetailsActivity extends CoreAncMedicalHisto
                         Visit visit = visits.get(0);
 
                         if (visit.getBaseEntityId() != null) {
-                            startFormForEdit(R.string.hps_advertisement_feedback_menu, Constants.FORMS.HPS_ADVERTISEMENT_FEEDBACK, visit.getBaseEntityId(), visit.getVisitId(), context);
+//                            startFormForEdit(R.string.hps_advertisement_feedback_menu, Constants.FORMS.HPS_ADVERTISEMENT_FEEDBACK, visit.getBaseEntityId(), visit.getVisitId(), context);
 
                         }
                     });

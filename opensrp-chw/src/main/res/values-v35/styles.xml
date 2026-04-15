@@ -1,0 +1,35 @@
+<resources>
+
+    <style name="ChwTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:statusBarColor">@color/chw_primary_dark</item>
+        <item name="colorPrimary">@color/chw_primary</item>
+        <item name="colorPrimaryDark">@color/chw_primary_dark</item>
+        <item name="colorAccent">@color/chw_accent</item>
+    </style>
+
+    <style name="ChwTheme.NoActionBar" parent="ChwTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ChwTheme.Login" parent="ChwTheme">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textSize">@dimen/login_font_size</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
+    <style name="FamilyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:statusBarColor">@color/primaryDark</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="FamilyTheme.NoActionBar" parent="FamilyTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>

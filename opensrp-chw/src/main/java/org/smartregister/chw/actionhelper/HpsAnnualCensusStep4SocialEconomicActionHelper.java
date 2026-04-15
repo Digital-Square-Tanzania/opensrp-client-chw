@@ -3,6 +3,7 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hps.domain.VisitDetail;
 import org.smartregister.chw.hps.model.BaseHpsVisitAction;
@@ -13,8 +14,12 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+/**
+ * Injects the household limit and summarizes social-economic highlights.
+ */
 public class HpsAnnualCensusStep4SocialEconomicActionHelper implements BaseHpsVisitAction.HpsVisitActionHelper {
     private final String householdMax;
+    private Context context;
     private String jsonPayload;
     private String submittedPayload;
 
@@ -25,6 +30,7 @@ public class HpsAnnualCensusStep4SocialEconomicActionHelper implements BaseHpsVi
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
         this.jsonPayload = jsonPayload;
+        this.context = context;
     }
 
     @Override
@@ -71,22 +77,41 @@ public class HpsAnnualCensusStep4SocialEconomicActionHelper implements BaseHpsVi
             String tap = CoreJsonFormUtils.getValue(json, "number_of_households_most_commonly_use_tap_as_sources_of_water");
             String elecLight = CoreJsonFormUtils.getValue(json, "number_of_households_using_electricity_as_source_of_energy_for_lighting");
             String gasCook = CoreJsonFormUtils.getValue(json, "number_of_households_using_gas_as_source_of_cooking_energy");
+            String mCapable = CoreJsonFormUtils.getValue(json, "number_of_male_capable_of_engaging_in_economic_activities");
+            String fCapable = CoreJsonFormUtils.getValue(json, "number_of_female_capable_of_engaging_in_economic_activities");
             String mEngaged = CoreJsonFormUtils.getValue(json, "number_of_male_engaged_in_economic_activities");
             String fEngaged = CoreJsonFormUtils.getValue(json, "number_of_female_engaged_in_economic_activities");
             StringBuilder sb = new StringBuilder();
-            if (tap != null && !tap.trim().isEmpty()) sb.append("Tap water ").append(tap.trim());
+            if (tap != null && !tap.trim().isEmpty()) {
+                appendSegment(sb, context != null
+                        ? context.getString(R.string.hps_annual_census_social_economic_subtitle_tap_water, tap.trim())
+                        : "Tap water " + tap.trim());
+            }
             if (elecLight != null && !elecLight.trim().isEmpty()) {
-                if (sb.length() > 0) sb.append(", ");
-                sb.append("Lighting-elec ").append(elecLight.trim());
+                appendSegment(sb, context != null
+                        ? context.getString(R.string.hps_annual_census_social_economic_subtitle_lighting_electricity, elecLight.trim())
+                        : "Lighting-elec " + elecLight.trim());
             }
             if (gasCook != null && !gasCook.trim().isEmpty()) {
-                if (sb.length() > 0) sb.append(", ");
-                sb.append("Cooking-gas ").append(gasCook.trim());
+                appendSegment(sb, context != null
+                        ? context.getString(R.string.hps_annual_census_social_economic_subtitle_cooking_gas, gasCook.trim())
+                        : "Cooking-gas " + gasCook.trim());
+            }
+            if ((mCapable != null && !mCapable.trim().isEmpty()) || (fCapable != null && !fCapable.trim().isEmpty())) {
+                appendSegment(sb, context != null
+                        ? context.getString(
+                        R.string.hps_annual_census_social_economic_subtitle_capable,
+                        mCapable == null ? "" : mCapable.trim(),
+                        fCapable == null ? "" : fCapable.trim())
+                        : "Capable M" + (mCapable == null ? "" : mCapable.trim()) + " F" + (fCapable == null ? "" : fCapable.trim()));
             }
             if ((mEngaged != null && !mEngaged.trim().isEmpty()) || (fEngaged != null && !fEngaged.trim().isEmpty())) {
-                if (sb.length() > 0) sb.append(", ");
-                sb.append("Engaged M").append(mEngaged == null ? "" : mEngaged.trim())
-                  .append(" F").append(fEngaged == null ? "" : fEngaged.trim());
+                appendSegment(sb, context != null
+                        ? context.getString(
+                        R.string.hps_annual_census_social_economic_subtitle_engaged,
+                        mEngaged == null ? "" : mEngaged.trim(),
+                        fEngaged == null ? "" : fEngaged.trim())
+                        : "Engaged M" + (mEngaged == null ? "" : mEngaged.trim()) + " F" + (fEngaged == null ? "" : fEngaged.trim()));
             }
             return sb.length() == 0 ? null : sb.toString();
         } catch (Exception e) {
@@ -141,4 +166,14 @@ public class HpsAnnualCensusStep4SocialEconomicActionHelper implements BaseHpsVi
 
     @Override
     public void onPayloadReceived(BaseHpsVisitAction baseHpsVisitAction) { /* no-op */ }
+
+    private void appendSegment(StringBuilder sb, String segment) {
+        if (segment == null || segment.trim().isEmpty()) {
+            return;
+        }
+        if (sb.length() > 0) {
+            sb.append(", ");
+        }
+        sb.append(segment);
+    }
 }

@@ -953,6 +953,20 @@
             "creates_case": [
               "ec_hps_death_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Community Linkage",
+            "creates_case": [
+              "ec_facility_to_community_linkage"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Linkage From Facility Dismissal",
+            "closes_case": [
+              "ec_facility_to_community_linkage"
+            ]
           }
         ]
       }

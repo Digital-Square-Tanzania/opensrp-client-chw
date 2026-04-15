@@ -38,7 +38,7 @@ actions:
 
 ---
 name: step1_blood_sugar_result
-description: hps blood sugarresult
+description: hps blood sugar result
 priority: 1
 condition: "step1_diseases_test_conducted.contains('blood_sugar')"
 actions:
@@ -100,6 +100,20 @@ condition: "step1_is_treatment_provided.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
 ---
+name: step1_malaria_drugs_treatment
+description: malaria treatment provided
+priority: 1
+condition: "step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treatment_provided_guard
+description: require at least one treatment selection
+priority: 1
+condition: "step1_is_treatment_provided.equalsIgnoreCase('yes')"
+actions:
+  - "calculation = (!step1_treatment_provided.isEmpty() || !step1_malaria_drugs_treatment.isEmpty()) ? 'selected' : ''"
+---
 name: step1_prompt_for_management_of_blood_pressure
 description: Prompt for management of hypertension (high blood pressure) and hypotension (low blood pressure)
 priority: 1
@@ -110,7 +124,7 @@ actions:
 name: step1_prompt_for_rbg
 description: prompt for random blood sugar
 priority: 1
-condition: "(Float.parseFloat(step1_blood_sugar_result) <= 7 || Float.parseFloat(step1_blood_sugar_result) >= 11)"
+condition: "(Float.parseFloat(step1_blood_sugar_result) <= 3.5 || Float.parseFloat(step1_blood_sugar_result) >= 11.1)"
 actions:
   - "isRelevant = true"
 ---
@@ -120,6 +134,12 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
-
+---
+name: step1_specify_other_treatment
+description: prompt other treatment provided
+priority: 1
+condition: "step1_treatment_provided.contains('other_treatment_provided')"
+actions:
+  - "isRelevant = true"
 
 

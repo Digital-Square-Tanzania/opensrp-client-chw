@@ -1,8 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +22,26 @@ import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
 import org.smartregister.chw.ayp.domain.Visit;
 import org.smartregister.chw.ayp.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAypProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.AllClientsUtils;
 
-public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
+import java.util.List;
+
+public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity implements OnRetrieveNotifications {
+
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, AypInSchoolMemberProfileActivity.class);
@@ -33,6 +53,14 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     protected void onCreation() {
         super.onCreation();
         refreshMedicalHistory(false);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -120,6 +148,17 @@ public class AypInSchoolMemberProfileActivity extends CoreAypProfileActivity {
     @Override
     protected MemberObject getMemberObject(String baseEntityId) {
         return AypDao.getInSchoolMember(baseEntityId);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
 }
