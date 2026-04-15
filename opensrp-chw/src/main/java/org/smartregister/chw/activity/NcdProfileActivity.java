@@ -20,9 +20,10 @@ import org.json.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.NcdCaseManagementVisitActivity;
+import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.ncd.NcdLibrary;
 import org.smartregister.chw.ncd.domain.Visit;
@@ -31,11 +32,12 @@ import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.ncd.activity.BaseNcdProfileActivity;
 import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
 import org.smartregister.util.AppExecutors;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -83,6 +85,24 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isConfirmedNcd = getIntent().getBooleanExtra(EXTRA_IS_CONFIRMED_NCD, false);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        super.initializeFloatingMenu();
+        if (baseNcdFloatingMenu != null) {
+            baseNcdFloatingMenu.setReferralListener(this::openNcdReferralForm);
+        }
+    }
+
+    private void openNcdReferralForm() {
+        if (memberObject == null) return;
+        List<ReferralTypeModel> referralTypes = new ArrayList<>();
+        referralTypes.add(new ReferralTypeModel(
+                getString(R.string.refer_to_facility),
+                org.smartregister.chw.util.Constants.JsonForm.getNcdReferralForm(),
+                org.smartregister.chw.util.Constants.NcdReferral.FOCUS_NCD_DANGER_SIGNS));
+        Utils.launchClientReferralActivity(this, referralTypes, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -457,7 +477,7 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         if (referralSection != null && !TextUtils.isEmpty(referralType)) {
             TextView referralTypeView = findViewById(R.id.ncd_cs_referral_type);
             if (referralTypeView != null) {
-                int refResId = "ncd_urgent_referral".equals(referralType)
+                int refResId = org.smartregister.chw.util.Constants.NcdReferral.FOCUS_NCD_DANGER_SIGNS.equals(referralType)
                         ? R.string.ncd_cs_referral_urgent
                         : R.string.ncd_cs_referral_non_emergency;
                 referralTypeView.setText(refResId);

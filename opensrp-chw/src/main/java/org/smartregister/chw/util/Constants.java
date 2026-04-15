@@ -51,7 +51,7 @@ public class Constants extends CoreConstants {
     }
 
     public static class NcdReferral {
-        public static final String URGENT_REFERRAL_CODE = "ncd_urgent_referral";
+        public static final String URGENT_REFERRAL_CODE = "Referral";
         public static final String NON_EMERGENCY_REFERRAL_CODE = "ncd_non_emergency_referral";
         public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
         public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
@@ -132,6 +132,11 @@ public class Constants extends CoreConstants {
         public static final String NCD_FOLLOWUP_DANGER_SIGNS = "ncd_followup_danger_signs";
         public static final String NCD_FOLLOWUP_LIFESTYLE = "ncd_followup_lifestyle";
         public static final String NCD_FOLLOWUP_PSYCHOSOCIAL = "ncd_followup_psychosocial";
+        public static final String NCD_REFERRAL_FORM = "ncd_referral_form";
+
+        public static String getNcdReferralForm() {
+            return NCD_REFERRAL_FORM;
+        }
 
         public static String getDiabetesScreeningForm() {
             return DIABETES_SCREENING_FORM;
