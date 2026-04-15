@@ -625,7 +625,7 @@
           "column_name": "insurance_provider",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.insurance_provider"
+            "field": "attributes.Health_Insurance_Type"
           }
         },
         {
@@ -2151,6 +2151,14 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "prescriptions"
+          }
+        },
+        {
+          "column_name": "outcomes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "outcomes"
           }
         }
       ]
@@ -7857,7 +7865,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_by_age_group_under1"
+            "concept": "number_of_male_by_age_group_less_1"
           }
         },
         {
@@ -7865,7 +7873,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_by_age_group_under1"
+            "concept": "number_of_female_by_age_group_less_1"
           }
         },
         {
@@ -7937,7 +7945,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_by_age_group_60_plus"
+            "concept": "number_of_male_by_age_group_equal_and_above_60"
           }
         },
         {
@@ -7945,7 +7953,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_by_age_group_60_plus"
+            "concept": "number_of_female_by_age_group_equal_and_above_60"
           }
         },
         {
@@ -8089,7 +8097,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_government"
+            "concept": "number_of_ADDO_government"
           }
         },
         {
@@ -8233,7 +8241,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_faith_based_organisation"
+            "concept": "number_of_ADDO_faith_based_organisation"
           }
         },
         {
@@ -8377,7 +8385,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_public"
+            "concept": "number_of_ADDO_public"
           }
         },
         {
@@ -8521,7 +8529,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_addo_private"
+            "concept": "number_of_ADDO_private"
           }
         },
         {
@@ -9313,7 +9321,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_capable_of_engaging_in_economic_activities"
+            "concept": "no_of_men_with_capacity_to_engage_in_economic_activities"
           }
         },
         {
@@ -9321,7 +9329,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_capable_of_engaging_in_economic_activities"
+            "concept": "no_of_women_with_capacity_to_engage_in_economic_activities"
           }
         },
         {
@@ -9329,7 +9337,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_male_engaged_in_economic_activities"
+            "concept": "no_of_men_engaged_in_economic_activities"
           }
         },
         {
@@ -9337,7 +9345,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_female_engaged_in_economic_activities"
+            "concept": "no_of_women_engaged_in_economic_activities"
           }
         },
         {
@@ -9493,11 +9501,11 @@
           }
         },
         {
-          "column_name": "number_of_committee_members_attended_fisrt_quarter",
+          "column_name": "number_of_committee_members_attended_first_quarter",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "number_of_committee_members_attended_fisrt_quarter"
+            "concept": "number_of_committee_members_attended_first_quarter"
           }
         },
         {
@@ -11039,6 +11047,71 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "score_category"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_facility_to_community_linkage",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reason"
+          }
+        },
+        {
+          "column_name": "identifier_value",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "identifier_value"
+          }
+        },
+        {
+          "column_name": "identifier_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "identifier_type"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
           }
         }
       ]

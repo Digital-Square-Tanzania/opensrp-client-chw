@@ -67,16 +67,16 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
                     case "mother_champion":
-                        navigationOptions.addAll(Arrays.asList(op10, op13, op8));
+                        navigationOptions.addAll(Arrays.asList(op10, op13, op8, op9));
                         break;
                     case "cbhs_provider":
-                        navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
+                        navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
                         break;
                     case "iccm_provider":
-                        navigationOptions.addAll(Arrays.asList(op10, op20, op8));
+                        navigationOptions.addAll(Arrays.asList(op10, op20, op8, op9));
                         break;
                     case "rmncah_provider":
-                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8));
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8, op9));
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
@@ -110,6 +110,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(2, op25);
                         }
 
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasICCM()) {
+                            navigationOptions.add(3, op20);
+                        }
+
                         if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                             navigationOptions.add(op6);
                         }
@@ -121,7 +125,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 //                            navigationOptions.add(op29);
                         }
 
-                        navigationOptions.addAll(Arrays.asList(op8, op15));
+                        navigationOptions.addAll(Arrays.asList(op8, op9, op15));
                         break;
                 }
             } else {
@@ -166,7 +170,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                     navigationOptions.add(op6);
                 }
-                navigationOptions.addAll(Arrays.asList(op8, op15));
+                navigationOptions.addAll(Arrays.asList(op8, op9, op15));
             }
         }
 

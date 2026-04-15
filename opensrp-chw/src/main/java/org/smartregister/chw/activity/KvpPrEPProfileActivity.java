@@ -1,17 +1,21 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
 import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Pair;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.text.TextUtils;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -22,6 +26,9 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreKvpProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwKvpDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -49,7 +56,16 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
+public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements OnRetrieveNotifications {
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, KvpPrEPProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
@@ -67,6 +83,9 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         super.onResumption();
         setupViews();
         refreshMedicalHistory(true);
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -433,5 +452,16 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
             textViewId.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }

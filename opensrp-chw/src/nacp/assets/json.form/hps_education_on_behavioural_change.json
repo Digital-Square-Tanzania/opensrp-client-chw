@@ -558,6 +558,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_leaflets_title",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -933,40 +937,436 @@
         }
       },
       {
-        "key": "number_of_leaflets",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_leaflets",
-        "type": "edit_text",
-        "hint": "Number of Leaflets Distributed",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Number must be equal or greater than 0"
-        },
-        "v_max": {
-          "value": "1000",
-          "err": "Number must be three digits"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a number"
-        },
-        "v_max_length": {
-          "value": "3",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid input"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_education_behavioral_change.yml"
+          "key": "number_of_leaflets_family_planning",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_family_planning",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Family planning)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
             }
           }
-        }
+        },
+        {
+          "key": "number_of_leaflets_reproductive_maternal_adolescent_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_reproductive_maternal_adolescent_health",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Reproductive, paternal, maternal, child, and adolescent health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_skin_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_skin_health",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Skin health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_infectious_diseases",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_infectious_diseases",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Infectious diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_tb_and_leprosy",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_tb_and_leprosy",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Tuberculosis and leprosy)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_antimicrobial_resistance",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_antimicrobial_resistance",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Antimicrobial resistance (AMR))",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_safe_clean_water_sanitation",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_safe_clean_water_sanitation",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Safe and clean water and sanitation services (WASH))",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_accidents_injuries",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_accidents_injuries",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Accidents/Injuries)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_health_services_awareness",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_health_services_awareness",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Awareness of health services)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_universal_health_insurance",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_universal_health_insurance",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Universal health insurance)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_cancer",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_cancer",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Cancer)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_leaflets_others",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_leaflets_others",
+          "type": "edit_text",
+          "hint": "Number of leaflets distributed (Others)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of leaflets distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
       },
       {
         "key": "type_of_message_posters_title",
@@ -976,6 +1376,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_posters_title",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1351,41 +1755,1086 @@
         }
       },
       {
-        "key": "number_of_posters",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_posters",
-        "type": "edit_text",
-        "hint": "Number of Posters Distributed",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
+          "key": "number_of_posters_hiv_aids",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_hiv_aids",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (HIV and AIDS)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
         },
-        "v_min": {
-          "value": "0",
-          "err": "Number must be equal or greater than 0"
+        {
+          "key": "number_of_posters_epidemic_diseases",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_epidemic_diseases",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Epidemic diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
         },
-        "v_max": {
-          "value": "1000",
-          "err": "Number must be three digits"
+        {
+          "key": "number_of_posters_oral_dental_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_oral_dental_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Oral and dental health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
         },
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a number"
+        {
+          "key": "number_of_posters_neaurological_disorders",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_neaurological_disorders",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Zoonotic diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
         },
-        "v_max_length": {
-          "value": "3",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid input"
+        {
+          "key": "number_of_posters_skin_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_skin_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Skin health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hps_education_behavioral_change.yml"
+        {
+          "key": "number_of_posters_infectious_diseases",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_infectious_diseases",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Infectious diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_tb_and_leprosy",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_tb_and_leprosy",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Tuberculosis and leprosy)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_ear_throat_nose_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_ear_throat_nose_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Ear, throat, and nose health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_neglected_tropical_diseases",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_neglected_tropical_diseases",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Neglected tropical diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_eye_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_eye_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Eye health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_malaria",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_malaria",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Malaria)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_non_communicable_diseases",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_non_communicable_diseases",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Non-communicable diseases)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_family_planning",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_family_planning",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Family planning)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_reproductive_maternal_adolescent_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_reproductive_maternal_adolescent_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Reproductive, paternal, maternal, child, and adolescent health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_nutrition",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_nutrition",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Nutrition)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_public_health_emergencies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_public_health_emergencies",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Public health emergencies)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_one_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_one_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (One Health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_poisoning",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_poisoning",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Poisoning)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_antimicrobial_resistance",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_antimicrobial_resistance",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Antimicrobial resistance (AMR))",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_safe_clean_water_sanitation",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_safe_clean_water_sanitation",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Safe and clean water and sanitation services (WASH))",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_accidents_injuries",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_accidents_injuries",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Accidents/Injuries)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_vaccination",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_vaccination",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Vaccination)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_mental_health",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_mental_health",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Mental health)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_substance_abuse_drug_addiction",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_substance_abuse_drug_addiction",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Substance abuse / drug addiction)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_gender_based_violence",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_gender_based_violence",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Gender-based violence)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_rights_special_group",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_rights_special_group",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Rights and entitlements for special groups)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_health_services_awareness",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_health_services_awareness",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Awareness of health services)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_universal_health_insurance",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_universal_health_insurance",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Universal health insurance)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_cancer",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_cancer",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Cancer)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
+            }
+          }
+        },
+        {
+          "key": "number_of_posters_others",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "number_of_posters_others",
+          "type": "edit_text",
+          "hint": "Number of posters distributed (Others)",
+          "v_required": {
+            "value": "true",
+            "err": "Please specify the number of posters distributed"
+          },
+          "v_min": {
+            "value": "0",
+            "err": "Number must be equal or greater than 0"
+          },
+          "v_max": {
+            "value": "1000",
+            "err": "Number must be three digits"
+          },
+          "v_numeric": {
+            "value": "true",
+            "err": "Please enter a number"
+          },
+          "v_max_length": {
+            "value": "3",
+            "is_fixed_size": "true",
+            "err": "Please enter a valid input"
+          },
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "hps_education_behavioral_change.yml"
+              }
             }
           }
         }
-      },
+      ,
       {
         "key": "type_of_message_brochures_title",
         "type": "label",
@@ -1394,6 +2843,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_message_brochures_title",
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1769,15 +3222,1059 @@
         }
       },
       {
-        "key": "number_of_brochures",
+        "key": "number_of_brochures_hiv_aids",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_brochures",
+        "openmrs_entity_id": "number_of_brochures_hiv_aids",
         "type": "edit_text",
-        "hint": "Number of Brochures Distributed",
+        "hint": "Number of brochures distributed (HIV and AIDS)",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_epidemic_diseases",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_epidemic_diseases",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Epidemic diseases)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_oral_dental_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_oral_dental_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Oral and dental health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_neaurological_disorders",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_neaurological_disorders",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Zoonotic diseases)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_skin_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_skin_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Skin health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_infectious_diseases",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_infectious_diseases",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Infectious diseases)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_tb_and_leprosy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_tb_and_leprosy",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Tuberculosis and leprosy)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_ear_throat_nose_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_ear_throat_nose_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Ear, throat, and nose health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_neglected_tropical_diseases",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_neglected_tropical_diseases",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Neglected tropical diseases)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_eye_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_eye_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Eye health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_malaria",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Malaria)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_non_communicable_diseases",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_non_communicable_diseases",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Non-communicable diseases)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_family_planning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_family_planning",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Family planning)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_reproductive_maternal_adolescent_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_reproductive_maternal_adolescent_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Reproductive, paternal, maternal, child, and adolescent health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_nutrition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_nutrition",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Nutrition)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_public_health_emergencies",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_public_health_emergencies",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Public health emergencies)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_one_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_one_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (One Health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_poisoning",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_poisoning",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Poisoning)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_antimicrobial_resistance",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_antimicrobial_resistance",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Antimicrobial resistance (AMR))",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_safe_clean_water_sanitation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_safe_clean_water_sanitation",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Safe and clean water and sanitation services (WASH))",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_accidents_injuries",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_accidents_injuries",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Accidents/Injuries)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_vaccination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_vaccination",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Vaccination)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_mental_health",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_mental_health",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Mental health)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_substance_abuse_drug_addiction",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_substance_abuse_drug_addiction",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Substance abuse / drug addiction)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_gender_based_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_gender_based_violence",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Gender-based violence)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_rights_special_group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_rights_special_group",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Rights and entitlements for special groups)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_health_services_awareness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_health_services_awareness",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Awareness of health services)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_universal_health_insurance",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_universal_health_insurance",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Universal health insurance)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_cancer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_cancer",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Cancer)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "1000",
+          "err": "Number must be three digits"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid input"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_education_behavioral_change.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_brochures_others",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_brochures_others",
+        "type": "edit_text",
+        "hint": "Number of brochures distributed (Others)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the number of brochures distributed"
         },
         "v_min": {
           "value": "0",

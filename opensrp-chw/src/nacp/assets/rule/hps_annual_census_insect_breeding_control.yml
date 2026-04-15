@@ -1,0 +1,105 @@
+---
+name: step1_number_of_times_spraying_was_done_ponds
+description: show pond spraying details
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_ponds != null && !step1_number_of_areas_sprayed_with_pesticides_ponds.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_ponds.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_times_spraying_was_done_cans
+description: show can spraying details
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_cans != null && !step1_number_of_areas_sprayed_with_pesticides_cans.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_cans.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_times_spraying_was_done_drums
+description: show drum spraying details
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_drums != null && !step1_number_of_areas_sprayed_with_pesticides_drums.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_drums.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_times_spraying_was_done_barrels
+description: show barrel spraying details
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_barrels != null && !step1_number_of_areas_sprayed_with_pesticides_barrels.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_barrels.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_times_spraying_was_done_coconut_shells
+description: show coconut shell spraying details
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_coconut_shells != null && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_types_of_pesticides_used_ponds
+description: show pond pesticide types
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_ponds != null && !step1_number_of_areas_sprayed_with_pesticides_ponds.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_ponds.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_types_of_pesticides_used_cans
+description: show can pesticide types
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_cans != null && !step1_number_of_areas_sprayed_with_pesticides_cans.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_cans.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_types_of_pesticides_used_drums
+description: show drum pesticide types
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_drums != null && !step1_number_of_areas_sprayed_with_pesticides_drums.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_drums.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_types_of_pesticides_used_barrels
+description: show barrel pesticide types
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_barrels != null && !step1_number_of_areas_sprayed_with_pesticides_barrels.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_barrels.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_types_of_pesticides_used_coconut_shells
+description: show coconut shell pesticide types
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_coconut_shells != null && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amount_of_pesticide_used_ponds
+description: show pond pesticide amount
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_ponds != null && !step1_number_of_areas_sprayed_with_pesticides_ponds.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_ponds.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amount_of_pesticide_used_cans
+description: show can pesticide amount
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_cans != null && !step1_number_of_areas_sprayed_with_pesticides_cans.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_cans.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amount_of_pesticide_used_drums
+description: show drum pesticide amount
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_drums != null && !step1_number_of_areas_sprayed_with_pesticides_drums.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_drums.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amount_of_pesticide_used_barrels
+description: show barrel pesticide amount
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_barrels != null && !step1_number_of_areas_sprayed_with_pesticides_barrels.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_barrels.equals('0')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_amount_of_pesticide_used_coconut_shells
+description: show coconut shell pesticide amount
+priority: 1
+condition: "step1_number_of_areas_sprayed_with_pesticides_coconut_shells != null && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.isEmpty() && !step1_number_of_areas_sprayed_with_pesticides_coconut_shells.equals('0')"
+actions:
+  - "isRelevant = true"

@@ -231,7 +231,7 @@
       {
         "key": "prompt_for_respiratory_rate",
         "type": "toaster_notes",
-        "text": "<b>Mteja ana dalili za Nimonia.</b><br>Ainisha ugonjwa wa Nimonia ikiwa mgonjwa hana dalili nyingine za hatari.",
+        "text": "<b>Mteja ana dalili za Nimonia.</b><br>Toa Rufaa ya Nimonia ikiwa mgonjwa hana dalili nyingine za hatari.",
         "openmrs_entity_id": "prompt_for_respiratory_rate",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
@@ -471,29 +471,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "iccm_enrollment_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prompt_number_of_number_of_suppository_to_dispense",
-        "type": "toaster_notes",
-        "text": "Mpatie mtoto Artesunate ya puru {suppository} mtoto wa kilo {weight}",
-        "openmrs_entity_id": "prompt_number_of_number_of_suppository_to_dispense",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_enrollment_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "iccm_enrollment_relevance.yml"
             }
           }
         }

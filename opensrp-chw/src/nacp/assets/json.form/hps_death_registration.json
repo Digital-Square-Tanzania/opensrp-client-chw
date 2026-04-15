@@ -41,8 +41,7 @@
     },
     "encounter_location": ""
   },
-  "global":{
-  },
+  "global":{},
   "step1": {
     "title": "Death Information",
     "fields": [
@@ -58,7 +57,14 @@
         "v_required": {
           "value": "true",
           "err": "Please select the date"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Modify date of death"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -71,6 +77,10 @@
         "v_required": {
           "value": "true",
           "err": "Please write your first name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -84,6 +94,10 @@
         "v_required": {
           "value": "true",
           "err": "Please write your middle name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -97,6 +111,10 @@
         "v_required": {
           "value": "true",
           "err": "Please write your last name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -117,9 +135,87 @@
           {
             "type": "date",
             "ex": "lessThanEqualTo(., step1:dod)",
-            "err": "Date of birth must be earlier than date of death"
+            "err": "Modify date of birth"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age_calculated",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "dob_unknown",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
           }
         ]
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Age must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
       },
       {
         "key": "dob_validation_toaster",
@@ -161,11 +257,173 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "female"
           }
-
         ],
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_death",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cause_of_death_stillbirth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "msb",
+            "text": "Macerated Stillbirth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msb"
+          },
+          {
+            "key": "fsb",
+            "text": "Fresh Stillbirth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsb"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents and injuries",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Other causes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "cause_of_death_female_wra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "maternal_death",
+            "text": "Maternal Death",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "maternal_death"
+          },
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents and injuries",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Other causes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "cause_of_death_general",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Cause of death",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "accidents_injuries",
+            "text": "Accidents and injuries",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "accidents_injuries"
+          },
+          {
+            "key": "other",
+            "text": "Other causes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "other_cause_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_cause_of_death",
+        "hint": "Please specify other cause of death",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_death_registration_details.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify other cause of death"
         }
       },
       {

@@ -1,58 +1,63 @@
 ---
-name: step1_cause_of_death_male
-description: Rule to control the visibility of (step1_cause_of_death_male)
+name: step1_age_calculated
+description: Age calculated
 priority: 1
-condition: "step1_sex.equalsIgnoreCase('male') && !step1_dod.equals(step1_dob)"
+condition: "true"
+actions:
+  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.getDifferenceYears(step1_dod, step1_dob)"
+---
+name: step1_dob
+description: dob relevance
+priority: 1
+condition: "!step1_dob_unknown.contains('dob_unknown')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_cause_of_death_female
-description: Rule to control the visibility of (step1_cause_of_death_female)
+name: step1_age
+description: age relevance
 priority: 1
-condition: "step1_sex.equalsIgnoreCase('female') && (!step1_dod.equals(step1_dob))"
+condition: "step1_dob_unknown.contains('dob_unknown')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_cause_of_death_specify
-description: Rule to control the visibility of (step1_cause_of_death_specify)
+name: step1_dob_validation_toaster
+description: Display toaster error message when DOB is not before DOD
 priority: 1
-condition: "step1_cause_of_death_female.equalsIgnoreCase('other_reason') ||
-            step1_cause_of_death_male.equalsIgnoreCase('other_reason') ||
-            step1_cause_of_death_dob_dod.equalsIgnoreCase('other_reason')
-            "
+condition: "!step1_dob.isEmpty() && !step1_dod.isEmpty() && step1_dob > step1_dod"
 actions:
   - "isRelevant = true"
 ---
-name: step1_cause_of_death_dob_dod
-description: Rule to control the visibility of (step1_cause_of_death_dob_dod)
+name: step1_cause_of_death_stillbirth
+description: Show stillbirth causes for stillbirth records
 priority: 1
-condition: "(step1_sex.equalsIgnoreCase('male') || step1_sex.equalsIgnoreCase('female')) && step1_dod.equals(step1_dob)"
+condition: "!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step1_cause_of_death_female_wra
+description: Show maternal causes for female deaths excluding stillbirth
+priority: 1
+condition: "(step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && step1_sex.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_cause_of_death_general
+description: Show general causes for non-female deaths excluding stillbirth
+priority: 1
+condition: "(step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && !step1_sex.equalsIgnoreCase('female')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_cause_of_death
-description: Rule to calculate the visibility of (step1_cause_of_death)
+description: Persist the selected cause from the relevant death cause radio
 priority: 1
 condition: "true"
 actions:
-  - "calculation = if (!step1_cause_of_death_male.isEmpty()) { return step1_cause_of_death_male } 
-                   else if (!step1_cause_of_death_dob_dod.isEmpty()) { return step1_cause_of_death_dob_dod }
-                   else if (!step1_cause_of_death_female.isEmpty()) { return step1_cause_of_death_female }
-                   else {return '' }
-    "
-
+  - "calculation = (!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0) ? step1_cause_of_death_stillbirth : step1_sex.equalsIgnoreCase('female') ? step1_cause_of_death_female_wra : step1_cause_of_death_general"
 ---
-name: step1_dob
-description: Ensure Date of Birth (DOB) is before Date of Death (DOD)
+name: step1_other_cause_of_death
+description: Show other cause of death field when 'other' is selected
 priority: 1
-condition: "step1_dob > step1_dod"
-actions:
-  - "isValid = false"
-  - "errorMessage = 'Date of Birth must be earlier than Date of Death'"
----
-name: step1_dob_validation_toaster
-description: Display toaster error message when DOB is greater than or equal to DOD
-priority: 1
-condition: "step1_dob > step1_dod"
+condition: "((!step1_dod.isEmpty() && !step1_dob.isEmpty() && helper.getDifferenceDays(step1_dod, step1_dob) == 0) && step1_cause_of_death_stillbirth.contains('other')) || (((step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && step1_sex.equalsIgnoreCase('female')) && step1_cause_of_death_female_wra.contains('other')) || (((step1_dod.isEmpty() || step1_dob.isEmpty() || helper.getDifferenceDays(step1_dod, step1_dob) != 0) && !step1_sex.equalsIgnoreCase('female')) && step1_cause_of_death_general.contains('other'))"
 actions:
   - "isRelevant = true"

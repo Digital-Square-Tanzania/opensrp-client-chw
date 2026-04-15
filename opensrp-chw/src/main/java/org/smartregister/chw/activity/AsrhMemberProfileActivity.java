@@ -2,10 +2,14 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,10 +33,13 @@ import org.smartregister.chw.asrh.util.Constants;
 import org.smartregister.chw.asrh.util.VisitUtils;
 import org.smartregister.chw.cecap.dao.CecapDao;
 import org.smartregister.chw.core.activity.CoreAsrhMemberProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AsrhFloatingMenu;
@@ -59,9 +66,17 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
+public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity implements OnRetrieveNotifications {
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, AsrhMemberProfileActivity.class);
@@ -119,6 +134,10 @@ public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
             }
             clientStatus.setVisibility(View.GONE);
         }
+
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
     }
 
     private void addReferralTypes() {
@@ -146,6 +165,12 @@ public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -203,6 +228,11 @@ public class AsrhMemberProfileActivity extends CoreAsrhMemberProfileActivity {
     protected void onCreation() {
         super.onCreation();
         addReferralTypes();
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
     @Override

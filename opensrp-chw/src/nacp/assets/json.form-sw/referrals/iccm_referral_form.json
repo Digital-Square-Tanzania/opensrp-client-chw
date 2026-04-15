@@ -231,15 +231,6 @@
           },
           "options": [
             {
-              "name": "rectal_artesunate",
-              "text": "Artesunate ya puru",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "rectal_artesunate",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "anti_pyretic",
               "text": "Dawa ya kushusha homa",
               "meta_data": {
