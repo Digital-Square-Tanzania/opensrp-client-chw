@@ -1,5 +1,7 @@
 package org.smartregister.chw.repository;
 
+import static org.smartregister.chw.BuildConfig.VERSION_CODE;
+
 import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
