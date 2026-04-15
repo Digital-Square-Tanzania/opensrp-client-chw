@@ -9,7 +9,7 @@
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
-    <string name="add_eligible_child">Mteja stahiki</string>
+    <string name="add_eligible_child">Mtoto stahiki</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
@@ -353,7 +353,7 @@
 
     <string name="pnc_visit">Tembeleo baada ya kujifungua</string>
     <string name="anc_visit">Tembeleo la mjamzito</string>
-    <string name="exclusive_breastfeeding_months"> Ananyonyeshwa maziwa ya mama pekee kwa miezi %s</string>
+    <string name="exclusive_breastfeeding_months"> Ananyonyeshwa maziwa ya mama pekee</string>
     <string name="deworming_number_dose">%s dozi ya tiba na kinga ya minyoo</string>
     <string name="vitamin_a_number_dose">%s dozi ya Vitamini A</string>
     <string name="mnp_number_pack">MNP %s pack</string>
@@ -642,6 +642,11 @@
 
     <string name="malnutrition_screening_subtitle">MUAC: %s Anemia: %s</string>
     <string name="malnutrition_screening">Kuchunguza utapia mlo na upungufu wa damu</string>
+    <string name="good">Nzuri</string>
+    <string name="poor">Mbaya</string>
+    <string name="child_hv_complementary_feeding"> Ushauri kuhusu kumlisha mtoto vyakula vya nyongeza </string>
+    <string name="child_hv_complementary_feeding_after_24_month">Lishe</string>
+    <string name="child_hv_breastfeeding">Ananyonyeshwa maziwa ya mama</string>
     <string name="map_cue">Alama ya eneo la makazi</string>
     <string name="street_name">Jina la mtaa au Kitongoji</string>
 
@@ -993,5 +998,12 @@
     <string name="reason_death">Kifo</string>
     <string name="convert_to_independent_client">Mfanye Awe Mteja Huru</string>
     <string name="set_up_new_household">Mtengenezee Kaya Mpya</string>
+    <!-- ECD visit History-->
+    <string name="ecd_reports_subtitle">Tazama ripoti ya MMMAM</string>
+    <string name="ecd_reports_title">Ripoti ya MMMAM</string>
+    <string name="ecd_client_report">Ripoti ya Mwezi MMMAM</string>
 
+    <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
+    <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>
+    <string name="finished_refreshing_reports">Uchakataji wa Ripoti Umemalizika</string>
 </resources>

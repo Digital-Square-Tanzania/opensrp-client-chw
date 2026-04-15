@@ -150,6 +150,12 @@ public class ChwRepositoryFlv {
                 case 37:
                     upgradeToVersion37(db);
                     break;
+                case 38:
+                    upgradeToVersion38(db);
+                    break;
+                case 39:
+                    upgradeToVersion39(db);
+                    break;
                 default:
                     break;
             }
@@ -724,6 +730,39 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion37-config");
+        }
+    }
+
+    private static void upgradeToVersion38(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_close_referral ADD COLUMN outcomes VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38-add-column");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_facility_to_community_linkage")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38-create-table");
+        }
+    }
+
+    private static void upgradeToVersion39(SQLiteDatabase db) {
+        // setup ecd reporting
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/ecd-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Collections.singletonList("ec_ecd_activities")), ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39");
         }
     }
 }

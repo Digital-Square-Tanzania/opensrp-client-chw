@@ -260,9 +260,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
-            String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
-            BaseHomeVisitImmunizationFragmentFlv fragment =
-                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            String vaccineTitle= VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context);
+            String title = MessageFormat.format(context.getString(R.string.immunizations_count), vaccineTitle);
+            BaseHomeVisitImmunizationFragmentFlv fragment = BaseHomeVisitImmunizationFragmentFlv
+                    .getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked,vaccineTitle);
+//                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
             if (ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions()) {
                 fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
                 fragment.setMinimumDate(dob);

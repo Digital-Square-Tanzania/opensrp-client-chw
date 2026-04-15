@@ -1,0 +1,7 @@
+---
+name: step1_comp_feed_counselling_note_1
+description: Educate Mother on Complimentary Feeding
+priority: 1
+condition: "step1_visit_8_visit_12 == 'true'"
+actions:
+  - "isRelevant = true"

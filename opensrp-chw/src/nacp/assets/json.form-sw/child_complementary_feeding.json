@@ -1,0 +1,139 @@
+{
+  "count": "1",
+  "encounter_type": "Child Home Visit - Complimentary Feeding",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Kumlisha mtoto vyakula vya nyongeza",
+    "fields": [
+      {
+        "key": "visit_8_visit_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "comp_feed_counselling_note_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comp_feed_counselling_note_1",
+        "type": "label",
+        "text": "Muelimishe mama kuhusu umuhimu wa kuanza kumlisha mtoto chakula cha nyongeza akiwa na umri wa miezi 6. Anatakiwa aanze kwa kumpatia chakula kwa kiasi kidogokidogo kulingana na umri wake, kwa kuzingatia ushauri, usafi na upatikanaji wa vyakula hivyo katika eneo analoishi\n\n",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true,
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_complementary_feeding_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hygiene_while_feeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Zungumza na mama juu ya kuzingatia usafi wa chakula\n\nUsafi ni muhimu wakati wa chakula cha ziada, mshauri  mama:\n\nUsafi ni muhimu ili kuzuia magonjwa ya  kuharisha.\n\nTumia kijiko na kikombe safi wakati wa kumlisha na kumnywesha mtoto.\n\nNawa mikono mara kwa mara kwa kutumia sabuni na maji tiririka.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "comp_feed_concerns",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Je kuna vikwazo/changamoto zozote mama anazopata  katika kumwanzishia mtoto vyakula vya nyongeza?\n\nMsikilize na msaidie kutatua changamoto hizo.",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "comp_feed_refer_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comp_feed_refer_bango_kitita",
+        "type": "label",
+        "text": "Fungua kitendea kazi namba 20. (Zingatia umri wa mtoto)",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true,
+        "bg_color": "#f595df"
+      },
+      {
+        "key": "comp_feed_counselling_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Je mama ameshauriwa kuhusu vyakula vya nyongeza?",
+        "label_info_text": "Je mama ameshauriwa kuhusu vyakula vya nyongeza?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      }
+    ]
+  }
+}

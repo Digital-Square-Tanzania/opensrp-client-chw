@@ -163,6 +163,18 @@
     <string name="penta_2">Penta 2</string>
     <string name="penta_3">Penta 3</string>
 
+    <!--    Reasons why not vaccinated-->
+    <string name="why_no_vaccine">Kwa nini mtoto hajapatiwa chanjo?</string>
+    <string name="congratulate_vaccine_uptodate">Mpongeze mama na mkumbushe kuhusu tarehe ya chanjo nyingine kama kadi inavyoonesha. Mkumbushe kuwa kuna umuhimu  mkubwa ikiwa mtoto wake atapatiwa chanjo zote kwa muda uliopangiwa</string>
+    <string-array name="reason_no_vaccine">
+        <item>not_available: Chanjo ilikuwa hamna</item>
+        <item>family_refused: Familia imekataa</item>
+        <item>clinic_closed: Kliniki ilikuwa imefungwa</item>
+        <item>return_another_day: Ameambiwa arudi siku nyingine</item>
+        <item>did_not_know: Sikuweza kumpeleka mtoto kupata chanjo</item>
+        <item>could_not_take_child: Sikujua kuhusu chanjo hio</item>
+    </string-array>
+
     <string name="vit_a_received_label">Alipokea Vitamin A</string>
     <string name="ifa_received_label">Alipokea vidonge vya IFA</string>
 
@@ -187,9 +199,17 @@
 
     <string name="pnc_newborn_care_introduction">Huduma muhimu ya Watoto Wachanga: Utangulizi ({0})</string>
     <string name="baby_premature">Mtoto ni njiti au ana uzito pungufu</string>
+    <string name="pnc_child_play_assessment_counselling"><b>MMMAM</b> Tathmini maendeleo ya Michezo {0}</string>
+    <string name="bango_kitita_one_page">Ukurasa wa %s</string>
+    <string name="bango_kitita_two_pages">Ukurasa wa %s na Ukurasa wa %s</string>
+    <string name="bango_kitita_three_pages">Ukurasa wa %s, Ukurasa wa %s na Ukurasa wa %s</string>
+    <string name="bango_kitita_message">Tafadhali rejea kurasa zifuatazo za Bango Kitita kueleza michezo kulingana na umri wa mtoto</string>
+    <string name="pnc_child_development_screening_assessment"><b>MMMAM: </b>Tathmini ya maendeleo ya Ukuaji wa Mtoto {0}</string>
+    <string name="pnc_child_communication_assessment"> <b>MMMAM: </b>Tathmini maendeleo ya Mawasiliano {0}</string>
+    <string name="pnc_cord_care">Huduma muhimu kwa watoto wachanga: Jinsi ya kutunza kitovu ({0})</string>
 
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
-    <string name="view_visits_history"> Angalia Historia ya Matembeleo</string>
+    <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
     <string name="visits_history">Historia ya Matembeleo</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
     <string name="cbhs_visit">Matembeleo ya HUWANYU</string>
@@ -495,6 +515,9 @@
 
     <string name="last_appointment_date">Tarehe ya mwisho ya Miadi</string>
 
+    <string name="child_problem_solving"><b>MMMAM:</b> Kutatua Changamoto</string>
+    <string name="child_problem_solving_task">Changamtoto kwenye kucheza na kuwasiliana </string>
+
     <!--    SBC -->
     <string name="sbc_mobilization_session_details">Taarifa za Kikao cha mobilizesheni SBC</string>
     <string name="sbc_mobilization_session">Kikao cha mobilizesheni cha SBC</string>
@@ -617,11 +640,24 @@
     <string name="sbc_print_materials">Machapisho</string>
     <string name="sbc_other_hiv_interventions">Afua nyinginezo za VVU</string>
     <string name="sbc_income_generating_activity">Elimu ya uwezeshaji kiuchumi</string>
-    <string name="child_problem_solving">Kutatua Changamoto</string>
-    <string name="child_problem_solving_task">Changamtoto kwenye kucheza na kuwasiliana </string>
 
     <!--    ICCM Visit History-->
     <string name="iccm_visit">Matembeleo ya huduma za iCCM</string>
+    <string name="child_safety">Usalama wa Mtoto</string>
+    <string name="ccd_introduction_subtitle">Tabia na maendeleo ya mtoto</string>
+    <string name="ccd_introduction_title"><b>MMMAM: </b>Mwanzo ({0})</string>
+    <string name="ccd_caregiver_responsiveness"><b>MMMAM: </b> Muitikio wa mlezi kwa ishara na sauti za Mtoto</string>
+    <string name="ccd_child_discipline_title"><b>MMMAM: </b>Ushauri juu ya namna ya kujenga nidhamu kwa Mtoto ({0})</string>
+    <string name="ccd_child_discipline_subtitle">Mother corrects child</string>
+    <string name="child_home_visit_pmtct">Kuzuia maambukizi ya Virusi vya Ukimwi kutoka kwa mama kwenda kwa mtoto</string>
+    <string name="counselled_mother_for_comp_feeding"> Mama ameshauriwa juu ya vyakula vya nyongeza </string>
+    <string name="malezi_bango_kitita_message">Tafadhali rejelea kurasa zifuatazo za Bango Kitita la  Malezi III kueleza shughuli kulingana na umri wa mtoto:</string>
+    <string name="choose_date_mode">Chagua namna ya kuweka tarehe za chanjo</string>
+    <string name="shared_date">chanjo zote tarehe moja</string>
+    <string name="each_vaccine_its_date">Tarehe ya kila chanjo</string>
+    <string name="no_mother_children">Watoto wasio na mama</string>
+    <string name="no_mother_child_reg">Usajili wa mtoto asiye na mama</string>
+    <string name="register_no_mother_child">Sajili mtoto asiye na mama</string>
     <string name="cecap_topics_covered">Mada zilizotolewa:</string>
     <string name="iccm_reports_title">Taarifa za ICCM</string>
     <string name="iccm_reports_subtitle">Tazama taarifa za ICCM</string>
@@ -950,6 +986,19 @@
     <string name="hps_positive_mrdt">Chanya</string>
     <string name="hps_negative_mrdt">Hasa</string>
 
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_postpartum_care_for_mother">Huduma ya mama baada ya kujifungua</string>
+    <string name="anc_home_visit_early_stimulation">Mawasiliano na Mtoto akiwa Tumboni</string>
+    <string name="anc_home_visit_postpartum_danger_signs">Dalili za Hatari mara baada ya kujifungua</string>
+    <string name="anc_home_visit_community_health_worker_observations">Uchunguzi wa mhudumu wa afya ngazi ya jamii (MJAA)</string>
+    <string name="community_health_worker_observations_evaluate_sub_title">Uwepo wa mtu yeyote: {0}</string>
+    <string name="anc_home_visit_immediate_newborn_care">Huduma kwa mtoto mchanga mara baada ya kuzaliwa</string>
+    <string name="anc_hv_clinic_attendance_sub_title">Kuhudhuria Kliniki ya Wajawaito kwa mara ya mwisho</string>
+    <string name="anc_hv_clinic_attendance">Kuhudhuria Kliniki kwa wajawazito mapema</string>
+    <string name="yes">Ndio</string>
+    <string name="no">Hapana</string>
+    <string name="anc_hv_nutrition_counselling">Lishe ya Mama wakati wa Ujauzito na Kunyonyesha</string>
+    <string name="foods_available">Vyakula vinavyopatikana</string>
 
     <string name="hps_provision_of_health_education">Je,elimu imetolewa?</string>
     <string name="hps_yes">Ndiyo</string>
@@ -1321,5 +1370,25 @@
     <string name="return_to_family_name">Rudi kwa Kaya ya %1$s</string>
     <string name="family_profile_title">Kaya ya %1$s</string>
     <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
+
+    <!--ANC ECD-->
+    <string name="anc_home_visit_birth_preparedness">Mpango binafsi wa Kujifungua</string>
+    <string name="birth_preparedness_summary">
+    Mahali pa karibu pa kupata huduma za afya: {0}\n
+    Maandalizi ya akiba: {1}\n
+    Maandalizi ya mwenza wa kujifungua: {2}\n
+    Maandalizi ya mwanafamilia/mtu binafsi wa kubaki nyumbani: {3}\n
+    Maandalizi ya usafiri: {4}
+    </string>
+    <string name="anc_home_visit_hiv_aids_general_information">Umuhimu wa kupata ushauri nasaha na kupima VVU</string>
+    <string name="anc_home_visit_breast_feeding">Unyonyeshaji wa Maziwa ya Mama</string>
+    <string name="anc_home_visit_new_born_danger_signs">Dalili za Hatari kwa Mtoto Mchanga</string>
+    <string name="partner_engagement_evaluate_sub_title">Uwepo wa mwenza: {0}</string>
+    <string name="anc_home_visit_partner_engagement">Ushiriki wa Mwenza</string>
+    <string name="anc_home_visit_lam">Njia ya uzazi wa mpango kwa unyonyeshaji wa maziwa ya mama pekee chini ya miezi sita (LAM) </string>
+    <string name="anc_home_visit_hiv_exposed_infant_follow_up">Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU</string>
+    <string name="anc_home_visit_postpartum_physiological_changes">Mabadiliko ya kimwili kwa Mama aliyejifungua</string>
+    <string name="anc_home_visit_gender_issues">Masuala ya Kijinsia</string>
+    <string name="anc_home_visit_pmtct">Kuzuia maambukizi ya VVU kutoka kwa mama kwenda kwa mtoto</string>
 
 </resources>

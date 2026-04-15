@@ -12,7 +12,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.AncMinorAilmentActionHelper;
+import org.smartregister.chw.actionhelper.BirthPreparednessAction;
+import org.smartregister.chw.actionhelper.BreastFeedingActionHelper;
+import org.smartregister.chw.actionhelper.CommunityHealthWorkerObservationsAction;
 import org.smartregister.chw.actionhelper.HealthFacilityVisitAction;
+import org.smartregister.chw.actionhelper.NutritionCounsellingAction;
+import org.smartregister.chw.actionhelper.PMTCTActionHelper;
+import org.smartregister.chw.actionhelper.PNCVisitLocationActionHelper;
+import org.smartregister.chw.actionhelper.PartnerEngagementAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -22,9 +29,6 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.ChwAncJsonFormUtils;
 import org.smartregister.chw.util.Constants;
@@ -44,15 +48,17 @@ import timber.log.Timber;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
     private final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
+    protected Context context;
     private Map<String, List<VisitDetail>> details = null;
     private MemberObject memberObject;
     private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
     private String visit_title;
+    private com.vijay.jsonwizard.utils.FormUtils formUtils = new com.vijay.jsonwizard.utils.FormUtils();
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        Context context = view.getContext();
+        context = view.getContext();
         this.memberObject = memberObject;
         this.callBack = callBack;
         // get the preloaded data
@@ -86,15 +92,21 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
 
-        evaluateDangerSigns(details, context);
+        evaluateVisitLocation();
+        try {
+            evaluateDangerSigns(details, context);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
 
 
         return actionList;
     }
 
     private void evaluateDangerSigns(Map<String, List<VisitDetail>> details,
-                                     final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns());
+                                     final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        JSONObject dangerSignsForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns());
+
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
         }
@@ -109,9 +121,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateFacilityReferral(String referralPayload, Map<String, List<VisitDetail>> details,
-                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
+                                          final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
         String formName = "referral_facility_selection";
-        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+        JSONObject jsonForm = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
         Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
         JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, jsonForm);
 
@@ -136,10 +148,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     private void evaluateMinorAilment(Map<String, List<VisitDetail>> details,
                                       final MemberObject memberObject,
                                       Map<Integer, LocalDate> dateMap,
-                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
+                                      final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
         String formName = "linkages/native/anc_linkage_form";
         visit_title = context.getString(R.string.anc_home_visit_minor_ailment);
-        JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Utils.getLocalForm(formName, CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager));
+        JSONObject healthFacilityVisitForm = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(healthFacilityVisitForm, details);
         }
@@ -157,53 +169,47 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     private void evaluateHealthFacilityVisit(Map<String, List<VisitDetail>> details,
                                              final MemberObject memberObject,
                                              Map<Integer, LocalDate> dateMap,
-                                             final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
-        JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(healthFacilityVisitForm, details);
-        }
-        BaseAncHomeVisitAction facility_visit = new BaseAncHomeVisitAction.Builder(context, visit_title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(new HealthFacilityAction(memberObject, dateMap))
-                .withJsonPayload(healthFacilityVisitForm.toString())
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit())
-                .build();
+                                             final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject)) {
+            visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
+            JSONObject healthFacilityVisitForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(healthFacilityVisitForm, details);
+            }
+            BaseAncHomeVisitAction facility_visit = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new HealthFacilityAction(memberObject, dateMap))
+                    .withJsonPayload(healthFacilityVisitForm.toString())
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit())
+                    .build();
 
-        actionList.put(visit_title, facility_visit);
+            actionList.put(visit_title, facility_visit);
+        }
     }
 
     private void evaluateFamilyPlanning(Map<String, List<VisitDetail>> details,
-                                        final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject familyPlanningForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(familyPlanningForm, details);
+                                        final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            JSONObject familyPlanningForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(familyPlanningForm, details);
+            }
+            BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning())
+                    .withJsonPayload(familyPlanningForm.toString())
+                    .withHelper(new FamilyPlanningAction())
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
         }
-        BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning())
-                .withJsonPayload(familyPlanningForm.toString())
-                .withHelper(new FamilyPlanningAction())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
     }
 
-//    private void evaluateNutritionStatus(Map<String, List<VisitDetail>> details,
-//                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
-//        BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
-//                .withOptional(true)
-//                .withDetails(details)
-//                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
-//                .withHelper(new NutritionAction())
-//                .build();
-//        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), nutrition_ba);
-//    }
-
     private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
-                                           final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject counsellingForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getCOUNSELLING());
+                                           final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        JSONObject counsellingForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getCOUNSELLING());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(counsellingForm, details);
         }
@@ -218,19 +224,22 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateMalaria(Map<String, List<VisitDetail>> details,
-                                 final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject malariaForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA());
-        if (details != null) {
-            ChwAncJsonFormUtils.populateForm(malariaForm, details);
+                                 final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject)) {
+            JSONObject malariaForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(malariaForm, details);
+            }
+            BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withJsonPayload(malariaForm.toString())
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA())
+                    .withHelper(new MalariaAction())
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
         }
-        BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
-                .withOptional(false)
-                .withDetails(details)
-                .withJsonPayload(malariaForm.toString())
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA())
-                .withHelper(new MalariaAction())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
     }
 
     private void evaluateObservation(Map<String, List<VisitDetail>> details,
@@ -245,8 +254,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private void evaluateRemarks(Map<String, List<VisitDetail>> details,
-                                 final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        JSONObject remarkForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getRemarksAndComments());
+                                 final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        JSONObject remarkForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.ANC_HOME_VISIT.getRemarksAndComments());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(remarkForm, details);
         }
@@ -260,6 +269,248 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
+    private void evaluatePMTCT() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            String visitTitle = context.getString(R.string.anc_home_visit_pmtct);
+            BaseAncHomeVisitAction pmtctAction = new BaseAncHomeVisitAction.Builder(context, visitTitle)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new PMTCTActionHelper())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_pmctc")
+                    .build();
+            actionList.put(visitTitle, pmtctAction);
+        }
+    }
+
+    private void evaluatePostpartumCareForMother() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_care_for_mother))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_care_for_mother")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_care_for_mother), earlyStimulation);
+        }
+    }
+
+    private void evaluateEarlyStimulation() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_early_stimulation))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_early_stimulation")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_early_stimulation), earlyStimulation);
+        }
+    }
+
+    private void evaluatePostpartumDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_danger_signs))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_danger_signs")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_danger_signs), earlyStimulation);
+        }
+    }
+
+    private void evaluateCommunityHealthWorkerObservation(Map<String, List<VisitDetail>> details,
+                                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction chw_observations = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_community_health_worker_observations))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName("anc_hv_community_health_worker_observations")
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .withHelper(new CommunityHealthWorkerObservationsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_community_health_worker_observations), chw_observations);
+    }
+
+    private void evaluateImmediateNewBornCare() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_immediate_newborn_care))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_immediate_newborn_care")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_immediate_newborn_care), earlyStimulation);
+        }
+    }
+
+    private void evaluateLAM() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction lam = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_lam))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_lam")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_lam), lam);
+        }
+    }
+
+    private void evaluateBreastFeeding(Map<String, List<VisitDetail>> details, final MemberObject memberObject,
+                                       final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction bread_feeding_action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_breast_feeding))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new BreastFeedingActionHelper())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_breastfeeding")
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_breast_feeding), bread_feeding_action);
+        }
+    }
+
+    private void evaluateGenderIssues() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_gender_issues))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_gender_issues")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_gender_issues), earlyStimulation);
+        }
+    }
+
+    private void evaluateNewBornDangerSign() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_new_born_danger_signs))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_new_born_danger_signs")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_new_born_danger_signs), earlyStimulation);
+        }
+    }
+
+    private void evaluateHIVExposedInfantFollowUp() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_hiv_exposed_infant_follow_up")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up), earlyStimulation);
+        }
+    }
+
+    private void evaluatePostpartumPhysiologicalChanges() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_postpartum_physiological_changes))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_postpartum_physiological_changes")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_postpartum_physiological_changes), earlyStimulation);
+        }
+    }
+
+    private void evaluateHIVAIDSGeneralInformation() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject)) {
+            BaseAncHomeVisitAction earlyStimulation = new BaseAncHomeVisitAction.Builder(
+                    context, context.getString(R.string.anc_home_visit_hiv_aids_general_information))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_hiv_aids_general_information")
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_hiv_aids_general_information), earlyStimulation);
+        }
+    }
+
+    private void evaluateBirthPreparedness(Map<String, List<VisitDetail>> details,
+                                           final MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+
+            boolean is_second_or_third_visit = false;
+
+            if (org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) || org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+                is_second_or_third_visit = true;
+            }
+
+            String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_birth_preparedness), memberObject.getConfirmedContacts() + 1);
+            BaseAncHomeVisitAction birth_preparedness = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new BirthPreparednessAction(is_second_or_third_visit))
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_birth_preparedness")
+                    .build();
+            actionList.put(visit_title, birth_preparedness);
+        }
+    }
+
+    private void evaluateVisitLocation() throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_hv_location))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JsonForm.getPncHvLocation())
+                .withHelper(new PNCVisitLocationActionHelper())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                .build();
+        actionList.put(context.getString(R.string.pnc_hv_location), action);
+    }
+
+    private void evaluatePartnerEngagement(Map<String, List<VisitDetail>> details,
+                                           final Context context) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isThirdVisit(memberObject)) {
+            JSONObject partnerEngagementForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JsonForm.getAncHvPartnerEngagement());
+            if (details != null) {
+                ChwAncJsonFormUtils.populateForm(partnerEngagementForm, details);
+            }
+            BaseAncHomeVisitAction partner_engagement = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_partner_engagement))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName("anc_hv_partner_engagement")
+                    .withHelper(new PartnerEngagementAction())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .build();
+            actionList.put(context.getString(R.string.anc_home_visit_partner_engagement), partner_engagement);
+        }
+    }
+
+    private void evaluateNutritionCounselling() throws BaseAncHomeVisitAction.ValidationException {
+        if (org.smartregister.chw.util.VisitUtils.isFirstVisit(memberObject) ||
+                org.smartregister.chw.util.VisitUtils.isSecondVisit(memberObject)) {
+            String visit_title = context.getString(R.string.anc_hv_nutrition_counselling);
+            BaseAncHomeVisitAction nutrition_counselling = new BaseAncHomeVisitAction.Builder(context, visit_title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new NutritionCounsellingAction())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.COMBINED)
+                    .withFormName("anc_hv_nutrition_counselling")
+                    .build();
+
+            actionList.put(visit_title, nutrition_counselling);
+        }
+    }
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -308,8 +559,24 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     }
 
                     evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
+                    evaluateNutritionCounselling();
+                    evaluateBirthPreparedness(details, memberObject);
+                    evaluateHIVAIDSGeneralInformation();
+                    evaluatePMTCT();
+                    evaluateMalaria(details, context);
+                    evaluateBreastFeeding(details, memberObject, context);
+                    evaluateGenderIssues();
+                    evaluatePostpartumPhysiologicalChanges();
+                    evaluatePostpartumCareForMother();
+                    evaluatePostpartumDangerSigns();
+                    evaluateImmediateNewBornCare();
+                    evaluateNewBornDangerSign();
+                    evaluateHIVExposedInfantFollowUp();
+                    evaluateLAM();
                     evaluateFamilyPlanning(details, context);
-                    // evaluateNutritionStatus(details, context);
+                    evaluateEarlyStimulation();
+                    evaluatePartnerEngagement(details, context);
+                    evaluateCommunityHealthWorkerObservation(details, context);
                     evaluateCounsellingStatus(details, context);
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
@@ -325,9 +592,23 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
                     actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
                     actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(context.getString(R.string.anc_home_visit_gender_issues));
+                    actionList.remove(context.getString(R.string.anc_home_visit_postpartum_care_for_mother));
+                    actionList.remove(context.getString(R.string.anc_home_visit_early_stimulation));
+                    actionList.remove(context.getString(R.string.anc_home_visit_postpartum_danger_signs));
+                    actionList.remove(context.getString(R.string.anc_home_visit_community_health_worker_observations));
+                    actionList.remove(context.getString(R.string.anc_home_visit_immediate_newborn_care));
+                    actionList.remove(context.getString(R.string.anc_home_visit_birth_preparedness));
+                    actionList.remove(context.getString(R.string.anc_home_visit_hiv_aids_general_information));
+                    actionList.remove(context.getString(R.string.anc_home_visit_breast_feeding));
+                    actionList.remove(context.getString(R.string.anc_home_visit_new_born_danger_signs));
+                    actionList.remove(context.getString(R.string.anc_home_visit_partner_engagement));
+                    actionList.remove(context.getString(R.string.anc_home_visit_lam));
+                    actionList.remove(context.getString(R.string.anc_home_visit_hiv_exposed_infant_follow_up));
+                    actionList.remove(context.getString(R.string.anc_home_visit_postpartum_physiological_changes));
                     actionList.remove(visit_title);
                 }
-            } catch (BaseAncHomeVisitAction.ValidationException e) {
+            } catch (BaseAncHomeVisitAction.ValidationException | JSONException e) {
                 Timber.e(e);
             }
             new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));

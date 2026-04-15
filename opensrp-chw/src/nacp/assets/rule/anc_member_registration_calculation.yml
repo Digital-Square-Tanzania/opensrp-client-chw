@@ -37,3 +37,11 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = helper.addDuration(step1_last_menstrual_period,'280d')"
+
+---
+name: step1_parity_value
+description: Auto set parity when first pregnancy
+priority: 1
+condition: "step1_no_prev_preg == 1"
+actions:
+  - "calculation = '0'"

@@ -19,7 +19,7 @@ import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.core.R;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncHomeVisitInteractor;
@@ -102,7 +102,7 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
         Map<String, BaseAncHomeVisitAction> actions = this.getAncHomeVisitActions();
         if (actions != null){
-            BaseAncHomeVisitAction ancMinorAilmentAction = actions.get(this.getString(org.smartregister.chw.R.string.anc_home_visit_minor_ailment));
+            BaseAncHomeVisitAction ancMinorAilmentAction = actions.get(this.getString(R.string.anc_home_visit_minor_ailment));
             if (ancMinorAilmentAction != null) {
                 String minorAilmentForm = ancMinorAilmentAction.getJsonPayload();
                 if (minorAilmentForm != null) {
@@ -130,7 +130,7 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
                         ReferralUtils.createLinkageTask(org.smartregister.Context.getInstance().allSharedPreferences(),
                                 memberObject.getBaseEntityId(), event.getFormSubmissionId(), minorAilments, org.smartregister.chw.util.Constants.AddoLinkage.ANC_TASK_FOCUS);
 
-                        Toast.makeText(getContext(), getContext().getString(org.smartregister.chw.R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getContext().getString(R.string.linked_to_addo_message), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -144,6 +144,10 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
         //Necessary evil to rearrange the actions according to a specific arrangement
+        if (map.containsKey(getString(R.string.pnc_hv_location))) {
+            actionList.put(getString(R.string.pnc_hv_location), map.get(getString(R.string.pnc_hv_location)));
+        }
+
         if (map.containsKey(getString(R.string.anc_home_visit_danger_signs))) {
             BaseAncHomeVisitAction dangerSignsAction = map.get(getString(R.string.anc_home_visit_danger_signs));
             actionList.put(getString(R.string.anc_home_visit_danger_signs), dangerSignsAction);

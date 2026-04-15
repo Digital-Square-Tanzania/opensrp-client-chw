@@ -1,0 +1,89 @@
+{
+  "count": "1",
+  "encounter_type": "Care for child development (CCD): Introduction",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Care for child development (CCD): Introduction",
+    "fields": [
+      {
+        "key": "ccd_introduction_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_introduction_module",
+        "value": true,
+        "type": "hidden"
+      },
+      {
+        "key": "child_development_intro_note1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_intro_note1",
+        "type": "toaster_notes",
+        "text": "<b>CHW information:</b> <i>READ THIS TO THE PARENT/CAREGIVER IF AND ONLY IF THIS IS YOUR FIRST VISIT WITH THIS FAMILY</i> <br><br>\u2022 Children’s development in the first 3 years is very important: it affects how well the child does at school, how well they behave and their success as an adult. This is important time in their life because how they will grow and learn depends on the behaviours that you (and other adults) show to your child.<br>\u2022 The brain is developing very fast at this time and what happens to the child – love, play, care, nutrition and health – affects how the brain develops. Therefore in the coming weeks and months, we will continue doing what we will do today: talking about your child's behavior and development and conducting activities corresponding to your child's age. The goal is for you to continue doing these activities with a child.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "child_development_intro_note2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_intro_note2",
+        "type": "toaster_notes",
+        "text": "<b>CHW information:</b> READ IN EVERY VISIT:<br><br><b>Say,</b><i> \"You and your partner/ husband or family members are responsible for the infant's brain development and development of a child. The child likes to see the faces of his mother and father (or other important caregivers), so it is good to look at the child's face all the time.<br><br>A newborn baby can see things, feel things, and can respond to the voices and sounds she or he hears. A baby can tell us if she is happy, hungry, or unhappy by the sounds she/he makes.<br><br> The more opportunities we give our babies to explore the world (by playing, practicing new skills, seeing new things and copying what others do), the more information is given to the brain of the baby!\".",
+        "toaster_type": "info",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      }
+    ]
+  }
+}

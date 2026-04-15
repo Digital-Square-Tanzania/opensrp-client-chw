@@ -125,5 +125,6 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
             mAdapter.notifyDataSetChanged();
         }
         displayProgressBar(false);
+        super.initializeActions(map);
     }
 }

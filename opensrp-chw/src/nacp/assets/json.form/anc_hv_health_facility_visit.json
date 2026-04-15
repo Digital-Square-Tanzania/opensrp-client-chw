@@ -50,25 +50,76 @@
     "title": "ANC health facility visit",
     "fields": [
       {
+        "key": "clinic_attendance_intro_0",
+        "openmrs_entity_parent": "clinic_attendance_intro_0",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_attendance_intro_0",
+        "type": "label",
+        "text": "And now we will discuss on the importance of clinic attendance for the pregnant woman and her unborn child.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "clinic_attendance_intro_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_attendance_intro_1",
+        "type": "label",
+        "text": "Reminder for CHW: Ask pregnant woman for the ANC clinic booklet",
+        "text_color": "#000000"
+      },
+      {
+        "key": "first_clinic_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_clinic_visit",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "How many weeks pregnant were you when you first received antenatal care for this current pregnancy?",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Value has to be an integer"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Value has to be a number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Value below the minimum"
+        },
+        "v_max": {
+          "value": "40",
+          "err": "Value above the maximum"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Value required"
+        }
+      },
+      {
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the woman attend her last scheduled ANC visit at the facility?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Did the pregnant woman attend the last ANC clinic visit?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -98,41 +149,128 @@
         }
       },
       {
+        "key": "anc_clinic_visit_partner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_clinic_visit_partner",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Does she usually attend her ANC clinic visits with her partner?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "once_in_a_while",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Once in a while"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
         "key": "reason_for_missed_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_for_missed_visit",
-        "type": "spinner",
-        "hint": "Reason for missed facility visit",
-        "values": [
-          "Fear to disclose her pregnancy",
-          "She forgot the appointment date",
-          "She did not have transport fare",
-          "She was not feeling well",
-          "Other"
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Why did you not attend last ANC visit?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_other"
         ],
-        "keys": [
-          "fear_to_disclose_her_pregnancy",
-          "she_forgot_the_appointment_date",
-          "she_did_not_have_transport_fare",
-          "she_was_not_feeling_well",
-          "other"
+        "options": [
+          {
+            "key": "chk_not_important",
+            "text": "Not important to you",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_not_important"
+          },
+          {
+            "key": "chk_bad_experience",
+            "text": "Bad previous experience (poor quality of care, treated badly)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bad_experience"
+          },
+          {
+            "key": "chk_afraid",
+            "text": "Afraid of a specific service provided at the ANC",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_afraid"
+          },
+          {
+            "key": "chk_community_perception",
+            "text": "Community perception",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_community_perception"
+          },
+          {
+            "key": "chk_no_money",
+            "text": "Not enough money for transport or paying for services and supplies",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no_money"
+          },
+          {
+            "key": "chk_no_partner_support",
+            "text": "Lack of partner support or permission to go",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no_partner_support"
+          },
+          {
+            "key": "chk_no_privacy",
+            "text": "Lack of privacy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no_privacy"
+          },
+          {
+            "key": "chk_too_early",
+            "text": "Too early for pregnancy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_too_early"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          }
         ],
-        "openmrs_choice_ids": {
-          "fear_to_disclose_her_pregnancy":  "fear_to_disclose_her_pregnancy",
-          "she_forgot_the_appointment_date":  "she_forgot_the_appointment_date",
-          "she_did_not_have_transport_fare":  "she_did_not_have_transport_fare",
-          "she_was_not_feeling_well":  "she_was_not_feeling_well",
-          "other": "other"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select a reason"
+          "err": "Value Required"
         },
         "relevance": {
-          "step1:anc_hf_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
           }
         }
       },
@@ -142,16 +280,238 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_reason_missed_visit",
         "type": "edit_text",
-        "hint": "Other reason for missed facility visit",
-        "edit_type": "name",
+        "hint": "Enter other reason",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "important_attend_eight_visits_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "important_attend_eight_visits_toaster",
+        "type": "toaster_notes",
+        "text": "It’s very important that you attend all 8 ANC  visits because life-threatening complications are often only seen at the third or fourth visit",
+        "text_color": "#F91A00",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "clinic_visit_bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_visit_bango_kitita_reference",
+        "type": "label",
+        "text": "Please refer to Topic 1 in Bango Kitita to continue with the discussion",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "last_clinic_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_clinic_visit",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "When did you attend your last ANC visit?",
+        "label_info_text": "When did you attend your last ANC visit?",
+        "values": [
+          "One week ago",
+          "Two weeks ago",
+          "A month ago",
+          "More than a month ago"
+        ],
+        "keys": [
+          "1 week ago",
+          "2 weeks ago",
+          "A month ago",
+          "More than a month ago"
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter other reason"
+          "err": "Value Required"
         },
         "relevance": {
-          "step1:reason_for_missed_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "advice_pregnant_woman_attend_clinic_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "advice_pregnant_woman_attend_clinic_toaster",
+        "type": "toaster_notes",
+        "text": "Advise the pregnant woman to attend clinic as soon as possible.",
+        "text_color": "#F91A00",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "services_pregnant_woman_anc_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "services_pregnant_woman_anc_visit",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "What services did you receive as part of your ANC clinic visits?",
+        "label_text_style": "normal",
+        "label_info_text": "REMINDER FOR CHW: Ask the pregnant woman for her clinic booklet and select the services she has already received.",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_weight",
+            "text": "Weight measurement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_weight"
+          },
+          {
+            "key": "chk_height",
+            "text": "Height measurement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_height"
+          },
+          {
+            "key": "chk_blood_test",
+            "text": "Blood test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_blood_test"
+          },
+          {
+            "key": "chk_sugar_level",
+            "text": "Sugar levels test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sugar_level"
+          },
+          {
+            "key": "chk_pregnancy_development",
+            "text": "To check the development of pregnancy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pregnancy_development"
+          },
+          {
+            "key": "chk_baby_heartbeat",
+            "text": "Listen to the baby's heartbeat",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_baby_heartbeat"
+          },
+          {
+            "key": "chk_syphilis_counselling",
+            "text": "Counseling and testing for syphilis",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_syphilis_counselling"
+          },
+          {
+            "key": "chk_hiv_test",
+            "text": "HIV testing for you  as well as your spouse",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_test"
+          },
+          {
+            "key": "chk_urine_test",
+            "text": "Urine test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_urine_test"
+          },
+          {
+            "key": "chk_deworm",
+            "text": "Drugs to deworm",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_deworm"
+          },
+          {
+            "key": "chk_anaemia_drug",
+            "text": "Drugs to prevent anemia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_tetanus_vaccine",
+            "text": "Given the Tetanus vaccine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_tetanus_vaccine"
+          },
+          {
+            "key": "chk_sp_doses",
+            "text": "Two doses of SP as a precautionary measure for malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sp_doses"
+          },
+          {
+            "key": "chk_bed_nets",
+            "text": "Provision of insecticide-treated bed nets",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bed_nets"
+          },
+          {
+            "key": "chk_delivery_plan_counselling",
+            "text": "Counseling with your partner about preparation of a personal delivery plan",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_delivery_plan_counselling"
+          },
+          {
+            "key": "chk_newborn_care_counselling",
+            "text": "Counselling on how to care for a newborn baby",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_newborn_care_counselling"
+          },
+          {
+            "key": "chk_ultrasound",
+            "text": "Ultrasound",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_ultrasound"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value Required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
           }
         }
       },

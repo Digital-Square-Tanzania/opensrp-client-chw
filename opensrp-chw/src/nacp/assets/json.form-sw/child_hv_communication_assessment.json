@@ -1,0 +1,324 @@
+{
+  "count": "1",
+  "encounter_type": "Communication Assessment and Counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Tathmini maendeleo ya mawasiliano na kufanya majadiliano",
+    "fields": [
+      {
+        "key": "ccd_communication_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_communication_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "child_age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "less_than_six_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "communication_with_child",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "communication_with_child",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Taarifa kwa MJA (Uliza hili swali tembeleo la kwanza tu): Sema, \"Je, unazungumza na mtoto wako?\"",
+        "label_info_text": "Taarifa kwa MJA: Sema, \"Je, unazungumza na mtoto wako?\"",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ]
+      },
+      {
+        "key": "child_communication_demo_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Taarifa kwa MJA: Sema, \"Unaweza kunionesha jinsi unavyozungumza na mtoto wako?\n\nMJA kumbuka kumpa mama/baba au mlezi nafasi ya kuzungumza na mtoto wake\n\nUnafikiri mtoto wako anajifunza nini wakati unazungumza naye?",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "child_communication_observation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_communication_observation",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "MJA: Angalia mama/baba au mlezi jinsi anavyozungumza na mtoto na kufanya mtoto ajibu (tabasamu/sauti) kisha chagua yote yaliyotokea:",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_force_smile",
+          "chk_child_asleep"
+        ],
+        "options": [
+          {
+            "key": "chk_looks_into_eyes",
+            "text": "Anamtazama mtoto machoni na anajaribu kuongea naye kwa utaratibu na kumbembeleza na kumbeba mwilini kwa ukaribu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_looks_into_eyes"
+          },
+          {
+            "key": "chk_sounds_and_gestures",
+            "text": "Anaigiza sauti na vitendo vya mtoto ili kupata tabasamu la mtoto",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sounds_and_gestures"
+          },
+          {
+            "key": "chk_force_smile",
+            "text": "Anajaribu kulazimisha tabasamu au haongei/hafanyi chochote kufanya mtoto atabasamu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_force_smile"
+          },
+          {
+            "key": "chk_child_asleep",
+            "text": "Mtoto amelala",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_child_asleep"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "communicates_with_child_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MPONGEZE mama/baba au mlezi kwa kuzungumza na mtoto vizuri.\n\nTaarifa kwa MJA: Sema \"Watoto huwa wanawasaliana na sisi hata pale wanapokuwa katika umri mdogo. Hata kabla hawajaanza kuongea huwa wanatambua wanachohitaji. Kupitia  kuzungumza na watoto wetu na kuwaambia majina ya vitu kunawafanya wayatambue majina na hili linawasaidia kuweza kuongea kwa urahisi. Kurudia rudia ni njia nzuri ya mtoto kujifunza.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_communicates_with_child_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Sema\"Mtoto mchanga na mtoto wanaanza kuelewa maneno mengi kabla ya kuweza kuongea, lakini kama hatuongei na watoto wetu wachanga hawatajifunza maneno mapya. watoto wanawasiliana nasi kuanzia umri mdogo, hata kabla ya kujifunza kuongea wanatuambia wanayohitaji na wanajua tunapokuwa na furaha au huzuni\".",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_communicates_with_child_note_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MJA sisitiza: Walezi waongee mara kwa mara na mtoto.",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_comm_6_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Sema, \"Hivyo ni nzuri kuwasiliana na mtoto wako. Kwa kuzungumza na mtoto wako na kumwaambia majina ya vitu vilivyopo katika mazingira yenu itamsaidia kuongeza misamiati na kukuza lugha.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_child_comm_6_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Sema, \"Kuwasiliana vizuri na mtoto wako ni muhimu ili kusaidia kujenga mahusiano imara kwa maendeleo bora ya afya. Kwa kuzungumza na watoto wetu na kuwaambia majina ya vitu wanavyotambua na maneno  hii inawasaidia kujifunza kuzungumza\"",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "communication_counselling_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Taarifa kwa MJA: Sema, \"Wasiliana na mtoto wako wakati wote unapokuwa naye! Mahusiano yenu ya kila siku yanaweza kuwa na mchango mkubwa kwa mtoto kujifunza sauti mpya, maneno na lugha kwa ujumla\".\nTaarifa kwa MJA: Bofya kitufe cha taarifa (kitufe chenye alama ya mshangao) ili kuona hatua unayohitaji kufuata ili kuelezea shughuli kwa mama/baba au mlezi.",
+        "text_color": "#2D2E2D",
+        "label_text_style": "italic",
+        "has_bg": true,
+        "label_info_title": "Maelekezo kwa MJA",
+        "label_info_text": "-Muonyeshe mama/mlezi picha na ueleze shughuli (moja baada ya nyingine).\n- Acha mama/mlezi ajaribu shughuli.\n- Angalia mahusiano na umsaidie mama/mlezi na mtoto kuwa na mahusiano wenye mafanikio wa pande mbili. Mlezi LAZIMA azingatie, asikilize, na ajibu dalili za mtoto.\n- Iwapo mtoto hawezi kufanya shughuli, chagua kutoka katika kundi la umri mdogo au pendekeza njia za kurahisisha mchezo. Ikiwa mtoto yuko katika kiwango cha mwisho cha umri na anaweza kwa urahisi, pendekeza njia za kufanya shughuli ngumu zaidi au uchague shughuli kutoka kwa safu inayofuata ya umri mkubwa zaidi.\n- Mhimize mama/mlezi kuendelea kujihusisha na shughuli za kucheza katika utaratibu wao wa kila siku."
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "next_visit_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comm_assessment_counselling_next_visit_message",
+        "type": "label",
+        "text": "Taarifa kwa MJA: Sema, \" Nikirudi tembeleo linalofuata, ningependa kuona vifaa vya michezo ambavyo umeandaa na kuona jinsi unavyowasiliana na kucheza na mtoto wako\".",
+        "text_color": "#000000",
+        "has_bg": true,
+        "bg_color": "#f595df",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "bango_kitita_reference_skip_logic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "spacer_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

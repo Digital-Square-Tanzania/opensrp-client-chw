@@ -7,7 +7,7 @@
     <string name="not_provided">Not provided</string>
 
     <string name="child_under_five">Child under 5 years</string>
-    <string name="add_eligible_child">Eligible Client</string>
+    <string name="add_eligible_child">Eligible child</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="view_households_with_count">Households (%1$d)</string>
@@ -435,7 +435,7 @@
 
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
-    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
+    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding</string>
     <string name="deworming_number_dose">Deworming %s dose</string>
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
     <string name="mnp_number_pack">MNP %s pack</string>
@@ -627,6 +627,16 @@
 
     <string name="malnutrition_screening_subtitle">MUAC: %s Anemia: %s</string>
     <string name="malnutrition_screening">Malnutrition/Anemia screening</string>
+    <string name="good">Good</string>
+    <string name="poor">Poor</string>
+    <string name="child_hv_complementary_feeding"> Complementary Feeding Counseling </string>
+    <string name="child_hv_complementary_feeding_after_24_month">Nutrition</string>
+    <string name="child_hv_breastfeeding">Breastfeeding</string>
+
+    <!-- ECD visit History-->
+    <string name="ecd_reports_subtitle">View ECD Report</string>
+    <string name="ecd_reports_title">ECD Reports</string>
+    <string name="ecd_client_report">ECD Clients Report</string>
     <string name="map_cue">Landmark/Description of house location</string>
     <string name="street_name">Street / Hamlet Name</string>
 

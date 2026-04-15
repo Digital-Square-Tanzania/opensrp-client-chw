@@ -52,6 +52,9 @@ public class Constants extends CoreConstants {
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
         public static final String NAME_OF_HF = "name_of_hf";
         public static final String STEP1 = "step1";
+        public static final String MOTHER_AVAILABLE = "mother_available";
+        public static final String OTHER_CAREGIVER_NAME = "other_caregiver_name";
+        public static final String CAREGIVER_NAME = "caregiver_name";
     }
 
     public static class EncounterType {
@@ -121,6 +124,9 @@ public class Constants extends CoreConstants {
         private static  final  String CHILD_HOME_VISIT_DANGER_SIGN_FORM = "child_hv_danger_sign";
         private static final String CHILD_HV_PROBLEM_SOLVING_FORM = "child_hv_problem_solving";
         private static final String CHILD_HV_NEWBORN_CARE_INTRO_FORM = "child_hv_newborn_introduction";
+        private static final String CHILD_HV_PLAY_ASSESSMENT_COUNSELLING = "child_hv_play_assessment_counselling";
+        private static final String CHILD_HV_DEVELOPMENT_SCREENING_ASSESSMENT = "child_hv_development_screening_assessment";
+        private static final String CHILD_HV_CORD_CARE = "child_hv_cord_care";
         private static final String ICCM_MEDICAL_HISTORY = "iccm_medical_history";
         private static final String ICCM_PHYSICAL_EXAMINATION = "iccm_physical_examination";
         private static final String ICCM_MALARIA = "iccm_malaria";
@@ -129,8 +135,20 @@ public class Constants extends CoreConstants {
 
         private static final String ICCM_REFERRAL_NATIVE_FORM = "referrals/iccm_referral_native_form";
         private static final String CHILD_HV_MALNUTRITION_SCREENING = "child_hv_malnutrition_screening";
+        private static final String CHILD_HV_COMMUNICATION_ASSESSMENT_COUNSELLING = "child_hv_communication_assessment";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
+        public static final String CHILD_HV_COMP_FEEDING = "child_complementary_feeding";
+
+        public static final String CHILD_SAFETY_FORM = "child_hv_child_safety";
+
+        private static final String CHILD_HV_CCD_INTRODUCTION = "child_hv_ccd_introduction";
+        private static final String CHILD_HV_PMTCT = "child_hv_pmtct";
+
+        private static final String CHILD_HV_CCD_CARE_GIVER_RESPONSIVENESS = "child_hv_caregiver_responsiveness";
+
+        private static final String CHILD_HV_CCD_CHILD_DISCIPLINE = "child_hv_ccd_child_discipline";
+        private static final String ANC_HV_PARTNER_ENGAGEMENT = "anc_hv_partner_engagement";
 
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
@@ -176,19 +194,35 @@ public class Constants extends CoreConstants {
             return CHILD_HV_NEWBORN_CARE_INTRO_FORM;
         }
 
+        public static String getChildHvPlayAssessmentCounselling() {
+            return CHILD_HV_PLAY_ASSESSMENT_COUNSELLING;
+        }
+
+        public static String getChildHvDevelopmentScreeningAssessment() {
+            return CHILD_HV_DEVELOPMENT_SCREENING_ASSESSMENT;
+        }
+
+        public static String getChildHvCordCare() {
+            return CHILD_HV_CORD_CARE;
+        }
+
         public static String getIccmMedicalHistory() {
             return ICCM_MEDICAL_HISTORY;
         }
+
         public static String getIccmPhysicalExamination() {
             return ICCM_PHYSICAL_EXAMINATION;
         }
+
         public static String getIccmMalaria() {
             return ICCM_MALARIA;
         }
-        public static String getIccmPneumonia() {
+
+        public static String getIccmPneumonia(){
             return ICCM_PNEUMONIA;
         }
-        public static String getIccmDiarrhea() {
+
+        public static String getIccmDiarrhea(){
             return ICCM_DIARRHEA;
         }
 
@@ -202,6 +236,35 @@ public class Constants extends CoreConstants {
 
         public static String getSkinToSkin() { return SKIN_TO_SKIN; }
 
+        public static String getChildSafetyForm() { return CHILD_SAFETY_FORM; }
+
+        public static String getChildHVCCDIntroduction() {
+            return CHILD_HV_CCD_INTRODUCTION;
+        }
+
+        public static String getChildHvCompFeeding(){
+            return CHILD_HV_COMP_FEEDING;
+        }
+
+        public static String getChildHvCcdCareGiverResponsiveness() {
+            return CHILD_HV_CCD_CARE_GIVER_RESPONSIVENESS;
+        }
+
+        public static String getChildHvCcdChildDiscipline() {
+            return CHILD_HV_CCD_CHILD_DISCIPLINE;
+        }
+
+        public static String getChildHvPmtct() {
+            return CHILD_HV_PMTCT;
+        }
+
+        public static String getChildHvCommunicationAssessmentCounselling() {
+            return CHILD_HV_COMMUNICATION_ASSESSMENT_COUNSELLING;
+        }
+
+        public static String getAncHvPartnerEngagement() {
+            return ANC_HV_PARTNER_ENGAGEMENT;
+        }
     }
 
     public static final class Events {
@@ -228,10 +291,15 @@ public class Constants extends CoreConstants {
         public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
 
         public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
+        public static final String PLAY_ASSESSMENT_COUNSELLING= "Play Assessment and Counselling";
+        public static final String DEVELOPMENT_SCREENING_AND_ASSESSMENT = "Development Screening and Assessment";
+        public static final String COMMUNICATION_ASSESSMENT_COUNSELLING= "Communication Assessment and Counselling";
 
         public static final String AYP_OUT_SCHOOL_FOLLOW_UP_VISIT = "Ayp Out School Client Followup Visit";
 
         public static final String AYP_OUT_SCHOOL_GROUP_FOLLOW_UP_VISIT = "Ayp Out School Group Followup Visit";
+
+        public static final String PNC_NO_MOTHER_CHILD_REGISTRATION = "PNC No Mother Child Registration";
     }
 
     public static final class ActionList {
@@ -244,6 +312,7 @@ public class Constants extends CoreConstants {
         public static final String SBCC = "ec_sbcc";
 
         public static final String CBHS_REGISTER = "ec_cbhs_register";
+        public static final String CHILD_NO_MOTHER = "ec_child_no_mother";
     }
 
     public static class DBConstants{
@@ -265,7 +334,7 @@ public class Constants extends CoreConstants {
            String AGYW_REPORT = "agyw_report";
 
            String ICCM_REPORT = "iccm_report";
-
+           String ECD_REPORT = "ecd_report";
            String SBC_REPORT = "sbc_report";
 
            String KVP_REPORT = "kvp_report";
@@ -296,6 +365,10 @@ public class Constants extends CoreConstants {
             String DISPENSING_SUMMARY = "iccm-dispensing-summary";
 
             String MALARIA_MONTHLY_REPORT = "iccm-malaria-monthly-report";
+        }
+
+        public interface ECDReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "ecd-clients-monthly-report";
         }
 
 
@@ -344,6 +417,7 @@ public class Constants extends CoreConstants {
             String MALARIA_MONTHLY_REPORT_PATH = "iccm_reports/iccm-malaria-monthly-report";
 
             String SBC_REPORT_PATH = "sbc-report";
+            String ECD_CLIENTS_REPORT_PATH = "ecd_reports/ecd-clients-monthly-report";
 
             String KVP_REPORT_PATH = "kvp-report";
 

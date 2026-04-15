@@ -48,12 +48,38 @@
   },
   "step1": {
     "title": "Deworming {0} dose",
-    "fields": [
+    "fields": [      {
+      "key": "has_received_deworming{0}",
+      "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "has_received_deworming{0}",
+      "type": "native_radio",
+      "image": "ic_form_deworming",
+      "label": "Was Deworming {0} done?",
+      "v_required": {
+        "value": "true",
+        "err": "Please choose an answer"
+      },
+      "options": [
+        {
+          "key": "yes",
+          "text": "Yes",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "yes"
+        },
+        {
+          "key": "no",
+          "text": "No",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "no"
+        }
+      ]
+    },
       {
         "key": "deworming{0}_date",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "deworming{0}_date",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "deworming{0}_date",
         "type": "date_picker",
         "image": "ic_form_deworming",
         "hint": "When was deworming {0} dose given?",
@@ -62,6 +88,96 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date deworming was given"
+        },
+        "relevance": {
+          "step1:has_received_deworming{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "reason_no_medicine_deworming{0}",
+        "openmrs_entity_parent": "reason_no_medicine_deworming{0}",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_no_medicine_deworming{0}",
+        "type": "check_box",
+        "label": "Fill in the reason why Deworming was not done",
+        "v_required": {
+          "value": "true",
+          "err": "Please fill in the reason why deworming was not done"
+        },
+        "options": [
+          {
+            "openmrs_entity": "concept",
+            "key": "medicines_not_available",
+            "openmrs_entity_id": "medicines_not_available",
+            "text": "Medicines Not Available"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "family_refused",
+            "openmrs_entity_id": "family_refused",
+            "text": "Family Refused"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "clinic_closed",
+            "openmrs_entity_id": "clinic_closed",
+            "text": "Clinic Closed"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "return_another_day",
+            "openmrs_entity_id": "return_another_day",
+            "text": "Asked to Return Another Day"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "did_not_know_deworming",
+            "openmrs_entity_id": "did_not_know_deworming",
+            "text": "Did Not Know About the Deworming"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "could_not_take_child_deworming",
+            "openmrs_entity_id": "could_not_take_child_deworming",
+            "text": "Could Not Take the Child to Receive Deworming"
+          },
+          {
+            "openmrs_entity": "concept",
+            "key": "other",
+            "openmrs_entity_id": "other",
+            "text": "Other"
+          }
+        ],
+        "relevance": {
+          "step1:has_received_deworming{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_no_medicine_deworming{0}",
+        "openmrs_entity_parent": "other_reason_no_medicine_deworming{0}",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_no_medicine_deworming{0}",
+        "type": "edit_text",
+        "hint": "Fill in the other reason for no deworming",
+        "v_required": {
+          "value": "true",
+          "err": "Please provide the other reason"
+        },
+        "relevance": {
+          "step1:reason_no_medicine_deworming{0}": {
+            "type": "string",
+            "ex-checkbox": [
+              {
+                "or": ["other"]
+              }
+            ]
+          }
         }
       }
     ]

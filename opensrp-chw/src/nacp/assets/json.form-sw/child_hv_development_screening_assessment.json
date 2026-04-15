@@ -1,0 +1,202 @@
+{
+  "count": "1",
+  "encounter_type": "Development Screening and Assessment",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Tathmini ya maendeleo ya mtoto",
+    "fields": [
+      {
+        "key": "ccd_development_screening_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_development_screening_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "visit_3_visit_16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_8_visit_10_visit_16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "child_development_issues",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_issues",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Ninataka kukuuliza maswali mengine mahususi kuhusu ukuaji wa mtoto wako.\nJe, mtoto wako anaonekana kuwa na mojawapo ya yafuatayo?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_hearing_delay",
+            "text": "Kuchelewa kusikia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hearing_delay"
+          },
+          {
+            "key": "chk_speech_delay",
+            "text": "Kuchelewa kuongea",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_speech_delay"
+          },
+          {
+            "key": "chk_walking_delay",
+            "text": "Kuchelewa kutembea/kutamba/ ugumu kwenye mikono au miguu, au kukosa nguvu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_walking_delay"
+          },
+          {
+            "key": "chk_has_fits",
+            "text": "Anakakamaa, au anapoteza fahamu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_has_fits"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hamna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "child_developmental_delays_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Kuwa na mtoto aliyechelewa kufanya vitu kama watoto wengine wa umri wake kunaweza kukufanya ujisikie tofauti. Mtoto aliyechelewa katika kufika hatua zake za ukuaji anahitaji muda zaidi wa kucheza/kuongea na uchechemuzi kutoka kwa mlezi. Kwa kufuata hatua hizi mtoto anakuwa katika nafasi nzuri ya kufikia hatua zake za ukuaji. Asante kwa kueza kuzungumza na mimi leo kuhusu mambo haya, nimegundua tatizo ambalo nakushauri uwende kumuona daktari ili akusaidie, nitakupa rufaa uende kituo cha karibu nawe.",
+        "text_color": "#F91A00",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer_delays_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "developmental_milestone_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "developmental_milestone_info",
+        "type": "label",
+        "text": "Taarifa kwa MJA: Sema, \"Sasa nitakuonesha hatua za maendeleo ya ukuaji wa mtoto zinazoonesha ujuzi, uwezo na utambuzi katika kila hatua ya ukuaji wake. Ikiwa mtoto wako yuko mbele kidogo au nyuma kidogo katika umri fulani, hii ni kawaida. Kila mtoto ni tofauti. Fika katika kituo cha kutolea huduma za afya ili kueleza wasiwasi ulio nao\".",
+        "text_color": "#2D2E2D",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Tafadhali rejea ukurasa wa KUJUA MAENDELEO YA AWALI YA MTOTO katika Bango Kitita ya Malezi.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinic_card_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i><b>Taarifa kwa MJA: Sema,</b></i> Mama Kumbuka kurejea kitabu cha Afya ya mtoto (kadi ya kliniki) ukurasa namba <b>30, 31, 32, na 33 </b>kwa taarifa zaidi (zingatia umri wa mtoto)"
+      }
+    ]
+  }
+}

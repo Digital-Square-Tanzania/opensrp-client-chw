@@ -1,0 +1,7 @@
+---
+name: step1_less_than_six_months
+description: less that six month value calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step1_child_age_in_months < 6) ? 1 : 0'
