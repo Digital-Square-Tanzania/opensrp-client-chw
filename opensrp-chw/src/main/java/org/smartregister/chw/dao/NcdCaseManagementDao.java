@@ -186,8 +186,10 @@ public class NcdCaseManagementDao extends AbstractDao {
     }
 
     /**
-     * Returns the referral type code for an open referral, or null if none exists.
-     * Codes: "ncd_urgent_referral" or "ncd_non_emergency_referral".
+     * Returns the focus of the latest open NCD referral task, or null if none exists.
+     * Values: "NCD Danger Signs" (urgent) or "NCD Clinical Concern" (non-emergency).
+     * Filters on focus rather than code because the urgent task code "Referral" is
+     * shared across the canonical referral workflow and is not NCD-specific.
      */
     public static String getOpenReferralType(String baseEntityId) {
         if (StringUtils.isBlank(baseEntityId)) {
@@ -195,14 +197,14 @@ public class NcdCaseManagementDao extends AbstractDao {
         }
 
         String sql = String.format(Locale.US,
-                "SELECT code FROM task " +
+                "SELECT focus FROM task " +
                         "WHERE for_entity = '%s' " +
-                        "AND (code = 'ncd_urgent_referral' OR code = 'ncd_non_emergency_referral') " +
+                        "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
                         "AND status IN ('READY', 'IN_PROGRESS') " +
                         "ORDER BY authored_on DESC LIMIT 1",
                 baseEntityId);
 
-        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "code");
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "focus");
         List<String> results = readData(sql, dataMap);
         return (results != null && !results.isEmpty()) ? results.get(0) : null;
     }
@@ -217,8 +219,9 @@ public class NcdCaseManagementDao extends AbstractDao {
     }
 
     /**
-     * Checks if there is an open (non-closed) referral task for the given client
-     * of type ncd_urgent_referral or ncd_non_emergency_referral.
+     * Checks if there is an open (non-closed) NCD referral task for the given client.
+     * Filters on focus ('NCD Danger Signs' / 'NCD Clinical Concern') to scope the
+     * dedup check to NCD-specific referrals only.
      * Reads from the local task store only — no network query.
      */
     public static boolean hasOpenReferral(String baseEntityId) {
@@ -229,7 +232,7 @@ public class NcdCaseManagementDao extends AbstractDao {
         String sql = String.format(Locale.US,
                 "SELECT COUNT(*) as cnt FROM task " +
                         "WHERE for_entity = '%s' " +
-                        "AND (code = 'ncd_urgent_referral' OR code = 'ncd_non_emergency_referral') " +
+                        "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
                         "AND status IN ('READY', 'IN_PROGRESS') " +
                         "LIMIT 1",
                 baseEntityId);
