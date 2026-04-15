@@ -708,7 +708,7 @@ public class ChwRepositoryFlv {
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion35-config");
         }
@@ -718,7 +718,7 @@ public class ChwRepositoryFlv {
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion36-config");
         }
@@ -729,7 +729,7 @@ public class ChwRepositoryFlv {
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
             reportingLibrary.readConfigFile("config/hps-monthly-report.yml", db);
-            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion37-config");
         }
