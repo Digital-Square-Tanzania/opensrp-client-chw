@@ -53,7 +53,7 @@
     }
   },
   "step1": {
-    "title": "Close NCD Record",
+    "title": "Funga Rekodi ya NCD",
     "fields": [
       {
         "key": "close_reason",
@@ -61,13 +61,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "close_reason",
         "type": "spinner",
-        "hint": "Reason for closing this record",
+        "hint": "Sababu ya kufunga rekodi hii",
         "values": [
-          "Client deceased",
-          "Client relocated",
-          "Transferred to facility care",
-          "Lost to follow-up (3+ missed visits)",
-          "Data entry error"
+          "Mteja amefariki",
+          "Mteja amehamia",
+          "Amehamishiwa huduma ya kituo cha afya",
+          "Amepotea katika ufuatiliaji (ziara 3+ zilizokosekana)",
+          "Hitilafu ya kuingiza data"
         ],
         "keys": [
           "deceased",
@@ -85,7 +85,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select a reason for closing this record"
+          "err": "Tafadhali chagua sababu ya kufunga rekodi hii"
         }
       },
       {
@@ -93,11 +93,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "transfer_facility",
-        "hint": "Name of receiving facility",
+        "hint": "Jina la kituo kinachopokea",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the facility name"
+          "err": "Tafadhali ingiza jina la kituo"
         },
         "relevance": {
           "rules-engine": {
@@ -112,7 +112,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "close_notes",
-        "hint": "Additional notes (optional)",
+        "hint": "Maelezo ya ziada (si lazima)",
         "type": "edit_text"
       }
     ]
