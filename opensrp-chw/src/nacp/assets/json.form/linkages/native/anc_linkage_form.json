@@ -62,6 +62,7 @@
         "type": "check_box",
         "label": "Reasons for Linkage",
         "exclusive": ["chk_none"],
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "mild_pain",

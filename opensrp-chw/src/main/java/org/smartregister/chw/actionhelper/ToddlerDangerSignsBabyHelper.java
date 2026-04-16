@@ -36,6 +36,9 @@ public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        if (alert == null) {
+            return null;
+        }
         return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
     }
 

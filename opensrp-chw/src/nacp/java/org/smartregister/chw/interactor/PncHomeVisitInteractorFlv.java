@@ -138,7 +138,11 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void evaluateOtherActions() throws Exception {
-
+        //Minor Ailments
+        evaluateMinorAilmentsMother();
+        for (Person baby : children) {
+            evaluateMinorAilmentsBaby(baby);
+        }
         if (babyWithNoChild != null) {
             evaluateOtherActionForBaby(babyWithNoChild);
         } else {
@@ -172,6 +176,81 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         evaluateProblemSolving(baby);
         evaluateCareGiverResponsiveness(baby);
         evaluateDevelopmentScreening(baby);
+    }
+
+    private void evaluateMinorAilmentsMother() throws BaseAncHomeVisitAction.ValidationException {
+
+        HomeVisitActionHelper motherMinorAilment = new HomeVisitActionHelper() {
+
+            private String minor_ailment;
+
+            @Override
+            public void onPayloadReceived(String dangerSignForm) {
+                try {
+                    JSONObject form = new JSONObject(dangerSignForm);
+                    minor_ailment = getCheckBoxValue(form, "minor_ailment");
+                } catch (JSONException e) {Timber.e(e);}
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.pnc_minor_ailment_mama), minor_ailment);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (minor_ailment == null) {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }else{
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                }
+            }
+
+            @Override
+            public String postProcess(String jsonPayload) {
+                //TODO: Send the referral Linkage
+                return super.postProcess(jsonPayload);
+            }
+        };
+
+        String formName = Utils.getLocalForm("linkages/native/pnc_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+
+        if(details!=null)
+            ChwAncJsonFormUtils.populateForm(jsonForm,details);
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_minor_ailment_mama))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(formName)
+                .withHelper(motherMinorAilment)
+                .withJsonPayload(jsonForm.toString())
+                .build();
+
+        actionList.put(context.getString(R.string.pnc_minor_ailment_mama), action);
+    }
+
+    private void evaluateMinorAilmentsBaby(Person baby) throws BaseAncHomeVisitAction.ValidationException {
+
+        BabyMinorAilmentActionHelper actionHelper = new BabyMinorAilmentActionHelper(context, baby);
+
+        String formName = Utils.getLocalForm("linkages/native/child_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
+        String title = MessageFormat.format(context.getString(R.string.child_minor_illness), baby.getFullName());
+
+        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+
+        if(details!=null)
+            ChwAncJsonFormUtils.populateForm(jsonForm,details);
+
+        BaseAncHomeVisitAction babyMinorAilmentAction = new BaseAncHomeVisitAction.Builder(context, title)
+                .withOptional(false)
+                .withHelper(actionHelper)
+                .withDetails(details)
+                .withFormName(formName)
+                .withJsonPayload(jsonForm.toString())
+                .build();
+
+        actionList.put(title, babyMinorAilmentAction);
     }
 
     private void evaluateEnvironmentalHygiene() throws BaseAncHomeVisitAction.ValidationException {
