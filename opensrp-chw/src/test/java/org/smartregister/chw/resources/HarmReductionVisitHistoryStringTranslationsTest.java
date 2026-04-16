@@ -263,13 +263,13 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_cause_of_death", "Sababu ya kifo");
         values.put("harm_reduction_cause_of_death_other_specify", "Taja sababu nyingine ya kifo");
         values.put("harm_reduction_client_deceased", "Amefariki");
-        values.put("harm_reduction_client_started_mat", "Je, mteja ameanza MAT?");
+        values.put("harm_reduction_client_started_mat", "Je, mpokea huduma ameanza MAT?");
         values.put("harm_reduction_cocaine", "Cocaine");
         values.put("harm_reduction_communicable_diseases", "Magonjwa ya kuambukiza");
         values.put("harm_reduction_community", "Ngazi ya jamii");
         values.put("harm_reduction_condom_education_prompt", "Mwongozo");
         values.put("harm_reduction_condom_use_during_sex", "Je, unatumia kondomu wakati wa kujamiiana?");
-        values.put("harm_reduction_condoms_given", "Je mteja amepewa Kondomu?");
+        values.put("harm_reduction_condoms_given", "Je mpokea huduma amepewa Kondomu?");
         values.put("harm_reduction_continue_service", "Anaendelea na Huduma");
         values.put("harm_reduction_ctc_id", "Namba ya Utambulisho (CTC)");
         values.put("harm_reduction_death_action_taken", "Nini kilifanyika");
@@ -278,7 +278,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_drinking", "Kunywa");
         values.put("harm_reduction_drug_adherence_status_ctc", "Hali ya ufuasi wa huduma");
         values.put("harm_reduction_dry_cotton", "Pamba kavu");
-        values.put("harm_reduction_engaging_in_sexual_activity", "Je, mteja anashiriki ngono?");
+        values.put("harm_reduction_engaging_in_sexual_activity", "Je, mpokea huduma anashiriki ngono?");
         values.put("harm_reduction_enrolled_into_ctc_services", "Je, mpokea huduma amejiunga na huduma za matibabu na matunzo (CTC)?");
         values.put("harm_reduction_epidemic_diseases", "Magonjwa ya mlipuko");
         values.put("harm_reduction_excessive_alcohol_intake_smoking", "Unywaji/Uvutaji kupita kiasi");
@@ -298,7 +298,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");
         values.put("harm_reduction_hiv_test_location", "Upimaji ulipofanyika");
-        values.put("harm_reduction_hiv_tested", "Je, mteja amewahi kupima VVU?");
+        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amewahi kupima VVU?");
         values.put("harm_reduction_hiv_testing", "Upimaji wa VVU");
         values.put("harm_reduction_home", "Nyumbani");
         values.put("harm_reduction_iec_communicable_diseases", "Magonjwa ya kuambukiza");
