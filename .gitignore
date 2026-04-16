@@ -35,3 +35,5 @@ android.lock
 jdks/
 notifications/
 legacy-opensrp-libs/
+.tmp/
+TASKS.md
