@@ -845,6 +845,13 @@
             "creates_case": [
               "ec_ncd_case_management_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Case Management Close",
+            "closes_case": [
+              "ec_ncd_register"
+            ]
           }
         ]
       }

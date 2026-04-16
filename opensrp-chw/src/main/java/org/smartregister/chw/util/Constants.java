@@ -44,6 +44,7 @@ public class Constants extends CoreConstants {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
         public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
         public static final String NCD_MONTHLY_FOLLOWUP = "NCD Monthly Follow-Up";
+        public static final String NCD_CASE_MANAGEMENT_CLOSE = "NCD Case Management Close";
     }
 
     public static class ScheduleType {
@@ -133,6 +134,7 @@ public class Constants extends CoreConstants {
         public static final String NCD_FOLLOWUP_LIFESTYLE = "ncd_followup_lifestyle";
         public static final String NCD_FOLLOWUP_PSYCHOSOCIAL = "ncd_followup_psychosocial";
         public static final String NCD_REFERRAL_FORM = "ncd_referral_form";
+        public static final String NCD_CASE_MANAGEMENT_CLOSE = "ncd_case_management_close";
 
         public static String getNcdReferralForm() {
             return NCD_REFERRAL_FORM;

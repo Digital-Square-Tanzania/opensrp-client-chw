@@ -241,4 +241,35 @@ public class NcdCaseManagementDao extends AbstractDao {
         List<Integer> results = readData(sql, dataMap);
         return (results != null && !results.isEmpty() && results.get(0) > 0);
     }
+
+    /**
+     * Cancels all open NCD-related tasks (READY or IN_PROGRESS) for the given client.
+     * Called when a close record event is submitted.
+     */
+    public static void cancelOpenTasks(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) return;
+
+        String sql = String.format(Locale.US,
+                "UPDATE task SET status = 'CANCELLED', last_modified = strftime('%%s','now') * 1000 " +
+                        "WHERE for_entity = '%s' " +
+                        "AND status IN ('READY', 'IN_PROGRESS')",
+                baseEntityId);
+        updateDB(sql);
+    }
+
+    /**
+     * Voids all open NCD referral tasks for the given client by setting status to CANCELLED.
+     * Called when a close record event is submitted.
+     */
+    public static void voidOpenReferrals(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) return;
+
+        String sql = String.format(Locale.US,
+                "UPDATE task SET status = 'CANCELLED', last_modified = strftime('%%s','now') * 1000 " +
+                        "WHERE for_entity = '%s' " +
+                        "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
+                        "AND status IN ('READY', 'IN_PROGRESS')",
+                baseEntityId);
+        updateDB(sql);
+    }
 }
