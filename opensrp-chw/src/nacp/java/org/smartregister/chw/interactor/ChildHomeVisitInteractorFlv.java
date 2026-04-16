@@ -69,6 +69,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     private  static final String NONE="(?i)hakuna|none|chk_none";
     private Map<String, ServiceWrapper> serviceWrapperMap;
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
+    private com.vijay.jsonwizard.utils.FormUtils formUtils = new com.vijay.jsonwizard.utils.FormUtils();
 
     @Override
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
@@ -432,13 +433,22 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         actionList.put(context.getString(R.string.child_problem_solving), action);
     }
 
-    private void evaluateMinorAilments(MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException{
+    private void evaluateMinorAilments(MemberObject memberObject) throws BaseAncHomeVisitAction.ValidationException, JSONException {
         ChildMinorAilmentsActionHelper minorAilmentHelper = new ChildMinorAilmentsActionHelper(context, memberObject);
         String title = MessageFormat.format(context.getString(R.string.child_minor_ailments), memberObject.getFullName());
+        String formName = "linkages/native/child_linkage_form";
+
+        JSONObject minorAilments = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
+
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(minorAilments, details);
+        }
+
         BaseAncHomeVisitAction childMinorAilmentAction = new BaseAncHomeVisitAction.Builder(context, title)
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Utils.getLocalForm("linkages/native/child_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager))
+                .withFormName(formName)
+                .withJsonPayload(minorAilments.toString())
                 .withHelper(minorAilmentHelper)
                 .build();
 
