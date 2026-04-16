@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,6 +196,7 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
             }
         } catch (Exception e) {
             Timber.e(e);
+
         }
     }
 
@@ -299,11 +302,6 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         }
 
         followUpButtonHiddenByWaitPeriod = false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private boolean shouldOpenNcdVisit(String baseEntityId) {
@@ -578,6 +576,86 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
             if (sb.length() > 0) sb.append(" · ");
             sb.append(label);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.ncd_profile_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+            return true;
+        } else if (itemId == R.id.action_close_ncd_case) {
+            startNcdCaseClosure();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void startNcdCaseClosure() {
+        try {
+            JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
+                    this, org.smartregister.chw.util.Constants.JsonForm.NCD_CASE_MANAGEMENT_CLOSE);
+            if (formJson != null && memberObject != null) {
+                formJson.put("entity_id", memberObject.getBaseEntityId());
+                startFormActivity(formJson);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Failed to open NCD close form");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK && data != null) {
+            String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+            if (isNcdCloseForm(jsonString)) {
+                handleNcdCaseClosure(jsonString);
+                return;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private boolean isNcdCloseForm(String jsonString) {
+        if (TextUtils.isEmpty(jsonString)) return false;
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            return org.smartregister.chw.util.Constants.EncounterType.NCD_CASE_MANAGEMENT_CLOSE
+                    .equals(json.optString("encounter_type"));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void handleNcdCaseClosure(String jsonString) {
+        final String baseEntityId = memberObject != null ? memberObject.getBaseEntityId() : null;
+        appExecutors.diskIO().execute(() -> {
+            try {
+                org.smartregister.chw.ncd.util.NcdUtil.saveFormEvent(jsonString);
+            } catch (Exception e) {
+                Timber.e(e, "Failed to save NCD close event");
+            }
+            if (!TextUtils.isEmpty(baseEntityId)) {
+                NcdCaseManagementDao.cancelOpenTasks(baseEntityId);
+                NcdCaseManagementDao.voidOpenReferrals(baseEntityId);
+            }
+            appExecutors.mainThread().execute(() -> {
+                Toast.makeText(NcdProfileActivity.this,
+                        R.string.ncd_record_closed_success, Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        });
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        NcdMedicalHistoryActivity.startMe(this, memberObject);
     }
 
 }

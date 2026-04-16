@@ -22,9 +22,11 @@ import org.smartregister.chw.ncd.contract.BaseNcdVisitContract;
 import org.smartregister.chw.ncd.interactor.BaseNcdVisitInteractor;
 import org.smartregister.chw.ncd.model.BaseNcdVisitAction;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.NcdReferralTaskHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -112,55 +114,62 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     /**
      * Computes alert status from action payloads and injects it before the combined event is saved.
      * With COMBINED processing mode, all fields land in one event/row.
+     *
+     * Phase 2: referral creation is no longer invoked inline. Instead, when the visit raises a
+     * non-NONE alert, a {@link PendingNcdReferral} is staged on this interactor and the
+     * VisitActivity reads it after submission to prompt the CHW for confirmation. Only the
+     * Confirm path calls {@link org.smartregister.chw.util.NcdReferralTaskHelper#createReferralIfNeeded}.
      */
     @Override
     protected String submitVisit(boolean editMode, String memberID,
                                  Map<String, BaseNcdVisitAction> map,
                                  String parentEventType) throws Exception {
-        // Compute and inject alert status before forms are combined into one event
+        // Compute alert status and stage pending referral before forms are combined into one event
         computeAndInjectAlertStatus(map);
 
-        String result = super.submitVisit(editMode, memberID, map, parentEventType);
-
-        // Create referral task if needed (after visit is saved)
         if (!ALERT_NONE.equals(lastComputedAlertStatus) && StringUtils.isBlank(parentEventType)) {
-            String formSubmissionId = extractFormSubmissionId(result);
             String description = buildReferralDescription(lastComputedAlertStatus,
                     lastHasSideEffects, lastHasMissedClinic);
-            NcdReferralTaskHelper.createReferralIfNeeded(
+            pendingReferral = new PendingNcdReferral(
                     memberID,
-                    formSubmissionId,
                     lastComputedAlertStatus,
-                    description);
+                    description,
+                    Collections.unmodifiableList(new ArrayList<>(lastReferralReasons)));
+        } else {
+            pendingReferral = null;
         }
 
-        return result;
+        return super.submitVisit(editMode, memberID, map, parentEventType);
     }
 
-    private String extractFormSubmissionId(String visitJson) {
-        if (StringUtils.isBlank(visitJson)) return null;
-        try {
-            return new JSONObject(visitJson).optString("formSubmissionId", null);
-        } catch (Exception e) {
-            Timber.e(e, "Failed to extract formSubmissionId from visit JSON");
-            return null;
-        }
+    public PendingNcdReferral getPendingReferral() {
+        return pendingReferral;
     }
+
+    public void clearPendingReferral() {
+        pendingReferral = null;
+    }
+
+    private PendingNcdReferral pendingReferral = null;
 
     private String lastComputedAlertStatus = ALERT_NONE;
     private boolean lastHasSideEffects = false;
     private boolean lastHasMissedClinic = false;
     private String lastVitalsAlertReason = null;
+    private final List<String> lastReferralReasons = new ArrayList<>();
 
     private void computeAndInjectAlertStatus(Map<String, BaseNcdVisitAction> map) {
         BaseNcdVisitAction dangerSignsAction = findActionByFormName(map, NCD_FOLLOWUP_DANGER_SIGNS);
         BaseNcdVisitAction clinicalAction    = findActionByFormName(map, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
         BaseNcdVisitAction vitalsAction      = findActionByFormName(map, NCD_VITALS_FORM);
 
+        lastReferralReasons.clear();
+
         boolean isRedAlert = false;
         if (dangerSignsAction != null) {
-            isRedAlert = "true".equalsIgnoreCase(
-                    extractFieldValue(dangerSignsAction.getJsonPayload(), KEY_IS_RED_ALERT));
+            String payload = dangerSignsAction.getJsonPayload();
+            isRedAlert = "true".equalsIgnoreCase(extractFieldValue(payload, KEY_IS_RED_ALERT));
+            collectDangerSignReasons(payload);
         }
 
         // Vitals threshold breach escalates to RED regardless of danger signs result
@@ -170,6 +179,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
             if ("true".equalsIgnoreCase(vitalsAlert)) {
                 isRedAlert = true;
                 lastVitalsAlertReason = extractFieldValue(vitalsAction.getJsonPayload(), "vitals_alert_reason");
+                addVitalsReason(lastVitalsAlertReason);
             }
         }
 
@@ -182,6 +192,12 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                 isYellowAlert = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_YELLOW_ALERT));
                 lastHasSideEffects = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_SIDE_EFFECTS_ALERT));
                 lastHasMissedClinic = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_MISSED_CLINIC_ALERT));
+                if (lastHasSideEffects) {
+                    addReasonString(R.string.ncd_referral_reason_side_effects);
+                }
+                if (lastHasMissedClinic) {
+                    addReasonString(R.string.ncd_referral_reason_missed_clinic);
+                }
             }
         }
 
@@ -195,6 +211,67 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
 
         injectAlertStatusIntoPayload(dangerSignsAction, lastComputedAlertStatus,
                 lastHasSideEffects, lastHasMissedClinic);
+    }
+
+    private void collectDangerSignReasons(String payload) {
+        if (StringUtils.isBlank(payload)) return;
+        if ("yes".equalsIgnoreCase(extractFieldValue(payload, "non_healing_wounds"))) {
+            addReasonString(R.string.ncd_referral_reason_non_healing_wounds);
+        }
+        if ("yes".equalsIgnoreCase(extractFieldValue(payload, "neuropathy"))) {
+            addReasonString(R.string.ncd_referral_reason_neuropathy);
+        }
+        if ("yes".equalsIgnoreCase(extractFieldValue(payload, "vision_changes"))) {
+            addReasonString(R.string.ncd_referral_reason_vision_changes);
+        }
+        if ("yes".equalsIgnoreCase(extractFieldValue(payload, "chest_pain"))) {
+            addReasonString(R.string.ncd_referral_reason_chest_pain);
+        }
+    }
+
+    private void addVitalsReason(String reasonCode) {
+        if (StringUtils.isBlank(reasonCode)) return;
+        switch (reasonCode) {
+            case "high_bp":
+                addReasonString(R.string.ncd_referral_reason_high_bp);
+                break;
+            case "high_glucose":
+                addReasonString(R.string.ncd_referral_reason_high_glucose);
+                break;
+            case "high_bp_and_glucose":
+                addReasonString(R.string.ncd_referral_reason_high_bp_and_glucose);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void addReasonString(int stringResId) {
+        if (context == null) return;
+        String text = context.getString(stringResId);
+        if (StringUtils.isNotBlank(text) && !lastReferralReasons.contains(text)) {
+            lastReferralReasons.add(text);
+        }
+    }
+
+    /**
+     * DTO staged by the interactor when a visit produces an alert-worthy condition.
+     * The VisitActivity reads this after submission to prompt the CHW for confirmation
+     * before any referral event/task is written.
+     */
+    public static class PendingNcdReferral {
+        public final String baseEntityId;
+        public final String alertLevel; // ALERT_RED or ALERT_YELLOW
+        public final String description;
+        public final List<String> reasons;
+
+        public PendingNcdReferral(String baseEntityId, String alertLevel,
+                                  String description, List<String> reasons) {
+            this.baseEntityId = baseEntityId;
+            this.alertLevel = alertLevel;
+            this.description = description;
+            this.reasons = reasons;
+        }
     }
 
     /**

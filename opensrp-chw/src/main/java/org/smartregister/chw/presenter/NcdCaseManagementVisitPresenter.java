@@ -10,4 +10,8 @@ public class NcdCaseManagementVisitPresenter extends BaseNcdVisitPresenter {
     public NcdCaseManagementVisitPresenter(MemberObject memberObject, BaseNcdVisitContract.View view) {
         super(memberObject, view, new NcdCaseManagementInteractor());
     }
+
+    public NcdCaseManagementInteractor getCaseManagementInteractor() {
+        return (NcdCaseManagementInteractor) interactor;
+    }
 }

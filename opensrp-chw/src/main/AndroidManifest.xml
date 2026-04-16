@@ -336,6 +336,9 @@
             android:name=".activity.FpMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.NcdMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.ReportsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
