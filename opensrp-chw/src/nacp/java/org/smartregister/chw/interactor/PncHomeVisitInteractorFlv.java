@@ -93,6 +93,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
 
     private MemberObject memberObject;
+    private com.vijay.jsonwizard.utils.FormUtils formUtils = new com.vijay.jsonwizard.utils.FormUtils();
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -253,7 +254,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(title, babyMinorAilmentAction);
     }
 
-    private void evaluateEnvironmentalHygiene() throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateEnvironmentalHygiene() throws BaseAncHomeVisitAction.ValidationException, JSONException {
         String title = "Environment Hygiene/Safety";
         title = context.getString(R.string.pnc_hygiene_safety_counselling_title);
         HomeVisitActionHelper helper = new HomeVisitActionHelper() {
@@ -286,7 +287,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
-        JSONObject environmentalHygieneForm = FormUtils.getFormUtils().getFormJson(Utils.getLocalForm("pnc_hygiene_observation"));
+        JSONObject environmentalHygieneForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Utils.getLocalForm("pnc_hygiene_observation"));
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(environmentalHygieneForm, details);
         }
@@ -408,7 +409,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
-        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother());
+        JSONObject dangerSignsForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
         }
@@ -474,7 +475,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
 
-            JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby());
+            JSONObject dangerSignsForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby());
             if (details != null) {
                 ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
             }
@@ -640,7 +641,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
 
-            JSONObject exclusiveBreastFeedingForm = FormUtils.getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JsonForm.getChildHvBreastfeedingForm());
+            JSONObject exclusiveBreastFeedingForm = formUtils.getFormJsonFromRepositoryOrAssets(context, org.smartregister.chw.util.Constants.JsonForm.getChildHvBreastfeedingForm());
             if (details != null) {
                 ChwAncJsonFormUtils.populateForm(exclusiveBreastFeedingForm, details);
             }
@@ -690,7 +691,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         };
 
-        JSONObject counselingForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING());
+        JSONObject counselingForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(counselingForm, details);
         }
@@ -1260,7 +1261,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateDevelopmentScreening(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
-        JSONObject childDevelopmentScreeningAssessmentForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvDevelopmentScreeningAssessment());
+        JSONObject childDevelopmentScreeningAssessmentForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JsonForm.getChildHvDevelopmentScreeningAssessment());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(childDevelopmentScreeningAssessmentForm, details);
         }
@@ -1279,7 +1280,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluatePlayAssessmentCounseling(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
-        JSONObject playAssessmentCounselingForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvPlayAssessmentCounselling());
+        JSONObject playAssessmentCounselingForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JsonForm.getChildHvPlayAssessmentCounselling());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(playAssessmentCounselingForm, details);
         }
@@ -1300,7 +1301,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     private void evaluateCCDCommunicationAssessment(Person baby) throws Exception {
         String visitID = pncVisitAlertRule().getVisitID();
 
-        JSONObject childCommunicationAssessmentCounselingForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvCommunicationAssessmentCounselling());
+        JSONObject childCommunicationAssessmentCounselingForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JsonForm.getChildHvCommunicationAssessmentCounselling());
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(childCommunicationAssessmentCounselingForm, details);
         }
@@ -1318,13 +1319,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         otherActionTitles.add(MessageFormat.format(context.getString(R.string.pnc_child_communication_assessment), "(" + baby.getFullName() + ")"));
     }
 
-    protected void evaluateCareGiverResponsiveness(Person baby) throws BaseAncHomeVisitAction.ValidationException {
+    protected void evaluateCareGiverResponsiveness(Person baby) throws BaseAncHomeVisitAction.ValidationException, JSONException {
 
         CareGiverResponsivenessActionHelper actionHelper = new CareGiverResponsivenessActionHelper();
 
         String title = context.getString(R.string.ccd_caregiver_responsiveness);
 
-        JSONObject careGiverResponsivenessForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHvCcdCareGiverResponsiveness());
+        JSONObject careGiverResponsivenessForm = formUtils.getFormJsonFromRepositoryOrAssets(context, Constants.JsonForm.getChildHvCcdCareGiverResponsiveness());
+
         if (details != null) {
             ChwAncJsonFormUtils.populateForm(careGiverResponsivenessForm, details);
         }
@@ -1370,7 +1372,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(MessageFormat.format(title, "(" + baby.getFullName() + ")"), childSafetyAction);
         otherActionTitles.add(MessageFormat.format(title, "(" + baby.getFullName() + ")"));
     }
-
 
     private String getTranslatedValue(String name) {
         if (StringUtils.isBlank(name))
