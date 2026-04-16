@@ -44,8 +44,8 @@
     <string name="new_client">Mteja Mpya</string>
     <string name="existing_client">Mteja Aliyepo</string>
     <string name="harm_reduction_registration_type_prompt">Chagua aina ya usajili wa huduma za Harm Reduction</string>
-    <string name="harm_reduction_new_client_registration">Usajili wa Mteja Mpya</string>
-    <string name="harm_reduction_existing_client_registration">Usajili wa Mteja Aliyekuwepo</string>
+    <string name="harm_reduction_new_client_registration">Usajili wa Mpokea Huduma Mpya</string>
+    <string name="harm_reduction_existing_client_registration">Usajili wa Mpokea Huduma Aliyekuwepo</string>
     <string name="cancel_referral">Futa Rufaa</string>
     <string name="cancel_referral_title">Futa Rufaa?</string>
     <string name="record_mother_champion_follouwp_visit">Rekodi Hudhurio la Mama Kinara katika Jamii</string>
@@ -698,13 +698,13 @@
     <string name="harm_reduction_cause_of_death">Sababu ya kifo</string>
     <string name="harm_reduction_cause_of_death_other_specify">Taja sababu nyingine ya kifo</string>
     <string name="harm_reduction_client_deceased">Amefariki</string>
-    <string name="harm_reduction_client_started_mat">Je, mteja ameanza MAT?</string>
+    <string name="harm_reduction_client_started_mat">Je, mpokea huduma ameanza MAT?</string>
     <string name="harm_reduction_cocaine">Cocaine</string>
     <string name="harm_reduction_communicable_diseases">Magonjwa ya kuambukiza</string>
     <string name="harm_reduction_community">Ngazi ya jamii</string>
     <string name="harm_reduction_condom_education_prompt">Mwongozo</string>
     <string name="harm_reduction_condom_use_during_sex">Je, unatumia kondomu wakati wa kujamiiana?</string>
-    <string name="harm_reduction_condoms_given">Je mteja amepewa Kondomu?</string>
+    <string name="harm_reduction_condoms_given">Je mpokea huduma amepewa Kondomu?</string>
     <string name="harm_reduction_continue_service">Anaendelea na Huduma</string>
     <string name="harm_reduction_ctc_id">Namba ya Utambulisho (CTC)</string>
     <string name="harm_reduction_death_action_taken">Nini kilifanyika</string>
@@ -713,7 +713,7 @@
     <string name="harm_reduction_drinking">Kunywa</string>
     <string name="harm_reduction_drug_adherence_status_ctc">Hali ya ufuasi wa huduma</string>
     <string name="harm_reduction_dry_cotton">Pamba kavu</string>
-    <string name="harm_reduction_engaging_in_sexual_activity">Je, mteja anashiriki ngono?</string>
+    <string name="harm_reduction_engaging_in_sexual_activity">Je, mpokea huduma anashiriki ngono?</string>
     <string name="harm_reduction_enrolled_into_ctc_services">Je, mpokea huduma amejiunga na huduma za matibabu na matunzo (CTC)?</string>
     <string name="harm_reduction_epidemic_diseases">Magonjwa ya mlipuko</string>
     <string name="harm_reduction_excessive_alcohol_intake_smoking">Unywaji/Uvutaji kupita kiasi</string>
@@ -733,7 +733,7 @@
     <string name="harm_reduction_hiv_aids">VVU na UKIMWI</string>
     <string name="harm_reduction_hiv_results">Matokeo ya kipimo cha VVU</string>
     <string name="harm_reduction_hiv_test_location">Upimaji ulipofanyika</string>
-    <string name="harm_reduction_hiv_tested">Je, mteja amewahi kupima VVU?</string>
+    <string name="harm_reduction_hiv_tested">Je, mpokea huduma amewahi kupima VVU?</string>
     <string name="harm_reduction_hiv_testing">Upimaji wa VVU</string>
     <string name="harm_reduction_home">Nyumbani</string>
     <string name="harm_reduction_iec_communicable_diseases">Magonjwa ya kuambukiza</string>
@@ -796,7 +796,7 @@
     <string name="harm_reduction_lowering_infection_risk">Kupunguza hatari ya maambukizi</string>
     <string name="harm_reduction_marijuana">Bangi</string>
     <string name="harm_reduction_maskani">Maskani</string>
-    <string name="harm_reduction_mat_clients">Wateja wa MAT</string>
+    <string name="harm_reduction_mat_clients">Wapokea Huduma wa MAT</string>
     <string name="harm_reduction_mental_health">Afya ya akili</string>
     <string name="harm_reduction_methadone_services">Huduma ya Methadone (MAT)</string>
     <string name="harm_reduction_methadone_use">Matumizi ya Methadone</string>
@@ -885,7 +885,7 @@
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypertension">Rufaa kwa usimamizi wa presha ya juu</string>
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypotension">Rufaa kwa usimamizi wa presha ya chini</string>
     <string name="harm_reduction_sober_house_weight">Uzito</string>
-    <string name="harm_reduction_sober_house_client_current_status">Hali ya sasa ya mteja</string>
+    <string name="harm_reduction_sober_house_client_current_status">Hali ya sasa ya mpokea huduma</string>
     <string name="harm_reduction_sober_house_attended_recovery_meetings">Amehudhuria mikutano ya urejeshaji</string>
     <string name="harm_reduction_sober_house_recovery_meeting_types">Aina za mikutano ya urejeshaji</string>
     <string name="harm_reduction_sober_house_recovery_meeting_special_topic_specify">Mada maalum ya mkutano wa urejeshaji (ainisha)</string>
@@ -943,8 +943,8 @@
     <string name="harm_reduction_sober_house_stable">Yuko Imara / Thabiti</string>
     <string name="harm_reduction_sober_house_stis_reproductive">Magonjwa ya Ngono na via vya Uzazi</string>
     <string name="harm_reduction_sober_house_wounds_abscesses">Matibabu ya vidonda na Mabunyufu (majipu)</string>
-    <string name="record_services_provided_to_mat_clients">Rekodi huduma zilizotolewa kwa wateja wa MAT</string>
-    <string name="harm_reduction_mat_clients_followup_visit">Hudhurio la ufuatiliaji kwa wateja wa MAT</string>
+    <string name="record_services_provided_to_mat_clients">Rekodi huduma zilizotolewa kwa wapokea huduma wa MAT</string>
+    <string name="harm_reduction_mat_clients_followup_visit">Hudhurio la ufuatiliaji kwa wapokea huduma wa MAT</string>
     <string name="harm_reduction_mat_clients_health_education_provided">Elimu iliyotolewa</string>
     <string name="harm_reduction_mat_clients_education_delivery_method">Njia ya utoaji elimu</string>
     <string name="harm_reduction_mat_clients_group_session">Kikao cha vikundi</string>
