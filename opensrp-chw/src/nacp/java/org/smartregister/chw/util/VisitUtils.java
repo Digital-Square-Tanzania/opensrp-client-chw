@@ -21,14 +21,14 @@ public class VisitUtils {
     private static final DateTimeFormatter VISIT_DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd");
     private static final DateTimeFormatter CREATED_DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
-    public static boolean isFirstVisit(final MemberObject member) {
+    public static boolean isFirstVisit(final MemberObject member, boolean editMode) {
         int gaWeeks = member.getGestationAge();
-        return gaWeeks <= 16 && isVisitInRangeWithoutECD(member, 0, 16);
+        return gaWeeks <= 16 && isVisitInRangeWithoutECD(member, 0, 16, editMode);
     }
 
-    public static boolean isSecondVisit(final MemberObject member) {
+    public static boolean isSecondVisit(final MemberObject member, boolean editMode) {
         int gaWeeks = member.getGestationAge();
-        return gaWeeks >= 16 && gaWeeks <= 24 && isVisitInRangeWithoutECD(member, 16, 24);
+        return gaWeeks >= 16 && gaWeeks <= 24 && isVisitInRangeWithoutECD(member, 16, 24, editMode);
     }
 
     public static boolean isThirdVisit(final MemberObject member) {
@@ -45,14 +45,16 @@ public class VisitUtils {
         return visits != null ? visits : Collections.emptyList();
     }
 
-    private static boolean isVisitInRangeWithoutECD(MemberObject member, int minWeeks, int maxWeeks) {
+    private static boolean isVisitInRangeWithoutECD(MemberObject member, int minWeeks, int maxWeeks, boolean editMode) {
         List<Visit> visits = getPrevVisits(member);
-        if (visits.isEmpty()) return true;
+        int visitsToCheck = editMode ? visits.size() - 1 : visits.size();
+        if (visitsToCheck <= 0) return true;
 
         LocalDate lmpDate = parseLmpDate(member.getLastMenstrualPeriod());
         if (lmpDate == null) return true;
 
-        for (Visit visit : visits) {
+        for (int i = 0; i < visitsToCheck; i++) {
+            Visit visit = visits.get(i);
             LocalDate visitDate = getVisitDate(visit, member.getDateCreated());
             if (visitDate == null) continue;
 
@@ -107,7 +109,8 @@ public class VisitUtils {
                     return true;
                 }
             }
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+        }
 
         return false;
     }
