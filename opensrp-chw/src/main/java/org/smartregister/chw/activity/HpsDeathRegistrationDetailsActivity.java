@@ -58,7 +58,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryActivity {
+    public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryActivity {
     private static String baseEntityId;
 
     private final Flavor flavor = new DeathRegisterDetailsActivityFlv();
