@@ -12004,35 +12004,19 @@
           }
         },
         {
-          "column_name": "other_collection",
+          "column_name": "number_of_used_needles_and_syringes_collected",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "other_collection"
+            "concept": "number_of_used_needles_and_syringes_collected"
           }
         },
         {
-          "column_name": "fixed_bins",
+          "column_name": "issues_challenges_related_to_collection_of_used_needles_and_syringes",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "fixed_bins"
-          }
-        },
-        {
-          "column_name": "total_safety_boxes_collected",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "total_safety_boxes_collected"
-          }
-        },
-        {
-          "column_name": "name_of_ow",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "name_of_ow"
+            "concept": "issues_challenges_related_to_collection_of_used_needles_and_syringes"
           }
         },
         {

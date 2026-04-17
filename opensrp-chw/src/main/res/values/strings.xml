@@ -773,6 +773,8 @@
     <string name="harm_reduction_date_of_collection">Date of Collection</string>
     <string name="harm_reduction_maskani_name">Name of Maskani</string>
     <string name="harm_reduction_collection_site_gps">GPS location of collection site</string>
+    <string name="harm_reduction_number_of_used_needles_and_syringes_collected">Number of used Needles and Syringes collected</string>
+    <string name="harm_reduction_issues_challenges_related_to_collection_of_used_needles_and_syringes">Issues/Challenges related to collection of used syringes</string>
     <string name="harm_reduction_other_collection">Number of Safety Boxes collected (used syringes) in Other Collection sites</string>
     <string name="harm_reduction_fixed_bins">Number of Safety Boxes collected (used syringes) in Fixed Bins</string>
     <string name="harm_reduction_total_safety_boxes_collected">Total Safety Boxes collected (used syringes)</string>
