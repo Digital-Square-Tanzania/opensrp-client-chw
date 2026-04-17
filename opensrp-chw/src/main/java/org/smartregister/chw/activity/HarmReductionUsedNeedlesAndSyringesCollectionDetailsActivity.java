@@ -63,9 +63,11 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity extend
             "date_of_collection",
             "maskani_name",
             "collection_site_gps",
+            "number_of_used_needles_and_syringes_collected",
+            "issues_challenges_related_to_collection_of_used_needles_and_syringes",
+            "total_safety_boxes_collected",
             "other_collection",
             "fixed_bins",
-            "total_safety_boxes_collected",
             "name_of_ow"
     };
 

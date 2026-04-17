@@ -926,6 +926,8 @@
     <string name="harm_reduction_date_of_collection">Tarehe ya Mkusanyiko</string>
     <string name="harm_reduction_maskani_name">Jina la Maskani</string>
     <string name="harm_reduction_collection_site_gps">GPS eneo la tovuti ya ukusanyaji</string>
+    <string name="harm_reduction_number_of_used_needles_and_syringes_collected">Idadi ya sindano na mabomba yaliyotumika yaliyokusanywa</string>
+    <string name="harm_reduction_issues_challenges_related_to_collection_of_used_needles_and_syringes">Changamoto zinazohusiana na ukusanyaji wa sindano na mabomba yaliyotumika</string>
     <string name="harm_reduction_other_collection">Idadi ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika) katika tovuti Zingine za Mkusanyiko</string>
     <string name="harm_reduction_fixed_bins">Idadi ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika) kwenye Mapipa yasiyobadilika</string>
     <string name="harm_reduction_total_safety_boxes_collected">Jumla ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika)</string>

@@ -50,26 +50,26 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionRegisterAdapter extend
 
     protected class CollectionViewHolder extends RecyclerView.ViewHolder {
         public TextView collectionDate;
-        public TextView safetyBoxesCollected;
+        public TextView usedNeedlesAndSyringesCollected;
 
         public CollectionViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         public void bindData(HarmReductionUsedNeedlesAndSyringesCollectionModel collectionModel) {
-            safetyBoxesCollected = itemView.findViewById(R.id.mobilization_session_participants);
+            usedNeedlesAndSyringesCollected = itemView.findViewById(R.id.mobilization_session_participants);
             collectionDate = itemView.findViewById(R.id.mobilization_session_date);
 
-            String totalSafetyBoxes = collectionModel.getTotalSafetyBoxesCollected();
-            if (totalSafetyBoxes == null) {
-                totalSafetyBoxes = "0";
+            String collectedCount = collectionModel.getUsedNeedlesAndSyringesCollected();
+            if (collectedCount == null) {
+                collectedCount = "0";
             }
             String date = collectionModel.getCollectionDate();
             if (date == null) {
                 date = "";
             }
 
-            safetyBoxesCollected.setText(context.getString(R.string.harm_reduction_safety_boxes_collected, totalSafetyBoxes));
+            usedNeedlesAndSyringesCollected.setText(context.getString(R.string.harm_reduction_used_needles_and_syringes_collected, collectedCount));
             collectionDate.setText(context.getString(R.string.harm_reduction_collection_date, date));
             itemView.setOnClickListener(view -> HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity.startMe((Activity) context, collectionModel.getCollectionId()));
         }
