@@ -705,6 +705,7 @@
     <string name="harm_reduction_condom_education_prompt">Mwongozo</string>
     <string name="harm_reduction_condom_use_during_sex">Je, unatumia kondomu wakati wa kujamiiana?</string>
     <string name="harm_reduction_condoms_given">Je mpokea huduma amepewa Kondomu?</string>
+    <string name="harm_reduction_controlled_drugs">Dawa tiba zenye asili ya kulevya</string>
     <string name="harm_reduction_continue_service">Anaendelea na Huduma</string>
     <string name="harm_reduction_ctc_id">Namba ya Utambulisho (CTC)</string>
     <string name="harm_reduction_death_action_taken">Nini kilifanyika</string>
@@ -727,6 +728,7 @@
     <string name="harm_reduction_health_education_other_specify">Bainisha elimu nyingine ya afya iliyotolewa</string>
     <string name="harm_reduction_health_education_provided">Elimu ya afya iliyotolewa</string>
     <string name="harm_reduction_health_services_advocacy">Uhamasishaji wa huduma za Afya</string>
+    <string name="harm_reduction_hashish">Hashish</string>
     <string name="harm_reduction_hepatitis_bc">Homa ya Ini</string>
     <string name="harm_reduction_hepatitis_bc_screening">Uchunguzi wa Homa ya Ini B/C</string>
     <string name="harm_reduction_heroine">Heroine</string>
@@ -818,6 +820,7 @@
     <string name="harm_reduction_number_of_sexual_partners">Idadi ya wenza wa kingono</string>
     <string name="harm_reduction_nutrition">Lishe</string>
     <string name="harm_reduction_other">Nyinginezo (Taja)</string>
+    <string name="harm_reduction_petrol">Petroli</string>
     <string name="harm_reduction_overdose">Hali ya kuzidisha dawa (Overdose)</string>
     <string name="harm_reduction_overdose_action_taken">Nini kilifanyika</string>
     <string name="harm_reduction_overdose_management">Kuzuia na kumudu Overdose</string>
@@ -868,6 +871,7 @@
     <string name="harm_reduction_tb_leprosy">Kifua Kikuu/Ukoma</string>
     <string name="harm_reduction_tb_screening">Uchunguzi wa Kifua Kikuu</string>
     <string name="harm_reduction_tobacco">Tumbaku</string>
+    <string name="harm_reduction_glue">Gundi</string>
     <string name="harm_reduction_tramadol">Tramadol</string>
     <string name="harm_reduction_undergoing_treatment">Yupo kwenye matibabu</string>
     <string name="harm_reduction_unknown">Haijulikani</string>

@@ -544,6 +544,7 @@
     <string name="harm_reduction_condom_education_prompt">Guidance</string>
     <string name="harm_reduction_condom_use_during_sex">Do you use condoms during sexual activity?</string>
     <string name="harm_reduction_condoms_given">Condoms given?</string>
+    <string name="harm_reduction_controlled_drugs">Controlled Drugs</string>
     <string name="harm_reduction_continue_service">Continue service</string>
     <string name="harm_reduction_ctc_id">CTC identification number</string>
     <string name="harm_reduction_death_action_taken">What was done</string>
@@ -568,6 +569,7 @@
     <string name="harm_reduction_health_education_other_specify">Specify other health education provided</string>
     <string name="harm_reduction_health_education_provided">Health education provided</string>
     <string name="harm_reduction_health_services_advocacy">Health services advocacy</string>
+    <string name="harm_reduction_hashish">Hashish</string>
     <string name="harm_reduction_hepatitis_bc">Hepatitis B/C</string>
     <string name="harm_reduction_hepatitis_bc_screening">Hepatitis B/C Screening</string>
     <string name="harm_reduction_heroine">Heroine</string>
@@ -661,6 +663,7 @@
     <string name="harm_reduction_number_of_sexual_partners">Number of sexual partners</string>
     <string name="harm_reduction_nutrition">Nutrition</string>
     <string name="harm_reduction_other">Others (Specify)</string>
+    <string name="harm_reduction_petrol">Petrol</string>
     <string name="harm_reduction_overdose">Overdose</string>
     <string name="harm_reduction_overdose_action_taken">What was done</string>
     <string name="harm_reduction_overdose_management">Overdose management and prevention</string>
@@ -713,6 +716,7 @@
     <string name="harm_reduction_tb_leprosy">TB/Leprosy</string>
     <string name="harm_reduction_tb_screening">TB Screening</string>
     <string name="harm_reduction_tobacco">Tobacco</string>
+    <string name="harm_reduction_glue">Glue</string>
     <string name="harm_reduction_tramadol">Tramadol</string>
     <string name="harm_reduction_undergoing_treatment">Undergoing treatment</string>
     <string name="harm_reduction_unknown">Unknown</string>
