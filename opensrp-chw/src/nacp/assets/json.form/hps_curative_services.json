@@ -661,8 +661,7 @@
         "openmrs_entity_id": "malaria_drugs_treatment",
         "label": "Malaria Treatment Provided",
         "text_color": "#000000",
-        "type": "check_box",
-        "combine_checkbox_option_values": "true",
+        "type": "native_radio",
         "options": [
           {
             "key": "malaria_drugs",
