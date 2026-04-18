@@ -80,7 +80,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza jibu sahihi"
+          "err": "Lazima iwe sawa au chini ya idadi ya kaya"
         },
         "v_numeric": {
           "value": "true",
@@ -103,7 +103,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:household_max)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -117,7 +117,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza jibu sahihi"
+          "err": "Lazima iwe sawa au chini ya idadi ya kaya"
         },
         "v_numeric": {
           "value": "true",
@@ -154,7 +154,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza jibu sahihi"
+          "err": "Lazima iwe sawa au chini ya idadi ya kaya"
         },
         "v_numeric": {
           "value": "true",
