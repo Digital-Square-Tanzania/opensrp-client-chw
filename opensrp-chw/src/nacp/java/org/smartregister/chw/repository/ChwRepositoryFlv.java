@@ -150,6 +150,9 @@ public class ChwRepositoryFlv {
                 case 37:
                     upgradeToVersion37(db);
                     break;
+                case 40:
+                    upgradeToVersion40(db);
+                    break;
                 default:
                     break;
             }
@@ -724,6 +727,14 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion37-config");
+        }
+    }
+
+    private static void upgradeToVersion40(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_hps_client_services ADD COLUMN malaria_drugs_treatment VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion40");
         }
     }
 }

@@ -103,7 +103,7 @@ actions:
 name: step1_malaria_drugs_treatment
 description: malaria treatment provided
 priority: 1
-condition: "step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt')"
+condition: "step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt') || !step1_malaria_drugs_treatment.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
@@ -134,5 +134,4 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
-
 

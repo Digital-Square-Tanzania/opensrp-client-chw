@@ -7296,6 +7296,14 @@
           }
         },
         {
+          "column_name": "malaria_drugs_treatment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_drugs_treatment"
+          }
+        },
+        {
           "column_name": "referral_provided",
           "type": "Event",
           "json_mapping": {
