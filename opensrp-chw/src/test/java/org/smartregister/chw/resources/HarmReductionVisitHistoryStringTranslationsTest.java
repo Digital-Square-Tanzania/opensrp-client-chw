@@ -80,6 +80,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_condom_education_prompt", "Guidance");
         values.put("harm_reduction_condom_use_during_sex", "Do you use condoms during sexual activity?");
         values.put("harm_reduction_condoms_given", "Condoms given?");
+        values.put("harm_reduction_controlled_drugs", "Controlled Drugs");
         values.put("harm_reduction_continue_service", "Continue service");
         values.put("harm_reduction_ctc_id", "CTC identification number");
         values.put("harm_reduction_death_action_taken", "What was done");
@@ -98,6 +99,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_gbv_vac", "GBV/VAC");
         values.put("harm_reduction_good_adherence", "Good adherence");
         values.put("harm_reduction_has_symptoms", "Has symptoms");
+        values.put("harm_reduction_hashish", "Hashish");
         values.put("harm_reduction_health_education_given", "Was health education provided?");
         values.put("harm_reduction_health_education_other_specify", "Specify other health education provided");
         values.put("harm_reduction_health_education_provided", "Health education provided");
@@ -192,6 +194,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_number_of_sexual_partners", "Number of sexual partners");
         values.put("harm_reduction_nutrition", "Nutrition");
         values.put("harm_reduction_other", "Others (Specify)");
+        values.put("harm_reduction_petrol", "Petrol");
         values.put("harm_reduction_overdose", "Overdose");
         values.put("harm_reduction_overdose_action_taken", "What was done");
         values.put("harm_reduction_overdose_management", "Overdose management and prevention");
@@ -241,6 +244,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_tb_leprosy", "TB/Leprosy");
         values.put("harm_reduction_tb_screening", "TB Screening");
         values.put("harm_reduction_tobacco", "Tobacco");
+        values.put("harm_reduction_glue", "Glue");
         values.put("harm_reduction_tramadol", "Tramadol");
         values.put("harm_reduction_undergoing_treatment", "Undergoing treatment");
         values.put("harm_reduction_unknown", "Unknown");
@@ -270,6 +274,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_condom_education_prompt", "Mwongozo");
         values.put("harm_reduction_condom_use_during_sex", "Je, unatumia kondomu wakati wa kujamiiana?");
         values.put("harm_reduction_condoms_given", "Je mpokea huduma amepewa Kondomu?");
+        values.put("harm_reduction_controlled_drugs", "Dawa tiba zenye asili ya kulevya");
         values.put("harm_reduction_continue_service", "Anaendelea na Huduma");
         values.put("harm_reduction_ctc_id", "Namba ya Utambulisho (CTC)");
         values.put("harm_reduction_death_action_taken", "Nini kilifanyika");
@@ -288,6 +293,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_gbv_vac", "Ukatili wa Kijinsia/Watoto");
         values.put("harm_reduction_good_adherence", "Anahudhuria");
         values.put("harm_reduction_has_symptoms", "Ana dalili");
+        values.put("harm_reduction_hashish", "Hashish");
         values.put("harm_reduction_health_education_given", "Je, elimu imetolewa?");
         values.put("harm_reduction_health_education_other_specify", "Bainisha elimu nyingine ya afya iliyotolewa");
         values.put("harm_reduction_health_education_provided", "Elimu ya afya iliyotolewa");
@@ -382,6 +388,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_number_of_sexual_partners", "Idadi ya wenza wa kingono");
         values.put("harm_reduction_nutrition", "Lishe");
         values.put("harm_reduction_other", "Nyinginezo (Taja)");
+        values.put("harm_reduction_petrol", "Petroli");
         values.put("harm_reduction_overdose", "Hali ya kuzidisha dawa (Overdose)");
         values.put("harm_reduction_overdose_action_taken", "Nini kilifanyika");
         values.put("harm_reduction_overdose_management", "Kuzuia na kumudu Overdose");
@@ -431,6 +438,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_tb_leprosy", "Kifua Kikuu/Ukoma");
         values.put("harm_reduction_tb_screening", "Uchunguzi wa Kifua Kikuu");
         values.put("harm_reduction_tobacco", "Tumbaku");
+        values.put("harm_reduction_glue", "Gundi");
         values.put("harm_reduction_tramadol", "Tramadol");
         values.put("harm_reduction_undergoing_treatment", "Yupo kwenye matibabu");
         values.put("harm_reduction_unknown", "Haijulikani");
