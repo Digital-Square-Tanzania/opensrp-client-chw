@@ -18,7 +18,7 @@ public class HpsCurativeServicesConfigTest {
 
     @Test
     public void ecHpsClientServicesShouldMapMalariaDrugsTreatment() throws Exception {
-        JSONArray tables = new JSONArray(Files.readString(Paths.get(EC_CLIENT_FIELDS_PATH), StandardCharsets.UTF_8));
+        JSONArray tables = new JSONObject(readFile(EC_CLIENT_FIELDS_PATH)).getJSONArray("bindobjects");
         JSONObject hpsClientServices = findTable(tables, "ec_hps_client_services");
         Assert.assertNotNull("Missing ec_hps_client_services table definition", hpsClientServices);
 
@@ -31,7 +31,7 @@ public class HpsCurativeServicesConfigTest {
 
     @Test
     public void hpsCurativeServicesRuleShouldKeepMalariaTreatmentVisibleDuringEdit() throws Exception {
-        String rules = Files.readString(Paths.get(HPS_CURATIVE_RULES_PATH), StandardCharsets.UTF_8);
+        String rules = readFile(HPS_CURATIVE_RULES_PATH);
 
         Assert.assertTrue(
                 "malaria_drugs_treatment relevance should keep the field visible when a saved value exists",
@@ -41,8 +41,8 @@ public class HpsCurativeServicesConfigTest {
 
     @Test
     public void hpsCurativeServicesMigrationShouldAddMalariaDrugsTreatmentColumn() throws Exception {
-        String repositoryFlv = Files.readString(Paths.get(HPS_REPOSITORY_FLV_PATH), StandardCharsets.UTF_8);
-        String buildGradle = Files.readString(Paths.get(BUILD_GRADLE_PATH), StandardCharsets.UTF_8);
+        String repositoryFlv = readFile(HPS_REPOSITORY_FLV_PATH);
+        String buildGradle = readFile(BUILD_GRADLE_PATH);
 
         Assert.assertTrue(
                 "The NACP repository migration should add malaria_drugs_treatment to ec_hps_client_services",
@@ -50,7 +50,7 @@ public class HpsCurativeServicesConfigTest {
         );
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the new migration runs on upgrade",
-                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '40'")
+                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '41'")
         );
     }
 
@@ -72,5 +72,9 @@ public class HpsCurativeServicesConfigTest {
             }
         }
         return false;
+    }
+
+    private String readFile(String path) throws Exception {
+        return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
     }
 }

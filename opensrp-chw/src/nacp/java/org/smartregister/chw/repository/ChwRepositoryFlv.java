@@ -2,6 +2,7 @@ package org.smartregister.chw.repository;
 
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
+import android.database.Cursor;
 import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -152,6 +153,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 40:
                     upgradeToVersion40(db);
+                    break;
+                case 41:
+                    upgradeToVersion41(db);
                     break;
                 default:
                     break;
@@ -735,6 +739,88 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_hps_client_services ADD COLUMN malaria_drugs_treatment VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion40");
+        }
+    }
+
+    private static void upgradeToVersion41(SQLiteDatabase db) {
+        String[] newAttendanceColumns = {
+                "number_of_committee_members_attended_second_quarter",
+                "number_of_committee_members_attended_third_quarter",
+                "number_of_committee_members_attended_fourth_quarter"
+        };
+        String[] attendanceColumnsToBackfill = {
+                "number_of_committee_members_attended_first_quarter",
+                "number_of_committee_members_attended_second_quarter",
+                "number_of_committee_members_attended_third_quarter",
+                "number_of_committee_members_attended_fourth_quarter"
+        };
+
+        for (String column : newAttendanceColumns) {
+            try {
+                db.execSQL("ALTER TABLE ec_hps_annual_census_register ADD COLUMN " + column + " VARCHAR;");
+            } catch (Exception e) {
+                Timber.e(e, "upgradeToVersion41-add-" + column);
+            }
+        }
+
+        backfillAnnualCensusQuarterAttendance(db, attendanceColumnsToBackfill);
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion41-config");
+        }
+    }
+
+    private static void backfillAnnualCensusQuarterAttendance(SQLiteDatabase db, String[] attendanceColumns) {
+        Cursor cursor = null;
+        try {
+            String[] selectionArgs = new String[attendanceColumns.length + 1];
+            selectionArgs[0] = "HPS Annual Census";
+
+            StringBuilder inClause = new StringBuilder();
+            for (int i = 0; i < attendanceColumns.length; i++) {
+                selectionArgs[i + 1] = attendanceColumns[i];
+                if (i > 0) {
+                    inClause.append(", ");
+                }
+                inClause.append("?");
+            }
+
+            cursor = db.rawQuery(
+                    "SELECT v.base_entity_id, vd.visit_key, " +
+                            "COALESCE(NULLIF(vd.human_readable_details, ''), NULLIF(vd.details, ''), '') AS value " +
+                            "FROM visits v " +
+                            "INNER JOIN visit_details vd ON vd.visit_id = v.visit_id " +
+                            "WHERE v.visit_type = ? AND vd.visit_key IN (" + inClause + ")",
+                    selectionArgs
+            );
+
+            while (cursor.moveToNext()) {
+                String baseEntityId = cursor.getString(cursor.getColumnIndex("base_entity_id"));
+                String visitKey = cursor.getString(cursor.getColumnIndex("visit_key"));
+                String value = cursor.getString(cursor.getColumnIndex("value"));
+
+                if (baseEntityId == null || visitKey == null || value == null || value.trim().isEmpty()) {
+                    continue;
+                }
+
+                db.execSQL(
+                        "UPDATE ec_hps_annual_census_register " +
+                                "SET " + visitKey + " = ? " +
+                                "WHERE base_entity_id = ? " +
+                                "AND (" + visitKey + " IS NULL OR " + visitKey + " = '')",
+                        new Object[]{value.trim(), baseEntityId}
+                );
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion41-backfill");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 }

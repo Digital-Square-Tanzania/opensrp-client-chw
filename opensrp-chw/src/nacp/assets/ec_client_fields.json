@@ -9510,6 +9510,30 @@
           }
         },
         {
+          "column_name": "number_of_committee_members_attended_second_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_second_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_third_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_third_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_fourth_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_fourth_quarter"
+          }
+        },
+        {
           "column_name": "number_of_registered_alternative_medicine_service_providers",
           "type": "Event",
           "json_mapping": {
