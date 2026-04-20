@@ -37,6 +37,53 @@ public class HarmReductionSoberHouseReportObject extends ReportObject {
                     "LEFT JOIN ec_family_member efm " +
                     "ON efm.base_entity_id = ehshe.base_entity_id AND efm.date_removed IS NULL";
 
+    private static final String HIV_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.hiv_result, '')) = 'positive' AND (" +
+                    "lower(ifnull(ehshe.enrolled_into_ctc_services, '')) = 'yes' OR " +
+                    "trim(ifnull(ehshe.ctc_id, '')) <> ''" +
+                    ")";
+    private static final String STIS_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.stis_treatment_after_screening, '')) = 'yes'";
+    private static final String HEART_DISEASES_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.heart_diseases_treatment_after_screening, '')) = 'yes'";
+    private static final String MENTAL_HEALTH_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.mental_health_treatment_after_screening, '')) = 'yes'";
+    private static final String HEPATITIS_B_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.hepatitis_b_treatment_after_screening, '')) = 'yes'";
+    private static final String HEPATITIS_C_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.hepatitis_c_treatment_after_screening, '')) = 'yes'";
+    private static final String OTHER_HEPATITIS_PROXY_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%' AND " +
+                    "lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'";
+    private static final String DIABETES_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.diabetes_treatment_after_screening, '')) = 'yes'";
+    private static final String TUBERCULOSIS_TREATMENT_CONDITION =
+            "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' AND " +
+                    "lower(ifnull(ehshe.tuberculosis_treatment_after_screening, '')) = 'yes'";
+    private static final String OTHER_CONDITIONS_TREATMENT_CONDITION =
+            "trim(ifnull(ehshe.other_conditions_specify, '')) <> '' AND " +
+                    "lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%' AND " +
+                    "lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'";
+    private static final String ANY_REPORTED_CONDITION_TREATED_CONDITION =
+            "(" +
+                    HIV_TREATMENT_CONDITION + " OR " +
+                    STIS_TREATMENT_CONDITION + " OR " +
+                    HEART_DISEASES_TREATMENT_CONDITION + " OR " +
+                    MENTAL_HEALTH_TREATMENT_CONDITION + " OR " +
+                    HEPATITIS_B_TREATMENT_CONDITION + " OR " +
+                    HEPATITIS_C_TREATMENT_CONDITION + " OR " +
+                    OTHER_HEPATITIS_PROXY_TREATMENT_CONDITION + " OR " +
+                    DIABETES_TREATMENT_CONDITION + " OR " +
+                    TUBERCULOSIS_TREATMENT_CONDITION + " OR " +
+                    OTHER_CONDITIONS_TREATMENT_CONDITION +
+                    ")";
+
     private static final List<BreakdownColumn> BREAKDOWN_COLUMNS = createBreakdownColumns();
     private static final List<String> RESULT_COLUMNS = createResultColumns();
     private static final List<IndicatorDefinition> INDICATOR_DEFINITIONS = createIndicatorDefinitions();
@@ -211,49 +258,17 @@ public class HarmReductionSoberHouseReportObject extends ReportObject {
                 enrollmentIndicator("sh-8j",
                         "trim(ifnull(ehshe.other_conditions_specify, '')) <> '' AND " +
                                 "lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'"),
-                enrollmentIndicator("sh-9",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND (" +
-                                "lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR " +
-                                "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR " +
-                                "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR " +
-                                "trim(ifnull(ehshe.other_conditions_specify, '')) <> ''" +
-                                ")"),
-                enrollmentIndicator("sh-9a",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.hiv_result, '')) = 'positive'"),
-                enrollmentIndicator("sh-9b",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9c",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9d",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9e",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9f",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9g",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'"),
-                enrollmentIndicator("sh-9h",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9i",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'"),
-                enrollmentIndicator("sh-9j",
-                        "lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes' AND " +
-                                "trim(ifnull(ehshe.other_conditions_specify, '')) <> '' AND " +
-                                "lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'"),
+                enrollmentIndicator("sh-9", ANY_REPORTED_CONDITION_TREATED_CONDITION),
+                enrollmentIndicator("sh-9a", HIV_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9b", STIS_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9c", HEART_DISEASES_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9d", MENTAL_HEALTH_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9e", HEPATITIS_B_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9f", HEPATITIS_C_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9g", OTHER_HEPATITIS_PROXY_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9h", DIABETES_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9i", TUBERCULOSIS_TREATMENT_CONDITION),
+                enrollmentIndicator("sh-9j", OTHER_CONDITIONS_TREATMENT_CONDITION),
                 serviceIndicator("sh-10",
                         "(" +
                                 "lower(ifnull(ehshs.follow_up_status, '')) IN ('absconded', 'died') OR " +
