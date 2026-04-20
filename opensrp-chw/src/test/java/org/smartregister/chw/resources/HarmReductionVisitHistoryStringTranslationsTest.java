@@ -188,6 +188,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_none", "None");
         values.put("harm_reduction_not_pregnant", "Not pregnant");
         values.put("harm_reduction_not_screened", "Not screened");
+        values.put("harm_reduction_not_given", "Not given");
         values.put("harm_reduction_not_started", "Not started");
         values.put("harm_reduction_ntds", "Neglected Tropical Diseases");
         values.put("harm_reduction_number_of_condoms", "Number of condoms (pieces) provided");
@@ -382,6 +383,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_none", "Hakuna");
         values.put("harm_reduction_not_pregnant", "Sio mjamzito");
         values.put("harm_reduction_not_screened", "Hajachunguzwa");
+        values.put("harm_reduction_not_given", "Hajapewa");
         values.put("harm_reduction_not_started", "Hajaanza");
         values.put("harm_reduction_ntds", "Magojwa yaliyokuwa hayapewi kipaumbele");
         values.put("harm_reduction_number_of_condoms", "Idadi ya kondomu (vipande) vilivyotolewa");
