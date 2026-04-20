@@ -201,7 +201,6 @@
         "openmrs_entity_id": "early_signs_labour_counselling_bango_kitita",
         "type": "label",
         "has_bg": true,
-        "bg_color": "#f595df",
         "text": "Tafadhali fungua kitendea kazi namba 3 kwenye bango kitita ili kuendelea na mazungumzo",
         "text_color": "#000000",
         "label_text_style": "italic"

@@ -268,7 +268,6 @@
         "text": "<b>Malaria inaweza kusababisha:</b>",
         "text_color": "#000000",
         "has_bg": true,
-        "bg_color": "#f595df",
         "label_text_style": "italic"
       },
       {
@@ -329,7 +328,6 @@
         "text": "Tafadhali fungua kitendea kazi namba 7 kwenye bango kitita ili kuendelea na mazungumzo",
         "text_color": "#000000",
         "has_bg": true,
-        "bg_color": "#f595df",
         "label_text_style": "italic"
       },
       {

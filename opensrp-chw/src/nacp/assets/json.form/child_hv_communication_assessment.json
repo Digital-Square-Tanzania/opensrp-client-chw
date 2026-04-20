@@ -279,7 +279,6 @@
         "text": "CHW information: Say, \"When I come back for the next visit, I would like to see the playing material(s) that you have prepared and how you communicate and play with your child\".",
         "text_color": "#000000",
         "has_bg": true,
-        "bg_color": "#f595df",
         "label_text_style": "italic"
       },
       {

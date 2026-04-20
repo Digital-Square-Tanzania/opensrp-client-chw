@@ -101,8 +101,7 @@
         "text": "Please refer to Topic 20 in Bango Kitita to continue with the discussion (Take into consideration the age of the child)",
         "text_color": "#000000",
         "label_text_style": "italic",
-        "has_bg": true,
-        "bg_color": "#f595df"
+        "has_bg": true
       },
       {
         "key": "comp_feed_counselling_status",

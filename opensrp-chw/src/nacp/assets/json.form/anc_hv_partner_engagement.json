@@ -59,7 +59,6 @@
         "text": "<b>REMINDER TO CHW:</b> Remember to observe partner engagement throughout the visit duration",
         "text_color": "#000000",
         "has_bg": true,
-        "bg_color": "#f595df",
         "label_text_style": "italic"
       },
       {

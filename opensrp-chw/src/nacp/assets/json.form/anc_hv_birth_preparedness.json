@@ -201,7 +201,6 @@
         "openmrs_entity_id": "early_signs_labour_counselling_bango_kitita",
         "type": "label",
         "has_bg": true,
-        "bg_color": "#f595df",
         "text": "Please refer to Topic 3 in Bango Kitita to continue with the discussion",
         "text_color": "#000000",
         "label_text_style": "italic"

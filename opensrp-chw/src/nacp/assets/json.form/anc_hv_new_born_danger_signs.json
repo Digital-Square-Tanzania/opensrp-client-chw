@@ -77,7 +77,6 @@
         "text": "<i>Please refer to Topic</i> <b>14</b> <i>n Bango Kitita to continue with the discussion</i>",
         "text_color": "#000000",
         "has_bg": true,
-        "bg_color": "#f595df",
         "label_text_style": "italic"
       }
     ]
