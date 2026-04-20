@@ -134,5 +134,12 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
+---
+name: step1_specify_other_treatment
+description: prompt other treatment provided
+priority: 1
+condition: "step1_treatment_provided.contains('other_treatment_provided')"
+actions:
+  - "isRelevant = true"
 
 

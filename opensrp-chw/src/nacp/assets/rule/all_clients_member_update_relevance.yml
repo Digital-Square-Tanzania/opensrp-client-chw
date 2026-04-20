@@ -63,7 +63,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_insurance_provider_number
-descripltion: insurance number relevance
+description: insurance number relevance
 priority: 1
 condition: "!step1_insurance_provider.isEmpty() && !step1_insurance_provider.contains('None')"
 actions:
@@ -153,4 +153,3 @@ priority: 1
 condition: "step1_id_avail.equals('chk_passport_number')"
 actions:
   - "isRelevant = true"
----

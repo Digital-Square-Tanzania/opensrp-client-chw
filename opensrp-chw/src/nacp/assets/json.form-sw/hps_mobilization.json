@@ -72,7 +72,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "method_of_education_and_awareness_used",
         "type": "native_radio",
-        "label": "Chagua  njia ya ueleimishaji na uhamasishaji iliyotumika",
+        "label": "Chagua  njia ya uelimishaji na uhamasishaji iliyotumika",
         "options": [
           {
             "key": "loud_speakers",

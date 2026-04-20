@@ -75,7 +75,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_house_hold_with_basic_nutrition_source_vegetable",
-        "hint": "Idadi ya kaya zenye Bustani za mbogamboga",
+        "hint": "Idadi ya kaya zenye bustani za mbogamboga",
         "text_color": "#000000",
         "type": "edit_text",
         "v_required": {
@@ -97,7 +97,7 @@
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Tafadhali ingiza namba sahihi"
+          "err": "  Idadi ya kaya zenye miti ya matunda lazima iwe sawa au chini ya idadi ya kaya"
         },
         "constraints": [
           {
@@ -134,13 +134,13 @@
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Tafadhali ingiza namba sahihi"
+          "err": "Lazima iwe sawa au chini ya idadi ya kaya"
         },
         "constraints": [
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:household_max)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -171,13 +171,13 @@
         "v_max_length": {
           "value": "5",
           "is_fixed_size": "true",
-          "err": "Tafadhali ingiza namba sahihi"
+          "err": "Lazima iwe sawa au chini ya idadi ya kaya"
         },
         "constraints": [
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:household_max)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       }

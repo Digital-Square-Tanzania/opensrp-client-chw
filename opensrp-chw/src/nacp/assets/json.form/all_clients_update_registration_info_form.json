@@ -545,25 +545,6 @@
         }
       },
       {
-        "key": "insurance_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Other_Health_Insurance_Type",
-        "type": "edit_text",
-        "hint": "Other health insurance provider",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the insurance provider"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "wra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

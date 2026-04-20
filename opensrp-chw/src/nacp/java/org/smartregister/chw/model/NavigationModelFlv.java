@@ -118,6 +118,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(2, op25);
                         }
 
+                        if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasICCM()) {
+                            navigationOptions.add(3, op20);
+                        }
+
                         if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                             navigationOptions.add(op6);
                         }

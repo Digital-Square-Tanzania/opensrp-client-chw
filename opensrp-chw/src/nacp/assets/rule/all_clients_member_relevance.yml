@@ -70,7 +70,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step2_insurance_provider_number
-descripltion: insurance number relevance
+description: insurance number relevance
 priority: 1
 condition: "!step2_insurance_provider.isEmpty() && !step2_insurance_provider.contains('None')"
 actions:
