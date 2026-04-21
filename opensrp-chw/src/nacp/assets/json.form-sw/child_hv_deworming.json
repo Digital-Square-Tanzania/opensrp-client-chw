@@ -103,6 +103,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_no_medicine_deworming{0}",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Jaza sababu ya kutotolewa dawa ya minyoo",
         "v_required": {
           "value": "true",

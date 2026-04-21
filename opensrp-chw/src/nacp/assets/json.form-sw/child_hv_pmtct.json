@@ -55,6 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Upo tayari kunijulisha/kuniambia hali yako ya VVU?",
         "exclusive": [
           "chk_hiv_disclosing_status_yes"
@@ -86,6 +87,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Ingiza hali ya VVU",
         "exclusive": [
           "chk_hiv_test_positive"
@@ -124,6 +126,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Je, mama amepima VVU ndani ya miezi 3 iliopita",
         "exclusive": [
           "chk_hiv_test_yes"
@@ -199,6 +202,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Je, unafata matibabu ya kufubaza virusi vya ukimwi?",
         "exclusive": [
           "chk_taking_art_yes"
@@ -288,6 +292,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Je, upo tayari kuniambia hali ya VVU ya mtoto wako?",
         "exclusive": [
           "chk_hiv_disclosing_status_yes"
@@ -326,6 +331,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Ingiza hali ya VVU ya Mtoto",
         "exclusive": [
           "chk_hiv_test_positive"

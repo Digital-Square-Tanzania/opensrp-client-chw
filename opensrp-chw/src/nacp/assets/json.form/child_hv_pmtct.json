@@ -55,6 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Are you comfortable with disclosing your HIV status?",
         "exclusive": [
           "chk_hiv_disclosing_status_yes"
@@ -86,6 +87,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Enter HIV status",
         "exclusive": [
           "chk_hiv_test_positive"
@@ -124,6 +126,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Has the mother been tested for HIV in the past 3 months?",
         "exclusive": [
           "chk_hiv_test_yes"
@@ -199,6 +202,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Are you already taking AntiRetroviralTheraphy (ART)?",
         "exclusive": [
           "chk_taking_art_yes"
@@ -288,6 +292,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Are you comfortable with sharing your child's HIV status",
         "exclusive": [
           "chk_hiv_disclosing_status_yes"
@@ -326,6 +331,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Enter child's HIV status?",
         "exclusive": [
           "chk_hiv_test_positive"
