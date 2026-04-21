@@ -2,19 +2,16 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.Utils.reorderKeysFirst;
 import static org.smartregister.util.JsonFormUtils.createEvent;
-import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 import android.app.Activity;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
-import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
@@ -51,10 +48,10 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
         super.submitVisit();
 
         Map<String, BaseAncHomeVisitAction> actions = this.getAncHomeVisitActions();
-        if (actions !=  null) {
+        if (actions != null) {
 
             BaseAncHomeVisitAction facilitySelectionAction = actions.get(this.getString(R.string.home_visit_facility_referral));
-            if (facilitySelectionAction != null){
+            if (facilitySelectionAction != null) {
                 String facilitySelectionForm = facilitySelectionAction.getJsonPayload();
                 BaseAncHomeVisitAction dangerSignsActions = actions.get(this.getString(R.string.child_danger_signs_baby));
                 try {
@@ -79,16 +76,19 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
             BaseAncHomeVisitAction minorAilmentAction;
 
             //Check for Child Minor Ailment action
-            for (Map.Entry<String, BaseAncHomeVisitAction> entry : actions.entrySet()){
+            for (Map.Entry<String, BaseAncHomeVisitAction> entry : actions.entrySet()) {
                 String key = entry.getKey();
                 BaseAncHomeVisitAction value = entry.getValue();
-                if (key.contains(enChildAilments) || key.contains(swChildAilments)){
+                if (key.contains(enChildAilments) || key.contains(swChildAilments)) {
                     minorAilmentAction = value;
                     String childMinorAilmentForm = minorAilmentAction.getJsonPayload();
-                    if (childMinorAilmentForm != null){
+                    if (childMinorAilmentForm != null) {
                         try {
                             JSONObject minorAilmentObject = new JSONObject(childMinorAilmentForm);
                             String childAilments = JsonFormUtils.getCheckBoxValue(minorAilmentObject, "child_minor_ailment").toLowerCase();
+
+                            if (JsonFormUtils.getValue(minorAilmentObject, "child_minor_ailment").toLowerCase().contains("chk_none"))
+                                break;
 
                             //Get fields from json object
                             JSONArray fields = org.smartregister.util.JsonFormUtils.fields(minorAilmentObject);
@@ -110,7 +110,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
                                     memberObject.getBaseEntityId(), event.getFormSubmissionId(), childAilments, Constants.AddoLinkage.CHILD_TASK_FOCUS);
 
                             showToastMessage(getContext().getString(R.string.linked_to_addo_message));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             Timber.e(e);
                         }
                     }
@@ -132,7 +132,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
 
         List<String> keys = Arrays.asList(getString(org.smartregister.chw.R.string.pnc_hv_location), getString(org.smartregister.chw.R.string.child_danger_signs_baby));
 
-       reorderKeysFirst(actionList, map, keys);
+        reorderKeysFirst(actionList, map, keys);
 
         actionList.putAll(map);
 
