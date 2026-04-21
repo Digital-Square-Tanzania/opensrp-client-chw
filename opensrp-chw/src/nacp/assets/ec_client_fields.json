@@ -11384,6 +11384,14 @@
           }
         },
         {
+          "column_name": "stress_challenges_experienced",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stress_challenges_experienced"
+          }
+        },
+        {
           "column_name": "stress_challenges",
           "type": "Event",
           "json_mapping": {
