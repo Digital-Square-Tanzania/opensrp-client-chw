@@ -101,7 +101,7 @@
         "text": "Fungua kitendea kazi namba 20. (Zingatia umri wa mtoto)",
         "text_color": "#000000",
         "label_text_style": "italic",
-        "has_bg": true,
+        "has_bg": true
       },
       {
         "key": "comp_feed_counselling_status",
