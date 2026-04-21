@@ -63,6 +63,10 @@ public class HarmReductionMatVisitHistoryStringTranslationsTest {
 
     private Map<String, String> expectedEnglishStrings() {
         Map<String, String> values = new LinkedHashMap<>();
+        values.put("harm_reduction_mat_clients_methadone_treatment_status", "Methadone treatment");
+        values.put("harm_reduction_mat_clients_continuing_methadone_treatment", "Continuing Methadone treatment");
+        values.put("harm_reduction_mat_clients_stopped_using_methadone", "Stopped using Methadone");
+        values.put("harm_reduction_mat_clients_completed_methadone_treatment", "Completed Methadone treatment");
         values.put("harm_reduction_mat_clients_drug_education", "Drug education");
         values.put("harm_reduction_mat_clients_drug_use_related_diseases", "Diseases associated with drug use");
         values.put("harm_reduction_mat_clients_epidemic_diseases", "Epidemic diseases");
@@ -73,6 +77,10 @@ public class HarmReductionMatVisitHistoryStringTranslationsTest {
 
     private Map<String, String> expectedSwahiliStrings() {
         Map<String, String> values = new LinkedHashMap<>();
+        values.put("harm_reduction_mat_clients_methadone_treatment_status", "Tiba ya Methadone");
+        values.put("harm_reduction_mat_clients_continuing_methadone_treatment", "Anaendelea na Tiba ya Methadone");
+        values.put("harm_reduction_mat_clients_stopped_using_methadone", "Ameacha kutumia Methadone");
+        values.put("harm_reduction_mat_clients_completed_methadone_treatment", "Amemaliza Tiba ya Methadone");
         values.put("harm_reduction_mat_clients_drug_education", "Dawa za kulevya");
         values.put("harm_reduction_mat_clients_drug_use_related_diseases", "Magonjwa yanayoambatana na matumizi ya dawa za kulevya");
         values.put("harm_reduction_mat_clients_epidemic_diseases", "Magonjwa ya mlipuko");

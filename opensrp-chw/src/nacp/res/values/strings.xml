@@ -796,6 +796,10 @@
     <string name="harm_reduction_sober_house_wounds_abscesses">Wounds and abscesses management</string>
     <string name="record_services_provided_to_mat_clients">Record Services Provided to MAT Clients</string>
     <string name="harm_reduction_mat_clients_followup_visit">MAT Clients Followup Visit</string>
+    <string name="harm_reduction_mat_clients_methadone_treatment_status">Methadone treatment</string>
+    <string name="harm_reduction_mat_clients_continuing_methadone_treatment">Continuing Methadone treatment</string>
+    <string name="harm_reduction_mat_clients_stopped_using_methadone">Stopped using Methadone</string>
+    <string name="harm_reduction_mat_clients_completed_methadone_treatment">Completed Methadone treatment</string>
     <string name="harm_reduction_mat_clients_health_education_provided">Health Education Provided</string>
     <string name="harm_reduction_mat_clients_education_delivery_method">Education Delivery Method</string>
     <string name="harm_reduction_mat_clients_group_session">Group session</string>
