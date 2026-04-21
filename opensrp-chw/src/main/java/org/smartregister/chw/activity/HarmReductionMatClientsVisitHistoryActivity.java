@@ -38,6 +38,7 @@ import timber.log.Timber;
 
 public class HarmReductionMatClientsVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static final String MAT_CLIENTS_FOLLOWUP_EVENT = "Harm Reduction MAT Clients Followup";
+    static final String METHADONE_TREATMENT_STATUS = "methadone_treatment_status";
     private static MemberObject harmReductionMemberObject;
 
     private final Flavor flavor = new HarmReductionMatClientsHistoryActivityFlv();
@@ -86,8 +87,18 @@ public class HarmReductionMatClientsVisitHistoryActivity extends CoreAncMedicalH
         progressBar.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
+    static boolean isVisitHistoryParam(String param) {
+        for (String visitParam : HarmReductionMatClientsHistoryActivityFlv.VISIT_PARAMS) {
+            if (StringUtils.equals(param, visitParam)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static class HarmReductionMatClientsHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
         private static final String[] VISIT_PARAMS = {
+                METHADONE_TREATMENT_STATUS,
                 "health_education_provided",
                 "education_delivery_method"
         };
