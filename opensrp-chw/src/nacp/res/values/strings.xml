@@ -657,6 +657,7 @@
     <string name="harm_reduction_none">None</string>
     <string name="harm_reduction_not_pregnant">Not pregnant</string>
     <string name="harm_reduction_not_screened">Not screened</string>
+    <string name="harm_reduction_not_given">Not given</string>
     <string name="harm_reduction_not_started">Not started</string>
     <string name="harm_reduction_ntds">Neglected Tropical Diseases</string>
     <string name="harm_reduction_number_of_condoms">Number of condoms (pieces) provided</string>
