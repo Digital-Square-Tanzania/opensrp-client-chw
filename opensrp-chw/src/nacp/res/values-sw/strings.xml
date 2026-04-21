@@ -950,6 +950,10 @@
     <string name="harm_reduction_sober_house_wounds_abscesses">Matibabu ya vidonda na Mabunyufu (majipu)</string>
     <string name="record_services_provided_to_mat_clients">Rekodi huduma zilizotolewa kwa wapokea huduma wa MAT</string>
     <string name="harm_reduction_mat_clients_followup_visit">Hudhurio la ufuatiliaji kwa wapokea huduma wa MAT</string>
+    <string name="harm_reduction_mat_clients_methadone_treatment_status">Tiba ya Methadone</string>
+    <string name="harm_reduction_mat_clients_continuing_methadone_treatment">Anaendelea na Tiba ya Methadone</string>
+    <string name="harm_reduction_mat_clients_stopped_using_methadone">Ameacha kutumia Methadone</string>
+    <string name="harm_reduction_mat_clients_completed_methadone_treatment">Amemaliza Tiba ya Methadone</string>
     <string name="harm_reduction_mat_clients_health_education_provided">Elimu iliyotolewa</string>
     <string name="harm_reduction_mat_clients_education_delivery_method">Njia ya utoaji elimu</string>
     <string name="harm_reduction_mat_clients_group_session">Kikao cha vikundi</string>
