@@ -875,7 +875,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "RoC is not eligible to be enrolled into AYP Out of School",
+        "text": "Recipient of Care is not eligible to be enrolled into AYP Out of School",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
