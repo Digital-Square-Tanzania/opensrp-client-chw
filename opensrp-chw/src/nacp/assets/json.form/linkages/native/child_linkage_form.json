@@ -67,88 +67,79 @@
           {
             "key": "cough",
             "text": "Cough",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "cough"
           },
           {
             "key": "running_nose_cold",
             "text": "Running nose/Cold",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "running_nose_cold"
           },
           {
             "key": "sore_throat",
             "text": "Sore throat",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "sore_throat"
           },
           {
             "key": "chk_sneezing",
             "text": "Sneezing",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_sneezing"
           },
           {
             "key": "chk_headache",
             "text": "Headache",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_headache"
           },
           {
             "key": "chk_weak",
             "text": "Weak",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_weak"
           },
           {
             "key": "chk_body_chills_shivering",
             "text": "Body chills/shivering",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_body_chills_shivering"
           },
           {
             "key": "chk_lack_of_appetite",
             "text": "Lack of appetite",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_lack_of_appetite"
           },
           {
             "key": "chk_feels_thirsty",
             "text": "Feels thirsty",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_mild_diarrhea"
           },
           {
             "key": "chk_mild_diarrhea",
             "text": "Mild diarrhea without blood (less than 3 times in 24 hrs)",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_mild_diarrhea"
           },
           {
             "key": "chk_skin_infections",
             "text": "Minor skin infections",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_skin_infections"
           },
           {
             "key": "chk_minor_wound",
             "text": "Minor wounds or cuts",
-            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_minor_wound"
           },
           {
             "key": "chk_other",
             "text": "Other",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
           },
           {
