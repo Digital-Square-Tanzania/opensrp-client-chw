@@ -11384,6 +11384,14 @@
           }
         },
         {
+          "column_name": "stress_challenges_experienced",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stress_challenges_experienced"
+          }
+        },
+        {
           "column_name": "stress_challenges",
           "type": "Event",
           "json_mapping": {
@@ -12071,6 +12079,14 @@
           }
         },
         {
+          "column_name": "other_conditions_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_conditions_treatment_after_screening"
+          }
+        },
+        {
           "column_name": "hiv_screening",
           "type": "Event",
           "json_mapping": {
@@ -12119,6 +12135,14 @@
           }
         },
         {
+          "column_name": "other_hepatitis_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_hepatitis_result"
+          }
+        },
+        {
           "column_name": "diabetes_result",
           "type": "Event",
           "json_mapping": {
@@ -12127,11 +12151,75 @@
           }
         },
         {
+          "column_name": "stis_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stis_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "heart_diseases_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "heart_diseases_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "mental_health_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mental_health_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "hepatitis_b_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_b_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "hepatitis_c_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_c_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "other_hepatitis_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_hepatitis_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "diabetes_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diabetes_treatment_after_screening"
+          }
+        },
+        {
           "column_name": "tuberculosis_result",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "tuberculosis_result"
+          }
+        },
+        {
+          "column_name": "tuberculosis_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tuberculosis_treatment_after_screening"
           }
         },
         {
@@ -12196,6 +12284,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "hiv_status"
+          }
+        },
+        {
+          "column_name": "enrolled_into_ctc_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "enrolled_into_ctc_services"
           }
         },
         {

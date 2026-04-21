@@ -451,17 +451,42 @@ indicators:
     description: "Wakazi waliopatiwa tiba kwa magonjwa yaliyoripotiwa"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND (
-                        lower(ifnull(ehshe.hiv_result, '')) = 'positive' OR
-                        lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms' OR
-                        lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms' OR
-                        trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      WHERE (
+                        (
+                          lower(ifnull(ehshe.hiv_result, '')) = 'positive'
+                          AND (
+                            lower(ifnull(ehshe.enrolled_into_ctc_services, '')) = 'yes'
+                            OR trim(ifnull(ehshe.ctc_id, '')) <> ''
+                          )
+                        ) OR (
+                          lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.stis_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.heart_diseases_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.mental_health_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.hepatitis_b_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.hepatitis_c_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'
+                          AND lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.diabetes_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'
+                          AND lower(ifnull(ehshe.tuberculosis_treatment_after_screening, '')) = 'yes'
+                        ) OR (
+                          trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                          AND lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'
+                          AND lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'
+                        )
                       )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -472,8 +497,11 @@ indicators:
     description: "Waliopatiwa tiba - VVU na UKIMWI"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.hiv_result, '')) = 'positive'
+                      WHERE lower(ifnull(ehshe.hiv_result, '')) = 'positive'
+                      AND (
+                        lower(ifnull(ehshe.enrolled_into_ctc_services, '')) = 'yes'
+                        OR trim(ifnull(ehshe.ctc_id, '')) <> ''
+                      )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -483,8 +511,8 @@ indicators:
     description: "Waliopatiwa tiba - Magonjwa ya ngono"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.stis_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.stis_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -494,8 +522,8 @@ indicators:
     description: "Waliopatiwa tiba - Magonjwa ya moyo"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.heart_diseases_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.heart_diseases_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -505,8 +533,8 @@ indicators:
     description: "Waliopatiwa tiba - Magonjwa ya afya ya akili"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.mental_health_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.mental_health_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -516,8 +544,8 @@ indicators:
     description: "Waliopatiwa tiba - Homa ya ini aina ya B"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.hepatitis_b_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.hepatitis_b_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -527,8 +555,8 @@ indicators:
     description: "Waliopatiwa tiba - Homa ya ini aina ya C"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.hepatitis_c_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.hepatitis_c_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -539,8 +567,8 @@ indicators:
     description: "Waliopatiwa tiba - Homa nyengine za ini (proxy)"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'
+                      WHERE lower(ifnull(ehshe.other_conditions_specify, '')) LIKE '%hepat%'
+                      AND lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -550,8 +578,8 @@ indicators:
     description: "Waliopatiwa tiba - Ugonjwa wa kisukari"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.diabetes_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.diabetes_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -561,8 +589,8 @@ indicators:
     description: "Waliopatiwa tiba - Ugonjwa wa kifua kikuu"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'
+                      WHERE lower(ifnull(ehshe.tuberculosis_result, '')) = 'has_symptoms'
+                      AND lower(ifnull(ehshe.tuberculosis_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
@@ -572,9 +600,9 @@ indicators:
     description: "Waliopatiwa tiba - Magonjwa mengineyo"
     indicatorQuery: "SELECT count(DISTINCT ehshe.base_entity_id) as count
                       FROM ec_harm_reduction_sober_house_enrollment ehshe
-                      WHERE lower(ifnull(ehshe.treatment_after_screening, '')) = 'yes'
-                      AND trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
+                      WHERE trim(ifnull(ehshe.other_conditions_specify, '')) <> ''
                       AND lower(ifnull(ehshe.other_conditions_specify, '')) NOT LIKE '%hepat%'
+                      AND lower(ifnull(ehshe.other_conditions_treatment_after_screening, '')) = 'yes'
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(ehshe.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

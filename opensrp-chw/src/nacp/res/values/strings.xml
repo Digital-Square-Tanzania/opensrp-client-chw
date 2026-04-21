@@ -657,6 +657,7 @@
     <string name="harm_reduction_none">None</string>
     <string name="harm_reduction_not_pregnant">Not pregnant</string>
     <string name="harm_reduction_not_screened">Not screened</string>
+    <string name="harm_reduction_not_given">Not given</string>
     <string name="harm_reduction_not_started">Not started</string>
     <string name="harm_reduction_ntds">Neglected Tropical Diseases</string>
     <string name="harm_reduction_number_of_condoms">Number of condoms (pieces) provided</string>
@@ -692,7 +693,7 @@
     <string name="harm_reduction_risky_behaviours_injecting_only">Risky behaviour</string>
     <string name="harm_reduction_risky_behaviours_non_injecting_only">Risky behaviour</string>
     <string name="harm_reduction_risky_behaviours_other_specify">If others, specify</string>
-    <string name="harm_reduction_roc_consent_joining_mat_services">Does RoC consent joining MAT Services?</string>
+    <string name="harm_reduction_roc_consent_joining_mat_services">Does the Recipient of Care consent to join MAT Services?</string>
     <string name="harm_reduction_safe_injection">Safe injection</string>
     <string name="harm_reduction_safe_injection_tools">Safe injection services provided - Type of tools</string>
     <string name="harm_reduction_sharing_needles_syringes">Sharing needles and syringes</string>

@@ -814,6 +814,7 @@
     <string name="harm_reduction_none">Hakuna</string>
     <string name="harm_reduction_not_pregnant">Sio mjamzito</string>
     <string name="harm_reduction_not_screened">Hajachunguzwa</string>
+    <string name="harm_reduction_not_given">Hajapewa</string>
     <string name="harm_reduction_not_started">Hajaanza</string>
     <string name="harm_reduction_ntds">Magojwa yaliyokuwa hayapewi kipaumbele</string>
     <string name="harm_reduction_number_of_condoms">Idadi ya kondomu (vipande) vilivyotolewa</string>
