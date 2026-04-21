@@ -38,8 +38,6 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.ChwAncJsonFormUtils;
 import org.smartregister.chw.util.Constants;
@@ -54,7 +52,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -66,7 +63,7 @@ import timber.log.Timber;
 
 public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {
 
-    private  static final String NONE="(?i)hakuna|none|chk_none";
+    private  static final String NONE = "(?i)hakuna|none|chk_none";
     private Map<String, ServiceWrapper> serviceWrapperMap;
     private BaseAncHomeVisitContract.InteractorCallBack callBack;
     private com.vijay.jsonwizard.utils.FormUtils formUtils = new com.vijay.jsonwizard.utils.FormUtils();
@@ -76,25 +73,23 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         try {
             this.serviceWrapperMap = serviceWrapperMap;
             evaluateVisitLocation();
-            //isToddler function needs to be confirmed
-            if( isToddler() )  evaluateToddlerDanger();
-            else evaluateChildDangerSigns();
+            evaluateChildDangerSigns();
         }
         catch (BaseAncHomeVisitAction.ValidationException e) {throw (e);}
         catch (Exception e) {Timber.e(e);}
     }
 
-    private void evaluateChildDangerSigns() throws BaseAncHomeVisitAction.ValidationException {
-
+    private void evaluateChildDangerSigns() throws BaseAncHomeVisitAction.ValidationException, JSONException {
         String title = context.getString(R.string.child_danger_signs_baby);
-
-
         ToddlerDangerSignsBabyHelper helper = new ToddlerDangerSignsBabyHelper(context, null);
         helper.setDangerSignsResultsListener(this::onDangerSignFormResults);
-
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_HOME_VISIT);
 
-        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHomeVisitDangerSignForm());
+        JSONObject dangerSignsForm = formUtils.getFormJsonFromRepositoryOrAssets(context,
+                Constants.JsonForm.getChildHomeVisitDangerSignForm());
+
+        if (details != null) ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
+
         JsonFormUtilsFlv.overwriteQuestionOptions("referral_facility", LocationUtils.INSTANCE.getFacilitiesKeyAndName(), dangerSignsForm);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context,title)
@@ -109,29 +104,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         actionList.put(context.getString(R.string.child_danger_signs_baby), action);
     }
 
-    private int cleanInt(String input){
-        return Integer.parseInt(input.replaceAll("\\D+",""));
-    }
-     private boolean isToddler(){
-         int fiveYears = 5 * 12;
-         int ageInMonths = Months.monthsBetween(new DateTime(memberObject.getDob()), DateTime.now()).getMonths();
-
-         try( InputStream input = context.getAssets().open("recurring_service_types.json")){
-             JsonQ services = JsonQ.fromIO(input).get("[(@.type~'(?i).*toddler.*danger.*sign.*')].services[0,-1]");
-
-             String firstOffset = services.str("[0].schedule.due.offset");
-             String lastExpiry = services.str("[-1].schedule.expiry.offset");
-
-             int start = cleanInt(firstOffset);
-             int end = cleanInt(lastExpiry);
-
-             return start <= ageInMonths && ageInMonths <= end
-                     && ageInMonths < fiveYears;
-         }
-         catch (IOException e){Timber.e(e);}
-         return false;
-     }
-
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
        this.callBack=callBack;
@@ -141,16 +113,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     protected void evaluateImmunization () throws Exception {
         setVaccinesDefaultChecked(false);
         super.evaluateImmunization();
-    }
-
-    private void removeNonDangerSignActions(){
-        Iterator<Map.Entry<String, BaseAncHomeVisitAction>> iterator = actionList.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, BaseAncHomeVisitAction> entry = iterator.next();
-            if (entry.getKey().equals(context.getString(R.string.child_danger_signs_baby)) ||
-                    entry.getKey().equals(context.getString(R.string.pnc_hv_location))) continue;
-            iterator.remove();
-        }
     }
 
     private void evaluateMalariaPrevention() throws Exception {
@@ -397,10 +359,15 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             title = context.getString(R.string.child_hv_complementary_feeding_after_24_month);
         }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title).withOptional(true).withDetails(details).withFormName(Constants.JsonForm.getChildHvCompFeeding()).withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE).withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate())))).withHelper(complimentaryFeedingActionHelper).build();
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                .withOptional(true)
+                .withDetails(details)
+                .withFormName(Constants.JsonForm.getChildHvCompFeeding())
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .withHelper(complimentaryFeedingActionHelper).build();
         actionList.put(title, action);
     }
-
 
     private void evaluateMalnutritionScreening(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("Malnutrition Screening");
@@ -438,6 +405,8 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         String title = MessageFormat.format(context.getString(R.string.child_minor_ailments), memberObject.getFullName());
         String formName = "linkages/native/child_linkage_form";
 
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_HOME_VISIT);
+
         JSONObject minorAilments = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
 
         if(details != null){
@@ -455,13 +424,15 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         actionList.put(title, childMinorAilmentAction);
     }
 
-    private  synchronized  void clearActions(){
+    private  synchronized  void clearActions() {
+        if (actionList == null || actionList.isEmpty() || context == null) return;
         //using iterator to avoid concurrent modification exception
-        Iterator<String> keys=actionList.keySet().iterator();
-        while(keys.hasNext()){
-            String key=keys.next();
-            String dangerSign=context.getString(R.string.child_danger_signs_baby);
-            if(!key.equals(dangerSign)){
+        Iterator<String> keys = actionList.keySet().iterator();
+        String dangerSign = context.getString(R.string.child_danger_signs_baby);
+        String visitLocation = context.getString(R.string.pnc_hv_location);
+        while(keys.hasNext()) {
+            String key = keys.next();
+            if(!key.equals(dangerSign) && !key.equals(visitLocation)) {
                 keys.remove();
             }
         }
@@ -496,7 +467,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             clearActions();
             if( goFacility ) {
                 evaluateFacilityReferral(dangerSignForm);
-                evaluateMalariaPrevention();
+//                evaluateMalariaPrevention();
             }
             else if(dangerSigns.matches(NONE)) evaluateActions();
             new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
@@ -522,7 +493,12 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
 
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_HOME_VISIT);
 
-        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getChildHomeVisitDangerSignForm());
+
+        JSONObject dangerSignsForm = formUtils.getFormJsonFromRepositoryOrAssets(context,
+                Constants.JsonForm.getChildHomeVisitDangerSignForm());
+
+        if (details != null) ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
+
         JsonFormUtilsFlv.overwriteQuestionOptions("referral_facility", LocationUtils.INSTANCE.getFacilitiesKeyAndName(), dangerSignsForm);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context,title)
@@ -590,9 +566,9 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         actionList.put(title, childSafetyAction);
     }
 
-    private void evaluateFacilityReferral(JSONObject referralPayload) throws BaseAncHomeVisitAction.ValidationException {
-        String formName="referral_facility_selection";
-        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+    private void evaluateFacilityReferral(JSONObject referralPayload) throws BaseAncHomeVisitAction.ValidationException, JSONException {
+        String formName = "referral_facility_selection";
+        JSONObject jsonForm = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
 
         if (details != null) ChwAncJsonFormUtils.populateForm(jsonForm, details);
 

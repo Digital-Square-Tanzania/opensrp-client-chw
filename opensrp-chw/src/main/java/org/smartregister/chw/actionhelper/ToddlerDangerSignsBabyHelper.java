@@ -63,11 +63,11 @@ public class ToddlerDangerSignsBabyHelper extends HomeVisitActionHelper {
     @Override
     public String postProcess(String jsonPayload) {
         try {
-            if(dangerSignConsumer==null){return super.postProcess(jsonPayload);}
-            JSONObject form=new JSONObject(jsonPayload);
+            if( dangerSignConsumer == null) { return super.postProcess(jsonPayload); }
+            JSONObject form = new JSONObject(jsonPayload);
             boolean noDangerSigns = danger_signs_present_child.matches(NONE);
             boolean goFacility = !noDangerSigns && JsonFormUtils.getValue(form,"toddler_referral_health_facility").matches(YES_OR_EMPTY);
-            dangerSignConsumer.take(form,danger_signs_present_child,goFacility);
+            dangerSignConsumer.take(form, danger_signs_present_child, goFacility);
         } catch (Exception e) {Timber.e(e);}
         return super.postProcess(jsonPayload);
     }

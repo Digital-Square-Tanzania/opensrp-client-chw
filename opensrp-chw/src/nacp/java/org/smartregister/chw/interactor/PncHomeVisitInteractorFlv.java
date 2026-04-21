@@ -179,7 +179,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         evaluateDevelopmentScreening(baby);
     }
 
-    private void evaluateMinorAilmentsMother() throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateMinorAilmentsMother() throws BaseAncHomeVisitAction.ValidationException, JSONException {
 
         HomeVisitActionHelper motherMinorAilment = new HomeVisitActionHelper() {
 
@@ -215,7 +215,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         };
 
         String formName = Utils.getLocalForm("linkages/native/pnc_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
-        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+        JSONObject jsonForm = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
 
         if(details!=null)
             ChwAncJsonFormUtils.populateForm(jsonForm,details);
@@ -231,14 +231,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_minor_ailment_mama), action);
     }
 
-    private void evaluateMinorAilmentsBaby(Person baby) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateMinorAilmentsBaby(Person baby) throws BaseAncHomeVisitAction.ValidationException, JSONException {
 
         BabyMinorAilmentActionHelper actionHelper = new BabyMinorAilmentActionHelper(context, baby);
 
         String formName = Utils.getLocalForm("linkages/native/child_linkage_form", CoreConstants.JSON_FORM.locale, CoreConstants.JSON_FORM.assetManager);
         String title = MessageFormat.format(context.getString(R.string.child_minor_illness), baby.getFullName());
 
-        JSONObject jsonForm = FormUtils.getFormUtils().getFormJson(formName);
+        JSONObject jsonForm = formUtils.getFormJsonFromRepositoryOrAssets(context, formName);
 
         if(details!=null)
             ChwAncJsonFormUtils.populateForm(jsonForm,details);
