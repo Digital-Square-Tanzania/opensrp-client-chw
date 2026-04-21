@@ -109,7 +109,7 @@
           {
             "key": "chk_other",
             "text": "Other",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
           },
           {

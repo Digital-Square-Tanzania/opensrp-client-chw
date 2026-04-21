@@ -67,50 +67,50 @@
           {
             "key": "mild_pain",
             "text": "Mild pain",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "mild_pain"
           },
           {
             "key": "mild_fever",
             "text": "Mild fever",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "mild_fever"
           },
           {
             "key": "cough",
             "text": "Cough",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "cough"
           },
           {
             "key": "running_nose_cold",
             "text": "Running nose/Cold",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "running_nose_cold"
           },
           {
             "key": "sore_throat",
             "text": "Sore throat",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "sore_throat"
           },
           {
             "key": "refill_medicine",
             "text": "Refill of medicines such as Ferrous Sulphate, folic acid, and SP for IPTp",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "refill_medicine"
           },
           {
             "key": "refill_commodities",
             "text": "Refill of other commodities such as antiseptics/soaps, delivery kit",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "refill_commodities"
           },
           {
             "key": "chk_other",
             "text": "Other",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",
