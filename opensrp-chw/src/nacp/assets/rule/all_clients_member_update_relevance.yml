@@ -27,7 +27,7 @@ condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step
 actions:
   - "isRelevant = true"
 ---
-name: step1_service_provider
+name: step1_occupation
 description: service provider relevance
 priority: 1
 condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 10) || (step1_age != '' && step1_age >= 10)"
@@ -44,7 +44,7 @@ actions:
 name: step1_phone_number
 description: phone_number relevance
 priority: 1
-condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10)"
+condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 10) || (step1_age != '' && step1_age >= 10)"
 actions:
   - "isRelevant = true"
 ---
@@ -104,3 +104,61 @@ condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') > 10) || (step1
 actions:
   - "isRelevant = true"
 
+---
+name: step1_occupation
+description: service provider relevance
+priority: 1
+condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 10) || (step1_age != '' && step1_age >= 10)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_occupation_other
+description: service provider relevance
+priority: 1
+condition: "step1_occupation.equals('chk_other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_specify_other_disabilities
+description: specify other disabilities
+priority: 1
+condition: "step1_type_of_disability.contains('other_disabilities')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_specify_other_disabilities
+description: specify other disabilities
+priority: 1
+condition: "step1_type_of_disability.contains('other_disabilities')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_national_id
+description: specify national id
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_national_id')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_voter_id
+description: specify voter id
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_voters_id')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_driver_license
+description: specify driver licence
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_drivers_license')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_passport
+description: specify passport
+priority: 1
+condition: "step1_id_avail.equalsIgnoreCase('chk_passport_number')"
+actions:
+  - "isRelevant = true"

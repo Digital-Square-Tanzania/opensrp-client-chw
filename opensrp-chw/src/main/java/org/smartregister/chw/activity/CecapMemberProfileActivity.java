@@ -1,11 +1,14 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.cecap.interactor.BaseCecapProfileInteractor.getVisit;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Constants.CECAP_FEMALE_REFERRAL_FORM;
 import static org.smartregister.chw.util.Constants.CECAP_MALE_REFERRAL_FORM;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +46,7 @@ import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.gbv.util.GbvJsonFormUtils;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.interactor.CecapMemberProfileInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
@@ -54,6 +58,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -162,6 +167,14 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
         if (ChwApplication.getApplicationFlavor().hasAsrh()) {
             menu.findItem(R.id.action_asrh_registration).setVisible(!AsrhDao.isRegisteredForAsrh(memberObject.getBaseEntityId()) && age >= 10 && age < 25);
         }
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
+        }
         return true;
     }
 
@@ -224,8 +237,15 @@ public class CecapMemberProfileActivity extends CoreCecapMemberProfileActivity {
             MemberProfileUtils.startAsrhRegistration(CecapMemberProfileActivity.this, memberObject.getBaseEntityId());
         } else if (i == R.id.action_remove_member) {
             removeIndividualProfile();
+        }else if (i == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(CecapMemberProfileActivity.this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     @Override

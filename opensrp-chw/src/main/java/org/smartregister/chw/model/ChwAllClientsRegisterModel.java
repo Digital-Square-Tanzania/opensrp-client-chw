@@ -70,7 +70,7 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
                 stepTwoUniqueId.put(JsonFormUtils.VALUE, newEntityId);
             }
 
-            JsonFormUtils.addLocHierarchyQuestions(form);
+            org.smartregister.chw.util.JsonFormUtils.addLocHierarchyQuestions(form);
             return form;
 
         } catch (Exception e) {

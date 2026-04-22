@@ -10,7 +10,8 @@ import org.smartregister.chw.util.DiabeticRiskCalculator;
 
 public class ChwRulesEngineHelper extends RulesEngineHelper {
 
-    Context context;
+    private final Context context;
+
     public ChwRulesEngineHelper(Context context) {
         this.context = context;
     }

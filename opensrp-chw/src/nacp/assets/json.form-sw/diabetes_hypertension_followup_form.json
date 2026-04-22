@@ -92,6 +92,9 @@
         "type": "check_box",
         "label": "Sababu za kutotembelea kituo cha afya",
         "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_visit_reason"
+        ],
         "options": [
           {
             "key": "lack_of_transport_fare",
@@ -116,14 +119,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no_time"
-          },
-          {
-            "key": "chk_costly",
-            "text": "Transport was too costly",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fear_of_diagnosis",

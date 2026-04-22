@@ -228,7 +228,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
-        menu.findItem(R.id.action_remove_member).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(true);
         menu.findItem(R.id.action_cbhs_registration).setVisible(false);
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
         return true;

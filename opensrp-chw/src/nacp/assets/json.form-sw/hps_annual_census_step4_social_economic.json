@@ -1,0 +1,25 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "metadata": {
+    "start": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "start", "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "end": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "end", "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "deviceid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "deviceid", "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "subscriberid": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "subscriberid", "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "simserial": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "simserial", "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "phonenumber": {"openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_data_type": "phonenumber", "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
+    "encounter_location": ""
+  },
+  "global": {"household_max":""},
+  "step1": {
+    "title": "Vyanzo vinavyotumiwa zaidi na kaya",
+    "fields": [
+      {"key":"household_max","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"","type":"hidden","calculation":{"rules-engine":{"ex-rules":{"rules-file":"hps_annual_census_households_with_basic_nutrition_source.yml"}}}},
+      {"key": "social_services", "type": "label", "text": "Vyanzo vya maji", "text_color": "#000000", "openmrs_entity_parent": "", "openmrs_entity": "concept", "openmrs_entity_id": "social_services"},
+      {"key":"number_of_households_most_commonly_use_tap_as_sources_of_water","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"number_of_households_most_commonly_use_tap_as_sources_of_water","hint":"Idadi ya kaya zinazotumia sana bomba la maji kama chanzo cha maji","text_color":"#000000","type":"edit_text","v_required":{"value":"true","err":"Tafadhali jaza jibu sahihi"},"v_numeric":{"value":"true","err":""},"v_min":{"value":"0","err":"Namba lazima iwe sawa au kubwa kuliko 0"},"v_max":{"value":"100000","err":"Namba lazima ziwe na tarakimu tano"},"v_max_length":{"value":"5","is_fixed_size":"true","err":"Tafadhali ingiza namba sahihi"},"constraints":[{"type":"numeric","ex":"lessThanEqualTo(., step1:household_max)","err":"Haitakiwi kuwa kubwa kuliko idadi ya kaya"}]},
+      {"key":"number_of_households_most_commonly_use_river_as_sources_of_water","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"number_of_households_most_commonly_use_river_as_sources_of_water","hint":"Idadi ya kaya zinazotumia sana mto kama chanzo cha maji","text_color":"#000000","type":"edit_text","v_required":{"value":"true","err":"Tafadhali jaza jibu sahihi"},"v_numeric":{"value":"true","err":""},"v_min":{"value":"0","err":"Namba lazima iwe sawa au kubwa kuliko 0"},"v_max":{"value":"100000","err":"Namba lazima ziwe na tarakimu tano"},"v_max_length":{"value":"5","is_fixed_size":"true","err":"Tafadhali ingiza namba sahihi"},"constraints":[{"type":"numeric","ex":"lessThanEqualTo(., step1:household_max)","err":"Haitakiwi kuwa kubwa kuliko idadi ya kaya"}]},
+      {"key":"number_of_households_most_commonly_use_shallow_well_as_sources_of_water","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"number_of_households_most_commonly_use_shallow_well_as_sources_of_water","hint":"Idadi ya kaya zinazotumia sana kisima kifupi kama chanzo cha maji","text_color":"#000000","type":"edit_text","v_required":{"value":"true","err":"Tafadhali jaza jibu sahihi"},"v_numeric":{"value":"true","err":""},"v_min":{"value":"0","err":"Namba lazima iwe sawa au kubwa kuliko 0"},"v_max":{"value":"100000","err":"Namba lazima ziwe na tarakimu tano"},"v_max_length":{"value":"5","is_fixed_size":"true","err":"Tafadhali ingiza namba sahihi"},"constraints":[{"type":"numeric","ex":"lessThanEqualTo(., step1:household_max)","err":"Haitakiwi kuwa kubwa kuliko idadi ya kaya"}]}
+    ]
+  }
+}

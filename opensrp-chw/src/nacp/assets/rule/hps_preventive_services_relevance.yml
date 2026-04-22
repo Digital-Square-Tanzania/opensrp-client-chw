@@ -1,0 +1,154 @@
+---
+name: step1_others_type_of_iec_material
+description: if step1_others_type_of_iec_material
+priority: 1
+condition: "step1_type_of_iec_material.contains('others_specify')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_type_of_leaflets
+description: if step1_others_type_of_leaflets
+priority: 1
+condition: "step1_type_of_message_leaflets.contains('others')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_type_of_posters
+description: if step1_others_type_of_posters
+priority: 1
+condition: "step1_type_of_message_posters.contains('others')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_type_of_brochures
+description: if step1_others_type_of_brochures
+priority: 1
+condition: "step1_type_of_message_brochures.contains('others')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_leaflets
+description: if step1_type_of_message_leaflets
+priority: 1
+condition: "step1_type_of_iec_material.contains('leaflets')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_posters
+description: if step1_type_of_message_posters
+priority: 1
+condition: "step1_type_of_iec_material.contains('posters')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_brochures
+description: if step1_type_of_message_brochures
+priority: 1
+condition: "step1_type_of_iec_material.contains('brochure')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_leaflets
+description: if step1_number_of_leaflets
+priority: 1
+condition: "step1_type_of_iec_material.contains('leaflets')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_posters
+description: if step1_number_of_posters
+priority: 1
+condition: "step1_type_of_iec_material.contains('posters')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_number_of_brochures
+description: if step1_number_of_brochures
+priority: 1
+condition: "step1_type_of_iec_material.contains('brochure')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_iec_material
+description: if step1_type_of_iec_material
+priority: 1
+condition: "step1_provide_iec_materials.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services_below_5_years
+description: Rule to control the visibility of (step1_preventive_services_below_5_years)
+priority: 1
+condition: "global_age < 5 && step1_preventive_services_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services_above_5_years_below_18_years
+description: Rule to control the visibility of (step1_preventive_services_above_5_years_below_18_years)
+priority: 1
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5 && global_age < 18"
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services_above_18_years
+description: Rule to control the visibility of (step1_preventive_services_above_18_years)
+priority: 1
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 18"
+actions:
+  - "isRelevant = true "
+---
+name: step1_others_services_specify
+description: Rule to control the visibility of (step1_others_services_specify)
+priority: 1
+condition: "step1_preventive_services_below_5_years.contains('other_services') ||
+            step1_preventive_services_above_5_years_below_18_years.contains('other_services') ||
+            step1_preventive_services_above_18_years.contains('other_services')
+            "
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services
+description: Rule to control the value of (step1_preventive_services)
+priority: 1
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes')"
+actions:
+  - "calculation =  if (global_age < 5) { return step1_preventive_services_below_5_years }
+                    else if(global_age >= 5 && global_age < 18) { return step1_preventive_services_above_5_years_below_18_years } 
+                    else if(global_age >= 18) { return step1_preventive_services_above_18_years }
+                    else {return '' }
+   "
+---
+name: step1_type_of_message_leaflets_title
+description: if step1_type_of_message_leaflets_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('leaflets')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_posters_title
+description: if step1_type_of_message_posters_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('posters')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_type_of_message_brochures_title
+description: if step1_type_of_message_brochures_title
+priority: 1
+condition: "step1_type_of_iec_material.contains('brochure')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_preventive_services_title
+description: Rule to control the visibility of (preventive_services_title)
+priority: 1
+condition: "step1_preventive_services_provided.equalsIgnoreCase('yes') && global_age >= 5"
+actions:
+  - "isRelevant = true "
+---
+name: step1_record_hivst_details_note
+description: Rule to control the visibility of (record_hivst_details_note)
+priority: 1
+condition: "step1_preventive_services.contains('hiv_self_test_kits')"
+actions:
+  - "isRelevant = true "

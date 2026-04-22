@@ -27,7 +27,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getAllSharedPreferences().getPreference("CURRENT_LOCATION_ID");
+        return Utils.getSyncFilterValue();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return Arrays.asList("MOH Jhpiego Facility Name", "Health Facility", "Facility", "Ward", "Village");
+        return Arrays.asList("Ward", "Facility", "Hamlet");
     }
 
     @Override

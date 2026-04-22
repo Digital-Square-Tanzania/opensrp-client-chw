@@ -53,4 +53,18 @@ public class ReferralDao extends AbstractDao {
         return null;
 
     }
+
+    public static String getRecGuid(String baseEntityId) {
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "rec_guid");
+
+        String sql = "SELECT rec_guid  from ec_referral " +
+                      "WHERE base_entity_id = '" + baseEntityId + "' ";
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
+            return res.get(0);
+        }
+        return null;
+
+    }
 }

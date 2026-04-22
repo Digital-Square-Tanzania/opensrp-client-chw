@@ -267,8 +267,15 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
             startCancerPreventiveServicesRegistration();
         } else if (i == org.smartregister.chw.core.R.id.action_asrh_registration) {
             startAsrhRegistration();
+        }  else if (i == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     protected void startAncRegister() {

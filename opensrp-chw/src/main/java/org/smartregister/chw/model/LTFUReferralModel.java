@@ -45,6 +45,7 @@ public class LTFUReferralModel extends BaseReferralModel {
         columns.add(CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID);
         columns.add(CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.PHONE_NUMBER);
         columns.add(CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.OTHER_PHONE_NUMBER);
+        columns.add(CoreConstants.TABLE_NAME.FAMILY_MEMBER + ".primary_caregiver_name");
         columns.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columns.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.LANDMARK);
 

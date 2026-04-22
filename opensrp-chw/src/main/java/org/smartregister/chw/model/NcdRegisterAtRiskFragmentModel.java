@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.model.CoreNcdRegisterFragmentModel;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
 
@@ -24,7 +25,7 @@ public class NcdRegisterAtRiskFragmentModel extends CoreNcdRegisterFragmentModel
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " as T1 ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER + " = T1." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " as T2 ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD + " = T2." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.DIABETES_HYPERTENSION_FOLLOWUP + " as dhf ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhf." + DBConstants.KEY.BASE_ENTITY_ID);
-        queryBuilder.customJoin("LEFT JOIN " + org.smartregister.chw.ncd.util.Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION + " as dhc ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhc." + DBConstants.KEY.BASE_ENTITY_ID);
+        queryBuilder.customJoin("LEFT JOIN " + Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION + " as dhc ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhc." + DBConstants.KEY.BASE_ENTITY_ID);
         return queryBuilder.mainCondition(mainCondition);
     }
 
@@ -38,7 +39,7 @@ public class NcdRegisterAtRiskFragmentModel extends CoreNcdRegisterFragmentModel
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " as T1 ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER + " = T1." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " as T2 ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD + " = T2." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.DIABETES_HYPERTENSION_FOLLOWUP + " as dhf ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhf." + DBConstants.KEY.BASE_ENTITY_ID);
-        queryBuilder.customJoin("LEFT JOIN " + org.smartregister.chw.ncd.util.Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION + " as dhc ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhc." + DBConstants.KEY.BASE_ENTITY_ID);
+        queryBuilder.customJoin("LEFT JOIN " + Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION + " as dhc ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = dhc." + DBConstants.KEY.BASE_ENTITY_ID);
         return queryBuilder.mainCondition(mainCondition);
     }
 

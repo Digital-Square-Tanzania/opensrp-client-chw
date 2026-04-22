@@ -143,6 +143,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasHps() {
+        return true;
+    }
+
+    @Override
     public boolean hasAsrh() {
         return true;
     }

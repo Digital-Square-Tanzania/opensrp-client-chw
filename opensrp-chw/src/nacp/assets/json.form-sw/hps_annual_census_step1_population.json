@@ -1,0 +1,670 @@
+{
+  "count": "1",
+  "encounter_type": "HPS Annual Census",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Taarifa ya Mwaka",
+    "fields": [
+      {
+        "key": "year",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "year",
+        "hint": "Mwaka",
+        "type": "edit_text",
+        "read_only": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "select_age_group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "select_age_group",
+        "label": "Chagua kundi la umri",
+        "text_color": "#000000",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "age_group_less_1",
+            "text": "<1",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_less_1"
+          },
+          {
+            "key": "age_group_1_4",
+            "text": " 1-4",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_1_4"
+          },
+          {
+            "key": "age_group_5_14",
+            "text": "5-14",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_5_14"
+          },
+          {
+            "key": "age_group_15_49",
+            "text": "15-49",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_15_49"
+          },
+          {
+            "key": "age_group_50_59",
+            "text": "50-59",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_50_59"
+          },
+          {
+            "key": "age_group_equal_and_above_60",
+            "text": "60+",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_group_equal_and_above_60"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_less_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_less_1",
+        "hint": "Idadi ya watoto wa kiume chini ya mwaka mmoja",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "1000000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_less_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_less_1",
+        "hint": "Idadi ya watoto wa kike chini ya mwaka mmoja",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_1_4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_1_4",
+        "hint": "Idadi ya watoto wa kiume wenye umri wa mwaka 1-4",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_1_4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_1_4",
+        "hint": "Idadi ya watoto wa kike wenye umri wa mwaka 1-4",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_5_14",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_5_14",
+        "hint": "Idadi ya watoto wa kiume wenye umri wa miaka 5-14",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_5_14",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_5_14",
+        "hint": "Idadi ya watoto wa kike wenye umri wa miaka 5-14",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_15_49",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_15_49",
+        "hint": "Idadi ya watu wa kiume wenye umri wa miaka 15-49",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_15_49",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_15_49",
+        "hint": "Idadi ya watu wa kike wenye umri wa miaka 15-49",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_50_59",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_50_59",
+        "hint": "Idadi ya wanaume wenye umri wa miaka 50-59",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_50_59",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_50_59",
+        "hint": "Idadi ya wanawake wenye umri wa miaka 50-59",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_male_by_age_group_equal_and_above_60",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_by_age_group_equal_and_above_60",
+        "hint": "Idadi ya wanaume wenye umri wa miaka 60 na kuendelea",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_by_age_group_equal_and_above_60",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_by_age_group_equal_and_above_60",
+        "hint": "Idadi ya wanawake wenye umri wa miaka 60 na kuendelea",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_annual_census_population.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_house_hold",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold",
+        "hint": "Idadi ya Kaya",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        }
+      },
+      {
+        "key": "number_of_house_hold_with_road_access",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_hold_with_road_access",
+        "hint": "Idadi ya kaya zinazofikiwa na usafiri wa gari bila matatizo",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+          }
+        ]
+      },
+      {
+        "key": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_house_holds_with_at_least_one_landline_or_mobile_phone",
+        "hint": "Idadi ya kaya yenye angalau simu moja ya kiganjani au mezani",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jibu sahihi"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Namba lazima iwe sawa au kubwa kuliko 0"
+        },
+        "v_max": {
+          "value": "100000",
+          "err": "Namba lazima ziwe na tarakimu tano"
+        },
+        "v_max_length": {
+          "value": "5",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
+            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+          }
+        ]
+      }
+    ]
+  }
+}

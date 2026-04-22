@@ -38,10 +38,15 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         super.onCreate(savedInstanceState);
         ImageView imageView = findViewById(R.id.login_logo);
         if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo));
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_launcher_afya_jamii_logo));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo_ba));
         }
+
+        findViewById(R.id.forgot_password).setOnClickListener(view -> {
+            Intent forgotPassword = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(forgotPassword);
+        });
     }
 
     @Override

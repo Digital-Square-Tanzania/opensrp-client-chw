@@ -1,12 +1,15 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.util.AllClientsUtils.setMenuItemVisibility;
 import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +31,15 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hivst.util.Constants;
+import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.util.HivstUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.JsonFormUtils;
 
 import timber.log.Timber;
 
@@ -90,7 +96,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public void startIssueSelfTestingKitsForm(String baseEntityId) {
         JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.HIVST_ISSUE_KITS);
         try {
-            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+            form.put(JsonFormUtils.ENTITY_ID, baseEntityId);
             JSONObject global = form.getJSONObject("global");
             boolean knownPositiveFromHIV = HivDao.isRegisteredForHiv(baseEntityId) && StringUtils.isNotBlank(HivDao.getMember(baseEntityId).getCtcNumber());
             global.put("known_positive", HivstDao.isTheClientKnownPositiveAtReg(baseEntityId) || knownPositiveFromHIV);
@@ -122,6 +128,16 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(memberObject.getBaseEntityId()));
         }
+
+        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = preferences != null ? preferences.getString(TEAM_ROLE_IDENTIFIER, "") : "";
+
+        if (ChwApplication.getApplicationFlavor().hasHps() && teamRoleIdentifier.contains("icchw")) {
+            String dob = memberObject.getAge();
+            int age = Utils.getAgeFromDate(dob);
+            setMenuItemVisibility(menu, R.id.action_hps_enrollment, !HpsDao.isRegisteredForHps(memberObject.getBaseEntityId()) && age >= 10);
+        }
         return true;
     }
 
@@ -134,8 +150,15 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
             int age = Utils.getAgeFromDate(dob);
             KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
             return true;
+        } else if (itemId == R.id.action_hps_enrollment) {
+            startHpsEnrollment();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void startHpsEnrollment() {
+        HpsRegisterActivity.startRegistration(this, memberObject.getBaseEntityId(), org.smartregister.chw.hps.util.Constants.FORMS.HPS_CLIENT_ENROLLMENT, null);
     }
 
     @Override

@@ -85,7 +85,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Tafadhali chagua jibu mojawapo"
         }
       },
       {

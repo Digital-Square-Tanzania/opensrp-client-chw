@@ -1,0 +1,705 @@
+{
+  "validate_on_submit": true,
+  "count": "1",
+  "encounter_type": "HPS Preventive Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {
+    "age": 5
+  },
+  "step1": {
+    "title": "Preventive Services",
+    "fields": [
+      {
+        "key": "preventive_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_provided",
+        "type": "native_radio",
+        "label": "Were preventive services offered to the client?",
+        "label_text_size": "18px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "preventive_services_below_5_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_below_5_years",
+        "type": "check_box",
+        "label": "Select preventive services provided",
+        "text_color": "#000000",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "vitamin_a_supplements",
+            "text": "Vitamin A Supplements",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vitamin_a_supplements"
+          },
+          {
+            "key": "other_services",
+            "text": "Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_title",
+        "type": "label",
+        "text": "Preventive services provided",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_title",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_5_years_below_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_5_years_below_18_years",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "save_obs_as_array": true,
+        "maxSelectable": 5,
+        "buttonText": "+ Add preventive services provided",
+        "sort": false,
+        "dialogTitle": "Select preventive services provided",
+        "searchHint": "Type of message",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "1.Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling",
+            "property": {
+              "presumed-id": "counselling",
+              "confirmed-id": "counselling"
+            }
+          },
+          {
+            "key": "family_planning_pills",
+            "text": "2.Family Planning Pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning_pills",
+              "confirmed-id": "family_planning_pills"
+            }
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "3.Iron and Folic Acid (IFA) Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets",
+            "property": {
+              "presumed-id": "iron_folic_tablets",
+              "confirmed-id": "iron_folic_tablets"
+            }
+          },
+          {
+            "key": "deworming_medication",
+            "text": "4.Deworming Medication",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication",
+            "property": {
+              "presumed-id": "deworming_medication",
+              "confirmed-id": "deworming_medication"
+            }
+          },
+          {
+            "key": "male_condoms",
+            "text": "5.Male Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms",
+            "property": {
+              "presumed-id": "male_condoms",
+              "confirmed-id": "male_condoms"
+            }
+          },
+          {
+            "key": "female_condoms",
+            "text": "6.Female Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms",
+            "property": {
+              "presumed-id": "female_condoms",
+              "confirmed-id": "female_condoms"
+            }
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "7.Post-Exposure Prophylaxis (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "post_exposure_prophylaxis",
+              "confirmed-id": "post_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "pre_exposure_prophylaxis",
+            "text": "8.Pre-Exposure Prophylaxis (PrEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pre_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "pre_exposure_prophylaxis",
+              "confirmed-id": "pre_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "fortified_foods",
+            "text": "9.Fortified Foods",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods",
+            "property": {
+              "presumed-id": "fortified_foods",
+              "confirmed-id": "fortified_foods"
+            }
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "10.Distribution of Mosquito Nets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets",
+            "property": {
+              "presumed-id": "distribution_mosquito_nets",
+              "confirmed-id": "distribution_mosquito_nets"
+            }
+          },
+          {
+            "key": "distribution_water_purification_tablets",
+            "text": "11.Distribution of Water Purification Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_water_purification_tablets",
+            "property": {
+              "presumed-id": "distribution_water_purification_tablets",
+              "confirmed-id": "distribution_water_purification_tablets"
+            }
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "12.Psychological Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling",
+            "property": {
+              "presumed-id": "psychological_counselling",
+              "confirmed-id": "psychological_counselling"
+            }
+          },
+          {
+            "key": "preliminary_screening_tb",
+            "text": "13.Preliminary Screening for Tuberculosis/Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening_tb",
+            "property": {
+              "presumed-id": "preliminary_screening_tb",
+              "confirmed-id": "preliminary_screening_tb"
+            }
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "14.Preliminary Screening for Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening",
+            "property": {
+              "presumed-id": "gender_based_violence_screening",
+              "confirmed-id": "gender_based_violence_screening"
+            }
+          },
+          {
+            "key": "collection_sputum_stool_samples",
+            "text": "15.Collection of Sputum/Stool Samples",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_sputum_stool_samples",
+            "property": {
+              "presumed-id": "collection_sputum_stool_samples",
+              "confirmed-id": "collection_sputum_stool_samples"
+            }
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "16.Dispensing ARV Medication to People Living with HIV (PLHIV)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication",
+            "property": {
+              "presumed-id": "dispensing_arv_medication",
+              "confirmed-id": "dispensing_arv_medication"
+            }
+          },
+          {
+            "key": "preventive_medication_ntd",
+            "text": "17.Distribution of Preventive Medication for Neglected Tropical Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_medication_ntd",
+            "property": {
+              "presumed-id": "preventive_medication_ntd",
+              "confirmed-id": "preventive_medication_ntd"
+            }
+          },
+          {
+            "key": "first_aid_services",
+            "text": "First Aid Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services",
+            "property": {
+              "presumed-id": "first_aid_services",
+              "confirmed-id": "first_aid_services"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "19.Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "20.Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "other_services",
+            "text": "21.Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services",
+            "property": {
+              "presumed-id": "other_services",
+              "confirmed-id": "other_services"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services_above_18_years",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services_above_18_years",
+        "openmrs_data_type": "select one",
+        "type": "multi_select_list",
+        "save_obs_as_array": true,
+        "maxSelectable": 5,
+        "buttonText": "+ Add preventive services provided",
+        "sort": false,
+        "dialogTitle": "Select preventive services provided",
+        "searchHint": "Type of message",
+        "options": [
+          {
+            "key": "counselling",
+            "text": "1.Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling",
+            "property": {
+              "presumed-id": "counselling",
+              "confirmed-id": "counselling"
+            }
+          },
+          {
+            "key": "family_planning_pills",
+            "text": "2.Family Planning Pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning",
+            "property": {
+              "presumed-id": "family_planning_pills",
+              "confirmed-id": "family_planning_pills"
+            }
+          },
+          {
+            "key": "iron_folic_tablets",
+            "text": "3.Iron and Folic Acid (IFA) Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iron_folic_tablets",
+            "property": {
+              "presumed-id": "iron_folic_tablets",
+              "confirmed-id": "iron_folic_tablets"
+            }
+          },
+          {
+            "key": "deworming_medication",
+            "text": "4.Deworming Medication",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deworming_medication",
+            "property": {
+              "presumed-id": "deworming_medication",
+              "confirmed-id": "deworming_medication"
+            }
+          },
+          {
+            "key": "male_condoms",
+            "text": "5.Male Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms",
+            "property": {
+              "presumed-id": "male_condoms",
+              "confirmed-id": "male_condoms"
+            }
+          },
+          {
+            "key": "female_condoms",
+            "text": "6.Female Condoms",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms",
+            "property": {
+              "presumed-id": "female_condoms",
+              "confirmed-id": "female_condoms"
+            }
+          },
+          {
+            "key": "post_exposure_prophylaxis",
+            "text": "7.Post-Exposure Prophylaxis (PEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "post_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "post_exposure_prophylaxis",
+              "confirmed-id": "post_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "pre_exposure_prophylaxis",
+            "text": "8.Pre-Exposure Prophylaxis (PrEP)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pre_exposure_prophylaxis",
+            "property": {
+              "presumed-id": "pre_exposure_prophylaxis",
+              "confirmed-id": "pre_exposure_prophylaxis"
+            }
+          },
+          {
+            "key": "fortified_foods",
+            "text": "9.Fortified Foods",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fortified_foods",
+            "property": {
+              "presumed-id": "fortified_foods",
+              "confirmed-id": "fortified_foods"
+            }
+          },
+          {
+            "key": "distribution_mosquito_nets",
+            "text": "10.Distribution of Mosquito Nets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_mosquito_nets",
+            "property": {
+              "presumed-id": "distribution_mosquito_nets",
+              "confirmed-id": "distribution_mosquito_nets"
+            }
+          },
+          {
+            "key": "hiv_self_test_kits",
+            "text": "11.Distribution of HIV Self-Test Kits",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hiv_self_test_kits",
+            "property": {
+              "presumed-id": "hiv_self_test_kits",
+              "confirmed-id": "hiv_self_test_kits"
+            }
+          },
+          {
+            "key": "distribution_water_purification_tablets",
+            "text": "12.Distribution of Water Purification Tablets",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "distribution_water_purification_tablets",
+            "property": {
+              "presumed-id": "distribution_water_purification_tablets",
+              "confirmed-id": "distribution_water_purification_tablets"
+            }
+          },
+          {
+            "key": "psychological_counselling",
+            "text": "13.Psychological Counselling",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_counselling",
+            "property": {
+              "presumed-id": "psychological_counselling",
+              "confirmed-id": "psychological_counselling"
+            }
+          },
+          {
+            "key": "preliminary_screening_tb",
+            "text": "14.Preliminary Screening for Tuberculosis/Leprosy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preliminary_screening_tb",
+            "property": {
+              "presumed-id": "preliminary_screening_tb",
+              "confirmed-id": "preliminary_screening_tb"
+            }
+          },
+          {
+            "key": "gender_based_violence_screening",
+            "text": "15.Preliminary Screening for Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence_screening",
+            "property": {
+              "presumed-id": "gender_based_violence_screening",
+              "confirmed-id": "gender_based_violence_screening"
+            }
+          },
+          {
+            "key": "collection_sputum_stool_samples",
+            "text": "16.Collection of Sputum/Stool Samples",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "collection_sputum_stool_samples",
+            "property": {
+              "presumed-id": "collection_sputum_stool_samples",
+              "confirmed-id": "collection_sputum_stool_samples"
+            }
+          },
+          {
+            "key": "dispensing_arv_medication",
+            "text": "17.Dispensing ARV Medication to People Living with HIV (PLHIV)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dispensing_arv_medication",
+            "property": {
+              "presumed-id": "dispensing_arv_medication",
+              "confirmed-id": "dispensing_arv_medication"
+            }
+          },
+          {
+            "key": "preventive_medication_ntd",
+            "text": "18.Distribution of Preventive Medication for Neglected Tropical Diseases",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "preventive_medication_ntd",
+            "property": {
+              "presumed-id": "preventive_medication_ntd",
+              "confirmed-id": "preventive_medication_ntd"
+            }
+          },
+          {
+            "key": "first_aid_services",
+            "text": "19.First Aid Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "first_aid_services",
+            "property": {
+              "presumed-id": "first_aid_services",
+              "confirmed-id": "first_aid_services"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "environment_hygiene_sanitation",
+            "text": "20.Environmental Hygiene and Sanitation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "environment_hygiene_sanitation",
+            "property": {
+              "presumed-id": "environment_hygiene_sanitation",
+              "confirmed-id": "environment_hygiene_sanitation"
+            }
+          },
+          {
+            "key": "food_hygiene_safety",
+            "text": "21.Food Hygiene and Safety",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "food_hygiene_safety",
+            "property": {
+              "presumed-id": "food_hygiene_safety",
+              "confirmed-id": "food_hygiene_safety"
+            }
+          },
+          {
+            "key": "other_services",
+            "text": "22.Other Services",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_services",
+            "property": {
+              "presumed-id": "other_services",
+              "confirmed-id": "other_services"
+            }
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preventive_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preventive_services",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "others_services_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "others_services_specify",
+        "type": "edit_text",
+        "hint": "Others services(Specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "record_hivst_details_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Use the HIVST Module to Record HIVST Kits Details and Test Results",
+        "toaster_info_text": "The HIV Self-Testing (HIVST) Module allows users to register clients who have been provided with HIV self-testing kits and to document their subsequent test results. Through the module, users can ensure accurate tracking of kit distribution and timely follow-up on testing outcomes. The HIVST Module is accessible from the system’s navigation menu.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_preventive_services_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
