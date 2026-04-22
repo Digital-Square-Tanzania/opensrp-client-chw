@@ -2,6 +2,7 @@ package org.smartregister.chw.application;
 
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.LocationUtils;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
@@ -259,7 +260,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasADDO() {
-        return true;
+        return LocationUtils.hasADDO();
     }
 
     @Override

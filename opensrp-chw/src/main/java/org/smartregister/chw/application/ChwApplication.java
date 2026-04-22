@@ -74,6 +74,7 @@ import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
+import org.smartregister.chw.event.LocationSyncCompleteEvent;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
@@ -97,6 +98,8 @@ import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.LocationUtils;
+import org.smartregister.chw.util.NavigationDrawerRefreshUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -492,8 +495,8 @@ public class ChwApplication extends CoreChwApplication {
         return flavor.hasTB();
     }
 
-    public boolean hasADDO(){
-        return flavor.hasADDO();
+    public boolean hasADDO() {
+        return LocationUtils.hasADDO();
     }
 
 
@@ -512,6 +515,11 @@ public class ChwApplication extends CoreChwApplication {
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationSyncComplete(LocationSyncCompleteEvent event) {
+        NavigationDrawerRefreshUtils.refreshNavigationDrawer();
     }
 
     public AppExecutors getAppExecutors() {
