@@ -216,6 +216,8 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity {
             return;
         }
 
+        formJsonObject.put("entity_id", memberObject.getBaseEntityId());
+
         int age = memberObject.getAge();
         JSONArray step3Fields = JsonFormUtils.fields(formJsonObject, "step3");
         JSONObject ageField = FormUtils.getFieldJSONObject(step3Fields, "age");

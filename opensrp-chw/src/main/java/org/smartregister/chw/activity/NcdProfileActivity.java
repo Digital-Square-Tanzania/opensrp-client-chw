@@ -33,7 +33,6 @@ import org.smartregister.chw.dao.NcdCaseManagementDao;
 import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.ncd.activity.BaseNcdProfileActivity;
 import org.smartregister.chw.ncd.util.Constants;
-import org.smartregister.chw.rule.NcdCaseManagementFollowupRule;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.AppExecutors;
@@ -302,11 +301,6 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
         }
 
         followUpButtonHiddenByWaitPeriod = false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private boolean shouldOpenNcdVisit(String baseEntityId) {
