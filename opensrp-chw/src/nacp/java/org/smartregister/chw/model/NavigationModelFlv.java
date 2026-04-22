@@ -21,6 +21,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
     private static final List<NavigationOption> navigationOptions = new ArrayList<>();
 
+    public static void resetNavigationOptions() {
+        navigationOptions.clear();
+    }
+
+    public static List<NavigationOption> refreshNavigationOptions() {
+        resetNavigationOptions();
+        return new NavigationModelFlv().getNavigationItems();
+    }
+
     @Override
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.isEmpty()) {

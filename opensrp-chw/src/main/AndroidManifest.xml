@@ -724,6 +724,9 @@
         <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService"
             android:foregroundServiceType="dataSync"/>
 
+        <service android:name=".sync.intent.ChwSyncLocationsByLevelAndTagsIntentService"
+            android:foregroundServiceType="dataSync"/>
+
         <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService"
             android:foregroundServiceType="dataSync"/>
 
