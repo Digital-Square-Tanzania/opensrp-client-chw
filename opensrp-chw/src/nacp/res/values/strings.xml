@@ -1297,7 +1297,10 @@
 
     <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
     <string name="hps_preventive_service_provided">Preventive services provided</string>
+    <string name="nav_menu_ncd">NCD Clients</string>
 
+    <string name="diabetes_and_hypertension_screening_form_title">Diabetes &amp; Hypertension Screening</string>
+    <string name="record_diabetes_hypertension">Conduct Diabetes and Hypertension Visit</string>
     <string name="hps_client_criteria_below_12">Select the criteria</string>
     <string name="hps_client_criteria_above_12_male_above_15">Select the criteria</string>
     <string name="hps_client_criteria_above_12_male_below_15">Select the criteria</string>

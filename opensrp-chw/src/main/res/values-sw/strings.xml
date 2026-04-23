@@ -667,6 +667,12 @@
     <string name="tb_leprosy_monthly_report_title">Ripoti ya mwezi ya Kifua Kikuu/Ukoma</string>
 
     <string name="successful_linkages">Miunganisho iliyofanikiwa</string>
+    <string name="nav_menu_ncd">NCD</string>
+    <string name="diabetes_and_hypertension_screening_form_title">Uchunguzi wa Kisukari na Shinikizo la damu</string>
+    <string name="referral_submitted">Rufaa imetumwa</string>
+    <string name="both_diabetes_and_hypertenstion">kisukari na shinikizo la damu</string>
+    <string name="only_diabetes">kisukari</string>
+    <string name="only_hypertension">shinikizo la damu</string>
 
 
     <!--    HPS   -->
@@ -705,6 +711,50 @@
     <string name="hps_m_mama_system">Elimu kuhusu mfumo wa m-mama na matumizi sahihi ya namba ya bure 115</string>
     <string name="hps_other_educations">Elimu nyinginezo</string>
     <string name="hps_other_education_provided">Nyinginezo(Taja)</string>
+    <string name="ncd_confirmed_register_title">Orodha ya wateja waliothibitishwa</string>
+    <string name="ncd_visit_action_diabetes_title">Chukua vipimo</string>
+    <string name="ncd_visit_client_education_missing">Ushauri haujatolewa</string>
+    <string name="ncd_visit_vitals_summary">Sukari ya damu: %1$s | Shinikizo la damu: %2$s</string>
+    <string name="ncd_visit_client_education_done">Ushauri umetolewa</string>
+    <string name="ncd_visit_client_education_not_done">Ushauri haujatolewa</string>
+
+    <string name="ncd_visit_topic_diet">Lishe bora na chakula</string>
+    <string name="ncd_visit_topic_medication_adherence">Ufuataji wa matumizi sahihi ya dawa</string>
+    <string name="ncd_visit_topic_warning_signs">Dalili za hatari na wakati sahihi wa kupata huduma</string>
+    <string name="ncd_visit_topic_other">Nyingine</string>
+
+    <!-- NCD Case Management Follow-Up -->
+    <string name="ncd_case_management_visit_title">Ufuatiliaji wa Kila Mwezi wa NCD</string>
+    <string name="ncd_followup_action_clinical_adherence">Ufuatiliaji wa Dawa na Kliniki</string>
+    <string name="ncd_followup_action_danger_signs">Dalili za Hatari</string>
+    <string name="ncd_followup_action_lifestyle">Mtindo wa Maisha</string>
+    <string name="ncd_followup_action_psychosocial">Msaada wa Kisaikolojia</string>
+    <string name="ncd_followup_action_vitals">Vipimo (Shinikizo la Damu &amp; Sukari)</string>
+    <string name="ncd_followup_clinical_adherence_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_danger_signs_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_danger_signs_none">Hakuna dalili za hatari</string>
+    <string name="ncd_followup_danger_signs_detected">Dalili za hatari %1$d zimegunduliwa</string>
+    <string name="ncd_followup_lifestyle_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_lifestyle_targets_met">Malengo %1$d/3 yamefikiwa</string>
+    <string name="ncd_followup_psychosocial_pending">Bado haijakamilika</string>
+    <string name="ncd_followup_psychosocial_linked">Ameunganishwa na kikundi cha msaada</string>
+    <string name="ncd_followup_psychosocial_not_linked">Hajaunganishwa na kikundi cha msaada</string>
+    <string name="ncd_unresolved_red_alert_warning">ONYO: Rufaa ya dharura kutoka ziara iliyopita haijatatuliwa. Kagua dalili za hatari na hali ya rufaa.</string>
+
+    <string name="ncd_referral_prompt_title_urgent">Rufaa ya dharura inapendekezwa</string>
+    <string name="ncd_referral_prompt_title_non_emergency">Rufaa isiyo ya dharura inapendekezwa</string>
+    <string name="ncd_referral_prompt_body">Mteja huyu anaonyesha dalili zinazohitaji kushughulikiwa:</string>
+    <string name="ncd_referral_prompt_button_create">Tengeneza rufaa</string>
+    <string name="ncd_referral_prompt_button_skip">Ruka</string>
+    <string name="ncd_referral_reason_high_bp">Shinikizo la damu lililoinuka</string>
+    <string name="ncd_referral_reason_high_glucose">Sukari ya damu iliyoinuka</string>
+    <string name="ncd_referral_reason_high_bp_and_glucose">Shinikizo la damu na sukari vimeinuka</string>
+    <string name="ncd_referral_reason_non_healing_wounds">Vidonda visivyopona</string>
+    <string name="ncd_referral_reason_neuropathy">Dalili za ugonjwa wa mishipa</string>
+    <string name="ncd_referral_reason_vision_changes">Mabadiliko ya uoni</string>
+    <string name="ncd_referral_reason_chest_pain">Maumivu ya kifua</string>
+    <string name="ncd_referral_reason_side_effects">Madhara ya dawa</string>
+    <string name="ncd_referral_reason_missed_clinic">Ameruka ziara ya kliniki</string>
 
     <string name="hps_provision_of_curative_services">Je mgonjwa amepata huduma za tiba?</string>
     <string name="hps_diseases_signs_and_symptoms">Dalili za ugonjwa</string>
@@ -982,6 +1032,35 @@
     <string name="tbleprosy_record_visit_extra_sputum_container_required">Je, mteja anahitaji kontena la ziada la makohozi?</string>
     <string name="tbleprosy_record_visit_yes">Ndiyo</string>
     <string name="tbleprosy_record_visit_no">Hapana</string>
+
+    <string name="ncd_at_risk_clients">Walio katika hatari</string>
+    <string name="ncd_confirmed_clients">Waliothibitishwa</string>
+    <string name="ncd_at_risk_register_title">Wateja walio katika hatari</string>
+    <string name="ncd_visit_action_hypertension_title">Elimu Iliyotolewa</string>
+    <string name="ncd_visit_action_result">Matokeo ya mwisho ya %1$s: %2$s</string>
+    <string name="ncd_visit_action_result_missing">Hakuna matokeo ya %1$s yaliyorekodiwa</string>
+    <string name="ncd_visit_condition_diabetes">Sukari ya damu</string>
+    <string name="ncd_visit_condition_hypertension">Shinikizo la damu</string>
+    <string name="ncd_visit_vitals_missing_all">Hakuna vipimo vilivyochukuliwa</string>
+    <string name="ncd_visit_vitals_missing_placeholder">Haijarekodiwa</string>
+    <string name="ncd_visit_client_education_topics">Vipengele: %1$s</string>
+    <string name="ncd_visit_topic_physical_activity">Shughuli za kuimarisha mwili na mazoezi</string>
+    <string name="ncd_visit_topic_follow_up">Ufuatiliaji wa rufaa</string>
+    <string name="ncd_visit_topic_none">Hakuna</string>
+    <string name="referral_not_submitted">Rufaa haijatumwa</string>
+    <string name="ncd_follow_up_wait_message">Ufuatiliaji unaweza kufanyika baada ya siku 3 tangu uchunguzi wa awali.</string>
+    <string name="ncd_med_history_bp_label">Shinikizo la damu:</string>
+    <string name="ncd_med_history_glucose_label">Sukari ya damu:</string>
+    <string name="ncd_med_history_clinic_label">Mahudhurio ya kliniki:</string>
+    <string name="ncd_med_history_adherence_label">Uzingatiaji wa dawa:</string>
+    <string name="ncd_med_history_danger_signs_label">Dalili za hatari:</string>
+    <string name="ncd_med_history_danger_signs_none">Hakuna zilizoripotiwa</string>
+    <string name="ncd_med_history_alert_red">🔴 Tahadhari nyekundu — rufaa ya haraka</string>
+    <string name="ncd_med_history_alert_yellow">🟡 Tahadhari ya njano — rufaa isiyo ya dharura</string>
+    <string name="ncd_med_history_alert_none">Hakuna tahadhari</string>
+
+    <string name="ncd_close_record">Funga Rekodi ya NCD</string>
+    <string name="ncd_record_closed_success">Rekodi ya NCD imefungwa kwa mafanikio</string>
 
     <!-- Household head selection dialog -->
     <string name="family_register_head_prompt">Ni nani atakayekuwa mkuu wa kaya hii?</string>
