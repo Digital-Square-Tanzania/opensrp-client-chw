@@ -3,6 +3,7 @@ package org.smartregister.chw.application;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChwDBConstants;
+import org.smartregister.chw.util.LocationUtils;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
@@ -195,6 +196,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
                 DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, ChildDBConstants.KEY.ENTRY_POINT, DBConstants.KEY.DOB, DBConstants.KEY.DATE_REMOVED
         });
         return map;
+    }
+
+    @Override
+    public boolean hasNCD() {
+        return LocationUtils.hasNCD();
     }
 
 

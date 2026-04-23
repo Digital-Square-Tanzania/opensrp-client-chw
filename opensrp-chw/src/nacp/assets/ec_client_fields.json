@@ -5904,6 +5904,383 @@
       ]
     },
     {
+      "name": "ec_ncd_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "risk_score",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_risk_score_output"
+          }
+        },
+        {
+          "column_name": "diastolic_bp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diastolic_bp"
+          }
+        },
+        {
+          "column_name": "systolic_bp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "systolic_bp"
+          }
+        },
+        {
+          "column_name": "waist_circumference",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "waist_circumference"
+          }
+        },
+        {
+          "column_name": "family_history_diabetes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "family_history_diabetes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_diabetes_hypertension_followup",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "receive_diabetes_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "receive_diabetes_test"
+          }
+        },
+        {
+          "column_name": "diabetes_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_test_result"
+          }
+        },
+        {
+          "column_name": "receive_hypertension_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "receive_hypertension_test"
+          }
+        },
+        {
+          "column_name": "hypertension_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hypertension_test_result"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_diabetes_hypertension_confirmation",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task"
+          }
+        },
+        {
+          "column_name": "hypertension_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hypertension_result"
+          }
+        },
+        {
+          "column_name": "diabetes_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_result"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_ncd_case_management_followup",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
+          }
+        },
+        {
+          "column_name": "clinic_attendance",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "clinic_attendance"
+          }
+        },
+        {
+          "column_name": "medication_adherence",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "medication_adherence"
+          }
+        },
+        {
+          "column_name": "no_adherence_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "no_adherence_reason"
+          }
+        },
+        {
+          "column_name": "non_healing_wounds",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "non_healing_wounds"
+          }
+        },
+        {
+          "column_name": "neuropathy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "neuropathy"
+          }
+        },
+        {
+          "column_name": "vision_changes",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "vision_changes"
+          }
+        },
+        {
+          "column_name": "chest_pain",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "chest_pain"
+          }
+        },
+        {
+          "column_name": "salt_intake_target_met",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "salt_intake_target_met"
+          }
+        },
+        {
+          "column_name": "sugar_intake_target_met",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "sugar_intake_target_met"
+          }
+        },
+        {
+          "column_name": "physical_activity_target_met",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "physical_activity_target_met"
+          }
+        },
+        {
+          "column_name": "peer_support_linked",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "peer_support_linked"
+          }
+        },
+        {
+          "column_name": "alert_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "alert_status"
+          }
+        },
+        {
+          "column_name": "is_red_alert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "is_red_alert"
+          }
+        },
+        {
+          "column_name": "is_yellow_alert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "is_yellow_alert"
+          }
+        },
+        {
+          "column_name": "is_side_effects_alert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "is_side_effects_alert"
+          }
+        },
+        {
+          "column_name": "is_missed_clinic_alert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "is_missed_clinic_alert"
+          }
+        },
+        {
+          "column_name": "diabetes_test_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "diabetes_test_result"
+          }
+        },
+        {
+          "column_name": "blood_pressure_systolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "blood_pressure_systolic"
+          }
+        },
+        {
+          "column_name": "blood_pressure_diastolic",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "blood_pressure_diastolic"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_tbleprosy_contact_visit",
       "columns": [
         {

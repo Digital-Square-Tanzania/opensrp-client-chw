@@ -65,6 +65,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op28 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_outschool, CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, 0);
             NavigationOption op29 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_parental, CoreConstants.DrawerMenu.AYP_PARENTAL, 0);
             NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
+            NavigationOption op31 = new NavigationOption(R.drawable.ic_ncd, R.drawable.ic_ncd_blue, R.string.nav_menu_ncd, CoreConstants.DrawerMenu.NCD, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -88,7 +89,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8, op9));
                         break;
                     default:
-                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op31, op12, op3, op5, op2, op13));
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                             navigationOptions.add(op16);
                         }
@@ -136,7 +137,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op31, op12, op3, op5, op2, op13));
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }

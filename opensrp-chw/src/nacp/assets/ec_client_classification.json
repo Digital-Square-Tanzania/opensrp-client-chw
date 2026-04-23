@@ -896,6 +896,42 @@
           },
           {
             "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening",
+            "creates_case": [
+              "ec_ncd_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening Confirmation",
+            "creates_case": [
+              "ec_diabetes_hypertension_confirmation",
+              "ec_close_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening Followup",
+            "creates_case": [
+              "ec_diabetes_hypertension_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Monthly Follow-Up",
+            "creates_case": [
+              "ec_ncd_case_management_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Case Management Close",
+            "closes_case": [
+              "ec_ncd_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "AYP In-school Enrollment",
             "creates_case": [
               "ec_ayp_in_school_enrollment"
