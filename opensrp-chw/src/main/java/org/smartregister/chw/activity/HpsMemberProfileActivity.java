@@ -61,6 +61,7 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dao.ChwHpsDao;
 import org.smartregister.chw.dao.FamilyDao;
+import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -184,6 +185,22 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
                 textViewVisitDoneEdit.setOnClickListener(v -> startHivstRegistration());
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasNCD()
+                && !NcdDao.isNcdClient(memberObject.getBaseEntityId())
+                && ChwHpsDao.isBloodPressureAboveThreshold(memberObject.getBaseEntityId())) {
+            textViewRecordHps.setVisibility(View.GONE);
+            visitDone.setVisibility(View.VISIBLE);
+            textViewVisitDone.setText(getString(R.string.hps_high_bp_detected));
+            textViewVisitDone.setVisibility(View.VISIBLE);
+            textViewVisitDoneEdit.setText(R.string.hps_screen_for_diabetes);
+            textViewVisitDoneEdit.setOnClickListener(v ->
+                    MemberProfileUtils.startDiabetesRiskAssessment(
+                            HpsMemberProfileActivity.this,
+                            memberObject.getBaseEntityId(),
+                            memberObject.getAge()));
+            imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
         }
     }
 

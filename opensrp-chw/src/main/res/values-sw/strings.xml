@@ -746,6 +746,8 @@
     <string name="ncd_referral_prompt_body">Mteja huyu anaonyesha dalili zinazohitaji kushughulikiwa:</string>
     <string name="ncd_referral_prompt_button_create">Tengeneza rufaa</string>
     <string name="ncd_referral_prompt_button_skip">Ruka</string>
+    <string name="hps_high_bp_detected">Shinikizo la damu lililoinuka limegunduliwa</string>
+    <string name="hps_screen_for_diabetes">Pima Kisukari</string>
     <string name="ncd_referral_reason_high_bp">Shinikizo la damu lililoinuka</string>
     <string name="ncd_referral_reason_high_glucose">Sukari ya damu iliyoinuka</string>
     <string name="ncd_referral_reason_high_bp_and_glucose">Shinikizo la damu na sukari vimeinuka</string>
