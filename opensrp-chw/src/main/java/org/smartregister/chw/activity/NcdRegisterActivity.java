@@ -21,7 +21,6 @@ import timber.log.Timber;
 
 public class NcdRegisterActivity extends CoreNcdRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    // TODO: Confirm with reviewer that CoreNcdRegisterActivity is still the appropriate base class.
     private NcdRegisterFragment atRiskFragment;
     private NcdConfirmedRegisterFragment confirmedFragment;
 
