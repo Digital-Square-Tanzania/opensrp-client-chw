@@ -1,0 +1,486 @@
+{
+  "count": "1",
+  "encounter_type": "Diabetes and Hypertension Screening Followup",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Tembeleo la ufuatiliaji",
+    "fields": [
+      {
+        "key": "date_chw_followup",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Je, ulienda kituo cha afya?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        }
+      },
+      {
+        "key": "reasons_for_not_visiting",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_visiting",
+        "type": "check_box",
+        "label": "Sababu za kutotembelea kituo cha afya",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_visit_reason"
+        ],
+        "options": [
+          {
+            "key": "lack_of_transport_fare",
+            "text": "Kukosa nauli/Usafiri",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lack_of_transport_fare"
+          },
+          {
+            "key": "facility_too_far",
+            "text": "Umbali wa kituo ni mrefu sana",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility_too_far"
+          },
+          {
+            "key": "no_time",
+            "text": "Kukosa muda kutokana na kazi au majukumu ya nyumbani",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_time"
+          },
+          {
+            "key": "fear_of_diagnosis",
+            "text": "Hofu ya utambuzi wa ugojwa au taarifa mbaya",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fear_of_diagnosis"
+          },
+          {
+            "key": "facility_closed",
+            "text": "Kituo kilikua kimefungwa/Muda mrefu wa kusubiria huduma",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility_closed"
+          },
+          {
+            "key": "alternative_treatment",
+            "text": "Mteja ametafuta matibabu mbadala (mfano, mganga wa jadi)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alternative_treatment"
+          },
+          {
+            "key": "forgot_referral",
+            "text": "Alisahau kuhusu rufaa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "forgot_referral"
+          },
+          {
+            "key": "chk_other_visit_reason",
+            "text": "Nyingine, taja",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Chagua sababu moja au zaidi"
+        },
+        "relevance": {
+          "step1:visit_hf": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reasons_for_not_visiting",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reasons_for_not_visiting",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine za kutotembelea kituo cha kutolea afya?",
+        "v_required": {
+          "value": "true",
+          "err": "Elezea sababu nyingine"
+        },
+        "relevance": {
+          "step1:reasons_for_not_visiting": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_visit_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "services_hf",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "services_hf",
+        "openmrs_entity_parent": "",
+        "label": "Alipata huduma yoyote katika kituo cha afya?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "receive_diabetes_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receive_diabetes_test",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Ulipata vipimo vya kisukari?",
+        "v_required": {
+          "value": "true",
+          "err": ""
+        },
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diabetes_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diabetes_test_result",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Nini ilikuwa matokeo ya kipimo chako cha kisukari?",
+        "v_required": {
+          "value": "true",
+          "err": "Chagua moja"
+        },
+        "options": [
+          {
+            "key": "positive",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive",
+            "openmrs_entity_parent": "",
+            "text": "Ana kisukari"
+          },
+          {
+            "key": "negative",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative",
+            "openmrs_entity_parent": "",
+            "text": "Hana kisukari"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "receive_hypertension_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receive_hypertension_test",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Ulipata vipimo vya shinikizo la damu?",
+        "v_required": {
+          "value": "true",
+          "err": "Chagua moja"
+        },
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hypertension_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hypertension_test_result",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Matokeo ya kipimo chako cha shinikizo la damu yalikuwa yapi?",
+        "v_required": {
+          "value": "true",
+          "err": "Chagua moja"
+        },
+        "options": [
+          {
+            "key": "positive",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive",
+            "openmrs_entity_parent": "",
+            "text": "Ana shinikizo la damu"
+          },
+          {
+            "key": "negative",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative",
+            "openmrs_entity_parent": "",
+            "text": "Hana shinikizo la damu"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reminder_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Kumbusha mteja au mlezi kufuata maagizo ya dawa au ushauri alioupokea katika kituo kuhusu lishe, mazoezi, na mabadiliko ya mtindo wa maisha.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "noservices_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Why did they not get any services at the facility?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "chk_other_reason"
+        ],
+        "options": [
+          {
+            "key": "chk_many_people",
+            "text": "Watu wengi sana",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_changed_mind",
+            "text": "Alibadilisha mawazo",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_changed_mind"
+          },
+          {
+            "key": "chk_unavailable_service",
+            "text": "Hakukuwa na huduma inayohitajika",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_reason",
+            "text": "Sababu nyingine, tafadhali taja",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu moja au zaidi"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Tafadhali taja sababu nyingine",
+        "v_required": {
+          "value": "true",
+          "err": "Elezea sababu nyingine"
+        },
+        "relevance": {
+          "step1:noservices_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "encourage_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ni muhimu kutembelea kituo cha afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "linkage_followup_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

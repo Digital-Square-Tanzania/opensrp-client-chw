@@ -1,0 +1,120 @@
+{
+  "form": "NCD Case Management Close",
+  "count": "1",
+  "encounter_type": "NCD Case Management Close",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Funga Rekodi ya NCD",
+    "fields": [
+      {
+        "key": "close_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "close_reason",
+        "type": "spinner",
+        "hint": "Sababu ya kufunga rekodi hii",
+        "values": [
+          "Mteja amefariki",
+          "Mteja amehamia",
+          "Amehamishiwa huduma ya kituo cha afya",
+          "Amepotea katika ufuatiliaji (ziara 3+ zilizokosekana)",
+          "Hitilafu ya kuingiza data"
+        ],
+        "keys": [
+          "deceased",
+          "relocated",
+          "transferred",
+          "ltfu",
+          "data_error"
+        ],
+        "openmrs_choice_ids": {
+          "deceased": "deceased",
+          "relocated": "relocated",
+          "transferred": "transferred",
+          "ltfu": "ltfu",
+          "data_error": "data_error"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu ya kufunga rekodi hii"
+        }
+      },
+      {
+        "key": "transfer_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "transfer_facility",
+        "hint": "Jina la kituo kinachopokea",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza jina la kituo"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_case_management_close_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "close_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "close_notes",
+        "hint": "Maelezo ya ziada (si lazima)",
+        "type": "edit_text"
+      }
+    ]
+  }
+}

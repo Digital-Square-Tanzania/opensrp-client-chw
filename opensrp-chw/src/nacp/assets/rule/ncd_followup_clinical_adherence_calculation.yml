@@ -1,0 +1,21 @@
+---
+name: step1_is_side_effects_alert
+description: True when medication non-adherence reason is side effects
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_medication_adherence == 'no' && step1_no_adherence_reason == 'side_effects') ? 'true' : 'false'"
+---
+name: step1_is_missed_clinic_alert
+description: True when client missed clinic attendance
+priority: 2
+condition: "true"
+actions:
+  - "calculation = (step1_clinic_attendance == 'no') ? 'true' : 'false'"
+---
+name: step1_is_yellow_alert
+description: True when missed clinic or side effects reported
+priority: 3
+condition: "true"
+actions:
+  - "calculation = (step1_clinic_attendance == 'no' || step1_no_adherence_reason == 'side_effects') ? 'true' : 'false'"
