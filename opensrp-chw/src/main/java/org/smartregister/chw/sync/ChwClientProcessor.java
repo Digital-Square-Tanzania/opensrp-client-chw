@@ -24,6 +24,7 @@ import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.NcdAutoConfirmationHelper;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
@@ -208,6 +209,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE:
+                case Constants.EncounterType.NCD_MONTHLY_FOLLOWUP:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
@@ -276,6 +278,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
+                case NcdAutoConfirmationHelper.SCREENING_EVENT_TYPE:
+                    NcdAutoConfirmationHelper.maybeAutoConfirmDiabetesHypertension(eventClient);
+                    break;
+
                 case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
                 case DELETE_EVENT:
                     processDeleteEvent(eventClient.getEvent());

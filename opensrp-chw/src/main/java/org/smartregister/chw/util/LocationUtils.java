@@ -22,6 +22,8 @@ import timber.log.Timber;
 public final class LocationUtils {
     private static final String WARD_TAG = "Ward";
     private static final String HAS_ADDO_TAG = "has_addo";
+    private static final String COUNCIL_TAG = "Council";
+    private static final String HAS_NCD_TAG = "has_ncd";
 
     private LocationUtils() {
     }
@@ -45,6 +47,25 @@ public final class LocationUtils {
         }
     }
 
+    public static boolean hasNCD() {
+        try {
+            LocationRepository locationRepository = new LocationRepository();
+            List<Location> locations = locationRepository.getAllLocations();
+            List<LocationTag> locationTags = new LocationTagRepository().getAllLocationTags();
+            String councilLocationId = getCouncil(locations, locationTags);
+
+            if (isBlank(councilLocationId)) {
+                return false;
+            }
+
+            Location councilLocation = locationRepository.getLocationById(councilLocationId);
+            return hasNCD(councilLocation, locationTags);
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
     public static String getWard() {
         try {
             LocationRepository locationRepository = new LocationRepository();
@@ -61,10 +82,20 @@ public final class LocationUtils {
         return wardLocation != null && hasLocationTag(locationTags, wardLocation.getId(), HAS_ADDO_TAG);
     }
 
+    static boolean hasNCD(Location councilLocation, List<LocationTag> locationTags) {
+        return councilLocation != null && hasLocationTag(locationTags, councilLocation.getId(), HAS_NCD_TAG);
+    }
+
     static String getWard(List<Location> locations, List<LocationTag> locationTags) {
         String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
         return getWard(locations, locationTags, locationId, locationData);
+    }
+
+    static String getCouncil(List<Location> locations, List<LocationTag> locationTags) {
+        String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
+        return getCouncil(locations, locationTags, locationId, locationData);
     }
 
     static String getWard(List<Location> locations, List<LocationTag> locationTags, String locationId, String locationData) {
@@ -97,6 +128,39 @@ public final class LocationUtils {
         } catch (Exception e) {
             Timber.e(e);
             return getParentLocationIdWithTags(locations, locationTags, locationId, WARD_TAG);
+        }
+    }
+
+    static String getCouncil(List<Location> locations, List<LocationTag> locationTags, String locationId, String locationData) {
+        if (isBlank(locationId)) {
+            return null;
+        }
+
+        if (isBlank(locationData)) {
+            return getParentLocationIdWithTags(locations, locationTags, locationId, COUNCIL_TAG);
+        }
+
+        try {
+            LocationTree locationTree = AssetHandler.jsonStringToJava(locationData, LocationTree.class);
+            if (locationTree == null || locationTree.getLocationsHierarchy() == null) {
+                return getParentLocationIdWithTags(locations, locationTags, locationId, COUNCIL_TAG);
+            }
+
+            TreeNode<String, org.smartregister.domain.jsonmapping.Location> locationNode =
+                    findLocationNode(locationTree.getLocationsHierarchy(), locationId);
+            if (locationNode == null || locationNode.getParent() == null) {
+                return getParentLocationIdWithTags(locations, locationTags, locationId, COUNCIL_TAG);
+            }
+
+            String parentLocationId = locationNode.getParent();
+            if (hasLocationTag(locations, locationTags, parentLocationId, COUNCIL_TAG)) {
+                return parentLocationId;
+            }
+
+            return getParentLocationIdWithTags(locations, locationTags, parentLocationId, COUNCIL_TAG);
+        } catch (Exception e) {
+            Timber.e(e);
+            return getParentLocationIdWithTags(locations, locationTags, locationId, COUNCIL_TAG);
         }
     }
 

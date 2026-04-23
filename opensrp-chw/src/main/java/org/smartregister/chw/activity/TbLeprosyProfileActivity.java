@@ -729,6 +729,11 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }

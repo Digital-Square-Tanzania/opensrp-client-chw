@@ -592,6 +592,25 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
     /**
+     * Returns a value directly from a field JSONObject (no lookup performed)
+     */
+    public static String getValue(JSONObject fieldObject) {
+        if (fieldObject == null) {
+            return "";
+        }
+
+        try {
+            if (fieldObject.has(JsonFormConstants.VALUE)) {
+                Object value = fieldObject.get(JsonFormConstants.VALUE);
+                return value != null ? String.valueOf(value) : "";
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
+    }
+
+    /**
      * Returns a value from a native forms checkbox field and returns an comma separated string
      *
      * @param jsonObject native forms jsonObject

@@ -12,6 +12,7 @@ import org.smartregister.chw.task.FamilyKitCheckScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.HivVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
+import org.smartregister.chw.task.NcdCaseManagementVisitScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.TbVisitScheduler;
@@ -69,6 +70,8 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
             if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
                 initializeRoutineHouseholdClassifier(scheduleServiceMap);
+
+            initializeNcdCaseManagementClassifier(scheduleServiceMap);
 
         }
         return scheduleServiceMap;
@@ -168,5 +171,14 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, classifier, scheduleServices);
+    }
+
+    private void initializeNcdCaseManagementClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new NcdCaseManagementVisitScheduler());
+
+        addToClassifers(org.smartregister.chw.util.Constants.EncounterType.NCD_MONTHLY_FOLLOWUP, classifier, scheduleServices);
+        addToClassifers(org.smartregister.chw.ncd.util.Constants.EVENT_TYPE.DIABETES_HYPERTENSION_CONFIRMATION_EVENT, classifier, scheduleServices);
+        addToClassifers(org.smartregister.chw.ncd.util.Constants.EVENT_TYPE.DIABETES_HYPERTENSION_FOLLOWUP_EVENT, classifier, scheduleServices);
     }
 }

@@ -1,28 +1,41 @@
 package org.smartregister.chw.util;
 
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.family.util.JsonFormUtils.fields;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AgywRegisterActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.AsrhRegisterActivity;
 import org.smartregister.chw.activity.CecapRegisterActivity;
+import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
 import org.smartregister.chw.activity.IccmRegisterActivity;
 import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.NcdFormWizardActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.SbcRegisterActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.referral.util.LocationUtils;
+import org.smartregister.family.util.DBConstants;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
+
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -109,5 +122,61 @@ public class MemberProfileUtils {
     public static void startCancerPreventiveServicesRegistration(Activity activity, String baseEntityId) {
         CecapRegisterActivity.startRegistration(activity, baseEntityId);
     }
+
+    public static void startDiabetesRiskAssessment(Activity activity, String baseEntityId, int age) {
+        try {
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
+                    activity,
+                    Constants.JsonForm.getDiabetesScreeningForm()
+            );
+            prepopulateDiabetesScreeningForm(formJsonObject, baseEntityId, age);
+            assert formJsonObject != null;
+            startNcdFormActivity(formJsonObject, activity, baseEntityId);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public static void startNcdFormActivity(JSONObject jsonForm, Activity activity, String baseEntityId) {
+        Form form = new Form();
+        String formTitle = activity.getString(R.string.diabetes_and_hypertension_screening_form_title);
+        form.setName(formTitle);
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setWizard(true);
+        form.setHideNextButton(true);
+        form.setHidePreviousButton(true);
+        form.setSaveLabel("");
+        form.setHideSaveLabel(true);
+
+        Intent intent = new Intent(activity, NcdFormWizardActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    private static void prepopulateDiabetesScreeningForm(JSONObject formJsonObject, String baseEntityId, int age) throws JSONException {
+
+        Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
+
+        // Populate Client age
+        JSONArray step3Fields = fields(formJsonObject, "step3");
+        JSONObject ageField = getFieldJSONObject(step3Fields, "age");
+
+        formJsonObject.put("entity_id", baseEntityId);
+
+        if (ageField != null) {
+            ageField.put("value", age);
+        }
+        formJsonObject.getJSONObject(JsonFormConstants.GLOBAL).put("age", age);
+
+        // Populate referral facilities
+        JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
+    }
+
 
 }

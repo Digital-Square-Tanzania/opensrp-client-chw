@@ -364,6 +364,10 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
 
+        if (age >= 30) {
+            setMenuItemVisibility(menu, R.id.action_diabetes_risk, true);
+        }
+
         // Handle AYP menu items
         if (ChwApplication.getApplicationFlavor().hasAyp()) {
             setMenuItemVisibility(menu, R.id.action_ayp_in_school_enrollment, !AypDao.isRegisteredForAypInSchoolServices(baseEntityId) && age >= 10 && age < 25);
