@@ -80,62 +80,74 @@ public class IccmRegisterActivity extends CoreMalariaRegisterActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            if (resultCode != RESULT_OK || data == null) {
+                return;
+            }
+
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                if (jsonString == null) {
+                    return;
+                }
+
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ICCM_ENROLLMENT)) {
-                    JSONArray fields = form.getJSONObject("step3").getJSONArray(FIELDS);
-
-
-                    JSONObject shouldBeReferred = JsonFormUtils.getFieldJSONObject(fields, "should_be_referred");
-                    String shouldBeReferredValue = shouldBeReferred.getString("value");
-                    if (shouldBeReferredValue.equalsIgnoreCase("true")) {
-                        String baseEntityId = form.getString(ENTITY_ID);
-
-                        JSONArray selectedDangerSigns = JsonFormUtils.getFieldJSONObject(fields, "danger_signs").getJSONArray(VALUE);
-                        JSONArray preReferralServicesGiven = new JSONArray();
-
-                        try {
-                            if (JsonFormUtils.getFieldJSONObject(fields, "dispensed_anti_pyretic").getString(VALUE).equalsIgnoreCase("yes")) {
-                                preReferralServicesGiven.put("anti_pyretic");
-                            }
-                        } catch (Exception e) {
-                            Timber.e(e);
-                        }
-
-                        try {
-                            if (JsonFormUtils.getFieldJSONObject(fields, "administered_artesunate").getString(VALUE).equalsIgnoreCase("yes")) {
-                                preReferralServicesGiven.put("rectal_artesunate");
-                            }
-                        } catch (Exception e) {
-                            Timber.e(e);
-                        }
-
-                        CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(baseEntityId);
-
-                        JSONObject referralFormJsonObject = (new com.vijay.jsonwizard.utils.FormUtils()).getFormJsonFromRepositoryOrAssets(this, ICCM_REFERRAL_FORM);
-                        referralFormJsonObject.put(REFERRAL_TASK_FOCUS, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA);
-
-                        String dobString = org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-                        int age = org.smartregister.chw.util.Utils.getAgeFromDate(dobString);
-                        boolean isChild = age < 10;
-                        boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(commonPersonObjectClient, 10, 49) && org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
-
-                        JSONArray steps = referralFormJsonObject.getJSONArray("steps");
-                        JSONObject step = steps.getJSONObject(0);
-                        JSONArray referralFormFields = step.getJSONArray("fields");
-                        updateFieldsWithDangerSignsAndPreReferralServices(referralFormFields, selectedDangerSigns, preReferralServicesGiven, isChild, isFemaleOfReproductiveAge);
-
-                        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, referralFormJsonObject, false, false);
-                        }
+                if (ICCM_ENROLLMENT.equals(form.optString(JsonFormUtils.ENCOUNTER_TYPE))) {
+                    JSONObject step4 = form.optJSONObject("step4");
+                    if (step4 == null) {
+                        return;
                     }
 
+                    JSONArray fields = step4.optJSONArray(FIELDS);
+                    if (fields == null) {
+                        return;
+                    }
+
+                    JSONObject shouldBeReferred = JsonFormUtils.getFieldJSONObject(fields, "should_be_referred");
+                    if (shouldBeReferred == null || !shouldBeReferred.optString(VALUE).equalsIgnoreCase("true")) {
+                        return;
+                    }
+
+                    String baseEntityId = form.getString(ENTITY_ID);
+
+                    JSONArray selectedDangerSigns = JsonFormUtils.getFieldJSONObject(fields, "danger_signs").getJSONArray(VALUE);
+                    JSONArray preReferralServicesGiven = new JSONArray();
+
+                    if (getFieldValue(fields, "dispensed_anti_pyretic").equalsIgnoreCase("yes")) {
+                        preReferralServicesGiven.put("anti_pyretic");
+                    }
+
+                    if (getFieldValue(fields, "administered_artesunate").equalsIgnoreCase("yes")) {
+                        preReferralServicesGiven.put("rectal_artesunate");
+                    }
+
+                    CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(baseEntityId);
+
+                    JSONObject referralFormJsonObject = (new com.vijay.jsonwizard.utils.FormUtils()).getFormJsonFromRepositoryOrAssets(this, ICCM_REFERRAL_FORM);
+                    referralFormJsonObject.put(REFERRAL_TASK_FOCUS, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA);
+
+                    String dobString = org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+                    int age = org.smartregister.chw.util.Utils.getAgeFromDate(dobString);
+                    boolean isChild = age < 10;
+                    boolean isFemaleOfReproductiveAge = isMemberOfReproductiveAge(commonPersonObjectClient, 10, 49) && org.smartregister.chw.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false).equalsIgnoreCase("Female");
+
+                    JSONArray steps = referralFormJsonObject.getJSONArray("steps");
+                    JSONObject step = steps.getJSONObject(0);
+                    JSONArray referralFormFields = step.getJSONArray("fields");
+                    updateFieldsWithDangerSignsAndPreReferralServices(referralFormFields, selectedDangerSigns, preReferralServicesGiven, isChild, isFemaleOfReproductiveAge);
+
+                    if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+                        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, referralFormJsonObject, false, false);
+                    }
                 }
             } catch (Exception ex) {
                 Timber.e(ex);
             }
         }
+    }
+
+    private static String getFieldValue(JSONArray fields, String fieldKey) {
+        JSONObject field = JsonFormUtils.getFieldJSONObject(fields, fieldKey);
+        return field == null ? "" : field.optString(VALUE);
     }
 
 
