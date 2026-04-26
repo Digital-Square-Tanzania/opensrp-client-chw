@@ -20,7 +20,8 @@ public class HarmReductionMatClientsRegisterFragmentPresenter extends BaseHarmRe
 
     @Override
     public String getMainCondition() {
-        return getMainTable() + ".is_closed = 0 AND " + getMainTable() + ".client_started_mat = 'yes'";
+        return getMainTable() + ".is_closed = 0 AND (" + getMainTable() + ".client_started_mat = 'yes' OR " +
+                getMainTable() + ".follow_up_status = 'started_mat_services')";
     }
 
     @Override
