@@ -115,7 +115,7 @@
             },
             {
               "name": "bleeding_tendency",
-              "text": "Bleeding tendency/DIC",
+              "text": "Bleeding tendency (DIC)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "bleeding_tendency",
@@ -124,7 +124,7 @@
             },
             {
               "name": "shock",
-              "text": "Shock/Circulatory collapse",
+              "text": "Shock (Circulatory collapse)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "shock",
@@ -159,15 +159,6 @@
               }
             },
             {
-              "name": "other_reasons",
-              "text": "Non iCCM Condition",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "other_reasons",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "sever_pneumonia",
               "text": "Pneumonia",
               "meta_data": {
@@ -191,6 +182,15 @@
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "pregnant_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Other conditions",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }

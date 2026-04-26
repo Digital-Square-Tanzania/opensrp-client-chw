@@ -112,12 +112,14 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
     @Override
     public String postProcess(String jsonPayload) {
         JSONObject jsonObject = null;
+        String physicalExamination = "";
         String isMalariaSuspectAfterPhysicalExamination = "false";
         String clientPastMalariaTreatmentHistory = "";
 
         try {
             jsonObject = new JSONObject(jsonPayload);
             JSONArray fields = JsonFormUtils.fields(jsonObject);
+            physicalExamination = CoreJsonFormUtils.getValue(jsonObject, "physical_examination");
 
             JSONObject physicalExaminationCompletionStatus = JsonFormUtils.getFieldJSONObject(fields, "physical_examination_completion_status");
             assert physicalExaminationCompletionStatus != null;
@@ -125,13 +127,28 @@ public class IccmPhysicalExaminationActionHelper implements BaseIccmVisitAction.
 
             isMalariaSuspectAfterPhysicalExamination = CoreJsonFormUtils.getValue(jsonObject, "is_malaria_suspect_after_physical_examination");
             clientPastMalariaTreatmentHistory = CoreJsonFormUtils.getValue(jsonObject, "client_past_malaria_treatment_history");
+
+            JSONObject malariaSuspectAfterPhysicalExamination = JsonFormUtils.getFieldJSONObject(fields, "is_malaria_suspect_after_physical_examination");
+            if (malariaSuspectAfterPhysicalExamination != null) {
+                boolean isSuspect = IccmVisitUtils.isMalariaSuspectAfterPhysicalExamination(
+                        isMalariaSuspectString,
+                        physicalExamination,
+                        isMalariaSuspectAfterPhysicalExamination
+                );
+                malariaSuspectAfterPhysicalExamination.put(JsonFormConstants.VALUE, String.valueOf(isSuspect));
+            }
         } catch (JSONException e) {
             Timber.e(e);
         }
 
-        if ((isMalariaSuspectString.equalsIgnoreCase("true") && clientPastMalariaTreatmentHistory.isBlank()) || (isMalariaSuspectAfterPhysicalExamination.equalsIgnoreCase("true") && (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || (!clientPastMalariaTreatmentHistory.equalsIgnoreCase("yes") && !isMalariaSuspectString.equalsIgnoreCase("true"))))) {
+        if (IccmVisitUtils.shouldPopulateMalariaActionAfterPhysicalExamination(
+                isMalariaSuspectString,
+                physicalExamination,
+                isMalariaSuspectAfterPhysicalExamination,
+                clientPastMalariaTreatmentHistory
+        )) {
             isMalariaSuspectString = "true";
-        }else{
+        } else {
             isMalariaSuspectString = "false";
         }
 
