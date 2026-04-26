@@ -15,8 +15,10 @@ import org.smartregister.chw.malaria.domain.VisitDetail;
 import org.smartregister.chw.malaria.model.BaseIccmVisitAction;
 import org.smartregister.chw.referral.util.LocationUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.IccmReferralFormUtils;
 import org.smartregister.chw.util.IccmVisitUtils;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
+import org.smartregister.family.util.JsonFormUtils;
 
 
 import java.util.HashMap;
@@ -42,14 +44,25 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
     private final HashMap<String, Boolean> checkObject = new HashMap<>();
     private final String enrollmentFormSubmissionId;
     private final Map<String, BaseIccmVisitAction> actionList;
+    private final int age;
+    private final String gender;
 
     public IccmReferralActionHelper() {
-        this(null, null);
+        this(null, null, 0, null);
     }
 
     public IccmReferralActionHelper(String enrollmentFormSubmissionId, Map<String, BaseIccmVisitAction> actionList) {
+        this(enrollmentFormSubmissionId, actionList, 0, null);
+    }
+
+    public IccmReferralActionHelper(String enrollmentFormSubmissionId,
+                                    Map<String, BaseIccmVisitAction> actionList,
+                                    int age,
+                                    String gender) {
         this.enrollmentFormSubmissionId = enrollmentFormSubmissionId;
         this.actionList = actionList;
+        this.age = age;
+        this.gender = gender;
     }
 
     @Override
@@ -63,6 +76,7 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
             JSONObject jsonForm = new JSONObject(jsonPayload);
             Map<String, String> facilityOptions = LocationUtils.INSTANCE.getFacilitiesKeyAndName();
             JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, jsonForm);
+            updateReferralFields(jsonForm);
             prepopulateTreatmentsBeforeReferral(jsonForm);
             return jsonForm.toString();
         } catch (JSONException e) {
@@ -153,7 +167,7 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
             }
 
             JSONArray fields = jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS);
-            JSONObject serviceBeforeReferral = org.smartregister.family.util.JsonFormUtils
+            JSONObject serviceBeforeReferral = JsonFormUtils
                     .getFieldJSONObject(fields, Constants.iCCMTreatment.FIELD_SERVICE_BEFORE_REFERRAL);
             if (serviceBeforeReferral == null) {
                 return;
@@ -180,6 +194,19 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
                     option.put(VALUE, true);
                 }
             }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void updateReferralFields(JSONObject jsonForm) {
+        try {
+            JSONArray fields = jsonForm.getJSONObject(STEP1).getJSONArray(FIELDS);
+            boolean isChild = age < 10;
+            boolean isFemaleOfReproductiveAge = age >= 10
+                    && age <= 49
+                    && StringUtils.equalsIgnoreCase(gender, "female");
+            IccmReferralFormUtils.updateNativeReferralFields(fields, isChild, isFemaleOfReproductiveAge);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -299,7 +326,7 @@ public class IccmReferralActionHelper implements BaseIccmVisitAction.IccmVisitAc
                 return selectedOptions;
             }
 
-            JSONObject fieldObject = org.smartregister.family.util.JsonFormUtils.getFieldJSONObject(fields, fieldName);
+            JSONObject fieldObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
             if (fieldObject == null) {
                 return selectedOptions;
             }
