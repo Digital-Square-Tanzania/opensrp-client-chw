@@ -78,12 +78,30 @@
         }
       },
       {
+        "key": "counseling_missed_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TAHADHARI YA NJANO — Rufaa isiyo ya dharura: Mteja hakuhudhuria kliniki mwezi uliopita<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
+        "toaster_type": "warning",
+        "toaster_info_title": "Kwa Nini Kuhudhuria Kliniki ni Muhimu",
+        "toaster_info_text": "Nakupa rufaa isiyo ya dharura kwasababu kuhudhuria kliniki kama ulivyopangiwa.\n\nKuhudhuria kliniki ni muhimu sana katika kudhibiti kisukari na shinikizo la damu. Husaidia kugundua matatizo mapema na kupunguza hatari ya madhara yatokanayo na shinikizo la juu la damu na kisukari kama kiharusi, magonjwa ya moyo, matatizo ya figo, na matatizo ya macho.\n\nKazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "medication_adherence",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medication_adherence",
         "type": "native_radio",
-        "label": "Je, mteja alichukua dawa kila siku katika siku 7 zilizopita?",
+        "label": "Je, mteja alitumia dawa kila siku katika siku 7 zilizopita?",
         "options": [
           {
             "key": "yes",
@@ -111,27 +129,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_adherence_reason",
         "type": "spinner",
-        "hint": "Ni sababu gani ya kutokuchukua dawa?",
+        "hint": "Ni sababu gani ya kutotumia dawa?",
         "values": [
           "Alisahau",
-          "Alihisi Vizuri",
+          "Alijisikia vizuri",
           "Madhara ya Dawa",
           "Dawa Ziliisha Zahanati",
-          "Gharama ya Usafiri"
+          "Gharama ya Usafiri",
+          "Sababu Nyingine"
         ],
         "keys": [
           "forgot",
           "felt_better",
           "side_effects",
           "stock_out",
-          "transport_cost"
+          "transport_cost",
+          "other"
         ],
         "openmrs_choice_ids": {
           "forgot": "forgot",
           "felt_better": "felt_better",
           "side_effects": "side_effects",
           "stock_out": "stock_out",
-          "transport_cost": "transport_cost"
+          "transport_cost": "transport_cost",
+          "other": "other"
         },
         "v_required": {
           "value": "true",
@@ -146,13 +167,15 @@
         }
       },
       {
-        "key": "counseling_felt_better",
+        "key": "counseling_forgot",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Ushauri: Muuaji wa Kimya\n\nNi jambo jema sana kwamba unahisi vizuri! Hata hivyo, Kisukari na Shinikizo la Damu ni magonjwa ya maisha yote \u2014 yanayojulikana kama 'wauaji wa kimya' kwa sababu yanasababisha uharibifu mkubwa moyoni, figo, na macho \u2014 hata bila dalili zozote.\n\nKuacha dawa unapohisi vizuri ni kosa la hatari zaidi. Dawa yako inasaidia kudhibiti shinikizo la damu na sukari ya damu. Bila dawa, uharibifu unaendelea bila kujua.\n\nTafadhali endelea kuchukua dawa yako kila siku.",
-        "toaster_type": "warning",
+        "text": "Ushauri: Msaidie mteja kutumia vikumbusho vya dawa kila siku<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kusaidia Kufuata Dawa — Alisahau",
+        "toaster_info_text": "Kunywa dawa za kisukari na shinikizo la damu kwa usahihi kama ulivyoelekezwa ni muhimu sana ili kudhibiti sukari na shinikizo la damu.\n\nUnaweza kutumia vikumbusho kama alarm ya simu au kuhusisha muda wa dawa na ratiba zako za kila siku kama vile wakati wa kula.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -162,13 +185,84 @@
         }
       },
       {
-        "key": "yellow_alert_toaster",
+        "key": "counseling_felt_better",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "TAHADHARI YA NJANO \u2014 Rufaa Isiyokuwa ya Dharura Inahitajika\n\nSababu: Hakuhudhuria kliniki na/au madhara ya dawa yameripotiwa. Kazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "text": "Ushauri: Dawa lazima iendelezwe hata ukijisikia vizuri<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kwa Nini Endelea na Dawa Ukijisikia Vizuri",
+        "toaster_info_text": "Ni muhimu kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata kama unajisikia vizuri.\n\nKuacha kutumia dawa kunaweza kusababisha sukari na shinikizo la damu kupanda tena, na kuongeza hatari ya madhara makubwa kama kiharusi, magonjwa ya moyo, matatizo ya figo, na matatizo ya macho.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TAHADHARI YA NJANO — Madhara ya dawa: Mshauri mteja atembelee kliniki<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
         "toaster_type": "warning",
+        "toaster_info_title": "Kusimamia Madhara ya Dawa",
+        "toaster_info_text": "Ni muhimu kutokuacha kutumia dawa za kisukari na shinikizo la damu bila kushauriana na mtoa huduma za afya.\n\nMadhara ya dawa mara nyingi yanaweza kudhibitiwa kwa kurekebisha dozi au kubadilisha dawa. Tafadhali tembelea kliniki ili mtoa huduma za afya aweze kukusaidia.\n\nKazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_stock_out",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ushauri: Msaidie mteja kupata dawa zahanati<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Changamoto za Dawa Zahanati",
+        "toaster_info_text": "Ni muhimu sana kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata kama kituo cha afya kiko mbali.\n\nTujulishe changamoto unazokutana nazo, kunaweza kuwa na njia za kukusaidia kama kupata dawa za muda mrefu zaidi, kupata huduma katika kituo cha karibu, au ufuatiliaji wa karibu katika jamii.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_transport_cost",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Ushauri: Msaidie mteja kushinda vikwazo vya usafiri<br><br><b>Bonyeza ⓘ kusoma zaidi</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Usafiri na Upatikanaji wa Dawa",
+        "toaster_info_text": "Ni muhimu sana kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata ukiwa hauna nauli.\n\nTujulishe changamoto unazokutana nazo, kunaweza kuwa na njia za kukusaidia kama kupata dawa za muda mrefu zaidi, kupata huduma katika kituo cha karibu, au ufuatiliaji wa karibu katika jamii.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_adherence_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason_other",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine...",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

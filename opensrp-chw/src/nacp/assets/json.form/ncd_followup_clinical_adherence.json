@@ -78,12 +78,30 @@
         }
       },
       {
+        "key": "counseling_missed_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "YELLOW ALERT — Non-Emergency Referral: Client missed clinic last month<br><br><b>Tap ⓘ for the full counselling guide</b>",
+        "toaster_type": "warning",
+        "toaster_info_title": "Why Regular Clinic Attendance Matters",
+        "toaster_info_text": "Regular clinic attendance is very important for managing your diabetes and blood pressure and to detect any problems early.\n\nMissing your appointments can lead to uncontrolled blood sugar and blood pressure, which increases the risk of serious complications such as stroke, heart disease, kidney damage, and vision problems.\n\nA non-emergency referral task will be created when this form is submitted.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "medication_adherence",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "medication_adherence",
         "type": "native_radio",
-        "label": "Did the client take medication every day in the last 7 days?",
+        "label": "Did the client use medication every day in the last 7 days?",
         "options": [
           {
             "key": "yes",
@@ -111,27 +129,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_adherence_reason",
         "type": "spinner",
-        "hint": "What was the reason for not taking medication?",
+        "hint": "What was the reason for not using medication?",
         "values": [
           "Forgot",
           "Felt Better",
           "Side Effects",
           "Facility Stock-out",
-          "Transport Cost"
+          "Transport Cost",
+          "Other"
         ],
         "keys": [
           "forgot",
           "felt_better",
           "side_effects",
           "stock_out",
-          "transport_cost"
+          "transport_cost",
+          "other"
         ],
         "openmrs_choice_ids": {
           "forgot": "forgot",
           "felt_better": "felt_better",
           "side_effects": "side_effects",
           "stock_out": "stock_out",
-          "transport_cost": "transport_cost"
+          "transport_cost": "transport_cost",
+          "other": "other"
         },
         "v_required": {
           "value": "true",
@@ -146,13 +167,15 @@
         }
       },
       {
-        "key": "counseling_felt_better",
+        "key": "counseling_forgot",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Counseling: Silent Killer\n\nIt is very good that you are feeling better! However, Diabetes and High Blood Pressure are lifelong conditions often called 'silent killers' because they cause serious damage to the heart, kidneys, and eyes \u2014 even when you feel no symptoms at all.\n\nStopping medication when you feel well is one of the most dangerous mistakes. Your medication keeps your blood pressure and blood sugar under control. Without it, the damage continues silently.\n\nPlease continue taking your medication every day, even when you feel perfectly well.",
-        "toaster_type": "warning",
+        "text": "Counselling: Help client use daily medication reminders<br><br><b>Tap ⓘ for the full counselling guide</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Supporting Medication Adherence — Forgot",
+        "toaster_info_text": "Taking your diabetes and blood pressure medications exactly as prescribed is very important to keep your blood sugar and blood pressure under control.\n\nYou can use reminders like phone alarms or link your medication to daily routines such as meals.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -162,13 +185,84 @@
         }
       },
       {
-        "key": "yellow_alert_toaster",
+        "key": "counseling_felt_better",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "YELLOW ALERT \u2014 Non-Emergency Referral Required\n\nReason(s): Missed clinic appointment and/or medication side effects reported. A referral task will be created when this form is submitted.",
+        "text": "Counselling: Medication must continue even when feeling well<br><br><b>Tap ⓘ for the full counselling guide</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Why Continue Medication When Feeling Well",
+        "toaster_info_text": "It is important to continue taking your diabetes and blood pressure medications exactly as prescribed, even when you feel well.\n\nStopping your medication can cause your blood sugar and blood pressure to rise again, increasing the risk of serious complications such as stroke, heart disease, kidney damage, and vision problems.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "YELLOW ALERT — Side effects reported: advise client to visit clinic<br><br><b>Tap ⓘ for the full counselling guide</b>",
         "toaster_type": "warning",
+        "toaster_info_title": "Managing Medication Side Effects",
+        "toaster_info_text": "It is important not to stop your diabetes and blood pressure medications without consulting a healthcare provider.\n\nSide effects can often be managed by adjusting the dose or changing the medication. Please visit the clinic so that the health care provider can help you.\n\nA non-emergency referral task will be created when this form is submitted.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_stock_out",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Counselling: Help client access medication supply<br><br><b>Tap ⓘ for the full counselling guide</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Medication Supply Challenges",
+        "toaster_info_text": "It is very important to continue taking your diabetes and blood pressure medications as prescribed, even if the clinic is far.\n\nLet us know about the challenges you are facing — there may be options such as getting a longer supply of medication, support from a nearby facility, or community follow-up to help you continue your treatment.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_transport_cost",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Counselling: Help client overcome transport barriers<br><br><b>Tap ⓘ for the full counselling guide</b>",
+        "toaster_type": "info",
+        "toaster_info_title": "Transport and Access to Medication",
+        "toaster_info_text": "It is very important to continue taking your diabetes and blood pressure medications as prescribed, even when you don't have transport fare.\n\nLet us know about the challenges you are facing — there may be options such as getting a longer supply of medication, support from a nearby facility, or community follow-up to help you continue your treatment.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_adherence_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason_other",
+        "type": "edit_text",
+        "hint": "Please specify the other reason...",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

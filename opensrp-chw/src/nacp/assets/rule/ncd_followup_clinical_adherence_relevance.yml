@@ -1,21 +1,56 @@
 ---
-name: step1_no_adherence_reason
-description: Show reason field only when client did not take medication
+name: step1_counseling_missed_clinic
+description: Show YELLOW ALERT counselling when client missed clinic
 priority: 1
+condition: "step1_clinic_attendance == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_adherence_reason
+description: Show reason field only when client did not use medication
+priority: 2
 condition: "step1_medication_adherence == 'no'"
 actions:
   - "isRelevant = true"
 ---
+name: step1_counseling_forgot
+description: Show reminder counselling when reason is forgot
+priority: 3
+condition: "step1_no_adherence_reason == 'forgot'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_counseling_felt_better
-description: Show silent killer counseling script when reason is felt better
-priority: 2
+description: Show continue medication counselling when reason is felt better
+priority: 4
 condition: "step1_no_adherence_reason == 'felt_better'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_yellow_alert_toaster
-description: Show YELLOW ALERT when missed clinic or side effects reported
-priority: 3
-condition: "step1_clinic_attendance == 'no' || step1_no_adherence_reason == 'side_effects'"
+name: step1_counseling_side_effects
+description: Show YELLOW ALERT counselling when side effects reported
+priority: 5
+condition: "step1_no_adherence_reason == 'side_effects'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_counseling_stock_out
+description: Show supply options counselling when medication stock out
+priority: 6
+condition: "step1_no_adherence_reason == 'stock_out'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_counseling_transport_cost
+description: Show access alternatives counselling when transport cost barrier
+priority: 7
+condition: "step1_no_adherence_reason == 'transport_cost'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_adherence_reason_other
+description: Show free text field when reason is other
+priority: 8
+condition: "step1_no_adherence_reason == 'other'"
 actions:
   - "isRelevant = true"
