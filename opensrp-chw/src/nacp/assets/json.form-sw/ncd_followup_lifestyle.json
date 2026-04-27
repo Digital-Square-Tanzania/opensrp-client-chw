@@ -83,8 +83,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Kupunguza Chumvi \u2014 Lengo: chini ya kijiko 1 (gramu 5) kwa siku\n\nBadala ya chumvi, tumia viungo vya asili: pilipili hoho, tangawizi, bizari, mdalasini. Epuka kuongeza chumvi mezani. Punguza matumizi ya royco na vyakula vilivyosindikwa \u2014 vina chumvi nyingi iliyofichwa.",
+        "text": "Kupunguza Chumvi \u2014 Lengo: chini ya kijiko 1 (gramu 5) kwa siku<br>Chumvi nyingi huongeza shinikizo la damu, huongeza hatari ya magonjwa ya moyo, na hufanya udhibiti wa kisukari kuwa mgumu.<br><br><b>Bonyeza \u24d8 kusoma zaidi</b>",
         "toaster_type": "info",
+        "toaster_info_title": "Kupunguza Matumizi ya Chumvi",
+        "toaster_info_text": "Nini cha kufanya: Punguza matumizi ya chumvi ili kujilinda dhidi ya magonjwa ya moyo na kudhibiti sukari ya damu\n\nKwa nini: Chumvi nyingi huongeza shinikizo la damu, huongeza hatari ya magonjwa ya moyo, na hufanya udhibiti wa kisukari kuwa mgumu\n\nLini: Kila siku, katika kila mlo na vitafunwa\n\nWapi: Nyumbani na unapokula nje ya nyumbani kwako. Zingatia chumvi iliyofichwa kwenye vyakula vya kusindikwa na vinavyopikwa kwenye migahawa\n\nNamna: Tumia chini ya gramu 5 za chumvi (kijiko 1 cha chai) kwa siku, epuka kuongeza chumvi mezani, chagua vyakula vya asili ambavyo havijasindikwa, soma lebo za vyakula vilivyosindikwa ili kujua kiwango cha chumvi, na tumia viungo vya asili kama mbadala wa chumvi",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -127,8 +129,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Kupunguza Sukari \u2014 Lengo: chini ya vijiko 5 kwa siku\n\nPunguza sukari kwenye chai na uji kidogo kidogo. Chagua matunda mbichi badala ya vinywaji vyenye sukari au juisi. Epuka soda na juisi za chupa. Unaponunua vyakula vilivyofungwa, angalia kama sukari ipo katika viungo vitatu vya kwanza.",
+        "text": "Kupunguza Sukari \u2014 Lengo: chini ya vijiko 5 kwa siku<br>Sukari nyingi huongeza kiwango cha sukari kwenye damu, huongeza hatari ya madhara yatokanayo na kisukari na huathiri afya ya moyo.<br><br><b>Bonyeza \u24d8 kusoma zaidi</b>",
         "toaster_type": "info",
+        "toaster_info_title": "Kupunguza Matumizi ya Sukari",
+        "toaster_info_text": "Nini cha kufanya: Punguza matumizi ya sukari ili kudhibiti sukari ya damu na kulinda afya yako\n\nKwa nini: Sukari nyingi huongeza kiwango cha sukari kwenye damu, huongeza hatari ya madhara yatokanayo na kisukari na huathiri afya ya moyo\n\nLini: Kila siku, katika milo yote na vinywaji\n\nWapi: Nyumbani na unapokula nje ya nyumbani kwako, kwenye vitafunwa, vinywaji na vyakula vya kusindikwa.\n\nNamna: Punguza matumizi ya sukari kadiri iwezekanavyo, epuka vinywaji vyenye sukari na pipi, chagua maji au vinywaji visivyo na sukari, kula vyakula halisi, na soma lebo za vyakula kuangalia sukari iliyofichwa kwenye vinywaji na vyakula vya kusindika.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -171,8 +175,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Kuongeza Mazoezi \u2014 Lengo: angalau dakika 30 kwa siku, hadi kutoka jasho\n\nKutembea kwa kasi, kulima, kuchota maji, kufagia, na kucheza ngoma vyote vinafaa. Anza na dakika 10 mara tatu kwa siku kama dakika 30 mfululizo ni ngumu. Kutembea kwenda sokoni au zahanati badala ya kupanda gari ni njia nzuri ya kuongeza mazoezi.",
+        "text": "Kuongeza Mazoezi \u2014 Lengo: angalau dakika 30 kwa siku, hadi kutoka jasho<br>Mazoezi husaidia kupunguza shinikizo la damu, kudhibiti sukari ya damu, kuimarisha moyo, na kudumisha uzito unaofaa.<br><br><b>Bonyeza \u24d8 kusoma zaidi</b>",
         "toaster_type": "info",
+        "toaster_info_title": "Kuongeza Mazoezi ya Mwili",
+        "toaster_info_text": "Nini cha kufanya: Fanya mazoezi ya mwili mara kwa mara ili kuboresha afya yako\n\nKwa nini: Mazoezi husaidia kupunguza shinikizo la damu, kudhibiti sukari ya damu, kuimarisha moyo, na kudumisha uzito unaofaa\n\nLini: Angalau dakika 30 siku 5 za wiki\n\nWapi: Nyumbani au sehemu yoyote salama iliyo karibu na wewe\n\nNamna: Anza na mazoezi mepesi kama kutembea, kuendesha baiskeli, au kujinyoosha, ongeza polepole, na kuwa na ratiba ya kudumu",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
