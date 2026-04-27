@@ -65,6 +65,16 @@ Force-stop before clean test loops:
 
 - `adb -s <serial> shell am force-stop <package>`
 
+## Login credential handling
+
+Never read, add, or preserve app usernames or passwords in this skill, its references, logs, screenshots, or Git history.
+
+If a device workflow requires login credentials:
+
+1. Ask the user to provide the username and password for the current session.
+2. Use them only for that device interaction.
+3. Do not echo the password back in the final report or store it in any repo file.
+
 ## Drive the UI from the UI tree
 
 Do not guess coordinates from screenshots.

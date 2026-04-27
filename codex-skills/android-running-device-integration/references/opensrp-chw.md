@@ -2,7 +2,7 @@
 
 Use this reference when the target repo is `opensrp-client-chw` or a close fork.
 
-## App and credentials
+## App
 
 - Expected NACP testing package:
   - `org.smartregister.chw.moh.testing`
