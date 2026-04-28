@@ -35,11 +35,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import timber.log.Timber;
 
 public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static MemberObject harmReductionMemberObject;
+    private static final Pattern BRACKETED_HISTORY_VALUE_GROUP = Pattern.compile("\\[([^\\]]*)\\]");
     static final String SUBSTANCES_USED = "substances_used";
     static final String RISKY_BEHAVIOURS = "risky_behaviours";
 
@@ -96,6 +99,14 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             return parsedValues;
         }
 
+        if (isComposedOfBracketedValueGroups(normalizedValue)) {
+            Matcher matcher = BRACKETED_HISTORY_VALUE_GROUP.matcher(normalizedValue);
+            while (matcher.find()) {
+                parsedValues.addAll(parseHistoryValues(matcher.group(1)));
+            }
+            return parsedValues;
+        }
+
         String content = normalizedValue;
         if (normalizedValue.startsWith("[") && normalizedValue.endsWith("]")) {
             content = normalizedValue.substring(1, normalizedValue.length() - 1).trim();
@@ -118,6 +129,13 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
             }
         }
         return parsedValues;
+    }
+
+    private static boolean isComposedOfBracketedValueGroups(String value) {
+        if (!BRACKETED_HISTORY_VALUE_GROUP.matcher(value).find()) {
+            return false;
+        }
+        return StringUtils.isBlank(BRACKETED_HISTORY_VALUE_GROUP.matcher(value).replaceAll("").replace(",", "").trim());
     }
 
     static boolean shouldSkipHiddenAggregateField(Map<String, String> vals, String valueKey) {

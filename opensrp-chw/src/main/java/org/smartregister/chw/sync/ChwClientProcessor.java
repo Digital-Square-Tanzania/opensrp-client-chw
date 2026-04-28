@@ -2,12 +2,16 @@ package org.smartregister.chw.sync;
 
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_SOBER_HOUSE_VISIT;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
 import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.CoreLibrary;
@@ -107,7 +111,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             chosenHead = getFormValue(eventClient.getEvent(), "existing_head");
                         }
                         if (StringUtils.isNotBlank(chosenHead)) {
-                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                             if (db != null) {
                                 db.execSQL("UPDATE ec_family SET family_head = ? WHERE base_entity_id = ?",
                                         new Object[]{chosenHead, baseEntityID});
@@ -125,7 +129,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         String existingHeadId = getFormValue(eventClient.getEvent(), "existing_head");
                         String originalRelId = getFormValue(eventClient.getEvent(), "original_relational_id");
                         if (StringUtils.isNotBlank(existingHeadId) && StringUtils.isNotBlank(originalRelId)) {
-                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                             if (db != null) {
                                 db.execSQL(
                                         "UPDATE ec_family_member SET relational_id = ? WHERE base_entity_id = ? AND relational_id != ?",
@@ -157,7 +161,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
                             String familyBaseEntityId = eventClient.getEvent().getBaseEntityId();
                             if (StringUtils.isNotBlank(familyBaseEntityId)) {
-                                net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                                SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                                 if (db != null) {
                                     db.execSQL("UPDATE ec_family SET unique_id = ? WHERE base_entity_id = ?",
                                             new Object[]{familyUniqueId, familyBaseEntityId});
@@ -189,6 +193,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case TB_LEPROSY_MOBILIZATION:
                 case HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION:
                 case HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP:
+                case HARM_REDUCTION_FOLLOW_UP_VISIT:
+                case HARM_REDUCTION_SOBER_HOUSE_VISIT:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:
