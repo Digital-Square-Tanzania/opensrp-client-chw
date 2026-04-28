@@ -29,6 +29,23 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step1_invalid_blood_pressure_reading
+description: prompt when the blood pressure pair is invalid
+priority: 1
+condition: "!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) >= Float.parseFloat(step1_systolic)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_blood_pressure_guard
+description: require a valid blood pressure pair before saving
+priority: 1
+condition: "step1_diseases_test_conducted.contains('blood_pressure_measurement')"
+actions:
+  - "isRelevant = true"
+  - "calculation = (!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) < Float.parseFloat(step1_systolic)) ? 'valid' : ''"
+
+---
 name: step1_malaria_mrdt_result
 description: hps malaria result
 priority: 1
@@ -134,4 +151,3 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
-

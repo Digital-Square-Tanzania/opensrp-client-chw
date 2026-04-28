@@ -253,14 +253,23 @@
               "rules-file": "hps_curative_services.yml"
             }
           }
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "lessThan(., step1:systolic)",
-            "err": "Shinikizo la chini la damu linatikiwa liwe dogo kuliko shinikizo la juu la damu"
+        }
+      },
+      {
+        "key": "invalid_blood_pressure_reading",
+        "type": "toaster_notes",
+        "text": "Shinikizo la chini la damu linatakiwa liwe dogo kuliko shinikizo la juu la damu.",
+        "openmrs_entity_id": "invalid_blood_pressure_reading",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
           }
-        ]
+        }
       },
       {
         "key": "prompt_for_management_of_blood_pressure",
@@ -271,6 +280,32 @@
         "openmrs_entity_parent": "",
         "toaster_type": "warning",
         "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_pressure_guard",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_guard",
+        "type": "edit_text",
+        "hidden": "true",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali hakikisha shinikizo la chini la damu ni dogo kuliko shinikizo la juu la damu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        },
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_curative_services.yml"

@@ -1,5 +1,7 @@
 package org.smartregister.chw.resources;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -13,6 +15,8 @@ public class HpsCurativeServicesConfigTest {
 
     private static final String BUILD_GRADLE_PATH = "build.gradle";
     private static final String EC_CLIENT_FIELDS_PATH = "src/nacp/assets/ec_client_fields.json";
+    private static final String HPS_CURATIVE_FORM_PATH = "src/nacp/assets/json.form/hps_curative_services.json";
+    private static final String HPS_CURATIVE_FORM_SW_PATH = "src/nacp/assets/json.form-sw/hps_curative_services.json";
     private static final String HPS_CURATIVE_RULES_PATH = "src/nacp/assets/rule/hps_curative_services.yml";
     private static final String HPS_REPOSITORY_FLV_PATH = "src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java";
 
@@ -34,8 +38,23 @@ public class HpsCurativeServicesConfigTest {
         String rules = readFile(HPS_CURATIVE_RULES_PATH);
 
         Assert.assertTrue(
-                "malaria_drugs_treatment relevance should keep the field visible when a saved value exists",
                 rules.contains("step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt') || !step1_malaria_drugs_treatment.isEmpty()")
+        );
+    }
+
+    @Test
+    public void hpsCurativeServicesShouldValidateBloodPressurePairWithoutLiveDiastolicConstraint() throws Exception {
+        assertBloodPressureValidationConfig(HPS_CURATIVE_FORM_PATH);
+        assertBloodPressureValidationConfig(HPS_CURATIVE_FORM_SW_PATH);
+
+        String rules = readFile(HPS_CURATIVE_RULES_PATH);
+        Assert.assertTrue(
+                "blood pressure guard should only pass when both values are present and diastolic is less than systolic",
+                rules.contains("calculation = (!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) < Float.parseFloat(step1_systolic)) ? 'valid' : ''")
+        );
+        Assert.assertTrue(
+                "an invalid blood pressure pair should surface a visible warning",
+                rules.contains("condition: \"!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) >= Float.parseFloat(step1_systolic)\"")
         );
     }
 
@@ -72,6 +91,37 @@ public class HpsCurativeServicesConfigTest {
             }
         }
         return false;
+    }
+
+    private void assertBloodPressureValidationConfig(String formPath) throws Exception {
+        JSONObject form = new JSONObject(readFile(formPath));
+        JSONArray fields = form.getJSONObject("step1").getJSONArray(JsonFormConstants.FIELDS);
+
+        JSONObject diastolic = findField(fields, "diastolic");
+        Assert.assertFalse(
+                "diastolic should no longer use a live cross-field constraint that clears the value while typing",
+                diastolic.has("constraints")
+        );
+
+        JSONObject invalidBloodPressureReading = findField(fields, "invalid_blood_pressure_reading");
+        Assert.assertEquals("toaster_notes", invalidBloodPressureReading.getString(JsonFormConstants.TYPE));
+
+        JSONObject bloodPressureGuard = findField(fields, "blood_pressure_guard");
+        Assert.assertEquals("edit_text", bloodPressureGuard.getString(JsonFormConstants.TYPE));
+        Assert.assertEquals("true", bloodPressureGuard.getString("hidden"));
+        Assert.assertEquals("true", bloodPressureGuard.getJSONObject("v_required").getString(JsonFormConstants.VALUE));
+        Assert.assertTrue(bloodPressureGuard.has("calculation"));
+    }
+
+    private JSONObject findField(JSONArray fields, String key) {
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field != null && key.equals(field.optString(JsonFormConstants.KEY))) {
+                return field;
+            }
+        }
+        Assert.fail("Missing field " + key);
+        return null;
     }
 
     private String readFile(String path) throws Exception {
