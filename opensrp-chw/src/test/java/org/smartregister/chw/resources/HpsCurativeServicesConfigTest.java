@@ -34,11 +34,20 @@ public class HpsCurativeServicesConfigTest {
     }
 
     @Test
-    public void hpsCurativeServicesRuleShouldKeepMalariaTreatmentVisibleDuringEdit() throws Exception {
+    public void hpsCurativeServicesRuleShouldOnlyShowMalariaTreatmentForPositiveResult() throws Exception {
         String rules = readFile(HPS_CURATIVE_RULES_PATH);
 
         Assert.assertTrue(
+                "malaria_drugs_treatment should only stay relevant while malaria_mrdt_result is positive",
+                rules.contains("condition: \"step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt')\"")
+        );
+        Assert.assertFalse(
+                "malaria_drugs_treatment should not stay visible just because an old value is still present",
                 rules.contains("step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt') || !step1_malaria_drugs_treatment.isEmpty()")
+        );
+        Assert.assertTrue(
+                "the treatment guard should ignore stale malaria treatment values after malaria_mrdt_result changes away from positive",
+                rules.contains("calculation = (!step1_treatment_provided.isEmpty() || (step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt') && !step1_malaria_drugs_treatment.isEmpty())) ? 'selected' : ''")
         );
     }
 
