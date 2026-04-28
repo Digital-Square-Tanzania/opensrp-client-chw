@@ -28,6 +28,14 @@ public class HarmReductionVisitHistoryActivityTest extends BaseUnitTest {
     }
 
     @Test
+    public void parseHistoryValuesShouldFlattenCommaSeparatedBracketedCheckboxGroups() {
+        List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("[heroine],[],[],[],[]");
+
+        Assert.assertEquals(1, values.size());
+        Assert.assertEquals("heroine", values.get(0));
+    }
+
+    @Test
     public void parseHistoryValuesShouldHandleMultipleUnbracketedIdentifierValues() {
         List<String> values = HarmReductionVisitHistoryActivity.parseHistoryValues("hiv_aids, epidemic_diseases, communicable_diseases");
 
