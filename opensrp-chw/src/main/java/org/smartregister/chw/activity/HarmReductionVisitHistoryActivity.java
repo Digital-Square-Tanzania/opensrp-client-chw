@@ -329,9 +329,9 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
                 return;
             }
 
-            if (StringUtils.isNotBlank(getMapValue(vals, valueKey))) {
-                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-                spannableStringBuilder.append(context.getString(viewTitleStringResource), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+                if (StringUtils.isNotBlank(getMapValue(vals, valueKey))) {
+                    SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+                    spannableStringBuilder.append(getViewTitle(context, vals, valueKey, viewTitleStringResource), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
 
                 List<String> parsedValues = parseHistoryValues(getMapValue(vals, valueKey));
                 if (parsedValues.size() > 1) {
@@ -345,8 +345,39 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
                 tv.setText(spannableStringBuilder);
             } else {
                 tv.setVisibility(View.GONE);
+                }
             }
-        }
+
+            private String getViewTitle(Context context, Map<String, String> vals, String valueKey, int viewTitleStringResource) {
+                String title = context.getString(viewTitleStringResource);
+                if (!isSubstanceUsedDisplayField(valueKey)) {
+                    return title;
+                }
+
+                String methods = getTranslatedMethods(context, getMapValue(vals, "substance_use_methods"));
+                if (StringUtils.isBlank(methods)) {
+                    return title;
+                }
+                return title + " (" + methods + ")";
+            }
+
+            private boolean isSubstanceUsedDisplayField(String valueKey) {
+                return SUBSTANCES_USED.equals(valueKey)
+                        || "substances_used_all".equals(valueKey)
+                        || "substances_used_injecting_only".equals(valueKey)
+                        || "substances_used_non_injecting_only".equals(valueKey);
+            }
+
+            private String getTranslatedMethods(Context context, String rawMethods) {
+                List<String> translatedMethods = new ArrayList<>();
+                for (String method : parseHistoryValues(rawMethods)) {
+                    String translatedMethod = getStringResource(context, method);
+                    if (StringUtils.isNotBlank(translatedMethod)) {
+                        translatedMethods.add(translatedMethod);
+                    }
+                }
+                return StringUtils.join(translatedMethods, " / ");
+            }
 
         private String getMapValue(Map<String, String> map, String key) {
             if (map.containsKey(key)) {
