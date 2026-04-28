@@ -12055,6 +12055,14 @@
           }
         },
         {
+          "column_name": "uic_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic_id"
+          }
+        },
+        {
           "column_name": "client_status",
           "type": "Event",
           "json_mapping": {

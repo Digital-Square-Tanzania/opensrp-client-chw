@@ -97,6 +97,7 @@ public class HarmReductionSoberHouseReportObjectTest {
         Set<String> mappedColumns = mappedColumns(clientFields, "ec_harm_reduction_sober_house_enrollment");
 
         for (String column : Arrays.asList(
+                "uic_id",
                 "enrolled_into_ctc_services",
                 "ctc_id",
                 "stis_treatment_after_screening",

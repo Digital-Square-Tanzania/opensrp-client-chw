@@ -3,6 +3,7 @@ package org.smartregister.chw.repository;
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
@@ -152,6 +153,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 38:
                     upgradeToVersion38(db);
+                    break;
+                case 39:
+                    upgradeToVersion39(db);
                     break;
                 default:
                     break;
@@ -757,6 +761,36 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion37");
         }
+    }
+
+    private static void upgradeToVersion39(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, "ec_harm_reduction_sober_house_enrollment", "uic_id")) {
+                db.execSQL("ALTER TABLE ec_harm_reduction_sober_house_enrollment ADD COLUMN uic_id VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39-add-sober-house-uic-id");
+        }
+    }
+
+    private static boolean columnExists(SQLiteDatabase db, String tableName, String columnName) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
+            while (cursor != null && cursor.moveToNext()) {
+                int nameIndex = cursor.getColumnIndex("name");
+                if (nameIndex >= 0 && columnName.equalsIgnoreCase(cursor.getString(nameIndex))) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e, "columnExists");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return false;
     }
 
 }
