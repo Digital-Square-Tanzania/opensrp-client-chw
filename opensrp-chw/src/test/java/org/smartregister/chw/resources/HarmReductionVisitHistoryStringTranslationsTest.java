@@ -269,7 +269,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_cause_of_death_other_specify", "Taja sababu nyingine ya kifo");
         values.put("harm_reduction_client_deceased", "Amefariki");
         values.put("harm_reduction_client_started_mat", "Je, mpokea huduma ameanza MAT?");
-        values.put("harm_reduction_cocaine", "Cocaine");
+        values.put("harm_reduction_cocaine", "Kokeini");
         values.put("harm_reduction_communicable_diseases", "Magonjwa ya kuambukiza");
         values.put("harm_reduction_community", "Ngazi ya jamii");
         values.put("harm_reduction_condom_education_prompt", "Mwongozo");
@@ -301,7 +301,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_services_advocacy", "Uhamasishaji wa huduma za Afya");
         values.put("harm_reduction_hepatitis_bc", "Homa ya Ini");
         values.put("harm_reduction_hepatitis_bc_screening", "Uchunguzi wa Homa ya Ini B/C");
-        values.put("harm_reduction_heroine", "Heroine");
+        values.put("harm_reduction_heroine", "Heroini");
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");
         values.put("harm_reduction_hiv_test_location", "Upimaji ulipofanyika");
@@ -366,12 +366,12 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_legal_issues", "Masuala ya kisheria");
         values.put("harm_reduction_lost", "Amepotea");
         values.put("harm_reduction_lowering_infection_risk", "Kupunguza hatari ya maambukizi");
-        values.put("harm_reduction_marijuana", "Bangi");
+        values.put("harm_reduction_marijuana", "Bhangi");
         values.put("harm_reduction_maskani", "Maskani");
         values.put("harm_reduction_mental_health", "Afya ya akili");
         values.put("harm_reduction_methadone_services", "Huduma ya Methadone (MAT)");
         values.put("harm_reduction_methadone_use", "Matumizi ya Methadone");
-        values.put("harm_reduction_methamphetamine", "Methamphetamine");
+        values.put("harm_reduction_methamphetamine", "Meth (Chumvi)");
         values.put("harm_reduction_mirungi", "Mirungi");
         values.put("harm_reduction_moved", "Amehama");
         values.put("harm_reduction_needles", "Sindano");
@@ -432,6 +432,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_substance_abuse", "Matumizi ya dawa za kulevya");
         values.put("harm_reduction_substance_use_methods", "Njia za matumizi ya dawa za kulevya");
         values.put("harm_reduction_substance_use_methods_other_specify", "Taja njia nyingine za matumizi ya dawa za kulevya");
+        values.put("harm_reduction_substances_used", "Dawa anayotumia");
         values.put("harm_reduction_substances_used_all", "Dawa anayotumia");
         values.put("harm_reduction_substances_used_injecting_only", "Dawa anayotumia");
         values.put("harm_reduction_substances_used_non_injecting_only", "Dawa anayotumia");

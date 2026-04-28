@@ -64,11 +64,7 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity extend
             "maskani_name",
             "collection_site_gps",
             "number_of_used_needles_and_syringes_collected",
-            "issues_challenges_related_to_collection_of_used_needles_and_syringes",
-            "total_safety_boxes_collected",
-            "other_collection",
-            "fixed_bins",
-            "name_of_ow"
+            "issues_challenges_related_to_collection_of_used_needles_and_syringes"
     };
 
     private final Flavor flavor = new UsedNeedlesAndSyringesCollectionDetailsActivityFlv();
