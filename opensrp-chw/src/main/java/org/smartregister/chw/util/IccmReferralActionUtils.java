@@ -40,7 +40,12 @@ public class IccmReferralActionUtils {
         }
 
         try {
-            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(enrollmentFormSubmissionId, actionList);
+            IccmReferralActionHelper referralActionHelper = new IccmReferralActionHelper(
+                    enrollmentFormSubmissionId,
+                    actionList,
+                    memberObject.getAge(),
+                    memberObject.getGender()
+            );
             BaseIccmVisitAction action = new BaseIccmVisitAction.Builder(context, title)
                     .withOptional(true)
                     .withHelper(referralActionHelper)

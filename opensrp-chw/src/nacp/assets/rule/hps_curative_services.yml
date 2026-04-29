@@ -151,3 +151,4 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
+

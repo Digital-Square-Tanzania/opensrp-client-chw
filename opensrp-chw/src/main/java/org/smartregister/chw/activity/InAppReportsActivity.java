@@ -156,10 +156,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 agywReports.setVisibility(View.VISIBLE);
             }
 
-            if (ChwApplication.getApplicationFlavor().hasICCM()) {
-                iccmReports.setVisibility(View.VISIBLE);
-            }
-
             if (ChwApplication.getApplicationFlavor().hasSbc()) {
                 sbcReports.setVisibility(View.VISIBLE);
             }
