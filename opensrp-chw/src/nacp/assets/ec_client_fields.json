@@ -7296,6 +7296,14 @@
           }
         },
         {
+          "column_name": "malaria_drugs_treatment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_drugs_treatment"
+          }
+        },
+        {
           "column_name": "referral_provided",
           "type": "Event",
           "json_mapping": {
@@ -9499,6 +9507,30 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "number_of_committee_members_attended_first_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_second_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_second_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_third_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_third_quarter"
+          }
+        },
+        {
+          "column_name": "number_of_committee_members_attended_fourth_quarter",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_committee_members_attended_fourth_quarter"
           }
         },
         {

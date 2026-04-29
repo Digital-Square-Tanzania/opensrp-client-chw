@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getEditEvent;
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getFormWithMetaData;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.updateValues;
 import static org.smartregister.chw.util.PmtctVisitUtils.deleteProcessedVisit;
 import static org.smartregister.opd.utils.OpdConstants.JSON_FORM_KEY.VISIT_ID;
@@ -45,6 +44,7 @@ import org.smartregister.chw.interactor.HpsHouseholdVisitHistoryInteractor;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 
@@ -314,9 +314,13 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
                 Event event = getEditEvent(baseEntityId, Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
 
                 final List<Obs> observations = event.getObs();
-                JSONObject form = getFormWithMetaData(baseEntityId, context, formName, Constants.EVENT_TYPE.HPS_HOUSEHOLD_VISIT);
+                JSONObject form = org.smartregister.chw.util.JsonFormUtils.getLocalizedFormJson(context, formName);
 
                 if (form != null) {
+                    String locationId = org.smartregister.Context.getInstance()
+                            .allSharedPreferences()
+                            .getPreference(AllConstants.CURRENT_LOCATION_ID);
+                    org.smartregister.chw.hps.util.HpsJsonFormUtils.getRegistrationForm(form, baseEntityId, locationId);
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
                     JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                     updateValues(jsonArray, observations);
@@ -329,6 +333,8 @@ public class HpsHouseholdVisitHistoryActivity extends CoreAncMedicalHistoryActiv
                         }
                     }
                     form.put(VISIT_ID, deletedVisitId);
+                } else {
+                    return;
                 }
 
                 ((Activity) context).startActivityForResult(getStartEditFormIntent(form, context.getString(title_resource), context), JsonFormUtils.REQUEST_CODE_GET_JSON);
