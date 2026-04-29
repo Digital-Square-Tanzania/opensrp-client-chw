@@ -78,6 +78,14 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Blood sugar must be equal or greater than 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Blood sugar must be equal or less than 45 (mmol/L)"
         }
       },
       {

@@ -74,6 +74,14 @@
           "value": "true",
           "err": "Tafadhali jaza kiwango cha sukari ya damu"
         },
+        "v_min": {
+          "value": "0",
+          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kikubwa kuliko 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kidogo kuliko 45 (mmol/L)"
+        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza matokeo ya kipimo cha sukari ya damu"
