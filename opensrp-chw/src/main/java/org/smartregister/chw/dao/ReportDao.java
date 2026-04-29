@@ -487,7 +487,7 @@ public class ReportDao extends AbstractDao {
 
             Log.d("anga_q",key+" : "+selector);
 
-            String sql = "SELECT COALESCE(ehacr." + selector + ", '0') as count " +
+            String sql = "SELECT COALESCE(" + qualifyAnnualReportSelector(selector) + ", '0') as count " +
                     "FROM ec_hps_annual_census_register ehacr " +
                     "WHERE substr('%s', 1, 4) = ehacr.year " +
                     "UNION ALL " +
@@ -520,6 +520,10 @@ public class ReportDao extends AbstractDao {
         }
 
         return resultList;
+    }
+
+    private static String qualifyAnnualReportSelector(String selector) {
+        return selector.matches("[A-Za-z0-9_]+") ? "ehacr." + selector : selector;
     }
 
 

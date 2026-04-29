@@ -253,14 +253,23 @@
               "rules-file": "hps_curative_services.yml"
             }
           }
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "lessThan(., step1:systolic)",
-            "err": "The diastolic value must be less than the systolic value"
+        }
+      },
+      {
+        "key": "invalid_blood_pressure_reading",
+        "type": "toaster_notes",
+        "text": "The diastolic value must be less than the systolic value.",
+        "openmrs_entity_id": "invalid_blood_pressure_reading",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
           }
-        ]
+        }
       },
       {
         "key": "prompt_for_management_of_blood_pressure",
@@ -271,6 +280,32 @@
         "openmrs_entity_parent": "",
         "toaster_type": "warning",
         "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_pressure_guard",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_guard",
+        "type": "edit_text",
+        "hidden": "true",
+        "v_required": {
+          "value": "true",
+          "err": "Please ensure the diastolic value is less than the systolic value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hps_curative_services.yml"
+            }
+          }
+        },
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hps_curative_services.yml"
@@ -661,8 +696,7 @@
         "openmrs_entity_id": "malaria_drugs_treatment",
         "label": "Malaria Treatment Provided",
         "text_color": "#000000",
-        "type": "check_box",
-        "combine_checkbox_option_values": "true",
+        "type": "native_radio",
         "options": [
           {
             "key": "malaria_drugs",

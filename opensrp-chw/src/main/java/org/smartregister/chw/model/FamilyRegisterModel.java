@@ -16,7 +16,7 @@ import timber.log.Timber;
 public class FamilyRegisterModel extends BaseFamilyRegisterModel {
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
-        JSONObject form = getFormUtils().getFormJson(formName);
+        JSONObject form = JsonFormUtils.getLocalizedFormJson(Utils.context().applicationContext(), formName);
         if (form == null) {
             return null;
         }
