@@ -763,6 +763,6 @@
     <string name="add_existing_family_member">Add existing household member</string>
     <string name="cbhs_reports_title">CBHS Summary Report</string>
     <string name="cbhs_reports_subtitle">View Monthly Summary Report</string>
-
+    <string name="ayp_out_of_school_report">AYP Out Of School Monthly Report</string>
 
 </resources>
