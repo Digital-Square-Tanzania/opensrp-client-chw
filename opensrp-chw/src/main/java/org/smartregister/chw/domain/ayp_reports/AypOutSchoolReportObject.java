@@ -13,7 +13,7 @@ public class AypOutSchoolReportObject extends ReportObject {
 
     private final List<String> indicatorKeys = new ArrayList<>();
 
-    private final String[] indicatorCodes = new String[]{"ayp-1", "ayp-2", "ayp-3", "ayp-4", "ayp-5", "ayp-6", "ayp-7"};
+    private final String[] indicatorCodes = new String[]{"ayp-out-1", "ayp-out-2", "ayp-out-3", "ayp-out-4", "ayp-out-5", "ayp-out-6", "ayp-out-7"};
 
     private final String[] indicatorSex = new String[]{"female", "male"};
 
