@@ -7,17 +7,15 @@ import org.smartregister.chw.domain.ReportObject;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AypOutSchoolReportObject extends ReportObject {
 
-    private final List<String> indicatorCodesWithAgeGroups = new ArrayList<>();
+    private final List<String> indicatorKeys = new ArrayList<>();
 
     private final String[] indicatorCodes = new String[]{"ayp-1", "ayp-2", "ayp-3", "ayp-4", "ayp-5", "ayp-6", "ayp-7"};
 
-    private final String[] indicatorSex = new String[]{"male", "female"};
+    private final String[] indicatorSex = new String[]{"female", "male"};
 
     private final String[] indicatorAgeGroups = new String[]{"10-14", "15-19", "20-24"};
 
@@ -26,48 +24,28 @@ public class AypOutSchoolReportObject extends ReportObject {
     public AypOutSchoolReportObject(Date reportDate) {
         super(reportDate);
         this.reportDate = reportDate;
-        setIndicatorCodesWithAgeGroups(indicatorCodesWithAgeGroups);
+        setIndicatorKeys(indicatorKeys);
     }
 
-    private static int calculateTotal(HashMap<String, Integer> indicators, String specificKey) {
-        int total = 0;
-        for (Map.Entry<String, Integer> entry : indicators.entrySet()) {
-            String key = entry.getKey().toLowerCase();
-            Integer value = entry.getValue();
-            if (key.contains(specificKey.toLowerCase())) {
-                total += value;
-            }
-        }
-        return total;
-    }
-
-    private void setIndicatorCodesWithAgeGroups(List<String> list) {
+    private void setIndicatorKeys(List<String> list) {
         for (String indicatorCode : indicatorCodes) {
+            list.add(indicatorCode + "-grand-total");
             for (String sex : indicatorSex) {
                 for (String ageGroup : indicatorAgeGroups) {
                     list.add(indicatorCode + "-" + sex + "-" + ageGroup);
                 }
+                list.add(indicatorCode + "-" + sex + "-total");
             }
         }
     }
 
     @Override
     public JSONObject getIndicatorData() throws JSONException {
-        HashMap<String, Integer> indicatorValues = new HashMap<>();
         JSONObject indicatorDataObject = new JSONObject();
 
-        for (String indicatorCode : indicatorCodesWithAgeGroups) {
+        for (String indicatorCode : indicatorKeys) {
             int value = ReportDao.getReportPerIndicatorCode(indicatorCode, reportDate);
-            indicatorValues.put(indicatorCode, value);
             indicatorDataObject.put(indicatorCode, value);
-        }
-
-        for (String indicatorCode : indicatorCodes) {
-            int maleTotal = calculateTotal(indicatorValues, indicatorCode + "-male");
-            int femaleTotal = calculateTotal(indicatorValues, indicatorCode + "-female");
-            indicatorDataObject.put(indicatorCode + "-male-total", maleTotal);
-            indicatorDataObject.put(indicatorCode + "-female-total", femaleTotal);
-            indicatorDataObject.put(indicatorCode + "-grand-total", maleTotal + femaleTotal);
         }
 
         return indicatorDataObject;

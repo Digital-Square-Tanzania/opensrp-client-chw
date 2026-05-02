@@ -2,79 +2,85 @@ indicators:
   #Indicator 1
   - key: "ayp-1-grand-total"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <10"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
                       WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-                      AND (efm.gender='Female')
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 10
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 15
+                      AND (lower(efm.gender) = 'female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-female-15-19"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-                      AND (efm.gender='Female')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 15
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 20
+                      AND (lower(efm.gender) = 'female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-female-20-24"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-                      AND (efm.gender='Female')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 20
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 25
+                      AND (lower(efm.gender) = 'female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-female-total"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (efm.gender='Female')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Wanawake Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE (lower(efm.gender) = 'female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-                      AND (efm.gender='Male')
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 10
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 15
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-male-15-19"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-                      AND (efm.gender='Male')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 15
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 20
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-male-20-24"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-                      AND (efm.gender='Male')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 20
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 25
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-1-male-total"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (efm.gender='Male')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Wanaume Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
   - key: "ayp-2-grand-total"
