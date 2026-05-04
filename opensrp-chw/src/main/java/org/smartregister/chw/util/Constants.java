@@ -321,6 +321,7 @@ public class Constants extends CoreConstants {
         public interface AypReportKeys {
             String AYP_IN_SCHOOL_MONTHLY_REPORT = "ayp-in-school-monthly-report";
             String AYP_PARENTAL_MONTHLY_REPORT = "ayp-parental-monthly-report";
+            String AYP_OUT_SCHOOL_MONTHLY_REPORT = "ayp-out-school-monthly-report";
         }
 
         public interface HpsReportKeys {

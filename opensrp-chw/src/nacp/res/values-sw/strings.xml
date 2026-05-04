@@ -528,6 +528,7 @@
     <string name="kvp_reports_subtitle">Tazama Ripoti za KVP</string>
     <string name="ayp_out_school_reports">Ripoti Ayp Out School</string>
     <string name="ayp_out_school_reports_subtitle">Tazama Ripoti za Ayp Out School</string>
+    <string name="ayp_followup_visit">Toa Huduma Za Rika Balehe</string>
     <string name="hps_reports_title">Ripoti za mwezi za iCCHW</string>
     <string name="hps_monthly_reports_title">Taarifa za mwezi za iCCHW</string>
     <string name="hps_annual_reports_title">Taarifa za mwaka za iCCHW</string>

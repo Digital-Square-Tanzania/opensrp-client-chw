@@ -1,83 +1,89 @@
 indicators:
   #Indicator 1
-  - key: "ayp-1-grand-total"
+  - key: "ayp-out-1-grand-total"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri <10"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
                       WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-female-10-14"
+  - key: "ayp-out-1-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-                      AND (efm.gender='Female')
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 10
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 15
+                      AND (lower(efm.gender) = 'female')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-female-15-19"
+  - key: "ayp-out-1-female-15-19"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 15
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 20
+                      AND (lower(efm.gender) = 'female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "ayp-out-1-female-20-24"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 20
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 25
+                      AND (lower(efm.gender) = 'female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "ayp-out-1-female-total"
+    grouping: "AYP"
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Wanawake Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE (lower(efm.gender) = 'female')
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
+  - key: "ayp-out-1-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-                      AND (efm.gender='Female')
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 10
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 15
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-female-20-24"
+  - key: "ayp-out-1-male-15-19"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-                      AND (efm.gender='Female')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 15-19"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 15
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 20
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-female-total"
+  - key: "ayp-out-1-male-20-24"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (efm.gender='Female')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 20-24"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE ((julianday('now') - julianday(efm.dob)) / 365.25) >= 20
+                      AND ((julianday('now') - julianday(efm.dob)) / 365.25) < 25
+                      AND (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-male-10-14"
+  - key: "ayp-out-1-male-total"
     grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 9 AND (date('now')-date(efm.dob)) < 15
-                      AND (efm.gender='Male')
+    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Wanaume Jumla"
+    indicatorQuery: " SELECT count(DISTINCT eaose.base_entity_id) as count FROM ec_ayp_out_school_enrollment eaose
+                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.base_entity_id
+                      WHERE (lower(efm.gender) = 'male')
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-male-15-19"
-    grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 14 AND (date('now')-date(efm.dob)) < 20
-                      AND (efm.gender='Male')
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-male-20-24"
-    grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (date('now')-date(efm.dob)) > 19 AND (date('now')-date(efm.dob)) < 25
-                      AND (efm.gender='Male')
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-1-male-total"
-    grouping: "AYP"
-    description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
-    indicatorQuery: " SELECT count(DISTINCT eaose.id) as count FROM ec_ayp_out_school_enrollment eaose
-                      INNER JOIN ec_family_member efm ON efm.base_entity_id = eaose.id
-                      WHERE (efm.gender='Male')
-                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
-                      date(substr(eaose.date_enrolled, 7, 4) || '-' || substr(eaose.date_enrolled, 4, 2) || '-' || '01')"
-  - key: "ayp-2-grand-total"
+  - key: "ayp-out-2-grand-total"
     grouping: "AYP"
     description: "Idadi ya wateja waliopata SBC services (Client + Group)"
     indicatorQuery: "
@@ -109,7 +115,7 @@ indicators:
                 datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
               || '-01'
             )"
-  - key: "ayp-2-female-10-14"
+  - key: "ayp-out-2-female-10-14"
     grouping: "AYP"
     description: "Wanawake umri 10–14"
     indicatorQuery: "
@@ -133,7 +139,7 @@ indicators:
             substr(strftime('%Y-%m-%d',
               datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
             || '-01')"
-  - key: "ayp-2-female-15-19"
+  - key: "ayp-out-2-female-15-19"
     grouping: "AYP"
     description: "Wanawake umri 15–19"
     indicatorQuery: "
@@ -157,7 +163,7 @@ indicators:
             substr(strftime('%Y-%m-%d',
               datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
             || '-01')"
-  - key: "ayp-2-female-20-24"
+  - key: "ayp-out-2-female-20-24"
     grouping: "AYP"
     description: "Wanawake umri 20–24"
     indicatorQuery: "
@@ -181,7 +187,7 @@ indicators:
             substr(strftime('%Y-%m-%d',
               datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
             || '-01')"
-  - key: "ayp-2-female-total"
+  - key: "ayp-out-2-female-total"
     grouping: "AYP"
     description: "Wanawake jumla"
     indicatorQuery: "
@@ -203,7 +209,7 @@ indicators:
             substr(strftime('%Y-%m-%d',
               datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
             || '-01')"
-  - key: "ayp-2-male-total"
+  - key: "ayp-out-2-male-total"
     grouping: "AYP"
     description: "Wanaume jumla"
     indicatorQuery: "
@@ -225,7 +231,7 @@ indicators:
             substr(strftime('%Y-%m-%d',
               datetime(combined.last_interacted_with / 1000,'unixepoch','localtime')),6,2)
             || '-01')"
-  - key: "ayp-3-grand-total"
+  - key: "ayp-out-3-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -234,7 +240,7 @@ indicators:
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-female-10-14"
+  - key: "ayp-out-3-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -245,7 +251,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-female-15-19"
+  - key: "ayp-out-3-female-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -256,7 +262,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-female-20-24"
+  - key: "ayp-out-3-female-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -267,7 +273,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-female-total"
+  - key: "ayp-out-3-female-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -277,7 +283,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-male-10-14"
+  - key: "ayp-out-3-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -288,7 +294,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-male-15-19"
+  - key: "ayp-out-3-male-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -299,7 +305,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-male-20-24"
+  - key: "ayp-out-3-male-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -310,7 +316,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-3-male-total"
+  - key: "ayp-out-3-male-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -320,7 +326,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-grand-total"
+  - key: "ayp-out-4-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -340,7 +346,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-female-10-14"
+  - key: "ayp-out-4-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -359,7 +365,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-female-15-19"
+  - key: "ayp-out-4-female-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -378,7 +384,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-female-20-24"
+  - key: "ayp-out-4-female-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -397,7 +403,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-female-total"
+  - key: "ayp-out-4-female-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -415,7 +421,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-male-10-14"
+  - key: "ayp-out-4-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -434,7 +440,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-male-15-19"
+  - key: "ayp-out-4-male-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -453,7 +459,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-male-20-24"
+  - key: "ayp-out-4-male-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -472,7 +478,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-4-male-total"
+  - key: "ayp-out-4-male-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT COUNT(*) AS rows_with_more_than_10_items
@@ -490,7 +496,7 @@ indicators:
  				     AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
     				 date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
    				     '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-grand-total"
+  - key: "ayp-out-5-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -499,7 +505,7 @@ indicators:
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-female-10-14"
+  - key: "ayp-out-5-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -510,7 +516,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-female-15-19"
+  - key: "ayp-out-5-female-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -521,7 +527,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-female-20-24"
+  - key: "ayp-out-5-female-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -532,7 +538,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-female-total"
+  - key: "ayp-out-5-female-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -542,7 +548,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-male-10-14"
+  - key: "ayp-out-5-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -553,7 +559,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-male-15-19"
+  - key: "ayp-out-5-male-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -564,7 +570,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-male-20-24"
+  - key: "ayp-out-5-male-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -575,7 +581,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-5-male-total"
+  - key: "ayp-out-5-male-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -585,7 +591,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-grand-total"
+  - key: "ayp-out-6-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -594,7 +600,7 @@ indicators:
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-female-10-14"
+  - key: "ayp-out-6-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -605,7 +611,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-female-15-19"
+  - key: "ayp-out-6-female-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -616,7 +622,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-female-20-24"
+  - key: "ayp-out-6-female-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -627,7 +633,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-female-total"
+  - key: "ayp-out-6-female-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -637,7 +643,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-male-10-14"
+  - key: "ayp-out-6-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -648,7 +654,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-male-15-19"
+  - key: "ayp-out-6-male-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -659,7 +665,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-male-20-24"
+  - key: "ayp-out-6-male-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -670,7 +676,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-6-male-total"
+  - key: "ayp-out-6-male-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT count(DISTINCT eaoscfv.id) as count FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -680,7 +686,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-grand-total"
+  - key: "ayp-out-7-grand-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -688,7 +694,7 @@ indicators:
                       WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-female-10-14"
+  - key: "ayp-out-7-female-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -698,7 +704,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-female-15-19"
+  - key: "ayp-out-7-female-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -708,7 +714,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-female-20-24"
+  - key: "ayp-out-7-female-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -718,7 +724,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-female-total"
+  - key: "ayp-out-7-female-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -727,7 +733,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-male-10-14"
+  - key: "ayp-out-7-male-10-14"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -737,7 +743,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-male-15-19"
+  - key: "ayp-out-7-male-15-19"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -747,7 +753,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-male-20-24"
+  - key: "ayp-out-7-male-20-24"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -757,7 +763,7 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
-  - key: "ayp-7-male-total"
+  - key: "ayp-out-7-male-total"
     grouping: "AYP"
     description: "Idadi wa wateja wapya waliosajiliwa katika kipindi cha ripoti Umri 10-14"
     indicatorQuery: " SELECT SUM(COALESCE(number_of_male_condom, 0)) + SUM(COALESCE(number_of_female_condom, 0)) AS total_condoms_distributed FROM ec_ayp_out_school_client_followup_visits  eaoscfv
@@ -766,3 +772,4 @@ indicators:
                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
                       '-' || substr(strftime('%Y-%m-%d', datetime(eaoscfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
