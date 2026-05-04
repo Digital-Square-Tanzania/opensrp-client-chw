@@ -218,6 +218,8 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
                 "drug_adherence_status_ctc",
                 "adherence_guidance_discontinued",
                 "adherence_guidance_not_started",
+                "hepatitis_b_screening",
+                "hepatitis_c_screening",
                 "hepatitis_bc_screening",
                 "tb_screening",
                 "stds_screening",

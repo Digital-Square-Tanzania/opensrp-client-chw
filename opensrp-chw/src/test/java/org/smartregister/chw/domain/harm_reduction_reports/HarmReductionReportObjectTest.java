@@ -75,6 +75,8 @@ public class HarmReductionReportObjectTest {
         assertTrue(containsSql(capturedSql, "COALESCE(SUM(CASE WHEN"));
         assertTrue(containsSql(capturedSql, "ec_harm_reduction_followup_visit ehfv"));
         assertTrue(containsSql(capturedSql, "ec_harm_reduction_risk_assessment ehra"));
+        assertTrue(containsSql(capturedSql, "ehfv.hepatitis_b_screening"));
+        assertTrue(containsSql(capturedSql, "ehfv.hepatitis_c_screening"));
     }
 
     @Test
@@ -87,6 +89,14 @@ public class HarmReductionReportObjectTest {
         assertTrue(reportTemplate.contains("nidu-male-total"));
         assertTrue(reportTemplate.contains("\"hr-14\""));
         assertTrue(reportTemplate.contains("colSpan = 24"));
+    }
+
+    @Test
+    public void monthlyReportConfigShouldUseSeparateHepatitisScreeningFields() throws Exception {
+        String reportConfig = readText("src/nacp/assets/config/harm-reduction-monthly-report.yml");
+
+        assertTrue(reportConfig.contains("ehfv.hepatitis_b_screening"));
+        assertTrue(reportConfig.contains("ehfv.hepatitis_c_screening"));
     }
 
     private static Map<String, Integer> emptyBreakdown(List<String> columns) {
