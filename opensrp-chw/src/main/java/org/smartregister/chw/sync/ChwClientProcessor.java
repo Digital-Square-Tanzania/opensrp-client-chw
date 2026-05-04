@@ -51,11 +51,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
     private static final String METHADONE_TREATMENT_STATUS_FIELD = "methadone_treatment_status";
     private static final String COMPLETED_METHADONE_TREATMENT_VALUE = "completed_methadone_treatment";
     private static final String CLIENT_STARTED_MAT_FIELD = "client_started_mat";
-    private static final String FOLLOW_UP_STATUS_FIELD = "follow_up_status";
-    private static final String STATUS_FIELD = "status";
+    private static final String IS_CLOSED_FIELD = "is_closed";
     private static final String NO_VALUE = "no";
-    private static final String CONTINUE_SERVICE_VALUE = "continue_service";
-    private static final String ON_COMMUNITY_SERVICE_VALUE = "on_community_service";
 
     private String currentEventType;
 
@@ -364,13 +361,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
             if (db != null) {
                 db.execSQL("UPDATE ec_harm_reduction_risk_assessment SET " +
                                 CLIENT_STARTED_MAT_FIELD + " = ?, " +
-                                FOLLOW_UP_STATUS_FIELD + " = ?, " +
-                                STATUS_FIELD + " = ? " +
+                                IS_CLOSED_FIELD + " = 1 " +
                                 "WHERE base_entity_id = ? AND is_closed = 0",
                         new Object[]{
                                 NO_VALUE,
-                                CONTINUE_SERVICE_VALUE,
-                                ON_COMMUNITY_SERVICE_VALUE,
                                 event.getBaseEntityId()
                         });
             }
