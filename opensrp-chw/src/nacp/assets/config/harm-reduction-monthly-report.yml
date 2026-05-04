@@ -22,7 +22,9 @@ indicators:
                         trim(ifnull(ehfv.hiv_tested, '')) <> '' OR
                         trim(ifnull(ehfv.tb_screening, '')) <> '' OR
                         trim(ifnull(ehfv.stds_screening, '')) <> '' OR
-                        trim(ifnull(ehfv.hepatitis_bc_screening, '')) <> ''
+                        trim(ifnull(ehfv.hepatitis_bc_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.hepatitis_b_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.hepatitis_c_screening, '')) <> ''
                       )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
@@ -147,7 +149,9 @@ indicators:
                       FROM ec_harm_reduction_followup_visit ehfv
                       WHERE (
                         lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hepatitis_bc%' OR
-                        lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment')
+                        lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR
+                        lower(ifnull(ehfv.hepatitis_b_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR
+                        lower(ifnull(ehfv.hepatitis_c_screening, '')) IN ('has_symptoms', 'undergoing_treatment')
                       )
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||

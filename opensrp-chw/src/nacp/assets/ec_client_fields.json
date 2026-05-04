@@ -11946,6 +11946,22 @@
           }
         },
         {
+          "column_name": "hepatitis_b_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_b_screening"
+          }
+        },
+        {
+          "column_name": "hepatitis_c_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hepatitis_c_screening"
+          }
+        },
+        {
           "column_name": "tb_screening",
           "type": "Event",
           "json_mapping": {

@@ -105,7 +105,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_provided", "Health education provided");
         values.put("harm_reduction_health_services_advocacy", "Health services advocacy");
         values.put("harm_reduction_hepatitis_bc", "Hepatitis B/C");
+        values.put("harm_reduction_hepatitis_b_screening", "Hepatitis B Screening");
         values.put("harm_reduction_hepatitis_bc_screening", "Hepatitis B/C Screening");
+        values.put("harm_reduction_hepatitis_c_screening", "Hepatitis C Screening");
         values.put("harm_reduction_heroine", "Heroine");
         values.put("harm_reduction_hiv_aids", "HIV and AIDS");
         values.put("harm_reduction_hiv_results", "HIV results");
@@ -300,7 +302,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_provided", "Elimu ya afya iliyotolewa");
         values.put("harm_reduction_health_services_advocacy", "Uhamasishaji wa huduma za Afya");
         values.put("harm_reduction_hepatitis_bc", "Homa ya Ini");
+        values.put("harm_reduction_hepatitis_b_screening", "Uchunguzi wa Homa ya Ini B");
         values.put("harm_reduction_hepatitis_bc_screening", "Uchunguzi wa Homa ya Ini B/C");
+        values.put("harm_reduction_hepatitis_c_screening", "Uchunguzi wa Homa ya Ini C");
         values.put("harm_reduction_heroine", "Heroini");
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");

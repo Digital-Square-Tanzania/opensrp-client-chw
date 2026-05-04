@@ -59,6 +59,14 @@ public class HarmReductionReportObject extends ReportObject {
             "lower(ifnull(source.roc_group_type, '')) = 'idu'";
     private static final String SOURCE_NIDU_CONDITION =
             "lower(ifnull(source.roc_group_type, '')) = 'nidu'";
+    private static final String HEPATITIS_SCREENING_HAS_VALUE_CONDITION =
+            "(trim(ifnull(ehfv.hepatitis_bc_screening, '')) <> '' OR " +
+                    "trim(ifnull(ehfv.hepatitis_b_screening, '')) <> '' OR " +
+                    "trim(ifnull(ehfv.hepatitis_c_screening, '')) <> '')";
+    private static final String HEPATITIS_SCREENING_REQUIRES_REFERRAL_CONDITION =
+            "(lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR " +
+                    "lower(ifnull(ehfv.hepatitis_b_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR " +
+                    "lower(ifnull(ehfv.hepatitis_c_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))";
 
     private static final String RECEIVED_HR_SERVICE_CONDITION =
             "(trim(ifnull(ehfv.health_education_provided, '')) <> '' OR " +
@@ -68,7 +76,7 @@ public class HarmReductionReportObject extends ReportObject {
                     "trim(ifnull(ehfv.hiv_tested, '')) <> '' OR " +
                     "trim(ifnull(ehfv.tb_screening, '')) <> '' OR " +
                     "trim(ifnull(ehfv.stds_screening, '')) <> '' OR " +
-                    "trim(ifnull(ehfv.hepatitis_bc_screening, '')) <> '')";
+                    HEPATITIS_SCREENING_HAS_VALUE_CONDITION + ")";
     private static final String IDU_RECEIVED_SYRINGES_CONDITION =
             FOLLOWUP_IDU_CONDITION + " AND (" +
                     "lower(ifnull(ehfv.safe_injection_tools, '')) LIKE '%syringes%' OR " +
@@ -248,7 +256,7 @@ public class HarmReductionReportObject extends ReportObject {
                 followupCount("hr-8", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hiv_testing%' OR lower(ifnull(ehfv.hiv_tested, '')) = 'yes')"),
                 followupCount("hr-9", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%tb_leprosy%' OR lower(ifnull(ehfv.tb_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
                 followupCount("hr-10", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%stis_stds%' OR lower(ifnull(ehfv.stds_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
-                followupCount("hr-11", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hepatitis_bc%' OR lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
+                followupCount("hr-11", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hepatitis_bc%' OR " + HEPATITIS_SCREENING_REQUIRES_REFERRAL_CONDITION + ")"),
                 followupCount("hr-12", "trim(ifnull(ehfv.referrals_provided, '')) <> '' AND lower(ifnull(ehfv.referrals_provided, '')) NOT LIKE '%none%'"),
                 followupCount("hr-12a", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%income_generating%'"),
                 followupCount("hr-12b", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%sober_house%'"),
