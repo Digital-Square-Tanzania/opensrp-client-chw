@@ -214,7 +214,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_needles", "Number of tools - Needles");
         values.put("harm_reduction_qty_plaster", "Number of tools - Plaster");
         values.put("harm_reduction_qty_sterile_water", "Number of tools - Sterile Water");
-        values.put("harm_reduction_qty_syringes", "Number of tools - Syringes");
+        values.put("harm_reduction_qty_syringes", "Number of tools - Needles and syringes");
         values.put("harm_reduction_referrals_other_specify", "If others, specify");
         values.put("harm_reduction_referrals_provided", "Referrals provided");
         values.put("harm_reduction_remarks_comments", "Remarks/Comments");
@@ -241,7 +241,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_substances_used_injecting_only", "Substance used");
         values.put("harm_reduction_substances_used_non_injecting_only", "Substance used");
         values.put("harm_reduction_substances_used_other_specify", "Specify other substances used");
-        values.put("harm_reduction_syringes", "Syringes");
+        values.put("harm_reduction_syringes", "Needles and syringes");
         values.put("harm_reduction_tb_leprosy", "TB/Leprosy");
         values.put("harm_reduction_tb_screening", "TB Screening");
         values.put("harm_reduction_tobacco", "Tobacco");
@@ -409,7 +409,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_needles", "Idadi ya Sindano");
         values.put("harm_reduction_qty_plaster", "Idadi ya Plasta");
         values.put("harm_reduction_qty_sterile_water", "Idadi ya Maji");
-        values.put("harm_reduction_qty_syringes", "Idadi ya Bomba");
+        values.put("harm_reduction_qty_syringes", "Idadi ya Bomba na sindano");
         values.put("harm_reduction_referrals_other_specify", "Ikiwa ni nyinginezo, taja");
         values.put("harm_reduction_referrals_provided", "Rufaa zilizotolewa");
         values.put("harm_reduction_remarks_comments", "Maoni");
@@ -437,7 +437,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_substances_used_injecting_only", "Dawa anayotumia");
         values.put("harm_reduction_substances_used_non_injecting_only", "Dawa anayotumia");
         values.put("harm_reduction_substances_used_other_specify", "Taja dawa nyingine za kulevya zilizotumika");
-        values.put("harm_reduction_syringes", "Bomba");
+        values.put("harm_reduction_syringes", "Bomba na sindano");
         values.put("harm_reduction_tb_leprosy", "Kifua Kikuu/Ukoma");
         values.put("harm_reduction_tb_screening", "Uchunguzi wa Kifua Kikuu");
         values.put("harm_reduction_tobacco", "Tumbaku");

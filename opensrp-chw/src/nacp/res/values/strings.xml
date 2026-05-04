@@ -683,7 +683,7 @@
     <string name="harm_reduction_qty_needles">Number of tools - Needles</string>
     <string name="harm_reduction_qty_plaster">Number of tools - Plaster</string>
     <string name="harm_reduction_qty_sterile_water">Number of tools - Sterile Water</string>
-    <string name="harm_reduction_qty_syringes">Number of tools - Syringes</string>
+    <string name="harm_reduction_qty_syringes">Number of tools - Needles and syringes</string>
     <string name="harm_reduction_referrals_other_specify">If others, specify</string>
     <string name="harm_reduction_referrals_provided">Referrals provided</string>
     <string name="harm_reduction_remarks_comments">Remarks/Comments</string>
@@ -713,7 +713,7 @@
     <string name="harm_reduction_substances_used_injecting_only">Substance used</string>
     <string name="harm_reduction_substances_used_non_injecting_only">Substance used</string>
     <string name="harm_reduction_substances_used_other_specify">Specify other substances used</string>
-    <string name="harm_reduction_syringes">Syringes</string>
+    <string name="harm_reduction_syringes">Needles and syringes</string>
     <string name="harm_reduction_tb_leprosy">TB/Leprosy</string>
     <string name="harm_reduction_tb_screening">TB Screening</string>
     <string name="harm_reduction_tobacco">Tobacco</string>

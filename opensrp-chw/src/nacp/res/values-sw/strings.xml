@@ -840,7 +840,7 @@
     <string name="harm_reduction_qty_needles">Idadi ya Sindano</string>
     <string name="harm_reduction_qty_plaster">Idadi ya Plasta</string>
     <string name="harm_reduction_qty_sterile_water">Idadi ya Maji</string>
-    <string name="harm_reduction_qty_syringes">Idadi ya Bomba</string>
+    <string name="harm_reduction_qty_syringes">Idadi ya Bomba na sindano</string>
     <string name="harm_reduction_referrals_other_specify">Ikiwa ni nyinginezo, taja</string>
     <string name="harm_reduction_referrals_provided">Rufaa zilizotolewa</string>
     <string name="harm_reduction_remarks_comments">Maoni</string>
@@ -869,7 +869,7 @@
     <string name="harm_reduction_substances_used_injecting_only">Dawa anayotumia</string>
     <string name="harm_reduction_substances_used_non_injecting_only">Dawa anayotumia</string>
     <string name="harm_reduction_substances_used_other_specify">Taja dawa nyingine za kulevya zilizotumika</string>
-    <string name="harm_reduction_syringes">Bomba</string>
+    <string name="harm_reduction_syringes">Bomba na sindano</string>
     <string name="harm_reduction_tb_leprosy">Kifua Kikuu/Ukoma</string>
     <string name="harm_reduction_tb_screening">Uchunguzi wa Kifua Kikuu</string>
     <string name="harm_reduction_tobacco">Tumbaku</string>
