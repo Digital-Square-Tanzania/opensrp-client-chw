@@ -20,6 +20,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -45,6 +46,8 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ChwClientProcessor extends CoreClientProcessor {
+
+    private static final String METHADONE_TREATMENT_STATUS_FIELD = "methadone_treatment_status";
 
     private String currentEventType;
 
@@ -223,6 +226,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    if (HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP.equals(eventType)) {
+                        reclassifyCompletedMethadoneTreatmentClient(eventClient.getEvent());
+                    }
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
                     // AYP In-school group creation/edit event
@@ -332,6 +338,24 @@ public class ChwClientProcessor extends CoreClientProcessor {
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
+        }
+    }
+
+    private void reclassifyCompletedMethadoneTreatmentClient(Event event) {
+        if (event == null) {
+            return;
+        }
+
+        String methadoneTreatmentStatus = getFormValue(event, METHADONE_TREATMENT_STATUS_FIELD);
+        if (!HarmReductionDao.isCompletedMethadoneTreatment(methadoneTreatmentStatus)
+                || StringUtils.isBlank(event.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            HarmReductionDao.closeCompletedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+        } catch (Exception e) {
+            Timber.w(e);
         }
     }
 
