@@ -227,7 +227,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     if (HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP.equals(eventType)) {
-                        reclassifyCompletedMethadoneTreatmentClient(eventClient.getEvent());
+                        processMatFollowupTreatmentStatus(eventClient.getEvent());
                     }
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
@@ -341,19 +341,22 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
     }
 
-    private void reclassifyCompletedMethadoneTreatmentClient(Event event) {
+    private void processMatFollowupTreatmentStatus(Event event) {
         if (event == null) {
             return;
         }
 
         String methadoneTreatmentStatus = getFormValue(event, METHADONE_TREATMENT_STATUS_FIELD);
-        if (!HarmReductionDao.isCompletedMethadoneTreatment(methadoneTreatmentStatus)
-                || StringUtils.isBlank(event.getBaseEntityId())) {
+        if (StringUtils.isBlank(event.getBaseEntityId())) {
             return;
         }
 
         try {
-            HarmReductionDao.closeCompletedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+            if (HarmReductionDao.isCompletedMethadoneTreatment(methadoneTreatmentStatus)) {
+                HarmReductionDao.closeCompletedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+            } else if (HarmReductionDao.isStoppedUsingMethadone(methadoneTreatmentStatus)) {
+                HarmReductionDao.reassignStoppedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+            }
         } catch (Exception e) {
             Timber.w(e);
         }
