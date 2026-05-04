@@ -11,6 +11,8 @@ import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPRO
 
 import android.content.Context;
 
+import androidx.annotation.VisibleForTesting;
+
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +47,15 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ChwClientProcessor extends CoreClientProcessor {
+
+    private static final String METHADONE_TREATMENT_STATUS_FIELD = "methadone_treatment_status";
+    private static final String COMPLETED_METHADONE_TREATMENT_VALUE = "completed_methadone_treatment";
+    private static final String CLIENT_STARTED_MAT_FIELD = "client_started_mat";
+    private static final String FOLLOW_UP_STATUS_FIELD = "follow_up_status";
+    private static final String STATUS_FIELD = "status";
+    private static final String NO_VALUE = "no";
+    private static final String CONTINUE_SERVICE_VALUE = "continue_service";
+    private static final String ON_COMMUNITY_SERVICE_VALUE = "on_community_service";
 
     private String currentEventType;
 
@@ -223,6 +234,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    if (HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP.equals(eventType)) {
+                        reclassifyCompletedMethadoneTreatmentClient(eventClient.getEvent());
+                    }
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
                     // AYP In-school group creation/edit event
@@ -333,6 +347,49 @@ public class ChwClientProcessor extends CoreClientProcessor {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
         }
+    }
+
+    private void reclassifyCompletedMethadoneTreatmentClient(Event event) {
+        if (event == null) {
+            return;
+        }
+
+        String methadoneTreatmentStatus = getFormValue(event, METHADONE_TREATMENT_STATUS_FIELD);
+        if (!isCompletedMethadoneTreatment(methadoneTreatmentStatus) || StringUtils.isBlank(event.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
+            if (db != null) {
+                db.execSQL("UPDATE ec_harm_reduction_risk_assessment SET " +
+                                CLIENT_STARTED_MAT_FIELD + " = ?, " +
+                                FOLLOW_UP_STATUS_FIELD + " = ?, " +
+                                STATUS_FIELD + " = ? " +
+                                "WHERE base_entity_id = ? AND is_closed = 0",
+                        new Object[]{
+                                NO_VALUE,
+                                CONTINUE_SERVICE_VALUE,
+                                ON_COMMUNITY_SERVICE_VALUE,
+                                event.getBaseEntityId()
+                        });
+            }
+        } catch (Exception e) {
+            Timber.w(e);
+        }
+    }
+
+    @VisibleForTesting
+    static boolean isCompletedMethadoneTreatment(String methadoneTreatmentStatus) {
+        String normalizedStatus = StringUtils.trimToEmpty(methadoneTreatmentStatus)
+                .replace("[", "")
+                .replace("]", "");
+        for (String status : normalizedStatus.split(",")) {
+            if (COMPLETED_METHADONE_TREATMENT_VALUE.equalsIgnoreCase(StringUtils.trim(status))) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

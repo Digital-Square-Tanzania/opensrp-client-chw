@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.view.View;
 
 import org.smartregister.chw.harmreduction.HarmReductionLibrary;
+import org.smartregister.chw.harmreduction.domain.Visit;
 import org.smartregister.chw.harmreduction.util.Constants;
+import org.smartregister.chw.harmreduction.util.HarmReductionVisitsUtil;
+
+import timber.log.Timber;
 
 public class HarmReductionMatClientsProfileActivity extends HarmReductionProfileActivity {
     private static final String MAT_CLIENTS_FOLLOWUP_EVENT = "Harm Reduction MAT Clients Followup";
@@ -89,5 +93,28 @@ public class HarmReductionMatClientsProfileActivity extends HarmReductionProfile
                 .visitRepository()
                 .getLatestVisit(memberObject.getBaseEntityId(), MAT_CLIENTS_FOLLOWUP_EVENT);
         rlLastVisit.setVisibility(lastVisit != null ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            processLatestMatFollowupVisit();
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void processLatestMatFollowupVisit() {
+        try {
+            Visit lastVisit = HarmReductionLibrary.getInstance()
+                    .visitRepository()
+                    .getLatestVisit(memberObject.getBaseEntityId(), MAT_CLIENTS_FOLLOWUP_EVENT);
+            if (lastVisit != null) {
+                HarmReductionVisitsUtil.manualProcessVisit(lastVisit);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }
