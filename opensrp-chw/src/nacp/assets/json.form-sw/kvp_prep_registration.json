@@ -123,11 +123,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Makundi ya watu wanaohamahama",
+            "key": "fisherman",
+            "text": "Wavuvi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Dereva wa lori",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Mchimbaji Madini",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
@@ -194,11 +208,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Makundi ya watu wanaohamahama",
+            "key": "fisherman",
+            "text": "Wavuvi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Dereva wa lori",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Mchimbaji Madini",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
@@ -265,11 +293,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Makundi ya watu wanaohamahama",
+            "key": "fisherman",
+            "text": "Wavuvi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Dereva wa lori",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Mchimbaji Madini",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
