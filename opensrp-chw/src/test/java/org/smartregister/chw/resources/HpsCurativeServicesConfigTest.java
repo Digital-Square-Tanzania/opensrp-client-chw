@@ -78,7 +78,7 @@ public class HpsCurativeServicesConfigTest {
         );
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the new migration runs on upgrade",
-                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '41'")
+                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '44'")
         );
     }
 
