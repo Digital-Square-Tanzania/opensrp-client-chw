@@ -106,6 +106,7 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
     @Override
     protected void setupViews() {
         super.setupViews();
+        enforceProcessVisitVisibility();
 
         if (AypOutSchoolDao.wereSelfTestingKitsDistributed(memberObject.getBaseEntityId())) {
             if (HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId())) {
@@ -156,6 +157,81 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
         if(isAypOutSchoolServiceToday(memberObject.getBaseEntityId())) {
             textViewRecordayp.setVisibility(View.GONE);
         }
+    }
+
+    private void enforceProcessVisitVisibility() {
+        Visit latestVisit = getVisit(AYP_OUT_SCHOOL_FOLLOW_UP_VISIT);
+        if (latestVisit == null) {
+            manualProcessVisit.setVisibility(View.GONE);
+            return;
+        }
+
+        boolean shouldShowProcessVisit =
+                !Boolean.TRUE.equals(latestVisit.getProcessed()) &&
+                        hasCompletedOutSchoolServiceSections(latestVisit);
+
+        manualProcessVisit.setVisibility(shouldShowProcessVisit ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean hasCompletedOutSchoolServiceSections(Visit visit) {
+        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
+            return false;
+        }
+
+        boolean hasServiceStatus = false;
+        boolean hasSbcHealthBehaviour = false;
+        boolean hasMedicalServices = false;
+        boolean hasStructuralServices = false;
+        boolean hasReferralServices = false;
+        boolean hasNextAppointment = false;
+
+        try {
+            JSONObject visitJson = new JSONObject(visit.getJson());
+            JSONArray obsArray = visitJson.optJSONArray("obs");
+            if (obsArray == null) {
+                return false;
+            }
+
+            for (int i = 0; i < obsArray.length(); i++) {
+                JSONObject obs = obsArray.optJSONObject(i);
+                if (obs == null) {
+                    continue;
+                }
+
+                String fieldCode = obs.optString("fieldCode");
+                JSONArray values = obs.optJSONArray("values");
+                boolean hasValue = values != null && values.length() > 0
+                        && !TextUtils.isEmpty(values.optString(0));
+
+                if (!hasValue) {
+                    continue;
+                }
+
+                if ("service_status".equalsIgnoreCase(fieldCode)) {
+                    hasServiceStatus = true;
+                } else if ("provided_sbc_service".equalsIgnoreCase(fieldCode)) {
+                    hasSbcHealthBehaviour = true;
+                } else if ("self_testing_service_provided".equalsIgnoreCase(fieldCode)) {
+                    hasMedicalServices = true;
+                } else if ("choose_economic_empowerment_services".equalsIgnoreCase(fieldCode)) {
+                    hasStructuralServices = true;
+                } else if ("is_client_refered_to_the_facility".equalsIgnoreCase(fieldCode)) {
+                    hasReferralServices = true;
+                } else if ("next_appointment_date".equalsIgnoreCase(fieldCode)) {
+                    hasNextAppointment = true;
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+
+        return hasServiceStatus
+                && hasSbcHealthBehaviour
+                && hasMedicalServices
+                && hasStructuralServices
+                && hasReferralServices
+                && hasNextAppointment;
     }
 
     private Date truncateTimeFromDate(Date date) {
