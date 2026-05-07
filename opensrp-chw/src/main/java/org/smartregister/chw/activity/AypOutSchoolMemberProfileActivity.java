@@ -50,14 +50,33 @@ import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import timber.log.Timber;
 
 public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity implements OnRetrieveNotifications {
+
+    private static final String SERVICE_STATUS = "service_status";
+    private static final String SBC_HEALTH_BEHAVIOUR = "provided_sbc_service";
+    private static final String MEDICAL_SERVICES = "self_testing_service_provided";
+    private static final String STRUCTURAL_SERVICES = "choose_economic_empowerment_services";
+    private static final String REFERRAL_SERVICES = "is_client_refered_to_the_facility";
+    private static final String NEXT_APPOINTMENT = "next_appointment_date";
+
+    private static final Set<String> REQUIRED_OUT_SCHOOL_SERVICE_FIELDS = new HashSet<>(Arrays.asList(
+            SERVICE_STATUS,
+            SBC_HEALTH_BEHAVIOUR,
+            MEDICAL_SERVICES,
+            STRUCTURAL_SERVICES,
+            REFERRAL_SERVICES,
+            NEXT_APPOINTMENT
+    ));
 
     private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
@@ -174,64 +193,59 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
     }
 
     private boolean hasCompletedOutSchoolServiceSections(Visit visit) {
-        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
+        if (!isValidVisit(visit)) {
             return false;
         }
 
-        boolean hasServiceStatus = false;
-        boolean hasSbcHealthBehaviour = false;
-        boolean hasMedicalServices = false;
-        boolean hasStructuralServices = false;
-        boolean hasReferralServices = false;
-        boolean hasNextAppointment = false;
-
         try {
-            JSONObject visitJson = new JSONObject(visit.getJson());
-            JSONArray obsArray = visitJson.optJSONArray("obs");
-            if (obsArray == null) {
-                return false;
-            }
-
-            for (int i = 0; i < obsArray.length(); i++) {
-                JSONObject obs = obsArray.optJSONObject(i);
-                if (obs == null) {
-                    continue;
-                }
-
-                String fieldCode = obs.optString("fieldCode");
-                JSONArray values = obs.optJSONArray("values");
-                boolean hasValue = values != null && values.length() > 0
-                        && !TextUtils.isEmpty(values.optString(0));
-
-                if (!hasValue) {
-                    continue;
-                }
-
-                if ("service_status".equalsIgnoreCase(fieldCode)) {
-                    hasServiceStatus = true;
-                } else if ("provided_sbc_service".equalsIgnoreCase(fieldCode)) {
-                    hasSbcHealthBehaviour = true;
-                } else if ("self_testing_service_provided".equalsIgnoreCase(fieldCode)) {
-                    hasMedicalServices = true;
-                } else if ("choose_economic_empowerment_services".equalsIgnoreCase(fieldCode)) {
-                    hasStructuralServices = true;
-                } else if ("is_client_refered_to_the_facility".equalsIgnoreCase(fieldCode)) {
-                    hasReferralServices = true;
-                } else if ("next_appointment_date".equalsIgnoreCase(fieldCode)) {
-                    hasNextAppointment = true;
-                }
-            }
+            JSONArray obsArray = getObsArray(visit);
+            return obsArray != null && getCompletedOutSchoolServiceFields(obsArray)
+                    .containsAll(REQUIRED_OUT_SCHOOL_SERVICE_FIELDS);
         } catch (Exception e) {
             Timber.e(e);
             return false;
         }
+    }
 
-        return hasServiceStatus
-                && hasSbcHealthBehaviour
-                && hasMedicalServices
-                && hasStructuralServices
-                && hasReferralServices
-                && hasNextAppointment;
+    private boolean isValidVisit(Visit visit) {
+        return visit != null && !TextUtils.isEmpty(visit.getJson());
+    }
+
+    private JSONArray getObsArray(Visit visit) throws JSONException {
+        JSONObject visitJson = new JSONObject(visit.getJson());
+        return visitJson.optJSONArray("obs");
+    }
+
+    private Set<String> getCompletedOutSchoolServiceFields(JSONArray obsArray) {
+        Set<String> completedFields = new HashSet<>();
+
+        for (int i = 0; i < obsArray.length(); i++) {
+            addCompletedOutSchoolServiceField(obsArray.optJSONObject(i), completedFields);
+        }
+
+        return completedFields;
+    }
+
+    private void addCompletedOutSchoolServiceField(JSONObject obs, Set<String> completedFields) {
+        if (!hasRequiredFieldValue(obs)) {
+            return;
+        }
+
+        String fieldCode = obs.optString("fieldCode").toLowerCase(Locale.US);
+        if (REQUIRED_OUT_SCHOOL_SERVICE_FIELDS.contains(fieldCode)) {
+            completedFields.add(fieldCode);
+        }
+    }
+
+    private boolean hasRequiredFieldValue(JSONObject obs) {
+        if (obs == null) {
+            return false;
+        }
+
+        JSONArray values = obs.optJSONArray("values");
+        return values != null
+                && values.length() > 0
+                && !TextUtils.isEmpty(values.optString(0));
     }
 
     private Date truncateTimeFromDate(Date date) {
