@@ -157,6 +157,9 @@ public class ChwRepositoryFlv {
                 case 41:
                     upgradeToVersion41(db);
                     break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
                 default:
                     break;
             }
@@ -821,6 +824,44 @@ public class ChwRepositoryFlv {
             if (cursor != null) {
                 cursor.close();
             }
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        applyKvpVisitDateReportFix(db, "upgradeToVersion44");
+    }
+
+    private static void applyKvpVisitDateReportFix(SQLiteDatabase db, String upgradeTag) {
+        try {
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN kvp_visit_date VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, upgradeTag + "-add-kvp-visit-date");
+        }
+
+        try {
+            db.execSQL("UPDATE ec_kvp_prep_followup " +
+                    "SET kvp_visit_date = (" +
+                    "SELECT event.eventDate FROM event " +
+                    "WHERE event.formSubmissionId = ec_kvp_prep_followup.base_entity_id " +
+                    "AND event.eventType = 'Kvp PrEP Follow-up Visit' " +
+                    "AND event.eventDate IS NOT NULL " +
+                    "AND event.eventDate != '' " +
+                    "ORDER BY event.updatedAt DESC, event.dateCreated DESC LIMIT 1) " +
+                    "WHERE kvp_visit_date IS NULL OR kvp_visit_date = '';");
+        } catch (Exception e) {
+            Timber.e(e, upgradeTag + "-backfill-kvp-visit-date");
+        }
+
+        try {
+            db.execSQL("DELETE FROM indicator_daily_tally WHERE indicator_code LIKE 'kvp-%';");
+            db.execSQL("DELETE FROM indicator_queries WHERE indicator_code LIKE 'kvp-%';");
+            db.execSQL("DELETE FROM indicators WHERE indicator_code LIKE 'kvp-%';");
+
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/kvp-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, upgradeTag + "-config");
         }
     }
 }
