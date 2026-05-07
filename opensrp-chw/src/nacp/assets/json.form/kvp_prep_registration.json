@@ -123,11 +123,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Normadic",
+            "key": "fisherman",
+            "text": "Fisherman",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Truck drivers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Miners",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
@@ -194,11 +208,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Normadic",
+            "key": "fisherman",
+            "text": "Fisherman",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Truck drivers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Miners",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
@@ -265,11 +293,25 @@
             "openmrs_entity_id": "discordant_couples"
           },
           {
-            "key": "normadic",
-            "text": "Normadic",
+            "key": "fisherman",
+            "text": "Fisherman",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "normadic"
+            "openmrs_entity_id": "fisherman"
+          },
+          {
+            "key": "truck_drivers",
+            "text": "Truck drivers",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "truck_drivers"
+          },
+          {
+            "key": "miners",
+            "text": "Miners",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miners"
           },
           {
             "key": "other",
