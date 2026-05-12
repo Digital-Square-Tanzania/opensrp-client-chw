@@ -64,6 +64,30 @@
         }
       },
       {
+        "key": "weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "type": "edit_text",
+        "hint": "Weight (Kg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Weight must be equal or greater than 20 (Kg)"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "Weight must be equal or less than 300 (Kg)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the weight"
+        }
+      },
+      {
         "key": "diabetes_test_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -84,8 +108,8 @@
           "err": "Blood sugar must be equal or greater than 0 (mmol/L)"
         },
         "v_max": {
-          "value": "45",
-          "err": "Blood sugar must be equal or less than 45 (mmol/L)"
+          "value": "33",
+          "err": "Blood sugar must be equal or less than 33 (mmol/L)"
         }
       },
       {
@@ -143,9 +167,29 @@
           "value": "150",
           "err": "Enter a valid diastolic value"
         },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:blood_pressure_systolic)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ],
         "v_required": {
           "value": "true",
           "err": "Enter the diastolic reading"
+        }
+      },
+      {
+        "key": "bp_diastolic_error_toaster",
+        "type": "toaster_notes",
+        "text": "Diastolic must be less than Systolic",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_relevance.yml"
+            }
+          }
         }
       },
       {
