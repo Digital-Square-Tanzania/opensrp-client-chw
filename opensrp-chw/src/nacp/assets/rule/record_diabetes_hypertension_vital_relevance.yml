@@ -2,6 +2,6 @@
 name: step1_bp_diastolic_error_toaster
 description: Show error toaster when diastolic is greater than or equal to systolic
 priority: 1
-condition: "step1_blood_pressure_diastolic > step1_blood_pressure_systolic"
+condition: "step1_blood_pressure_diastolic != null && step1_blood_pressure_systolic != null && step1_blood_pressure_diastolic != '' && step1_blood_pressure_systolic != '' && Integer.parseInt(step1_blood_pressure_diastolic) >= Integer.parseInt(step1_blood_pressure_systolic)"
 actions:
   - "isRelevant = true"
