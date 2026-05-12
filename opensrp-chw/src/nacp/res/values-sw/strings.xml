@@ -1522,4 +1522,5 @@
     <string name="ncd_confirmed_clients">Wagonjwa</string>
     <string name="nav_menu_ncd">Kisukari &amp; Shinikizo la Damu</string>
     <string name="record_diabetes_hypertension">Fanya Tembeleo la Kisukari na Shinikizo la Damu</string>
+    <string name="diabetes_risk_assessment">Uchunguzi wa kisukari na shinikizo la damu</string>
 </resources>
