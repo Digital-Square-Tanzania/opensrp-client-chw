@@ -49,7 +49,8 @@ public class ChwRulesEngineFactory extends RulesEngineFactory {
 
     @Override
     public boolean beforeEvaluate(Rule rule, Facts facts) {
-        return selectedRuleName != null && selectedRuleName.equals(rule.getName());
+        String selected = selectedRuleName;
+        return selected != null && selected.equals(rule.getName());
     }
 
     @Override
