@@ -560,7 +560,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)), "Calculation", metaData("concept", "referral_appointment_date", "")));
 
             formData.put("referral_status", createFormViewData("PENDING", "Calculation", null));
-            formData.put("chw_referral_service", createFormViewData("Diabetes & Hypertension Screening", null, null));
+            formData.put("chw_referral_service", createFormViewData("Diabetes And Hypertension Screening", null, null));
             formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation", null));
             formData.put("referral_type", createFormViewData("community_to_facility_referral", "Calculation", null));
             formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()), "Calculation", null));
