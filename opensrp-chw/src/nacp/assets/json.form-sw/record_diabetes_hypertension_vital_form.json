@@ -64,6 +64,30 @@
         }
       },
       {
+        "key": "weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "type": "edit_text",
+        "hint": "Uzito (Kilo)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza nambari"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Uzito lazima uwe sawa au mkubwa kuliko kilo 20"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "Uzito lazima uwe sawa au mdogo kuliko kilo 300"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza uzito wa mteja"
+        }
+      },
+      {
         "key": "diabetes_test_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -79,8 +103,8 @@
           "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kikubwa kuliko 0 (mmol/L)"
         },
         "v_max": {
-          "value": "45",
-          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kidogo kuliko 45 (mmol/L)"
+          "value": "33",
+          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kidogo kuliko 33 (mmol/L)"
         },
         "v_required": {
           "value": "true",
@@ -88,15 +112,23 @@
         }
       },
       {
+        "key": "blood_pressure_section",
+        "type": "label",
+        "text": "Shinikizo la Damu",
+        "text_style": "bold",
+        "text_color": "#000000",
+        "text_size": "18"
+      },
+      {
         "key": "blood_pressure_systolic",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_pressure_systolic",
         "type": "edit_text",
-        "hint": "Shinikizo la damu la juu (mmHg)",
+        "hint": "Shinikizo la damu (Systolic) (mmHg)",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali jaza shinikizo la damu la juu"
+          "err": "Tafadhali jaza shinikizo la damu (Systolic)"
         },
         "v_min": {
           "value": "50",
@@ -108,7 +140,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza shinikizo la damu la juu"
+          "err": "Tafadhali jaza shinikizo la damu (Systolic)"
         }
       },
       {
@@ -117,10 +149,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_pressure_diastolic",
         "type": "edit_text",
-        "hint": "Shinikizo la damu la chini (mmHg)",
+        "hint": "Shinikizo la damu (Diastolic) (mmHg)",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali jaza shinikizo la damu la juu"
+          "err": "Tafadhali jaza shinikizo la damu (Diastolic)"
         },
         "v_min": {
           "value": "30",
@@ -130,9 +162,29 @@
           "value": "150",
           "err": "Kiwango lazima kiwe sawa au kidogo kuliko 150"
         },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:blood_pressure_systolic)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali jaza shinikizo la damu la chini"
+          "err": "Tafadhali jaza shinikizo la damu (Diastolic)"
+        }
+      },
+      {
+        "key": "bp_diastolic_error_toaster",
+        "type": "toaster_notes",
+        "text": "Diastolic lazima iwe ndogo kuliko Systolic",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_relevance.yml"
+            }
+          }
         }
       },
       {
