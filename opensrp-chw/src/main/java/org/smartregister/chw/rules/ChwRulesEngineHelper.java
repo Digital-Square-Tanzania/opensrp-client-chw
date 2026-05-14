@@ -22,6 +22,12 @@ public class ChwRulesEngineHelper extends RulesEngineHelper {
 
     public double getDiabesityRiskScore(String age, String familyHistory, String waistCircumference,
                                         String systolicBloodPressure, String diastolicBloodPressure) {
+        timber.log.Timber.d("DiabRisk inputs received → age=[%s], familyHistory=[%s], waist=[%s], systolic=[%s], diastolic=[%s]",
+                age, familyHistory, waistCircumference, systolicBloodPressure, diastolicBloodPressure);
+        if (android.text.TextUtils.isEmpty(systolicBloodPressure)) {
+            timber.log.Timber.w(new Throwable("STACK: systolic empty at calc time"),
+                    "Systolic empty — capturing stack trace");
+        }
         return DiabeticRiskCalculator.calculateDiabeticRiskScore(age, familyHistory, waistCircumference,
                 systolicBloodPressure, diastolicBloodPressure);
     }

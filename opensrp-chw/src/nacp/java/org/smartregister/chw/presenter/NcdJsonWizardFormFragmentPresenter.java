@@ -1,6 +1,9 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -23,6 +26,7 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
 
     @Override
     public boolean onNextClick(LinearLayout mainView) {
+        commitPendingInput(mainView);
         validateAndWriteValues();
         checkAndStopCountdownAlarm();
         boolean validateOnSubmit = validateOnSubmit();
@@ -50,10 +54,14 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
             getFormFragment().getJsonApi().invokeRefreshLogic(null, false, null, null, nextStep, true);
             if (!getFormFragment().getJsonApi().isNextStepRelevant()) {
                 com.vijay.jsonwizard.utils.Utils.checkIfStepHasNoSkipLogic(getFormFragment());
-                // Clear data for skipped step
-                clearStepData(nextStep);
             }
             isSkipped = getFormFragment().skipStepsOnNextPressed(nextStep);
+            // Only clear data if the step is actually being skipped — calling
+            // clearStepData when the step is shown causes a writeValue cascade
+            // that wipes legitimate prior-step values.
+            if (isSkipped) {
+                clearStepData(nextStep);
+            }
         }
         return isSkipped;
     }
@@ -89,6 +97,7 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
 
     @Override
     public void onSaveClick(LinearLayout mainView) {
+        commitPendingInput(mainView);
         validateAndWriteValues();
         checkAndStopCountdownAlarm();
         boolean isFormValid = isFormValid();
@@ -109,6 +118,23 @@ public class NcdJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
                         .getString(com.vijay.jsonwizard.R.string.json_form_error_msg, getInvalidFields().size()));
 
             }
+        }
+    }
+
+    private void commitPendingInput(LinearLayout root) {
+        if (root == null) return;
+        if (android.os.Looper.myLooper() != android.os.Looper.getMainLooper()) {
+            return;
+        }
+        View focused = root.findFocus();
+        if (focused == null) return;
+
+        focused.clearFocus();
+
+        InputMethodManager imm = (InputMethodManager) focused.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(focused.getWindowToken(), 0);
         }
     }
 
