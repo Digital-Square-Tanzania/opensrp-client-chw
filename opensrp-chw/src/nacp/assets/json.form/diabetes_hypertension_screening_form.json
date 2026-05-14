@@ -186,7 +186,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select whether you agree with the screening"
+          "err": "Please select whether you are diagnosed with diabetes"
         },
         "relevance": {
           "rules-engine": {
@@ -214,9 +214,9 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:diagnosed_diabetes": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -238,9 +238,33 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:medicines_diabetes": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "diagnosed_hypertension",
+        "type": "spinner",
+        "hint": "Are you diagnosed with hypertension?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnosed_hypertension",
+        "values": ["Yes", "No"],
+        "keys": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you are diagnosed with hypertension"
+        },
+        "relevance": {
+          "step2:screened_diabetes_12m": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -262,9 +286,9 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:diagnosed_hypertension": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -286,16 +310,16 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:medicines_hypertension": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
       {
         "key": "routine_clinic_visits",
         "type": "spinner",
-        "hint": "Are you attending or enrolled in any routine clinic visits?",
+        "hint": "Are you attending or enrolled in a routine clinic for diabetes and high blood pressure follow-ups?",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "routine_clinic_visits",
@@ -310,9 +334,9 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:screened_hypertension_last12m": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       }

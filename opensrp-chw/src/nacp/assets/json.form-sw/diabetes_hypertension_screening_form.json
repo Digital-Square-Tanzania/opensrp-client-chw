@@ -186,7 +186,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali chagua moja"
+          "err": "Tafadhali jibu kama unakisukari"
         },
         "relevance": {
           "rules-engine": {
@@ -214,9 +214,9 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:diagnosed_diabetes": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -238,9 +238,33 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:medicines_diabetes": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "diagnosed_hypertension",
+        "type": "spinner",
+        "hint": "Je, umewahi kugunduliwa kuwa na ugonjwa wa shinikizo la damu?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnosed_hypertension",
+        "values": ["Ndio", "Hapana"],
+        "keys": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jibu kama una shinikizo la damu"
+        },
+        "relevance": {
+          "step2:screened_diabetes_12m": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -262,9 +286,9 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:diagnosed_hypertension": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -286,9 +310,9 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:medicines_hypertension": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       },
@@ -310,9 +334,9 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:agree_with_screening_procedure": {
+          "step2:screened_hypertension_last12m": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"No\")"
           }
         }
       }
