@@ -443,6 +443,13 @@
           "value": true,
           "err": "Please select whether you agree with the screening"
         },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step3:systolic_bp)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
