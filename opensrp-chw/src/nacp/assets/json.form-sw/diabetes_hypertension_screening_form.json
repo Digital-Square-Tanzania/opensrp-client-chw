@@ -589,35 +589,21 @@
         "text_color": "#C0C0C0",
         "combine_checkbox_option_values": "true",
         "exclusive": [
-          "chk_none"
+          "no"
         ],
         "options": [
           {
-            "key": "ORS",
-            "text": "ORS",
+            "key": "yes",
+            "text": "Ndio",
             "openmrs_entity": "",
-            "openmrs_entity_id": "ORS",
+            "openmrs_entity_id": "yes",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Panadol",
-            "text": "Panadol",
+            "key": "no",
+            "text": "Hapana",
             "openmrs_entity": "",
-            "openmrs_entity_id": "Panadol",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Other_treatment",
-            "text": "Matibabu mengine",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "Other_treatment",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "chk_none",
-            "text": "Hakuna huduma alizopewa",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "chk_none",
+            "openmrs_entity_id": "no",
             "openmrs_entity_parent": ""
           }
         ],
@@ -630,6 +616,29 @@
             "ex-rules": {
               "rules-file": "diabetes_hypertension_screening_relevance.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "service_provided_details",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provided_details",
+        "type": "edit_text",
+        "hint": "Maelezo ya huduma zilizotolewa",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali eleza huduma zilizotolewa"
+        },
+        "relevance": {
+          "step4:service_before_referral": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "yes"
+                ]
+              }
+            ]
           }
         }
       },

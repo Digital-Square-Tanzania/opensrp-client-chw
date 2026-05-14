@@ -365,7 +365,9 @@ public class AllClientsUtils {
         }
 
         if (age >= 30) {
-            setMenuItemVisibility(menu, R.id.action_diabetes_risk, true);
+            // Handle Diabetes Risk Assessment menu item for clients aged 30 and above
+            // Disable it here because in the current implementation, we are only using it for clients who are being enrolled in HPS and not as a standalone service.
+            setMenuItemVisibility(menu, R.id.action_diabetes_risk, false);
         }
 
         // Handle AYP menu items
