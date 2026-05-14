@@ -60,9 +60,9 @@
         "key": "visit_hf",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "visit_hf",
         "openmrs_entity_parent": "",
-        "label": "Je, ulienda kituo cha afya?",
+        "label": "Je ulienda kwenye kituo cha kutoa huduma za afya?",
         "options": [
           {
             "key": "Yes",
@@ -90,7 +90,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_not_visiting",
         "type": "check_box",
-        "label": "Sababu za kutotembelea kituo cha afya",
+        "label": "Sababu za kutotembelea kituo cha kutoa huduma za afya",
         "label_text_style": "bold",
         "exclusive": [
           "chk_other_visit_reason"
@@ -174,7 +174,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_reasons_for_not_visiting",
         "type": "edit_text",
-        "hint": "Taja sababu nyingine za kutotembelea kituo cha kutolea afya?",
+        "hint": "Taja sababu nyingine za kutotembelea kituo cha kutoa huduma za afya?",
         "v_required": {
           "value": "true",
           "err": "Elezea sababu nyingine"
@@ -197,7 +197,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "services_hf",
         "openmrs_entity_parent": "",
-        "label": "Alipata huduma yoyote katika kituo cha afya?",
+        "label": "Alipata huduma yoyote katika kituo cha kutoa huduma za afya?",
         "options": [
           {
             "key": "Yes",
@@ -390,9 +390,9 @@
         "key": "noservices_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "noservices_reason",
         "type": "check_box",
-        "label": "Why did they not get any services at the facility?",
+        "label": "Sababu za kutokupata huduma katika kituo cha kutoa huduma za afya",
         "label_text_style": "bold",
         "exclusive": [
           "chk_other_reason"
@@ -471,7 +471,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Ni muhimu kutembelea kituo cha afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
+        "text": "Ni muhimu kutembelea kituo cha kutoa huduma za afya ili uweze kupata vipimo zaidi na upate msaada mapema kabla hali yako haijawa mbaya. Huduma ya mapema inaweza kusaidia kuzuia matatizo makubwa. Tafadhali jaribu kwenda haraka iwezekanavyo.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
