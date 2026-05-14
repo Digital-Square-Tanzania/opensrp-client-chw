@@ -87,7 +87,7 @@
       {
         "key": "reasons_for_declining",
         "type": "check_box",
-        "label": "Reasons for declining",
+        "label": "Sababu za kukataa kufanyiwa uchunguzi",
         "combine_checkbox_option_values": "true",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_declining",
