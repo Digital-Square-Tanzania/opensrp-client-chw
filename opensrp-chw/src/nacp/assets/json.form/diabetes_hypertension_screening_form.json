@@ -494,6 +494,13 @@
               "rules-file": "diabetes_hypertension_screening_calculation.yml"
             }
           }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
         }
       },
       {

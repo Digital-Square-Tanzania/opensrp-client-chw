@@ -62,14 +62,10 @@ condition: "(step1_agree_with_screening_procedure == 'Yes' || step1_agree_with_s
 actions:
   - "isRelevant = true"
 ---
-name: step3_diabetes_risk_score_output
+name: step4_diabetes_risk_score_output
 description: Risk calculated for diabetes and hypertension screening
 priority: 1
-condition: "(step3_family_history_diabetes != 'Family history of diabetes?' && 
-            step3_age != '' && 
-            step3_waist_circumference != '' && 
-            step3_systolic_bp != '' && 
-            step3_diastolic_bp != '')"
+condition: "step3_family_history_diabetes != '' || step3_waist_circumference != '' || step3_systolic_bp != '' || step3_diastolic_bp != ''"
 actions:
   - "isRelevant = true"
 ---
