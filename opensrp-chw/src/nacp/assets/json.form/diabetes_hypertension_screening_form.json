@@ -58,7 +58,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "We are here today to conduct a health screening for high blood pressure and diabetes. This screening is free, does not involve blood or injections, and is aimed at early detection of preventable health problems.",
+        "text": "We are here today to conduct a health screening for high blood pressure and diabetes. This screening is free, and does not involve injections or drawing blood. It is aimed at early detection of preventable health problems.",
         "toaster_type": "info",
         "text_color": "#1199F9"
       },
