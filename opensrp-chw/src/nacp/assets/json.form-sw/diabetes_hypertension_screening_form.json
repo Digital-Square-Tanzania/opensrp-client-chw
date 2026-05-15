@@ -467,6 +467,13 @@
           "value": true,
           "err": "Tafadhali ingiza shinikizo la chini la damu"
         },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step3:systolic_bp)",
+            "err": "Shinikizo la damu (diastolic) linatikiwa liwe dogo kuliko shinikizo la damu (systolic)"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {

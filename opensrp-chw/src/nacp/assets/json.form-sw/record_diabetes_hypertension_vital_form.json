@@ -166,25 +166,12 @@
           {
             "type": "numeric",
             "ex": "lessThan(., step1:blood_pressure_systolic)",
-            "err": "The diastolic value must be less than the systolic value"
+            "err": "Shinikizo la damu (diastolic) linatikiwa liwe dogo kuliko shinikizo la damu (systolic)"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza shinikizo la damu (Diastolic)"
-        }
-      },
-      {
-        "key": "bp_diastolic_error_toaster",
-        "type": "toaster_notes",
-        "text": "Diastolic lazima iwe ndogo kuliko Systolic",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "record_diabetes_hypertension_vital_relevance.yml"
-            }
-          }
         }
       },
       {

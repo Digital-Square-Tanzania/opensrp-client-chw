@@ -180,19 +180,6 @@
         }
       },
       {
-        "key": "bp_diastolic_error_toaster",
-        "type": "toaster_notes",
-        "text": "Diastolic must be less than Systolic",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "record_diabetes_hypertension_vital_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "measurement_notes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
