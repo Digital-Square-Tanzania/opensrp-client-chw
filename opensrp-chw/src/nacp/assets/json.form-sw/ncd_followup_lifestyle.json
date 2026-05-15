@@ -186,6 +186,98 @@
             }
           }
         }
+      },
+      {
+        "key": "alcohol_intake_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "alcohol_intake_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja anaepuka pombe au anatumia kwa kiasi salama?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "alcohol_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kupunguza Pombe\"</b><br> <span>▪ <b>Lengo:</b> epuka pombe; ukiendelea kunywa, usizidi vinywaji 2 vyenye kiwango cha kawaida kwa siku kwa wanaume au kinywaji 1 kwa wanawake</span><br><span>▪ Pombe huongeza shinikizo la damu, hudhoofisha udhibiti wa kisukari, huharibu ini na moyo, na inaweza kuingiliana na dawa.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kupunguza Matumizi ya Pombe",
+        "toaster_info_text": "Nini cha kufanya: Epuka pombe au punguza matumizi yake yawe ndani ya kiwango salama ili kulinda moyo, shinikizo la damu, na udhibiti wa sukari ya damu\n\nKwa nini: Pombe huongeza shinikizo la damu, inaweza kushusha sukari ya damu kwa kiwango cha hatari (hasa ukitumia dawa za kisukari), huharibu ini na moyo, huongeza kalori zisizo na faida, na huongeza hatari ya kiharusi na saratani. Shirika la Afya Duniani (WHO) linashauri kuwa kidogo ni bora, na hakuna kabisa ni bora zaidi.\n\nLini: Hakuna kiwango salama cha kila siku; ukinywa mara chache, usizidi vinywaji 2 kwa siku kwa wanaume au kinywaji 1 kwa wanawake, na uwe na siku kadhaa kwa wiki bila pombe\n\nWapi: Nyumbani na kwenye matukio ya kijamii. Jiandae kukataa kwa heshima ikiwa unashinikizwa kunywa.\n\nNamna: Jiwekee kikomo binafsi (au lengo la kutokunywa kabisa), chagua maji au vinywaji visivyo na pombe, usinywe ukiwa na njaa (hasa ukitumia dawa za kisukari), na omba msaada kama kuachisha kunakuwa kugumu",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tobacco_use_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tobacco_use_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja hatumii tumbaku (kuvuta sigara wala kutafuna)?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "tobacco_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kuacha Tumbaku\"</b><br> <span>▪ <b>Lengo:</b> kuacha kabisa — kutovuta sigara wala kutumia tumbaku ya kutafuna</span><br><span>▪ Tumbaku huharibu mishipa ya damu, huongeza shinikizo la damu, huzidisha matatizo ya kisukari, na ni miongoni mwa sababu kuu za magonjwa ya moyo, kiharusi, na saratani.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kuacha Matumizi ya Tumbaku",
+        "toaster_info_text": "Nini cha kufanya: Acha aina zote za tumbaku — sigara, kiko (pipe), shisha, na tumbaku ya kutafuna au kunusa. Epuka kuvuta moshi wa wengine nyumbani na kazini.\n\nKwa nini: Tumbaku huongeza shinikizo la damu, huharibu mishipa ya damu, huharakisha matatizo ya kisukari (figo, macho, miguu, na moyo), na ni sababu kuu ya magonjwa ya moyo, kiharusi, magonjwa ya mapafu, na saratani nyingi. Hakuna kiwango salama cha matumizi ya tumbaku.\n\nLini: Acha haraka iwezekanavyo — kuacha katika umri wowote huboresha afya ndani ya siku, wiki, na miaka\n\nWapi: Fanya nyumbani na kazini kuwa bila tumbaku; waombe familia na marafiki wasivute sigara karibu na mteja\n\nNamna: Panga tarehe ya kuacha, ondoa bidhaa za tumbaku katika mazingira yako, tambua na epuka vichocheo, kunywa maji au tembea kidogo wakati wa hamu kali ya kuvuta (hamu hupita ndani ya dakika chache), na tafuta msaada kutoka kituo cha afya au huduma za kuachisha — ushauri mfupi kutoka kwa mtoa huduma huongeza nafasi ya kufanikiwa mara mbili",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }
