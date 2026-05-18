@@ -25,6 +25,7 @@ import org.smartregister.opd.utils.OpdDbConstants;
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
     private static final String AYP_REGISTER_TAG = "AYP";
+    private static final String HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE = "Harm Reduction Sober House";
 
     @Override
     public void setupViews(View view) {
@@ -129,6 +130,12 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     break;
                 case CoreConstants.REGISTER_TYPE.HPS:
                     AllClientsUtils.goToHpsProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.HARM_REDUCTION:
+                    AllClientsUtils.goToHarmReductionProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE:
+                    AllClientsUtils.goToHarmReductionSoberHouseProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 default:
                     AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,

@@ -68,6 +68,29 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
+    public static Map<String, Integer> getReportBreakdown(String sql, @NonNull List<String> columns) {
+        DataMap<Map<String, Integer>> map = cursor -> {
+            Map<String, Integer> result = new HashMap<>();
+            for (String column : columns) {
+                result.put(column, getCursorIntValue(cursor, column));
+            }
+            return result;
+        };
+
+        List<Map<String, Integer>> res = readData(sql, map);
+
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
+            return res.get(0);
+        }
+
+        Map<String, Integer> emptyResult = new HashMap<>();
+        for (String column : columns) {
+            emptyResult.put(column, 0);
+        }
+        return emptyResult;
+    }
+
+    @NonNull
     public static Map<String, String> extractRecordedLocations() {
         Map<String, String> locations = new HashMap<>();
 

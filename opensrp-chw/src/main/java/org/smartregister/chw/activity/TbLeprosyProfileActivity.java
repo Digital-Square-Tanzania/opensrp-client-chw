@@ -63,8 +63,8 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Task;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
@@ -75,13 +75,13 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.text.SimpleDateFormat;
 
 import timber.log.Timber;
 
@@ -110,6 +110,122 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.TBLEPROSY_PROFILE);
         activity.startActivity(intent);
+    }
+
+    static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
+                                                   boolean isLeprosyPresumptiveClient,
+                                                   boolean hasTbLeprosyVisit,
+                                                   boolean hasObservationResults,
+                                                   boolean hasReferralTaskAfterTbLeprosyVisit) {
+        if ((!hasTbLeprosyVisit && isTbPresumptiveClient) || hasReferralTaskAfterTbLeprosyVisit) {
+            return false;
+        }
+
+
+        boolean isTbPendingReferral = isTbPresumptiveClient && !hasObservationResults;
+        boolean isLeprosyOnlyPendingReferral = isLeprosyPresumptiveClient && !isTbPresumptiveClient;
+        return isTbPendingReferral || isLeprosyOnlyPendingReferral;
+    }
+
+    static boolean isTbLeprosyReferralTaskAfterVisit(@Nullable Task task, @Nullable Date tbLeprosyVisitDate) {
+        if (task == null || task.getLastModified() == null || tbLeprosyVisitDate == null) {
+            return false;
+        }
+
+        if (!CoreConstants.TASKS_FOCUS.TBLEPROSY.equalsIgnoreCase(StringUtils.trimToEmpty(task.getFocus()))) {
+            return false;
+        }
+
+        DateTime taskLastModifiedDate = task.getLastModified().withTimeAtStartOfDay();
+        DateTime tbLeprosyVisitDateOnly = new DateTime(tbLeprosyVisitDate).withTimeAtStartOfDay();
+
+        return !taskLastModifiedDate.isBefore(tbLeprosyVisitDateOnly);
+    }
+
+    @Nullable
+    static Date parseTbLeprosyVisitDate(String visitDateValue) {
+        if (StringUtils.isBlank(visitDateValue)) {
+            return null;
+        }
+
+        String trimmedVisitDate = visitDateValue.trim();
+        if (StringUtils.isNumeric(trimmedVisitDate)) {
+            try {
+                return new Date(Long.parseLong(trimmedVisitDate));
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        try {
+            return new DateTime(trimmedVisitDate).toDate();
+        } catch (Exception e) {
+            // Continue with explicit formats below
+        }
+
+        List<String> patterns = Arrays.asList(
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd",
+                "dd-MM-yyyy",
+                "yyyy-MM-dd'T'HH:mm:ss",
+                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                "yyyy-MM-dd'T'HH:mm:ssZ"
+        );
+        for (String pattern : patterns) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                simpleDateFormat.setLenient(false);
+                return simpleDateFormat.parse(trimmedVisitDate);
+            } catch (Exception e) {
+                // Try the next known date pattern
+            }
+        }
+        return null;
+    }
+
+    static void maybeRemoveTreatmentDecisionAlgorithmOption(JSONObject form, int clientAge) throws JSONException {
+        if (form == null || clientAge < 10) {
+            return;
+        }
+
+        JSONObject stepOne = form.optJSONObject("step1");
+        if (stepOne == null) {
+            return;
+        }
+
+        JSONArray fields = stepOne.optJSONArray("fields");
+        if (fields == null) {
+            return;
+        }
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null || !"tb_preliminary_investigation_tests".equals(field.optString("key"))) {
+                continue;
+            }
+
+            JSONArray options = field.optJSONArray("options");
+            if (options == null) {
+                return;
+            }
+
+            JSONArray filteredOptions = new JSONArray();
+            for (int j = 0; j < options.length(); j++) {
+                JSONObject option = options.optJSONObject(j);
+                if (option != null && !"treatment_decision_algorithm".equals(option.optString("key"))) {
+                    filteredOptions.put(option);
+                }
+            }
+
+            field.put("options", filteredOptions);
+            return;
+        }
+    }
+
+    static boolean isReferralRegistrationEncounter(@Nullable String encounterType) {
+        return org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION
+                .equalsIgnoreCase(StringUtils.trimToEmpty(encounterType));
     }
 
     @Override
@@ -404,22 +520,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         );
     }
 
-    static boolean shouldShowPendingReferralAction(boolean isTbPresumptiveClient,
-                                                   boolean isLeprosyPresumptiveClient,
-                                                   boolean hasTbLeprosyVisit,
-                                                   boolean hasObservationResults,
-                                                   boolean hasReferralTaskAfterTbLeprosyVisit) {
-        if ((!hasTbLeprosyVisit && isTbPresumptiveClient) || hasReferralTaskAfterTbLeprosyVisit) {
-            return false;
-        }
-
-
-
-        boolean isTbPendingReferral = isTbPresumptiveClient && !hasObservationResults;
-        boolean isLeprosyOnlyPendingReferral = isLeprosyPresumptiveClient && !isTbPresumptiveClient;
-        return isTbPendingReferral || isLeprosyOnlyPendingReferral;
-    }
-
     private boolean hasReferralTaskAfterTbLeprosyVisit(boolean isTbPresumptiveClient, boolean isLeprosyPresumptiveClient) {
         if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
             return false;
@@ -428,7 +528,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         String baseEntityId = memberObject.getBaseEntityId();
         Date tbLeprosyVisitDate = null;
         if (isTbPresumptiveClient)
-         tbLeprosyVisitDate = TbLeprosyDao.getLatestTbSampleCollectionDate(baseEntityId);
+            tbLeprosyVisitDate = TbLeprosyDao.getLatestTbSampleCollectionDate(baseEntityId);
         else if (isLeprosyPresumptiveClient) {
             tbLeprosyVisitDate = getLatestTbLeprosyScreeningDate(baseEntityId);
         }
@@ -440,63 +540,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     @Nullable
     Task getTaskByEntityId(@NonNull String baseEntityId) {
         return ChwApplication.getInstance().getTaskRepository().getTaskByEntityId(baseEntityId);
-    }
-
-    static boolean isTbLeprosyReferralTaskAfterVisit(@Nullable Task task, @Nullable Date tbLeprosyVisitDate) {
-        if (task == null || task.getLastModified() == null || tbLeprosyVisitDate == null) {
-            return false;
-        }
-
-        if (!CoreConstants.TASKS_FOCUS.TBLEPROSY.equalsIgnoreCase(StringUtils.trimToEmpty(task.getFocus()))) {
-            return false;
-        }
-
-        DateTime taskLastModifiedDate = task.getLastModified().withTimeAtStartOfDay();
-        DateTime tbLeprosyVisitDateOnly = new DateTime(tbLeprosyVisitDate).withTimeAtStartOfDay();
-
-        return !taskLastModifiedDate.isBefore(tbLeprosyVisitDateOnly);
-    }
-
-    @Nullable
-    static Date parseTbLeprosyVisitDate(String visitDateValue) {
-        if (StringUtils.isBlank(visitDateValue)) {
-            return null;
-        }
-
-        String trimmedVisitDate = visitDateValue.trim();
-        if (StringUtils.isNumeric(trimmedVisitDate)) {
-            try {
-                return new Date(Long.parseLong(trimmedVisitDate));
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        try {
-            return new DateTime(trimmedVisitDate).toDate();
-        } catch (Exception e) {
-            // Continue with explicit formats below
-        }
-
-        List<String> patterns = Arrays.asList(
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyy-MM-dd",
-                "dd-MM-yyyy",
-                "yyyy-MM-dd'T'HH:mm:ss",
-                "yyyy-MM-dd'T'HH:mm:ss.SSS",
-                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-                "yyyy-MM-dd'T'HH:mm:ssZ"
-        );
-        for (String pattern : patterns) {
-            try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-                simpleDateFormat.setLenient(false);
-                return simpleDateFormat.parse(trimmedVisitDate);
-            } catch (Exception e) {
-                // Try the next known date pattern
-            }
-        }
-        return null;
     }
 
     private void openRecordLeprosyTreatmentStartDate() {
@@ -685,7 +728,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         //do nothing
     }
 
-
     @Override
     public void startServiceForm() {
 //        VmmcServiceActivity.startVmmcVisitActivity(this, baseEntityId, false);
@@ -696,12 +738,10 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
 //        VmmcServiceActivity.startVmmcVisitActivity(this, baseEntityId, true);
     }
 
-
     @Override
     public void continueContactVisit() {
         TbLeprosyContactVisitActivity.startTbLeprosyVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
-
 
     @Override
     public void refreshList() {
@@ -750,7 +790,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
     }
-
 
     @Override
     public void initializeFloatingMenu() {
@@ -925,45 +964,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         }
     }
 
-    static void maybeRemoveTreatmentDecisionAlgorithmOption(JSONObject form, int clientAge) throws JSONException {
-        if (form == null || clientAge < 10) {
-            return;
-        }
-
-        JSONObject stepOne = form.optJSONObject("step1");
-        if (stepOne == null) {
-            return;
-        }
-
-        JSONArray fields = stepOne.optJSONArray("fields");
-        if (fields == null) {
-            return;
-        }
-
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.optJSONObject(i);
-            if (field == null || !"tb_preliminary_investigation_tests".equals(field.optString("key"))) {
-                continue;
-            }
-
-            JSONArray options = field.optJSONArray("options");
-            if (options == null) {
-                return;
-            }
-
-            JSONArray filteredOptions = new JSONArray();
-            for (int j = 0; j < options.length(); j++) {
-                JSONObject option = options.optJSONObject(j);
-                if (option != null && !"treatment_decision_algorithm".equals(option.optString("key"))) {
-                    filteredOptions.put(option);
-                }
-            }
-
-            field.put("options", filteredOptions);
-            return;
-        }
-    }
-
     protected Visit getTbLeprosyContactVisit() {
         return TbLeprosyLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.TBLEPROSY_CONTACT_VISIT);
     }
@@ -1020,11 +1020,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         if (isReferralRegistrationEncounter(encounterType)) {
             refreshAfterReferralSubmission();
         }
-    }
-
-    static boolean isReferralRegistrationEncounter(@Nullable String encounterType) {
-        return org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION
-                .equalsIgnoreCase(StringUtils.trimToEmpty(encounterType));
     }
 
     private void applyFollowUpReasonOverrides(JSONObject form) throws JSONException {

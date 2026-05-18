@@ -2,10 +2,16 @@ package org.smartregister.chw.sync;
 
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_FOLLOW_UP_VISIT;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_SOBER_HOUSE_VISIT;
+import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION;
 import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILIZATION;
 import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.CoreLibrary;
@@ -14,6 +20,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -39,6 +46,8 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ChwClientProcessor extends CoreClientProcessor {
+
+    private static final String METHADONE_TREATMENT_STATUS_FIELD = "methadone_treatment_status";
 
     private String currentEventType;
 
@@ -105,7 +114,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             chosenHead = getFormValue(eventClient.getEvent(), "existing_head");
                         }
                         if (StringUtils.isNotBlank(chosenHead)) {
-                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                             if (db != null) {
                                 db.execSQL("UPDATE ec_family SET family_head = ? WHERE base_entity_id = ?",
                                         new Object[]{chosenHead, baseEntityID});
@@ -123,7 +132,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         String existingHeadId = getFormValue(eventClient.getEvent(), "existing_head");
                         String originalRelId = getFormValue(eventClient.getEvent(), "original_relational_id");
                         if (StringUtils.isNotBlank(existingHeadId) && StringUtils.isNotBlank(originalRelId)) {
-                            net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                             if (db != null) {
                                 db.execSQL(
                                         "UPDATE ec_family_member SET relational_id = ? WHERE base_entity_id = ? AND relational_id != ?",
@@ -155,7 +164,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
                             String familyBaseEntityId = eventClient.getEvent().getBaseEntityId();
                             if (StringUtils.isNotBlank(familyBaseEntityId)) {
-                                net.zetetic.database.sqlcipher.SQLiteDatabase db = org.smartregister.chw.application.ChwApplication.getInstance().getRepository().getWritableDatabase();
+                                SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
                                 if (db != null) {
                                     db.execSQL("UPDATE ec_family SET unique_id = ? WHERE base_entity_id = ?",
                                             new Object[]{familyUniqueId, familyBaseEntityId});
@@ -185,6 +194,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.MOTHER_CHAMPION_SBCC_SESSIONS:
                 case HIVST_MOBILIZATION:
                 case TB_LEPROSY_MOBILIZATION:
+                case HARM_REDUCTION_USED_NEEDLES_AND_SYRINGES_COLLECTION:
+                case HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP:
+                case HARM_REDUCTION_FOLLOW_UP_VISIT:
+                case HARM_REDUCTION_SOBER_HOUSE_VISIT:
                 case org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.ICCM_SERVICES_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.SBC_HEALTH_EDUCATION_MOBILIZATION:
@@ -213,6 +226,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    if (HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP.equals(eventType)) {
+                        processMatFollowupTreatmentStatus(eventClient.getEvent());
+                    }
                     break;
                 case org.smartregister.chw.ayp.util.Constants.EVENT_TYPE.AYP_GROUP_DETAILS:
                     // AYP In-school group creation/edit event
@@ -322,6 +338,27 @@ public class ChwClientProcessor extends CoreClientProcessor {
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
+        }
+    }
+
+    private void processMatFollowupTreatmentStatus(Event event) {
+        if (event == null) {
+            return;
+        }
+
+        String methadoneTreatmentStatus = getFormValue(event, METHADONE_TREATMENT_STATUS_FIELD);
+        if (StringUtils.isBlank(event.getBaseEntityId())) {
+            return;
+        }
+
+        try {
+            if (HarmReductionDao.isCompletedMethadoneTreatment(methadoneTreatmentStatus)) {
+                HarmReductionDao.closeCompletedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+            } else if (HarmReductionDao.isStoppedUsingMethadone(methadoneTreatmentStatus)) {
+                HarmReductionDao.reassignStoppedMethadoneTreatmentRiskAssessment(event.getBaseEntityId());
+            }
+        } catch (Exception e) {
+            Timber.w(e);
         }
     }
 

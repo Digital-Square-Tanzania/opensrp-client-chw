@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_safety_boxes_collection"
+        android:enabled="true"
+        android:icon="@mipmap/ic_jobaids"
+        android:title="@string/harm_reduction_safety_boxes_collection"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_mat_clients"
+        android:enabled="true"
+        android:icon="@mipmap/ic_jobaids"
+        android:title="@string/harm_reduction_mat_clients"
+        app:showAsAction="ifRoom" />
+
+</menu>

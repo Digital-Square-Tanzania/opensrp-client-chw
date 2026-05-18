@@ -56,6 +56,8 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op28 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_outschool, CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, 0);
             NavigationOption op29 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_ayp_parental, CoreConstants.DrawerMenu.AYP_PARENTAL, 0);
             NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
+            NavigationOption op31 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_harm_reduction, CoreConstants.DrawerMenu.HARM_REDUCTION, 0);
+            NavigationOption op32 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.harm_reduction_sober_house, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -94,6 +96,12 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         }
                         if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
                             navigationOptions.add(op30);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                            navigationOptions.add(op31);
+                        }
+                        if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+                            navigationOptions.add(op32);
                         }
                         if (ChwApplication.getApplicationFlavor().hasMalaria()) {
                             navigationOptions.add(op7);
@@ -143,6 +151,12 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 }
                 if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
                     navigationOptions.add(op30);
+                }
+                if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                    navigationOptions.add(op31);
+                }
+                if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+                    navigationOptions.add(op32);
                 }
                 if (ChwApplication.getApplicationFlavor().hasMalaria()) {
                     navigationOptions.add(op7);

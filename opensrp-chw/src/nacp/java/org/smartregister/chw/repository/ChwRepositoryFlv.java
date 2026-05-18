@@ -151,12 +151,17 @@ public class ChwRepositoryFlv {
                 case 37:
                     upgradeToVersion37(db);
                     break;
+                case 38:
+                    upgradeToVersion38(db);
+                    break;
+                case 39:
+                    upgradeToVersion39(db);
+                    break;
                 case 40:
                     upgradeToVersion40(db);
                     break;
                 case 41:
                     upgradeToVersion41(db);
-                    break;
                 default:
                     break;
             }
@@ -578,8 +583,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
-                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment", "ec_ayp_out_school_enrollment", "ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members", "ec_ayp_out_school_group_members", "ec_ayp_out_school_client_followup_visits", "ec_ayp_out_school_group_followup_visits")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
@@ -734,6 +739,66 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static void upgradeToVersion38(SQLiteDatabase db) {
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion35");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion36");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion37");
+        }
+    }
+
+    private static void upgradeToVersion39(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, "ec_harm_reduction_sober_house_enrollment", "uic_id")) {
+                db.execSQL("ALTER TABLE ec_harm_reduction_sober_house_enrollment ADD COLUMN uic_id VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39-add-sober-house-uic-id");
+        }
+    }
+
+    private static boolean columnExists(SQLiteDatabase db, String tableName, String columnName) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
+            while (cursor != null && cursor.moveToNext()) {
+                int nameIndex = cursor.getColumnIndex("name");
+                if (nameIndex >= 0 && columnName.equalsIgnoreCase(cursor.getString(nameIndex))) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e, "columnExists");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+
     private static void upgradeToVersion40(SQLiteDatabase db) {
         try {
             db.execSQL("ALTER TABLE ec_hps_client_services ADD COLUMN malaria_drugs_treatment VARCHAR;");
@@ -823,4 +888,5 @@ public class ChwRepositoryFlv {
             }
         }
     }
+
 }
