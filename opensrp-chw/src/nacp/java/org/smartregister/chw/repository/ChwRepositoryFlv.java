@@ -162,6 +162,8 @@ public class ChwRepositoryFlv {
                     break;
                 case 41:
                     upgradeToVersion41(db);
+                case 42:
+                    upgradeToVersion42(db);
                 default:
                     break;
             }
@@ -746,7 +748,7 @@ public class ChwRepositoryFlv {
                     new HashSet<>(Arrays.asList("ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion35");
+            Timber.e(e, "upgradeToVersion38");
         }
 
         try {
@@ -755,7 +757,7 @@ public class ChwRepositoryFlv {
             reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion36");
+            Timber.e(e, "upgradeToVersion38");
         }
 
         try {
@@ -764,7 +766,7 @@ public class ChwRepositoryFlv {
             reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion37");
+            Timber.e(e, "upgradeToVersion38");
         }
     }
 
@@ -886,6 +888,34 @@ public class ChwRepositoryFlv {
             if (cursor != null) {
                 cursor.close();
             }
+        }
+    }
+
+    private static void upgradeToVersion42(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_risk_assessment","ec_harm_reduction_followup_visit","ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment","ec_harm_reduction_sober_house_services")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
         }
     }
 
