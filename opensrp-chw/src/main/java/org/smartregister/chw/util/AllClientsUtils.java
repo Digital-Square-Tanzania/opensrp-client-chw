@@ -4,6 +4,7 @@ import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.ENTITY_TYPE_EC_INDEPENDENT_CLIENT;
 import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
 import static org.smartregister.util.Utils.showShortToast;
 
@@ -250,6 +251,7 @@ public class AllClientsUtils {
         String baseEntityId = commonPersonObject.entityId();
         FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String entityType = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
 
         // Cache menu items to avoid multiple lookups
         MenuItem locationInfo = menu.findItem(R.id.action_location_info);
@@ -259,7 +261,7 @@ public class AllClientsUtils {
         MenuItem removeMember = menu.findItem(R.id.action_remove_member);
 
         // Set visibility for the common items
-        if (locationInfo != null) locationInfo.setVisible(true);
+        if (locationInfo != null && entityType.equalsIgnoreCase(ENTITY_TYPE_EC_INDEPENDENT_CLIENT)) locationInfo.setVisible(true);
         if (tbRegistration != null) tbRegistration.setVisible(false);
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);

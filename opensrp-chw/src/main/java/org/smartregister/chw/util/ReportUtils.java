@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.smartregister.chw.domain.asrh_reports.AsrhOtherReportObject;
 import org.smartregister.chw.domain.asrh_reports.AsrhReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypInSchoolReportObject;
+import org.smartregister.chw.domain.ayp_reports.AypOutSchoolReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypParentalReportObject;
 import org.smartregister.chw.domain.KvpReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
@@ -304,6 +305,16 @@ public class ReportUtils {
 
         public static String computeParentalMonthlyReport(Date startDate) {
             AypParentalReportObject reportObject = new AypParentalReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeOutSchoolMonthlyReport(Date startDate) {
+            AypOutSchoolReportObject reportObject = new AypOutSchoolReportObject(startDate);
             try {
                 return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
             } catch (JSONException e) {

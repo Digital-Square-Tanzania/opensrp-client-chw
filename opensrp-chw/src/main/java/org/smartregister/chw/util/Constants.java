@@ -35,6 +35,7 @@ public class Constants extends CoreConstants {
     public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
     public static String ENTITY_TYPE_EC_FAMILY_MEMBER = "ec_family_member";
     public static String ENTITY_TYPE_EC_FAMILY = "ec_family";
+    public static String ENTITY_TYPE_EC_INDEPENDENT_CLIENT = "ec_independent_client";
 
     public static int REQUEST_FILTERS = 2004;
 
@@ -333,6 +334,7 @@ public class Constants extends CoreConstants {
         public interface AypReportKeys {
             String AYP_IN_SCHOOL_MONTHLY_REPORT = "ayp-in-school-monthly-report";
             String AYP_PARENTAL_MONTHLY_REPORT = "ayp-parental-monthly-report";
+            String AYP_OUT_SCHOOL_MONTHLY_REPORT = "ayp-out-school-monthly-report";
         }
 
         public interface HpsReportKeys {

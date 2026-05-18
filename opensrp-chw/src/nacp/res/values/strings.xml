@@ -480,7 +480,7 @@
     <string name="ayp_visit">AYP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
     <string name="kvp_prep_followup_visit">Kvp PrEP Follow-up Visit</string>
-    <string name="ayp_followup_visit">Ayp Follow-up Visit</string>
+    <string name="ayp_followup_visit">Ayp Service Provision</string>
     <string name="kvp_client_hiv_status">Client\'s HIV status:</string>
     <string name="new_visit">New Visit</string>
     <string name="followup">Follow-up</string>
