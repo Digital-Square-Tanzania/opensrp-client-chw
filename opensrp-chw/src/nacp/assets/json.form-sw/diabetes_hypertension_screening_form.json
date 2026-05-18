@@ -360,7 +360,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "family_history_diabetes",
         "openmrs_data_type": "select one",
-        "hint": "Je, kuna mtu katika familia yako wa karibu (mzazi, mtoto au ndugu wa kuzaliwa mfano, kaka na dada) aliyewahi kuugua ugojwa w kisukari?",
+        "label_info_title": "Kuhusu historia ya familia ya kisukari",
+        "label_info_text": "Maana yake: Kama kuna ndugu wa karibu wa mteja wa damu aliyewahi kugundulika na ugonjwa wa kisukari.\n\nNdugu wa karibu wa damu: wazazi wa kibaiolojia, kaka na dada wa kuzaliwa wote (siyo wa kambo), na watoto wa kibaiolojia wa mteja.\n\nKwa nini ni muhimu: Historia ya familia huongeza hatari ya mteja kupata kisukari kutokana na vinasaba (jeni) na pia mlo na mtindo wa maisha unaoshirikishwa katika familia. Hatari inakuwa kubwa zaidi pale ambapo ndugu zaidi ya mmoja wamewahi kuugua, au pale waliougua walipogundulika wakiwa na umri mdogo.\n\nHayahesabiki: shangazi, mjomba, binamu, babu na bibi, ndugu wa kuoana, au ndugu wa kambo.\n\nKama una mashaka: muulize mteja athibitishe na familia yake kabla ya kujibu. Kama bado kuna mashaka, anaweza kujibu Hapana.",
+        "hint": "Je, kuna historia ya kisukari katika familia yako?",
         "keys": ["Yes", "No"],
         "values": [
           "Ndio",
@@ -416,10 +418,12 @@
       {
         "key": "systolic_bp",
         "type": "edit_text",
-        "hint": "Shinikizo la damu la juu (namba ya kwanza inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 135) (mmHg)",
+        "hint": "Shinikizo la damu (Systolic) (mmHg)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "systolic_bp",
         "openmrs_entity_parent": "",
+        "label_info_title": "Kuhusu nambari ya juu (systolic)",
+        "label_info_text": "Maana yake: Ni nambari ya JUU unayoiona unapopima shinikizo la damu. Inaonyesha jinsi damu inavyosukumwa kwa nguvu wakati moyo unapodunda.\n\nKawaida: chini ya 120.\nImepanda kidogo: 120 hadi 139 — ongea na mteja kuhusu tabia za kiafya (kupunguza chumvi, kufanya mazoezi zaidi, kupunguza pombe, kuacha sigara) na uangalie tena ziara ijayo.\nIko juu: 140 au zaidi.\n\nJinsi ya kupima vizuri:\n- Acha mteja akae kimya kwa angalau dakika 5 kabla ya kuanza.\n- Miguu iko sakafuni, mgongo umeegemea kiti, mkono umelala juu ya meza katika kiwango cha moyo.\n- Cuff (mkanda wa kupimia) inapaswa kufaa mkono — siyo ya kubana sana wala ya kulegea. Iweke kwenye ngozi iliyo wazi.\n- Mteja asiwe amevuta sigara, hajakunywa kahawa au chai, na hajafanya mazoezi katika dakika 30 zilizopita.\n- Chukua vipimo VIWILI kwa muda wa dakika 1-2 kati yake, na utumie wastani. Kama vipimo viwili vinatofautiana sana (zaidi ya 10), chukua kipimo cha tatu.\n\nAndika nambari hasa kama unavyoiona kwenye kifaa.",
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza nambari"
@@ -447,10 +451,12 @@
       {
         "key": "diastolic_bp",
         "type": "edit_text",
-        "hint": "Shinikizo la damu la chini (namba ya pili inayojitokeza kwenye kipimo cha shinikizo la damu – mfano, 85) (mmHg)",
+        "hint": "Shinikizo la damu (Diastolic) (mmHg)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diastolic_bp",
         "openmrs_entity_parent": "",
+        "label_info_title": "Kuhusu nambari ya chini (diastolic)",
+        "label_info_text": "Maana yake: Ni nambari ya CHINI unayoiona unapopima shinikizo la damu. Inaonyesha shinikizo wakati moyo unapopumzika kati ya mapigo.\n\nKawaida: chini ya 80.\nImepanda kidogo: 80 hadi 89 — ongea na mteja kuhusu tabia za kiafya na uangalie tena ziara ijayo.\nIko juu: 90 au zaidi.\n\nMuhimu: Nambari ya chini lazima daima iwe ndogo kuliko nambari ya juu. Kama nambari ya chini ni sawa na au kubwa kuliko ya juu, hakikisha cuff iko vizuri kisha pima tena.\n\nTumia hatua zile zile kama za nambari ya juu: mteja akae kimya kwa dakika 5, mkono katika kiwango cha moyo, cuff sahihi kwenye ngozi iliyo wazi, asiwe amevuta sigara au kunywa kahawa au kufanya mazoezi katika dakika 30 zilizopita.",
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza nambari"
