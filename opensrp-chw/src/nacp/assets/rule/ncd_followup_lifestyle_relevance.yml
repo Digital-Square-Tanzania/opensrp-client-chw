@@ -19,3 +19,17 @@ priority: 3
 condition: "step1_physical_activity_target_met == 'no'"
 actions:
   - "isRelevant = true"
+---
+name: step1_alcohol_prompt
+description: Show alcohol reduction prompt when target not met
+priority: 4
+condition: "step1_alcohol_intake_target_met == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_tobacco_prompt
+description: Show tobacco cessation prompt when target not met
+priority: 5
+condition: "step1_tobacco_use_target_met == 'no'"
+actions:
+  - "isRelevant = true"
