@@ -133,11 +133,38 @@ public class NcdProfileActivity extends BaseNcdProfileActivity {
     }
 
     @Override
+    protected void setupViews() {
+        super.setupViews();
+        // NCD_SERVICES and NCD_MONTHLY_FOLLOWUP both resolve to "NCD Monthly Follow-Up",
+        // so the unprocessed follow-up visit matches getServiceVisit() too and the service
+        // row duplicates the case-management edit row. This flavor has no separate service
+        // visit, so hide it.
+        View ncdServiceRow = findViewById(org.smartregister.chw.ncd.R.id.record_ncd_service_visit_in_progress);
+        if (ncdServiceRow != null) {
+            ncdServiceRow.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected String getVisitButtonStatus(String baseEntityId) {
         if (!isConfirmedNcd) return CoreConstants.VISIT_STATE.NOT_DUE_YET;
+        // A just-saved visit stays unprocessed until the client processor runs, so the
+        // derived ec_ncd_case_management_followup table still holds the old visit date and the
+        // rule would report OVERDUE. Treat an unprocessed visit as done to suppress that.
+        Visit latestVisit = getCaseManagementVisit();
+        if (latestVisit != null && !latestVisit.getProcessed()) {
+            return CoreConstants.VISIT_STATE.VISIT_DONE;
+        }
         Date confirmationDate = NcdCaseManagementDao.getConfirmationDate(baseEntityId);
         if (confirmationDate == null) return CoreConstants.VISIT_STATE.NOT_DUE_YET;
         Date lastVisitDate = NcdCaseManagementDao.getLastFollowUpDate(baseEntityId);
+        // ec_ncd_case_management_followup is populated asynchronously by the client processor,
+        // so right after a visit is processed it can still be stale. Prefer the visit record's
+        // own date (written immediately to the visits table) when it is the more recent signal.
+        if (latestVisit != null && latestVisit.getDate() != null
+                && (lastVisitDate == null || latestVisit.getDate().after(lastVisitDate))) {
+            lastVisitDate = latestVisit.getDate();
+        }
         NcdCaseManagementFollowupRule rule = new NcdCaseManagementFollowupRule(confirmationDate, lastVisitDate);
         String status = rule.getButtonStatus();
         if (CoreConstants.VISIT_STATE.OVERDUE.equals(status) && rule.getOverDueDate() != null) {
