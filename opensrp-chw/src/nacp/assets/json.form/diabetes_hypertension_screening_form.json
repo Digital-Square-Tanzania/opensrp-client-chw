@@ -516,7 +516,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "You may be at risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
+        "text": "Initial screening suggests a potential risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
         "text_color": "#000000",
         "toaster_type": "problem",
         "calculation": {

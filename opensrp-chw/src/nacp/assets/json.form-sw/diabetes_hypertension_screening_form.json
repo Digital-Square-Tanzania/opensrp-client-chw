@@ -516,7 +516,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Nimegundua kuwa unaweza kuwa katika hatari ya ugonjwa wa {condition}. Hii haimaanishi kwamba tayari una ugonjwa huo. Hivyo ni vyema kutembelea kituo cha kutolea huduma za afya kwa ajili ya vipimo zaidi.",
+        "text": "Uchunguzi wa awali unaonyesha kuwa kuna uwezekano wa kuwa katika hatari ya ugonjwa wa {condition}. Hii haimaanishi kwamba tayari una ugonjwa huo. Hivyo ni vyema kutembelea kituo cha kutolea huduma za afya kwa ajili ya vipimo zaidi.",
         "text_color": "#000000",
         "toaster_type": "problem",
         "calculation": {
