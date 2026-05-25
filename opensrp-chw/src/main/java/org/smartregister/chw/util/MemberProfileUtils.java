@@ -145,8 +145,8 @@ public class MemberProfileUtils {
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         form.setWizard(true);
-        form.setHideNextButton(true);
-        form.setHidePreviousButton(true);
+        form.setHideNextButton(false);
+        form.setHidePreviousButton(false);
         form.setSaveLabel("");
         form.setHideSaveLabel(true);
 

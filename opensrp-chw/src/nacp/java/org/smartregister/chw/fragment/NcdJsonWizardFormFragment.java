@@ -99,5 +99,18 @@ public class NcdJsonWizardFormFragment extends JsonWizardFormFragment {
         if ("step4".equals(nextStep)) {
             getMenu().findItem(R.id.action_save).setVisible(false);
         }
+        // On the last step the bottom Next button flips to Save; the form has its own
+        // save control, so suppress the bottom Save to avoid a redundant button.
+        View root = getView();
+        if (root != null) {
+            View bottomNext = root.findViewById(com.vijay.jsonwizard.R.id.next);
+            View bottomNextIcon = root.findViewById(com.vijay.jsonwizard.R.id.next_icon);
+            if (bottomNext != null) {
+                bottomNext.setVisibility(next ? View.VISIBLE : View.GONE);
+            }
+            if (bottomNextIcon != null && !next) {
+                bottomNextIcon.setVisibility(View.GONE);
+            }
+        }
     }
 }
