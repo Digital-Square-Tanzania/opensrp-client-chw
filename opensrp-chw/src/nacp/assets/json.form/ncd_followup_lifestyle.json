@@ -186,6 +186,98 @@
             }
           }
         }
+      },
+      {
+        "key": "alcohol_intake_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "alcohol_intake_target_met",
+        "type": "native_radio",
+        "label": "Is the client avoiding alcohol or drinking within safe limits?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        }
+      },
+      {
+        "key": "alcohol_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Reducing Alcohol Intake\"</b><br> <span>▪ <b>Target:</b> avoid alcohol; if drinking, no more than 2 standard drinks per day for men or 1 for women</span><br><span>▪ Alcohol raises blood pressure, worsens diabetes control, damages the liver and heart, and can interact with medicines.</span><br><br><i><font color=\"#0061A4\"> Tap ⓘ for the full counselling guide</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Reducing Alcohol Intake",
+        "toaster_info_text": "What to do: Avoid alcohol or keep intake within safe limits to protect heart, blood pressure, and blood sugar control\n\nWhy: Alcohol raises blood pressure, can cause low blood sugar (especially with diabetes medicines), damages the liver and heart, adds empty calories, and increases the risk of stroke and cancer. WHO advises that less is better, and none is best.\n\nWhen: There is no safe daily amount; if drinking occasionally, keep it to no more than 2 standard drinks per day for men or 1 for women, and have several alcohol-free days each week\n\nWhere: At home and at social events. Be aware of pressure to drink and prepare polite refusals.\n\nHow: Set a personal limit (or aim for none), choose water or unsweetened drinks, do not drink on an empty stomach (especially if on diabetes medicines), and seek help if cutting down is difficult",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tobacco_use_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tobacco_use_target_met",
+        "type": "native_radio",
+        "label": "Is the client free from tobacco use (smoking and smokeless)?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        }
+      },
+      {
+        "key": "tobacco_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Stopping Tobacco Use\"</b><br> <span>▪ <b>Target:</b> complete cessation — no smoking and no smokeless tobacco</span><br><span>▪ Tobacco damages blood vessels, raises blood pressure, worsens diabetes complications, and is a leading cause of heart disease, stroke, and cancer.</span><br><br><i><font color=\"#0061A4\"> Tap ⓘ for the full counselling guide</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Stopping Tobacco Use",
+        "toaster_info_text": "What to do: Stop all forms of tobacco — cigarettes, pipes, shisha, and smokeless tobacco like snuff or chewing tobacco. Avoid second-hand smoke at home and work.\n\nWhy: Tobacco raises blood pressure, damages blood vessels, accelerates diabetes complications (kidney, eye, foot, and heart problems), and is a leading cause of heart disease, stroke, lung disease, and many cancers. There is no safe level of tobacco use.\n\nWhen: Quit as soon as possible — stopping at any age improves health within days, weeks, and years\n\nWhere: Make home and workplace tobacco-free; ask family and friends not to smoke around the client\n\nHow: Set a quit date, remove tobacco products from the environment, identify and avoid triggers, drink water or take a short walk when cravings hit (they usually pass within minutes), and seek support from the health facility or cessation services — brief advice from a health worker doubles the chance of success",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

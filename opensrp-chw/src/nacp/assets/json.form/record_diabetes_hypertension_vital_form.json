@@ -88,7 +88,49 @@
         }
       },
       {
-        "key": "diabetes_test_result",
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "type": "edit_text",
+        "hint": "Height (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Height must be equal or greater than 50 (cm)"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Height must be equal or less than 250 (cm)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the height"
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "bmi",
+        "type": "edit_text",
+        "hint": "BMI",
+        "read_only": true,
+        "label_info_title": "About BMI",
+        "label_info_text": "What it is: Body Mass Index — a quick way to check whether a client's weight is healthy for their height.\n\nThe machine fills this in for you when you enter weight (kg) and height (cm).\n\nWhat the numbers mean:\nUnderweight: less than 18.5 — talk to the client about eating enough balanced food.\nNormal: 18.5 to 24.9 — encourage them to keep up healthy habits.\nOverweight: 25 to 29.9 — talk about more activity, less sugar and salt, and smaller portions.\nObese: 30 or more — flag the client to follow up at the facility.\n\nBMI is a guide, not a diagnosis. A very muscular person can have a high BMI without being unhealthy. Always look at the whole client.",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_sugar_result",
@@ -118,7 +160,7 @@
         "text": "Blood Pressure",
         "text_style": "bold",
         "text_color": "#000000",
-        "text_size": "18"
+        "text_size": "24"
       },
       {
         "key": "blood_pressure_systolic",

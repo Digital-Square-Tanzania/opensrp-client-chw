@@ -88,7 +88,49 @@
         }
       },
       {
-        "key": "diabetes_test_result",
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "type": "edit_text",
+        "hint": "Urefu (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza nambari"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Urefu lazima uwe sawa au mkubwa kuliko cm 50"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Urefu lazima uwe sawa au mdogo kuliko cm 250"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza urefu wa mteja"
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "bmi",
+        "type": "edit_text",
+        "hint": "BMI",
+        "read_only": true,
+        "label_info_title": "Kuhusu BMI",
+        "label_info_text": "Maana yake: BMI (Body Mass Index) ni njia rahisi ya kuangalia kama uzito wa mteja unaendana na urefu wake.\n\nKifaa kitajaza nambari hii chenyewe baada ya kuingiza uzito (kilo) na urefu (cm).\n\nMaana ya nambari:\nUzito mdogo: chini ya 18.5 — ongea na mteja kuhusu kula chakula cha kutosha chenye lishe bora.\nKawaida: 18.5 hadi 24.9 — mhimize aendelee na tabia nzuri za kiafya.\nUzito uliozidi kidogo: 25 hadi 29.9 — ongea kuhusu kuongeza mazoezi, kupunguza sukari na chumvi, na sahani ndogo zaidi.\nUnene wa kupita kiasi: 30 au zaidi — mtahadharishe mteja afuatilie kituo cha afya.\n\nBMI ni mwongozo tu, siyo utambuzi wa ugonjwa. Mtu mwenye misuli mingi anaweza kuwa na BMI kubwa bila kuwa na tatizo la afya. Tazama mteja kwa ujumla.",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "blood_sugar_result",
@@ -117,7 +159,7 @@
         "text": "Shinikizo la Damu",
         "text_style": "bold",
         "text_color": "#000000",
-        "text_size": "18"
+        "text_size": "24"
       },
       {
         "key": "blood_pressure_systolic",

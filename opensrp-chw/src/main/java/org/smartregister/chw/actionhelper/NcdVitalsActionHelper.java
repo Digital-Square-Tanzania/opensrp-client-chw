@@ -21,10 +21,10 @@ import timber.log.Timber;
  * Helper that extracts blood sugar and blood pressure results from the follow-up form and
  * updates the visit action subtitle and status accordingly.
  */
-public class NcdVitalsActionHelper implements BaseNcdVisitAction.NcdVisitActionHelper {
+public class  NcdVitalsActionHelper implements BaseNcdVisitAction.NcdVisitActionHelper {
 
     private static final String STEP_ONE = "step1";
-    private static final String KEY_BLOOD_SUGAR_RESULT = "diabetes_test_result";
+    private static final String KEY_BLOOD_SUGAR_RESULT = "blood_sugar_result";
     private static final String KEY_BLOOD_PRESSURE_SYSTOLIC = "blood_pressure_systolic";
     private static final String KEY_BLOOD_PRESSURE_DIASTOLIC = "blood_pressure_diastolic";
 

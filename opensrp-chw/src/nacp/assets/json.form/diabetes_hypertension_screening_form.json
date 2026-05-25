@@ -358,8 +358,10 @@
         "type": "spinner",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "family_history_diabetes",
         "openmrs_data_type": "select one",
+        "label_info_title": "About family history of diabetes",
+        "label_info_text": "What it means: Whether any of the client's first-degree blood relatives has been diagnosed with diabetes.\n\nFirst-degree blood relatives: biological parents, biological brothers and sisters (full siblings), and biological children.\n\nWhy it matters: Family history raises the client's own risk through shared genetics and often shared diet and lifestyle. The risk is higher when more than one close relative is affected, or when relatives were diagnosed at a younger age.\n\nDoes NOT count: aunts, uncles, cousins, grandparents, in-laws, or step-relatives.\n\nIf unsure: ask the client to confirm with their family before answering. If they remain uncertain, answer No.",
         "hint": "Family history of diabetes?",
         "keys": ["Yes", "No"],
         "values": [
@@ -420,6 +422,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "systolic_bp",
         "openmrs_entity_parent": "",
+        "label_info_title": "About the top number (systolic)",
+        "label_info_text": "What it is: The TOP number when you measure blood pressure. It shows how hard the blood pushes when the heart is beating.\n\nNormal: less than 120.\nA bit high: 120 to 139 — talk to the client about healthy habits (less salt, more exercise, less alcohol, no smoking) and check again next visit.\nHigh: 140 or more.\n\nHow to measure well:\n- Let the client sit quietly for at least 5 minutes before you start.\n- Feet on the floor, back resting on the chair, arm resting on a table at the same level as the heart.\n- The cuff should fit the arm — not too tight, not too loose. Place it on bare skin.\n- The client should not have smoked, drunk coffee or tea, or done exercise in the last 30 minutes.\n- Take TWO readings, 1-2 minutes apart, and use the average. If the two readings are very different (more than 10 apart), take a third reading.\n\nWrite down the number exactly as you see it on the machine.",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the systolic value"
@@ -451,6 +455,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diastolic_bp",
         "openmrs_entity_parent": "",
+        "label_info_title": "About the bottom number (diastolic)",
+        "label_info_text": "What it is: The BOTTOM number when you measure blood pressure. It shows the pressure when the heart is resting between beats.\n\nNormal: less than 80.\nA bit high: 80 to 89 — talk to the client about healthy habits and check again next visit.\nHigh: 90 or more.\n\nImportant: The bottom number must always be smaller than the top number. If the bottom number is the same as or bigger than the top number, check that the cuff is on the right way and measure again.\n\nUse the same steps as for the top number: client sits quietly for 5 minutes, arm at heart level, the right cuff on bare skin, no smoking or coffee or exercise in the last 30 minutes.",
         "v_numeric": {
           "value": "true",
           "err": "Please enter the diastolic value"
