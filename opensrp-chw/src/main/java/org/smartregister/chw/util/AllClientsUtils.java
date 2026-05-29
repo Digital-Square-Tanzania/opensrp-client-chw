@@ -272,6 +272,12 @@ public class AllClientsUtils {
                 case "iccm_provider":
                     updateIccmMenu(menu, baseEntityId, flavor);
                     break;
+                case "AYP_OUT_OF_SCHOOL":
+                    // Handle AYP Out of School menu items
+                    if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                        setMenuItemVisibility(menu, R.id.action_ayp_out_school_enrollment, !AypDao.isRegisteredForAypOutSchoolServices(baseEntityId) && age >= 10 && age < 25);
+                    }
+                    break;
                 case "icchw": {
                     // Handle HPS menu items
                     if (ChwApplication.getApplicationFlavor().hasHps()) {

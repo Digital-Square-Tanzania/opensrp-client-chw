@@ -97,6 +97,9 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 case "iccm_provider":
                     iccmReports.setVisibility(View.VISIBLE);
                     break;
+                case "AYP_OUT_OF_SCHOOL":
+                    aypOutSchoolReports.setVisibility(View.VISIBLE);
+                    break;
                 default:
                     if (ChwApplication.getApplicationFlavor().hasHIV()) {
                         cbhsReportsLayout.setVisibility(View.VISIBLE);
