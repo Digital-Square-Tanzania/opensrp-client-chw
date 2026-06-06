@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
@@ -106,6 +107,13 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startVmmcRegister() {
         //implement
+    }
+
+    protected void startMotherMentorEnrollment() {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age);
     }
 
     @Override

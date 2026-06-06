@@ -608,6 +608,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Mother Mentor Enrollment",
+            "creates_case": [
+              "ec_mothermentor_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Self Testing Registration",
             "creates_case": [
               "ec_hivst_register"
@@ -1009,6 +1016,62 @@
             "field_value": "Mark client has started MAT",
             "creates_case": [
               "ec_harm_reduction_risk_assessment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Screening",
+            "creates_case": [
+              "ec_mothermentor_screening"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Contact Registration",
+            "creates_case": [
+              "ec_mothermentor_contacts"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MOTHERMENTOR Contact Observation Results",
+            "creates_case": [
+              "ec_mothermentor_observation_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MOTHERMENTOR Observation Results",
+            "creates_case": [
+              "ec_mothermentor_observation_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Follow-up Visit",
+            "creates_case": [
+              "ec_mothermentor_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Visit",
+            "creates_case": [
+              "ec_mothermentor_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Contact Visit",
+            "creates_case": [
+              "ec_mothermentor_contact_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "MotherMentor Mobilization Session",
+            "creates_case": [
+              "ec_mothermentor_mobilization"
             ]
           }
         ]

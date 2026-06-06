@@ -50,6 +50,15 @@
             android:name=".activity.TbLeprosyRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.MotherMentorProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherMentorRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherMentorVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.TbLeprosyContactVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

@@ -119,6 +119,9 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.AYP_OUT_SCHOOL:
                     AllClientsUtils.goToAypProfile(this.getActivity(), commonPersonObjectClient);
                     break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR:
+                    AllClientsUtils.goToMotherMentorProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
                 case CoreConstants.REGISTER_TYPE.SBC:
                     AllClientsUtils.goToSbcProfile(this.getActivity(), commonPersonObjectClient);
                     break;

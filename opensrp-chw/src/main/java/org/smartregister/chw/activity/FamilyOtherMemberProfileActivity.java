@@ -45,6 +45,7 @@ import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -89,6 +90,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
+        AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 
@@ -122,6 +124,15 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         return true;
     }
 
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.action_mother_mentor_registration) {
+//            startMotherMentorRegister();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
     @Override
     public FamilyOtherMemberActivityPresenter presenter() {
         return (FamilyOtherMemberActivityPresenter) presenter;
@@ -147,6 +158,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startVmmcRegister() {
         // Not required
+    }
+
+    protected void startMotherMentorRegister() {
+        MemberProfileUtils.startMotherMentorRegister(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
     }
 
 
@@ -363,6 +378,14 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startAypParentalEnrollment() {
         AypParentalRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startMotherMentorEnrollment() {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age);
     }
 
     @Override

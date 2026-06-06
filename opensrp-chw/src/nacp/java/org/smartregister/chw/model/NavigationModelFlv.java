@@ -58,6 +58,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
             NavigationOption op31 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_harm_reduction, CoreConstants.DrawerMenu.HARM_REDUCTION, 0);
             NavigationOption op32 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.harm_reduction_sober_house, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, 0);
+            NavigationOption op33 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -69,7 +70,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
                     case "mother_champion":
-                        navigationOptions.addAll(Arrays.asList(op10, op13, op8, op9));
+                        navigationOptions.addAll(Arrays.asList(op10, op13, op8, op9, op33));
                         break;
                     case "cbhs_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
@@ -135,6 +136,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op29);
                         }
 
+                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                            navigationOptions.add(op33);
+                        }
+
                         navigationOptions.addAll(Arrays.asList(op8, op9, op15));
                         break;
                 }
@@ -175,6 +180,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op27);
                     navigationOptions.add(op28);
                     navigationOptions.add(op29);
+                }
+                if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                    navigationOptions.add(op33);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);

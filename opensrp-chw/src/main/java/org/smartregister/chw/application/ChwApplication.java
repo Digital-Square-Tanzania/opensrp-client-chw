@@ -54,6 +54,7 @@ import org.smartregister.chw.activity.LTFURegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.MotherChampionRegisterActivity;
+import org.smartregister.chw.activity.MotherMentorRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity;
@@ -85,6 +86,7 @@ import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.pmtct.PmtctLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
@@ -329,6 +331,8 @@ public class ChwApplication extends CoreChwApplication {
             TbLeprosyLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
+        MotherMentorLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
         if (flavor.hasHarmReduction() || flavor.hasHarmReductionSoberHouse()) {
             HarmReductionLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
@@ -458,6 +462,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_REGISTER_ACTIVITY, AypInSchoolRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_OUT_SCHOOL_REGISTER_ACTIVITY, AypOutSchoolRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AYP_PARENTAL_REGISTER_ACTIVITY, AypParentalRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_MENTOR_REGISTER_ACTIVITY, MotherMentorRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
@@ -670,6 +675,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasADDO();
 
         boolean hasAyp();
+
+        boolean hasMotherMentor();
 
         String[] getFTSTables();
 

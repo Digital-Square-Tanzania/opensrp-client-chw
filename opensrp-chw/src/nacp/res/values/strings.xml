@@ -1144,6 +1144,11 @@
     <string name="pnc_mother_home_visit_facility_referral">Refer Mother to facility</string>
 
     <string name="nav_menu_linkage">Linkage</string>
+
+    <!---Mother Mentor Strings -->
+    <string name="mother_mentor">Mother Mentor</string>
+
+
     <!--    HPS -->
     <string name="hps_client_criteria">Client Criteria:</string>
     <string name="hps_person_living_with_hiv">Person living with HIV (PLHIV)</string>

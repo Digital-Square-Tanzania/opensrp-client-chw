@@ -18,6 +18,7 @@ import org.smartregister.chw.activity.HivstRegisterActivity;
 import org.smartregister.chw.activity.IccmRegisterActivity;
 import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.MotherMentorRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.SbcRegisterActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
@@ -43,6 +44,16 @@ public class MemberProfileUtils {
 
     public static void startVmmcRegister(Activity activity, String baseEntityId, String phoneNumber, String familyBaseEntityId, String familyName) {
         //implement
+    }
+
+    public static void startMotherMentorRegister(Activity activity, String baseEntityId, String familyBaseEntityId) {
+        String gender = null;
+        try {
+            gender = Utils.getClientGender(baseEntityId);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        MotherMentorRegisterActivity.startRegistration(activity, baseEntityId, familyBaseEntityId, gender, -1);
     }
 
     public static void startIntegratedCommunityCaseManagementEnrollment(Activity activity, String baseEntityId, String familyBaseEntityId) {

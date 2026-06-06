@@ -36,6 +36,18 @@ allprojects {
 
             name = "GitHubPackages"
 
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-mother-mentor")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+
+        }
+
+        maven {
+
+            name = "GitHubPackages"
+
             url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/CircleProgressbar")
             credentials {
                 username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
@@ -77,8 +89,20 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
-configurations.all {
-    exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
+// Fix duplicate OpenSRP classes:
+// This project uses the legacy MOH/org.smartregister OpenSRP line.
+// Do NOT also pull io.github.bluecodesystems OpenSRP artifacts because they contain
+// the same org.smartregister.* classes and cause "Duplicate class" build errors.
+configurations.configureEach {
+    // Keep the MOH/org.smartregister dependency family only.
+    // These BlueCodeSystems artifacts contain the same classes and must not be mixed.
+    exclude group: 'io.github.bluecodesystems', module: 'opensrp-client-core'
+    exclude group: 'io.github.bluecodesystems', module: 'opensrp-plan-evaluator'
+    exclude group: 'io.github.bluecodesystems', module: 'opensrp-configurable-views'
+    exclude group: 'io.github.bluecodesystems', module: 'android-p2p-sync'
+
+    // json2view classes are already bundled inside opensrp-client-configurable-views.
+    exclude group: 'com.github.avocarrot', module: 'json2view'
 }
 
 jacoco {
@@ -252,6 +276,11 @@ android {
         }
         exclude group: 'com.google.guava', module: 'listenablefuture'
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-client-core'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-plan-evaluator'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-configurable-views'
+        exclude group: 'io.github.bluecodesystems', module: 'android-p2p-sync'
+        exclude group: 'com.github.avocarrot', module: 'json2view'
     }
 
     flavorDimensions 'baseDimension'
@@ -273,7 +302,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '42'
+            buildConfigField "int", "DATABASE_VERSION", '44'
             buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "false"
         }
     }
@@ -330,7 +359,13 @@ dependencies {
 
     implementation('org.smartregister:opensrp-client-chw-core:2.1.0-MOH-SNAPSHOT@aar') {
         transitive = true
+        // Avoid duplicate org.smartregister.* classes from mixed OpenSRP dependency families.
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-client-core'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-plan-evaluator'
+        exclude group: 'io.github.bluecodesystems', module: 'opensrp-configurable-views'
+        exclude group: 'io.github.bluecodesystems', module: 'android-p2p-sync'
+        exclude group: 'com.github.avocarrot', module: 'json2view'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -370,11 +405,7 @@ dependencies {
         }
     }
 
-    // Explicitly add Android-SpinKit; some transitive resolution paths drop it,
-    // causing missing com.github.ybq.android.spinkit.* classes.
-    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
-    implementation 'com.getkeepsafe.relinker:relinker:1.4.3'
     implementation 'org.mozilla:rhino:1.7.13'
     implementation 'org.apache.commons:commons-text:1.10.0'
     implementation("commons-io:commons-io:2.21.0")

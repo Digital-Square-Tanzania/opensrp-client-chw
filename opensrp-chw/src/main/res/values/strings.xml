@@ -1,8 +1,10 @@
 <resources>
     <string name="login_title">CFC App</string>
     <string name="logo">logo</string>
+    <string name="app_version">App Version: %1$s (built on %2$s)</string>
 
     <string name="title_family_detail">Family Detail</string>
+    <string name="mother_mentor_registration">Mother Mentor Registration</string>
     <string name="not_done">Not done</string>
     <string name="not_provided">Not provided</string>
 
