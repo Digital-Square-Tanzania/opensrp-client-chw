@@ -168,12 +168,6 @@ public class ChwRepositoryFlv {
                 case 43:
                     upgradeToVersion43(db);
                     break;
-                case 44:
-                    upgradeToVersion44(db);
-                    break;
-                case 45:
-                    upgradeToVersion45(db);
-                    break;
                 default:
                     break;
             }
@@ -934,7 +928,6 @@ public class ChwRepositoryFlv {
             DatabaseMigrationUtils.createAddedECTables(db,
                     new HashSet<>(Arrays.asList(
                             "ec_mothermentor_enrollment",
-                            "ec_mothermentor_screening",
                             "ec_mothermentor_contacts",
                             "ec_mothermentor_observation_results",
                             "ec_mothermentor_followup_visit",
@@ -949,37 +942,6 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN screening_status VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion43-add-contact-screening-status");
-        }
-        try {
-            db.execSQL("UPDATE ec_mothermentor_screening SET screening_status = 'enrolled' WHERE screening_status IS NULL;");
-            db.execSQL("UPDATE ec_mothermentor_screening SET status = 'client' WHERE status IS NULL;");
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion43-backfill-screening");
-        }
-    }
-
-    private static void upgradeToVersion44(SQLiteDatabase db) {
-        backfillMotherMentorScreeningFromEnrollment(db, "upgradeToVersion44");
-    }
-
-    private static void upgradeToVersion45(SQLiteDatabase db) {
-        backfillMotherMentorScreeningFromEnrollment(db, "upgradeToVersion45");
-    }
-
-    private static void backfillMotherMentorScreeningFromEnrollment(SQLiteDatabase db, String logTag) {
-        try {
-            db.execSQL("INSERT OR IGNORE INTO ec_mothermentor_screening " +
-                    "(id, base_entity_id, relationalid, last_interacted_with, screening_status, status, is_closed) " +
-                    "SELECT COALESCE(NULLIF(entity_id, ''), base_entity_id), " +
-                    "COALESCE(NULLIF(entity_id, ''), base_entity_id), " +
-                    "relationalid, last_interacted_with, 'enrolled', 'client', 0 " +
-                    "FROM ec_mothermentor_enrollment " +
-                    "WHERE COALESCE(NULLIF(entity_id, ''), base_entity_id) IS NOT NULL " +
-                    "AND COALESCE(NULLIF(entity_id, ''), base_entity_id) != ''");
-            db.execSQL("UPDATE ec_mothermentor_screening SET screening_status = 'enrolled' WHERE screening_status IS NULL;");
-            db.execSQL("UPDATE ec_mothermentor_screening SET status = 'client' WHERE status IS NULL;");
-        } catch (Exception e) {
-            Timber.e(e, logTag + "-backfill-mothermentor-screening");
         }
     }
 

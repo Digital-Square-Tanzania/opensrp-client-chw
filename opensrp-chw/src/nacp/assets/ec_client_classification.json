@@ -610,8 +610,7 @@
             "field": "eventType",
             "field_value": "Mother Mentor Enrollment",
             "creates_case": [
-              "ec_mothermentor_enrollment",
-              "ec_mothermentor_screening"
+              "ec_mothermentor_enrollment"
             ]
           },
           {
@@ -1017,13 +1016,6 @@
             "field_value": "Mark client has started MAT",
             "creates_case": [
               "ec_harm_reduction_risk_assessment"
-            ]
-          },
-          {
-            "field": "eventType",
-            "field_value": "MotherMentor Screening",
-            "creates_case": [
-              "ec_mothermentor_screening"
             ]
           },
           {

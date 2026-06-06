@@ -29,7 +29,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
         tableMap.put(CoreConstants.DrawerMenu.REFERRALS, Constants.Tables.REFERRAL);
         tableMap.put(CoreConstants.DrawerMenu.HARM_REDUCTION, org.smartregister.chw.harmreduction.util.Constants.TABLES.HARM_REDUCTION_RISK_ASSESSMENT);
         tableMap.put(CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, org.smartregister.chw.harmreduction.util.Constants.TABLES.HARM_REDUCTION_SOBER_HOUSE_ENROLLMENT);
-        tableMap.put(CoreConstants.DrawerMenu.MOTHER_MENTOR, org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_SCREENING);
+        tableMap.put(CoreConstants.DrawerMenu.MOTHER_MENTOR, org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLLMENT);
         return tableMap;
     }
 

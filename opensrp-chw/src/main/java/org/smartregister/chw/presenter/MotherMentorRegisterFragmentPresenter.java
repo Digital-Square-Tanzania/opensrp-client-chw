@@ -4,7 +4,7 @@ import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentC
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
 public class MotherMentorRegisterFragmentPresenter extends BaseMotherMentorRegisterFragmentPresenter {
 
-    private static final String MOTHER_MENTOR_SCREENING_TABLE = "ec_mothermentor_screening";
+    private static final String MOTHER_MENTOR_ENROLLMENT_TABLE = "ec_mothermentor_enrollment";
 
     public MotherMentorRegisterFragmentPresenter(MotherMentorRegisterFragmentContract.View view, MotherMentorRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
@@ -17,6 +17,6 @@ public class MotherMentorRegisterFragmentPresenter extends BaseMotherMentorRegis
 
     @Override
     public String getMainTable() {
-        return MOTHER_MENTOR_SCREENING_TABLE;
+        return MOTHER_MENTOR_ENROLLMENT_TABLE;
     }
 }
