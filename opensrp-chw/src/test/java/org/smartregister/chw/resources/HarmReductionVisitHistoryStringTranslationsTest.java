@@ -309,7 +309,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");
         values.put("harm_reduction_hiv_test_location", "Upimaji ulipofanyika");
-        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amewahi kupima VVU?");
+        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amepima VVU?");
         values.put("harm_reduction_hiv_testing", "Upimaji wa VVU");
         values.put("harm_reduction_home", "Nyumbani");
         values.put("harm_reduction_iec_communicable_diseases", "Magonjwa ya kuambukiza");
