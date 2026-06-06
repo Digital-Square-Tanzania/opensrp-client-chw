@@ -77,6 +77,8 @@ public class HarmReductionReportObjectTest {
         assertTrue(containsSql(capturedSql, "ec_harm_reduction_risk_assessment ehra"));
         assertTrue(containsSql(capturedSql, "ehfv.hepatitis_b_screening"));
         assertTrue(containsSql(capturedSql, "ehfv.hepatitis_c_screening"));
+        assertTrue(containsSql(capturedSql, "ehfv.linkage_to_other_services"));
+        assertTrue(containsSql(capturedSql, "ehfv.linkage_to_other_services_specify"));
     }
 
     @Test
@@ -97,6 +99,16 @@ public class HarmReductionReportObjectTest {
 
         assertTrue(reportConfig.contains("ehfv.hepatitis_b_screening"));
         assertTrue(reportConfig.contains("ehfv.hepatitis_c_screening"));
+    }
+
+    @Test
+    public void monthlyReportConfigShouldUseLinkageToOtherServicesFields() throws Exception {
+        String reportConfig = readText("src/nacp/assets/config/harm-reduction-monthly-report.yml");
+
+        assertTrue(reportConfig.contains("ehfv.linkage_to_other_services"));
+        assertTrue(reportConfig.contains("ehfv.linkage_to_other_services_specify"));
+        assertTrue(reportConfig.contains("LIKE '%income_generating%'"));
+        assertTrue(reportConfig.contains("LIKE '%methadone_services%'"));
     }
 
     private static Map<String, Integer> emptyBreakdown(List<String> columns) {

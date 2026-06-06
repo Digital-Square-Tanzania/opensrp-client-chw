@@ -11994,6 +11994,30 @@
           }
         },
         {
+          "column_name": "linkage_to_other_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services_provided"
+          }
+        },
+        {
+          "column_name": "linkage_to_other_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services"
+          }
+        },
+        {
+          "column_name": "linkage_to_other_services_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linkage_to_other_services_specify"
+          }
+        },
+        {
           "column_name": "remarks_comments",
           "type": "Event",
           "json_mapping": {

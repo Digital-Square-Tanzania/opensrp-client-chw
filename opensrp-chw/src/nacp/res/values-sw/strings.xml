@@ -846,6 +846,9 @@
     <string name="harm_reduction_qty_syringes">Idadi ya Bomba na sindano</string>
     <string name="harm_reduction_referrals_other_specify">Ikiwa ni nyinginezo, taja</string>
     <string name="harm_reduction_referrals_provided">Rufaa zilizotolewa</string>
+    <string name="harm_reduction_linkage_to_other_services_provided">Huduma za muunganiko zimetolewa</string>
+    <string name="harm_reduction_linkage_to_other_services">Huduma za muunganiko</string>
+    <string name="harm_reduction_linkage_to_other_services_specify">Huduma nyingine za muunganiko (ainisha)</string>
     <string name="harm_reduction_remarks_comments">Maoni</string>
     <string name="harm_reduction_reproductive_health">Afya ya uzazi, baba, mama, mtoto na vijana</string>
     <string name="harm_reduction_rights_vulnerable">Haki stahiki kwa makundi maalumu</string>

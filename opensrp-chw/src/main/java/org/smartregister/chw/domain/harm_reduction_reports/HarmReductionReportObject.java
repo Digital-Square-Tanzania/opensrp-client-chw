@@ -37,6 +37,7 @@ public class HarmReductionReportObject extends ReportObject {
                     "ehfv.last_interacted_with AS last_interacted_with " +
                     "FROM ec_harm_reduction_followup_visit ehfv " +
                     "WHERE lower(ifnull(ehfv.referrals_provided, '')) LIKE '%methadone_services%' " +
+                    "OR lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%methadone_services%' " +
                     "OR lower(ifnull(ehfv.roc_consent_joining_mat_services, '')) = 'yes' " +
                     "UNION " +
                     "SELECT ehra.base_entity_id AS client_id, " +
@@ -67,12 +68,16 @@ public class HarmReductionReportObject extends ReportObject {
             "(lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR " +
                     "lower(ifnull(ehfv.hepatitis_b_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR " +
                     "lower(ifnull(ehfv.hepatitis_c_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))";
+    private static final String LINKAGE_SERVICES_SELECTED_CONDITION =
+            "(trim(ifnull(ehfv.linkage_to_other_services, '')) <> '' AND " +
+                    "lower(ifnull(ehfv.linkage_to_other_services, '')) NOT LIKE '%none%')";
 
     private static final String RECEIVED_HR_SERVICE_CONDITION =
             "(trim(ifnull(ehfv.health_education_provided, '')) <> '' OR " +
                     "trim(ifnull(ehfv.iec_materials_provided, '')) <> '' OR " +
                     "trim(ifnull(ehfv.safe_injection_tools, '')) <> '' OR " +
                     "trim(ifnull(ehfv.referrals_provided, '')) <> '' OR " +
+                    LINKAGE_SERVICES_SELECTED_CONDITION + " OR " +
                     "trim(ifnull(ehfv.hiv_tested, '')) <> '' OR " +
                     "trim(ifnull(ehfv.tb_screening, '')) <> '' OR " +
                     "trim(ifnull(ehfv.stds_screening, '')) <> '' OR " +
@@ -255,14 +260,14 @@ public class HarmReductionReportObject extends ReportObject {
                         "1 = 1", SOURCE_IDU_CONDITION, SOURCE_NIDU_CONDITION, null),
                 followupCount("hr-8", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hiv_testing%' OR lower(ifnull(ehfv.hiv_tested, '')) = 'yes')"),
                 followupCount("hr-9", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%tb_leprosy%' OR lower(ifnull(ehfv.tb_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
-                followupCount("hr-10", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%stis_stds%' OR lower(ifnull(ehfv.stds_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
+                followupCount("hr-10", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%stis_stds%' OR lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%stis_stds%' OR lower(ifnull(ehfv.stds_screening, '')) IN ('has_symptoms', 'undergoing_treatment'))"),
                 followupCount("hr-11", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hepatitis_bc%' OR " + HEPATITIS_SCREENING_REQUIRES_REFERRAL_CONDITION + ")"),
-                followupCount("hr-12", "trim(ifnull(ehfv.referrals_provided, '')) <> '' AND lower(ifnull(ehfv.referrals_provided, '')) NOT LIKE '%none%'"),
-                followupCount("hr-12a", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%income_generating%'"),
-                followupCount("hr-12b", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%sober_house%'"),
-                followupCount("hr-12c", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%mental_health%'"),
-                followupCount("hr-12d", "lower(ifnull(ehfv.referrals_provided, '')) LIKE '%legal_issues%'"),
-                followupCount("hr-12e", "(lower(ifnull(ehfv.referrals_provided, '')) LIKE '%other%' OR trim(ifnull(ehfv.referrals_other_specify, '')) <> '')"),
+                followupCount("hr-12", "((trim(ifnull(ehfv.referrals_provided, '')) <> '' AND lower(ifnull(ehfv.referrals_provided, '')) NOT LIKE '%none%') OR " + LINKAGE_SERVICES_SELECTED_CONDITION + ")"),
+                followupCount("hr-12a", "(lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%income_generating%' OR lower(ifnull(ehfv.referrals_provided, '')) LIKE '%income_generating%')"),
+                followupCount("hr-12b", "(lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%sober_house%' OR lower(ifnull(ehfv.referrals_provided, '')) LIKE '%sober_house%')"),
+                followupCount("hr-12c", "(lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%mental_health%' OR lower(ifnull(ehfv.referrals_provided, '')) LIKE '%mental_health%')"),
+                followupCount("hr-12d", "(lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%legal_issues%' OR lower(ifnull(ehfv.referrals_provided, '')) LIKE '%legal_issues%')"),
+                followupCount("hr-12e", "(lower(ifnull(ehfv.linkage_to_other_services, '')) LIKE '%other%' OR trim(ifnull(ehfv.linkage_to_other_services_specify, '')) <> '' OR lower(ifnull(ehfv.referrals_provided, '')) LIKE '%other%' OR trim(ifnull(ehfv.referrals_other_specify, '')) <> '')"),
                 followupCount("hr-13", "(lower(ifnull(ehfv.client_status, '')) LIKE '%overdose%' OR lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%')"),
                 followupCount("hr-14", "lower(ifnull(ehfv.client_status, '')) LIKE '%client_deceased%' AND lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%'")
         ));
