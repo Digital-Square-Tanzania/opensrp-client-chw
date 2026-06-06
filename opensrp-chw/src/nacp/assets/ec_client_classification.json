@@ -610,7 +610,8 @@
             "field": "eventType",
             "field_value": "Mother Mentor Enrollment",
             "creates_case": [
-              "ec_mothermentor_enrollment"
+              "ec_mothermentor_enrollment",
+              "ec_mothermentor_screening"
             ]
           },
           {

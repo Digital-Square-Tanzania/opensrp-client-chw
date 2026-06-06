@@ -171,6 +171,9 @@ public class ChwRepositoryFlv {
                 case 44:
                     upgradeToVersion44(db);
                     break;
+                case 45:
+                    upgradeToVersion45(db);
+                    break;
                 default:
                     break;
             }
@@ -957,6 +960,10 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion44(SQLiteDatabase db) {
         backfillMotherMentorScreeningFromEnrollment(db, "upgradeToVersion44");
+    }
+
+    private static void upgradeToVersion45(SQLiteDatabase db) {
+        backfillMotherMentorScreeningFromEnrollment(db, "upgradeToVersion45");
     }
 
     private static void backfillMotherMentorScreeningFromEnrollment(SQLiteDatabase db, String logTag) {
