@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhtasari wa Taarifa ya Mwezi - Harm Reduction</title>
+    <style>
+        body {
+            padding: 8px;
+            font-size: 0.9rem;
+            font-family: "Times New Roman", serif;
+        }
+
+        h1,
+        h2 {
+            margin: 4px 0;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .report-table {
+            min-width: 1800px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 6px;
+            vertical-align: top;
+            font-size: 0.75rem;
+        }
+
+        th {
+            text-align: center;
+            background: #e7e6e6;
+        }
+
+        .section-row td {
+            background: #d9e2f3;
+            font-weight: bold;
+        }
+
+        .sub-row td:first-child,
+        .sub-row td:nth-child(2) {
+            padding-left: 20px;
+        }
+
+        .value-cell {
+            text-align: center;
+            min-width: 56px;
+        }
+
+        .indicator-cell {
+            min-width: 360px;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<h1>Muhtasari wa Taarifa ya Mwezi - Harm Reduction</h1>
+<h2>Taarifa ya [Mwezi/Mwaka]: <span id="report_period"></span></h2>
+<h2>Kituo: <span id="reporting_facility"></span></h2>
+
+<table class="report-table">
+    <thead>
+    <tr>
+        <th rowspan="4" style="width: 45px;">S/N</th>
+        <th rowspan="4" class="indicator-cell">Kiashiria</th>
+        <th rowspan="4">Jumla</th>
+        <th colspan="11">IDU</th>
+        <th colspan="10">NIDU</th>
+    </tr>
+    <tr>
+        <th colspan="5">Wanawake (KE)</th>
+        <th colspan="5">Wanaume (ME)</th>
+        <th rowspan="3">Jumla IDU</th>
+        <th colspan="5">Wanawake (KE)</th>
+        <th colspan="5">Wanaume (ME)</th>
+    </tr>
+    <tr>
+        <th colspan="4">Umri</th>
+        <th rowspan="2">Jumla (KE)</th>
+        <th colspan="4">Umri</th>
+        <th rowspan="2">Jumla (ME)</th>
+        <th colspan="4">Umri</th>
+        <th rowspan="2">Jumla (KE)</th>
+        <th colspan="4">Umri</th>
+        <th rowspan="2">Jumla (ME)</th>
+    </tr>
+    <tr>
+        <th>&lt;=15</th>
+        <th>15-24</th>
+        <th>25-49</th>
+        <th>&gt;=50</th>
+        <th>&lt;=18</th>
+        <th>19-24</th>
+        <th>25-49</th>
+        <th>&gt;=50</th>
+        <th>&lt;=15</th>
+        <th>15-24</th>
+        <th>25-49</th>
+        <th>&gt;=50</th>
+        <th>&lt;=15</th>
+        <th>15-24</th>
+        <th>25-49</th>
+        <th>&gt;=50</th>
+    </tr>
+    </thead>
+    <tbody id="report_body"></tbody>
+</table>
+
+<script>
+    const breakdownColumns = [
+        "idu-female-le-15",
+        "idu-female-15-24",
+        "idu-female-25-49",
+        "idu-female-50-plus",
+        "idu-female-total",
+        "idu-male-le-18",
+        "idu-male-19-24",
+        "idu-male-25-49",
+        "idu-male-50-plus",
+        "idu-male-total",
+        "idu-total",
+        "nidu-female-le-15",
+        "nidu-female-15-24",
+        "nidu-female-25-49",
+        "nidu-female-50-plus",
+        "nidu-female-total",
+        "nidu-male-le-15",
+        "nidu-male-15-24",
+        "nidu-male-25-49",
+        "nidu-male-50-plus",
+        "nidu-male-total"
+    ];
+
+    const reportSections = [
+        {
+            title: "Matokeo 1: Ufikiaji wa wanufaika katika maeneo lengwa ya mradi",
+            rows: [
+                ["1", "hr-1", "Idadi ya PWUD waliowahi kuandikishwa katika huduma za Kupunguza Madhara (HR) katika ngazi ya jamii"],
+                ["2", "hr-2", "Idadi ya PWUD waliopokea angalau huduma moja ya Kupunguza Madhara (HR) katika ngazi ya jamii"],
+                ["3", "hr-3", "Idadi ya PWUD wapya walioandikishwa"]
+            ]
+        },
+        {
+            title: "Matokeo 2: Utoaji na ukusanyaji wa vifaa vya kinga kwa wanufaika kwa kiwango cha kutosha",
+            rows: [
+                ["4", "hr-4", "Idadi ya IDU waliopokea sindano katika kipindi cha ripoti"],
+                ["5", "hr-5", "Idadi ya sindano (NS) zilizogawanywa"],
+                ["6", "hr-6", "Idadi ya sindano (NS) zilizotumika zilizokusanywa na kutupwa"]
+            ]
+        },
+        {
+            title: "Matokeo 3: Kuimarishwa kwa upatikanaji wa huduma na rufaa kulingana na mahitaji ya walengwa",
+            rows: [
+                ["7", "hr-7", "Idadi ya PWUD waliotayarishwa na kupewa rufaa ya MAT"],
+                ["8", "hr-8", "Idadi ya PWUD ambao wamehamasishwa na kupewa rufaa ya upimaji wa VVU"],
+                ["9", "hr-9", "Idadi ya PWUD ambao wamechunguzwa na kupewa rufaa ya upimaji wa Kifua Kikuu"],
+                ["10", "hr-10", "Idadi ya PWUD ambao wamepatiwa elimu na/au wamechunguzwa na kupewa rufaa ya upimaji wa Magonjwa ya Zinaa"],
+                ["11", "hr-11", "Idadi ya PWUD ambao wamehamasishwa na kupewa rufaa kwa upimaji na chanjo ya Homa ya Ini"],
+                ["12", "hr-12", "Idadi ya PWUD ambao wamepokea au kupewa rufaa ya huduma nyingine"],
+                ["12a", "hr-12a", "Walioshiriki katika shughuli za kuzalisha kipato (IGA)"],
+                ["12b", "hr-12b", "Waliounganishwa na nyumba za upataji nafuu wa dawa za kulevya"],
+                ["12c", "hr-12c", "Afya ya Akili"],
+                ["12d", "hr-12d", "Msaada wa kisheria"],
+                ["12e", "hr-12e", "Huduma Nyinginezo"],
+                ["13", "hr-13", "Idadi ya kesi za kuzidisha kiasi cha dawa kinachohitajiwa zilizoripotiwa katika jamii"],
+                ["14", "hr-14", "Idadi ya vifo vilivyosababishwa na kuzidisha kiasi cha dawa kinachohitajiwa vilivyoripotiwa katika jamii"]
+            ]
+        }
+    ];
+
+    function renderReportRows() {
+        const tbody = document.getElementById("report_body");
+        if (!tbody || tbody.children.length > 0) {
+            return;
+        }
+
+        reportSections.forEach((section) => {
+            const sectionRow = document.createElement("tr");
+            sectionRow.className = "section-row";
+            const sectionCell = document.createElement("td");
+            sectionCell.colSpan = 24;
+            sectionCell.innerHTML = section.title;
+            sectionRow.appendChild(sectionCell);
+            tbody.appendChild(sectionRow);
+
+            section.rows.forEach((row) => {
+                const reportRow = document.createElement("tr");
+                const serialCell = document.createElement("td");
+                serialCell.innerHTML = row[0];
+                reportRow.appendChild(serialCell);
+
+                const indicatorCell = document.createElement("td");
+                indicatorCell.className = "indicator-cell";
+                indicatorCell.innerHTML = row[2];
+                reportRow.appendChild(indicatorCell);
+
+                const totalCell = document.createElement("td");
+                totalCell.id = row[1];
+                totalCell.className = "value-cell";
+                reportRow.appendChild(totalCell);
+
+                breakdownColumns.forEach((column) => {
+                    const valueCell = document.createElement("td");
+                    valueCell.id = row[1] + "-" + column;
+                    valueCell.className = "value-cell";
+                    reportRow.appendChild(valueCell);
+                });
+                tbody.appendChild(reportRow);
+            });
+        });
+    }
+
+    function loadData() {
+        renderReportRows();
+        const data = JSON.parse(Android.getData("clients-monthly-report") || "{}");
+        const values = data.nameValuePairs || {};
+        const keys = Object.keys(values);
+        keys.forEach((key) => {
+            const element = document.getElementById(key);
+            if (element) {
+                element.innerHTML = values[key];
+            }
+        });
+
+        const period = document.getElementById("report_period");
+        const facility = document.getElementById("reporting_facility");
+        if (period) {
+            period.innerHTML = Android.getDataPeriod();
+        }
+        if (facility) {
+            facility.innerHTML = Android.getReportingFacility();
+        }
+    }
+</script>
+</body>
+</html>

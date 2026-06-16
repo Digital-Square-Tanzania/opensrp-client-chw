@@ -1,7 +1,10 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +21,8 @@ import com.whiteelephant.monthpicker.MonthPickerDialog;
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ReportUtils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -36,11 +41,8 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
     protected ConstraintLayout aypParentalMonthlyReport;
 
     protected AppBarLayout appBarLayout;
-
-    private Menu menu;
-
     protected ConstraintLayout aypOutSchoolReport;
-
+    private Menu menu;
     private String reportPeriod = ReportUtils.getDefaultReportPeriod();
 
     @Override
@@ -62,6 +64,17 @@ public class AypReportsActivity extends SecuredActivity implements View.OnClickL
         aypOutSchoolReport = findViewById(R.id.ayp_out_school_report);
         if (aypOutSchoolReport != null) {
             aypOutSchoolReport.setOnClickListener(this);
+        }
+
+        AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
+        SharedPreferences preferences = allSharedPreferences.getPreferences();
+        String teamRoleIdentifier = "";
+        if (preferences != null) {
+            teamRoleIdentifier = preferences.getString(TEAM_ROLE_IDENTIFIER, "");
+        }
+        if (teamRoleIdentifier.equals("AYP_OUT_OF_SCHOOL")) {
+            aypMonthlyReport.setVisibility(View.GONE);
+            aypParentalMonthlyReport.setVisibility(View.GONE);
         }
     }
 

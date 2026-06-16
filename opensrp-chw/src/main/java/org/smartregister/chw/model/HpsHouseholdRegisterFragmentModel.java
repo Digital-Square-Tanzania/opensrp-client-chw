@@ -12,7 +12,7 @@ public class HpsHouseholdRegisterFragmentModel extends BaseHpsRegisterFragmentMo
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY + " ON  " + Constants.TABLE_NAME.HPS_HOUSEHOLD + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY + " ON  " + org.smartregister.chw.hps.util.Constants.TABLES.HPS_HOUSEHOLD_REGISTER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID);
         return queryBuilder.mainCondition(mainCondition);
     }
 
@@ -33,5 +33,4 @@ public class HpsHouseholdRegisterFragmentModel extends BaseHpsRegisterFragmentMo
     }
 
 }
-
 

@@ -681,8 +681,8 @@ indicators:
   - key: hps-x-2
     grouping: HPS
     expectedIndicators: ["YyK8KfOzUJ6", "tZQlx5nnp5t"]
-    description: Number of committee members attended first quarter
-    indicatorQuery: SELECT COALESCE((SELECT SUM(number_of_committee_members_attended_first_quarter)
+    description: Number of committee members attended quarterly meetings
+    indicatorQuery: SELECT COALESCE((SELECT SUM(CAST(COALESCE(NULLIF(number_of_committee_members_attended_first_quarter, ''), '0') AS INTEGER) + CAST(COALESCE(NULLIF(number_of_committee_members_attended_second_quarter, ''), '0') AS INTEGER) + CAST(COALESCE(NULLIF(number_of_committee_members_attended_third_quarter, ''), '0') AS INTEGER) + CAST(COALESCE(NULLIF(number_of_committee_members_attended_fourth_quarter, ''), '0') AS INTEGER))
       FROM ec_hps_annual_census_register WHERE year = substr('%s', 1, 4)), '0') AS count;
   - key: hps-y-1
     grouping: HPS

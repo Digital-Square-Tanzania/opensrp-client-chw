@@ -925,6 +925,18 @@
     <string name="tbleprosy_observation_results_leprosy">Ukoma</string>
     <string name="tbleprosy_observation_results_screening_questionnaire">Dodoso la uchunguzi</string>
     <string name="tbleprosy_observation_results_xray">Mashine ya mionzi</string>
+    <string name="harm_reduction_used_needles_collection">Ukusanyaji wa sindano na mabomba yaliyotumika</string>
+    <string name="harm_reduction_used_needles_collection_details">Maelezo ya ukusanyaji wa sindano na mabomba yaliyotumika</string>
+    <string name="harm_reduction_back_to_all_used_needles_collection_sessions">Rudi kwenye vikao vyote vya ukusanyaji wa sindano na mabomba yaliyotumika</string>
+    <string name="harm_reduction_date_of_collection">Tarehe ya Mkusanyiko</string>
+    <string name="harm_reduction_maskani_name">Jina la Maskani</string>
+    <string name="harm_reduction_collection_site_gps">GPS eneo la tovuti ya ukusanyaji</string>
+    <string name="harm_reduction_number_of_used_needles_and_syringes_collected">Idadi ya sindano na mabomba yaliyotumika yaliyokusanywa</string>
+    <string name="harm_reduction_issues_challenges_related_to_collection_of_used_needles_and_syringes">Changamoto zinazohusiana na ukusanyaji wa sindano na mabomba yaliyotumika</string>
+    <string name="harm_reduction_other_collection">Idadi ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika) katika tovuti Zingine za Mkusanyiko</string>
+    <string name="harm_reduction_fixed_bins">Idadi ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika) kwenye Mapipa yasiyobadilika</string>
+    <string name="harm_reduction_total_safety_boxes_collected">Jumla ya Sanduku za Usalama zilizokusanywa (sindano zilizotumika)</string>
+    <string name="harm_reduction_name_of_ow">Jina la OW</string>
     <string name="tbleprosy_observation_results_scorechart">Chati ya alama</string>
     <string name="tbleprosy_observation_results_treatment_decision_algorithm">Kanuni ya uamuzi wa matibabu (TDA)</string>
     <string name="tbleprosy_observation_results_tb_indicative">Ana viashiria vya Kifua Kikuu</string>
@@ -956,6 +968,7 @@
     <string name="tbleprosy_followup_visit_client_found">Amepatikana</string>
     <string name="tbleprosy_followup_visit_client_not_found">Hajapatikana</string>
     <string name="tbleprosy_followup_visit_client_deceased">Amefariki</string>
+    <string name="harm_reduction_followup_visit_client_deceased">Amefariki</string>
     <string name="tbleprosy_followup_visit_reason_client_not_found">Taja sababu ya kutopatikana mteja</string>
     <string name="tbleprosy_followup_visit_returned_to_treatment">Amerudi kwenye matibabu?</string>
     <string name="tbleprosy_followup_visit_service_access_challenges">Je, kuna changamoto anazokumbana nazo katika upatikanaji wa huduma?</string>
@@ -1002,6 +1015,8 @@
     <string name="ecd_reports_subtitle">Tazama ripoti ya MMMAM</string>
     <string name="ecd_reports_title">Ripoti ya MMMAM</string>
     <string name="ecd_client_report">Ripoti ya Mwezi MMMAM</string>
+
+    <string name="ayp_out_of_school_report">Ripoti Ya Rika Balehe(Nje ya shule)</string>
 
     <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
     <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>
