@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_mothermentor_enroll_iit" type="id" />
+    <item name="action_mothermentor_enroll_partner" type="id" />
+    <item name="action_mothermentor_enroll_child_eid" type="id" />
+    <item name="action_mothermentor_secondary_enrollments" type="id" />
+    <item name="action_mother_mentor_enroll_iit" type="id" />
+    <item name="action_mother_mentor_enroll_partner" type="id" />
+    <item name="action_mother_mentor_enroll_child_eid" type="id" />
+
+    <string name="mothermentor_iit">IIT</string>
+    <string name="mothermentor_partner">Partner</string>
+    <string name="mothermentor_child_eid">Child EID</string>
+    <string name="mothermentor_secondary_enrollments">Enrollments</string>
+    <string name="mothermentor_enroll_iit">Enroll IIT</string>
+    <string name="mothermentor_enroll_partner">Enroll Partner</string>
+    <string name="mothermentor_enroll_child_eid">Enroll Child EID</string>
+    <string name="mother_mentor_enroll_iit">Mother Mentor Enroll IIT</string>
+    <string name="mother_mentor_enroll_partner">Mother Mentor Enroll Partner</string>
+    <string name="mother_mentor_enroll_child_eid">Mother Mentor Enroll Child EID</string>
+</resources>

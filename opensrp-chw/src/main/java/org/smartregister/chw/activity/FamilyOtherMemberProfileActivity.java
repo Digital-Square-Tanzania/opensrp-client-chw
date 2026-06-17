@@ -59,6 +59,10 @@ import java.util.List;
 import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnRetrieveNotifications {
+    private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
+    private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
+    private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
+
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private java.util.List<org.smartregister.chw.model.FamilyDetailsModel> headedFamilies = java.util.Collections.emptyList();
@@ -91,6 +95,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
+        AllClientsUtils.addMotherMentorSecondaryEnrollmentMenuItems(menu, org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasMotherMentor());
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 
@@ -124,14 +129,24 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.action_mother_mentor_registration) {
-//            startMotherMentorRegister();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_mother_mentor_enroll_iit) {
+            startMotherMentorEnrollIit();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_partner) {
+            startMotherMentorEnrollPartner();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_child_eid) {
+            startMotherMentorEnrollChildEid();
+            return true;
+        } else if (itemId == R.id.action_view_households) {
+            handleViewHouseholdsClick();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public FamilyOtherMemberActivityPresenter presenter() {
@@ -388,6 +403,25 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         MotherMentorRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age);
     }
 
+    protected void startMotherMentorEnrollIit() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+    }
+
+    protected void startMotherMentorEnrollPartner() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_PARTNER);
+    }
+
+    protected void startMotherMentorEnrollChildEid() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_CHILD_EID);
+    }
+
+    private void startMotherMentorSecondaryEnrollment(String formName) {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age, formName);
+    }
+
     @Override
     protected void startTbLeprosyScreening() {
         TbLeprosyRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
@@ -452,15 +486,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item != null && item.getItemId() == org.smartregister.chw.R.id.action_view_households) {
-            handleViewHouseholdsClick();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void handleViewHouseholdsClick() {

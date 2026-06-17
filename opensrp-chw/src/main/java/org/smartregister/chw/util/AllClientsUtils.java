@@ -413,7 +413,11 @@ public class AllClientsUtils {
         }
 
         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+            addMotherMentorSecondaryEnrollmentMenuItems(menu, true);
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid, true);
         }
     }
 
@@ -437,6 +441,21 @@ public class AllClientsUtils {
         }
 
         motherMentorMenu.setVisible(!MotherMentorDao.isRegisteredForMotherMentor(baseEntityId));
+    }
+
+    public static void addMotherMentorSecondaryEnrollmentMenuItems(Menu menu, boolean visible) {
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit, R.string.mother_mentor_enroll_iit, visible);
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_partner, R.string.mother_mentor_enroll_partner, visible);
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_child_eid, R.string.mother_mentor_enroll_child_eid, visible);
+    }
+
+    private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {
+        MenuItem item = menu.findItem(itemId);
+        if (item == null) {
+            item = menu.add(Menu.NONE, itemId, Menu.NONE, titleRes);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+        item.setVisible(visible);
     }
 
     public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {

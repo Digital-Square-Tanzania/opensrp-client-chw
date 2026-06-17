@@ -52,6 +52,13 @@
     "title": "Mother Follow-up",
     "fields": [
       {
+        "key": "relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "relational_id",
+        "type": "hidden"
+      },
+      {
         "key": "expected_return_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

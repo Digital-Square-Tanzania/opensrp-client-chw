@@ -52,6 +52,10 @@ import java.util.List;
 import timber.log.Timber;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity implements OnRetrieveNotifications {
+    private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
+    private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
+    private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
+
 
     private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private FamilyMemberFloatingMenu familyFloatingMenu;
@@ -78,6 +82,22 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_mother_mentor_enroll_iit) {
+            startMotherMentorEnrollIit();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_partner) {
+            startMotherMentorEnrollPartner();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_child_eid) {
+            startMotherMentorEnrollChildEid();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -109,11 +129,31 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         //implement
     }
 
+    @Override
     protected void startMotherMentorEnrollment() {
         String gender = AllClientsUtils.getClientGender(baseEntityId);
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         MotherMentorRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age);
+    }
+
+    protected void startMotherMentorEnrollIit() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+    }
+
+    protected void startMotherMentorEnrollPartner() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_PARTNER);
+    }
+
+    protected void startMotherMentorEnrollChildEid() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_CHILD_EID);
+    }
+
+    private void startMotherMentorSecondaryEnrollment(String formName) {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age, formName);
     }
 
     @Override

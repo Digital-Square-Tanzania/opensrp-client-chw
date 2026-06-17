@@ -168,6 +168,9 @@ public class ChwRepositoryFlv {
                 case 43:
                     upgradeToVersion43(db);
                     break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
                 default:
                     break;
             }
@@ -942,6 +945,19 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN screening_status VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion43-add-contact-screening-status");
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(
+                            "ec_mothermentor_enroll_it",
+                            "ec_mothermentor_enroll_partner",
+                            "ec_mothermentor_enroll_child_eid")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44");
         }
     }
 
