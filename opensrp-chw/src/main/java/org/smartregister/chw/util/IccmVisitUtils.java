@@ -111,8 +111,14 @@ public class IccmVisitUtils extends VisitUtils {
 
                 if (StringUtils.isBlank(clientPastMalariaTreatmentHistory) || clientPastMalariaTreatmentHistory.equalsIgnoreCase("no")) {
                     completionObject.put("isPhysicalExaminationComplete", computeCompletionStatusForAction(obs, "physical_examination_completion_status"));
-                    String isMalariaSuspect = getFieldValue(obs, "is_malaria_suspect_after_physical_examination");
-                    if (isMalariaSuspect != null && isMalariaSuspect.equalsIgnoreCase("true")) {
+                    String isMalariaSuspect = getFieldValue(obs, "is_malaria_suspect");
+                    String physicalExamination = getFieldValue(obs, "physical_examination");
+                    String isMalariaSuspectAfterPhysicalExamination = getFieldValue(obs, "is_malaria_suspect_after_physical_examination");
+                    if (shouldPopulateMalariaActionAfterPhysicalExamination(
+                            isMalariaSuspect,
+                            physicalExamination,
+                            isMalariaSuspectAfterPhysicalExamination,
+                            clientPastMalariaTreatmentHistory)) {
                         completionObject.put("isMalariadDiagnosisComplete", computeCompletionStatusForAction(obs, "malaria_completion_status"));
                     }
                 }
@@ -160,6 +166,38 @@ public class IccmVisitUtils extends VisitUtils {
             }
         }
         return Pending;
+    }
+
+    public static boolean shouldPopulateMalariaActionAfterPhysicalExamination(String isMalariaSuspect,
+                                                                              String physicalExamination,
+                                                                              String isMalariaSuspectAfterPhysicalExamination,
+                                                                              String clientPastMalariaTreatmentHistory) {
+        if (IccmReferralActionUtils.isYes(clientPastMalariaTreatmentHistory)) {
+            return false;
+        }
+
+        return IccmReferralActionUtils.isTrue(isMalariaSuspect)
+                || isMalariaSuspectAfterPhysicalExamination(isMalariaSuspect, physicalExamination, isMalariaSuspectAfterPhysicalExamination);
+    }
+
+    public static boolean isMalariaSuspectAfterPhysicalExamination(String isMalariaSuspect,
+                                                                   String physicalExamination,
+                                                                   String isMalariaSuspectAfterPhysicalExamination) {
+        return IccmReferralActionUtils.isTrue(isMalariaSuspect)
+                || IccmReferralActionUtils.isTrue(isMalariaSuspectAfterPhysicalExamination)
+                || hasMalariaPhysicalExaminationFinding(physicalExamination);
+    }
+
+    public static boolean hasMalariaPhysicalExaminationFinding(String physicalExamination) {
+        String normalizedValue = StringUtils.trimToEmpty(physicalExamination);
+        if (StringUtils.isBlank(normalizedValue)
+                || "[]".equals(normalizedValue)
+                || "{}".equals(normalizedValue)
+                || "null".equalsIgnoreCase(normalizedValue)) {
+            return false;
+        }
+
+        return !StringUtils.containsIgnoreCase(normalizedValue, "none");
     }
 
     public static boolean manualProcessVisit(Visit visit) throws Exception {

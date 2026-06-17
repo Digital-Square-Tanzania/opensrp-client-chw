@@ -115,7 +115,7 @@
             },
             {
               "name": "bleeding_tendency",
-              "text": "Bleeding tendency/DIC",
+              "text": "Mwelekeo wa kutokwa damu (Bleeding tendency/DIC)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "bleeding_tendency",
@@ -124,7 +124,7 @@
             },
             {
               "name": "shock",
-              "text": "Shock/Circulatory collapse",
+              "text": "Mshtuko/kuporomoka kwa mzunguko wa damu mwilini (Shock/Circulatory collapse)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "shock",
@@ -159,15 +159,6 @@
               }
             },
             {
-              "name": "other_reasons",
-              "text": "Magonjwa mengine",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "other_reasons",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "sever_pneumonia",
               "text": "Nimonia",
               "meta_data": {
@@ -178,7 +169,7 @@
             },
             {
               "name": "diarrhea_with_signs_of_dehydration",
-              "text": "Kuharisha wenye upungu wa maji",
+              "text": "Kuharisha pamoja na dalili za upungufu wa maji mwilini",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "diarrhea_with_signs_of_dehydration",
@@ -191,6 +182,15 @@
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "pregnant_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Magonjwa mengine",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }

@@ -602,7 +602,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Must be less than or equal to the number of households"
         },
         "v_numeric": {
           "value": "true",
@@ -639,7 +639,7 @@
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please enter the correct answer"
+          "err": "Must be less than or equal to the number of households"
         },
         "v_numeric": {
           "value": "true",

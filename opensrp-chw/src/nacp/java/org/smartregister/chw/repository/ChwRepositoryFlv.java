@@ -2,6 +2,7 @@ package org.smartregister.chw.repository;
 
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
+import android.database.Cursor;
 import android.content.Context;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -159,6 +160,13 @@ public class ChwRepositoryFlv {
                     break;
                 case 40:
                     upgradeToVersion40(db);
+                    break;
+                case 41:
+                    upgradeToVersion41(db);
+                case 42:
+                    upgradeToVersion42(db);
+                case 43:
+                    upgradeToVersion43(db);
                 default:
                     break;
             }
@@ -580,8 +588,8 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion30(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment","ec_ayp_out_school_enrollment","ec_ayp_out_school_group_details",
-                            "ec_ayp_in_school_group_members","ec_ayp_out_school_group_members","ec_ayp_out_school_client_followup_visits","ec_ayp_out_school_group_followup_visits")),
+                    new HashSet<>(Arrays.asList("ec_ayp_in_school_enrollment", "ec_ayp_in_school_group_details", "ec_ayp_parental_enrollment", "ec_ayp_out_school_enrollment", "ec_ayp_out_school_group_details",
+                            "ec_ayp_in_school_group_members", "ec_ayp_out_school_group_members", "ec_ayp_out_school_client_followup_visits", "ec_ayp_out_school_group_followup_visits")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion30");
@@ -737,6 +745,33 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion38(SQLiteDatabase db) {
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38");
+        }
+
         try {
             db.execSQL("ALTER TABLE ec_close_referral ADD COLUMN outcomes VARCHAR;");
         } catch (Exception e) {
@@ -753,6 +788,14 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion39(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, "ec_harm_reduction_sober_house_enrollment", "uic_id")) {
+                db.execSQL("ALTER TABLE ec_harm_reduction_sober_house_enrollment ADD COLUMN uic_id VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39-add-sober-house-uic-id");
+        }
+
         // setup ecd reporting
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
@@ -769,7 +812,146 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static boolean columnExists(SQLiteDatabase db, String tableName, String columnName) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
+            while (cursor != null && cursor.moveToNext()) {
+                int nameIndex = cursor.getColumnIndex("name");
+                if (nameIndex >= 0 && columnName.equalsIgnoreCase(cursor.getString(nameIndex))) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e, "columnExists");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+
     private static void upgradeToVersion40(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_hps_client_services ADD COLUMN malaria_drugs_treatment VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion40");
+        }
+    }
+
+    private static void upgradeToVersion41(SQLiteDatabase db) {
+        String[] newAttendanceColumns = {
+                "number_of_committee_members_attended_second_quarter",
+                "number_of_committee_members_attended_third_quarter",
+                "number_of_committee_members_attended_fourth_quarter"
+        };
+        String[] attendanceColumnsToBackfill = {
+                "number_of_committee_members_attended_first_quarter",
+                "number_of_committee_members_attended_second_quarter",
+                "number_of_committee_members_attended_third_quarter",
+                "number_of_committee_members_attended_fourth_quarter"
+        };
+
+        for (String column : newAttendanceColumns) {
+            try {
+                db.execSQL("ALTER TABLE ec_hps_annual_census_register ADD COLUMN " + column + " VARCHAR;");
+            } catch (Exception e) {
+                Timber.e(e, "upgradeToVersion41-add-" + column);
+            }
+        }
+
+        backfillAnnualCensusQuarterAttendance(db, attendanceColumnsToBackfill);
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/hps-annual-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion41-config");
+        }
+    }
+
+    private static void backfillAnnualCensusQuarterAttendance(SQLiteDatabase db, String[] attendanceColumns) {
+        Cursor cursor = null;
+        try {
+            String[] selectionArgs = new String[attendanceColumns.length + 1];
+            selectionArgs[0] = "HPS Annual Census";
+
+            StringBuilder inClause = new StringBuilder();
+            for (int i = 0; i < attendanceColumns.length; i++) {
+                selectionArgs[i + 1] = attendanceColumns[i];
+                if (i > 0) {
+                    inClause.append(", ");
+                }
+                inClause.append("?");
+            }
+
+            cursor = db.rawQuery(
+                    "SELECT v.base_entity_id, vd.visit_key, " +
+                            "COALESCE(NULLIF(vd.human_readable_details, ''), NULLIF(vd.details, ''), '') AS value " +
+                            "FROM visits v " +
+                            "INNER JOIN visit_details vd ON vd.visit_id = v.visit_id " +
+                            "WHERE v.visit_type = ? AND vd.visit_key IN (" + inClause + ")",
+                    selectionArgs
+            );
+
+            while (cursor.moveToNext()) {
+                String baseEntityId = cursor.getString(cursor.getColumnIndex("base_entity_id"));
+                String visitKey = cursor.getString(cursor.getColumnIndex("visit_key"));
+                String value = cursor.getString(cursor.getColumnIndex("value"));
+
+                if (baseEntityId == null || visitKey == null || value == null || value.trim().isEmpty()) {
+                    continue;
+                }
+
+                db.execSQL(
+                        "UPDATE ec_hps_annual_census_register " +
+                                "SET " + visitKey + " = ? " +
+                                "WHERE base_entity_id = ? " +
+                                "AND (" + visitKey + " IS NULL OR " + visitKey + " = '')",
+                        new Object[]{value.trim(), baseEntityId}
+                );
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion41-backfill");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    private static void upgradeToVersion42(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_harm_reduction_risk_assessment","ec_harm_reduction_followup_visit","ec_harm_reduction_safety_box_collection", "ec_harm_reduction_sober_house_enrollment","ec_harm_reduction_sober_house_services")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String harmReductionIndicatorsConfigFile = "config/harm-reduction-monthly-report.yml";
+            reportingLibrary.readConfigFile(harmReductionIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
+        }
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String soberHouseIndicatorsConfigFile = "config/harm-reduction-sober-house-monthly-report.yml";
+            reportingLibrary.readConfigFile(soberHouseIndicatorsConfigFile, db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion42");
+        }
+    }
+
+    private static void upgradeToVersion43(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
                     new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT,
@@ -779,7 +961,7 @@ public class ChwRepositoryFlv {
                     ),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion29");
+            Timber.e(e, "upgradeToVersion43");
         }
     }
 

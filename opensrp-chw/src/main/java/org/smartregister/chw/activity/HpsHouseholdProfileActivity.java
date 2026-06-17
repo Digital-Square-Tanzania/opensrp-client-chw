@@ -29,7 +29,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cecap.dao.CecapDao;
-import org.smartregister.chw.cecap.util.CecapJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreHpsProfileActivity;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
@@ -58,7 +57,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -419,7 +417,10 @@ public class HpsHouseholdProfileActivity extends CoreHpsProfileActivity {
     public void openFollowupVisit() {
         JSONObject jsonObject;
         try {
-            jsonObject = CecapJsonFormUtils.getFormAsJson(Constants.FORMS.HPS_HOUSEHOLD_VISIT);
+            jsonObject = org.smartregister.chw.util.JsonFormUtils.getLocalizedFormJson(this, Constants.FORMS.HPS_HOUSEHOLD_VISIT);
+            if (jsonObject == null) {
+                return;
+            }
 
             String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
             HpsJsonFormUtils.getRegistrationForm(jsonObject, baseEntityId, locationId);

@@ -20,6 +20,12 @@ import timber.log.Timber;
  * Maps annual census database fields into the HPS annual report payload.
  */
 public class HpsAnnualReportObject extends ReportObject {
+    private static final String TOTAL_COMMITTEE_MEMBERS_ATTENDED_QUARTERS_SELECTOR =
+            "CAST(COALESCE(NULLIF(ehacr.number_of_committee_members_attended_first_quarter, ''), '0') AS INTEGER) + " +
+                    "CAST(COALESCE(NULLIF(ehacr.number_of_committee_members_attended_second_quarter, ''), '0') AS INTEGER) + " +
+                    "CAST(COALESCE(NULLIF(ehacr.number_of_committee_members_attended_third_quarter, ''), '0') AS INTEGER) + " +
+                    "CAST(COALESCE(NULLIF(ehacr.number_of_committee_members_attended_fourth_quarter, ''), '0') AS INTEGER)";
+
     public static String[] selectorsForSimpleKeys = {
             "number_of_male_by_age_group_under1",
             "number_of_female_by_age_group_under1",
@@ -65,7 +71,7 @@ public class HpsAnnualReportObject extends ReportObject {
             "number_of_female_capable_of_engaging_in_economic_activities",
             "number_of_female_engaged_in_economic_activities",
             "number_of_health_committee_members_for_effective_committee_meetings",
-            "number_of_committee_members_attended_first_quarter",
+            TOTAL_COMMITTEE_MEMBERS_ATTENDED_QUARTERS_SELECTOR,
             "number_of_registered_alternative_medicine_service_providers",
             "number_of_registered_traditional_medicine_service_providers",
             "number_of_unregistered_alternative_medicine_service_providers",

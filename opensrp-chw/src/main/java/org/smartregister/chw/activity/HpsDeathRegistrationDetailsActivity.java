@@ -42,6 +42,7 @@ import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.interactor.HpsDeathRegistrationDetailsInteractor;
+import org.smartregister.chw.util.HpsDeathRegistrationSummaryUtil;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
@@ -58,7 +59,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryActivity {
+    public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryActivity {
     private static String baseEntityId;
 
     private final Flavor flavor = new DeathRegisterDetailsActivityFlv();
@@ -169,8 +170,7 @@ public class HpsDeathRegistrationDetailsActivity extends CoreAncMedicalHistoryAc
                     String[] healthEducationMobilizationLocation = {"dod", "first_name", "middle_name", "last_name", "dob", "sex", "cause_of_death", "cause_of_death_specify", "comments"};
                     extractVisitDetails(visits, healthEducationMobilizationLocation, visitDetails, x, context);
 
-
-                    hf_visits.add(visitDetails);
+                    hf_visits.add(HpsDeathRegistrationSummaryUtil.getDisplayValues(visitDetails, context.getString(R.string.hps_other_reason)));
 
                     x++;
                 }

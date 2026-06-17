@@ -35,6 +35,7 @@ public class Constants extends CoreConstants {
     public static String ENABLE_DATE_RANGE_FILTER = "ENABLE_DATE_RANGE_FILTER";
     public static String ENTITY_TYPE_EC_FAMILY_MEMBER = "ec_family_member";
     public static String ENTITY_TYPE_EC_FAMILY = "ec_family";
+    public static String ENTITY_TYPE_EC_INDEPENDENT_CLIENT = "ec_independent_client";
 
     public static int REQUEST_FILTERS = 2004;
 
@@ -390,6 +391,10 @@ public class Constants extends CoreConstants {
 
            String ASRH_REPORT = "asrh_report";
 
+           String HARM_REDUCTION_REPORT = "harm_reduction_report";
+
+           String HARM_REDUCTION_SOBER_HOUSE_REPORT = "harm_reduction_sober_house_report";
+
            String AYP_REPORT = "ayp_report";
 
            String AYP_IN_SCHOOL_REPORT = "ayp_in_school_report";
@@ -428,6 +433,14 @@ public class Constants extends CoreConstants {
             String OTHER_MONTHLY_REPORT = "other-monthly-report";
         }
 
+        public interface HarmReductionReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+        }
+
+        public interface HarmReductionSoberHouseReportKeys {
+            String CLIENTS_MONTHLY_REPORT = "clients-monthly-report";
+        }
+
         public interface TbLeprosyReportKeys {
             String COMMUNITY_REPORT = "tbleprosy-community-report";
             String HOUSEHOLD_REPORT = "tbleprosy-household-report";
@@ -439,6 +452,7 @@ public class Constants extends CoreConstants {
         public interface AypReportKeys {
             String AYP_IN_SCHOOL_MONTHLY_REPORT = "ayp-in-school-monthly-report";
             String AYP_PARENTAL_MONTHLY_REPORT = "ayp-parental-monthly-report";
+            String AYP_OUT_SCHOOL_MONTHLY_REPORT = "ayp-out-school-monthly-report";
         }
 
         public interface HpsReportKeys {
@@ -475,6 +489,10 @@ public class Constants extends CoreConstants {
             String ASRH_REPORT_PATH = "asrh_reports/asrh-report";
 
             String ASRH_OTHER_REPORT_PATH = "asrh_reports/asrh-other-report";
+
+            String HARM_REDUCTION_REPORT_PATH = "harm_reduction_reports/harm-reduction-report";
+
+            String HARM_REDUCTION_SOBER_HOUSE_REPORT_PATH = "harm_reduction_sober_house_reports/harm-reduction-sober-house-report";
 
             String AYP_IN_SCHOOL_REPORT_PATH = "ayp_in_school_reports/ayp-in-school-report";
 

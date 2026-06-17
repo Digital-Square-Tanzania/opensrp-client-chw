@@ -654,7 +654,7 @@
           {
             "field": "eventType",
             "field_value": "TbLeprosy Mobilization Session",
-            "creates_case":[
+            "creates_case": [
               "ec_tbleprosy_mobilization"
             ]
           },
@@ -1019,6 +1019,49 @@
             "field_value": "Linkage From Facility Dismissal",
             "closes_case": [
               "ec_facility_to_community_linkage"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Risk Assessment",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Follow-up Visit",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment",
+              "ec_harm_reduction_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Used Needle and Syringes Collection",
+            "creates_case": [
+              "ec_harm_reduction_safety_box_collection"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Sober House Enrollment",
+            "creates_case": [
+              "ec_harm_reduction_sober_house_enrollment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Harm Reduction Sober House Visit",
+            "creates_case": [
+              "ec_harm_reduction_sober_house_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mark client has started MAT",
+            "creates_case": [
+              "ec_harm_reduction_risk_assessment"
             ]
           }
         ]

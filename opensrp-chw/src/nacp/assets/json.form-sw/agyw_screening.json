@@ -929,7 +929,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "illicit_drug_usage",
-        "label": "Je ushawahi kutumia madawa ya kulevya  katika kipindi cha miezi 3 iliyopita?",
+        "label": "Je ushawahi kutumia dawa za kulevya katika kipindi cha miezi 3 iliyopita?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

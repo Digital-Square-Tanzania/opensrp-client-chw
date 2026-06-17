@@ -465,14 +465,14 @@
             {
               "reference": "prerequisite",
               "prerequisite": "Rota 2",
-              "offset": "+4m",
-              "window": "+10d"
+              "offset": "+28d",
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+12m"
+              "offset": "+2y"
             }
           ]
         }
@@ -527,7 +527,7 @@
           "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
+          "calculation": 2
         },
         "schedule": {
           "due": [

@@ -68,6 +68,29 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
+    public static Map<String, Integer> getReportBreakdown(String sql, @NonNull List<String> columns) {
+        DataMap<Map<String, Integer>> map = cursor -> {
+            Map<String, Integer> result = new HashMap<>();
+            for (String column : columns) {
+                result.put(column, getCursorIntValue(cursor, column));
+            }
+            return result;
+        };
+
+        List<Map<String, Integer>> res = readData(sql, map);
+
+        if (res != null && !res.isEmpty() && res.get(0) != null) {
+            return res.get(0);
+        }
+
+        Map<String, Integer> emptyResult = new HashMap<>();
+        for (String column : columns) {
+            emptyResult.put(column, 0);
+        }
+        return emptyResult;
+    }
+
+    @NonNull
     public static Map<String, String> extractRecordedLocations() {
         Map<String, String> locations = new HashMap<>();
 
@@ -487,7 +510,7 @@ public class ReportDao extends AbstractDao {
 
             Log.d("anga_q",key+" : "+selector);
 
-            String sql = "SELECT COALESCE(ehacr." + selector + ", '0') as count " +
+            String sql = "SELECT COALESCE(" + qualifyAnnualReportSelector(selector) + ", '0') as count " +
                     "FROM ec_hps_annual_census_register ehacr " +
                     "WHERE substr('%s', 1, 4) = ehacr.year " +
                     "UNION ALL " +
@@ -520,6 +543,10 @@ public class ReportDao extends AbstractDao {
         }
 
         return resultList;
+    }
+
+    private static String qualifyAnnualReportSelector(String selector) {
+        return selector.matches("[A-Za-z0-9_]+") ? "ehacr." + selector : selector;
     }
 
 
