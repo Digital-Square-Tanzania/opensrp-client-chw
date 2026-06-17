@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "skip_blank_steps": true,
   "encounter_type": "Mother Mentor Enrollment",
   "entity_id": "",
@@ -49,46 +49,15 @@
   },
   "global": {},
   "step1": {
-    "title": "Identification",
+    "title": "HEI Registration",
     "next": "step2",
     "fields": [
       {
-        "key": "ctc_number",
+        "key": "hei_registered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "ctc_number",
-        "type": "mask_edit_text",
-        "mask": "##-##-####-######",
-        "mask_hint": "12345678912345",
-        "allowed_chars": "0123456789",
-        "hint": "CTC Number",
-        "edit_type": "number",
-        "v_regex": {
-          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
-          "err": "CTC number should be of the format (XX-XX-XXXX-XXXXXX)"
-        },
-        "v_max_length": {
-          "value": "17",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid CTC Number"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter a valid CTC Number"
-        }
-      }
-    ]
-  },
-  "step2": {
-    "title": "ART Status",
-    "next": "step3",
-    "fields": [
-      {
-        "key": "art_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_status",
-        "label": "Has started ART treatment?",
+        "openmrs_entity_id": "hei_registered",
+        "label": "Is the child registered in HEI services?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -113,44 +82,124 @@
         }
       },
       {
-        "key": "art_start_date",
+        "key": "hei_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "Art start date",
-        "max_date": "today",
+        "openmrs_entity_id": "hei_number",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "HEI Number",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "CTC number should be of the format (XX-XX-XXXX-XXXXXX)"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid CTC Number"
+        },
         "v_required": {
           "value": true,
-          "err": "Please select the Registration date"
+          "err": "Please enter a valid CTC Number"
         }
-      },
+      }
+    ]
+  },
+  "step2": {
+    "title": "Breastfeeding Status",
+    "next": "step3",
+    "fields": [
       {
-        "key": "art_no_reason",
+        "key": "breastfeeding_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_no_reason",
-        "label": "Sababu za Kutokuanza kutumia dawa ?",
+        "openmrs_entity_id": "breastfeeding_status",
+        "label": "Breastfeeding status ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "medical_reasons",
-            "text": "Medical reasons",
+            "key": "breast_feeding",
+            "text": "Breast Feeding",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "medical_reasons"
+            "openmrs_entity_id": "breast_feeding"
           },
           {
-            "key": "refused",
-            "text": "Refused",
+            "key": "not_breast_feeding",
+            "text": "Not Breast Feeding",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "refused"
+            "openmrs_entity_id": "not_breast_feeding"
           },
           {
-            "key": "other",
-            "text": "Other (Specify)",
+            "key": "stop_breast_feeding",
+            "text": "Stop Breadfeasting",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stop_breast_feeding"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "weaning_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weaning_date",
+        "type": "date_picker",
+        "hint": "Date breastfeeding stopped",
+        "max_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select Date breastfeeding stopped"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Last EID Test",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "last_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_test",
+        "label": "Last test done ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "no_test_has_been_done_yet",
+            "text": "No test has been done yet",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_test_has_been_done_yet"
+          },
+          {
+            "key": "at_birth",
+            "text": "At birth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "at_birth"
+          },
+          {
+            "key": "dbs_6",
+            "text": "DBS Week 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "dbs_9",
+            "text": "DBS Month 9",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -162,72 +211,64 @@
         }
       },
       {
-        "key": "art_start_date",
+        "key": "last_test_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "ART Start Date",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the ART Start Date"
-        }
-      }
-    ]
-  },
-  "step3": {
-    "title": "Pregnancy Status",
-    "fields": [
-      {
-        "key": "pregnancy_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "pregnancy_status",
-        "label": "Pregnancy status",
+        "openmrs_entity_id": "last_test_result",
+        "label": "Last test result ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "pregnant",
-            "text": "Pregnant",
+            "key": "negative",
+            "text": "Negative",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant"
+            "openmrs_entity_id": "negative"
           },
           {
-            "key": "breast_feeding",
-            "text": "Breast feeding",
+            "key": "positive",
+            "text": "Positive",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "breast_feeding"
+            "openmrs_entity_id": "positive"
           },
           {
-            "key": "not_pregnant",
-            "text": "Not Pregnant",
+            "key": "waiting",
+            "text": "Waiting",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_pregnant"
+            "openmrs_entity_id": "waiting"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
         }
-      },
+      }
+    ]
+  },
+  "step4": {
+    "title": "Mother's Name ",
+    "fields": [
       {
-        "key": "child_dob",
+        "key": "mother_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "child_dob",
-        "type": "date_picker",
-        "hint": "Child’s age (date of birth)",
-        "max_date": "today",
+        "openmrs_entity_id": "mother_name",
+        "hint": "Mother name",
+        "text_color": "#000000",
+        "type": "edit_text",
         "v_required": {
-          "value": true,
-          "err": "Please select the Registration date"
+          "value": "true",
+          "err": "Please write mother name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
         }
       }
     ]
   }
+
 }

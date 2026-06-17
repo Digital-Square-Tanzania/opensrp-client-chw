@@ -1,7 +1,7 @@
 {
-  "count": "3",
+  "count": "4",
   "skip_blank_steps": true,
-  "encounter_type": "Mother Mentor Enrollment",
+  "encounter_type": "Mother Mentor Enroll Child Eid",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -49,19 +49,48 @@
   },
   "global": {},
   "step1": {
-    "title": "Identification",
+    "title": "Usajili wa HEI",
     "next": "step2",
     "fields": [
       {
-        "key": "ctc_number",
+        "key": "hei_registered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "ctc_number",
+        "openmrs_entity_id": "hei_registered",
+        "label": "Mtoto amesajiliwa kwenye Huduma za HEI?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "hei_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hei_number",
         "type": "mask_edit_text",
         "mask": "##-##-####-######",
         "mask_hint": "12345678912345",
         "allowed_chars": "0123456789",
-        "hint": "CTC Number",
+        "hint": "Namba ya HEI",
         "edit_type": "number",
         "v_regex": {
           "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
@@ -80,134 +109,38 @@
     ]
   },
   "step2": {
-    "title": "ART Status",
+    "title": "Hali ya kunyonyesha",
     "next": "step3",
     "fields": [
       {
-        "key": "art_status",
+        "key": "breastfeeding_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_status",
-        "label": "Has started ART treatment?",
+        "openmrs_entity_id": "breastfeeding_status",
+        "label": "Hali ya kunyonyesha ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        }
-      },
-      {
-        "key": "art_start_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "Art start date",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the Registration date"
-        }
-      },
-      {
-        "key": "art_no_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_no_reason",
-        "label": "Sababu za Kutokuanza kutumia dawa ?",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "medical_reasons",
-            "text": "Medical reasons",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "medical_reasons"
-          },
-          {
-            "key": "refused",
-            "text": "Refused",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "refused"
-          },
-          {
-            "key": "other",
-            "text": "Other (Specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        }
-      },
-      {
-        "key": "art_start_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "ART Start Date",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the ART Start Date"
-        }
-      }
-    ]
-  },
-  "step3": {
-    "title": "Pregnancy Status",
-    "fields": [
-      {
-        "key": "pregnancy_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "pregnancy_status",
-        "label": "Pregnancy status",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "pregnant",
-            "text": "Pregnant",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant"
-          },
           {
             "key": "breast_feeding",
-            "text": "Breast feeding",
+            "text": "Ananyonyeshwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "breast_feeding"
           },
           {
-            "key": "not_pregnant",
-            "text": "Not Pregnant",
+            "key": "not_breast_feeding",
+            "text": "Hanyonyeshwi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_pregnant"
+            "openmrs_entity_id": "not_breast_feeding"
+          },
+          {
+            "key": "stop_breast_feeding",
+            "text": "Ameacha Kunyonya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "stop_breast_feeding"
           }
         ],
         "v_required": {
@@ -216,12 +149,12 @@
         }
       },
       {
-        "key": "child_dob",
+        "key": "weaning_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "child_dob",
+        "openmrs_entity_id": "weaning_date",
         "type": "date_picker",
-        "hint": "Child’s age (date of birth)",
+        "hint": "Tarehe ya kuacha kunyonya",
         "max_date": "today",
         "v_required": {
           "value": true,
@@ -229,5 +162,113 @@
         }
       }
     ]
+  },
+  "step3": {
+    "title": "Last EID Test",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "last_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_test",
+        "label": "Kipimo cha mwisho kilichofanyika ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "no_test_has_been_done_yet",
+            "text": "Hakuna kipimo bado kilichofanyika",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_test_has_been_done_yet"
+          },
+          {
+            "key": "at_birth",
+            "text": "Wakati wa kuzaliwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "at_birth"
+          },
+          {
+            "key": "dbs_6",
+            "text": "DBS Wiki 6",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "dbs_9",
+            "text": "DBS Miezi 9",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "last_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_test_result",
+        "label": "Matokeo ya kipimo cha mwisho ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "negative",
+            "text": "Hasi (Negative)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative"
+          },
+          {
+            "key": "positive",
+            "text": "Chanya (Positive)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive"
+          },
+          {
+            "key": "waiting",
+            "text": "Yanasubiriwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "waiting"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Mother's Name ",
+    "fields": [
+      {
+        "key": "mother_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mother_name",
+        "hint": "Jina la mama",
+        "text_color": "#000000",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please write mother name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        }
+      }
+    ]
   }
+
 }

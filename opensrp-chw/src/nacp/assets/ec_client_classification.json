@@ -615,6 +615,27 @@
           },
           {
             "field": "eventType",
+            "field_value": "Mother Mentor Enroll IIT",
+            "creates_case": [
+              "ec_mothermentor_enroll_it"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mother Mentor Enroll Partner",
+            "creates_case": [
+              "ec_mothermentor_enroll_partner"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mother Mentor Enroll Child Eid",
+            "creates_case": [
+              "ec_mothermentor_enroll_child_eid"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Self Testing Registration",
             "creates_case": [
               "ec_hivst_register"

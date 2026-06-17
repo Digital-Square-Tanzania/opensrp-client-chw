@@ -49,7 +49,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Identification",
+    "title": "Utambulisho",
     "next": "step2",
     "fields": [
       {
@@ -61,7 +61,7 @@
         "mask": "##-##-####-######",
         "mask_hint": "12345678912345",
         "allowed_chars": "0123456789",
-        "hint": "CTC Number",
+        "hint": "Namba ya CTC",
         "edit_type": "number",
         "v_regex": {
           "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
@@ -80,7 +80,7 @@
     ]
   },
   "step2": {
-    "title": "ART Status",
+    "title": "Hali ya ART",
     "next": "step3",
     "fields": [
       {
@@ -88,20 +88,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "art_status",
-        "label": "Has started ART treatment?",
+        "label": "Ameanza matumizi ya dawa za kufubaza virusi vya Ukimwi (ART)?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
@@ -110,19 +110,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
-        }
-      },
-      {
-        "key": "art_start_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "Art start date",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the Registration date"
         }
       },
       {
@@ -136,24 +123,24 @@
         "options": [
           {
             "key": "medical_reasons",
-            "text": "Medical reasons",
+            "text": "Sababu za kitabibu",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "medical_reasons"
           },
           {
             "key": "refused",
-            "text": "Refused",
+            "text": "Amekataa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "refused"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (Taja)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
+            "openmrs_entity_id": "other"
           }
         ],
         "v_required": {
@@ -184,27 +171,27 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pregnancy_status",
-        "label": "Pregnancy status",
+        "label": "Hali ya Ujauzito ",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "pregnant",
-            "text": "Pregnant",
+            "text": "Mjamzito",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pregnant"
           },
           {
             "key": "breast_feeding",
-            "text": "Breast feeding",
+            "text": "Ananyonyesha",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "breast_feeding"
           },
           {
             "key": "not_pregnant",
-            "text": "Not Pregnant",
+            "text": "Si Mjamzito",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "not_pregnant"
@@ -221,7 +208,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_dob",
         "type": "date_picker",
-        "hint": "Child’s age (date of birth)",
+        "hint": "Umri wa mtoto (tarehe ya kuzaliwa)",
         "max_date": "today",
         "v_required": {
           "value": true,
