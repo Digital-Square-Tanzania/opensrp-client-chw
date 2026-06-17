@@ -6,6 +6,8 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_base_register" />
+
     <include
         layout="@layout/base_register_search_bar"
         android:layout_width="match_parent"

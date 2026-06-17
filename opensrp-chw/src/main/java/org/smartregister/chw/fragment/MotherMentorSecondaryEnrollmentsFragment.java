@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -17,14 +19,22 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.MotherMentorSecondaryEnrollmentPagerAdapter;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
+
+import timber.log.Timber;
 
 public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
     private MotherMentorSecondaryEnrollmentPagerAdapter adapter;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mothermentor_secondary_enrollments, container, false);
+        rootView = view;
+        setupToolbar(view);
         setupSearchBar(view);
 
         ViewPager viewPager = view.findViewById(R.id.mothermentor_secondary_view_pager);
@@ -36,6 +46,48 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (rootView != null) {
+            setupToolbar(rootView);
+        }
+    }
+
+    private void setupToolbar(View view) {
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        if (toolbar == null) {
+            return;
+        }
+
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+
+        try {
+            NavigationMenu.getInstance(getActivity(), null, toolbar);
+        } catch (NullPointerException e) {
+            Timber.e(e);
+        }
+
+        ImageView qrCodeScanImageView = view.findViewById(org.smartregister.R.id.scanQrCode);
+        if (qrCodeScanImageView != null) {
+            qrCodeScanImageView.setVisibility(View.GONE);
+        }
+
+        ImageView logo = view.findViewById(org.smartregister.R.id.opensrp_logo_image_view);
+        if (logo != null) {
+            logo.setVisibility(View.GONE);
+        }
+
+        CustomFontTextView titleView = view.findViewById(org.smartregister.R.id.txt_title_label);
+        if (titleView != null) {
+            titleView.setVisibility(View.VISIBLE);
+            titleView.setText(getString(R.string.mothermentor_follow_up));
+            titleView.setFontVariant(FontVariant.REGULAR);
+        }
     }
 
     private void setupSearchBar(View view) {
