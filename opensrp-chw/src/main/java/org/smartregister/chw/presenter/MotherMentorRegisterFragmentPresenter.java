@@ -12,7 +12,7 @@ public class MotherMentorRegisterFragmentPresenter extends BaseMotherMentorRegis
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + ".is_closed = 0 AND (" + getMainTable() + ".status IS NULL OR " + getMainTable() + ".status = 'client') AND " + getMainTable() + ".screening_status != '-' ";
+        return " " + getMainTable() + ".is_closed = 0 AND (" + getMainTable() + ".status IS NULL OR " + getMainTable() + ".status = 'client') AND (" + getMainTable() + ".screening_status IS NULL OR " + getMainTable() + ".screening_status != '-') ";
     }
 
     @Override

@@ -47,7 +47,7 @@ public class ChwQueryConstantTest {
         Assert.assertTrue(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains(
                 "SELECT ec_mothermentor_enrollment.base_entity_id AS base_entity_id\n" +
                         "    FROM ec_mothermentor_enrollment\n" +
-                        "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND ec_mothermentor_enrollment.screening_status != '-'"
+                        "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND (ec_mothermentor_enrollment.screening_status IS NULL OR ec_mothermentor_enrollment.screening_status != '-')"
         ));
     }
 

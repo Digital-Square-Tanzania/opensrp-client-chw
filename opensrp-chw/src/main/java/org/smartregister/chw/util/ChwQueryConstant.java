@@ -83,7 +83,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_mothermentor_enrollment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_mothermentor_enrollment\n" +
-            "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND ec_mothermentor_enrollment.screening_status != '-' \n" +
+            "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND (ec_mothermentor_enrollment.screening_status IS NULL OR ec_mothermentor_enrollment.screening_status != '-') \n" +
             "    UNION ALL\n" +
             "    SELECT ec_hps_client_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_hps_client_register\n" +
@@ -240,7 +240,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_mothermentor_enrollment.base_entity_id AS base_entity_id\n" +
             "    FROM ec_mothermentor_enrollment\n" +
-            "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND ec_mothermentor_enrollment.screening_status != '-' \n" +
+            "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND (ec_mothermentor_enrollment.screening_status IS NULL OR ec_mothermentor_enrollment.screening_status != '-') \n" +
             ")\n" +
             "UNION ALL\n" +
             "/* ANC REGISTER */\n" +
@@ -850,7 +850,7 @@ public interface ChwQueryConstant {
             "         inner join ec_mothermentor_enrollment\n" +
             "                    on ec_family_member.base_entity_id = ec_mothermentor_enrollment.base_entity_id\n" +
             "where ec_family_member.date_removed is null\n" +
-            "  AND ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND ec_mothermentor_enrollment.screening_status != '-' \n" +
+            "  AND ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND (ec_mothermentor_enrollment.screening_status IS NULL OR ec_mothermentor_enrollment.screening_status != '-') \n" +
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +

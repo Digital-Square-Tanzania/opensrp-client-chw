@@ -130,7 +130,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "art_no_reason",
-        "label": "Sababu za Kutokuanza kutumia dawa ?",
+        "label": "Reason for not starting to use medicine ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -159,19 +159,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
-        }
-      },
-      {
-        "key": "art_start_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "art_start_date",
-        "type": "date_picker",
-        "hint": "ART Start Date",
-        "max_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the ART Start Date"
         }
       }
     ]
@@ -214,6 +201,22 @@
           "value": "true",
           "err": "Please select an answer"
         }
+      },
+      {
+        "key": "status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "status",
+        "type": "hidden",
+        "value": "client"
+      },
+      {
+        "key": "screening_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screening_status",
+        "type": "hidden",
+        "value": "client"
       },
       {
         "key": "child_dob",

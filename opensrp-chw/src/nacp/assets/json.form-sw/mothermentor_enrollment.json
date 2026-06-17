@@ -203,6 +203,22 @@
         }
       },
       {
+        "key": "status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "status",
+        "type": "hidden",
+        "value": "client"
+      },
+      {
+        "key": "screening_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screening_status",
+        "type": "hidden",
+        "value": "client"
+      },
+      {
         "key": "child_dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
