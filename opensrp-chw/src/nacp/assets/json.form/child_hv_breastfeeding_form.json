@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Essential New Born Care: Breastfeeding",
+  "encounter_type": "Exclusive breast feeding",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -115,7 +115,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Advice the mother on the importance of breastfeeding the child (Refer to Bango Kitita, Breast feeding module)",
+        "text": "Advice the mother on the importance of breastfeeding the child (Refer to Bango Kitita 16, Breast feeding module)",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -222,7 +222,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Praise the mother/father or caregiver for ensuring that the baby is being fed only breast milk",
-        "toaster_type": "info",
+        "toaster_type": "positive",
         "relevance": {
           "step1:other_food_child_feeds": {
             "ex-checkbox": [
@@ -384,7 +384,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Congratulate mother for breastfeeding in a right position",
-        "toaster_type": "info",
+        "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -461,42 +461,29 @@
         }
       },
       {
-        "key": "child_suckling_demo_two",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Help the mother to improve positioning and attachment.\n\nIf baby is too sleepy to feed, try to wake him by rubbing body, arms, or legs.\n\n\n\nWait until the baby's mouth is opened wide\n\nMove the baby quickly onto her breast, aiming the infant's lower lip will below the nipple.\n\nIf breast engorgement, express a small amount of breast milk before starting breastfeeding to soften nipple area so that it is easier for the baby to attach.",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_hv_breastfeeding_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "exclusive_breast_feeding",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "exclusive_breast_feeding",
-        "type": "spinner",
-        "image": "ic_form_bf",
-        "hint": "Has the child been exclusively breastfeeding only?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "Has the child been exclusively breastfeeding only?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ]
       }
     ]
   }

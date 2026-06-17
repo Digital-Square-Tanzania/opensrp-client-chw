@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "toddler_danger_signs_note",
         "type": "toaster_notes",
-        "text": "Sasa hivi tupo kwenye hatua ya kuchunguza dalili za hatari kwa mtoto wako.\n\nTafadhali epuka kumshika mtoto ili kuepuka maambukizi ya magonjwa mbalimbali kutoka kwa mtoto kwenda kwa MJA au kutoka kwa MJA kwenda kwa mtoto. Ikiwa kuna ulazima wa kumgusa ili kujua hali ya mtoto tafadhali muombe mama afanye hivyo kwa niaba yako.\n\nSasa ntamchunguza mtoto wako kama ana dalili za hatari. Kama mtoto ataonekana kuwa na  dalili zozote kati ya hizi basi ntatoa rufaa kwenda kituo cha kutolea huduma za afya ili apate matibabu sahihi.\n\nJe, mwanao ameonyesha dalili zozote kati ya hizi katika masaa 24 yaliyo pita?\n\nChagua dalili zote ambazo zimeripotiwa au umeziona",
+        "text": "Sasa hivi tupo kwenye hatua ya kuchunguza dalili za hatari kwa mtoto wako.<br><br><b>Taarifa kwa MJA:</b> <i>Tafadhali epuka kumshika mtoto. Ikiwa kuna ulazima wa kumgusa ili kujua hali ya mtoto tafadhali muombe mama afanye hivyo kwa niaba yako</i>.<br><br><b>Sema:</b> <i>Sasa ntamchunguza mtoto wako kama ana dalili za hatari. Kama mtoto ataonekana kuwa na  dalili zozote kati ya hizi basi ntatoa rufaa kwenda kituo cha kutolea huduma za afya ili apate matibabu sahihi.</i><br><br><i>Je, mwanao ameonyesha dalili zozote kati ya hizi katika masaa 24 yaliyo pita?</i><br><br>Chagua dalili zote ambazo zimeripotiwa au umeziona",
         "toaster_type": "info"
       },
       {
@@ -150,9 +150,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "toddler_danger_signs_present_toaster",
         "type": "toaster_notes",
-        "text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
-        "toaster_info_text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
-        "toaster_type": "warning",
+        "text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_info_text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_type": "problem",
         "relevance": {
           "step1:toddler_danger_signs_present": {
             "ex-checkbox": [
@@ -233,7 +233,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -250,7 +250,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }

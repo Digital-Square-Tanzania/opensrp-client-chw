@@ -62,7 +62,7 @@ public class ChwJobCreator implements JobCreator {
             case ScheduleJob.TAG:
                 return new ScheduleJob();
             case SyncLocationsByLevelAndTagsServiceJob.TAG:
-                return new SyncLocationsByLevelAndTagsServiceJob();
+                return new ChwSyncLocationsByLevelAndTagsServiceJob();
             case StockUsageReportJob.TAG:
                 return new StockUsageReportJob();
             case SyncTaskWithClientEventsServiceJob.TAG:

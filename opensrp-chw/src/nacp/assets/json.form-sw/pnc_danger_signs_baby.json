@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Sasa hivi tupo kwenye hatua ya kuchunguza dalili za hatari kwa mtoto wako.\n\nTafadhali epuka kumshika mtoto ili kuepuka maambukizi ya magonjwa mbalimbali kutoka kwa mtoto kwenda kwa MJA au kutoka kwa MJA kwenda kwa mtoto. Ikiwa kuna ulazima wa kumgusa ili kujua hali ya mtoto tafadhali muombe mama afanye hivyo kwa niaba yako.\n\nSasa ntamchunguza mtoto wako kama ana dalili za hatari. Kama mtoto ataonekana kuwa na  dalili zozote kati ya hizi basi ntatoa rufaa kwenda kituo cha kutolea huduma za afya ili apate matibabu sahihi.\n\nJe, mwanao ameonyesha dalili zozote kati ya hizi katika masaa 24 yaliyo pita?\n\nChagua dalili zote ambazo zimeripotiwa au umeziona",
+        "text": "Sasa hivi tupo kwenye hatua ya kuchunguza dalili za hatari kwa mtoto wako.<br><br><b>Taarifa kwa MJA:</b> <i>Tafadhali epuka kumshika mtoto. Ikiwa kuna ulazima wa kumgusa ili kujua hali ya mtoto tafadhali muombe mama afanye hivyo kwa niaba yako.</i><br><br><b>Sema:</b><i> Sasa ntamchunguza mtoto wako kama ana dalili za hatari. Kama mtoto ataonekana kuwa na  dalili zozote kati ya hizi basi ntatoa rufaa kwenda kituo cha kutolea huduma za afya ili apate matibabu sahihi.</i><br><br>Je, mwanao ameonyesha dalili zozote kati ya hizi katika masaa 24 yaliyo pita?<br><br><i>Chagua dalili zote ambazo zimeripotiwa au umeziona</i>",
         "toaster_type": "info"
       },
       {
@@ -145,6 +145,48 @@
             "openmrs_entity_id": "chk_lethargy"
           },
           {
+            "key": "chk_hypothermia",
+            "text": "Mwili kuwa wabaridi au joto kuliko kawaida",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hypothermia"
+          },
+          {
+            "key": "chk_sensory_stimulus",
+            "text": "Kutocheza au kuonyesha kuhisi pale anapoguswa au kuongeleshwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sensory_stimulus"
+          },
+          {
+            "key": "chk_chest_drawing",
+            "text": "Kubonyea kwa kifua",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_chest_drawing"
+          },
+          {
+            "key": "chk_cyanosis",
+            "text": "Midomo yenye rangi ya bluu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cyanosis"
+          },
+          {
+            "key": "chk_pass_urine_stool",
+            "text": "Kutokukojoa au kutoa choo kwa zaidi ya siku moja",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pass_urine_stool"
+          },
+          {
+            "key": "chk_bulging_anterior_fontanel",
+            "text": "kuvimba utosi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bulging_anterior_fontanel"
+          },
+          {
+            "key": "chk_excessive_vomiting",
+            "text": "Kutapika sana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_excessive_vomiting"
+          },
+          {
             "key": "chk_none",
             "text": "Hakuna",
             "openmrs_entity": "concept",
@@ -162,9 +204,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
-        "toaster_info_text": "Tumetambua kuwa mtoto ana dalili za hatari. Usijali, kwa sababu masharti haya yatadhibitiwa ukifika kwenye kituo cha afya?",
-        "toaster_type": "warning",
+        "text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_info_text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_type": "problem",
         "relevance": {
           "step1:danger_signs_present_child": {
             "ex-checkbox": [
@@ -179,9 +221,17 @@
                   "chk_convulsions",
                   "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
                   "chk_severe_abdominal_pain",
                   "chk_lethargy",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_hypothermia",
+                  "chk_sensory_stimulus",
+                  "chk_chest_drawing",
+                  "chk_cyanosis",
+                  "chk_pass_urine_stool",
+                  "chk_bulging_anterior_fontanel",
+                  "chk_excessive_vomiting"
                 ]
               }
             ]
@@ -225,9 +275,17 @@
                   "chk_convulsions",
                   "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
                   "chk_severe_abdominal_pain",
                   "chk_lethargy",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_hypothermia",
+                  "chk_sensory_stimulus",
+                  "chk_chest_drawing",
+                  "chk_cyanosis",
+                  "chk_pass_urine_stool",
+                  "chk_bulging_anterior_fontanel",
+                  "chk_excessive_vomiting"
                 ]
               }
             ]

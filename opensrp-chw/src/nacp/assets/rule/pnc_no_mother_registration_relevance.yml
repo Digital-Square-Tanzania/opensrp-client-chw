@@ -1,0 +1,7 @@
+---
+name: step1_prompt_for_underweight
+description: Prompt for underweight relevance if child weight is less than 2.5
+priority: 1
+condition: "!step1_weight.equals('') && step1_weight < 2.5"
+actions:
+  - "isRelevant = true"

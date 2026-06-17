@@ -96,6 +96,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "post_gbv_services_provided",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Post-GBV services provided:",
         "options": [
           {
@@ -152,6 +153,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "post_gbv_referrals",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Post-GBV referrals:",
         "options": [
           {

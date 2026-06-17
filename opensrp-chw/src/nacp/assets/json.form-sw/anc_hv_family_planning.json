@@ -50,6 +50,24 @@
     "title": "Uzazi wa mpango",
     "fields": [
       {
+        "key": "family_planning_intro",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Sasa tutajadili kuhusu Uzazi wa Mpango na faida zake.",
+        "text_color": "#000000",
+        "has_bg": true
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "8dp"
+      },
+      {
         "key": "fam_planning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -75,19 +93,24 @@
         }
       },
       {
-        "key": "prompt_for_family_planning",
-        "type": "toaster_notes",
-        "text": "Tafadhali mpatie mteja ushauri juu ya Uzazi wa Mpango",
-        "openmrs_entity_id": "prompt_for_family_planning",
-        "openmrs_entity": "concept",
+        "key": "spacer",
         "openmrs_entity_parent": "",
-        "toaster_type": "warning",
-        "relevance": {
-          "step1:fam_planning": {
-            "type": "String",
-            "ex": "equalTo(.,\"No\")"
-          }
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "16dp"
+      },
+      {
+        "key": "family_planning_flip_book_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_flip_book_reference",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i>Tafadhali fungua kitendea kazi namba</i><b> 18</b> <i>kwenye bango kitita ili kuendelea na mazungumzo</i>",
+        "text_color": "#000000",
+        "has_bg": true,
+        "label_text_style": "italic"
       }
     ]
   }

@@ -104,7 +104,7 @@
           },
           {
             "key": "chk_severe_leg_pain",
-            "text": "Maumivu makali ya mguu",
+            "text": "Maumivu makali ya miguu",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_severe_leg_pain"
           },
@@ -116,7 +116,7 @@
           },
           {
             "key": "chk_swelling of breast",
-            "text": "Kuvimba kwa titi na chuchu",
+            "text": "Kuvimba kwa matiti na chuchu zilizo chanika",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling of breast"
           },
@@ -151,6 +151,36 @@
             "openmrs_entity_id": "chk_urination"
           },
           {
+            "key": "chk_genitalia_pain",
+            "text": "Maumivu makali sehemu za siri",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_genitalia_pain"
+          },
+          {
+            "key": "chk_pallor",
+            "text": "Kupauka (angalia viganja na mdomo wa mama)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_dizziness",
+            "text": "Kizunguzungu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_dizziness"
+          },
+          {
+            "key": "chk_exhaustion",
+            "text": "Uchovu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_exhaustion"
+          },
+          {
+            "key": "chk_oedema",
+            "text": "Kuvimba uso, mikono au mwili mzima",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oedema"
+          },
+          {
             "key": "chk_none",
             "text": "Hakuna",
             "openmrs_entity": "concept",
@@ -168,9 +198,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha kutolea huduma za afya.\nJe ulishawahi kuhudhuria kituo cha kutolea afya kwa tatizo hili siku tatu zilizopita?",
-        "toaster_info_text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha kutolea huduma za afya.\nJe ulishawahi kuhudhuria kituo cha kutolea afya kwa tatizo hili siku tatu zilizopita?",
-        "toaster_type": "warning",
+        "text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_info_text": "Tumegundua kuwa una dalili hatarishi, usipate wasiwasi, kwa sababu hali hii itapatiwa ufumbuzi pindi tu ukienda kituo cha afya.",
+        "toaster_type": "problem",
         "relevance": {
           "step1:danger_signs_present_mama": {
             "ex-checkbox": [
@@ -188,7 +218,12 @@
                   "chk_vaginal_discharge",
                   "chk_blurred_vision",
                   "chk_loss_conscioueness",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_genitalia_pain",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_exhaustion",
+                  "chk_oedema"
                 ]
               }
             ]
@@ -235,7 +270,12 @@
                   "chk_vaginal_discharge",
                   "chk_blurred_vision",
                   "chk_loss_conscioueness",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_genitalia_pain",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_exhaustion",
+                  "chk_oedema"
                 ]
               }
             ]

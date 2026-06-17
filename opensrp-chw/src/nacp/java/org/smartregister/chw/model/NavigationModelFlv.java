@@ -21,6 +21,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
     private static final List<NavigationOption> navigationOptions = new ArrayList<>();
 
+    public static void resetNavigationOptions() {
+        navigationOptions.clear();
+    }
+
+    public static List<NavigationOption> refreshNavigationOptions() {
+        resetNavigationOptions();
+        return new NavigationModelFlv().getNavigationItems();
+    }
+
     @Override
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.isEmpty()) {
@@ -113,9 +122,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
                         }
-                        if (ChwApplication.getApplicationFlavor().hasADDO()) {
-                            navigationOptions.add(op25);
-                        }
 
                         if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
                             navigationOptions.add(2, op25);
@@ -134,7 +140,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op28);
                             navigationOptions.add(op29);
                         }
-
+                        if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                            navigationOptions.add(op26);
+                        }
                         navigationOptions.addAll(Arrays.asList(op8, op9, op15));
                         break;
                 }
@@ -179,11 +187,11 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);
                 }
-                if (ChwApplication.getApplicationFlavor().hasADDO()) {
-                    navigationOptions.add(op26);
-                }
                 if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                     navigationOptions.add(op6);
+                }
+                if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                    navigationOptions.add(op26);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op9, op15));
             }

@@ -85,37 +85,37 @@
             "key": "chk_lasting_insecticide_net",
             "text": "Use of Long Lasting Insecticide Net (LLIN)",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_lasting_insecticide_net"
           },
           {
             "key": "chk_spraying_insecticide",
             "text": "Household spraying of insecticide",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_spraying_insecticide"
           },
           {
             "key": "chk_doors_and_windows",
             "text": "Covering the doors and windows with mesh",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_doors_and_windows"
           },
           {
             "key": "chk_breeding_grounds",
             "text": "Destroying mosquito breeding grounds",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_breeding_grounds"
           },
           {
             "key": "chk_other",
             "text": "Other",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

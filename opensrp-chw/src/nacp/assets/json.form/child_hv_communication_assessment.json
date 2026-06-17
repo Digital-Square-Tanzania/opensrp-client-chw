@@ -1,0 +1,323 @@
+{
+  "count": "1",
+  "encounter_type": "Communication Assessment and Counselling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Communication Assessment and Counselling",
+    "fields": [
+      {
+        "key": "ccd_communication_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_communication_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "child_age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "less_than_six_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "communication_with_child",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "communication_with_child",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "CHW information(Ask this question only if it is the first visit): Say, \"Do you communicate with your child?\"",
+        "label_info_text": "CHW information: Say, \"Do you communicate with your child?\"",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "child_communication_demo_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "CHW information: Say, \"Can you show me how you communicate with your child? What do you think your child is learning while you communicate with him/her?\"",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "child_communication_observation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_communication_observation",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "CHW: Observe the mother/caregiver the way she talks to the child and makes the child responds (smile/sounds) or tell her to show you how she/he communicates with the child and then select all what happened:",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_force_smile",
+          "chk_child_asleep"
+        ],
+        "options": [
+          {
+            "key": "chk_looks_into_eyes",
+            "text": "Looks into child’s eyes and talks softly to child",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_looks_into_eyes"
+          },
+          {
+            "key": "chk_sounds_and_gestures",
+            "text": "Responds to child’s sounds and gestures to get child to smile",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sounds_and_gestures"
+          },
+          {
+            "key": "chk_force_smile",
+            "text": "Tries to force the smile/ does not talk/does nothing to make the child smile",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_force_smile"
+          },
+          {
+            "key": "chk_child_asleep",
+            "text": "Child asleep",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_child_asleep"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "communicates_with_child_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "PRAISE caregiver for communicating well with child. CHW information: Say, \"Children communicate with us from a young age, even before learning to speak they tell us what they need and they know when we are happy or sad. By talking to our children and telling them the names of things they recognise words and this helps them learn to talk. Repetition is a very good strategy for a child learning\".",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_communicates_with_child_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW information: Say, \"A baby and young child begin to understand many words before they can speak, but if we do not talk to our babies they will not learn new words. Children communicate with us from a young age, even before learning to speak they tell us what they need and they know when we are happy or sad\".",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_communicates_with_child_note_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "ADVISE for CONCERN: Caregiver should speak more frequently with the child.",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_comm_6_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW information: Say, \"That’s great, communicating like this with your child supports healthy development. By talking to our children and telling them the names of things they recognise words and this helps them learn to talk\".",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_child_comm_6_12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW information: Say, \"Communicating well with your child is important to support a strong connection and healthy development. By talking to our children and telling them the names of things they recognise words and this helps them learn to talk\".",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "communication_counselling_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "CHW information: Say, \"As you engage with your child, communicate with them while all the time! Everyday interactions can have a big impact even before babies can talk. These activities will help your child to learn new sounds, words and language in general\". CHW information: Click the information button (button with exclamation mark) to see the instructions you need to follow to explain the activities to the mother/caregiver.",
+        "text_color": "#2D2E2D",
+        "label_text_style": "italic",
+        "has_bg": true,
+        "label_info_title": "Instructions to CHW",
+        "label_info_text": "- Show the mother/caregiver the pictures and explain the activities (one by one).\n- Let mother/caregiver to try the activities.\n- Observe the interaction and help the mother/caregiver and child to have a successful two-way interaction. The caregiver MUST observe, listen, and respond to child's cues. \n- If child is not able to do the activity choose from younger age range or suggest ways to make the play simpler. If child is at end of age range and can easily, suggest ways to do the activity more difficult or choose activity from next older age range. \n- Encourage the mother/caregiver to continue to engage in play activities in their daily routine."
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "next_visit_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "comm_assessment_counselling_next_visit_message",
+        "type": "label",
+        "text": "CHW information: Say, \"When I come back for the next visit, I would like to see the playing material(s) that you have prepared and how you communicate and play with your child\".",
+        "text_color": "#000000",
+        "has_bg": true,
+        "label_text_style": "italic"
+      },
+      {
+        "key": "bango_kitita_reference_skip_logic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "spacer_bango_kitita",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_communication_assessment_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

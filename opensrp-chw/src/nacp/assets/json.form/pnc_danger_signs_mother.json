@@ -104,7 +104,7 @@
           },
           {
             "key": "chk_severe_leg_pain",
-            "text": "Severe leg pain",
+            "text": "Severe pains in the muscles of the foot",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_severe_leg_pain"
           },
@@ -116,7 +116,7 @@
           },
           {
             "key": "chk_swelling of breast",
-            "text": "Swelling of the breast and nipple",
+            "text": "Gorged breast, cracked nipples",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling of breast"
           },
@@ -149,6 +149,36 @@
             "text": "Urinate a little or urine leakage",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_urination"
+          },
+          {
+            "key": "chk_genitalia_pain",
+            "text": "Severe pain in the genitalia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_genitalia_pain"
+          },
+          {
+            "key": "chk_pallor",
+            "text": "Pallor (palms, tongue and conjuctiva)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pallor"
+          },
+          {
+            "key": "chk_dizziness",
+            "text": "Dizziness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_dizziness"
+          },
+          {
+            "key": "chk_exhaustion",
+            "text": "Exhaustion (fatigue, lethargy)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_exhaustion"
+          },
+          {
+            "key": "chk_oedema",
+            "text": "Oedema of face, hands ore generalized oedema",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_oedema"
           },
           {
             "key": "chk_none",
@@ -188,7 +218,12 @@
                   "chk_vaginal_discharge",
                   "chk_blurred_vision",
                   "chk_loss_conscioueness",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_genitalia_pain",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_exhaustion",
+                  "chk_oedema"
                 ]
               }
             ]
@@ -235,7 +270,12 @@
                   "chk_vaginal_discharge",
                   "chk_blurred_vision",
                   "chk_loss_conscioueness",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_genitalia_pain",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_exhaustion",
+                  "chk_oedema"
                 ]
               }
             ]

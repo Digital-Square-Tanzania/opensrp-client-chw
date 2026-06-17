@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.JsonFormUtils;
 
 import timber.log.Timber;
 
@@ -17,8 +18,8 @@ public class PNCVisitLocationActionHelper extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            JSONArray fields = org.smartregister.chw.anc.util.JsonFormUtils.fields(jsonObject);
-            gpsLocation = org.smartregister.chw.anc.util.JsonFormUtils.getFieldValue(fields, "gps");
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
+            gpsLocation = JsonFormUtils.getFieldValue(fields, "gps");
         } catch (JSONException e) {
             Timber.e(e);
         }

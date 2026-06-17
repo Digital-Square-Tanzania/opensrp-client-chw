@@ -89,6 +89,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sanitary_kits",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Sanitary Kits provided:",
         "options": [
           {

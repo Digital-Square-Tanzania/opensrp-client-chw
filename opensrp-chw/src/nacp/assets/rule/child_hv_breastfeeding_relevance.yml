@@ -69,13 +69,6 @@ condition: "step1_child_suckling_well =='no' && step1_visit_1_visit_8 == 'true'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_child_suckling_demo_two
-description: Child breastfeed Counselling
-priority: 1
-condition: "step1_child_suckling_well =='no' && step1_visit_1_visit_8 == 'true'"
-actions:
-  - "isRelevant = true"
----
 name: step1_times_child_breastfeeds_note
 description: Child breastfeed Counselling
 priority: 1
