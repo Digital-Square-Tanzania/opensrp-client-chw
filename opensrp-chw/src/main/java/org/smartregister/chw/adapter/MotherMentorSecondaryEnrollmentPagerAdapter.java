@@ -15,24 +15,22 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
     private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID = "ec_mothermentor_enroll_child_eid";
 
     private final Context context;
+    private final MotherMentorSecondaryEnrollmentRegisterFragment[] fragments = new MotherMentorSecondaryEnrollmentRegisterFragment[3];
 
     public MotherMentorSecondaryEnrollmentPagerAdapter(FragmentManager fragmentManager, Context context) {
         super(fragmentManager);
         this.context = context;
+        fragments[0] = MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_IIT);
+        fragments[1] = MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_PARTNER);
+        fragments[2] = MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_CHILD_EID);
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_IIT);
-            case 1:
-                return MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_PARTNER);
-            case 2:
-                return MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_CHILD_EID);
-            default:
-                return MotherMentorSecondaryEnrollmentRegisterFragment.newInstance(TABLE_MOTHERMENTOR_ENROLL_IIT);
+        if (position >= 0 && position < fragments.length) {
+            return fragments[position];
         }
+        return fragments[0];
     }
 
     @Override
@@ -51,6 +49,12 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
                 return context.getString(R.string.mothermentor_child_eid);
             default:
                 return null;
+        }
+    }
+
+    public void setSearchText(String searchText) {
+        for (MotherMentorSecondaryEnrollmentRegisterFragment fragment : fragments) {
+            fragment.setSharedSearchText(searchText);
         }
     }
 }

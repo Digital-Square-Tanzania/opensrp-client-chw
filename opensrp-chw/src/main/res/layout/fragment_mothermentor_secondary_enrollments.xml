@@ -6,6 +6,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/base_register_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/mothermentor_secondary_tabs"
         android:layout_width="match_parent"
