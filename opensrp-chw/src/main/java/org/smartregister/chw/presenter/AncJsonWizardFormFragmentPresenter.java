@@ -141,8 +141,8 @@ public class AncJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
     }
 
     private void showFieldError() {
-        String fieldError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_error, "");
-        String snackBarError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_snackbar_error, "");
+        String fieldError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_error);
+        String snackBarError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_snackbar_error);
         View fieldView = getFieldView(FIRST_CLINIC_VISIT_FIELD);
         if (fieldView instanceof MaterialEditText) {
             MaterialEditText editText = (MaterialEditText) fieldView;
@@ -159,10 +159,10 @@ public class AncJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
         }
     }
 
-    private String getString(int resId, String fallback) {
+    private String getString(int resId) {
         return getFormFragment() != null && getFormFragment().getContext() != null
                 ? getFormFragment().getContext().getString(resId)
-                : fallback;
+                : "";
     }
 
     private void clearFieldError() {
