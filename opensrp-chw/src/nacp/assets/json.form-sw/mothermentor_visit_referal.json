@@ -1,0 +1,159 @@
+{
+  "count": "1",
+  "skip_blank_steps": true,
+  "encounter_type": "Mother Mentor Visit Referral",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Rufaa iliyotolewa",
+    "fields": [
+      {
+        "key": "referral_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_given",
+        "label": "Rufaa imetolewa ?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "type_of_referral_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_referral_given",
+        "type": "check_box",
+        "label": "Aina ya rufaa iliyotolewa ",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "cervical_cancer_screening",
+            "text": "Uchunguzi wa Saratani ya mlango wa kizazi",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "cervical_cancer_screening"
+          },
+          {
+            "key": "mental_health",
+            "text": "Afya ya akili",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa kijinsia",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "income_generating_activities",
+            "text": "Ujasiriamali (IGA)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "income_generating_activities"
+          },
+          {
+            "key": "legal_support",
+            "text": "Msaada wa kisheria",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "legal_support"
+          },
+          {
+            "key": "psychosocial_support_group",
+            "text": "Kikundi cha msaada wa kisaikolojia",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "psychosocial_support_group"
+          },
+          {
+            "key": "other_specify",
+            "text": "Nyinginezo (Taja)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "other_specify"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "count": "1",
+  "skip_blank_steps": true,
+  "encounter_type": "Mother Mentor Visit Education Provided",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "start"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "end"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "deviceid"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "subscriberid"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "simserial"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "phonenumber"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Education Provided",
+    "fields": [
+      {
+        "key": "education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_provided",
+        "label": "Elimu imetolewa ",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "way_education_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "way_education_provided",
+        "label": "Njia ya utoaji elimu ",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "personal",
+            "text": "Binafsi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "personal"
+          },
+          {
+            "key": "group",
+            "text": "Kikundi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "group"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "topics_being_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "topics_being_provided",
+        "type": "check_box",
+        "label": "Mada za elimu zilizotolewa ",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "prevention_of_mother_to_child_hiv_transmission",
+            "text": "Kuzuia maambukizi ya VVU kutoka kwa mama kwenda kwa mtoto",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "prevention_of_mother_to_child_hiv_transmission"
+          },
+          {
+            "key": "hiv_and_aids",
+            "text": "VVU na UKIMWI",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "hiv_and_aids"
+          },
+          {
+            "key": "medication_adherence",
+            "text": "Ufuasi wa dawa",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "medication_adherence"
+          },
+          {
+            "key": "infant_and_young_child_feeding",
+            "text": "Ulishaji wa watoto wachanga",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "infant_and_young_child_feeding"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa kijinsia",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "tb",
+            "text": "TB",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "tb"
+          },
+          {
+            "key": "hepatitis_b_and_c",
+            "text": "Homa ya Ini B na C",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "hepatitis_b_and_c"
+          },
+          {
+            "key": "syphilis",
+            "text": "Kaswende",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "syphilis"
+          },
+          {
+            "key": "mental_health",
+            "text": "Afya ya akili",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "legal_issues",
+            "text": "Masuala ya kisheria",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "legal_issues"
+          },
+          {
+            "key": "pre_exposure_prophylaxis_prep",
+            "text": "Matumizi ya dawa Kinga (PrEP)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "pre_exposure_prophylaxis_prep"
+          },
+          {
+            "key": "cervical_cancer",
+            "text": "Saratani ya kizazi",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "cervical_cancer"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      }
+    ]
+  }
+}
