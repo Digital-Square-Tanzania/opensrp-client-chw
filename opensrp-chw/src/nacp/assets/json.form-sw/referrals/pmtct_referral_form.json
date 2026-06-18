@@ -123,6 +123,39 @@
           ]
         },
         {
+          "name": "is_emergency_case",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "is_emergency_case",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Je, hii ni dharura?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Ndiyo",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali eleza kama hii ni dharura"
+        },
+        {
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {

@@ -90,6 +90,39 @@
           ]
         },
         {
+          "name": "is_emergency_case",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "is_emergency_case",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Is this an emergency case?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Yes",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "No",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please indicate whether this is an emergency case"
+        },
+        {
           "name": "chw_referral_hf",
           "type": "spinner",
           "meta_data": {

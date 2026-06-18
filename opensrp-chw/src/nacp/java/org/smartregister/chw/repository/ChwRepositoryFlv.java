@@ -167,6 +167,10 @@ public class ChwRepositoryFlv {
                     upgradeToVersion42(db);
                 case 43:
                     upgradeToVersion43(db);
+                    break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
                 default:
                     break;
             }
@@ -962,6 +966,14 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion43");
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        try {
+            db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_IS_EMERGENCY_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44");
         }
     }
 
