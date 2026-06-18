@@ -9,10 +9,10 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
-import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -32,7 +32,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     @Override
     protected void registerPresenter() {
         presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
-                new BaseMotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
+                new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
     }
 
     @Override

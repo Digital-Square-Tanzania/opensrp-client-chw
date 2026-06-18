@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 
 import timber.log.Timber;
@@ -64,6 +67,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (textViewRegisterMotherMentorContact != null) {
             textViewRegisterMotherMentorContact.setVisibility(View.VISIBLE);
         }
+        refreshMedicalHistory(true);
     }
 
     @Override
@@ -94,6 +98,26 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openRecordClientVisit() {
         MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        Visit lastVisit = getLatestMotherMentorVisit();
+        if (lastVisit != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            view_last_visit_row.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
+                    .setText(getString(R.string.view_visits_history));
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+            view_last_visit_row.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -143,6 +167,23 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 memberObject.getGender(),
                 memberObject.getAge(),
                 formName);
+    }
+
+    private Visit getLatestMotherMentorVisit() {
+        Visit serviceVisit = MotherMentorLibrary.getInstance().visitRepository()
+                .getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        Visit contactVisit = MotherMentorLibrary.getInstance().visitRepository()
+                .getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT);
+
+        if (serviceVisit == null) {
+            return contactVisit;
+        }
+
+        if (contactVisit == null || serviceVisit.getDate().after(contactVisit.getDate())) {
+            return serviceVisit;
+        }
+
+        return contactVisit;
     }
 
     @Override

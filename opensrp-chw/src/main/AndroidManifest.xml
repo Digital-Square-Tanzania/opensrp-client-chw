@@ -59,6 +59,9 @@
             android:name=".activity.MotherMentorVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.MotherMentorMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.TbLeprosyContactVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
