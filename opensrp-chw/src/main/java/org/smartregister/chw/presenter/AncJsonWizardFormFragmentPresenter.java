@@ -30,8 +30,6 @@ public class AncJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
 
     private static final String LMP_FIELD = "last_menstrual_period";
     private static final String FIRST_CLINIC_VISIT_FIELD = "first_clinic_visit_date";
-    private static final String INVALID_DATE_FIELD_ERROR = "Invalid date";
-    private static final String INVALID_DATE_SNACKBAR_ERROR = "First ANC visit must be 28+ days after LMP";
     private static final int MINIMUM_DAYS_AFTER_LMP = 28;
 
     public AncJsonWizardFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
@@ -143,8 +141,8 @@ public class AncJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
     }
 
     private void showFieldError() {
-        String fieldError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_error, INVALID_DATE_FIELD_ERROR);
-        String snackBarError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_snackbar_error, INVALID_DATE_SNACKBAR_ERROR);
+        String fieldError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_error, "");
+        String snackBarError = getString(org.smartregister.chw.R.string.invalid_first_clinic_visit_date_snackbar_error, "");
         View fieldView = getFieldView(FIRST_CLINIC_VISIT_FIELD);
         if (fieldView instanceof MaterialEditText) {
             MaterialEditText editText = (MaterialEditText) fieldView;
