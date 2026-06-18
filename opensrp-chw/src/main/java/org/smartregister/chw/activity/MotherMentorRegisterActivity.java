@@ -36,9 +36,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String EVENT_MOTHER_MENTOR_ENROLL_IIT = "Mother Mentor Enroll IIT";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_PARTNER = "Mother Mentor Enroll Partner";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID = "Mother Mentor Enroll Child Eid";
+    private static final String EVENT_MOTHER_MENTOR_MOBILIZATION = "MotherMentor Mobilization Session";
     private static final String TABLE_MOTHERMENTOR_ENROLL_IIT = "ec_mothermentor_enroll_it";
     private static final String TABLE_MOTHERMENTOR_ENROLL_PARTNER = "ec_mothermentor_enroll_partner";
     private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID = "ec_mothermentor_enroll_child_eid";
+    private static final String TABLE_MOTHERMENTOR_MOBILIZATION = "ec_mothermentor_mobilization";
 
     public static void startRegistration(Activity activity, String baseEntityId, String gender,int age) {
         startRegistration(activity, baseEntityId, null, gender, age);
@@ -210,6 +212,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             return TABLE_MOTHERMENTOR_ENROLL_PARTNER;
         } else if (EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID.equals(encounterType)) {
             return TABLE_MOTHERMENTOR_ENROLL_CHILD_EID;
+        } else if (EVENT_MOTHER_MENTOR_MOBILIZATION.equals(encounterType)) {
+            return TABLE_MOTHERMENTOR_MOBILIZATION;
         }
         return null;
     }
