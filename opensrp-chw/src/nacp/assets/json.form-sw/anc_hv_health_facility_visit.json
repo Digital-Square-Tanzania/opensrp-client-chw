@@ -59,44 +59,6 @@
         "text_color": "#000000"
       },
       {
-        "key": "clinic_attendance_intro_1",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "clinic_attendance_intro_1",
-        "type": "label",
-        "text": "KUMBUSHO KWA MJA: Muombe mama kadi ya kliniki.",
-        "text_color": "#000000"
-      },
-      {
-        "key": "first_clinic_visit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "first_clinic_visit",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Je, ulikuwa na ujauzito wa wiki ngapi ulipohudhuria kliniki ya wajawazito kwa mara ya kwanza?",
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Jibu lazima liwe namba kamili"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Jibu lazima liwe namba"
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Jibu la kiwango cha chini"
-        },
-        "v_max": {
-          "value": "40",
-          "err": "Jibu la kiwango cha juu"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Jibu linahitajika"
-        }
-      },
-      {
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

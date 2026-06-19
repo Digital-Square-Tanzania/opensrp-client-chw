@@ -59,44 +59,6 @@
         "text_color": "#000000"
       },
       {
-        "key": "clinic_attendance_intro_1",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "clinic_attendance_intro_1",
-        "type": "label",
-        "text": "Reminder for CHW: Ask pregnant woman for the ANC clinic booklet",
-        "text_color": "#000000"
-      },
-      {
-        "key": "first_clinic_visit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "first_clinic_visit",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "How many weeks pregnant were you when you first received antenatal care for this current pregnancy?",
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Value has to be an integer"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Value has to be a number"
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Value below the minimum"
-        },
-        "v_max": {
-          "value": "40",
-          "err": "Value above the maximum"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Value required"
-        }
-      },
-      {
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

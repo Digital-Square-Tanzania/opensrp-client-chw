@@ -1982,6 +1982,8 @@
     <string name="anc_illness_description">Illness description</string>
     <string name="anc_action_taken">Action taken</string>
     <string name="anc_chw_comment_anc">Remarks / comments</string>
+    <string name="invalid_first_clinic_visit_date_error">Invalid Date</string>
+    <string name="invalid_first_clinic_visit_date_snackbar_error">First ANC visit must be 22+ days after LMP</string>
 
 
 </resources>
