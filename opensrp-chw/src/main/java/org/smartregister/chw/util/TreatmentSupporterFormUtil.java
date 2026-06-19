@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import com.nerdstone.neatformcore.domain.model.NFormViewData;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.TreatmentSupporterDao;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -29,8 +34,79 @@ public class TreatmentSupporterFormUtil {
     @VisibleForTesting
     static final String FIELD_PHONE = "treatment_supporter_phone";
 
+    private static final String TYPE_SPINNER = "spinner";
+    private static final String TYPE_EDIT_TEXT = "text_input_edit_text";
+
     private TreatmentSupporterFormUtil() {
         // utility class
+    }
+
+    /**
+     * Save-time safety net: guarantees the registered caregiver values end up in
+     * the referral event obs even if NeatForm did not capture the values that were
+     * pre-filled at form-launch (see {@link #prefillFromRegistration}).
+     *
+     * <p>Only injects entries that NeatForm did <em>not</em> already produce, so
+     * any value the CHW typed, cleared, or a deliberate "No" on the gate is
+     * respected. No-op when no caregiver is on record. Never throws.
+     *
+     * <p>Call before the form data is converted to obs (e.g. from the issue
+     * referral presenter's {@code saveForm}).
+     */
+    public static void ensureTreatmentSupporterObs(@Nullable String baseEntityId,
+                                                   @Nullable Map<String, NFormViewData> formData) {
+        if (formData == null) {
+            return;
+        }
+        try {
+            TreatmentSupporterDao.Caregiver caregiver =
+                    TreatmentSupporterDao.getRegisteredCaregiver(baseEntityId);
+            if (caregiver == null || !caregiver.isPresent()) {
+                return;
+            }
+
+            boolean gateYes;
+            if (!formData.containsKey(FIELD_GATE)) {
+                formData.put(FIELD_GATE, viewData(TYPE_SPINNER, FIELD_GATE, "Yes"));
+                gateYes = true;
+            } else {
+                gateYes = "Yes".equalsIgnoreCase(stringValue(formData.get(FIELD_GATE)));
+            }
+
+            if (!gateYes) {
+                // CHW explicitly answered "No" — do not persist supporter details.
+                return;
+            }
+            if (isNotBlank(caregiver.getName()) && !formData.containsKey(FIELD_NAME)) {
+                formData.put(FIELD_NAME, viewData(TYPE_EDIT_TEXT, FIELD_NAME, caregiver.getName().trim()));
+            }
+            if (isNotBlank(caregiver.getPhone()) && !formData.containsKey(FIELD_PHONE)) {
+                formData.put(FIELD_PHONE, viewData(TYPE_EDIT_TEXT, FIELD_PHONE, caregiver.getPhone().trim()));
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Failed to ensure treatment supporter obs");
+        }
+    }
+
+    /**
+     * Builds an {@link NFormViewData} carrying the metadata the referral library's
+     * {@code getObs} reads (openmrs_entity / _id / _parent) so the value is emitted
+     * as a proper obs on the Referral Registration event.
+     */
+    @VisibleForTesting
+    static NFormViewData viewData(String type, String conceptId, String value) {
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("openmrs_entity", "concept");
+        metadata.put("openmrs_entity_id", conceptId);
+        metadata.put("openmrs_entity_parent", "");
+        return new NFormViewData(type, value, metadata, true);
+    }
+
+    private static String stringValue(@Nullable NFormViewData data) {
+        if (data == null || data.getValue() == null) {
+            return null;
+        }
+        return String.valueOf(data.getValue());
     }
 
     /**

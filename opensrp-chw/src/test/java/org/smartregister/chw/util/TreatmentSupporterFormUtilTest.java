@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import com.nerdstone.neatformcore.domain.model.NFormViewData;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -8,6 +10,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.TreatmentSupporterDao;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 28)
@@ -123,6 +128,40 @@ public class TreatmentSupporterFormUtilTest {
         TreatmentSupporterFormUtil.prefillFromRegistration("no-such-entity", form);
 
         Assert.assertEquals(before, form.toString());
+    }
+
+    // ----- ensureTreatmentSupporterObs (save-time safety net) -----
+
+    @Test
+    public void viewDataCarriesObsMetadata() {
+        NFormViewData data = TreatmentSupporterFormUtil.viewData(
+                "text_input_edit_text", "treatment_supporter_name", "Jane Doe");
+
+        Assert.assertEquals("Jane Doe", data.getValue());
+        Assert.assertEquals("text_input_edit_text", data.getType());
+        Map<String, Object> meta = data.getMetadata();
+        Assert.assertEquals("concept", meta.get("openmrs_entity"));
+        Assert.assertEquals("treatment_supporter_name", meta.get("openmrs_entity_id"));
+        Assert.assertEquals("", meta.get("openmrs_entity_parent"));
+        Assert.assertTrue(data.getVisible());
+    }
+
+    @Test
+    public void ensureObsHandlesNullMap() {
+        // must not throw
+        TreatmentSupporterFormUtil.ensureTreatmentSupporterObs("abc-123", null);
+    }
+
+    @Test
+    public void ensureObsLeavesMapUnchangedWhenNoRegistrationData() {
+        // No matching row in the (mocked) test DB => no caregiver => map untouched.
+        Map<String, NFormViewData> formData = new HashMap<>();
+        formData.put("problem", TreatmentSupporterFormUtil.viewData("multi", "problem", "fever"));
+
+        TreatmentSupporterFormUtil.ensureTreatmentSupporterObs("no-such-entity", formData);
+
+        Assert.assertEquals(1, formData.size());
+        Assert.assertFalse(formData.containsKey(TreatmentSupporterFormUtil.FIELD_GATE));
     }
 
     // ----- Caregiver.isPresent() -----
