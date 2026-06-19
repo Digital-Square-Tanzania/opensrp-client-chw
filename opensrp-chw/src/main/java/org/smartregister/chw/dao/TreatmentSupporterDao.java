@@ -24,13 +24,15 @@ public class TreatmentSupporterDao extends AbstractDao {
             return null;
         }
 
-        String sql = "SELECT has_primary_caregiver, primary_caregiver_name, other_phone_number" +
+        String sql = "SELECT has_primary_caregiver, primary_caregiver_name, other_phone_number," +
+                " caregiver_relationship" +
                 " FROM ec_family_member WHERE base_entity_id = '" + baseEntityId + "' LIMIT 1";
 
         DataMap<Caregiver> dataMap = cursor -> new Caregiver(
                 getCursorValue(cursor, "has_primary_caregiver"),
                 getCursorValue(cursor, "primary_caregiver_name"),
-                getCursorValue(cursor, "other_phone_number")
+                getCursorValue(cursor, "other_phone_number"),
+                getCursorValue(cursor, "caregiver_relationship")
         );
 
         List<Caregiver> result = readData(sql, dataMap);
@@ -47,11 +49,13 @@ public class TreatmentSupporterDao extends AbstractDao {
         private final String hasCaregiver;
         private final String name;
         private final String phone;
+        private final String relationship;
 
-        public Caregiver(String hasCaregiver, String name, String phone) {
+        public Caregiver(String hasCaregiver, String name, String phone, String relationship) {
             this.hasCaregiver = hasCaregiver;
             this.name = name;
             this.phone = phone;
+            this.relationship = relationship;
         }
 
         public String getHasCaregiver() {
@@ -66,14 +70,19 @@ public class TreatmentSupporterDao extends AbstractDao {
             return phone;
         }
 
+        public String getRelationship() {
+            return relationship;
+        }
+
         /**
          * A caregiver is considered present when registration explicitly recorded
-         * "Yes", or when a name/phone was captured.
+         * "Yes", or when a name/phone/relationship was captured.
          */
         public boolean isPresent() {
             return "Yes".equalsIgnoreCase(trim(hasCaregiver))
                     || !isBlank(name)
-                    || !isBlank(phone);
+                    || !isBlank(phone)
+                    || !isBlank(relationship);
         }
 
         private static String trim(String value) {

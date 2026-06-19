@@ -67,37 +67,48 @@ public class TreatmentSupporterFormUtilTest {
     // ----- injectValues (pure JSON) -----
 
     @Test
-    public void injectValuesSetsGateNameAndPhone() throws Exception {
+    public void injectValuesSetsGateNamePhoneAndRelationship() throws Exception {
         JSONObject form = referralFormWithSection();
 
-        TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678");
+        TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678", "Mother");
 
         Assert.assertEquals("Yes", prop(form, TreatmentSupporterFormUtil.FIELD_GATE, "selection"));
         Assert.assertEquals("Jane Doe", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertEquals("0712345678", prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
-        // relationship must remain blank — never pre-filled
-        Assert.assertNull(prop(form, "treatment_supporter_relationship", "text"));
+        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
     }
 
     @Test
-    public void injectValuesSetsGateEvenWhenNameAndPhoneBlank() throws Exception {
+    public void injectValuesLeavesRelationshipBlankWhenNotRecorded() throws Exception {
         JSONObject form = referralFormWithSection();
 
-        TreatmentSupporterFormUtil.injectValues(form, "  ", null);
+        TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678", null);
+
+        Assert.assertEquals("Jane Doe", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
+        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
+    }
+
+    @Test
+    public void injectValuesSetsGateEvenWhenDetailsBlank() throws Exception {
+        JSONObject form = referralFormWithSection();
+
+        TreatmentSupporterFormUtil.injectValues(form, "  ", null, "  ");
 
         Assert.assertEquals("Yes", prop(form, TreatmentSupporterFormUtil.FIELD_GATE, "selection"));
         Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
+        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
     }
 
     @Test
     public void injectValuesTrimsValues() throws Exception {
         JSONObject form = referralFormWithSection();
 
-        TreatmentSupporterFormUtil.injectValues(form, "  Jane  ", "  0712  ");
+        TreatmentSupporterFormUtil.injectValues(form, "  Jane  ", "  0712  ", "  Mother  ");
 
         Assert.assertEquals("Jane", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertEquals("0712", prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
+        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
     }
 
     @Test
@@ -105,7 +116,7 @@ public class TreatmentSupporterFormUtilTest {
         JSONObject form = referralFormWithoutSection();
         String before = form.toString();
 
-        TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678");
+        TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678", "Mother");
 
         Assert.assertEquals(before, form.toString());
     }
@@ -168,10 +179,11 @@ public class TreatmentSupporterFormUtilTest {
 
     @Test
     public void caregiverIsPresentLogic() {
-        Assert.assertTrue(new TreatmentSupporterDao.Caregiver("Yes", null, null).isPresent());
-        Assert.assertTrue(new TreatmentSupporterDao.Caregiver(null, "Jane", null).isPresent());
-        Assert.assertTrue(new TreatmentSupporterDao.Caregiver(null, null, "0712").isPresent());
-        Assert.assertFalse(new TreatmentSupporterDao.Caregiver("No", null, null).isPresent());
-        Assert.assertFalse(new TreatmentSupporterDao.Caregiver(null, "  ", "  ").isPresent());
+        Assert.assertTrue(new TreatmentSupporterDao.Caregiver("Yes", null, null, null).isPresent());
+        Assert.assertTrue(new TreatmentSupporterDao.Caregiver(null, "Jane", null, null).isPresent());
+        Assert.assertTrue(new TreatmentSupporterDao.Caregiver(null, null, "0712", null).isPresent());
+        Assert.assertTrue(new TreatmentSupporterDao.Caregiver(null, null, null, "Mother").isPresent());
+        Assert.assertFalse(new TreatmentSupporterDao.Caregiver("No", null, null, null).isPresent());
+        Assert.assertFalse(new TreatmentSupporterDao.Caregiver(null, "  ", "  ", "  ").isPresent());
     }
 }

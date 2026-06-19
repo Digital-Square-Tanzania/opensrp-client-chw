@@ -33,6 +33,8 @@ public class TreatmentSupporterFormUtil {
     static final String FIELD_NAME = "treatment_supporter_name";
     @VisibleForTesting
     static final String FIELD_PHONE = "treatment_supporter_phone";
+    @VisibleForTesting
+    static final String FIELD_RELATIONSHIP = "treatment_supporter_relationship";
 
     private static final String TYPE_SPINNER = "spinner";
     private static final String TYPE_EDIT_TEXT = "text_input_edit_text";
@@ -83,6 +85,10 @@ public class TreatmentSupporterFormUtil {
             if (isNotBlank(caregiver.getPhone()) && !formData.containsKey(FIELD_PHONE)) {
                 formData.put(FIELD_PHONE, viewData(TYPE_EDIT_TEXT, FIELD_PHONE, caregiver.getPhone().trim()));
             }
+            if (isNotBlank(caregiver.getRelationship()) && !formData.containsKey(FIELD_RELATIONSHIP)) {
+                formData.put(FIELD_RELATIONSHIP,
+                        viewData(TYPE_EDIT_TEXT, FIELD_RELATIONSHIP, caregiver.getRelationship().trim()));
+            }
         } catch (Exception e) {
             Timber.e(e, "Failed to ensure treatment supporter obs");
         }
@@ -123,20 +129,20 @@ public class TreatmentSupporterFormUtil {
             if (caregiver == null || !caregiver.isPresent()) {
                 return;
             }
-            injectValues(form, caregiver.getName(), caregiver.getPhone());
+            injectValues(form, caregiver.getName(), caregiver.getPhone(), caregiver.getRelationship());
         } catch (Exception e) {
             Timber.e(e, "Failed to pre-fill treatment supporter from registration");
         }
     }
 
     /**
-     * Pre-selects the gate to "Yes" and sets the supporter name/phone as the
-     * fields' initial editable values. Relationship is intentionally left blank
-     * (it is not captured at registration). Returns silently if the form does not
+     * Pre-selects the gate to "Yes" and sets the supporter name/phone/relationship
+     * as the fields' initial editable values. Returns silently if the form does not
      * contain the treatment-supporter fields.
      */
     @VisibleForTesting
-    static void injectValues(@NonNull JSONObject form, @Nullable String name, @Nullable String phone) {
+    static void injectValues(@NonNull JSONObject form, @Nullable String name, @Nullable String phone,
+                             @Nullable String relationship) {
         JSONArray fields = getFirstStepFields(form);
         if (fields == null) {
             return;
@@ -162,6 +168,11 @@ public class TreatmentSupporterFormUtil {
                 case FIELD_PHONE:
                     if (isNotBlank(phone)) {
                         setProperty(field, "text", phone.trim());
+                    }
+                    break;
+                case FIELD_RELATIONSHIP:
+                    if (isNotBlank(relationship)) {
+                        setProperty(field, "text", relationship.trim());
                     }
                     break;
                 default:
