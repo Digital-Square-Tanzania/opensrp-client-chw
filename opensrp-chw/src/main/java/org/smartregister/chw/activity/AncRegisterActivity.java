@@ -27,7 +27,6 @@ import org.smartregister.chw.fragment.AncPartnerFollowupRegisterFragment;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -100,7 +99,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity implements Bott
 
             FormUtils.updateFormField(jsonArray, values);
 
-            Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+            Intent intent = new Intent(this, AncJsonWizardFormActivity.class);
             intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
             Form form = new Form();
