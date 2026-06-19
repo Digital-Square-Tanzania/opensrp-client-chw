@@ -30,7 +30,7 @@ public class AncJsonWizardFormFragmentPresenter extends JsonWizardFormFragmentPr
 
     private static final String LMP_FIELD = "last_menstrual_period";
     private static final String FIRST_CLINIC_VISIT_FIELD = "first_clinic_visit_date";
-    private static final int MINIMUM_DAYS_AFTER_LMP = 28;
+    private static final int MINIMUM_DAYS_AFTER_LMP = 22;
 
     public AncJsonWizardFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);

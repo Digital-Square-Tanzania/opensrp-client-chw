@@ -1831,6 +1831,6 @@
     <string name="anc_action_taken">Hatua iliyochukuliwa</string>
     <string name="anc_chw_comment_anc">Maoni</string>
     <string name="invalid_first_clinic_visit_date_error">Tarehe Sio Sahihi</string>
-    <string name="invalid_first_clinic_visit_date_snackbar_error">Hudhurio la kwanza la ujauzito lazima liwe angalau siku 28 baada ya tarehe ya hedhi ya mwisho.</string>
+    <string name="invalid_first_clinic_visit_date_snackbar_error">Hudhurio la kwanza la ujauzito lazima liwe angalau siku 22 baada ya tarehe ya hedhi ya mwisho.</string>
 
 </resources>
