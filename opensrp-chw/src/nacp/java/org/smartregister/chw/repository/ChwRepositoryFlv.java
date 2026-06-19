@@ -171,6 +171,9 @@ public class ChwRepositoryFlv {
                 case 44:
                     upgradeToVersion44(db);
                     break;
+                case 45:
+                    upgradeToVersion45(db);
+                    break;
                 default:
                     break;
             }
@@ -974,6 +977,20 @@ public class ChwRepositoryFlv {
             db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_IS_EMERGENCY_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion44");
+        }
+    }
+
+    /**
+     * Adds the caregiver_relationship column captured at client registration so it
+     * can be pulled to pre-populate referral forms. Idempotent: the ALTER fails
+     * harmlessly if the column was already added on the merging-apks-ncd line
+     * (where it ships as part of upgradeToVersion43).
+     */
+    private static void upgradeToVersion45(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion45-add-caregiver-relationship");
         }
     }
 
