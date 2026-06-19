@@ -39,3 +39,6 @@ notifications/
 
 # Kotlin build output (e.g. .kotlin/errors/*.log)
 .kotlin/
+
+# Local spec-driven dev tracker (not for GitHub)
+TASKS.md
