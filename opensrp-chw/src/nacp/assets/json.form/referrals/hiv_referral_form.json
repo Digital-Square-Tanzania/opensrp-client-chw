@@ -265,6 +265,81 @@
           "subjects": "service_before_referral:map"
         },
         {
+          "name": "has_treatment_supporter",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_treatment_supporter",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Do you have a caregiver/Treatment supporter?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Yes",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "No",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select one"
+        },
+        {
+          "name": "treatment_supporter_name",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_name",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Name of Treatment Supporter/Caregiver",
+            "type": "name"
+          },
+          "required_status": "true:Please specify the treatment supporter name"
+        },
+        {
+          "name": "treatment_supporter_phone",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_phone",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Treatment Supporter Phone Number",
+            "type": "phone"
+          },
+          "required_status": "false"
+        },
+        {
+          "name": "treatment_supporter_relationship",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_relationship",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Relationship to Client",
+            "type": "name"
+          },
+          "required_status": "true:Please specify the relationship to client"
+        },
+        {
           "name": "chw_referral_hf",
           "type": "spinner",
           "meta_data": {

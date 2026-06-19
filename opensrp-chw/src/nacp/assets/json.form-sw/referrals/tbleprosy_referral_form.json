@@ -257,6 +257,81 @@
           "subjects": "client_reason_for_referral:map, sample_reason_for_referral:map"
         },
         {
+          "name": "has_treatment_supporter",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_treatment_supporter",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Je, una mlezi/msaidizi wa matibabu?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Ndio",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali chagua moja"
+        },
+        {
+          "name": "treatment_supporter_name",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_name",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Jina la Mlezi/Msaidizi wa Matibabu",
+            "type": "name"
+          },
+          "required_status": "true:Tafadhali andika jina la msaidizi wa matibabu"
+        },
+        {
+          "name": "treatment_supporter_phone",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_phone",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Namba ya Simu ya Msaidizi wa Matibabu",
+            "type": "phone"
+          },
+          "required_status": "false"
+        },
+        {
+          "name": "treatment_supporter_relationship",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_relationship",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Uhusiano na Mpokea Huduma",
+            "type": "name"
+          },
+          "required_status": "true:Tafadhali andika uhusiano na mpokea huduma"
+        },
+        {
           "name": "chw_referral_hf",
           "type": "spinner",
           "meta_data": {

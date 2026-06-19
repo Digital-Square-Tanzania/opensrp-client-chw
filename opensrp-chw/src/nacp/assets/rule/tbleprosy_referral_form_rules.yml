@@ -59,3 +59,24 @@ priority: 1
 condition: "true"
 actions:
   - "problem_calculation = (referral_type['client'] != null) ? ((client_reason_for_referral != null && !client_reason_for_referral.isEmpty()) ? client_reason_for_referral : null) : (referral_type['sample'] != null) ? ((sample_reason_for_referral != null && !sample_reason_for_referral.isEmpty()) ? sample_reason_for_referral : null) : null"
+---
+name: "treatment_supporter_name_visibility"
+description: "Show treatment supporter name when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter == 'Yes'"
+actions:
+  - "treatment_supporter_name_visibility = true"
+---
+name: "treatment_supporter_phone_visibility"
+description: "Show treatment supporter phone when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter == 'Yes'"
+actions:
+  - "treatment_supporter_phone_visibility = true"
+---
+name: "treatment_supporter_relationship_visibility"
+description: "Show treatment supporter relationship when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter == 'Yes'"
+actions:
+  - "treatment_supporter_relationship_visibility = true"
