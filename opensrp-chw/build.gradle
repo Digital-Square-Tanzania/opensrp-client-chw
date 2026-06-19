@@ -327,33 +327,6 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-
-    // Direct override so the emergency-case referral changes (is_emergency_case) are picked up.
-    // Overrides the version pulled transitively via chw-core. Resolved from mavenLocal first.
-    // Mirrors chw-core's excludes so transitive deps (e.g. materialedittext) don't duplicate.
-    implementation('org.smartregister:opensrp-client-chw-referral:1.3.23-NACP-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'androidx.legacy', module: 'legacy-support-v4'
-        exclude group: 'androidx.appcompat', module: 'appcompat'
-        exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
-        exclude group: 'com.google.guava', module: 'guava'
-        exclude group: 'com.mcxiaoke.volley', module: 'library'
-        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-        exclude group: 'com.github.chivorns.androidx', module: 'smartmaterialspinner'
-        exclude group: 'com.github.stephenc.jcip', module: 'jcip-annotations'
-        exclude group: 'com.ibm.fhir', module: 'fhir-model'
-        exclude group: 'com.ibm.fhir', module: 'fhir-path'
-        exclude group: 'com.emredavarci', module: 'circleprogressbar'
-        exclude group: 'jakarta.activation', module: 'jakarta.activation-api'
-        exclude group: 'jakarta.xml.bind', module: 'jakarta.xml.bind-api'
-        exclude group: 'org.koin'
-        exclude group: "com.google.guava", module: 'listenablefuture'
-        exclude group: "javax.xml.bind", module: "jaxb-api"
-        exclude group: 'com.github.lecho', module: 'hellocharts-library'
-    }
-
     implementation('org.smartregister:opensrp-client-chw-core:2.1.1-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
