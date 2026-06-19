@@ -623,6 +623,32 @@
         }
       },
       {
+        "key": "is_emergency_case",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_emergency_case",
+        "type": "spinner",
+        "openmrs_data_type": "select one",
+        "hint": "Is this an emergency case?",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether this is an emergency case"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "service_before_referral",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
