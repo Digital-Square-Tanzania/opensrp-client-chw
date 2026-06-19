@@ -619,7 +619,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)),"Calculation",metaData("concept", "referral_appointment_date", "")));
 
             formData.put("referral_status", createFormViewData("PENDING", "Calculation", null));
-            String isEmergencyCase = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "is_emergency_case");
+            String isEmergencyCase = JsonFormUtils.getValue(new JSONObject(jsonForm), "is_emergency_case");
             if (isEmergencyCase != null && !isEmergencyCase.isEmpty()) {
                 formData.put("is_emergency_case", createFormViewData(isEmergencyCase, null, metaData("concept", "is_emergency_case", "")));
             }
