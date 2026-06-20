@@ -3,7 +3,9 @@ package org.smartregister.chw.activity;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.Menu;
 
 import androidx.annotation.MenuRes;
@@ -13,11 +15,13 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -25,6 +29,9 @@ import org.smartregister.chw.fragment.MotherMentorContactRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorMobilizationFragment;
 import org.smartregister.chw.fragment.MotherMentorRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentsFragment;
+import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -41,6 +48,16 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String TABLE_MOTHERMENTOR_ENROLL_PARTNER = "ec_mothermentor_enroll_partner";
     private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID = "ec_mothermentor_enroll_child_eid";
     private static final String TABLE_MOTHERMENTOR_MOBILIZATION = "ec_mothermentor_mobilization";
+    private static final String FIELD_SH_TAREHE = "sh_tarehe";
+    private static final String FIELD_SH_AINA = "sh_aina";
+    private static final String FIELD_SH_AINA_OTHER = "sh_aina_other";
+    private static final String FIELD_GPS = "gps";
+    private static final String FIELD_SH_MADA = "sh_mada";
+    private static final String FIELD_SH_MADA_OTHER = "sh_mada_other";
+    private static final String FIELD_ELIM_M = "elim_m";
+    private static final String FIELD_ELIM_F = "elim_f";
+    private static final String FIELD_ELIM_TOTAL = "elim_total";
+    private static final String FIELD_MAONI = "maoni";
 
     public static void startRegistration(Activity activity, String baseEntityId, String gender,int age) {
         startRegistration(activity, baseEntityId, null, gender, age);
@@ -222,9 +239,102 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         updateRelationalId(form);
         org.smartregister.repository.AllSharedPreferences allSharedPreferences =
                 org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance().context().allSharedPreferences();
-        org.smartregister.clientandeventmodel.Event event =
-                org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(allSharedPreferences, form.toString(), tableName);
+        Event event = org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(allSharedPreferences, form.toString(), tableName);
         org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(allSharedPreferences, event);
+        if (TABLE_MOTHERMENTOR_MOBILIZATION.equals(tableName)) {
+            saveMotherMentorMobilizationSession(event);
+        }
+    }
+
+    private void saveMotherMentorMobilizationSession(Event event) {
+        if (event == null) {
+            return;
+        }
+
+        ContentValues values = new ContentValues();
+        String shTarehe = getObsValue(event, FIELD_SH_TAREHE, false);
+        String shAina = getObsValue(event, FIELD_SH_AINA, false);
+        String shMada = getObsValue(event, FIELD_SH_MADA, true);
+        String elimM = getObsValue(event, FIELD_ELIM_M, false);
+        String elimF = getObsValue(event, FIELD_ELIM_F, false);
+
+        values.put("id", event.getBaseEntityId());
+        values.put("base_entity_id", event.getBaseEntityId());
+        values.put(FIELD_SH_TAREHE, shTarehe);
+        values.put(FIELD_SH_AINA, shAina);
+        values.put(FIELD_SH_AINA_OTHER, getObsValue(event, FIELD_SH_AINA_OTHER, false));
+        values.put(FIELD_GPS, getObsValue(event, FIELD_GPS, false));
+        values.put(FIELD_SH_MADA, shMada);
+        values.put(FIELD_SH_MADA_OTHER, getObsValue(event, FIELD_SH_MADA_OTHER, false));
+        values.put(FIELD_ELIM_M, elimM);
+        values.put(FIELD_ELIM_F, elimF);
+        values.put(FIELD_ELIM_TOTAL, getObsValue(event, FIELD_ELIM_TOTAL, false));
+        values.put(FIELD_MAONI, getObsValue(event, FIELD_MAONI, false));
+        values.put("mobilization_date", shTarehe);
+        values.put("mobilization_area", shAina);
+        values.put("other_mobilization_area", getObsValue(event, FIELD_SH_AINA_OTHER, false));
+        values.put("mobilization_topics", shMada);
+        values.put("male_clients_reached", elimM);
+        values.put("female_clients_reached", elimF);
+        long lastInteractedWith = event.getVersion() > 0 ? event.getVersion() : System.currentTimeMillis();
+        values.put("last_interacted_with", lastInteractedWith);
+
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
+            ensureMotherMentorMobilizationColumns(db);
+            db.insertWithOnConflict(TABLE_MOTHERMENTOR_MOBILIZATION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        } catch (Exception e) {
+            Timber.e(e, "Unable to save Mother Mentor mobilization session row");
+        }
+    }
+
+    private void ensureMotherMentorMobilizationColumns(SQLiteDatabase db) {
+        addColumnIfMissing(db, FIELD_SH_TAREHE);
+        addColumnIfMissing(db, FIELD_SH_AINA);
+        addColumnIfMissing(db, FIELD_SH_AINA_OTHER);
+        addColumnIfMissing(db, FIELD_SH_MADA);
+        addColumnIfMissing(db, FIELD_SH_MADA_OTHER);
+        addColumnIfMissing(db, FIELD_ELIM_M);
+        addColumnIfMissing(db, FIELD_ELIM_F);
+        addColumnIfMissing(db, FIELD_ELIM_TOTAL);
+        addColumnIfMissing(db, FIELD_MAONI);
+    }
+
+    private void addColumnIfMissing(SQLiteDatabase db, String column) {
+        if (hasColumn(db, column)) {
+            return;
+        }
+        db.execSQL("ALTER TABLE " + TABLE_MOTHERMENTOR_MOBILIZATION + " ADD COLUMN " + column + " VARCHAR;");
+    }
+
+    private boolean hasColumn(SQLiteDatabase db, String column) {
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(" + TABLE_MOTHERMENTOR_MOBILIZATION + ")", null)) {
+            while (cursor.moveToNext()) {
+                String columnName = cursor.getString(cursor.getColumnIndex("name"));
+                if (column.equals(columnName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private String getObsValue(Event event, String key, boolean preferValues) {
+        if (event.getObs() == null) {
+            return null;
+        }
+
+        for (Obs obs : event.getObs()) {
+            if (!key.equals(obs.getFormSubmissionField())) {
+                continue;
+            }
+            if (preferValues && obs.getValues() != null && !obs.getValues().isEmpty()) {
+                return obs.getValues().toString();
+            }
+            Object value = obs.getValue();
+            return value == null ? null : String.valueOf(value);
+        }
+        return null;
     }
 
     private void updateRelationalId(JSONObject form) throws JSONException {
