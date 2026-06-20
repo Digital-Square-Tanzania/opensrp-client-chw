@@ -1,0 +1,169 @@
+{
+  "count": "1",
+  "encounter_type": "NCD Monthly Follow-Up",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Hali ya Ufuatiliaji",
+    "fields": [
+      {
+        "key": "client_follow_up_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_follow_up_status",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Chagua hali ya mpokea huduma",
+        "options": [
+          {
+            "key": "currently_in_service",
+            "text": "Anaendelea na huduma",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "currently_in_service"
+          },
+          {
+            "key": "not_in_service",
+            "text": "Hapokei huduma",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_in_service"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua hali ya ufuatiliaji ya mpokea huduma"
+        }
+      },
+      {
+        "key": "reason_for_not_receiving_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_for_not_receiving_service",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Sababu ya kutokupokea huduma",
+        "options": [
+          {
+            "key": "moved_to_another_location",
+            "text": "Amehama kwenda eneo jingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "moved_to_another_location"
+          },
+          {
+            "key": "deceased",
+            "text": "Amefariki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deceased"
+          },
+          {
+            "key": "lost_to_follow_up",
+            "text": "Amepotea",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lost_to_follow_up"
+          },
+          {
+            "key": "other",
+            "text": "Nyingine (Taja)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu ya kutokupokea huduma"
+        },
+        "relevance": {
+          "step1:client_follow_up_status": {
+            "type": "string",
+            "ex": "equalTo(., \"not_in_service\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_for_not_receiving_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_for_not_receiving_service",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja sababu nyingine"
+        },
+        "relevance": {
+          "step1:reason_for_not_receiving_service": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
+        "key": "date_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_death",
+        "type": "date_picker",
+        "hint": "Tarehe ya kifo",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua tarehe ya kifo"
+        },
+        "relevance": {
+          "step1:reason_for_not_receiving_service": {
+            "type": "string",
+            "ex": "equalTo(., \"deceased\")"
+          }
+        }
+      }
+    ]
+  }
+}

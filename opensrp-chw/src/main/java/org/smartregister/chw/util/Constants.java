@@ -158,6 +158,7 @@ public class Constants extends CoreConstants {
         public static final String DIABETES_FOLLOWUP_FORM = "diabetes_hypertension_followup_form";
         public static final String NCD_VITALS_FORM = "record_diabetes_hypertension_vital_form";
         public static final String NCD_CLIENT_EDUCATION_FORM = "ncd_client_education_form";
+        public static final String NCD_FOLLOWUP_STATUS = "ncd_followup_status";
         public static final String NCD_FOLLOWUP_CLINICAL_ADHERENCE = "ncd_followup_clinical_adherence";
         public static final String NCD_FOLLOWUP_DANGER_SIGNS = "ncd_followup_danger_signs";
         public static final String NCD_FOLLOWUP_LIFESTYLE = "ncd_followup_lifestyle";

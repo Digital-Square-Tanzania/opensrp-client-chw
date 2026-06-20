@@ -4,6 +4,7 @@ import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_CLINICA
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_DANGER_SIGNS;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_LIFESTYLE;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_PSYCHOSOCIAL;
+import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_STATUS;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_VITALS_FORM;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.NcdClinicalAdherenceActionHelper;
 import org.smartregister.chw.actionhelper.NcdDangerSignsActionHelper;
+import org.smartregister.chw.actionhelper.NcdFollowUpStatusActionHelper;
 import org.smartregister.chw.actionhelper.NcdLifestyleActionHelper;
 import org.smartregister.chw.actionhelper.NcdPsychosocialActionHelper;
 import org.smartregister.chw.actionhelper.NcdVitalsActionHelper;
@@ -66,6 +68,11 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
             try {
                 boolean unresolvedRed = checkUnresolvedRedAlert();
 
+                BaseNcdVisitAction followUpStatus = buildAction(
+                        context.getString(R.string.ncd_followup_action_status),
+                        NCD_FOLLOWUP_STATUS,
+                        new NcdFollowUpStatusActionHelper());
+
                 NcdDangerSignsActionHelper dangerSignsHelper = new NcdDangerSignsActionHelper();
                 if (unresolvedRed) {
                     dangerSignsHelper.setUnresolvedRedAlert(true);
@@ -96,6 +103,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                         NCD_FOLLOWUP_PSYCHOSOCIAL,
                         new NcdPsychosocialActionHelper());
 
+                actionMap.put(context.getString(R.string.ncd_followup_action_status), followUpStatus);
                 actionMap.put(context.getString(R.string.ncd_followup_action_vitals), vitals);
                 actionMap.put(context.getString(R.string.ncd_followup_action_clinical_adherence), clinicalAdherence);
                 actionMap.put(context.getString(R.string.ncd_followup_action_danger_signs), dangerSigns);
@@ -124,6 +132,22 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     protected String submitVisit(boolean editMode, String memberID,
                                  Map<String, BaseNcdVisitAction> map,
                                  String parentEventType) throws Exception {
+        BaseNcdVisitAction followUpStatusAction = findActionByFormName(map, NCD_FOLLOWUP_STATUS);
+        if (followUpStatusAction != null) {
+            followUpStatusAction.setJsonPayload(
+                    NcdFollowUpStatusActionHelper.clearIrrelevantValues(
+                            followUpStatusAction.getJsonPayload()));
+        }
+        lastSubmittedFollowUpStatus = followUpStatusAction == null ? null
+                : NcdFollowUpStatusActionHelper.extractValue(
+                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_STATUS);
+        lastSubmittedInactiveReason = followUpStatusAction == null ? null
+                : NcdFollowUpStatusActionHelper.extractValue(
+                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_REASON);
+        lastSubmittedDateOfDeath = followUpStatusAction == null ? null
+                : NcdFollowUpStatusActionHelper.extractValue(
+                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_DATE_OF_DEATH);
+
         // Compute alert status and stage pending referral before forms are combined into one event
         computeAndInjectAlertStatus(map);
 
@@ -152,11 +176,27 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
 
     private PendingNcdReferral pendingReferral = null;
 
+    private String lastSubmittedFollowUpStatus;
+    private String lastSubmittedInactiveReason;
+    private String lastSubmittedDateOfDeath;
+
     private String lastComputedAlertStatus = ALERT_NONE;
     private boolean lastHasSideEffects = false;
     private boolean lastHasMissedClinic = false;
     private String lastVitalsAlertReason = null;
     private final List<String> lastReferralReasons = new ArrayList<>();
+
+    public String getLastSubmittedFollowUpStatus() {
+        return lastSubmittedFollowUpStatus;
+    }
+
+    public String getLastSubmittedInactiveReason() {
+        return lastSubmittedInactiveReason;
+    }
+
+    public String getLastSubmittedDateOfDeath() {
+        return lastSubmittedDateOfDeath;
+    }
 
     private void computeAndInjectAlertStatus(Map<String, BaseNcdVisitAction> map) {
         BaseNcdVisitAction dangerSignsAction = findActionByFormName(map, NCD_FOLLOWUP_DANGER_SIGNS);
