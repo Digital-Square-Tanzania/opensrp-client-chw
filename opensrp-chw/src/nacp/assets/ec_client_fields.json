@@ -362,6 +362,14 @@
           }
         },
         {
+          "column_name": "caregiver_relationship",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "caregiver_relationship"
+          }
+        },
+        {
           "column_name": "marital_status",
           "type": "Event",
           "json_mapping": {
