@@ -25,9 +25,7 @@ public class NcdFollowUpStatusActionHelper implements BaseNcdVisitAction.NcdVisi
     public static final String STATUS_ACTIVE = "currently_in_service";
     public static final String STATUS_INACTIVE = "not_in_service";
 
-    public static final String REASON_MOVED = "moved_to_another_location";
     public static final String REASON_DECEASED = "deceased";
-    public static final String REASON_LOST_TO_FOLLOW_UP = "lost_to_follow_up";
     public static final String REASON_OTHER = "other";
 
     private static final String STEP_ONE = "step1";

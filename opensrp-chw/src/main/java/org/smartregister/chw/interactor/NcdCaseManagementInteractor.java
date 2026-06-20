@@ -122,7 +122,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     /**
      * Computes alert status from action payloads and injects it before the combined event is saved.
      * With COMBINED processing mode, all fields land in one event/row.
-     *
      * Phase 2: referral creation is no longer invoked inline. Instead, when the visit raises a
      * non-NONE alert, a {@link PendingNcdReferral} is staged on this interactor and the
      * VisitActivity reads it after submission to prompt the CHW for confirmation. Only the
