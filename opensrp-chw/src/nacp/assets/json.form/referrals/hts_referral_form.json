@@ -233,17 +233,181 @@
         },
         {
           "name": "treatment_supporter_relationship",
-          "type": "text_input_edit_text",
+          "type": "spinner",
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "treatment_supporter_relationship",
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "hint": "Relationship to Client",
-            "type": "name"
+            "text": "Relationship to Client",
+            "searchable": "Relationship to Client"
           },
-          "required_status": "true:Please specify the relationship to client"
+          "options": [
+            {
+              "name": "Mother",
+              "text": "Mother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Mother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Father",
+              "text": "Father",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Father",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Brother",
+              "text": "Brother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Brother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Sister",
+              "text": "Sister",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Sister",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Grandfather",
+              "text": "Grandfather",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Grandfather",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Grandmother",
+              "text": "Grandmother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Grandmother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Friend",
+              "text": "Friend",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Friend",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Uncle",
+              "text": "Uncle",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Uncle",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Aunt",
+              "text": "Aunt",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Aunt",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Police",
+              "text": "Police",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Police",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Guardian",
+              "text": "Guardian",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Guardian",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Son",
+              "text": "Son",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Son",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Daughter",
+              "text": "Daughter",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Daughter",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Work Colleague",
+              "text": "Work Colleague",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Work Colleague",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Brother in Law",
+              "text": "Brother in Law",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Brother in Law",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Sister in Law",
+              "text": "Sister in Law",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Sister in Law",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Wife",
+              "text": "Wife",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Wife",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Husband",
+              "text": "Husband",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Husband",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select the relationship to client"
         },
         {
           "name": "chw_referral_hf",

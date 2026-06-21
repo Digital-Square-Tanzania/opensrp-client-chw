@@ -75,7 +75,7 @@ public class TreatmentSupporterFormUtilTest {
         Assert.assertEquals("Yes", prop(form, TreatmentSupporterFormUtil.FIELD_GATE, "selection"));
         Assert.assertEquals("Jane Doe", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertEquals("0712345678", prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
-        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
+        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "selection"));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class TreatmentSupporterFormUtilTest {
         TreatmentSupporterFormUtil.injectValues(form, "Jane Doe", "0712345678", null);
 
         Assert.assertEquals("Jane Doe", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
-        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
+        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "selection"));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class TreatmentSupporterFormUtilTest {
         Assert.assertEquals("Yes", prop(form, TreatmentSupporterFormUtil.FIELD_GATE, "selection"));
         Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
-        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
+        Assert.assertNull(prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "selection"));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class TreatmentSupporterFormUtilTest {
 
         Assert.assertEquals("Jane", prop(form, TreatmentSupporterFormUtil.FIELD_NAME, "text"));
         Assert.assertEquals("0712", prop(form, TreatmentSupporterFormUtil.FIELD_PHONE, "text"));
-        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "text"));
+        Assert.assertEquals("Mother", prop(form, TreatmentSupporterFormUtil.FIELD_RELATIONSHIP, "selection"));
     }
 
     @Test

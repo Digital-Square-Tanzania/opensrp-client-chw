@@ -87,7 +87,7 @@ public class TreatmentSupporterFormUtil {
             }
             if (isNotBlank(caregiver.getRelationship()) && !formData.containsKey(FIELD_RELATIONSHIP)) {
                 formData.put(FIELD_RELATIONSHIP,
-                        viewData(TYPE_EDIT_TEXT, FIELD_RELATIONSHIP, caregiver.getRelationship().trim()));
+                        viewData(TYPE_SPINNER, FIELD_RELATIONSHIP, caregiver.getRelationship().trim()));
             }
         } catch (Exception e) {
             Timber.e(e, "Failed to ensure treatment supporter obs");
@@ -171,8 +171,9 @@ public class TreatmentSupporterFormUtil {
                     }
                     break;
                 case FIELD_RELATIONSHIP:
+                    // relationship is a spinner — pre-select by option key, still editable
                     if (isNotBlank(relationship)) {
-                        setProperty(field, "text", relationship.trim());
+                        setProperty(field, "selection", relationship.trim());
                     }
                     break;
                 default:
