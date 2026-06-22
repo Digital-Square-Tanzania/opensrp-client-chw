@@ -30,6 +30,8 @@ import timber.log.Timber;
 
 public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
 
+    private static final String CLOSE_REASON_DECEASED = "deceased";
+
     private final LinkedHashMap<String, BaseNcdVisitAction> completeActionList = new LinkedHashMap<>();
     private final AppExecutors appExecutors = new AppExecutors();
     private String pendingMortalityResult;
@@ -74,7 +76,7 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
                 statusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_STATUS);
 
         actionList.clear();
-        if (NcdFollowUpStatusActionHelper.STATUS_ACTIVE.equals(status)) {
+        if (NcdFollowUpStatusActionHelper.STATUS_CONTINUING.equals(status)) {
             actionList.putAll(completeActionList);
         } else {
             actionList.put(statusAction.getTitle(), statusAction);
@@ -151,10 +153,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
     private boolean isSubmittedAsDeceased() {
         NcdCaseManagementInteractor interactor = getCaseManagementInteractor();
         return interactor != null
-                && NcdFollowUpStatusActionHelper.STATUS_INACTIVE.equals(
-                interactor.getLastSubmittedFollowUpStatus())
-                && NcdFollowUpStatusActionHelper.REASON_DECEASED.equals(
-                interactor.getLastSubmittedInactiveReason());
+                && NcdFollowUpStatusActionHelper.STATUS_DEAD.equals(
+                interactor.getLastSubmittedFollowUpStatus());
     }
 
     private void createMortalityRecords(String results) {
@@ -201,7 +201,7 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
         JSONArray fields = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
                 .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
         org.smartregister.chw.core.utils.FormUtils.updateFormField(
-                fields, "close_reason", NcdFollowUpStatusActionHelper.REASON_DECEASED);
+                fields, "close_reason", CLOSE_REASON_DECEASED);
         NcdUtil.saveFormEvent(form.toString());
     }
 

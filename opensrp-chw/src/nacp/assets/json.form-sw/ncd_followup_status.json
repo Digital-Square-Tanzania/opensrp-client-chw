@@ -1,19 +1,19 @@
 {
   "count": "1",
-  "encounter_type": "NCD Monthly Follow-Up",
+  "encounter_type": "client_status",
   "entity_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "start",
-      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "start"
     },
     "end": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "end"
     },
     "today": {
       "openmrs_entity_parent": "",
@@ -24,125 +24,65 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "deviceid",
-      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "deviceid"
     },
     "subscriberid": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "subscriberid",
-      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "subscriberid"
     },
     "simserial": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "simserial",
-      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "simserial"
     },
     "phonenumber": {
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "phonenumber",
-      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "phonenumber"
     },
     "encounter_location": ""
   },
   "step1": {
-    "title": "Hali ya Ufuatiliaji",
+    "title": "Hali ya Mteja",
+    "display_back_button": "true",
     "fields": [
       {
-        "key": "client_follow_up_status",
+        "key": "client_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "client_follow_up_status",
-        "openmrs_data_type": "select one",
+        "openmrs_entity_id": "client_status",
         "type": "native_radio",
-        "label": "Chagua hali ya mpokea huduma",
+        "label": "Hali ya Mteja",
         "options": [
           {
-            "key": "currently_in_service",
-            "text": "Anaendelea na huduma",
+            "key": "continuing",
+            "text": "Anaendelea na Huduma",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "currently_in_service"
+            "openmrs_entity_id": "continuing"
           },
           {
-            "key": "not_in_service",
-            "text": "Hapokei huduma",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "not_in_service"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua hali ya ufuatiliaji ya mpokea huduma"
-        }
-      },
-      {
-        "key": "reason_for_not_receiving_service",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reason_for_not_receiving_service",
-        "openmrs_data_type": "select one",
-        "type": "native_radio",
-        "label": "Sababu ya kutokupokea huduma",
-        "options": [
-          {
-            "key": "moved_to_another_location",
-            "text": "Amehama kwenda eneo jingine",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "moved_to_another_location"
-          },
-          {
-            "key": "deceased",
+            "key": "dead",
             "text": "Amefariki",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "deceased"
+            "openmrs_entity_id": "dead"
           },
           {
-            "key": "lost_to_follow_up",
-            "text": "Amepotea",
+            "key": "transferred",
+            "text": "Amehamishwa",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "lost_to_follow_up"
-          },
-          {
-            "key": "other",
-            "text": "Nyingine (Taja)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other"
+            "openmrs_entity_id": "transferred"
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua sababu ya kutokupokea huduma"
-        },
-        "relevance": {
-          "step1:client_follow_up_status": {
-            "type": "string",
-            "ex": "equalTo(., \"not_in_service\")"
-          }
-        }
-      },
-      {
-        "key": "other_reason_for_not_receiving_service",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_reason_for_not_receiving_service",
-        "type": "edit_text",
-        "hint": "Taja sababu nyingine",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali taja sababu nyingine"
-        },
-        "relevance": {
-          "step1:reason_for_not_receiving_service": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
+          "value": true,
+          "err": "Tafadhali chagua hali ya mteja"
         }
       },
       {
@@ -154,13 +94,13 @@
         "hint": "Tarehe ya kifo",
         "max_date": "today",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Tafadhali chagua tarehe ya kifo"
         },
         "relevance": {
-          "step1:reason_for_not_receiving_service": {
+          "step1:client_status": {
             "type": "string",
-            "ex": "equalTo(., \"deceased\")"
+            "ex": "equalTo(., \"dead\")"
           }
         }
       }

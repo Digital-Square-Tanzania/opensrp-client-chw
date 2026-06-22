@@ -140,9 +140,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         lastSubmittedFollowUpStatus = followUpStatusAction == null ? null
                 : NcdFollowUpStatusActionHelper.extractValue(
                         followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_STATUS);
-        lastSubmittedInactiveReason = followUpStatusAction == null ? null
-                : NcdFollowUpStatusActionHelper.extractValue(
-                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_REASON);
         lastSubmittedDateOfDeath = followUpStatusAction == null ? null
                 : NcdFollowUpStatusActionHelper.extractValue(
                         followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_DATE_OF_DEATH);
@@ -176,7 +173,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private PendingNcdReferral pendingReferral = null;
 
     private String lastSubmittedFollowUpStatus;
-    private String lastSubmittedInactiveReason;
     private String lastSubmittedDateOfDeath;
 
     private String lastComputedAlertStatus = ALERT_NONE;
@@ -187,10 +183,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
 
     public String getLastSubmittedFollowUpStatus() {
         return lastSubmittedFollowUpStatus;
-    }
-
-    public String getLastSubmittedInactiveReason() {
-        return lastSubmittedInactiveReason;
     }
 
     public String getLastSubmittedDateOfDeath() {

@@ -725,10 +725,11 @@
 
     <!-- NCD Case Management Follow-Up -->
     <string name="ncd_case_management_visit_title">Ufuatiliaji wa Kila Mwezi wa NCD</string>
-    <string name="ncd_followup_action_status">Hali ya Ufuatiliaji</string>
+    <string name="ncd_followup_action_status">Hali ya Mteja</string>
     <string name="ncd_followup_status_pending">Bado haijakamilika</string>
-    <string name="ncd_followup_status_active">Anaendelea na huduma</string>
-    <string name="ncd_followup_status_inactive">Hapokei huduma</string>
+    <string name="ncd_followup_status_continuing">Anaendelea na Huduma</string>
+    <string name="ncd_followup_status_dead">Amefariki</string>
+    <string name="ncd_followup_status_transferred">Amehamishwa</string>
     <string name="ncd_death_registration_save_failed">Imeshindikana kuunda kumbukumbu ya kifo. Bonyeza hifadhi ili kujaribu tena.</string>
     <string name="ncd_followup_action_clinical_adherence">Ufuatiliaji wa Dawa na Kliniki</string>
     <string name="ncd_followup_action_danger_signs">Dalili za Hatari</string>

@@ -17,16 +17,12 @@ import timber.log.Timber;
 
 public class NcdFollowUpStatusActionHelper implements BaseNcdVisitAction.NcdVisitActionHelper {
 
-    public static final String KEY_STATUS = "client_follow_up_status";
-    public static final String KEY_REASON = "reason_for_not_receiving_service";
-    public static final String KEY_OTHER_REASON = "other_reason_for_not_receiving_service";
+    public static final String KEY_STATUS = "client_status";
     public static final String KEY_DATE_OF_DEATH = "date_of_death";
 
-    public static final String STATUS_ACTIVE = "currently_in_service";
-    public static final String STATUS_INACTIVE = "not_in_service";
-
-    public static final String REASON_DECEASED = "deceased";
-    public static final String REASON_OTHER = "other";
+    public static final String STATUS_CONTINUING = "continuing";
+    public static final String STATUS_DEAD = "dead";
+    public static final String STATUS_TRANSFERRED = "transferred";
 
     private static final String STEP_ONE = "step1";
 
@@ -73,11 +69,14 @@ public class NcdFollowUpStatusActionHelper implements BaseNcdVisitAction.NcdVisi
     @Override
     public String evaluateSubTitle() {
         String status = getStatus();
-        if (STATUS_ACTIVE.equals(status)) {
-            return getString(R.string.ncd_followup_status_active, "Currently in service");
+        if (STATUS_CONTINUING.equals(status)) {
+            return getString(R.string.ncd_followup_status_continuing, "Continuing with Services");
         }
-        if (STATUS_INACTIVE.equals(status)) {
-            return getString(R.string.ncd_followup_status_inactive, "Not in service");
+        if (STATUS_DEAD.equals(status)) {
+            return getString(R.string.ncd_followup_status_dead, "Dead");
+        }
+        if (STATUS_TRANSFERRED.equals(status)) {
+            return getString(R.string.ncd_followup_status_transferred, "Transferred");
         }
         return getString(R.string.ncd_followup_status_pending, "Not yet completed");
     }
@@ -101,36 +100,23 @@ public class NcdFollowUpStatusActionHelper implements BaseNcdVisitAction.NcdVisi
         return extractValue(jsonPayload, KEY_STATUS);
     }
 
-    public String getReason() {
-        return extractValue(jsonPayload, KEY_REASON);
-    }
-
     public boolean isActive() {
-        return STATUS_ACTIVE.equals(getStatus());
+        return STATUS_CONTINUING.equals(getStatus());
     }
 
     public boolean isDeceased() {
-        return STATUS_INACTIVE.equals(getStatus()) && REASON_DECEASED.equals(getReason());
+        return STATUS_DEAD.equals(getStatus());
     }
 
     private boolean isComplete() {
         String status = getStatus();
-        if (STATUS_ACTIVE.equals(status)) {
+        if (STATUS_CONTINUING.equals(status) || STATUS_TRANSFERRED.equals(status)) {
             return true;
         }
-        if (!STATUS_INACTIVE.equals(status)) {
-            return false;
-        }
-
-        String reason = getReason();
-        if (StringUtils.isBlank(reason)) {
-            return false;
-        }
-        if (REASON_DECEASED.equals(reason)) {
+        if (STATUS_DEAD.equals(status)) {
             return StringUtils.isNotBlank(extractValue(jsonPayload, KEY_DATE_OF_DEATH));
         }
-        return !REASON_OTHER.equals(reason)
-                || StringUtils.isNotBlank(extractValue(jsonPayload, KEY_OTHER_REASON));
+        return false;
     }
 
     private String fetchStoredPayload() {
@@ -186,15 +172,7 @@ public class NcdFollowUpStatusActionHelper implements BaseNcdVisitAction.NcdVisi
             }
 
             String status = findValue(fields, KEY_STATUS);
-            String reason = findValue(fields, KEY_REASON);
-            if (STATUS_ACTIVE.equals(status)) {
-                setValue(fields, KEY_REASON, "");
-                setValue(fields, KEY_OTHER_REASON, "");
-                setValue(fields, KEY_DATE_OF_DEATH, "");
-            } else if (STATUS_INACTIVE.equals(status) && !REASON_OTHER.equals(reason)) {
-                setValue(fields, KEY_OTHER_REASON, "");
-            }
-            if (STATUS_INACTIVE.equals(status) && !REASON_DECEASED.equals(reason)) {
+            if (!STATUS_DEAD.equals(status)) {
                 setValue(fields, KEY_DATE_OF_DEATH, "");
             }
             return form.toString();
