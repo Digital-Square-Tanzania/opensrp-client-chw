@@ -960,6 +960,12 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion43(SQLiteDatabase db) {
         try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion43-add-caregiver-relationship");
+        }
+
+        try {
             DatabaseMigrationUtils.createAddedECTables(db,
                     new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT,
                             Constants.TABLES.DIABETES_HYPERTENSION_FOLLOWUP,
