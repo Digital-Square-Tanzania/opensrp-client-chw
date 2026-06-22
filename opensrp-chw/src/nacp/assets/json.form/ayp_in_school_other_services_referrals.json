@@ -89,6 +89,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referrals_to_other_services",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Referrals to other services:",
         "options": [
           {

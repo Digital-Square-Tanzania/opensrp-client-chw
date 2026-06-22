@@ -626,7 +626,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -663,7 +663,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       }
@@ -706,7 +706,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -743,7 +743,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -780,7 +780,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       }
@@ -3546,7 +3546,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3583,7 +3583,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3620,7 +3620,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3657,7 +3657,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3694,7 +3694,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3731,7 +3731,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3768,7 +3768,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3814,7 +3814,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3851,7 +3851,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3888,7 +3888,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3925,7 +3925,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -3962,7 +3962,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4008,7 +4008,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4045,7 +4045,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4082,7 +4082,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4119,7 +4119,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4156,7 +4156,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4193,7 +4193,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4701,7 +4701,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4738,7 +4738,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4775,7 +4775,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4812,7 +4812,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4849,7 +4849,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4886,7 +4886,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4923,7 +4923,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4960,7 +4960,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -4997,7 +4997,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -5034,7 +5034,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       },
@@ -5071,7 +5071,7 @@
           {
             "type": "numeric",
             "ex": "lessThanEqualTo(., step1:number_of_house_hold)",
-            "err": "Haitakiwi kuwa kubwa kuliko idadi ya kaya"
+            "err": "Lazima iwe sawa au chini ya idadi ya kaya"
           }
         ]
       }

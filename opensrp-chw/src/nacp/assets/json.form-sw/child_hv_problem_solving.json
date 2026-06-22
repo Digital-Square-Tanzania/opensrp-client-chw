@@ -50,6 +50,14 @@
     "title": "Kutatua Changamoto",
     "fields": [
       {
+        "key": "ccd_problem_solving_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_problem_solving_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "child_playing_challenge",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -99,7 +107,39 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Changamoto zipi?\nTaarifa kwa MJA: sikiliza changamoto anazotoa mama na msaidie kutambua mtu ambaye anaweza kumshirikisha changamoto yake ili kumsaidia yeye na mtoto\n\nWahamasishe wazazi/walezi na ndugu wa familia wawe pamoja kumsaidia mama/baba au mlezi kucheza na kuwasiliana na mtoto\nTaarifa kwa MJA : Wajengee  kujiamini kwa kuonesha uwezo walio nao kufanikisha jambo dogo",
+        "text": "Changamoto zipi? \n\nTaarifa kwa MJA: sikiliza changamoto anazotoa mama na msaidie kutambua mtu ambaye anaweza kumshirikisha changamoto yake ili kumsaidia yeye na mtoto",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_2_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Wahamasishe wazazi/walezi na ndugu wa familia wawe pamoja kumsaidia mama/baba au mlezi kucheza na kuwasiliana na mtoto",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_2_2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA : Wajengee  kujiamini kwa kuonesha uwezo walio nao kufanikisha jambo dogo",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -124,6 +164,15 @@
             }
           }
         }
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i><b>Taarifa kwa MJA:</b></i> Tafadhali fungua ukurasa wa 46 na 47 kwenye Malezi III Bango Kitita  ili kuendelea na mada ya kutatua changamoto"
       }
     ]
   }

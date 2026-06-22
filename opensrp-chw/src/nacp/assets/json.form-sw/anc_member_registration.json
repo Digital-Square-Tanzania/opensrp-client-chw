@@ -58,6 +58,15 @@
         "type": "hidden"
       },
       {
+        "key": "clinic_card_reminder_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_card_reminder_info",
+        "type": "label",
+        "text": "KUMBUSHO KWA MJA: Muombe mama kadi ya kliniki.",
+        "text_color": "#000000"
+      },
+      {
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -121,10 +130,57 @@
         }
       },
       {
+        "key": "first_clinic_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_clinic_visit_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya Hudhurio la Kwanza la Kliniki ya Ujauzito Huu",
+        "label_info_title": "Tarehe ya Hudhurio la Kwanza la Kliniki ya Ujauzito Huu",
+        "label_info_text": "Tarehe ya Hudhurio la Kwanza la Kliniki ya Ujauzito Huu = Siku ya kwanza mama mjamzito alipohudhuria kliniki kwa ujauzito wa sasa.",
+        "expanded": false,
+        "max_date": "today",
+        "min_date": "today-50w",
+        "v_required": {
+          "value": "true",
+          "err": "Tarehe ya Hudhurio la Kwanza la Kliniki ya Ujauzito Huu inahitajika kujazwa"
+        }
+      },
+      {
+        "key": "first_clinic_visit_age_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_clinic_visit_age_note",
+        "type": "edit_text",
+        "hint": "Umri wa ujauzito kwa wiki wakati mama alipohudhuria kliniki kwa mara ya kwanza",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gest_age",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "first_clinic_visit_gest_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "first_clinic_visit_gest_age",
         "type": "hidden",
         "calculation": {
           "rules-engine": {

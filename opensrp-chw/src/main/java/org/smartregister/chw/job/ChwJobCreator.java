@@ -12,6 +12,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.SyncTaskWithClientEventsServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.harmreduction.job.CloseSoberHouseMemberServiceJob;
 import org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService;
 import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.chw.sync.intent.ChwSyncTaskIntentService;
@@ -61,7 +62,7 @@ public class ChwJobCreator implements JobCreator {
             case ScheduleJob.TAG:
                 return new ScheduleJob();
             case SyncLocationsByLevelAndTagsServiceJob.TAG:
-                return new SyncLocationsByLevelAndTagsServiceJob();
+                return new ChwSyncLocationsByLevelAndTagsServiceJob();
             case StockUsageReportJob.TAG:
                 return new StockUsageReportJob();
             case SyncTaskWithClientEventsServiceJob.TAG:
@@ -72,6 +73,8 @@ public class ChwJobCreator implements JobCreator {
                 return new PncCloseDateServiceJob();
             case CloseAsrhMemberServiceJob.TAG:
                 return new CloseAsrhMemberServiceJob();
+            case CloseSoberHouseMemberServiceJob.TAG:
+                return new CloseSoberHouseMemberServiceJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

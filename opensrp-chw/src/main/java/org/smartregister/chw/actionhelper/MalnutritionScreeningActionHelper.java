@@ -1,6 +1,8 @@
 package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
+
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -8,9 +10,10 @@ import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.JsonFormUtils;
-import org.smartregister.immunization.domain.ServiceWrapper;
+
 import java.util.List;
 import java.util.Map;
+
 import timber.log.Timber;
 
 public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
@@ -26,13 +29,9 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
 
     String childGrowthMuacValue = "";
 
+    String childGrowthBookletPresent = "";
+
     String jsonString = "";
-
-    ServiceWrapper serviceWrapper;
-
-    public MalnutritionScreeningActionHelper(ServiceWrapper serviceWrapper){
-        this.serviceWrapper = serviceWrapper;
-    }
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
@@ -48,6 +47,7 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
             growthMonitoringSelectedValue = JsonFormUtils.getCheckBoxValue(jsonObject, "child_growth_monitoring");
             palmPallorKey = JsonFormUtils.getValue(jsonObject, "palm_pallor");
             childGrowthMuacKey = JsonFormUtils.getValue(jsonObject, "child_growth_muac");
+            childGrowthBookletPresent = JsonFormUtils.getValue(jsonObject, "child_growth_booklet_present");
         }catch (JSONException e){
             Timber.e(e);
         }
@@ -57,23 +57,23 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
     public String evaluateSubTitle() {
         if (growthMonitoringSelectedKey.isEmpty()) return "";
 
-        if (palmPallorKey.contains("no") || palmPallorKey.contains("hapana")) {
+        if (palmPallorKey.equalsIgnoreCase("no") || palmPallorKey.equalsIgnoreCase("hapana")) {
             palmPallorValue = context.getString(R.string.no);
         }
 
-        if (palmPallorKey.contains("yes") || palmPallorKey.contains("ndio")) {
+        if (palmPallorKey.equalsIgnoreCase("yes") || palmPallorKey.equalsIgnoreCase("ndio")) {
             palmPallorValue = context.getString(R.string.yes);
         }
 
-        if (childGrowthMuacKey.contains("Red")) {
+        if (childGrowthMuacKey.equalsIgnoreCase("Red")) {
             childGrowthMuacValue = context.getString(R.string.palm_pallor_red);
         }
 
-        if (childGrowthMuacKey.contains("Green")) {
+        if (childGrowthMuacKey.equalsIgnoreCase("Green")) {
             childGrowthMuacValue = context.getString(R.string.palm_pallor_green);
         }
 
-        if (childGrowthMuacKey.contains("Yellow")) {
+        if (childGrowthMuacKey.equalsIgnoreCase("Yellow")) {
             childGrowthMuacValue = context.getString(R.string.palm_pallor_yellow);
         }
 
@@ -82,13 +82,14 @@ public class MalnutritionScreeningActionHelper extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-
-        if (growthMonitoringSelectedKey.isEmpty() || palmPallorKey.isEmpty()) {
+        if (StringUtils.isBlank(childGrowthBookletPresent) || StringUtils.isBlank(palmPallorKey)) {
             return BaseAncHomeVisitAction.Status.PENDING;
-        } else if (childGrowthMuacKey.contains("Red") && palmPallorKey.contains("palm_pallor_yes")) {
-            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        } else {
+        }
+
+        if (childGrowthMuacKey.equalsIgnoreCase("Green") && palmPallorKey.equalsIgnoreCase("no")) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
+        } else {
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
 }

@@ -27,6 +27,7 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
     private String visitID = "";
 
     private String jsonString;
+
     public ExclusiveBreastFeedingAction(Context context, Alert alert) {
         this.context = context;
         this.alert = alert;
@@ -38,7 +39,7 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
         this.visitID = serviceIteration;
     }
 
-    public  ExclusiveBreastFeedingAction(Context context, String visitId){
+    public ExclusiveBreastFeedingAction(Context context, String visitId) {
         this.context = context;
         this.visitID = visitId;
     }
@@ -55,7 +56,7 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
             JSONArray fields = JsonFormUtils.fields(jsonObject);
             JSONObject visit_1_visit_8 = JsonFormUtils.getFieldJSONObject(fields, "visit_1_visit_8");
             if ((visit_1_visit_8 != null) && (this.visitID.equalsIgnoreCase("1") || this.visitID.equalsIgnoreCase("3") || this.visitID.equalsIgnoreCase("5") || this.visitID.equalsIgnoreCase("7") || this.visitID.equalsIgnoreCase("8") || this.visitID.equalsIgnoreCase("9"))) {
-                    visit_1_visit_8.put("value", "true");
+                visit_1_visit_8.put("value", "true");
             }
             return jsonObject.toString();
         } catch (JSONException e) {
@@ -66,7 +67,11 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+        if (alert != null) {
+            return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+        } else {
+            return null;
+        }
     }
 
     private boolean isOverDue() {
@@ -77,7 +82,7 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            exclusive_breast_feeding = JsonFormUtils.getValue(jsonObject, "exclusive_breast_feeding");
+            exclusive_breast_feeding = JsonFormUtils.getValue(jsonObject, "breastfeed_current");
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -93,15 +98,15 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(exclusive_breast_feeding))
+        if (StringUtils.isBlank(exclusive_breast_feeding)) {
             return BaseAncHomeVisitAction.Status.PENDING;
-
-        if (exclusive_breast_feeding.equalsIgnoreCase("Yes")) {
-            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        } else if (exclusive_breast_feeding.equalsIgnoreCase("No")) {
+        }
+        if (exclusive_breast_feeding.equalsIgnoreCase("Ndio") ||
+                exclusive_breast_feeding.equalsIgnoreCase("Yes") ||
+                exclusive_breast_feeding.equalsIgnoreCase("Ndiyo")) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
-            return BaseAncHomeVisitAction.Status.PENDING;
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
 }

@@ -820,7 +820,7 @@
           },
           {
             "key": "substance_abuse_drug_addiction",
-            "text": "24.Uraibu wa madawa ya kulevya",
+            "text": "24.Uraibu wa dawa za kulevya",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "substance_abuse_drug_addiction",
             "property": {
@@ -1774,7 +1774,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_leaflets_substance_abuse_drug_addiction",
         "type": "edit_text",
-        "hint": "Idadi ya vipeperushi vilivyogawiwa (Uraibu wa madawa ya kulevya)",
+        "hint": "Idadi ya vipeperushi vilivyogawiwa (Uraibu wa dawa za kulevya)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja idadi ya vipeperushi vilivyogawiwa"
@@ -2286,7 +2286,7 @@
           },
           {
             "key": "substance_abuse_drug_addiction",
-            "text": "24.Uraibu wa madawa ya kulevya",
+            "text": "24.Uraibu wa dawa za kulevya",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "substance_abuse_drug_addiction",
             "property": {
@@ -3240,7 +3240,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_posters_substance_abuse_drug_addiction",
         "type": "edit_text",
-        "hint": "Idadi ya Mabango vilivyogawiwa (Uraibu wa madawa ya kulevya)",
+        "hint": "Idadi ya Mabango vilivyogawiwa (Uraibu wa dawa za kulevya)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja idadi ya Mabango vilivyogawiwa"
@@ -3752,7 +3752,7 @@
           },
           {
             "key": "substance_abuse_drug_addiction",
-            "text": "24.Uraibu wa madawa ya kulevya",
+            "text": "24.Uraibu wa dawa za kulevya",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "substance_abuse_drug_addiction",
             "property": {
@@ -4706,7 +4706,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "number_of_brochures_substance_abuse_drug_addiction",
         "type": "edit_text",
-        "hint": "Idadi ya Vijarida vilivyogawiwa (Uraibu wa madawa ya kulevya)",
+        "hint": "Idadi ya Vijarida vilivyogawiwa (Uraibu wa dawa za kulevya)",
         "v_required": {
           "value": "true",
           "err": "Tafadhali taja idadi ya Vijarida vilivyogawiwa"

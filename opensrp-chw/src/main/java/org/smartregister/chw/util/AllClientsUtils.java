@@ -4,6 +4,7 @@ import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.ENTITY_TYPE_EC_INDEPENDENT_CLIENT;
 import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
 import static org.smartregister.util.Utils.showShortToast;
 
@@ -28,6 +29,8 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FPMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivityFlv;
+import org.smartregister.chw.activity.HarmReductionProfileActivity;
+import org.smartregister.chw.activity.HarmReductionSoberHouseProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
@@ -47,6 +50,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.dao.HpsDao;
@@ -135,6 +139,14 @@ public class AllClientsUtils {
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
         TbLeprosyProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToHarmReductionProfile(Activity activity, CommonPersonObjectClient client) {
+        HarmReductionProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToHarmReductionSoberHouseProfile(Activity activity, CommonPersonObjectClient client) {
+        HarmReductionSoberHouseProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
     public static void goToSbcProfile(Activity activity, CommonPersonObjectClient client) {
@@ -239,6 +251,7 @@ public class AllClientsUtils {
         String baseEntityId = commonPersonObject.entityId();
         FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String entityType = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
 
         // Cache menu items to avoid multiple lookups
         MenuItem locationInfo = menu.findItem(R.id.action_location_info);
@@ -248,7 +261,7 @@ public class AllClientsUtils {
         MenuItem removeMember = menu.findItem(R.id.action_remove_member);
 
         // Set visibility for the common items
-        if (locationInfo != null) locationInfo.setVisible(true);
+        if (locationInfo != null && entityType.equalsIgnoreCase(ENTITY_TYPE_EC_INDEPENDENT_CLIENT)) locationInfo.setVisible(true);
         if (tbRegistration != null) tbRegistration.setVisible(false);
         if (sickChildFollowUp != null) sickChildFollowUp.setVisible(false);
         if (malariaDiagnosis != null) malariaDiagnosis.setVisible(false);
@@ -271,6 +284,12 @@ public class AllClientsUtils {
                     break;
                 case "iccm_provider":
                     updateIccmMenu(menu, baseEntityId, flavor);
+                    break;
+                case "AYP_OUT_OF_SCHOOL":
+                    // Handle AYP Out of School menu items
+                    if (ChwApplication.getApplicationFlavor().hasAyp()) {
+                        setMenuItemVisibility(menu, R.id.action_ayp_out_school_enrollment, !AypDao.isRegisteredForAypOutSchoolServices(baseEntityId) && age >= 10 && age < 25);
+                    }
                     break;
                 case "icchw": {
                     // Handle HPS menu items
@@ -349,6 +368,22 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_tbleprosy_screening, !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId));
         }
 
+        // Handle Harm Reduction menu items
+        if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+            boolean isRegisteredForHarmReduction = isRegisteredForHarmReduction(baseEntityId);
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_assessment, !isRegisteredForHarmReduction && age >= 14);
+        } else {
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_assessment, false);
+        }
+
+        // Handle Sober House menu items
+        if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+            boolean isRegisteredForHarmReductionSoberHouse = isRegisteredForHarmReductionSoberHouse(baseEntityId);
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_sober_house_enrollment, !isRegisteredForHarmReductionSoberHouse && age >= 14);
+        } else {
+            setMenuItemVisibility(menu, R.id.action_harm_reduction_sober_house_enrollment, false);
+        }
+
         // Handle SBC menu items
         if (ChwApplication.getApplicationFlavor().hasSbc()) {
             setMenuItemVisibility(menu, R.id.action_sbc_registration, !SbcDao.isRegisteredForSbc(baseEntityId) && age >= 10);
@@ -394,6 +429,14 @@ public class AllClientsUtils {
     private static int getPersonAge(CommonPersonObjectClient commonPersonObject) {
         String dob = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         return org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+    }
+
+    private static boolean isRegisteredForHarmReduction(String baseEntityId) {
+        return StringUtils.isNotBlank(HarmReductionDao.getRegistrationStatus(baseEntityId));
+    }
+
+    private static boolean isRegisteredForHarmReductionSoberHouse(String baseEntityId) {
+        return HarmReductionDao.getSoberHouseMember(baseEntityId) != null;
     }
 
 }

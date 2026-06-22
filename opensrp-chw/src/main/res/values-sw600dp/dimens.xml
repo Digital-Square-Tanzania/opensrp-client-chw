@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Slight vertical nudge for tablet toolbar action -->
-    <dimen name="toolbar_action_nudge_y">3dp</dimen>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+    <dimen name="copy_to_clipboard_header_text_size">24sp</dimen>
+    <dimen name="copy_to_clipboard_message_text_size">18sp</dimen>
+
+    <dimen name="change_dialog_text_size">24dp</dimen>
+    <dimen name="remove_member_padding">35dp</dimen>
+    <dimen name="remove_member_text_size">22sp</dimen>
+    <dimen name="change_member_padding">10sp</dimen>
+    <dimen name="change_member_list_main">24sp</dimen>
+    <dimen name="change_member_list_details">18sp</dimen>
+
+
+    <dimen name="tool_bar_size">75dp</dimen>
+    <dimen name="tool_bar_title">24sp</dimen>
+    <dimen name="tool_bar_image">30dp</dimen>
+
+    <dimen name="call_widget_padding_top">15dp</dimen>
+    <dimen name="call_widget_padding_side">20dp</dimen>
+    <dimen name="call_widget_padding_bottom">50dp</dimen>
+
+    <dimen name="call_widget_font1">30sp</dimen>
+    <dimen name="call_widget_font2">26sp</dimen>
+    <dimen name="call_widget_font3">22sp</dimen>
 </resources>
 

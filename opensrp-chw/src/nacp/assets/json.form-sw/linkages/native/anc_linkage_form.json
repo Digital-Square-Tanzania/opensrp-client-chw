@@ -62,54 +62,55 @@
         "type": "check_box",
         "label": "Sababu ya kuunganishwa na Huduma za Duka la Dawa Muhimu",
         "exclusive": ["chk_none"],
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "mild_pain",
             "text": "Maumivu madogomadogo sehemu yoyote mwilini",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "mild_pain"
           },
           {
             "key": "mild_fever",
             "text": "Homa ndogo",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "mild_fever"
           },
           {
             "key": "cough",
             "text": "Kukohoa",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "cough"
           },
           {
             "key": "running_nose_cold",
             "text": "Mafua",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "running_nose_cold"
           },
           {
             "key": "sore_throat",
             "text": "Mkwaruzo wa koo",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "sore_throat"
           },
           {
             "key": "refill_medicine",
             "text": "Nyongeza ya dawa kama madini ya chuma, folic, na SP kwa ajili ya malaria",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "refill_medicine"
           },
           {
             "key": "refill_commodities",
             "text": "Nyongeza ya vitu vingine kama antiseptics/sabuni, delivery kit",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "refill_commodities"
           },
           {
             "key": "chk_other",
             "text": "Sababu nyingine",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",

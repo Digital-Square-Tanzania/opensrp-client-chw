@@ -48,6 +48,7 @@ import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -61,12 +62,15 @@ import org.smartregister.util.FormUtils;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -228,14 +232,16 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         List<VaccineGroup> childVaccineGroups = getVaccineGroups();
         List<Vaccine> specialVaccines = getSpecialVaccines();
-        List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
-
+        String baseEntityId = memberObject.getBaseEntityId();
+        List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(baseEntityId);
         String vaccineCategory = memberObject.getAge() > FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
         List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(vaccineCategory);
+        vaccines = mergeIssuedVaccinesFromVisitDetails(vaccines, VisitDao.getMedicalHistory(baseEntityId), baseEntityId);
+        vaccines = normalizeIssuedVaccines(vaccines, allVacs);
 
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : allVacs) {
-            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
+            addVaccineRepoEntry(vaccinesRepo, vaccine);
         }
 
         Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
@@ -247,6 +253,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 vaccines,
                 details
         );
+        pendingVaccines = removeIssuedVaccinesFromPending(pendingVaccines, vaccines, allVacs);
 
         ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
@@ -260,9 +267,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
-            String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
-            BaseHomeVisitImmunizationFragmentFlv fragment =
-                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            String vaccineTitle= VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context);
+            String title = MessageFormat.format(context.getString(R.string.immunizations_count), vaccineTitle);
+            BaseHomeVisitImmunizationFragmentFlv fragment = BaseHomeVisitImmunizationFragmentFlv
+                    .getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked,vaccineTitle);
+//                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
             if (ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions()) {
                 fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
                 fragment.setMinimumDate(dob);
@@ -288,6 +297,266 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         validator.setActions(actions);
         validator.setVaccineOrder(vaccineOrder);
 
+    }
+
+    private void addVaccineRepoEntry(Map<String, VaccineRepo.Vaccine> vaccinesRepo, VaccineRepo.Vaccine vaccine) {
+        if (vaccine == null) {
+            return;
+        }
+
+        addVaccineRepoEntry(vaccinesRepo, vaccine.display(), vaccine);
+        addVaccineRepoEntry(vaccinesRepo, vaccine.name(), vaccine);
+    }
+
+    private void addVaccineRepoEntry(Map<String, VaccineRepo.Vaccine> vaccinesRepo, String vaccineName, VaccineRepo.Vaccine vaccine) {
+        String vaccineKey = normalizeVaccineNameForMatching(vaccineName);
+        if (StringUtils.isNotBlank(vaccineKey)) {
+            vaccinesRepo.put(vaccineKey, vaccine);
+        }
+    }
+
+    @VisibleForTesting
+    protected Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> removeIssuedVaccinesFromPending(
+            Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines,
+            List<org.smartregister.immunization.domain.Vaccine> issuedVaccines,
+            List<VaccineRepo.Vaccine> vaccineDefinitions
+    ) {
+        if (pendingVaccines == null || pendingVaccines.isEmpty()) {
+            return pendingVaccines;
+        }
+
+        Set<String> issuedVaccineKeys = getIssuedVaccineKeys(issuedVaccines, vaccineDefinitions);
+        if (issuedVaccineKeys.isEmpty()) {
+            return pendingVaccines;
+        }
+
+        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> filteredVaccines = new LinkedHashMap<>();
+        for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
+            List<Pair<VaccineRepo.Vaccine, Alert>> pendingGroupVaccines = new ArrayList<>();
+            if (entry.getValue() != null) {
+                for (Pair<VaccineRepo.Vaccine, Alert> vaccineAlertPair : entry.getValue()) {
+                    if (vaccineAlertPair == null || !isIssuedVaccine(vaccineAlertPair.first, issuedVaccineKeys)) {
+                        pendingGroupVaccines.add(vaccineAlertPair);
+                    }
+                }
+            }
+
+            if (!pendingGroupVaccines.isEmpty()) {
+                filteredVaccines.put(entry.getKey(), pendingGroupVaccines);
+            }
+        }
+
+        return filteredVaccines;
+    }
+
+    @VisibleForTesting
+    protected List<org.smartregister.immunization.domain.Vaccine> mergeIssuedVaccinesFromVisitDetails(
+            List<org.smartregister.immunization.domain.Vaccine> vaccines,
+            Map<String, List<VisitDetail>> medicalHistory,
+            String baseEntityId
+    ) {
+        List<org.smartregister.immunization.domain.Vaccine> mergedVaccines = vaccines == null ? new ArrayList<>() : new ArrayList<>(vaccines);
+        if (medicalHistory == null || medicalHistory.isEmpty()) {
+            return mergedVaccines;
+        }
+
+        Set<String> issuedVaccineKeys = new HashSet<>();
+        for (org.smartregister.immunization.domain.Vaccine vaccine : mergedVaccines) {
+            if (vaccine != null) {
+                issuedVaccineKeys.add(normalizeVaccineNameForMatching(vaccine.getName()));
+            }
+        }
+
+        for (List<VisitDetail> visitDetails : medicalHistory.values()) {
+            if (visitDetails == null) {
+                continue;
+            }
+
+            for (VisitDetail visitDetail : visitDetails) {
+                org.smartregister.immunization.domain.Vaccine vaccine = getIssuedVaccineFromVisitDetail(visitDetail, baseEntityId);
+                if (vaccine == null) {
+                    continue;
+                }
+
+                String vaccineKey = normalizeVaccineNameForMatching(vaccine.getName());
+                if (issuedVaccineKeys.add(vaccineKey)) {
+                    mergedVaccines.add(vaccine);
+                }
+            }
+        }
+
+        return mergedVaccines;
+    }
+
+    private org.smartregister.immunization.domain.Vaccine getIssuedVaccineFromVisitDetail(VisitDetail visitDetail, String baseEntityId) {
+        if (visitDetail == null
+                || !"vaccine".equalsIgnoreCase(visitDetail.getParentCode())
+                || StringUtils.isBlank(visitDetail.getVisitKey())
+                || StringUtils.isBlank(visitDetail.getDetails())
+                || !visitDetail.getDetails().matches("\\d{4}-\\d{2}-\\d{2}")
+                || org.smartregister.chw.anc.util.Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(visitDetail.getDetails())) {
+            return null;
+        }
+
+        try {
+            Date vaccineDate = AbstractDao.getDobDateFormat().parse(visitDetail.getDetails());
+            org.smartregister.immunization.domain.Vaccine vaccine = new org.smartregister.immunization.domain.Vaccine();
+            vaccine.setBaseEntityId(baseEntityId);
+            vaccine.setName(visitDetail.getVisitKey());
+            vaccine.setDate(vaccineDate);
+            return vaccine;
+        } catch (ParseException e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    private Set<String> getIssuedVaccineKeys(List<org.smartregister.immunization.domain.Vaccine> issuedVaccines, List<VaccineRepo.Vaccine> vaccineDefinitions) {
+        Set<String> issuedVaccineKeys = new HashSet<>();
+        if (issuedVaccines == null || issuedVaccines.isEmpty()) {
+            return issuedVaccineKeys;
+        }
+
+        Map<String, VaccineRepo.Vaccine> vaccineDefinitionAliases = getVaccineDefinitionAliases(vaccineDefinitions);
+        for (org.smartregister.immunization.domain.Vaccine vaccine : issuedVaccines) {
+            if (vaccine == null) {
+                continue;
+            }
+
+            String issuedVaccineKey = normalizeVaccineNameForMatching(vaccine.getName());
+            if (StringUtils.isBlank(issuedVaccineKey)) {
+                continue;
+            }
+
+            issuedVaccineKeys.add(issuedVaccineKey);
+            VaccineRepo.Vaccine vaccineDefinition = vaccineDefinitionAliases.get(issuedVaccineKey);
+            if (vaccineDefinition != null) {
+                addVaccineKeys(issuedVaccineKeys, vaccineDefinition);
+            }
+        }
+
+        return issuedVaccineKeys;
+    }
+
+    private Map<String, VaccineRepo.Vaccine> getVaccineDefinitionAliases(List<VaccineRepo.Vaccine> vaccineDefinitions) {
+        Map<String, VaccineRepo.Vaccine> vaccineDefinitionAliases = new HashMap<>();
+        if (vaccineDefinitions == null) {
+            return vaccineDefinitionAliases;
+        }
+
+        for (VaccineRepo.Vaccine vaccineDefinition : vaccineDefinitions) {
+            if (vaccineDefinition == null) {
+                continue;
+            }
+
+            addVaccineDefinitionAlias(vaccineDefinitionAliases, vaccineDefinition.display(), vaccineDefinition);
+            addVaccineDefinitionAlias(vaccineDefinitionAliases, vaccineDefinition.name(), vaccineDefinition);
+        }
+
+        return vaccineDefinitionAliases;
+    }
+
+    private void addVaccineDefinitionAlias(Map<String, VaccineRepo.Vaccine> vaccineDefinitionAliases, String vaccineName, VaccineRepo.Vaccine vaccineDefinition) {
+        String vaccineKey = normalizeVaccineNameForMatching(vaccineName);
+        if (StringUtils.isNotBlank(vaccineKey)) {
+            vaccineDefinitionAliases.put(vaccineKey, vaccineDefinition);
+        }
+    }
+
+    private void addVaccineKeys(Set<String> vaccineKeys, VaccineRepo.Vaccine vaccineDefinition) {
+        if (vaccineDefinition == null) {
+            return;
+        }
+
+        addVaccineKey(vaccineKeys, vaccineDefinition.display());
+        addVaccineKey(vaccineKeys, vaccineDefinition.name());
+    }
+
+    private void addVaccineKey(Set<String> vaccineKeys, String vaccineName) {
+        String vaccineKey = normalizeVaccineNameForMatching(vaccineName);
+        if (StringUtils.isNotBlank(vaccineKey)) {
+            vaccineKeys.add(vaccineKey);
+        }
+    }
+
+    private boolean isIssuedVaccine(VaccineRepo.Vaccine vaccineDefinition, Set<String> issuedVaccineKeys) {
+        if (vaccineDefinition == null) {
+            return false;
+        }
+
+        return issuedVaccineKeys.contains(normalizeVaccineNameForMatching(vaccineDefinition.display()))
+                || issuedVaccineKeys.contains(normalizeVaccineNameForMatching(vaccineDefinition.name()));
+    }
+
+    @VisibleForTesting
+    protected List<org.smartregister.immunization.domain.Vaccine> normalizeIssuedVaccines(List<org.smartregister.immunization.domain.Vaccine> vaccines, List<VaccineRepo.Vaccine> vaccineDefinitions) {
+        if (vaccines == null) {
+            return new ArrayList<>();
+        }
+
+        if (vaccines.isEmpty() || vaccineDefinitions == null || vaccineDefinitions.isEmpty()) {
+            return vaccines;
+        }
+
+        Map<String, String> canonicalNames = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccineDefinition : vaccineDefinitions) {
+            if (StringUtils.isBlank(vaccineDefinition.display())) {
+                continue;
+            }
+
+            String scheduleName = vaccineDefinition.display().toLowerCase(Locale.ENGLISH);
+            canonicalNames.put(normalizeVaccineNameForMatching(vaccineDefinition.display()), scheduleName);
+            canonicalNames.put(normalizeVaccineNameForMatching(vaccineDefinition.name()), scheduleName);
+        }
+
+        List<org.smartregister.immunization.domain.Vaccine> normalizedVaccines = new ArrayList<>();
+        for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
+            if (vaccine == null) {
+                continue;
+            }
+
+            String canonicalName = canonicalNames.get(normalizeVaccineNameForMatching(vaccine.getName()));
+            if (StringUtils.isBlank(canonicalName)) {
+                normalizedVaccines.add(vaccine);
+            } else {
+                org.smartregister.immunization.domain.Vaccine normalizedVaccine = copyVaccine(vaccine);
+                normalizedVaccine.setName(canonicalName);
+                normalizedVaccines.add(normalizedVaccine);
+            }
+        }
+        return normalizedVaccines;
+    }
+
+    @VisibleForTesting
+    protected String normalizeVaccineNameForMatching(String vaccineName) {
+        return StringUtils.defaultString(vaccineName)
+                .toLowerCase(Locale.ENGLISH)
+                .replace(" ", "")
+                .replace("_", "")
+                .replace("-", "");
+    }
+
+    private org.smartregister.immunization.domain.Vaccine copyVaccine(org.smartregister.immunization.domain.Vaccine vaccine) {
+        org.smartregister.immunization.domain.Vaccine normalizedVaccine = new org.smartregister.immunization.domain.Vaccine();
+        normalizedVaccine.setId(vaccine.getId());
+        normalizedVaccine.setBaseEntityId(vaccine.getBaseEntityId());
+        normalizedVaccine.setProgramClientId(vaccine.getProgramClientId());
+        normalizedVaccine.setName(vaccine.getName());
+        normalizedVaccine.setCalculation(vaccine.getCalculation());
+        normalizedVaccine.setDate(vaccine.getDate());
+        normalizedVaccine.setAnmId(vaccine.getAnmId());
+        normalizedVaccine.setLocationId(vaccine.getLocationId());
+        normalizedVaccine.setChildLocationId(vaccine.getChildLocationId());
+        normalizedVaccine.setTeam(vaccine.getTeam());
+        normalizedVaccine.setTeamId(vaccine.getTeamId());
+        normalizedVaccine.setSyncStatus(vaccine.getSyncStatus());
+        normalizedVaccine.setHia2Status(vaccine.getHia2Status());
+        normalizedVaccine.setUpdatedAt(vaccine.getUpdatedAt());
+        normalizedVaccine.setEventId(vaccine.getEventId());
+        normalizedVaccine.setFormSubmissionId(vaccine.getFormSubmissionId());
+        normalizedVaccine.setOutOfCatchment(vaccine.getOutOfCatchment());
+        normalizedVaccine.setCreatedAt(vaccine.getCreatedAt());
+        return normalizedVaccine;
     }
 
     protected void evaluateExclusiveBreastFeeding(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {

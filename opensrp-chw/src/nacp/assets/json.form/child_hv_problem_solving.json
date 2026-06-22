@@ -50,6 +50,14 @@
     "title": "Problem Solving",
     "fields": [
       {
+        "key": "ccd_problem_solving_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_problem_solving_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "child_playing_challenge",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -99,7 +107,39 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "What challenges?\nCHW information: Listen to the caregivers challenges and help them identify a key person who can share their challenges and help them with their child.\nEncourage the caregiver and other family members to support each other in playing and communicating with the child.\nBuild their confidence by demonstrating their ability to carry out a simple activity.",
+        "text": "What challenges? \n\nCHW information: Listen to the caregivers challenges and help them identify a key person who can share their challenges and help them with their child.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_2_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Encourage the caregiver and other family members to support each other in playing and communicating with the child.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_problem_solving_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_playing_challenge_yes_2_2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW information : Build their confidence by demonstrating their ability to carry out a simple activity.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -124,6 +164,15 @@
             }
           }
         }
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i><b>CHW Information: </b></i>Refer to page 46 and 47 of the Malezi III Bango Kitita so as to continue with the topic of Problem solving "
       }
     ]
   }

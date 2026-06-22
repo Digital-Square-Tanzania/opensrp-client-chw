@@ -29,6 +29,23 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step1_invalid_blood_pressure_reading
+description: prompt when the blood pressure pair is invalid
+priority: 1
+condition: "!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) >= Float.parseFloat(step1_systolic)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_blood_pressure_guard
+description: require a valid blood pressure pair before saving
+priority: 1
+condition: "step1_diseases_test_conducted.contains('blood_pressure_measurement')"
+actions:
+  - "isRelevant = true"
+  - "calculation = (!step1_systolic.isEmpty() && !step1_diastolic.isEmpty() && Float.parseFloat(step1_diastolic) < Float.parseFloat(step1_systolic)) ? 'valid' : ''"
+
+---
 name: step1_malaria_mrdt_result
 description: hps malaria result
 priority: 1
@@ -112,7 +129,7 @@ description: require at least one treatment selection
 priority: 1
 condition: "step1_is_treatment_provided.equalsIgnoreCase('yes')"
 actions:
-  - "calculation = (!step1_treatment_provided.isEmpty() || !step1_malaria_drugs_treatment.isEmpty()) ? 'selected' : ''"
+  - "calculation = (!step1_treatment_provided.isEmpty() || (step1_malaria_mrdt_result.equalsIgnoreCase('positive_mrdt') && !step1_malaria_drugs_treatment.isEmpty())) ? 'selected' : ''"
 ---
 name: step1_prompt_for_management_of_blood_pressure
 description: Prompt for management of hypertension (high blood pressure) and hypotension (low blood pressure)
@@ -134,12 +151,4 @@ priority: 1
 condition: "step1_treatment_provided.contains('other_treatment_provided')"
 actions:
   - "isRelevant = true"
----
-name: step1_specify_other_treatment
-description: prompt other treatment provided
-priority: 1
-condition: "step1_treatment_provided.contains('other_treatment_provided')"
-actions:
-  - "isRelevant = true"
-
 

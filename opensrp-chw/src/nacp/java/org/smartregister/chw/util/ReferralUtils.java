@@ -2,8 +2,6 @@ package org.smartregister.chw.util;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
-import org.smartregister.Context;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -11,16 +9,11 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.domain.Location;
-import org.smartregister.domain.LocationTag;
 import org.smartregister.domain.Task;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.LocationRepository;
-import org.smartregister.repository.LocationTagRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -126,32 +119,7 @@ public class ReferralUtils extends CoreReferralUtils {
     }
 
     private static String getWard() {
-        LocationRepository locationRepository = new LocationRepository();
-        List<Location> locations = locationRepository.getAllLocations();
-        String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        return getParentLocationIdWithTags(locations, locationId, "Ward");
-    }
-
-    private static String getParentLocationIdWithTags(List<Location> locations, String locationId, String tagName) {
-        LocationTagRepository locationTagReposity = new LocationTagRepository();
-        List<LocationTag> allLocationTags = locationTagReposity.getAllLocationTags();
-        for (Location location : locations) {
-            List<LocationTag> locationTags = new ArrayList<>();
-            for (LocationTag locationTag : allLocationTags) {
-                if (locationTag.getLocationId().equals(location.getId())) {
-                    locationTags.add(locationTag);
-                }
-            }
-            if (location.getId().equals(locationId)) {
-                for (LocationTag locationTag : locationTags) {
-                    if (locationTag.getName().equalsIgnoreCase(tagName))
-                        return location.getId();
-                    else
-                        return getParentLocationIdWithTags(locations, location.getProperties().getParentId(), tagName);
-                }
-            }
-        }
-        return null;
+        return LocationUtils.getWard();
     }
 
 }

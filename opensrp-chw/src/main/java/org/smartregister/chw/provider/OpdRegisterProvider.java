@@ -25,6 +25,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class OpdRegisterProvider extends org.smartregister.opd.provider.OpdRegisterProvider {
+    private static final String HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE = "Harm Reduction Sober House";
     private final Context context;
 
     private OpdRegisterProviderMetadata opdRegisterProviderMetadata;
@@ -79,6 +80,8 @@ public class OpdRegisterProvider extends org.smartregister.opd.provider.OpdRegis
             return context.getString(R.string.menu_malaria);
         } else if (registerType.equalsIgnoreCase(CoreConstants.REGISTER_TYPE.INDEPENDENT)) {
             return context.getString(R.string.menu_independent);
+        } else if (registerType.equalsIgnoreCase(HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE)) {
+            return context.getString(R.string.harm_reduction_sober_house);
         } else if (registerType.equalsIgnoreCase(CoreConstants.REGISTER_TYPE.CECAP)) {
             return context.getString(R.string.menu_cecap);
         }

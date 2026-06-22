@@ -23,7 +23,7 @@ import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.fragment.BaseReferralRegisterFragment;
-import org.smartregister.chw.referral.provider.ReferralRegisterProvider;
+import org.smartregister.chw.provider.NacpReferralRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -50,7 +50,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
-        ReferralRegisterProvider referralRegisterProvider = new ReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        NacpReferralRegisterProvider referralRegisterProvider = new NacpReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, referralRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
