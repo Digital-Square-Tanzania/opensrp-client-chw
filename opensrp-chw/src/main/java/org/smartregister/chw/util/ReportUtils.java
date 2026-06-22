@@ -15,14 +15,18 @@ import org.json.JSONException;
 import org.smartregister.chw.domain.asrh_reports.AsrhOtherReportObject;
 import org.smartregister.chw.domain.asrh_reports.AsrhReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypInSchoolReportObject;
+import org.smartregister.chw.domain.ayp_reports.AypOutSchoolReportObject;
 import org.smartregister.chw.domain.ayp_reports.AypParentalReportObject;
 import org.smartregister.chw.domain.KvpReportObject;
 import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
 import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
+import org.smartregister.chw.domain.ecd_reports.ECDReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapOtherReportObject;
 import org.smartregister.chw.domain.cecap_reports.CecapReportObject;
+import org.smartregister.chw.domain.harm_reduction_reports.HarmReductionReportObject;
+import org.smartregister.chw.domain.harm_reduction_sober_house_reports.HarmReductionSoberHouseReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsAnnualReportObject;
 import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
@@ -265,6 +269,30 @@ public class ReportUtils {
         }
     }
 
+    public static class HarmReductionReports {
+        public static String computeClientsReports(Date startDate) {
+            HarmReductionReportObject harmReductionReportObject = new HarmReductionReportObject(startDate);
+            try {
+                return harmReductionReportObject.getIndicatorDataAsGson(harmReductionReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
+    public static class HarmReductionSoberHouseReports {
+        public static String computeClientsReports(Date startDate) {
+            HarmReductionSoberHouseReportObject reportObject = new HarmReductionSoberHouseReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+    }
+
     public static class AypReports {
         public static String computeInSchoolMonthlyReport(Date startDate) {
             AypInSchoolReportObject reportObject = new AypInSchoolReportObject(startDate);
@@ -278,6 +306,16 @@ public class ReportUtils {
 
         public static String computeParentalMonthlyReport(Date startDate) {
             AypParentalReportObject reportObject = new AypParentalReportObject(startDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
+
+        public static String computeOutSchoolMonthlyReport(Date startDate) {
+            AypOutSchoolReportObject reportObject = new AypOutSchoolReportObject(startDate);
             try {
                 return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
             } catch (JSONException e) {
@@ -406,6 +444,19 @@ public class ReportUtils {
                 Timber.e(e);
             }
             return "";
+        }
+    }
+
+    public static class ECDReport {
+        public static String computeReport(Date startDate) {
+            String report = "";
+            ECDReportObject ecdReportObject = new ECDReportObject(startDate);
+            try {
+                report = ecdReportObject.getIndicatorDataAsGson(ecdReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+            return report;
         }
     }
 

@@ -33,6 +33,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="org.smartregister.chw.activity.HarmReductionPreMatPrintActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
             android:name=".activity.ForgotPasswordActivity"
             android:theme="@style/ChwTheme.NoActionBar"
             android:parentActivityName=".activity.LoginActivity"/>
@@ -58,7 +62,55 @@
             android:name=".activity.TbLeprosyMobilizationDetailsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.HarmReductionProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionMatClientsProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.HarmReductionMatClientsVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionMatClientsVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionPreMatSessionsHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.KvpPrEPProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseVisitHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.KvpReportsViewActivity"
@@ -245,6 +297,9 @@
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AncJsonWizardFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -264,6 +319,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncNoMotherRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
@@ -550,8 +608,18 @@
         <activity
             android:name=".activity.IccmReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name=".activity.PncChildNoMotherProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.IccmMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AsrhRegisterActivity"
@@ -571,6 +639,22 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AsrhReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HarmReductionSoberHouseReportsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -709,6 +793,9 @@
             android:foregroundServiceType="dataSync"/>
 
         <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.intent.ChwSyncLocationsByLevelAndTagsIntentService"
             android:foregroundServiceType="dataSync"/>
 
         <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService"

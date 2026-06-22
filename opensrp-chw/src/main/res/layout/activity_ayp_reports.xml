@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="AYP Out Of School Report"
+            android:text="@string/ayp_out_of_school_report"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"

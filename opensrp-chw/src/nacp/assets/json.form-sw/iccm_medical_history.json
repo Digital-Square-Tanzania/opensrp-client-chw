@@ -304,7 +304,7 @@
       {
         "key": "prompt_for_diagnosing_diarrhea",
         "type": "toaster_notes",
-        "text": "Ainisha kuwa mteja ana harisha",
+        "text": "Ainisha kuwa mteja anaharisha",
         "openmrs_entity_id": "prompt_for_diagnosing_diarrhea",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",

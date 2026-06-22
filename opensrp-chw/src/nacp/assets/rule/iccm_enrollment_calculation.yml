@@ -1,10 +1,10 @@
 ---
-name: step3_should_be_referred
+name: step4_should_be_referred
 description: should_be_referred calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = !step3_danger_signs.isEmpty() && !step3_danger_signs.contains('none')"
+  - "calculation = !step4_danger_signs.isEmpty() && !step4_danger_signs.contains('none')"
 ---
 name: step4_number_of_rectal_artesunate_suppository_dispensed
 description: number_of_rectal_artesunate_suppository_dispensed calculation

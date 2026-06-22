@@ -1,5 +1,6 @@
 package org.smartregister.chw.actionhelper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -42,8 +44,12 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             List<org.smartregister.immunization.domain.Vaccine> vaccines
     ) {
         vaccineSchedules = VisitVaccineUtil.getSchedule(vaccinesGroups, specialVaccines, vaccineCategory);
-        for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
-            administeredVaccines.put(vaccine.getName(), vaccine.getDate());
+        if (vaccines != null) {
+            for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
+                if (vaccine != null) {
+                    administeredVaccines.put(normalizeVaccineNameForMatching(vaccine.getName()), vaccine.getDate());
+                }
+            }
         }
     }
 
@@ -135,7 +141,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             if (prevFragment != null) {
                 for (VaccineDisplay display : prevFragment.getVaccineDisplays().values()) {
                     if (display.getValid())
-                        receivedVacs.put(display.getVaccineWrapper().getName(), display.getDateGiven());
+                        receivedVacs.put(normalizeVaccineNameForMatching(display.getVaccineWrapper().getName()), display.getDateGiven());
                 }
             }
 
@@ -194,6 +200,14 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             displays.add(display);
         }
         return displays;
+    }
+
+    private String normalizeVaccineNameForMatching(String vaccineName) {
+        return StringUtils.defaultString(vaccineName)
+                .toLowerCase(Locale.ENGLISH)
+                .replace(" ", "")
+                .replace("_", "")
+                .replace("-", "");
     }
 
 }

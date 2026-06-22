@@ -231,7 +231,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -248,7 +248,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -268,7 +268,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -287,7 +287,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }

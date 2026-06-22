@@ -1,8 +1,11 @@
 package org.smartregister.chw.interactor;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -30,6 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -99,6 +103,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                         // If count is 1 then only mother had danger signs and requires referral otherwise baby/babies had danger signs and require referral
                         if (facilitySelectionStepCount == 1) {
                             ReferralUtils.processReferral(facilitySelectionForm, memberID, CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS, referralProblems);
+                            showReferralSentNotification();
                         } else {
 
                             for (Map.Entry<String, BaseAncHomeVisitAction> actionEntry: map.entrySet()) {
@@ -111,6 +116,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                                                 facilitySelectionStepCount,
                                                 actionEntry.getKey());
                                         ReferralUtils.processReferral(motherReferralFacilitySelection, memberID, CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS, referralProblems);
+                                        showReferralSentNotification();
 
                                     } else {
                                         // Process baby referral
@@ -123,6 +129,7 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                                                 actionEntry.getKey());
 
                                         ReferralUtils.processReferral(babyReferralFacilitySelection, babyBaseEntityId, CoreConstants.TASKS_FOCUS.SICK_CHILD, babyReferralProblems);
+                                        showReferralSentNotification();
                                     }
                                 }
                             }
@@ -139,6 +146,15 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         }
 
         super.submitVisit(editMode, memberID, map, callBack);
+    }
+
+    private void showReferralSentNotification() {
+        if (context != null && context instanceof Activity) {
+            ((Activity) context).runOnUiThread(() -> {
+                Timber.i("Referral sent notification displayed");
+                Toast.makeText(context, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+            });
+        }
     }
 
     private String getReferralFacilitySelection(JSONObject facilitySelectionJsonObject, int stepCount, String actionTitle) throws JSONException {
@@ -205,7 +221,30 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
             baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
                     list, new ArrayList<>(), null, "pnc_visit_date"));
+
+            List<Object> ecd_modules_present = new ArrayList<>();
+            ecd_modules_present.add(areEcdModulesPresent(baseEvent));
+
+            baseEvent.addObs(new Obs("concept", "text", "ecd_modules_present", "",
+                    ecd_modules_present, ecd_modules_present, null, "ecd_modules_present"));
         }
+    }
+
+    private static boolean areEcdModulesPresent(Event baseEvent) {
+        for (Obs obs : baseEvent.getObs()) {
+            String fieldCode = obs.getFieldCode();
+            if (fieldCode != null && (
+                    fieldCode.equals("ccd_development_screening_assessment_module") ||
+                            fieldCode.equals("child_development_issues") ||
+                            fieldCode.equals("ccd_introduction_module") ||
+                            fieldCode.equals("ccd_communication_assessment_module") ||
+                            fieldCode.equals("ccd_problem_solving_module") ||
+                            fieldCode.equals("ccd_caregiver_responsiveness_module") ||
+                            fieldCode.equals("ccd_play_assessment_counselling_module"))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

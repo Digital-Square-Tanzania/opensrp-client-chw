@@ -29,6 +29,8 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.dao.ChildDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -91,6 +93,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 childBaseEntityId, this);
+        memberObject = PNCDao.getMember(memberObject.getBaseEntityId());
     }
 
     @Override

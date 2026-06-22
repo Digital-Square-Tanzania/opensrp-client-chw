@@ -55,20 +55,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Does the child have a long lasting insecticide net (LLIN)?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Does the child have a long lasting insecticide net (LLIN)?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -80,20 +84,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the child sleep under the LLIN last night?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Did she and her child sleep under the LLIN last night?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -126,20 +134,31 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "LLIN condition",
-        "values": [
-          "Okay",
-          "Bad"
+        "type": "native_radio",
+        "label": "Ask the guardian about the condition of the LLIN",
+        "options": [
+          {
+            "key": "Good",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Good",
+            "openmrs_entity_parent": "",
+            "text": "Good"
+          },
+          {
+            "key": "Normal with a few holes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Normal with a few holes",
+            "openmrs_entity_parent": "",
+            "text": "Normal with a few holes"
+          },
+          {
+            "key": "Poor",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Poor",
+            "openmrs_entity_parent": "",
+            "text": "Poor"
+          }
         ],
-        "keys": [
-          "Okay",
-          "Bad"
-        ],
-        "openmrs_choice_ids": {
-          "Okay": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Bad": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -150,6 +169,74 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "normal_llin_condition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "Advice the mother/father or caregiver to stitch the holes on the LLIN",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:llin_condition_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"Normal with a few holes\")"
+          }
+        }
+      },
+      {
+        "key": "poor_llin_condition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "Advice the mother/father or caregiver to purchase a new LLIN",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:llin_condition_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"Poor\")"
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "health_facility_testing_treatment_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Take the child to the hospital soon if you feel she/he is having Malaria symptoms.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "kk_play_and_communication_flipbook_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Please refer to Topic 7 in Bango Kitita to continue with the discussion",
+        "text_color": "#000000"
       }
     ]
   }

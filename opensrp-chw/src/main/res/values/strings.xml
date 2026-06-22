@@ -7,7 +7,7 @@
     <string name="not_provided">Not provided</string>
 
     <string name="child_under_five">Child under 5 years</string>
-    <string name="add_eligible_child">Eligible Client</string>
+    <string name="add_eligible_child">Eligible child</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="view_households_with_count">Households (%1$d)</string>
@@ -435,7 +435,7 @@
 
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
-    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
+    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding</string>
     <string name="deworming_number_dose">Deworming %s dose</string>
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
     <string name="mnp_number_pack">MNP %s pack</string>
@@ -627,6 +627,16 @@
 
     <string name="malnutrition_screening_subtitle">MUAC: %s Anemia: %s</string>
     <string name="malnutrition_screening">Malnutrition/Anemia screening</string>
+    <string name="good">Good</string>
+    <string name="poor">Poor</string>
+    <string name="child_hv_complementary_feeding"> Complementary Feeding Counseling </string>
+    <string name="child_hv_complementary_feeding_after_24_month">Nutrition</string>
+    <string name="child_hv_breastfeeding">Breastfeeding</string>
+
+    <!-- ECD visit History-->
+    <string name="ecd_reports_subtitle">View ECD Report</string>
+    <string name="ecd_reports_title">ECD Reports</string>
+    <string name="ecd_client_report">ECD Clients Report</string>
     <string name="map_cue">Landmark/Description of house location</string>
     <string name="street_name">Street / Hamlet Name</string>
 
@@ -724,6 +734,7 @@
     <string name="tbleprosy_followup_visit_client_found">Client found</string>
     <string name="tbleprosy_followup_visit_client_not_found">Client not found</string>
     <string name="tbleprosy_followup_visit_client_deceased">Client deceased</string>
+    <string name="harm_reduction_followup_visit_client_deceased">Client deceased</string>
     <string name="tbleprosy_followup_visit_reason_client_not_found">Specify the reason the client was not found</string>
     <string name="tbleprosy_followup_visit_returned_to_treatment">Has the client resumed treatment?</string>
     <string name="tbleprosy_followup_visit_service_access_challenges">Is the client facing challenges accessing services?</string>
@@ -763,6 +774,19 @@
     <string name="add_existing_family_member">Add existing household member</string>
     <string name="cbhs_reports_title">CBHS Summary Report</string>
     <string name="cbhs_reports_subtitle">View Monthly Summary Report</string>
+    <string name="ayp_out_of_school_report">AYP Out Of School Monthly Report</string>
 
-
+    <string name="harm_reduction_download_pre_mat_report">Download pre-MAT report</string>
+    <string name="harm_reduction_used_needles_collection">Used Needle and Syringes Collection</string>
+    <string name="harm_reduction_used_needles_collection_details">Used Needle and Syringes Collection Details</string>
+    <string name="harm_reduction_back_to_all_used_needles_collection_sessions">Back to all used needles and syringes collection sessions</string>
+    <string name="harm_reduction_date_of_collection">Date of Collection</string>
+    <string name="harm_reduction_maskani_name">Name of Maskani</string>
+    <string name="harm_reduction_collection_site_gps">GPS location of collection site</string>
+    <string name="harm_reduction_number_of_used_needles_and_syringes_collected">Number of used Needles and Syringes collected</string>
+    <string name="harm_reduction_issues_challenges_related_to_collection_of_used_needles_and_syringes">Issues/Challenges related to collection of used syringes</string>
+    <string name="harm_reduction_other_collection">Number of Safety Boxes collected (used syringes) in Other Collection sites</string>
+    <string name="harm_reduction_fixed_bins">Number of Safety Boxes collected (used syringes) in Fixed Bins</string>
+    <string name="harm_reduction_total_safety_boxes_collected">Total Safety Boxes collected (used syringes)</string>
+    <string name="harm_reduction_name_of_ow">Name of OW</string>
 </resources>

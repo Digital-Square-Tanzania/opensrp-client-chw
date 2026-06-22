@@ -1,0 +1,119 @@
+{
+  "count": "1",
+  "encounter_type": "Newborn Cord Care",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Huduma muhimu kwa watoto wachanga: Jinsi ya kutunza kitovu",
+    "fields": [
+      {
+        "key": "child_cord_care1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Kwa kawaida, kamba iliyopo kwenye kitovu cha mtoto wako hukauka na kudondoka yenyewe ndani ya wiki moja au mbili baada ya mtoto kuzaliwa. Iache kamba ya kitovu idondoke yenyewe epuka kujaribu kuivuta ili idondoke. Katika kipindi hiki hakikisha unakitunza ipasavyo:",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer"
+      },
+      {
+        "key": "child_cord_car2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Hakikisha kinakuwa kikavu. Jaribu kukiruhusu kipate hewa ili iwe rahisi kukauka. Unapomfunga mtoto wako nepi  hakikisha unamfunga kwa chini ya kitovu ili kuepuka kukifunika.",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "child_cord_car3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "USIINGIZE kitu chochote kwenye kitovu cha mtoto",
+        "has_bg": true,
+        "bg_color": "#efd5d9",
+        "text_color": "#000000",
+        "label_text_style": "italic"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "child_cord_car4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Unapoweka kitu chochote inaweza kusababisha madhara kwa mtoto. Kumuogesha kwa kumfuta ni vizuri, itasaidia kuafanya kitovu kikauke haraka.",
+        "text_color": "#000000"
+      }
+    ]
+  }
+}

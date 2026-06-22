@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taarifa ya Mwezi - Sober House</title>
+    <style>
+        body {
+            padding: 12px;
+            color: #000;
+            font-size: 0.8rem;
+            font-family: "Times New Roman", serif;
+        }
+
+        .report-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .header-copy {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-copy h1,
+        .header-copy h2,
+        .header-copy h3 {
+            margin: 2px 0;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+
+        .header-copy h1 {
+            font-size: 1rem;
+        }
+
+        .header-copy h2 {
+            font-size: 0.95rem;
+        }
+
+        .header-copy h3 {
+            font-size: 0.9rem;
+        }
+
+        .header-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+            margin-top: 12px;
+            font-size: 0.82rem;
+        }
+
+        .meta div {
+            border-bottom: 1px solid #000;
+            min-height: 20px;
+        }
+
+        .meta span {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 12px;
+        }
+
+        col.sn-col {
+            width: 62px;
+        }
+
+        col.indicator-col {
+            width: 27%;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 5px 4px;
+            vertical-align: middle;
+            word-break: break-word;
+        }
+
+        th {
+            text-align: center;
+            background: #e7e6e6;
+            font-weight: bold;
+        }
+
+        tbody td:first-child {
+            text-align: center;
+        }
+
+        .indicator-cell {
+            text-align: left;
+        }
+
+        .value-cell {
+            text-align: center;
+        }
+
+        .section-row td {
+            background: #d9d9d9;
+            font-weight: bold;
+        }
+
+        .section-row td:first-child {
+            width: 62px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="report-header">
+    <img src="https://appassets.androidplatform.net/assets/img/Coat_of_arms_of_Tanzania.png" class="header-logo" alt="National Logo">
+    <div class="header-copy">
+        <h1>Mamlaka ya Kudhibiti na Kupambana na Dawa za Kulevya</h1>
+        <h2>Fomu ya Kutolea Taarifa ya Mwezi</h2>
+        <h3>Sober House</h3>
+    </div>
+    <img src="https://appassets.androidplatform.net/assets/img/dcea_logo.png" class="header-logo" alt="DCEA Logo">
+</div>
+
+<div class="meta">
+    <div><span>Taarifa ya [Mwezi/Mwaka]:</span> <span id="report_period"></span></div>
+    <div><span>Kituo:</span> <span id="reporting_facility"></span></div>
+</div>
+
+<table>
+    <colgroup>
+        <col class="sn-col">
+        <col class="indicator-col">
+        <col span="13">
+    </colgroup>
+    <thead>
+    <tr>
+        <th rowspan="3">S/N</th>
+        <th rowspan="3">Kiashiria</th>
+        <th rowspan="3">Jumla<br>(ME+KE)</th>
+        <th colspan="6">Wanaume</th>
+        <th colspan="6">Wanawake</th>
+    </tr>
+    <tr>
+        <th rowspan="2">Jumla<br>(ME)</th>
+        <th colspan="5">Umri</th>
+        <th rowspan="2">Jumla<br>(KE)</th>
+        <th colspan="5">Umri</th>
+    </tr>
+    <tr>
+        <th>18-25</th>
+        <th>26-35</th>
+        <th>36-45</th>
+        <th>46-55</th>
+        <th>&gt;=55</th>
+        <th>18-25</th>
+        <th>26-35</th>
+        <th>36-45</th>
+        <th>46-55</th>
+        <th>&gt;=56</th>
+    </tr>
+    </thead>
+    <tbody id="report_rows"></tbody>
+</table>
+
+<script>
+    const VALUE_COLUMNS = [
+        "",
+        "male-total",
+        "male-18-25",
+        "male-26-35",
+        "male-36-45",
+        "male-46-55",
+        "male-55-plus",
+        "female-total",
+        "female-18-25",
+        "female-26-35",
+        "female-36-45",
+        "female-46-55",
+        "female-56-plus"
+    ];
+
+    const ROW_DEFINITIONS = [
+        { type: "metric", sn: "1", label: "Idadi ya wakazi waliopata huduma katika nyumba ya upataji nafuu katika kipindi cha ripoti", code: "sh-1" },
+        { type: "section", sn: "2", label: "Kiwango cha elimu cha wakazi waliopata huduma katika nyumba katika kipindi cha ripoti" },
+        { type: "metric", sn: "2a", label: "Wasiosoma kabisa", code: "sh-2a" },
+        { type: "metric", sn: "2b", label: "Wasiomaliza shule ya msingi", code: "sh-2b" },
+        { type: "metric", sn: "2c", label: "Waliomaliza shule ya msingi", code: "sh-2c" },
+        { type: "metric", sn: "2d", label: "Waliomaliza elimu ya sekondari", code: "sh-2d" },
+        { type: "metric", sn: "2e", label: "Waliofikia elimu ya chuo kikuu", code: "sh-2e" },
+        { type: "section", sn: "4", label: "Uraia wa wakazi waliopata huduma katika nyumba ya upataji nafuu" },
+        { type: "metric", sn: "4a", label: "Wakazi ambao ni raia wa Tanzania", code: "sh-4a" },
+        { type: "metric", sn: "4b", label: "Wakazi ambao si raia wa Tanzania", code: "sh-4b" },
+        { type: "section", sn: "5", label: "Hali ya ajira/kazi kwa wakazi" },
+        { type: "metric", sn: "5a", label: "Wenye ajira ya kudumu", code: "sh-5a" },
+        { type: "metric", sn: "5b", label: "Waliojiajiri wenyewe", code: "sh-5b" },
+        { type: "metric", sn: "5c", label: "Wasiokuwa na ajira", code: "sh-5c" },
+        { type: "metric", sn: "5d", label: "Wanafunzi", code: "sh-5d" },
+        { type: "metric", sn: "5e", label: "Wengineo", code: "sh-5e" },
+        { type: "section", sn: "6", label: "Hali ya ndoa ya wakazi" },
+        { type: "metric", sn: "6a", label: "Hajaoa/Hajaolewa", code: "sh-6a" },
+        { type: "metric", sn: "6b", label: "Kaoa/Kaolewa", code: "sh-6b" },
+        { type: "metric", sn: "6c", label: "Watalikiwa", code: "sh-6c" },
+        { type: "metric", sn: "6d", label: "Wajane/Wagane", code: "sh-6d" },
+        { type: "section", sn: "7", label: "Aina za vilevi zilizopelekea kuhitaji huduma ya upataji nafuu" },
+        { type: "metric", sn: "7a", label: "Pombe", code: "sh-7a" },
+        { type: "metric", sn: "7b", label: "Bangi", code: "sh-7b" },
+        { type: "metric", sn: "7c", label: "Mirungi", code: "sh-7c" },
+        { type: "metric", sn: "7d", label: "Heroin", code: "sh-7d" },
+        { type: "metric", sn: "7e", label: "Valium/Diazepam", code: "sh-7e" },
+        { type: "metric", sn: "7f", label: "Tramadol", code: "sh-7f" },
+        { type: "metric", sn: "7g", label: "Methamphetamine", code: "sh-7g" },
+        { type: "metric", sn: "7h", label: "Vilevi vinginevyo", code: "sh-7h" },
+        { type: "section", sn: "8", label: "Magonjwa yaliyoripotiwa katika kipindi cha kuripoti" },
+        { type: "metric", sn: "8a", label: "VVU na UKIMWI", code: "sh-8a" },
+        { type: "metric", sn: "8b", label: "Magonjwa ya ngono", code: "sh-8b" },
+        { type: "metric", sn: "8c", label: "Magonjwa ya moyo", code: "sh-8c" },
+        { type: "metric", sn: "8d", label: "Magonjwa ya afya ya akili", code: "sh-8d" },
+        { type: "metric", sn: "8e", label: "Homa ya ini aina ya B", code: "sh-8e" },
+        { type: "metric", sn: "8f", label: "Homa ya ini aina ya C", code: "sh-8f" },
+        { type: "metric", sn: "8g", label: "Homa nyengine za ini", code: "sh-8g" },
+        { type: "metric", sn: "8h", label: "Ugonjwa wa kisukari", code: "sh-8h" },
+        { type: "metric", sn: "8i", label: "Ugonjwa wa kifua kikuu", code: "sh-8i" },
+        { type: "metric", sn: "8j", label: "Magonjwa mengineyo", code: "sh-8j" },
+        { type: "section", sn: "9", label: "Wakazi waliopatiwa tiba kwa magonjwa yaliyoripotiwa" },
+        { type: "metric", sn: "9a", label: "VVU na UKIMWI", code: "sh-9a" },
+        { type: "metric", sn: "9b", label: "Magonjwa ya ngono", code: "sh-9b" },
+        { type: "metric", sn: "9c", label: "Magonjwa ya moyo", code: "sh-9c" },
+        { type: "metric", sn: "9d", label: "Magonjwa ya afya ya akili", code: "sh-9d" },
+        { type: "metric", sn: "9e", label: "Homa ya ini aina ya B", code: "sh-9e" },
+        { type: "metric", sn: "9f", label: "Homa ya ini aina ya C", code: "sh-9f" },
+        { type: "metric", sn: "9g", label: "Homa nyengine za ini", code: "sh-9g" },
+        { type: "metric", sn: "9h", label: "Ugonjwa wa kisukari", code: "sh-9h" },
+        { type: "metric", sn: "9i", label: "Ugonjwa wa kifua kikuu", code: "sh-9i" },
+        { type: "metric", sn: "9j", label: "Magonjwa mengineyo", code: "sh-9j" },
+        { type: "section", sn: "10", label: "Wakazi ambao hawakukamilisha huduma ya upataji nafuu" },
+        { type: "metric", sn: "10a", label: "Utoro", code: "sh-10a" },
+        { type: "metric", sn: "10b", label: "Waliorudia matumizi", code: "sh-10b" },
+        { type: "metric", sn: "10c", label: "Vifo", code: "sh-10c" }
+    ];
+
+    function getCellId(code, suffix) {
+        return suffix ? `${code}-${suffix}` : code;
+    }
+
+    function renderMetricRow(row) {
+        const valueCells = VALUE_COLUMNS.map((suffix) => {
+            const cellId = getCellId(row.code, suffix);
+            return `<td id="${cellId}" class="value-cell"></td>`;
+        }).join("");
+
+        return `
+            <tr>
+                <td>${row.sn}</td>
+                <td class="indicator-cell">${row.label}</td>
+                ${valueCells}
+            </tr>
+        `;
+    }
+
+    function renderSectionRow(row) {
+        return `
+            <tr class="section-row">
+                <td>${row.sn}</td>
+                <td colspan="14">${row.label}</td>
+            </tr>
+        `;
+    }
+
+    function renderRows() {
+        const tableBody = document.getElementById("report_rows");
+        tableBody.innerHTML = ROW_DEFINITIONS.map((row) => {
+            return row.type === "section" ? renderSectionRow(row) : renderMetricRow(row);
+        }).join("");
+    }
+
+    function populateValues(values) {
+        ROW_DEFINITIONS
+            .filter((row) => row.type === "metric")
+            .forEach((row) => {
+                VALUE_COLUMNS.forEach((suffix) => {
+                    const key = getCellId(row.code, suffix);
+                    const cell = document.getElementById(key);
+                    if (cell) {
+                        const value = Object.prototype.hasOwnProperty.call(values, key) ? values[key] : 0;
+                        cell.textContent = value;
+                    }
+                });
+            });
+    }
+
+    function loadData() {
+        renderRows();
+
+        const data = JSON.parse(Android.getData("clients-monthly-report") || "{}");
+        const values = data.nameValuePairs || {};
+        populateValues(values);
+
+        document.getElementById("report_period").textContent = Android.getDataPeriod();
+        document.getElementById("reporting_facility").textContent = Android.getReportingFacility();
+    }
+
+    document.addEventListener("DOMContentLoaded", loadData);
+</script>
+</body>
+
+</html>

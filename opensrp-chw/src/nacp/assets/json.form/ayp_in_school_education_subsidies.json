@@ -89,6 +89,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "education_subsidies",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Education Subsidies (ES) provided:",
         "v_required": {
           "value": true,

@@ -61,6 +61,7 @@
         "openmrs_entity_id": "problem",
         "type": "check_box",
         "label": "Sababu ya kuunganishwa na Huduma za Duka la Dawa Muhimu",
+        "combine_checkbox_option_values": "true",
         "exclusive": ["chk_none"],
         "options": [
           {
@@ -108,7 +109,7 @@
           {
             "key": "chk_other",
             "text": "Nyingine",
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
           },
           {

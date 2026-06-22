@@ -50,6 +50,31 @@
     "title": "Environmental Hygiene Safety and Counseling",
     "fields": [
       {
+        "key": "is_hand_washing_facilities_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_hand_washing_facilities_present",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does your household have hand washing facilities with running water?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "yes",
+          "No": "no"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
         "key": "environment_hygiene_note_one",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -79,17 +104,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "defecation_location",
-        "type": "edit_text",
-        "label_info_title": "Hygiene Information",
-        "hint": "Where does your child defecate?"
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Where does your child defecate?"
       },
       {
         "key": "feces_disposal",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "feces_disposal",
-        "type": "edit_text",
-        "hint": "Where do you dispose your child feces?"
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Where do you dispose your child feces?"
       },
       {
         "key": "is_latrine_present",
@@ -163,6 +189,24 @@
             }
           }
         }
+      },
+      {
+        "key": "explain_danger_stool_disposal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "explain_danger_stool_disposal",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Explain to the mother the dangers of child stool and safe disposal:\n\nThe safest way to dispose of a child's feces is to help the child use a toilet or latrine or, for very young children, to put or rinse their feces into a toilet or latrine.\nThere is evidence that children's feces could be riskier than adults' feces.\nChildren's feces should be treated with the same concern as adult feces, using safe disposal methods that ensure separation from human contact and household contamination."
+      },
+      {
+        "key": "bango_kitita_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "explain_danger_stool_disposal",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Please refer to Topic 24 in Bango Kitita to continue with the discussion."
       }
     ]
   }

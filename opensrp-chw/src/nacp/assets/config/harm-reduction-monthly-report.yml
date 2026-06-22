@@ -1,0 +1,250 @@
+indicators:
+  - key: "hr-1"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD enrolled into Harm Reduction services at community level"
+    indicatorQuery: "SELECT count(DISTINCT ehra.base_entity_id) as count
+                      FROM ec_harm_reduction_risk_assessment ehra
+                      WHERE ifnull(ehra.is_closed, 0) = 0
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehra.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehra.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-2"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD who received at least one Harm Reduction service"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        trim(ifnull(ehfv.health_education_provided, '')) <> '' OR
+                        trim(ifnull(ehfv.iec_materials_provided, '')) <> '' OR
+                        trim(ifnull(ehfv.safe_injection_tools, '')) <> '' OR
+                        trim(ifnull(ehfv.referrals_provided, '')) <> '' OR
+                        trim(ifnull(ehfv.hiv_tested, '')) <> '' OR
+                        trim(ifnull(ehfv.tb_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.stds_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.hepatitis_bc_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.hepatitis_b_screening, '')) <> '' OR
+                        trim(ifnull(ehfv.hepatitis_c_screening, '')) <> ''
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-3"
+    grouping: "HARM_REDUCTION"
+    description: "Number of newly enrolled PWUD"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.client_status, '')) = 'new'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-4"
+    grouping: "HARM_REDUCTION"
+    description: "Number of IDU who received syringes during reporting period"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.is_idu, '')) = 'yes'
+                      AND (
+                        lower(ifnull(ehfv.safe_injection_tools, '')) LIKE '%syringes%' OR
+                        CAST(ifnull(ehfv.qty_syringes, '0') AS INTEGER) > 0
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-5"
+    grouping: "HARM_REDUCTION"
+    description: "Number of syringes distributed"
+    indicatorQuery: "SELECT coalesce(sum(CASE
+                        WHEN trim(ifnull(ehfv.qty_syringes, '')) = '' THEN 0
+                        ELSE CAST(ehfv.qty_syringes AS INTEGER)
+                      END), 0) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  # Proxy mapping: used needles collected/disposed is not explicitly captured in the allowed tables.
+  # Using qty_needles from ec_harm_reduction_followup_visit as the closest available source.
+  - key: "hr-6"
+    grouping: "HARM_REDUCTION"
+    description: "Number of used needles collected and disposed (proxy from qty_needles)"
+    indicatorQuery: "SELECT coalesce(sum(CASE
+                        WHEN trim(ifnull(ehfv.qty_needles, '')) = '' THEN 0
+                        ELSE CAST(ehfv.qty_needles AS INTEGER)
+                      END), 0) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-7"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD prepared and referred for MAT"
+    indicatorQuery: "SELECT count(DISTINCT source.client_id) as count
+                      FROM (
+                        SELECT ehfv.entity_id AS client_id
+                        FROM ec_harm_reduction_followup_visit ehfv
+                        WHERE (
+                          lower(ifnull(ehfv.referrals_provided, '')) LIKE '%methadone_services%' OR
+                          lower(ifnull(ehfv.roc_consent_joining_mat_services, '')) = 'yes'
+                        )
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                        date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                        '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                        UNION
+                        SELECT ehra.base_entity_id AS client_id
+                        FROM ec_harm_reduction_risk_assessment ehra
+                        WHERE lower(ifnull(ehra.client_started_mat, '')) = 'yes'
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                        date(substr(strftime('%Y-%m-%d', datetime(ehra.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                        '-' || substr(strftime('%Y-%m-%d', datetime(ehra.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')
+                      ) source"
+
+  - key: "hr-8"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for HIV testing"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hiv_testing%' OR
+                        lower(ifnull(ehfv.hiv_tested, '')) = 'yes'
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-9"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD screened and referred for TB testing"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%tb_leprosy%' OR
+                        lower(ifnull(ehfv.tb_screening, '')) IN ('has_symptoms', 'undergoing_treatment')
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-10"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD educated/screened/referred for STIs/STDs"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%stis_stds%' OR
+                        lower(ifnull(ehfv.stds_screening, '')) IN ('has_symptoms', 'undergoing_treatment')
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-11"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for Hepatitis testing/vaccination services"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%hepatitis_bc%' OR
+                        lower(ifnull(ehfv.hepatitis_bc_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR
+                        lower(ifnull(ehfv.hepatitis_b_screening, '')) IN ('has_symptoms', 'undergoing_treatment') OR
+                        lower(ifnull(ehfv.hepatitis_c_screening, '')) IN ('has_symptoms', 'undergoing_treatment')
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD who received/referred to other services"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE trim(ifnull(ehfv.referrals_provided, '')) <> ''
+                      AND lower(ifnull(ehfv.referrals_provided, '')) NOT LIKE '%none%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12a"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for Income Generating Activities"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.referrals_provided, '')) LIKE '%income_generating%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12b"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD linked to Sober House services"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.referrals_provided, '')) LIKE '%sober_house%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12c"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for mental health services"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.referrals_provided, '')) LIKE '%mental_health%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12d"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for legal support"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE lower(ifnull(ehfv.referrals_provided, '')) LIKE '%legal_issues%'
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-12e"
+    grouping: "HARM_REDUCTION"
+    description: "Number of PWUD referred for other services"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.referrals_provided, '')) LIKE '%other%' OR
+                        trim(ifnull(ehfv.referrals_other_specify, '')) <> ''
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-13"
+    grouping: "HARM_REDUCTION"
+    description: "Number of overdose cases reported in the community"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.client_status, '')) LIKE '%overdose%' OR
+                        lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%'
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"
+
+  - key: "hr-14"
+    grouping: "HARM_REDUCTION"
+    description: "Number of overdose deaths reported in the community"
+    indicatorQuery: "SELECT count(DISTINCT ehfv.entity_id) as count
+                      FROM ec_harm_reduction_followup_visit ehfv
+                      WHERE (
+                        lower(ifnull(ehfv.client_status, '')) LIKE '%client_deceased%'
+                      )
+                      AND (
+                        lower(ifnull(ehfv.cause_of_death, '')) LIKE '%overdose%'
+                      )
+                      AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                      date(substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                      '-' || substr(strftime('%Y-%m-%d', datetime(ehfv.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01')"

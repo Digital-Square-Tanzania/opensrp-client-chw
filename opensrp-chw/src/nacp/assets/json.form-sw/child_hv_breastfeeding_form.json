@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Essential New Born Care: Breastfeeding",
+  "encounter_type": "Exclusive breast feeding",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -115,7 +115,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Mshauri mama kuhusu umuhimu wa unyonyeshaji kwake na mtoto (Tafadhali fungua kitendea kazi cha Bango Kitita kwenye mada ya Unyonyeshaji)",
+        "text": "Mshauri mama kuhusu umuhimu wa unyonyeshaji kwake na mtoto (Tafadhali fungua kitendea kazi namba 16 cha Bango Kitita kwenye mada ya Unyonyeshaji)",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -215,7 +215,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Mpongeze mama/baba au mlezi kwa kuhakikisha mtoto ananyonya maziwa ya mama pekee",
-        "toaster_type": "info",
+        "toaster_type": "positive",
         "relevance": {
           "step1:other_food_child_feeds": {
             "ex-checkbox": [
@@ -377,7 +377,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Mpongeze mama kwa kumuweka vizuri mtoto wake wakati wa kumnyonyesha.",
-        "toaster_type": "info",
+        "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -454,42 +454,29 @@
         }
       },
       {
-        "key": "child_suckling_demo_two",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Msaidie mama kujua Zaidi kumuweka vizuri mtoto kwa ajili ya kumnyonyesha.  Muongozo wa kumuweka mtoto vizuri wakati wa kunyonya:\n\nKama mtoto analala sana na anakosa kunyonya, muamshe kwa kupapasa mwili wake, miguu au mikono.\n\n\nAsubiri hadi mdomo wa mtoto umefunguka sana.\n\nAmuweke mtoto haraka kwenye maziwa akitega mdomo wa chini wa mtoto vizuri chini ya kinyonyeo.\n\nKama maziwa yamevimba, pakaza kiwango kidogo cha maziwa kabla ya kuanza kumnyonyesha mtoto ili kulainisha kinyonyeo na iwe rahisi kwa mtoto kunyonya",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_hv_breastfeeding_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "exclusive_breast_feeding",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "exclusive_breast_feeding",
-        "type": "spinner",
-        "image": "ic_form_bf",
-        "hint": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        }
+        "type": "native_radio",
+        "label": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
+        "options": [
+          {
+            "key": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": "",
+            "text": "Ndio"
+          },
+          {
+            "key": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": "",
+            "text": "Hapana"
+          }
+        ]
       }
     ]
   }

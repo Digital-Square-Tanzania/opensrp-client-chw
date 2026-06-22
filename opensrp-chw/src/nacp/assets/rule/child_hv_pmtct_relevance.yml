@@ -1,0 +1,70 @@
+---
+name: step1_advice_hiv_test_soon
+description: Show Note to Advice the mother to go for a HIV test
+priority: 1
+condition: "step1_test_hiv_past_three_months.contains('chk_hiv_test_no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_hiv_past_three_months
+description: Ask Mother is she had tested for HIV for past three months
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_test_negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_status
+description: Show Note to Advice the mother to go for a HIV test
+priority: 1
+condition: "step1_comfortable_disclosing_hiv_status.contains('chk_hiv_disclosing_status_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_already_taking_art
+description: Show Note to Advice the mother to go for a HIV test
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_test_positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_encourage_mother_continue_treatment
+description: Show Note to Encourage mother to continue with treatment
+priority: 1
+condition: "step1_already_taking_art.contains('chk_taking_art_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_nearest_ctc
+description: Show Note to Encourage mother/caregiver to go to the nearest Care, Treatment, and Counselling (CTC) /PMCTC clinic.
+priority: 1
+condition: "step1_already_taking_art.contains('chk_taking_art_no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_stop_breastfeeding
+description: Show Note to Advice the mother with HIV Positive to stop breastfeeding
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_test_positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_childs_hiv_status
+description: Question to Disclose child HIV status
+priority: 1
+condition: "step1_comfortable_sharing_child_hiv_status.contains('chk_hiv_disclosing_status_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_mother_visits_pmtct_clinic
+description: Note to Advice mother to visit pmtct clinic
+priority: 1
+condition: "step1_childs_hiv_status.contains('chk_hiv_test_positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_comfortable_sharing_child_hiv_status
+description: Check if Mother Agree to disclose her HIV Status
+priority: 1
+condition: "step1_comfortable_disclosing_hiv_status.contains('chk_hiv_disclosing_status_yes')"
+actions:
+  - "isRelevant = true"

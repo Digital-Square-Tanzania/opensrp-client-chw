@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -14,9 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
+import org.smartregister.reporting.domain.TallyStatus;
+import org.smartregister.reporting.event.IndicatorTallyEvent;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
@@ -36,8 +42,15 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     protected ConstraintLayout agywReports;
 
     protected ConstraintLayout iccmReports;
+    protected ConstraintLayout ecdReports;
 
     protected ConstraintLayout sbcReports;
+
+    protected TextView textViewLogs;
+
+    protected ConstraintLayout harmReductionReports;
+
+    protected ConstraintLayout harmReductionSoberHouseReports;
 
     protected ConstraintLayout asrhReports;
 
@@ -71,13 +84,17 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agywReports = findViewById(R.id.agyw_reports);
         iccmReports = findViewById(R.id.iccm_reports);
+        ecdReports = findViewById(R.id.ecd_reports);
         sbcReports = findViewById(R.id.sbc_reports);
+        harmReductionReports = findViewById(R.id.harm_reduction_reports);
+        harmReductionSoberHouseReports = findViewById(R.id.harm_reduction_sober_house_reports);
         asrhReports = findViewById(R.id.asrh_reports);
         cecapReports = findViewById(R.id.cecap_reports);
         tbLeprosyReports = findViewById(R.id.tb_leprosy_reports);
         kvpReports = findViewById(R.id.kvp_reports);
         aypOutSchoolReports = findViewById(R.id.ayp_out_school_report);
         hpsReports = findViewById(R.id.hps_reports);
+        textViewLogs = findViewById(R.id.textView_logs);
 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
         SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -119,6 +136,14 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
                     if (ChwApplication.getApplicationFlavor().hasSbc()) {
                         sbcReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                        harmReductionReports.setVisibility(View.VISIBLE);
+                    }
+
+                    if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+                        harmReductionSoberHouseReports.setVisibility(View.VISIBLE);
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasAsrh()) {
@@ -163,6 +188,14 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 sbcReports.setVisibility(View.VISIBLE);
             }
 
+            if (ChwApplication.getApplicationFlavor().hasHarmReduction()) {
+                harmReductionReports.setVisibility(View.VISIBLE);
+            }
+
+            if (ChwApplication.getApplicationFlavor().hasHarmReductionSoberHouse()) {
+                harmReductionSoberHouseReports.setVisibility(View.VISIBLE);
+            }
+
             if (ChwApplication.getApplicationFlavor().hasAsrh()) {
                 asrhReports.setVisibility(View.VISIBLE);
             }
@@ -192,13 +225,17 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             }
         }
 
+        ecdReports.setVisibility(View.VISIBLE);
 
         motherChampionReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
         agywReports.setOnClickListener(this);
         iccmReports.setOnClickListener(this);
+        ecdReports.setOnClickListener(this);
         sbcReports.setOnClickListener(this);
+        harmReductionReports.setOnClickListener(this);
+        harmReductionSoberHouseReports.setOnClickListener(this);
         asrhReports.setOnClickListener(this);
         cecapReports.setOnClickListener(this);
         tbLeprosyReports.setOnClickListener(this);
@@ -260,6 +297,45 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             startActivity(new Intent(this, HpsReportsActivity.class));
         } else if (id == R.id.ayp_out_school_report) {
             startActivity(new Intent(this, AypReportsActivity.class));
+        } else if (id == R.id.harm_reduction_reports) {
+            startActivity(new Intent(this, HarmReductionReportsActivity.class));
+        } else if (id == R.id.harm_reduction_sober_house_reports) {
+            startActivity(new Intent(this, HarmReductionSoberHouseReportsActivity.class));
+        } else if (id == R.id.ecd_reports) {
+            Intent intent = new Intent(this, ECDReportsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(IndicatorTallyEvent event) {
+        if (event.getStatus().equals(TallyStatus.STARTED)) {
+            textViewLogs.setVisibility(View.VISIBLE);
+            textViewLogs.setText(R.string.started_refreshing_reports);
+            Utils.showToast(this, "Imeanza kuchakata Ripoti Upya");
+        } else if (event.getStatus().equals(TallyStatus.INPROGRESS)) {
+            textViewLogs.setVisibility(View.VISIBLE);
+            if (event.getMessage() != null) {
+                textViewLogs.setText(event.getMessage());
+            } else {
+                Utils.showToast(this, "Uchakataji wa Ripoti Unaendelea");
+            }
+        } else if (event.getStatus().equals(TallyStatus.COMPLETE)) {
+            textViewLogs.setVisibility(View.GONE);
+            Utils.showToast(this, "Uchakataji wa Ripoti Umemalizika");
         }
     }
 

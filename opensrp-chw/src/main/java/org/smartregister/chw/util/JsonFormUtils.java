@@ -3,15 +3,18 @@ package org.smartregister.chw.util;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.EDITABLE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.READ_ONLY;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import static org.smartregister.client.utils.constants.JsonFormConstants.STEP1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Pair;
 
 import com.google.common.reflect.TypeToken;
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
@@ -22,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
+import org.smartregister.chw.activity.AncJsonWizardFormActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.domain.ParentClient;
@@ -49,6 +53,10 @@ import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +76,8 @@ import timber.log.Timber;
 public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
+    private static final String LAST_MENSTRUAL_PERIOD = "last_menstrual_period";
+    private static final String FIRST_CLINIC_VISIT_DATE = "first_clinic_visit_date";
     public static final int REQUEST_CODE_GET_JSON = 2244;
     public static final int REQUEST_CODE_GET_JSON_WASH = 22444;
     public static final int REQUEST_CODE_GET_JSON_FAMILY_KIT = 22447;
@@ -97,6 +107,92 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             Timber.e(e);
             return null;
         }
+    }
+
+    public static JSONObject getLocalizedFormJson(Context context, String formName) {
+        if (context == null) {
+            return null;
+        }
+
+        try {
+            FormUtils formUtils = FormUtils.getInstance(context);
+            Locale locale = CoreConstants.JSON_FORM.locale;
+            if (locale == null) {
+                locale = context.getResources().getConfiguration().locale;
+            }
+
+            if (locale == null || Locale.ENGLISH.getLanguage().equalsIgnoreCase(locale.getLanguage())) {
+                return formUtils.getFormJson(formName);
+            }
+
+            String localizedPath = "json.form-" + locale.getLanguage() + "/" + formName + AllConstants.JSON_FILE_EXTENSION;
+            try (InputStream inputStream = context.getAssets().open(localizedPath);
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, UTF_8))) {
+                StringBuilder formJson = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    formJson.append(line);
+                }
+                return new JSONObject(formJson.toString());
+            } catch (FileNotFoundException e) {
+                Timber.d("Localized form not found at %s. Falling back to default asset", localizedPath);
+            }
+
+            return formUtils.getFormJson(formName);
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    public static Intent getAncPncStartFormIntent(JSONObject jsonForm, Context context) {
+        if (!isAncRegistrationDateAlignmentForm(jsonForm)) {
+            return CoreJsonFormUtils.getAncPncStartFormIntent(jsonForm, context);
+        }
+
+        Intent intent = new Intent(context, AncJsonWizardFormActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+        form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
+        form.setWizard(true);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        return intent;
+    }
+
+    private static boolean isAncRegistrationDateAlignmentForm(JSONObject jsonForm) {
+        if (jsonForm == null) {
+            return false;
+        }
+
+        JSONObject stepOne = jsonForm.optJSONObject(JsonFormConstants.STEP1);
+        if (stepOne == null) {
+            return false;
+        }
+
+        JSONArray fields = stepOne.optJSONArray(JsonFormConstants.FIELDS);
+        if (fields == null) {
+            return false;
+        }
+
+        boolean hasLmp = false;
+        boolean hasFirstClinicVisit = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) {
+                continue;
+            }
+
+            String key = field.optString(JsonFormConstants.KEY);
+            if (LAST_MENSTRUAL_PERIOD.equals(key)) {
+                hasLmp = true;
+            } else if (FIRST_CLINIC_VISIT_DATE.equals(key)) {
+                hasFirstClinicVisit = true;
+            }
+        }
+
+        return hasLmp && hasFirstClinicVisit;
     }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
