@@ -262,7 +262,8 @@
             "hint": "Name of Treatment Supporter/Caregiver",
             "type": "name"
           },
-          "required_status": "true:Please specify the treatment supporter name"
+          "required_status": "true:Please specify the treatment supporter name",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "treatment_supporter_phone",
@@ -276,7 +277,8 @@
             "hint": "Treatment Supporter Phone Number",
             "type": "phone"
           },
-          "required_status": "false"
+          "required_status": "false",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "treatment_supporter_relationship",
@@ -454,7 +456,8 @@
               }
             }
           ],
-          "required_status": "yes:Please select the relationship to client"
+          "required_status": "yes:Please select the relationship to client",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "chw_referral_hf",

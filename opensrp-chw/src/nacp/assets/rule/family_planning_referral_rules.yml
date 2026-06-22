@@ -81,20 +81,20 @@ actions:
 name: "treatment_supporter_name_visibility"
 description: "Show treatment supporter name when a caregiver is present"
 priority: 1
-condition: "has_treatment_supporter == 'Yes'"
+condition: "has_treatment_supporter.value == 'Yes'"
 actions:
   - "treatment_supporter_name_visibility = true"
 ---
 name: "treatment_supporter_phone_visibility"
 description: "Show treatment supporter phone when a caregiver is present"
 priority: 1
-condition: "has_treatment_supporter == 'Yes'"
+condition: "has_treatment_supporter.value == 'Yes'"
 actions:
   - "treatment_supporter_phone_visibility = true"
 ---
 name: "treatment_supporter_relationship_visibility"
 description: "Show treatment supporter relationship when a caregiver is present"
 priority: 1
-condition: "has_treatment_supporter == 'Yes'"
+condition: "has_treatment_supporter.value == 'Yes'"
 actions:
   - "treatment_supporter_relationship_visibility = true"

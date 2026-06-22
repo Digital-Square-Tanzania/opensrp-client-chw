@@ -435,7 +435,8 @@
             "hint": "Jina la Mlezi/Msaidizi wa Matibabu",
             "type": "name"
           },
-          "required_status": "true:Tafadhali andika jina la msaidizi wa matibabu"
+          "required_status": "true:Tafadhali andika jina la msaidizi wa matibabu",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "treatment_supporter_phone",
@@ -449,7 +450,8 @@
             "hint": "Namba ya Simu ya Msaidizi wa Matibabu",
             "type": "phone"
           },
-          "required_status": "false"
+          "required_status": "false",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "treatment_supporter_relationship",
@@ -627,7 +629,8 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua uhusiano na mpokea huduma"
+          "required_status": "yes:Tafadhali chagua uhusiano na mpokea huduma",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "chw_referral_hf",
