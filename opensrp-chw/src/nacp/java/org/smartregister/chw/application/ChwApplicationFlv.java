@@ -174,7 +174,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasHarmReduction() {
-        return true;
+        return false;
     }
 
     @Override
