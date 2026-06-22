@@ -157,7 +157,8 @@ public class TreatmentSupporterFormUtil {
             String fieldName = field.optString("name");
             switch (fieldName) {
                 case FIELD_GATE:
-                    setProperty(field, "selection", "Yes");
+                    // Spinner default selection is a 0-based option index, not the value.
+                    selectSpinnerOption(field, "Yes");
                     gateFound = true;
                     break;
                 case FIELD_NAME:
@@ -171,9 +172,9 @@ public class TreatmentSupporterFormUtil {
                     }
                     break;
                 case FIELD_RELATIONSHIP:
-                    // relationship is a spinner — pre-select by option key, still editable
+                    // relationship is a spinner — pre-select by option index, still editable
                     if (isNotBlank(relationship)) {
-                        setProperty(field, "selection", relationship.trim());
+                        selectSpinnerOption(field, relationship.trim());
                     }
                     break;
                 default:
@@ -184,6 +185,37 @@ public class TreatmentSupporterFormUtil {
         if (!gateFound) {
             Timber.d("Referral form has no treatment supporter section; skipping pre-fill");
         }
+    }
+
+    /**
+     * Pre-selects a NeatForm spinner option. NeatForm reads {@code properties.selection}
+     * as a 0-based index into the field's {@code options} array (it is parsed with
+     * {@code Integer.parseInt} and applied via {@code setSelection(int)}), so a value
+     * string never matches — we must resolve the option's index by its {@code name}.
+     * No-op when the option is not present, leaving the spinner unselected.
+     */
+    private static void selectSpinnerOption(@NonNull JSONObject field, @NonNull String optionName) {
+        int index = optionIndex(field, optionName);
+        if (index >= 0) {
+            setProperty(field, "selection", String.valueOf(index));
+        } else {
+            Timber.d("Spinner option '%s' not found on %s; leaving unselected",
+                    optionName, field.optString("name"));
+        }
+    }
+
+    private static int optionIndex(@NonNull JSONObject field, @NonNull String optionName) {
+        JSONArray options = field.optJSONArray("options");
+        if (options == null) {
+            return -1;
+        }
+        for (int i = 0; i < options.length(); i++) {
+            JSONObject option = options.optJSONObject(i);
+            if (option != null && optionName.equalsIgnoreCase(option.optString("name"))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Nullable
