@@ -95,6 +95,42 @@ public class TreatmentSupporterFormUtil {
     }
 
     /**
+     * Adds the treatment supporter values submitted on a native (JSON-Wizard)
+     * screening form into the referral-event {@code formData} map, so they are
+     * emitted as obs on the generated "Referral Registration" event (alongside
+     * {@code chw_referral_hf}, {@code is_emergency_case}, ...). Details are only
+     * persisted when the gate is "Yes". Mirrors the obs shape of the other referral
+     * fields. Never throws.
+     */
+    public static void addScreeningReferralObs(@Nullable JSONObject submittedForm,
+                                               @Nullable Map<String, NFormViewData> formData) {
+        if (submittedForm == null || formData == null) {
+            return;
+        }
+        try {
+            String gate = JsonFormUtils.getValue(submittedForm, FIELD_GATE);
+            if (!"Yes".equalsIgnoreCase(gate)) {
+                return;
+            }
+            formData.put(FIELD_GATE, viewData(TYPE_SPINNER, FIELD_GATE, "Yes"));
+            putScreeningObs(formData, submittedForm, FIELD_NAME, TYPE_EDIT_TEXT);
+            putScreeningObs(formData, submittedForm, FIELD_PHONE, TYPE_EDIT_TEXT);
+            putScreeningObs(formData, submittedForm, FIELD_RELATIONSHIP, TYPE_SPINNER);
+        } catch (Exception e) {
+            Timber.e(e, "Failed to add screening referral treatment supporter obs");
+        }
+    }
+
+    private static void putScreeningObs(@NonNull Map<String, NFormViewData> formData,
+                                        @NonNull JSONObject form, @NonNull String key,
+                                        @NonNull String type) {
+        String value = JsonFormUtils.getValue(form, key);
+        if (isNotBlank(value)) {
+            formData.put(key, viewData(type, key, value.trim()));
+        }
+    }
+
+    /**
      * Builds an {@link NFormViewData} carrying the metadata the referral library's
      * {@code getObs} reads (openmrs_entity / _id / _parent) so the value is emitted
      * as a proper obs on the Referral Registration event.
@@ -113,6 +149,85 @@ public class TreatmentSupporterFormUtil {
             return null;
         }
         return String.valueOf(data.getValue());
+    }
+
+    /**
+     * JSON-Wizard variant (NCD screening form): pre-fills the treatment supporter
+     * fields from the registered caregiver by setting each field's {@code value}
+     * (spinner values are the option keys, e.g. "Yes" / "Mother"). Scans every step
+     * so it is independent of the referral step's index. No-op when no caregiver is
+     * on record or the fields are absent; never throws.
+     */
+    public static void prefillNcdScreeningForm(@Nullable String baseEntityId, @Nullable JSONObject form) {
+        if (form == null) {
+            return;
+        }
+        try {
+            TreatmentSupporterDao.Caregiver caregiver =
+                    TreatmentSupporterDao.getRegisteredCaregiver(baseEntityId);
+            if (caregiver == null || !caregiver.isPresent()) {
+                return;
+            }
+            java.util.Iterator<String> stepKeys = form.keys();
+            while (stepKeys.hasNext()) {
+                JSONObject step = form.optJSONObject(stepKeys.next());
+                if (step == null) {
+                    continue;
+                }
+                JSONArray fields = step.optJSONArray("fields");
+                if (fields == null) {
+                    continue;
+                }
+                applyWizardValues(fields, caregiver);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Failed to pre-fill NCD screening treatment supporter");
+        }
+    }
+
+    private static void applyWizardValues(@NonNull JSONArray fields,
+                                          @NonNull TreatmentSupporterDao.Caregiver caregiver) {
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) {
+                continue;
+            }
+            switch (field.optString("key")) {
+                case FIELD_GATE:
+                    setWizardValue(field, "Yes");
+                    break;
+                case FIELD_NAME:
+                    if (isNotBlank(caregiver.getName())) {
+                        setWizardValue(field, caregiver.getName().trim());
+                    }
+                    break;
+                case FIELD_PHONE:
+                    if (isNotBlank(caregiver.getPhone())) {
+                        setWizardValue(field, caregiver.getPhone().trim());
+                    }
+                    break;
+                case FIELD_RELATIONSHIP:
+                    if (isNotBlank(caregiver.getRelationship())) {
+                        setWizardValue(field, caregiver.getRelationship().trim());
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Native JSON-Wizard fields carry their pre-filled value directly as the
+     * {@code value} attribute on the field object (spinner values are the option
+     * keys), unlike NeatForm which nests it under {@code properties}.
+     */
+    private static void setWizardValue(@NonNull JSONObject field, @NonNull String value) {
+        try {
+            field.put("value", value);
+        } catch (Exception e) {
+            Timber.e(e, "Failed to set treatment supporter value on %s", field.optString("key"));
+        }
     }
 
     /**

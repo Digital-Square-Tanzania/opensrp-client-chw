@@ -80,6 +80,7 @@ import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.MemberProfileUtils;
+import org.smartregister.chw.util.TreatmentSupporterFormUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -773,6 +774,9 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
             formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
             formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+
+            // Treatment supporter / caregiver obs (only when captured)
+            TreatmentSupporterFormUtil.addScreeningReferralObs(new JSONObject(jsonForm), formData);
             return formData;
         } catch (Exception e) {
             Timber.e(e);
