@@ -759,7 +759,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
 
             // Diabetes risk score
             String dbRiskScore = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diabetes_risk_score_output");
-            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",null));
+            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",metaData("concept", "diabetes_risk_score", "")));
 
             // Appointment data
             String appointmentDate = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "referral_appointment_date");
