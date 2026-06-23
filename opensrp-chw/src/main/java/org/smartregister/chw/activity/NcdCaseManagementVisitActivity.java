@@ -167,11 +167,16 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
         String dateOfDeath = interactor != null ? interactor.getLastSubmittedDateOfDeath() : null;
         appExecutors.diskIO().execute(() -> {
             try {
-                MarkClientAsDeceasedHelper.markAsDeceased(
-                        NcdCaseManagementVisitActivity.this, memberObject, dateOfDeath);
-                closeDeceasedNcdCase();
-                NcdCaseManagementDao.cancelOpenTasks(memberObject.getBaseEntityId());
-                NcdCaseManagementDao.voidOpenReferrals(memberObject.getBaseEntityId());
+                String baseEntityId = memberObject.getBaseEntityId();
+                if (!NcdCaseManagementDao.hasMortalityRecord(baseEntityId)) {
+                    MarkClientAsDeceasedHelper.markAsDeceased(
+                            NcdCaseManagementVisitActivity.this, memberObject, dateOfDeath);
+                }
+                if (!NcdCaseManagementDao.isNcdCaseClosed(baseEntityId)) {
+                    closeDeceasedNcdCase();
+                }
+                NcdCaseManagementDao.cancelOpenTasks(baseEntityId);
+                NcdCaseManagementDao.voidOpenReferrals(baseEntityId);
 
                 appExecutors.mainThread().execute(() -> {
                     pendingMortalityResult = null;
