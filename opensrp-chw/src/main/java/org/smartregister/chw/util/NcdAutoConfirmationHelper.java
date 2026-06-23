@@ -23,7 +23,8 @@ public final class NcdAutoConfirmationHelper {
 
     public static final String SCREENING_EVENT_TYPE = "Diabetes and Hypertension Screening";
     private static final String CONFIRMATION_EVENT_TYPE = "Diabetes and Hypertension Screening Confirmation";
-    private static final String FIELD_DIAGNOSED = "diagnosed_diabetes";
+    private static final String FIELD_DIAGNOSED_DIABETES = "diagnosed_diabetes";
+    private static final String FIELD_DIAGNOSED_HYPERTENSION = "diagnosed_hypertension";
     private static final String FIELD_MEDICINES_DIABETES = "medicines_diabetes";
     private static final String FIELD_MEDICINES_HYPERTENSION = "medicines_hypertension";
     private static final String DIABETES_RESULT_FIELD = "diabetes_result";
@@ -50,9 +51,8 @@ public final class NcdAutoConfirmationHelper {
                 return;
             }
 
-            boolean diabetesPositive = isAffirmative(extractValue(screeningEvent, FIELD_DIAGNOSED))
-                    || isAffirmative(extractValue(screeningEvent, FIELD_MEDICINES_DIABETES));
-            boolean hypertensionPositive = isAffirmative(extractValue(screeningEvent, FIELD_MEDICINES_HYPERTENSION));
+            boolean diabetesPositive = isDiabetesPositive(screeningEvent);
+            boolean hypertensionPositive = isHypertensionPositive(screeningEvent);
 
             if (!diabetesPositive && !hypertensionPositive) {
                 return;
@@ -70,6 +70,16 @@ public final class NcdAutoConfirmationHelper {
         } catch (Exception e) {
             Timber.e(e, "Error auto-confirming diabetes/hypertension results");
         }
+    }
+
+    static boolean isDiabetesPositive(org.smartregister.domain.Event screeningEvent) {
+        return isAffirmative(extractValue(screeningEvent, FIELD_DIAGNOSED_DIABETES))
+                || isAffirmative(extractValue(screeningEvent, FIELD_MEDICINES_DIABETES));
+    }
+
+    static boolean isHypertensionPositive(org.smartregister.domain.Event screeningEvent) {
+        return isAffirmative(extractValue(screeningEvent, FIELD_DIAGNOSED_HYPERTENSION))
+                || isAffirmative(extractValue(screeningEvent, FIELD_MEDICINES_HYPERTENSION));
     }
 
     private static void queueConfirmationEvent(String baseEntityId, Map<String, String> details,
