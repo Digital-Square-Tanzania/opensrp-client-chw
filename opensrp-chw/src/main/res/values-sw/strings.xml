@@ -3,6 +3,9 @@
     <string name="logo">Nembo</string>
 
     <string name="title_family_detail">Taarifa za kaya</string>
+    <string name="mama_kinara_household_already_enrolled">Kaya hii tayari imeunganishwa kwenye Mama Kinara</string>
+    <string name="mama_kinara_household_enrolled">Kaya imeunganishwa kwenye huduma za Mama Kinara</string>
+    <string name="mama_kinara_household_no_consent">Kaya haijaunganishwa - haijatoa kibali</string>
     <string name="not_done">Haujafanyika</string>
     <string name="done" tools:ignore="ExtraTranslation">Hifadhi</string>
     <string name="subtask_not_done" tools:ignore="ExtraTranslation">Haujafanyika</string>
