@@ -193,7 +193,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "alcohol_intake_target_met",
         "type": "native_radio",
-        "label": "Is the client avoiding alcohol or drinking within safe limits?",
+        "label": "Is the client completely abstaining from alcohol?",
         "options": [
           {
             "key": "yes",
@@ -221,10 +221,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "<b>\"Reducing Alcohol Intake\"</b><br> <span>▪ <b>Target:</b> avoid alcohol; if drinking, no more than 2 standard drinks per day for men or 1 for women</span><br><span>▪ Alcohol raises blood pressure, worsens diabetes control, damages the liver and heart, and can interact with medicines.</span><br><br><i><font color=\"#0061A4\"> Tap ⓘ for the full counselling guide</font></i>",
+        "text": "<b>\"Complete Abstinence from Alcohol\"</b><br> <span>▪ <b>Target:</b> do not drink any alcohol</span><br><span>▪ Alcohol raises blood pressure, worsens diabetes control, damages the liver and heart, and can interact with medicines.</span><br><br><i><font color=\"#0061A4\"> Tap ⓘ for the full counselling guide</font></i>",
         "toaster_type": "info",
-        "toaster_info_title": "Reducing Alcohol Intake",
-        "toaster_info_text": "What to do: Avoid alcohol or keep intake within safe limits to protect heart, blood pressure, and blood sugar control\n\nWhy: Alcohol raises blood pressure, can cause low blood sugar (especially with diabetes medicines), damages the liver and heart, adds empty calories, and increases the risk of stroke and cancer. WHO advises that less is better, and none is best.\n\nWhen: There is no safe daily amount; if drinking occasionally, keep it to no more than 2 standard drinks per day for men or 1 for women, and have several alcohol-free days each week\n\nWhere: At home and at social events. Be aware of pressure to drink and prepare polite refusals.\n\nHow: Set a personal limit (or aim for none), choose water or unsweetened drinks, do not drink on an empty stomach (especially if on diabetes medicines), and seek help if cutting down is difficult",
+        "toaster_info_title": "Complete Abstinence from Alcohol",
+        "toaster_info_text": "What to do: Completely abstain from alcohol to protect the heart, blood pressure, and blood sugar control\n\nWhy: Alcohol raises blood pressure, can cause low blood sugar (especially with diabetes medicines), damages the liver and heart, adds empty calories, and increases the risk of stroke and cancer. Not drinking alcohol is the safest choice.\n\nWhen: At all times; do not drink any alcohol\n\nWhere: At home and at social events. Be aware of pressure to drink and prepare polite refusals.\n\nHow: Choose water or unsweetened drinks, avoid situations that may trigger drinking, prepare polite refusals, and seek help if stopping alcohol use is difficult",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
