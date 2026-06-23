@@ -761,6 +761,24 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             String dbRiskScore = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diabetes_risk_score_output");
             formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",metaData("concept", "diabetes_risk_score", "")));
 
+            // Screening measurements (renamed to match server concepts)
+            String familyHistoryDiabetes = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "family_history_diabetes");
+            if (familyHistoryDiabetes != null && !familyHistoryDiabetes.isEmpty()) {
+                formData.put("family_history_of_dm", createFormViewData(familyHistoryDiabetes, null, metaData("concept", "family_history_of_dm", "")));
+            }
+            String waistCircumference = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "waist_circumference");
+            if (waistCircumference != null && !waistCircumference.isEmpty()) {
+                formData.put("waist_circumference", createFormViewData(waistCircumference, null, metaData("concept", "waist_circumference", "")));
+            }
+            String systolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "systolic_bp");
+            if (systolicBp != null && !systolicBp.isEmpty()) {
+                formData.put("systolic", createFormViewData(systolicBp, null, metaData("concept", "systolic", "")));
+            }
+            String diastolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diastolic_bp");
+            if (diastolicBp != null && !diastolicBp.isEmpty()) {
+                formData.put("diastolic", createFormViewData(diastolicBp, null, metaData("concept", "diastolic", "")));
+            }
+
             // Appointment data
             String appointmentDate = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "referral_appointment_date");
             formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)),"Calculation",metaData("concept", "referral_appointment_date", "")));
