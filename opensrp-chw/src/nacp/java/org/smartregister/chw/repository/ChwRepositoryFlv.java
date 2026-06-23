@@ -163,10 +163,16 @@ public class ChwRepositoryFlv {
                     break;
                 case 41:
                     upgradeToVersion41(db);
+                    break;
                 case 42:
                     upgradeToVersion42(db);
+                    break;
                 case 43:
                     upgradeToVersion43(db);
+                    break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
                 default:
                     break;
             }
@@ -968,6 +974,17 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion43");
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP,
+                    "medication_side_effects")) {
+                db.execSQL("ALTER TABLE ec_ncd_case_management_followup ADD COLUMN medication_side_effects VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44-add-medication-side-effects");
         }
     }
 

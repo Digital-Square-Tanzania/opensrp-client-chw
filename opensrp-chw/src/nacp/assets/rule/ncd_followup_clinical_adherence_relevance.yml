@@ -30,7 +30,7 @@ actions:
 name: step1_counseling_side_effects
 description: Show YELLOW ALERT counselling when side effects reported
 priority: 5
-condition: "step1_no_adherence_reason == 'side_effects'"
+condition: "step1_medication_side_effects == 'yes' || step1_no_adherence_reason == 'side_effects'"
 actions:
   - "isRelevant = true"
 ---
