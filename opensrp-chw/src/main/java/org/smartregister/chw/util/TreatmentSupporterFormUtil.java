@@ -66,31 +66,40 @@ public class TreatmentSupporterFormUtil {
             if (caregiver == null || !caregiver.isPresent()) {
                 return;
             }
-
-            boolean gateYes;
-            if (!formData.containsKey(FIELD_GATE)) {
-                formData.put(FIELD_GATE, viewData(TYPE_SPINNER, FIELD_GATE, "Yes"));
-                gateYes = true;
-            } else {
-                gateYes = "Yes".equalsIgnoreCase(stringValue(formData.get(FIELD_GATE)));
-            }
-
-            if (!gateYes) {
+            if (!isGateYes(formData)) {
                 // CHW explicitly answered "No" — do not persist supporter details.
                 return;
             }
-            if (isNotBlank(caregiver.getName()) && !formData.containsKey(FIELD_NAME)) {
-                formData.put(FIELD_NAME, viewData(TYPE_EDIT_TEXT, FIELD_NAME, caregiver.getName().trim()));
-            }
-            if (isNotBlank(caregiver.getPhone()) && !formData.containsKey(FIELD_PHONE)) {
-                formData.put(FIELD_PHONE, viewData(TYPE_EDIT_TEXT, FIELD_PHONE, caregiver.getPhone().trim()));
-            }
-            if (isNotBlank(caregiver.getRelationship()) && !formData.containsKey(FIELD_RELATIONSHIP)) {
-                formData.put(FIELD_RELATIONSHIP,
-                        viewData(TYPE_SPINNER, FIELD_RELATIONSHIP, caregiver.getRelationship().trim()));
-            }
+            putDetailIfAbsent(formData, FIELD_NAME, TYPE_EDIT_TEXT, caregiver.getName());
+            putDetailIfAbsent(formData, FIELD_PHONE, TYPE_EDIT_TEXT, caregiver.getPhone());
+            putDetailIfAbsent(formData, FIELD_RELATIONSHIP, TYPE_SPINNER, caregiver.getRelationship());
         } catch (Exception e) {
             Timber.e(e, "Failed to ensure treatment supporter obs");
+        }
+    }
+
+    /**
+     * Returns whether supporter details should be persisted. An absent gate is
+     * defaulted to "Yes" (and injected so it is emitted as an obs); an existing
+     * gate is honored as the CHW left it.
+     */
+    private static boolean isGateYes(@NonNull Map<String, NFormViewData> formData) {
+        if (!formData.containsKey(FIELD_GATE)) {
+            formData.put(FIELD_GATE, viewData(TYPE_SPINNER, FIELD_GATE, "Yes"));
+            return true;
+        }
+        return "Yes".equalsIgnoreCase(stringValue(formData.get(FIELD_GATE)));
+    }
+
+    /**
+     * Injects a caregiver detail as an obs only when it has a value and NeatForm
+     * did not already produce it — so any value the CHW typed or cleared is kept.
+     */
+    private static void putDetailIfAbsent(@NonNull Map<String, NFormViewData> formData,
+                                          @NonNull String key, @NonNull String type,
+                                          @Nullable String value) {
+        if (isNotBlank(value) && !formData.containsKey(key)) {
+            formData.put(key, viewData(type, key, value.trim()));
         }
     }
 
