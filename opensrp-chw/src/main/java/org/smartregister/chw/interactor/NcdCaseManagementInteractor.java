@@ -41,10 +41,17 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private static final String KEY_IS_SIDE_EFFECTS_ALERT = "is_side_effects_alert";
     private static final String KEY_IS_MISSED_CLINIC_ALERT = "is_missed_clinic_alert";
     private static final String KEY_ALERT_STATUS = "alert_status";
-
     public static final String ALERT_RED = "red";
     public static final String ALERT_YELLOW = "yellow";
     public static final String ALERT_NONE = "none";
+    private PendingNcdReferral pendingReferral = null;
+    private String lastSubmittedFollowUpStatus;
+    private String lastSubmittedDateOfDeath;
+    private String lastComputedAlertStatus = ALERT_NONE;
+    private boolean lastHasSideEffects = false;
+    private boolean lastHasMissedClinic = false;
+    private String lastVitalsAlertReason = null;
+    private final List<String> lastReferralReasons = new ArrayList<>();
 
     public NcdCaseManagementInteractor() {
         super(Constants.EncounterType.NCD_MONTHLY_FOLLOWUP);
@@ -169,17 +176,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     public void clearPendingReferral() {
         pendingReferral = null;
     }
-
-    private PendingNcdReferral pendingReferral = null;
-
-    private String lastSubmittedFollowUpStatus;
-    private String lastSubmittedDateOfDeath;
-
-    private String lastComputedAlertStatus = ALERT_NONE;
-    private boolean lastHasSideEffects = false;
-    private boolean lastHasMissedClinic = false;
-    private String lastVitalsAlertReason = null;
-    private final List<String> lastReferralReasons = new ArrayList<>();
 
     public String getLastSubmittedFollowUpStatus() {
         return lastSubmittedFollowUpStatus;
