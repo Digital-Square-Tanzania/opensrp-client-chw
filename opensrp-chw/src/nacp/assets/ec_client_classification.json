@@ -905,8 +905,7 @@
             "field": "eventType",
             "field_value": "Diabetes and Hypertension Screening Confirmation",
             "creates_case": [
-              "ec_diabetes_hypertension_confirmation",
-              "ec_close_referral"
+              "ec_diabetes_hypertension_confirmation"
             ]
           },
           {
