@@ -150,8 +150,11 @@ public class TreatmentSupporterFormUtilTest {
 
     @Test
     public void prefillHandlesNullForm() {
-        // must not throw
-        TreatmentSupporterFormUtil.prefillFromRegistration("abc-123", null);
+        try {
+            TreatmentSupporterFormUtil.prefillFromRegistration("abc-123", null);
+        } catch (Exception e) {
+            Assert.fail("prefillFromRegistration must not throw on null form: " + e.getMessage());
+        }
     }
 
     @Test
@@ -184,8 +187,11 @@ public class TreatmentSupporterFormUtilTest {
 
     @Test
     public void ensureObsHandlesNullMap() {
-        // must not throw
-        TreatmentSupporterFormUtil.ensureTreatmentSupporterObs("abc-123", null);
+        try {
+            TreatmentSupporterFormUtil.ensureTreatmentSupporterObs("abc-123", null);
+        } catch (Exception e) {
+            Assert.fail("ensureTreatmentSupporterObs must not throw on null map: " + e.getMessage());
+        }
     }
 
     @Test
