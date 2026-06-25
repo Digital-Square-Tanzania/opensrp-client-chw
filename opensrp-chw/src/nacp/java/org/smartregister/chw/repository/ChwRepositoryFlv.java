@@ -988,6 +988,9 @@ public class ChwRepositoryFlv {
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion44-add-medication-side-effects");
+        }
+
+        try {
             db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_IS_EMERGENCY_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion44");

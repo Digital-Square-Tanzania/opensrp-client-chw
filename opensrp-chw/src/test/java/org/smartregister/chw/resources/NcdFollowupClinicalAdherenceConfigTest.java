@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NcdFollowupClinicalAdherenceConfigTest {
 
@@ -66,7 +68,7 @@ public class NcdFollowupClinicalAdherenceConfigTest {
         );
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the medication_side_effects migration runs",
-                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '44'")
+                extractDatabaseVersion(buildGradle) >= 44
         );
     }
 
@@ -130,6 +132,15 @@ public class NcdFollowupClinicalAdherenceConfigTest {
 
     private String readText(String relativePath) throws Exception {
         return new String(Files.readAllBytes(resolvePath(relativePath)), StandardCharsets.UTF_8);
+    }
+
+    private int extractDatabaseVersion(String buildGradle) {
+        Matcher matcher = Pattern.compile("buildConfigField\\s+\"int\",\\s+\"DATABASE_VERSION\",\\s+'(\\d+)'")
+                .matcher(buildGradle);
+        if (!matcher.find()) {
+            throw new AssertionError("Could not find DATABASE_VERSION buildConfigField");
+        }
+        return Integer.parseInt(matcher.group(1));
     }
 
     private Path resolvePath(String relativePath) {
