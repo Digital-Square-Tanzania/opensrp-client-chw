@@ -150,6 +150,39 @@
           ]
         },
         {
+          "name": "is_emergency_case",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "is_emergency_case",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Je, hii ni dharura?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Ndiyo",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali eleza kama hii ni dharura"
+        },
+        {
           "name": "problem_other",
           "type": "text_input_edit_text",
           "meta_data": {
@@ -163,6 +196,248 @@
           },
           "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"
+        },
+        {
+          "name": "has_treatment_supporter",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_treatment_supporter",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Je, una mlezi/msaidizi wa matibabu?"
+          },
+          "options": [
+            {
+              "name": "Yes",
+              "text": "Ndio",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "No",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "No",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali chagua moja"
+        },
+        {
+          "name": "treatment_supporter_name",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_name",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Jina la Mlezi/Msaidizi wa Matibabu",
+            "type": "name"
+          },
+          "required_status": "true:Tafadhali andika jina la msaidizi wa matibabu",
+          "subjects": "has_treatment_supporter:map"
+        },
+        {
+          "name": "treatment_supporter_phone",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_phone",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Namba ya Simu ya Msaidizi wa Matibabu",
+            "type": "phone"
+          },
+          "required_status": "false",
+          "subjects": "has_treatment_supporter:map"
+        },
+        {
+          "name": "treatment_supporter_relationship",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "treatment_supporter_relationship",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Uhusiano na Mpokea Huduma",
+            "searchable": "Uhusiano na Mpokea Huduma"
+          },
+          "options": [
+            {
+              "name": "Mother",
+              "text": "Mama",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Mother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Father",
+              "text": "Baba",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Father",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Brother",
+              "text": "Kaka",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Brother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Sister",
+              "text": "Dada",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Sister",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Grandfather",
+              "text": "Babu",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Grandfather",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Grandmother",
+              "text": "Bibi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Grandmother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Friend",
+              "text": "Rafiki",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Friend",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Uncle",
+              "text": "Mjomba / Baba Mdogo",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Uncle",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Aunt",
+              "text": "Shangazi / Mama Mdogo",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Aunt",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Police",
+              "text": "Polisi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Police",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Guardian",
+              "text": "Mlezi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Guardian",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Son",
+              "text": "Mtoto wa Kiume",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Son",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Daughter",
+              "text": "Mtoto wa Kike",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Daughter",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Work Colleague",
+              "text": "Mfanyakazi Mwenza",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Work Colleague",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Brother in Law",
+              "text": "Shemeji wa Kiume",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Brother in Law",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Sister in Law",
+              "text": "Shemeji wa Kike",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Sister in Law",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Wife",
+              "text": "Mke",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Wife",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Husband",
+              "text": "Mume",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Husband",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali chagua uhusiano na mpokea huduma",
+          "subjects": "has_treatment_supporter:map"
         },
         {
           "name": "chw_referral_hf",

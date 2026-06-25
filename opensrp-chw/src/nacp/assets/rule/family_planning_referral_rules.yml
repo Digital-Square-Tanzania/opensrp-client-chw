@@ -77,3 +77,24 @@ actions:
   ? side_effects_iucd : (side_effects_implant != null &&  !side_effects_implant.isEmpty())
   ? side_effects_implant : (side_effects_inject_pills != null &&  !side_effects_inject_pills.isEmpty())
   ? side_effects_inject_pills : null"
+---
+name: "treatment_supporter_name_visibility"
+description: "Show treatment supporter name when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter.value == 'Yes'"
+actions:
+  - "treatment_supporter_name_visibility = true"
+---
+name: "treatment_supporter_phone_visibility"
+description: "Show treatment supporter phone when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter.value == 'Yes'"
+actions:
+  - "treatment_supporter_phone_visibility = true"
+---
+name: "treatment_supporter_relationship_visibility"
+description: "Show treatment supporter relationship when a caregiver is present"
+priority: 1
+condition: "has_treatment_supporter.value == 'Yes'"
+actions:
+  - "treatment_supporter_relationship_visibility = true"
