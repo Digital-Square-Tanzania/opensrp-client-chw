@@ -124,6 +124,34 @@
         }
       },
       {
+        "key": "medication_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medication_side_effects",
+        "type": "native_radio",
+        "label": "Je, mteja anapata maudhi yoyote ya dawa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
         "key": "no_adherence_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

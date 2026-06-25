@@ -6150,6 +6150,14 @@
           }
         },
         {
+          "column_name": "medication_side_effects",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "medication_side_effects"
+          }
+        },
+        {
           "column_name": "no_adherence_reason",
           "type": "Event",
           "json_mapping": {
