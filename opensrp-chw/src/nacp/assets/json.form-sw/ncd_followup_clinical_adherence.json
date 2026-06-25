@@ -124,6 +124,47 @@
         }
       },
       {
+        "key": "no_adherence_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason",
+        "type": "spinner",
+        "hint": "Ni sababu gani ya kutotumia dawa?",
+        "values": [
+          "Alisahau",
+          "Alijisikia vizuri",
+          "Dawa Ziliisha Zahanati",
+          "Gharama ya Usafiri",
+          "Sababu Nyingine"
+        ],
+        "keys": [
+          "forgot",
+          "felt_better",
+          "stock_out",
+          "transport_cost",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "forgot": "forgot",
+          "felt_better": "felt_better",
+          "side_effects": "side_effects",
+          "stock_out": "stock_out",
+          "transport_cost": "transport_cost",
+          "other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "medication_side_effects",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -149,49 +190,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jibu swali hili"
-        }
-      },
-      {
-        "key": "no_adherence_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "no_adherence_reason",
-        "type": "spinner",
-        "hint": "Ni sababu gani ya kutotumia dawa?",
-        "values": [
-          "Alisahau",
-          "Alijisikia vizuri",
-          "Maudhi ya Dawa",
-          "Dawa Ziliisha Zahanati",
-          "Gharama ya Usafiri",
-          "Sababu Nyingine"
-        ],
-        "keys": [
-          "forgot",
-          "felt_better",
-          "side_effects",
-          "stock_out",
-          "transport_cost",
-          "other"
-        ],
-        "openmrs_choice_ids": {
-          "forgot": "forgot",
-          "felt_better": "felt_better",
-          "side_effects": "side_effects",
-          "stock_out": "stock_out",
-          "transport_cost": "transport_cost",
-          "other": "other"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua sababu"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
-            }
-          }
         }
       },
       {
