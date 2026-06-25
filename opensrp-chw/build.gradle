@@ -273,7 +273,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '43'
+            buildConfigField "int", "DATABASE_VERSION", '45'
             buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "false"
         }
     }
@@ -326,7 +326,6 @@ dependencies {
     } else {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
-
 
     implementation('org.smartregister:opensrp-client-chw-core:2.1.1-MOH-SNAPSHOT@aar') {
         transitive = true

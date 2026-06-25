@@ -151,6 +151,31 @@
         }
       },
       {
+        "key": "is_emergency_case",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_emergency_case",
+        "type": "spinner",
+        "openmrs_data_type": "select one",
+        "hint": "Is this an emergency case?",
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please indicate whether this is an emergency case"
+        }
+      },
+      {
         "key": "problem_other",
         "openmrs_entity_parent": "problem",
         "openmrs_entity": "concept",

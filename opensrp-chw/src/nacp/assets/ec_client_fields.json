@@ -2153,6 +2153,14 @@
           }
         },
         {
+          "column_name": "is_emergency_case",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "is_emergency_case"
+          }
+        },
+        {
           "column_name": "rec_guid",
           "type": "Event",
           "json_mapping": {
@@ -6072,8 +6080,7 @@
           "column_name": "visit_date",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "end"
+            "field": "eventDate"
           }
         },
         {
@@ -6081,14 +6088,6 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
-          }
-        },
-        {
-          "column_name": "referral_task",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "referral_task"
           }
         },
         {

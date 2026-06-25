@@ -64,6 +64,7 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add(Tables.REFERRAL + "." + Key.PROBLEM_OTHER);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_APPOINTMENT_DATE);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_HF);
+        columnList.add(Tables.REFERRAL + ".is_emergency_case");
         columnList.add(CoreConstants.TABLE_NAME.TASK+ "._id" + " AS "+ org.smartregister.chw.referral.util.Constants.Task.Key.TASK_ID);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
         return columnList.toArray(new String[columnList.size()]);

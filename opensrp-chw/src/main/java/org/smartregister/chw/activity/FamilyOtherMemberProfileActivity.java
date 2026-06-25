@@ -62,6 +62,7 @@ import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
+import org.smartregister.chw.util.TreatmentSupporterFormUtil;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
@@ -194,6 +195,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         // Populate referral facilities
         JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
 
+        // Pre-fill treatment supporter from registration / household caregiver
+        TreatmentSupporterFormUtil.prefillNcdScreeningForm(baseEntityId, formJsonObject);
     }
 
 
@@ -619,10 +622,17 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)),"Calculation",metaData("concept", "referral_appointment_date", "")));
 
             formData.put("referral_status", createFormViewData("PENDING", "Calculation", null));
+            String isEmergencyCase = JsonFormUtils.getValue(new JSONObject(jsonForm), "is_emergency_case");
+            if (isEmergencyCase != null && !isEmergencyCase.isEmpty()) {
+                formData.put("is_emergency_case", createFormViewData(isEmergencyCase, null, metaData("concept", "is_emergency_case", "")));
+            }
             formData.put("chw_referral_service", createFormViewData("Diabetes And Hypertension Screening", null, null));
             formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
             formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
             formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+
+            // Treatment supporter / caregiver obs (only when captured)
+            TreatmentSupporterFormUtil.addScreeningReferralObs(new JSONObject(jsonForm), formData);
             return formData;
         } catch (Exception e) {
             Timber.e(e);
