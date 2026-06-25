@@ -1,6 +1,7 @@
 package org.smartregister.chw.dao;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.dao.AbstractDao;
 
@@ -280,17 +281,65 @@ public class NcdCaseManagementDao extends AbstractDao {
             return false;
         }
 
-        String sql = String.format(Locale.US,
-                "SELECT COUNT(*) as cnt FROM task " +
-                        "WHERE for_entity = '%s' " +
-                        "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
-                        "AND status IN ('READY', 'IN_PROGRESS') " +
-                        "LIMIT 1",
-                baseEntityId);
+        String sql = "SELECT COUNT(*) as cnt FROM task " +
+                "WHERE for_entity = ? " +
+                "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
+                "AND status IN ('READY', 'IN_PROGRESS') " +
+                "LIMIT 1";
+        return hasCount(sql, baseEntityId);
+    }
 
-        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "cnt");
-        List<Integer> results = readData(sql, dataMap);
-        return (results != null && !results.isEmpty() && results.get(0) > 0);
+    public static boolean hasDeathRegisterRecord(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return false;
+        }
+
+        String sql = "SELECT COUNT(*) as cnt FROM ec_hps_death_register " +
+                "WHERE base_entity_id = ? " +
+                "AND IFNULL(dod, '') <> '' " +
+                "LIMIT 1";
+        return hasCount(sql, baseEntityId);
+    }
+
+    public static boolean hasRemoveMemberEvent(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return false;
+        }
+
+        String sql = "SELECT COUNT(*) as cnt FROM event " +
+                "WHERE baseEntityId = ? COLLATE NOCASE " +
+                "AND eventType = ? COLLATE NOCASE " +
+                "LIMIT 1";
+        return hasCount(sql, baseEntityId, CoreConstants.EventType.REMOVE_MEMBER);
+    }
+
+    public static boolean hasMortalityRecord(String baseEntityId) {
+        return hasRemoveMemberEvent(baseEntityId) || hasDeathRegisterRecord(baseEntityId);
+    }
+
+    public static boolean isNcdCaseClosed(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) {
+            return false;
+        }
+
+        String sql = "SELECT COUNT(*) as cnt FROM ec_ncd_register " +
+                "WHERE base_entity_id = ? " +
+                "AND IFNULL(is_closed, 0) = 1 " +
+                "LIMIT 1";
+        return hasCount(sql, baseEntityId);
+    }
+
+    private static boolean hasCount(String sql, String... selectionArgs) {
+        List<Map<String, Object>> results = readData(sql, selectionArgs);
+        if (results == null || results.isEmpty()) {
+            return false;
+        }
+
+        Object count = results.get(0).get("cnt");
+        if (count instanceof Number) {
+            return ((Number) count).intValue() > 0;
+        }
+        return count != null && Integer.parseInt(count.toString()) > 0;
     }
 
     /**

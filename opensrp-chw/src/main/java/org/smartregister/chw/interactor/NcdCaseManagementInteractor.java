@@ -4,6 +4,7 @@ import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_CLINICA
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_DANGER_SIGNS;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_LIFESTYLE;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_PSYCHOSOCIAL;
+import static org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_STATUS;
 import static org.smartregister.chw.util.Constants.JsonForm.NCD_VITALS_FORM;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.NcdClinicalAdherenceActionHelper;
 import org.smartregister.chw.actionhelper.NcdDangerSignsActionHelper;
+import org.smartregister.chw.actionhelper.NcdFollowUpStatusActionHelper;
 import org.smartregister.chw.actionhelper.NcdLifestyleActionHelper;
 import org.smartregister.chw.actionhelper.NcdPsychosocialActionHelper;
 import org.smartregister.chw.actionhelper.NcdVitalsActionHelper;
@@ -39,10 +41,17 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private static final String KEY_IS_SIDE_EFFECTS_ALERT = "is_side_effects_alert";
     private static final String KEY_IS_MISSED_CLINIC_ALERT = "is_missed_clinic_alert";
     private static final String KEY_ALERT_STATUS = "alert_status";
-
     public static final String ALERT_RED = "red";
     public static final String ALERT_YELLOW = "yellow";
     public static final String ALERT_NONE = "none";
+    private PendingNcdReferral pendingReferral = null;
+    private String lastSubmittedFollowUpStatus;
+    private String lastSubmittedDateOfDeath;
+    private String lastComputedAlertStatus = ALERT_NONE;
+    private boolean lastHasSideEffects = false;
+    private boolean lastHasMissedClinic = false;
+    private String lastVitalsAlertReason = null;
+    private final List<String> lastReferralReasons = new ArrayList<>();
 
     public NcdCaseManagementInteractor() {
         super(Constants.EncounterType.NCD_MONTHLY_FOLLOWUP);
@@ -65,6 +74,11 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
 
             try {
                 boolean unresolvedRed = checkUnresolvedRedAlert();
+
+                BaseNcdVisitAction followUpStatus = buildAction(
+                        context.getString(R.string.ncd_followup_action_status),
+                        NCD_FOLLOWUP_STATUS,
+                        new NcdFollowUpStatusActionHelper());
 
                 NcdDangerSignsActionHelper dangerSignsHelper = new NcdDangerSignsActionHelper();
                 if (unresolvedRed) {
@@ -96,6 +110,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                         NCD_FOLLOWUP_PSYCHOSOCIAL,
                         new NcdPsychosocialActionHelper());
 
+                actionMap.put(context.getString(R.string.ncd_followup_action_status), followUpStatus);
                 actionMap.put(context.getString(R.string.ncd_followup_action_vitals), vitals);
                 actionMap.put(context.getString(R.string.ncd_followup_action_clinical_adherence), clinicalAdherence);
                 actionMap.put(context.getString(R.string.ncd_followup_action_danger_signs), dangerSigns);
@@ -114,7 +129,6 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     /**
      * Computes alert status from action payloads and injects it before the combined event is saved.
      * With COMBINED processing mode, all fields land in one event/row.
-     *
      * Phase 2: referral creation is no longer invoked inline. Instead, when the visit raises a
      * non-NONE alert, a {@link PendingNcdReferral} is staged on this interactor and the
      * VisitActivity reads it after submission to prompt the CHW for confirmation. Only the
@@ -124,6 +138,19 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     protected String submitVisit(boolean editMode, String memberID,
                                  Map<String, BaseNcdVisitAction> map,
                                  String parentEventType) throws Exception {
+        BaseNcdVisitAction followUpStatusAction = findActionByFormName(map, NCD_FOLLOWUP_STATUS);
+        if (followUpStatusAction != null) {
+            followUpStatusAction.setJsonPayload(
+                    NcdFollowUpStatusActionHelper.clearIrrelevantValues(
+                            followUpStatusAction.getJsonPayload()));
+        }
+        lastSubmittedFollowUpStatus = followUpStatusAction == null ? null
+                : NcdFollowUpStatusActionHelper.extractValue(
+                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_STATUS);
+        lastSubmittedDateOfDeath = followUpStatusAction == null ? null
+                : NcdFollowUpStatusActionHelper.extractValue(
+                        followUpStatusAction.getJsonPayload(), NcdFollowUpStatusActionHelper.KEY_DATE_OF_DEATH);
+
         // Compute alert status and stage pending referral before forms are combined into one event
         computeAndInjectAlertStatus(map);
 
@@ -150,13 +177,13 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         pendingReferral = null;
     }
 
-    private PendingNcdReferral pendingReferral = null;
+    public String getLastSubmittedFollowUpStatus() {
+        return lastSubmittedFollowUpStatus;
+    }
 
-    private String lastComputedAlertStatus = ALERT_NONE;
-    private boolean lastHasSideEffects = false;
-    private boolean lastHasMissedClinic = false;
-    private String lastVitalsAlertReason = null;
-    private final List<String> lastReferralReasons = new ArrayList<>();
+    public String getLastSubmittedDateOfDeath() {
+        return lastSubmittedDateOfDeath;
+    }
 
     private void computeAndInjectAlertStatus(Map<String, BaseNcdVisitAction> map) {
         BaseNcdVisitAction dangerSignsAction = findActionByFormName(map, NCD_FOLLOWUP_DANGER_SIGNS);

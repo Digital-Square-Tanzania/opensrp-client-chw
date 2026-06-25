@@ -697,6 +697,12 @@
 
     <!-- NCD Case Management Follow-Up -->
     <string name="ncd_case_management_visit_title">NCD Monthly Follow-Up</string>
+    <string name="ncd_followup_action_status">Client Status</string>
+    <string name="ncd_followup_status_pending">Not yet completed</string>
+    <string name="ncd_followup_status_continuing">Continuing with Services</string>
+    <string name="ncd_followup_status_dead">Dead</string>
+    <string name="ncd_followup_status_transferred">Transferred</string>
+    <string name="ncd_death_registration_save_failed">Unable to create the mortality record. Tap submit to try again.</string>
     <string name="ncd_followup_action_clinical_adherence">Clinical Adherence</string>
     <string name="ncd_followup_action_danger_signs">Danger Signs</string>
     <string name="ncd_followup_action_lifestyle">Lifestyle Modifications</string>
