@@ -193,7 +193,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "alcohol_intake_target_met",
         "type": "native_radio",
-        "label": "Je, mteja anaepuka pombe au anatumia kwa kiasi salama?",
+        "label": "Je, mteja anajiepusha kabisa na pombe?",
         "options": [
           {
             "key": "yes",
@@ -221,10 +221,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "<b>\"Kupunguza Pombe\"</b><br> <span>▪ <b>Lengo:</b> epuka pombe; ukiendelea kunywa, usizidi vinywaji 2 vyenye kiwango cha kawaida kwa siku kwa wanaume au kinywaji 1 kwa wanawake</span><br><span>▪ Pombe huongeza shinikizo la damu, hudhoofisha udhibiti wa kisukari, huharibu ini na moyo, na inaweza kuingiliana na dawa.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
+        "text": "<b>\"Kuacha Pombe Kabisa\"</b><br> <span>▪ <b>Lengo:</b> usinywe pombe yoyote</span><br><span>▪ Pombe huongeza shinikizo la damu, hudhoofisha udhibiti wa kisukari, huharibu ini na moyo, na inaweza kuingiliana na dawa.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
         "toaster_type": "info",
-        "toaster_info_title": "Kupunguza Matumizi ya Pombe",
-        "toaster_info_text": "Nini cha kufanya: Epuka pombe au punguza matumizi yake yawe ndani ya kiwango salama ili kulinda moyo, shinikizo la damu, na udhibiti wa sukari ya damu\n\nKwa nini: Pombe huongeza shinikizo la damu, inaweza kushusha sukari ya damu kwa kiwango cha hatari (hasa ukitumia dawa za kisukari), huharibu ini na moyo, huongeza kalori zisizo na faida, na huongeza hatari ya kiharusi na saratani. Shirika la Afya Duniani (WHO) linashauri kuwa kidogo ni bora, na hakuna kabisa ni bora zaidi.\n\nLini: Hakuna kiwango salama cha kila siku; ukinywa mara chache, usizidi vinywaji 2 kwa siku kwa wanaume au kinywaji 1 kwa wanawake, na uwe na siku kadhaa kwa wiki bila pombe\n\nWapi: Nyumbani na kwenye matukio ya kijamii. Jiandae kukataa kwa heshima ikiwa unashinikizwa kunywa.\n\nNamna: Jiwekee kikomo binafsi (au lengo la kutokunywa kabisa), chagua maji au vinywaji visivyo na pombe, usinywe ukiwa na njaa (hasa ukitumia dawa za kisukari), na omba msaada kama kuachisha kunakuwa kugumu",
+        "toaster_info_title": "Kuacha Pombe Kabisa",
+        "toaster_info_text": "Nini cha kufanya: Acha kabisa kutumia pombe ili kulinda moyo, shinikizo la damu, na udhibiti wa sukari ya damu\n\nKwa nini: Pombe huongeza shinikizo la damu, inaweza kushusha sukari ya damu kwa kiwango cha hatari (hasa ukitumia dawa za kisukari), huharibu ini na moyo, huongeza kalori zisizo na faida, na huongeza hatari ya kiharusi na saratani. Kutotumia pombe kabisa ndiyo njia salama zaidi.\n\nLini: Wakati wote; usinywe pombe yoyote\n\nWapi: Nyumbani na kwenye matukio ya kijamii. Jiandae kukataa kwa heshima ikiwa unashinikizwa kunywa.\n\nNamna: Chagua maji au vinywaji visivyo na kilevi, epuka mazingira yanayoweza kukushawishi kunywa, jiandae kukataa kwa heshima, na omba msaada ikiwa kuacha pombe ni vigumu",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
