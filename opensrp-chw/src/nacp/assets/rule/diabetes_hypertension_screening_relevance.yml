@@ -173,3 +173,31 @@ condition: "(step2_diagnosed_diabetes == 'Yes' || step2_diagnosed_diabetes == 'N
             step2_medicines_hypertension != 'Yes' && step2_medicines_hypertension != 'Ndio')"
 actions:
   - "isRelevant = true"
+---
+name: step4_has_treatment_supporter
+description: Treatment supporter gate shown when a referral is offered
+priority: 1
+condition: "(step3_systolic_bp != '' && step3_systolic_bp >= 140) || (step3_diastolic_bp != '' && step3_diastolic_bp >= 90) || (step4_diabetes_risk_score_output != '' && step4_diabetes_risk_score_output > 0.09175944)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_treatment_supporter_name
+description: treatment_supporter_name shown when a referral is offered and a supporter exists
+priority: 1
+condition: "((step3_systolic_bp != '' && step3_systolic_bp >= 140) || (step3_diastolic_bp != '' && step3_diastolic_bp >= 90) || (step4_diabetes_risk_score_output != '' && step4_diabetes_risk_score_output > 0.09175944)) && step4_has_treatment_supporter == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_treatment_supporter_phone
+description: treatment_supporter_phone shown when a referral is offered and a supporter exists
+priority: 1
+condition: "((step3_systolic_bp != '' && step3_systolic_bp >= 140) || (step3_diastolic_bp != '' && step3_diastolic_bp >= 90) || (step4_diabetes_risk_score_output != '' && step4_diabetes_risk_score_output > 0.09175944)) && step4_has_treatment_supporter == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_treatment_supporter_relationship
+description: treatment_supporter_relationship shown when a referral is offered and a supporter exists
+priority: 1
+condition: "((step3_systolic_bp != '' && step3_systolic_bp >= 140) || (step3_diastolic_bp != '' && step3_diastolic_bp >= 90) || (step4_diabetes_risk_score_output != '' && step4_diabetes_risk_score_output > 0.09175944)) && step4_has_treatment_supporter == 'Yes'"
+actions:
+  - "isRelevant = true"

@@ -176,6 +176,9 @@ public class MemberProfileUtils {
 
         // Populate referral facilities
         JsonFormUtilsFlv.overwriteQuestionOptions("chw_referral_hf", facilityOptions, formJsonObject);
+
+        // Pre-fill treatment supporter from registration / household caregiver
+        TreatmentSupporterFormUtil.prefillNcdScreeningForm(baseEntityId, formJsonObject);
     }
 
 

@@ -80,6 +80,7 @@ import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.MemberProfileUtils;
+import org.smartregister.chw.util.TreatmentSupporterFormUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -758,7 +759,25 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
 
             // Diabetes risk score
             String dbRiskScore = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diabetes_risk_score_output");
-            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",null));
+            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",metaData("concept", "diabetes_risk_score", "")));
+
+            // Screening measurements (renamed to match server concepts)
+            String familyHistoryDiabetes = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "family_history_diabetes");
+            if (familyHistoryDiabetes != null && !familyHistoryDiabetes.isEmpty()) {
+                formData.put("family_history_of_dm", createFormViewData(familyHistoryDiabetes, null, metaData("concept", "family_history_of_dm", "")));
+            }
+            String waistCircumference = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "waist_circumference");
+            if (waistCircumference != null && !waistCircumference.isEmpty()) {
+                formData.put("waist_circumference", createFormViewData(waistCircumference, null, metaData("concept", "waist_circumference", "")));
+            }
+            String systolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "systolic_bp");
+            if (systolicBp != null && !systolicBp.isEmpty()) {
+                formData.put("systolic", createFormViewData(systolicBp, null, metaData("concept", "systolic", "")));
+            }
+            String diastolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diastolic_bp");
+            if (diastolicBp != null && !diastolicBp.isEmpty()) {
+                formData.put("diastolic", createFormViewData(diastolicBp, null, metaData("concept", "diastolic", "")));
+            }
 
             // Appointment data
             String appointmentDate = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "referral_appointment_date");
@@ -773,6 +792,9 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
             formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
             formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+
+            // Treatment supporter / caregiver obs (only when captured)
+            TreatmentSupporterFormUtil.addScreeningReferralObs(new JSONObject(jsonForm), formData);
             return formData;
         } catch (Exception e) {
             Timber.e(e);

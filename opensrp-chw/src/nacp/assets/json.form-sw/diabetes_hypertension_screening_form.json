@@ -713,6 +713,153 @@
         }
       },
       {
+        "key": "has_treatment_supporter",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_treatment_supporter",
+        "openmrs_data_type": "select one",
+        "hint": "Je, una mlezi/msaidizi wa matibabu?",
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_name",
+        "type": "edit_text",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_name",
+        "hint": "Jina la Mlezi/Msaidizi wa Matibabu",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali andika jina la msaidizi wa matibabu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_phone",
+        "type": "edit_text",
+        "edit_type": "number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_phone",
+        "hint": "Namba ya Simu ya Msaidizi wa Matibabu",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_relationship",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_relationship",
+        "openmrs_data_type": "select one",
+        "hint": "Uhusiano na Mpokea Huduma",
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Son",
+          "Daughter",
+          "Work Colleague",
+          "Brother in Law",
+          "Sister in Law",
+          "Wife",
+          "Husband"
+        ],
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Mtoto wa Kiume",
+          "Mtoto wa Kike",
+          "Mfanyakazi Mwenza",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mke",
+          "Mume"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Wife": "Wife",
+          "Husband": "Husband"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "chw_referral_hf",
         "type": "spinner",
         "searchable": true,
