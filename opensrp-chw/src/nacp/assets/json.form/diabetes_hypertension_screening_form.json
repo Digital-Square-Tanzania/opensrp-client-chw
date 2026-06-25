@@ -197,30 +197,6 @@
         }
       },
       {
-        "key": "medicines_diabetes",
-        "type": "spinner",
-        "hint": "Are you taking medicines for diabetes?",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "medicines_diabetes",
-        "keys": ["Yes", "No"],
-        "values": ["Yes", "No"],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please select whether you agree with the screening"
-        },
-        "relevance": {
-          "step2:diagnosed_diabetes": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
         "key": "screened_diabetes_12m",
         "type": "spinner",
         "hint": "Have you been screened for diabetes in the last 12 months?",
@@ -238,7 +214,7 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step2:medicines_diabetes": {
+          "step2:diagnosed_diabetes": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
           }
@@ -269,30 +245,6 @@
         }
       },
       {
-        "key": "medicines_hypertension",
-        "type": "spinner",
-        "hint": "Are you taking medicines for hypertension?",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "medicines_hypertension",
-        "keys": ["Yes", "No"],
-        "values": ["Yes", "No"],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please select whether you agree with the screening"
-        },
-        "relevance": {
-          "step2:diagnosed_hypertension": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
         "key": "screened_hypertension_last12m",
         "type": "spinner",
         "hint": "Have you been screened for hypertension in the last 12 months?",
@@ -310,7 +262,7 @@
           "err": "Please select whether you agree with the screening"
         },
         "relevance": {
-          "step2:medicines_hypertension": {
+          "step2:diagnosed_hypertension": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
           }
@@ -570,7 +522,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "According to the information you have provided, you are already receiving care or have been recently screened for diabetes and hypertension. Therefore, you are not eligible for another screening today. Please continue with your routine clinic visits and follow your healthcare provider’s advice. Please ensure you take your medicines as prescribed and maintain a healthy lifestyle, such as staying physically active and eating a balanced diet.",
+        "text": "According to the information you have provided, you have already been diagnosed, recently screened, or enrolled in routine care for diabetes or hypertension. Therefore, you are not eligible for another screening today. Please continue with regular check-ups and follow your healthcare provider’s advice.",
         "text_color": "#000000",
         "toaster_type": "info",
         "calculation": {
@@ -580,23 +532,6 @@
             }
           }
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_hypertension_screening_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prescreening_client_has_condition_toaster_not_using_meds",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "You mentioned that you are not currently taking medicines for diabetes or hypertension. It is important to follow up at your nearest health facility for medical advice and possible treatment. You are not eligible for a new screening today, but you should continue with regular check-ups as advised by your healthcare provider",
-        "text_color": "#000000",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

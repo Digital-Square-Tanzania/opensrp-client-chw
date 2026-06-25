@@ -197,30 +197,6 @@
         }
       },
       {
-        "key": "medicines_diabetes",
-        "type": "spinner",
-        "hint": "Je, unatumia dawa za kisukari?",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "medicines_diabetes",
-        "values": ["Ndio", "Hapana"],
-        "keys": ["Yes", "No"],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali chagua moja"
-        },
-        "relevance": {
-          "step2:diagnosed_diabetes": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
         "key": "screened_diabetes_12m",
         "type": "spinner",
         "hint": "Je, umewahi kupimwa kisukari katika kipindi cha miezi 12 iliyopita?",
@@ -238,7 +214,7 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step2:medicines_diabetes": {
+          "step2:diagnosed_diabetes": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
           }
@@ -269,30 +245,6 @@
         }
       },
       {
-        "key": "medicines_hypertension",
-        "type": "spinner",
-        "hint": "Je, unatumia dawa za shinikizo la damu?",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "medicines_hypertension",
-        "values": ["Ndio", "Hapana"],
-        "keys": ["Yes", "No"],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali chagua moja"
-        },
-        "relevance": {
-          "step2:diagnosed_hypertension": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
         "key": "screened_hypertension_last12m",
         "type": "spinner",
         "hint": "Je, umewahi kupimwa shinikizo la damu katika kipindi cha miezi 12 iliyopita?",
@@ -310,7 +262,7 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step2:medicines_hypertension": {
+          "step2:diagnosed_hypertension": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
           }
@@ -570,7 +522,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Kwa mujibu wa taarifa ulizotoa, tayari unapokea huduma  na umeshafanyiwa uchunguzi wa kisukari na shinikizo la damu hivi karibuni. Hivyo basi, hauhitaji kufanyiwa uchunguzi mwingine kwa sasa. Tafadhali endelea kuhudhuria kliniki na kufuata ushauri wa mtoa huduma wako wa afya. Ni muhimu kuzingatia matumizi sahihi ya dawa ulizopewa na kudumisha mtindo mzuri wa maisha kama kufanya mazoezi mara kwa mara na kula chakula chenye lishe bora.",
+        "text": "Kwa mujibu wa taarifa ulizotoa, tayari umegunduliwa, umefanyiwa uchunguzi hivi karibuni, au umejiandikisha katika huduma za kawaida za kisukari au shinikizo la damu. Hivyo basi, huhitaji kufanyiwa uchunguzi mwingine kwa sasa. Tafadhali endelea na ukaguzi wa afya wa mara kwa mara na ufuate ushauri wa mtoa huduma wako wa afya.",
         "text_color": "#000000",
         "toaster_type": "info",
         "calculation": {
@@ -580,23 +532,6 @@
             }
           }
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "diabetes_hypertension_screening_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "prescreening_client_has_condition_toaster_not_using_meds",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Umetaja kuwa kwa sasa hutumii dawa za kisukari au shinikizo la damu. Ni muhimu kufika kituo cha afya kilicho karibu nawe kwa ushauri wa kitabibu na matibabu iwapo itahitajika. Huhitaji kufanyiwa uchunguzi mpya kwa sasa, lakini unashauriwa kuendelea na ukaguzi wa afya wa mara kwa mara kama utakavyoelekezwa na mtoa huduma wako wa afya.",
-        "text_color": "#000000",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
