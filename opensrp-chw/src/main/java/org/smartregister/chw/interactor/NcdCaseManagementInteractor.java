@@ -51,7 +51,9 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private boolean lastHasSideEffects = false;
     private boolean lastHasMissedClinic = false;
     private String lastVitalsAlertReason = null;
-    private final List<String> lastReferralReasons = new ArrayList<>();
+    // Coded problem key -> human-readable label, in capture order. The keys become the
+    // referral event's "problem" obs values; the labels become its humanReadableValues.
+    private final Map<String, String> lastReferralProblems = new LinkedHashMap<>();
 
     public NcdCaseManagementInteractor() {
         super(Constants.EncounterType.NCD_MONTHLY_FOLLOWUP);
@@ -161,7 +163,8 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                     memberID,
                     lastComputedAlertStatus,
                     description,
-                    Collections.unmodifiableList(new ArrayList<>(lastReferralReasons)));
+                    Collections.unmodifiableList(new ArrayList<>(lastReferralProblems.keySet())),
+                    Collections.unmodifiableList(new ArrayList<>(lastReferralProblems.values())));
         } else {
             pendingReferral = null;
         }
@@ -190,7 +193,7 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         BaseNcdVisitAction clinicalAction    = findActionByFormName(map, NCD_FOLLOWUP_CLINICAL_ADHERENCE);
         BaseNcdVisitAction vitalsAction      = findActionByFormName(map, NCD_VITALS_FORM);
 
-        lastReferralReasons.clear();
+        lastReferralProblems.clear();
 
         boolean isRedAlert = false;
         if (dangerSignsAction != null) {
@@ -220,10 +223,10 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
                 lastHasSideEffects = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_SIDE_EFFECTS_ALERT));
                 lastHasMissedClinic = "true".equalsIgnoreCase(findFieldValue(clinicalFields, KEY_IS_MISSED_CLINIC_ALERT));
                 if (lastHasSideEffects) {
-                    addReasonString(R.string.ncd_referral_reason_side_effects);
+                    addReason("medication_side_effects", R.string.ncd_referral_reason_side_effects);
                 }
                 if (lastHasMissedClinic) {
-                    addReasonString(R.string.ncd_referral_reason_missed_clinic);
+                    addReason("missed_clinic", R.string.ncd_referral_reason_missed_clinic);
                 }
             }
         }
@@ -243,16 +246,16 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
     private void collectDangerSignReasons(String payload) {
         if (StringUtils.isBlank(payload)) return;
         if ("yes".equalsIgnoreCase(extractFieldValue(payload, "non_healing_wounds"))) {
-            addReasonString(R.string.ncd_referral_reason_non_healing_wounds);
+            addReason("non_healing_wounds", R.string.ncd_referral_reason_non_healing_wounds);
         }
         if ("yes".equalsIgnoreCase(extractFieldValue(payload, "neuropathy"))) {
-            addReasonString(R.string.ncd_referral_reason_neuropathy);
+            addReason("neuropathy", R.string.ncd_referral_reason_neuropathy);
         }
         if ("yes".equalsIgnoreCase(extractFieldValue(payload, "vision_changes"))) {
-            addReasonString(R.string.ncd_referral_reason_vision_changes);
+            addReason("vision_changes", R.string.ncd_referral_reason_vision_changes);
         }
         if ("yes".equalsIgnoreCase(extractFieldValue(payload, "chest_pain"))) {
-            addReasonString(R.string.ncd_referral_reason_chest_pain);
+            addReason("chest_pain", R.string.ncd_referral_reason_chest_pain);
         }
     }
 
@@ -260,24 +263,24 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         if (StringUtils.isBlank(reasonCode)) return;
         switch (reasonCode) {
             case "high_bp":
-                addReasonString(R.string.ncd_referral_reason_high_bp);
+                addReason("high_bp", R.string.ncd_referral_reason_high_bp);
                 break;
             case "high_glucose":
-                addReasonString(R.string.ncd_referral_reason_high_glucose);
+                addReason("high_glucose", R.string.ncd_referral_reason_high_glucose);
                 break;
             case "high_bp_and_glucose":
-                addReasonString(R.string.ncd_referral_reason_high_bp_and_glucose);
+                addReason("high_bp_and_glucose", R.string.ncd_referral_reason_high_bp_and_glucose);
                 break;
             default:
                 break;
         }
     }
 
-    private void addReasonString(int stringResId) {
-        if (context == null) return;
+    private void addReason(String key, int stringResId) {
+        if (context == null || StringUtils.isBlank(key)) return;
         String text = context.getString(stringResId);
-        if (StringUtils.isNotBlank(text) && !lastReferralReasons.contains(text)) {
-            lastReferralReasons.add(text);
+        if (StringUtils.isNotBlank(text) && !lastReferralProblems.containsKey(key)) {
+            lastReferralProblems.put(key, text);
         }
     }
 
@@ -290,13 +293,17 @@ public class NcdCaseManagementInteractor extends BaseNcdVisitInteractor {
         public final String baseEntityId;
         public final String alertLevel; // ALERT_RED or ALERT_YELLOW
         public final String description;
+        /** Coded concept keys for each problem; become the "problem" obs values. Parallel to {@link #reasons}. */
+        public final List<String> problemKeys;
+        /** Human-readable label for each problem; shown in the prompt and stored as humanReadableValues. Parallel to {@link #problemKeys}. */
         public final List<String> reasons;
 
         public PendingNcdReferral(String baseEntityId, String alertLevel,
-                                  String description, List<String> reasons) {
+                                  String description, List<String> problemKeys, List<String> reasons) {
             this.baseEntityId = baseEntityId;
             this.alertLevel = alertLevel;
             this.description = description;
+            this.problemKeys = problemKeys;
             this.reasons = reasons;
         }
     }

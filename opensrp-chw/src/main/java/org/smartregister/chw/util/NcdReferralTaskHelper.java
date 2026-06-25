@@ -16,7 +16,9 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.util.JsonFormUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -49,11 +51,14 @@ public class NcdReferralTaskHelper {
      * @param baseEntityId             client ID
      * @param triggeringFormSubmissionId form submission of the case-management visit that triggered this referral (optional context, not used for reasonReference)
      * @param alertStatus              "red" or "yellow"
-     * @param description              human-readable description of the referral reason
+     * @param description              human-readable description of the referral reason (kept on the task)
+     * @param problemKeys              coded concept keys for each problem; persisted as the "problem" obs values
+     * @param problemHumanReadableValues human-readable label per problem; persisted as the obs humanReadableValues (parallel to problemKeys)
      * @return true if a referral was created, false if skipped
      */
     public static boolean createReferralIfNeeded(String baseEntityId, String triggeringFormSubmissionId,
-                                                  String alertStatus, String description) {
+                                                  String alertStatus, String description,
+                                                  List<String> problemKeys, List<String> problemHumanReadableValues) {
         if (!"red".equals(alertStatus) && !"yellow".equals(alertStatus)) {
             return false;
         }
@@ -76,7 +81,24 @@ public class NcdReferralTaskHelper {
             priority = 3;
         }
 
-        Event referralEvent = buildAndPersistReferralEvent(baseEntityId, focus, description);
+        // Build parallel lists of coded problem keys + human-readable labels. When no specific
+        // reason was captured, fall back to a single generic key paired with the description so
+        // the obs still carries both a value (key) and a humanReadableValue.
+        List<String> problemValues = new ArrayList<>();
+        List<String> problemReadable = new ArrayList<>();
+        if (problemKeys != null && !problemKeys.isEmpty()
+                && problemHumanReadableValues != null
+                && problemHumanReadableValues.size() == problemKeys.size()) {
+            problemValues.addAll(problemKeys);
+            problemReadable.addAll(problemHumanReadableValues);
+        } else {
+            problemValues.add("red".equals(alertStatus)
+                    ? Constants.NcdReferral.PROBLEM_KEY_DANGER_SIGNS
+                    : Constants.NcdReferral.PROBLEM_KEY_CLINICAL_CONCERN);
+            problemReadable.add(description);
+        }
+
+        Event referralEvent = buildAndPersistReferralEvent(baseEntityId, focus, problemValues, problemReadable);
         if (referralEvent == null) {
             Timber.e("NCD referral event could not be persisted for %s — skipping task creation", baseEntityId);
             return false;
@@ -93,7 +115,8 @@ public class NcdReferralTaskHelper {
      * it via NCUtils.processEvent. Returns the persisted event so callers can use its
      * formSubmissionId as the task's reasonReference.
      */
-    private static Event buildAndPersistReferralEvent(String baseEntityId, String referralService, String description) {
+    private static Event buildAndPersistReferralEvent(String baseEntityId, String referralService,
+                                                      List<String> problemValues, List<String> problemHumanReadableValues) {
         AllSharedPreferences sharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
         String providerId = sharedPreferences.fetchRegisteredANM();
         String locationId = sharedPreferences.fetchDefaultLocalityId(providerId);
@@ -114,11 +137,16 @@ public class NcdReferralTaskHelper {
                 .withClientApplicationVersion(BuildConfig.VERSION_CODE)
                 .withDateCreated(new Date());
 
+        // Mirror the structure produced by the screening referral form: coded keys in `values`
+        // and the matching display text in `humanReadableValues`, with fieldCode "concept" and
+        // parentCode "problem".
         event.addObs(new Obs()
                 .withFormSubmissionField(DBConstants.Key.PROBLEM)
-                .withFieldType(JsonFormUtils.CONCEPT)
-                .withFieldCode(DBConstants.Key.PROBLEM)
-                .withValue(description));
+                .withFieldType("")
+                .withFieldCode(JsonFormUtils.CONCEPT)
+                .withParentCode(DBConstants.Key.PROBLEM)
+                .withValues(new ArrayList<Object>(problemValues))
+                .withHumanReadableValues(new ArrayList<Object>(problemHumanReadableValues)));
 
         event.addObs(new Obs()
                 .withFormSubmissionField(DBConstants.Key.SERVICE_BEFORE_REFERRAL)

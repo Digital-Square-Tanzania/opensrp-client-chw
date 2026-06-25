@@ -78,6 +78,10 @@ public class Constants extends CoreConstants {
         public static final String NON_EMERGENCY_REFERRAL_CODE = "ncd_non_emergency_referral";
         public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
         public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
+        // Coded problem keys used as a fallback when no specific reason was captured,
+        // so the referral event's "problem" obs still carries a key alongside its human-readable value.
+        public static final String PROBLEM_KEY_DANGER_SIGNS = "ncd_danger_signs";
+        public static final String PROBLEM_KEY_CLINICAL_CONCERN = "ncd_clinical_concern";
     }
 
     public static class ChildIllnessViewType {

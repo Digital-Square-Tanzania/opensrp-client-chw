@@ -126,7 +126,9 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
                         pending.baseEntityId,
                         null,
                         pending.alertLevel,
-                        pending.description);
+                        pending.description,
+                        pending.problemKeys,
+                        pending.reasons);
                 clearPendingReferral();
                 NcdCaseManagementVisitActivity.super.submittedAndClose(results);
             }
