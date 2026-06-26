@@ -32,4 +32,21 @@ public class NcdReferralInputsTest {
         Assert.assertFalse(new NcdReferralInputs("Yes", null, null, null, null)
                 .isTreatmentSupporterGateYes());
     }
+
+    @Test
+    public void facilityGettersReturnSuppliedValues() {
+        NcdReferralInputs inputs = new NcdReferralInputs(
+                "Yes", "No", null, null, null, "facility-123", "Sinza Hospital");
+
+        Assert.assertEquals("facility-123", inputs.getReferralFacilityId());
+        Assert.assertEquals("Sinza Hospital", inputs.getReferralFacilityName());
+    }
+
+    @Test
+    public void facilityIsNullViaFiveArgConstructor() {
+        NcdReferralInputs inputs = new NcdReferralInputs("Yes", "No", null, null, null);
+
+        Assert.assertNull(inputs.getReferralFacilityId());
+        Assert.assertNull(inputs.getReferralFacilityName());
+    }
 }

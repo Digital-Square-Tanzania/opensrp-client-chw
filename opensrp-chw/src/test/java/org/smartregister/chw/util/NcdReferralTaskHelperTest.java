@@ -85,4 +85,39 @@ public class NcdReferralTaskHelperTest {
         Assert.assertEquals("Jane Doe", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME));
         Assert.assertEquals("0788", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE));
     }
+
+    @Test
+    public void referralHfObsUsesSelectedFacilityIdAndName() {
+        NcdReferralInputs inputs = new NcdReferralInputs(
+                "Yes", "No", null, null, null, "facility-123", "Sinza Hospital");
+
+        Obs obs = NcdReferralTaskHelper.buildReferralHfObs(inputs, "chw-locality");
+
+        Assert.assertEquals("chw_referral_hf", obs.getFieldCode());
+        Assert.assertEquals("facility-123", obs.getValue());
+        Assert.assertNotNull(obs.getHumanReadableValues());
+        Assert.assertEquals("Sinza Hospital", obs.getHumanReadableValues().get(0));
+    }
+
+    @Test
+    public void referralHfObsFallsBackToLocalityWhenNoFacility() {
+        Obs nullInputs = NcdReferralTaskHelper.buildReferralHfObs(null, "chw-locality");
+        Assert.assertEquals("chw-locality", nullInputs.getValue());
+        Assert.assertTrue(nullInputs.getHumanReadableValues() == null
+                || nullInputs.getHumanReadableValues().isEmpty());
+
+        Obs blankFacility = NcdReferralTaskHelper.buildReferralHfObs(
+                new NcdReferralInputs("Yes", "No", null, null, null, "  ", null), "chw-locality");
+        Assert.assertEquals("chw-locality", blankFacility.getValue());
+    }
+
+    @Test
+    public void groupIdentifierPrefersFacilityThenFallsBack() {
+        Assert.assertEquals("facility-123",
+                NcdReferralTaskHelper.resolveGroupIdentifier("  facility-123  ", "chw-locality"));
+        Assert.assertEquals("chw-locality",
+                NcdReferralTaskHelper.resolveGroupIdentifier(null, "chw-locality"));
+        Assert.assertEquals("chw-locality",
+                NcdReferralTaskHelper.resolveGroupIdentifier("   ", "chw-locality"));
+    }
 }

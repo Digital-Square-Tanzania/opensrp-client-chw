@@ -757,6 +757,10 @@
     <string name="ncd_referral_prompt_supporter_name_hint">Jina la msaidizi</string>
     <string name="ncd_referral_prompt_supporter_phone_hint">Simu ya msaidizi</string>
     <string name="ncd_referral_prompt_supporter_relationship_label">Uhusiano na mteja</string>
+    <string name="ncd_referral_prompt_facility_label">Kituo cha rufaa</string>
+    <string name="ncd_referral_prompt_facility_hint">Chagua kituo cha rufaa</string>
+    <string name="ncd_referral_prompt_facility_required">Tafadhali chagua kituo cha rufaa</string>
+    <string name="ncd_referral_already_open">Tayari kuna rufaa iliyo wazi kwa mteja huyu</string>
     <string name="hps_high_bp_detected">Shinikizo la damu lililoinuka limegunduliwa</string>
     <string name="hps_screen_for_diabetes">Pima Kisukari</string>
     <string name="ncd_referral_reason_high_bp">Shinikizo la damu lililoinuka</string>

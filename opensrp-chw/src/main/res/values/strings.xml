@@ -729,6 +729,10 @@
     <string name="ncd_referral_prompt_supporter_name_hint">Supporter name</string>
     <string name="ncd_referral_prompt_supporter_phone_hint">Supporter phone</string>
     <string name="ncd_referral_prompt_supporter_relationship_label">Relationship to client</string>
+    <string name="ncd_referral_prompt_facility_label">Referral facility</string>
+    <string name="ncd_referral_prompt_facility_hint">Choose referral facility</string>
+    <string name="ncd_referral_prompt_facility_required">Please select a referral facility</string>
+    <string name="ncd_referral_already_open">An open referral already exists for this client</string>
     <string name="hps_high_bp_detected">Elevated blood pressure detected</string>
     <string name="hps_screen_for_diabetes">Screen for Diabetes</string>
     <string name="ncd_referral_reason_high_bp">Elevated blood pressure</string>

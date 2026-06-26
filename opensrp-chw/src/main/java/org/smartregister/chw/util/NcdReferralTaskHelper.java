@@ -118,7 +118,9 @@ public class NcdReferralTaskHelper {
             return false;
         }
 
-        createTask(baseEntityId, referralEvent.getFormSubmissionId(), taskCode, focus, description, priority);
+        String referralFacilityId = inputs != null ? inputs.getReferralFacilityId() : null;
+        createTask(baseEntityId, referralEvent.getFormSubmissionId(), taskCode, focus, description,
+                priority, referralFacilityId);
         return true;
     }
 
@@ -207,11 +209,7 @@ public class NcdReferralTaskHelper {
                 .withFieldCode(DBConstants.Key.REFERRAL_APPOINTMENT_DATE)
                 .withValue(now.getTime()));
 
-        event.addObs(new Obs()
-                .withFormSubmissionField(DBConstants.Key.REFERRAL_HF)
-                .withFieldType(JsonFormUtils.CONCEPT)
-                .withFieldCode(DBConstants.Key.REFERRAL_HF)
-                .withValue(locationId));
+        event.addObs(buildReferralHfObs(inputs, locationId));
 
         addReferralInputObs(event, inputs);
 
@@ -247,6 +245,50 @@ public class NcdReferralTaskHelper {
         }
     }
 
+    /**
+     * Builds the {@code chw_referral_hf} obs. The value is the CHW-selected referral facility's
+     * location id (falling back to the CHW's locality when none was captured), and the facility
+     * name is attached as the humanReadableValue so register/detail views can display it without a
+     * second lookup.
+     */
+    @androidx.annotation.VisibleForTesting
+    static Obs buildReferralHfObs(NcdReferralInputs inputs, String fallbackLocationId) {
+        Obs obs = new Obs()
+                .withFormSubmissionField(DBConstants.Key.REFERRAL_HF)
+                .withFieldType(JsonFormUtils.CONCEPT)
+                .withFieldCode(DBConstants.Key.REFERRAL_HF)
+                .withValue(referralFacilityId(inputs, fallbackLocationId));
+        if (inputs != null && isNotBlank(inputs.getReferralFacilityName())) {
+            obs.withHumanReadableValues(new ArrayList<Object>(
+                    java.util.Collections.singletonList(inputs.getReferralFacilityName().trim())));
+        }
+        return obs;
+    }
+
+    /**
+     * Resolves the referral facility's location id from the captured inputs, falling back to the
+     * CHW's locality id when no facility was selected (preserving the pre-facility behaviour).
+     */
+    private static String referralFacilityId(NcdReferralInputs inputs, String fallbackLocationId) {
+        if (inputs != null && isNotBlank(inputs.getReferralFacilityId())) {
+            return inputs.getReferralFacilityId().trim();
+        }
+        return fallbackLocationId;
+    }
+
+    /**
+     * The task groupIdentifier: the selected facility's location id, or the CHW's locality id when
+     * no facility was captured.
+     */
+    @androidx.annotation.VisibleForTesting
+    static String resolveGroupIdentifier(String referralFacilityId, String fallbackLocalityId) {
+        return isNotBlank(referralFacilityId) ? referralFacilityId.trim() : fallbackLocalityId;
+    }
+
+    private static boolean isNotBlank(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
     private static void addConceptObs(Event event, String conceptKey, String value) {
         if (value == null || value.trim().isEmpty()) {
             return;
@@ -259,15 +301,17 @@ public class NcdReferralTaskHelper {
     }
 
     private static void createTask(String baseEntityId, String referralEventFormSubmissionId,
-                                   String taskCode, String focus, String description, int priority) {
+                                   String taskCode, String focus, String description, int priority,
+                                   String referralFacilityId) {
         AllSharedPreferences sharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
 
         Task task = new Task();
         task.setIdentifier(UUID.randomUUID().toString());
         task.setPlanIdentifier(CoreConstants.REFERRAL_PLAN_ID);
-        // change this to selected facility we might need to include facility selection on the new dialog
-        task.setGroupIdentifier(
-                sharedPreferences.fetchUserLocalityId(sharedPreferences.fetchRegisteredANM()));
+        // Group the task by the CHW-selected referral facility (its location id), falling back to
+        // the CHW's own locality when no facility was captured.
+        task.setGroupIdentifier(resolveGroupIdentifier(referralFacilityId,
+                sharedPreferences.fetchUserLocalityId(sharedPreferences.fetchRegisteredANM())));
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(priority);

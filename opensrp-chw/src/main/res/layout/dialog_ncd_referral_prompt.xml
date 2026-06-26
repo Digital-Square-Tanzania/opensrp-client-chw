@@ -137,6 +137,23 @@
                 android:minHeight="48dp" />
         </LinearLayout>
 
+        <!-- Referral facility (required) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ncd_referral_prompt_facility_label"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/ncd_referral_facility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp" />
+
     </LinearLayout>
 
 </ScrollView>

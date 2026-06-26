@@ -5,10 +5,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -18,7 +20,9 @@ import org.smartregister.chw.interactor.NcdCaseManagementInteractor;
 import org.smartregister.chw.interactor.NcdCaseManagementInteractor.PendingNcdReferral;
 import org.smartregister.chw.model.NcdReferralInputs;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Confirmation prompt shown after an NCD Monthly Follow-Up visit is submitted and the
@@ -55,7 +59,8 @@ public final class NcdReferralPromptDialog {
     }
 
     public static void show(Activity activity, PendingNcdReferral pending,
-                            TreatmentSupporterDao.Caregiver caregiver, Callbacks callbacks) {
+                            TreatmentSupporterDao.Caregiver caregiver,
+                            Map<String, String> facilities, Callbacks callbacks) {
         if (activity == null || activity.isFinishing() || pending == null || callbacks == null) {
             if (callbacks != null) callbacks.onSkip();
             return;
@@ -100,32 +105,67 @@ public final class NcdReferralPromptDialog {
                 supporterDetails.setVisibility(
                         checkedId == R.id.ncd_referral_supporter_yes ? View.VISIBLE : View.GONE));
 
-        new AlertDialog.Builder(activity)
+        // Referral facility: index 0 is a non-selectable placeholder, then one entry per facility.
+        // facilityIds is index-aligned with the spinner (id is null at the placeholder position).
+        Spinner facilityView = view.findViewById(R.id.ncd_referral_facility);
+        List<String> facilityNames = new ArrayList<>();
+        List<String> facilityIds = new ArrayList<>();
+        facilityNames.add(activity.getString(R.string.ncd_referral_prompt_facility_hint));
+        facilityIds.add(null);
+        if (facilities != null) {
+            for (Map.Entry<String, String> entry : facilities.entrySet()) {
+                facilityIds.add(entry.getKey());
+                facilityNames.add(entry.getValue());
+            }
+        }
+        ArrayAdapter<String> facilityAdapter = new ArrayAdapter<>(activity,
+                android.R.layout.simple_spinner_item, facilityNames);
+        facilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        facilityView.setAdapter(facilityAdapter);
+
+        AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setTitle(titleRes)
                 .setView(view)
                 .setCancelable(false)
                 .setNegativeButton(R.string.ncd_referral_prompt_button_skip,
                         (d, w) -> callbacks.onSkip())
-                .setPositiveButton(R.string.ncd_referral_prompt_button_create,
-                        (d, w) -> callbacks.onConfirm(collectInputs(
-                                emergencyGroup, supporterGroup, nameView, phoneView, relationshipView)))
-                .show();
+                .setPositiveButton(R.string.ncd_referral_prompt_button_create, null)
+                .create();
+
+        // Override the positive button after show() so an unselected facility keeps the dialog
+        // open (the default listener would auto-dismiss).
+        dialog.setOnShowListener(d -> {
+            Button create = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            create.setOnClickListener(v -> {
+                int pos = facilityView.getSelectedItemPosition();
+                if (pos <= 0) {
+                    Toast.makeText(activity, R.string.ncd_referral_prompt_facility_required,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                callbacks.onConfirm(collectInputs(emergencyGroup, supporterGroup, nameView, phoneView,
+                        relationshipView, facilityIds.get(pos), facilityNames.get(pos)));
+                dialog.dismiss();
+            });
+        });
+        dialog.show();
     }
 
     private static NcdReferralInputs collectInputs(RadioGroup emergencyGroup, RadioGroup supporterGroup,
                                                    EditText nameView, EditText phoneView,
-                                                   Spinner relationshipView) {
+                                                   Spinner relationshipView,
+                                                   String facilityId, String facilityName) {
         String isEmergency = emergencyGroup.getCheckedRadioButtonId() == R.id.ncd_referral_emergency_yes
                 ? "Yes" : "No";
         boolean gateYes = supporterGroup.getCheckedRadioButtonId() == R.id.ncd_referral_supporter_yes;
         if (!gateYes) {
-            return new NcdReferralInputs(isEmergency, "No", null, null, null);
+            return new NcdReferralInputs(isEmergency, "No", null, null, null, facilityId, facilityName);
         }
         String name = textOf(nameView);
         String phone = textOf(phoneView);
         String relationship = relationshipView.getSelectedItem() != null
                 ? relationshipView.getSelectedItem().toString() : null;
-        return new NcdReferralInputs(isEmergency, "Yes", name, phone, relationship);
+        return new NcdReferralInputs(isEmergency, "Yes", name, phone, relationship, facilityId, facilityName);
     }
 
     private static String textOf(EditText editText) {
