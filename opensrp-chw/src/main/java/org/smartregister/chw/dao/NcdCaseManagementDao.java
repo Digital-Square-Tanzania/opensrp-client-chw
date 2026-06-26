@@ -250,7 +250,7 @@ public class NcdCaseManagementDao extends AbstractDao {
 
         String sql = String.format(Locale.US,
                 "SELECT focus FROM task " +
-                        "WHERE for_entity = '%s' " +
+                        "WHERE for = '%s' " +
                         "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
                         "AND status IN ('READY', 'IN_PROGRESS') " +
                         "ORDER BY authored_on DESC LIMIT 1",
