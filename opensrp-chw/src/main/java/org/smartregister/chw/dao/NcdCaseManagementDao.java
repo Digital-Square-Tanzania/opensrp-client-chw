@@ -282,7 +282,7 @@ public class NcdCaseManagementDao extends AbstractDao {
         }
 
         String sql = "SELECT COUNT(*) as cnt FROM task " +
-                "WHERE for_entity = ? " +
+                "WHERE for = ? " +
                 "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
                 "AND status IN ('READY', 'IN_PROGRESS') " +
                 "LIMIT 1";
@@ -351,7 +351,7 @@ public class NcdCaseManagementDao extends AbstractDao {
 
         String sql = String.format(Locale.US,
                 "UPDATE task SET status = 'CANCELLED', last_modified = strftime('%%s','now') * 1000 " +
-                        "WHERE for_entity = '%s' " +
+                        "WHERE for = '%s' " +
                         "AND status IN ('READY', 'IN_PROGRESS')",
                 baseEntityId);
         updateDB(sql);
@@ -366,7 +366,7 @@ public class NcdCaseManagementDao extends AbstractDao {
 
         String sql = String.format(Locale.US,
                 "UPDATE task SET status = 'CANCELLED', last_modified = strftime('%%s','now') * 1000 " +
-                        "WHERE for_entity = '%s' " +
+                        "WHERE for = '%s' " +
                         "AND focus IN ('NCD Danger Signs', 'NCD Clinical Concern') " +
                         "AND status IN ('READY', 'IN_PROGRESS')",
                 baseEntityId);
