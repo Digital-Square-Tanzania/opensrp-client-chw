@@ -330,6 +330,9 @@ dependencies {
     implementation('org.smartregister:opensrp-client-chw-core:2.1.1-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
+        // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
+        // until chw-core is rebuilt against the newer ncd library.
+        exclude group: 'org.smartregister', module: 'opensrp-chw-ncd'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -349,6 +352,12 @@ dependencies {
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
         exclude group: 'com.github.lecho', module: 'hellocharts-library'
+    }
+
+    // Direct dependency on the NCD library (excluded from chw-core above) so the app builds
+    // against the newer published version without waiting on a chw-core rebuild.
+    implementation('org.smartregister:opensrp-chw-ncd:0.1.1-SNAPSHOT@aar') {
+        transitive = false
     }
 
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
