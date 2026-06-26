@@ -10,6 +10,8 @@ import org.smartregister.chw.custom_views.NcdReferralPromptDialog;
 import org.smartregister.chw.interactor.NcdCaseManagementInteractor;
 import org.smartregister.chw.interactor.NcdCaseManagementInteractor.PendingNcdReferral;
 import org.smartregister.chw.dao.NcdCaseManagementDao;
+import org.smartregister.chw.dao.TreatmentSupporterDao;
+import org.smartregister.chw.model.NcdReferralInputs;
 import org.smartregister.chw.ncd.model.BaseNcdVisitAction;
 import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.ncd.util.AppExecutors;
@@ -119,16 +121,28 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
             return;
         }
 
-        runOnUiThread(() -> NcdReferralPromptDialog.show(this, pending, new NcdReferralPromptDialog.Callbacks() {
+        // Resolve the registered caregiver off the main thread, then prompt the CHW with the
+        // supporter prefilled and editable. The DB read must not run on the UI thread.
+        appExecutors.diskIO().execute(() -> {
+            TreatmentSupporterDao.Caregiver caregiver =
+                    TreatmentSupporterDao.getRegisteredCaregiver(pending.baseEntityId);
+            appExecutors.mainThread().execute(() -> showReferralPrompt(pending, caregiver, results));
+        });
+    }
+
+    private void showReferralPrompt(PendingNcdReferral pending,
+                                    TreatmentSupporterDao.Caregiver caregiver, String results) {
+        NcdReferralPromptDialog.show(this, pending, caregiver, new NcdReferralPromptDialog.Callbacks() {
             @Override
-            public void onConfirm() {
+            public void onConfirm(NcdReferralInputs inputs) {
                 NcdReferralTaskHelper.createReferralIfNeeded(
                         pending.baseEntityId,
                         null,
                         pending.alertLevel,
                         pending.description,
                         pending.problemKeys,
-                        pending.reasons);
+                        pending.reasons,
+                        inputs);
                 clearPendingReferral();
                 NcdCaseManagementVisitActivity.super.submittedAndClose(results);
             }
@@ -140,7 +154,7 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
                 clearPendingReferral();
                 NcdCaseManagementVisitActivity.super.submittedAndClose(results);
             }
-        }));
+        });
     }
 
     @Override

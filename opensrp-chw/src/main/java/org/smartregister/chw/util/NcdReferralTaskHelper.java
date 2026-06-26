@@ -7,6 +7,7 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.NcdCaseManagementDao;
+import org.smartregister.chw.model.NcdReferralInputs;
 import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -46,6 +47,17 @@ public class NcdReferralTaskHelper {
     }
 
     /**
+     * Backward-compatible overload that creates a referral with no emergency/treatment-supporter
+     * details captured. Equivalent to passing {@code null} inputs.
+     */
+    public static boolean createReferralIfNeeded(String baseEntityId, String triggeringFormSubmissionId,
+                                                  String alertStatus, String description,
+                                                  List<String> problemKeys, List<String> problemHumanReadableValues) {
+        return createReferralIfNeeded(baseEntityId, triggeringFormSubmissionId, alertStatus,
+                description, problemKeys, problemHumanReadableValues, null);
+    }
+
+    /**
      * Creates a Referral Registration event and a linked task if no open referral exists.
      *
      * @param baseEntityId             client ID
@@ -54,11 +66,13 @@ public class NcdReferralTaskHelper {
      * @param description              human-readable description of the referral reason (kept on the task)
      * @param problemKeys              coded concept keys for each problem; persisted as the "problem" obs values
      * @param problemHumanReadableValues human-readable label per problem; persisted as the obs humanReadableValues (parallel to problemKeys)
+     * @param inputs                   emergency-case + treatment-supporter values captured on the prompt; may be {@code null}
      * @return true if a referral was created, false if skipped
      */
     public static boolean createReferralIfNeeded(String baseEntityId, String triggeringFormSubmissionId,
                                                   String alertStatus, String description,
-                                                  List<String> problemKeys, List<String> problemHumanReadableValues) {
+                                                  List<String> problemKeys, List<String> problemHumanReadableValues,
+                                                  NcdReferralInputs inputs) {
         if (!"red".equals(alertStatus) && !"yellow".equals(alertStatus)) {
             return false;
         }
@@ -98,7 +112,7 @@ public class NcdReferralTaskHelper {
             problemReadable.add(description);
         }
 
-        Event referralEvent = buildAndPersistReferralEvent(baseEntityId, focus, problemValues, problemReadable);
+        Event referralEvent = buildAndPersistReferralEvent(baseEntityId, focus, problemValues, problemReadable, inputs);
         if (referralEvent == null) {
             Timber.e("NCD referral event could not be persisted for %s — skipping task creation", baseEntityId);
             return false;
@@ -116,7 +130,8 @@ public class NcdReferralTaskHelper {
      * formSubmissionId as the task's reasonReference.
      */
     private static Event buildAndPersistReferralEvent(String baseEntityId, String referralService,
-                                                      List<String> problemValues, List<String> problemHumanReadableValues) {
+                                                      List<String> problemValues, List<String> problemHumanReadableValues,
+                                                      NcdReferralInputs inputs) {
         AllSharedPreferences sharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
         String providerId = sharedPreferences.fetchRegisteredANM();
         String locationId = sharedPreferences.fetchDefaultLocalityId(providerId);
@@ -198,6 +213,8 @@ public class NcdReferralTaskHelper {
                 .withFieldCode(DBConstants.Key.REFERRAL_HF)
                 .withValue(locationId));
 
+        addReferralInputObs(event, inputs);
+
         try {
             org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(sharedPreferences, event);
             NCUtils.processEvent(event.getBaseEntityId(),
@@ -209,6 +226,38 @@ public class NcdReferralTaskHelper {
         }
     }
 
+    /**
+     * Appends the emergency-case and treatment-supporter obs captured on the post-visit prompt.
+     * {@code is_emergency_case} and {@code has_treatment_supporter} are always written when
+     * present; the name/phone/relationship details are written only when the supporter gate is
+     * "Yes" and the value is non-blank — mirroring the manual referral form's behaviour. No-op
+     * when {@code inputs} is null.
+     */
+    @androidx.annotation.VisibleForTesting
+    static void addReferralInputObs(Event event, NcdReferralInputs inputs) {
+        if (inputs == null) {
+            return;
+        }
+        addConceptObs(event, Constants.NcdReferral.IS_EMERGENCY_CASE, inputs.getIsEmergencyCase());
+        addConceptObs(event, Constants.NcdReferral.HAS_TREATMENT_SUPPORTER, inputs.getHasTreatmentSupporter());
+        if (inputs.isTreatmentSupporterGateYes()) {
+            addConceptObs(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME, inputs.getSupporterName());
+            addConceptObs(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE, inputs.getSupporterPhone());
+            addConceptObs(event, Constants.NcdReferral.TREATMENT_SUPPORTER_RELATIONSHIP, inputs.getSupporterRelationship());
+        }
+    }
+
+    private static void addConceptObs(Event event, String conceptKey, String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return;
+        }
+        event.addObs(new Obs()
+                .withFormSubmissionField(conceptKey)
+                .withFieldType(JsonFormUtils.CONCEPT)
+                .withFieldCode(conceptKey)
+                .withValue(value.trim()));
+    }
+
     private static void createTask(String baseEntityId, String referralEventFormSubmissionId,
                                    String taskCode, String focus, String description, int priority) {
         AllSharedPreferences sharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
@@ -216,6 +265,7 @@ public class NcdReferralTaskHelper {
         Task task = new Task();
         task.setIdentifier(UUID.randomUUID().toString());
         task.setPlanIdentifier(CoreConstants.REFERRAL_PLAN_ID);
+        // change this to selected facility we might need to include facility selection on the new dialog
         task.setGroupIdentifier(
                 sharedPreferences.fetchUserLocalityId(sharedPreferences.fetchRegisteredANM()));
         task.setStatus(Task.TaskStatus.READY);

@@ -724,6 +724,11 @@
     <string name="ncd_referral_prompt_body">This client shows signs that need attention:</string>
     <string name="ncd_referral_prompt_button_create">Create referral</string>
     <string name="ncd_referral_prompt_button_skip">Skip</string>
+    <string name="ncd_referral_prompt_emergency_question">Is this an emergency case?</string>
+    <string name="ncd_referral_prompt_supporter_question">Treatment supporter</string>
+    <string name="ncd_referral_prompt_supporter_name_hint">Supporter name</string>
+    <string name="ncd_referral_prompt_supporter_phone_hint">Supporter phone</string>
+    <string name="ncd_referral_prompt_supporter_relationship_label">Relationship to client</string>
     <string name="hps_high_bp_detected">Elevated blood pressure detected</string>
     <string name="hps_screen_for_diabetes">Screen for Diabetes</string>
     <string name="ncd_referral_reason_high_bp">Elevated blood pressure</string>
