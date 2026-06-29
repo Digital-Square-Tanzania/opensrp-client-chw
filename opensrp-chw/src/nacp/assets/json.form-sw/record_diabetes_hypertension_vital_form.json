@@ -217,7 +217,7 @@
         }
       },
       {
-        "key": "measurement_notes",
+        "key": "ncd_vitals_notes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ncd_vitals_notes",
