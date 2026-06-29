@@ -16,7 +16,7 @@ public class ChwHpsDao extends AbstractDao {
         DataMap<Boolean> dataMap = cursor -> {
             int systolic = getCursorIntValue(cursor, "systolic", 0);
             int diastolic = getCursorIntValue(cursor, "diastolic", 0);
-            return systolic >= 140 || diastolic >= 80;
+            return systolic >= 130 || diastolic >= 80;
         };
         List<Boolean> res = readData(sql, dataMap);
         return res != null && !res.isEmpty() && Boolean.TRUE.equals(res.get(0));

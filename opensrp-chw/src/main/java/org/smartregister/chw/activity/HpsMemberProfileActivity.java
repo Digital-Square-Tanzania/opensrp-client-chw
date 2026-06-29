@@ -195,7 +195,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             visitDone.setVisibility(View.VISIBLE);
             textViewVisitDone.setText(getString(R.string.hps_high_bp_detected));
             textViewVisitDone.setVisibility(View.VISIBLE);
-            textViewVisitDoneEdit.setText(R.string.hps_screen_for_diabetes);
+            textViewVisitDoneEdit.setText(R.string.hps_screen_for_hypertension);
             textViewVisitDoneEdit.setOnClickListener(v ->
                     MemberProfileUtils.startDiabetesRiskAssessment(
                             HpsMemberProfileActivity.this,

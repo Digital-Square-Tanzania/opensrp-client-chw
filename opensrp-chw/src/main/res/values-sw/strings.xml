@@ -761,17 +761,17 @@
     <string name="ncd_referral_prompt_facility_hint">Chagua kituo cha rufaa</string>
     <string name="ncd_referral_prompt_facility_required">Tafadhali chagua kituo cha rufaa</string>
     <string name="ncd_referral_already_open">Tayari kuna rufaa iliyo wazi kwa mteja huyu</string>
-    <string name="hps_high_bp_detected">Shinikizo la damu lililoinuka limegunduliwa</string>
-    <string name="hps_screen_for_diabetes">Pima Kisukari</string>
-    <string name="ncd_referral_reason_high_bp">Shinikizo la damu lililoinuka</string>
-    <string name="ncd_referral_reason_high_glucose">Sukari ya damu iliyoinuka</string>
-    <string name="ncd_referral_reason_high_bp_and_glucose">Shinikizo la damu na sukari vimeinuka</string>
+    <string name="hps_high_bp_detected">Imebainika kuwa shinikizo la damu liko juu.</string>
+    <string name="hps_screen_for_hypertension">Fanya uchunguzi wa shinikizo la damu</string>
+    <string name="ncd_referral_reason_high_bp">Shinikizo la juu la damu</string>
+    <string name="ncd_referral_reason_high_glucose">Kiwango cha sukari kwenye damu kiko juu</string>
+    <string name="ncd_referral_reason_high_bp_and_glucose">Shinikizo la damu na kiwango cha sukari kwenye damu vimeonekana kuwa juu</string>
     <string name="ncd_referral_reason_non_healing_wounds">Vidonda visivyopona</string>
     <string name="ncd_referral_reason_neuropathy">Dalili za ugonjwa wa mishipa</string>
     <string name="ncd_referral_reason_vision_changes">Mabadiliko ya uoni</string>
     <string name="ncd_referral_reason_chest_pain">Maumivu ya kifua</string>
     <string name="ncd_referral_reason_side_effects">Madhara ya dawa</string>
-    <string name="ncd_referral_reason_missed_clinic">Ameruka ziara ya kliniki</string>
+    <string name="ncd_referral_reason_missed_clinic">Hakufika kliniki kwa miadi aliyopangiwa.</string>
 
     <string name="hps_provision_of_curative_services">Je mgonjwa amepata huduma za tiba?</string>
     <string name="hps_diseases_signs_and_symptoms">Dalili za ugonjwa</string>
