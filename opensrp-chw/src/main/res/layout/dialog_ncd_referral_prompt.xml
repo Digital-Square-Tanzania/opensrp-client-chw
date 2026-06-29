@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <!-- Body + bulleted triggering reasons, populated programmatically -->
+        <TextView
+            android:id="@+id/ncd_referral_reasons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/medical_text_inner"
+            android:textSize="14sp" />
+
+        <!-- Emergency case -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/ncd_referral_prompt_emergency_question"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/ncd_referral_emergency_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/ncd_referral_emergency_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:minHeight="48dp"
+                android:text="@string/yes"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/ncd_referral_emergency_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/no"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <!-- Treatment supporter -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/ncd_referral_prompt_supporter_question"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/ncd_referral_supporter_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/ncd_referral_supporter_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:minHeight="48dp"
+                android:text="@string/yes"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/ncd_referral_supporter_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/no"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <!-- Supporter detail block; visibility toggled by the gate above -->
+        <LinearLayout
+            android:id="@+id/ncd_referral_supporter_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/ncd_referral_supporter_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/ncd_referral_prompt_supporter_name_hint"
+                android:inputType="textPersonName|textCapWords"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/ncd_referral_supporter_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/ncd_referral_prompt_supporter_phone_hint"
+                android:inputType="phone"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/ncd_referral_prompt_supporter_relationship_label"
+                android:textColor="@color/grey"
+                android:textSize="13sp" />
+
+            <Spinner
+                android:id="@+id/ncd_referral_supporter_relationship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <!-- Referral facility (required) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ncd_referral_prompt_facility_label"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/ncd_referral_facility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp" />
+
+    </LinearLayout>
+
+</ScrollView>
