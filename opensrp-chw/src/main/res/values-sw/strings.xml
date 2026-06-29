@@ -762,7 +762,11 @@
     <string name="ncd_referral_prompt_facility_required">Tafadhali chagua kituo cha rufaa</string>
     <string name="ncd_referral_already_open">Tayari kuna rufaa iliyo wazi kwa mteja huyu</string>
     <string name="hps_high_bp_detected">Imebainika kuwa shinikizo la damu liko juu.</string>
+    <string name="hps_high_glucose_detected">Imebainika kuwa kiwango cha sukari kwenye damu kiko juu.</string>
+    <string name="hps_high_bp_and_glucose_detected">Imebainika kuwa shinikizo la damu na kiwango cha sukari kwenye damu viko juu.</string>
+    <string name="hps_screen_for_diabetes">Fanya uchunguzi wa kisukari</string>
     <string name="hps_screen_for_hypertension">Fanya uchunguzi wa shinikizo la damu</string>
+    <string name="hps_screen_for_diabetes_hypertension">Fanya uchunguzi wa kisukari na shinikizo la damu</string>
     <string name="ncd_referral_reason_high_bp">Shinikizo la juu la damu</string>
     <string name="ncd_referral_reason_high_glucose">Kiwango cha sukari kwenye damu kiko juu</string>
     <string name="ncd_referral_reason_high_bp_and_glucose">Shinikizo la damu na kiwango cha sukari kwenye damu vimeonekana kuwa juu</string>

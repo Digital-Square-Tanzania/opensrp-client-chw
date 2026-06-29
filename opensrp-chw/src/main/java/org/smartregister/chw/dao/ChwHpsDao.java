@@ -7,6 +7,8 @@ import java.util.List;
 
 public class ChwHpsDao extends AbstractDao {
 
+    private static final double BLOOD_GLUCOSE_THRESHOLD = 7.0;
+
     public static boolean isBloodPressureAboveThreshold(String baseEntityId) {
         if (StringUtils.isBlank(baseEntityId)) return false;
         String sql = "SELECT systolic, diastolic FROM ec_hps_client_services" +
@@ -17,6 +19,25 @@ public class ChwHpsDao extends AbstractDao {
             int systolic = getCursorIntValue(cursor, "systolic", 0);
             int diastolic = getCursorIntValue(cursor, "diastolic", 0);
             return systolic >= 130 || diastolic >= 80;
+        };
+        List<Boolean> res = readData(sql, dataMap);
+        return res != null && !res.isEmpty() && Boolean.TRUE.equals(res.get(0));
+    }
+
+    public static boolean isBloodGlucoseAboveThreshold(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) return false;
+        String sql = "SELECT blood_sugar_result FROM ec_hps_client_services" +
+                " WHERE entity_id = '" + baseEntityId + "'" +
+                " AND blood_sugar_result IS NOT NULL" +
+                " ORDER BY last_interacted_with DESC LIMIT 1";
+        DataMap<Boolean> dataMap = cursor -> {
+            String bloodSugarResult = getCursorValue(cursor, "blood_sugar_result");
+            if (StringUtils.isBlank(bloodSugarResult)) return false;
+            try {
+                return Double.parseDouble(bloodSugarResult.trim()) >= BLOOD_GLUCOSE_THRESHOLD;
+            } catch (NumberFormatException e) {
+                return false;
+            }
         };
         List<Boolean> res = readData(sql, dataMap);
         return res != null && !res.isEmpty() && Boolean.TRUE.equals(res.get(0));

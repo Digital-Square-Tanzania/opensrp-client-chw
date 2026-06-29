@@ -189,20 +189,37 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         }
 
         if (ChwApplication.getApplicationFlavor().hasNCD()
-                && !NcdDao.isNcdClient(memberObject.getBaseEntityId())
-                && ChwHpsDao.isBloodPressureAboveThreshold(memberObject.getBaseEntityId())) {
-            textViewRecordHps.setVisibility(View.GONE);
-            visitDone.setVisibility(View.VISIBLE);
-            textViewVisitDone.setText(getString(R.string.hps_high_bp_detected));
-            textViewVisitDone.setVisibility(View.VISIBLE);
-            textViewVisitDoneEdit.setText(R.string.hps_screen_for_hypertension);
-            textViewVisitDoneEdit.setOnClickListener(v ->
-                    MemberProfileUtils.startDiabetesRiskAssessment(
-                            HpsMemberProfileActivity.this,
-                            memberObject.getBaseEntityId(),
-                            memberObject.getAge()));
-            imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+                && !NcdDao.isNcdClient(memberObject.getBaseEntityId())) {
+            boolean isBloodPressureAboveThreshold = ChwHpsDao.isBloodPressureAboveThreshold(memberObject.getBaseEntityId());
+            boolean isBloodGlucoseAboveThreshold = ChwHpsDao.isBloodGlucoseAboveThreshold(memberObject.getBaseEntityId());
+            if (isBloodPressureAboveThreshold || isBloodGlucoseAboveThreshold) {
+                textViewRecordHps.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setText(getString(getHpsNcdScreeningMessage(isBloodPressureAboveThreshold, isBloodGlucoseAboveThreshold)));
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText(getHpsNcdScreeningActionText(isBloodPressureAboveThreshold, isBloodGlucoseAboveThreshold));
+                textViewVisitDoneEdit.setOnClickListener(v ->
+                        MemberProfileUtils.startDiabetesRiskAssessment(
+                                HpsMemberProfileActivity.this,
+                                memberObject.getBaseEntityId(),
+                                memberObject.getAge()));
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            }
         }
+    }
+
+    private int getHpsNcdScreeningMessage(boolean isBloodPressureAboveThreshold, boolean isBloodGlucoseAboveThreshold) {
+        if (isBloodPressureAboveThreshold && isBloodGlucoseAboveThreshold) {
+            return R.string.hps_high_bp_and_glucose_detected;
+        }
+        return isBloodGlucoseAboveThreshold ? R.string.hps_high_glucose_detected : R.string.hps_high_bp_detected;
+    }
+
+    private int getHpsNcdScreeningActionText(boolean isBloodPressureAboveThreshold, boolean isBloodGlucoseAboveThreshold) {
+        if (isBloodPressureAboveThreshold && isBloodGlucoseAboveThreshold) {
+            return R.string.hps_screen_for_diabetes_hypertension;
+        }
+        return isBloodGlucoseAboveThreshold ? R.string.hps_screen_for_diabetes : R.string.hps_screen_for_hypertension;
     }
 
     @Override
