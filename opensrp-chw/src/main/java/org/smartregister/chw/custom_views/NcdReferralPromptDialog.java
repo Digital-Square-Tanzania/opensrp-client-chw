@@ -33,7 +33,7 @@ import java.util.Map;
  * behind (the visit itself is already persisted by the time this dialog is shown).
  *
  * <p>The supporter is prefilled from the registered caregiver but edited <em>for this referral
- * only</em> — the dialog never writes back to the registration record.
+ * only</em>; the dialog never writes back to the registration record.
  */
 public final class NcdReferralPromptDialog {
 
@@ -47,6 +47,8 @@ public final class NcdReferralPromptDialog {
             "Uncle", "Aunt", "Police", "Guardian", "Son", "Daughter", "Work Colleague",
             "Brother in Law", "Sister in Law", "Wife", "Husband"
     };
+    private static final String YES = "Yes";
+    private static final String NO = "No";
 
     private NcdReferralPromptDialog() {
         // utility
@@ -62,7 +64,9 @@ public final class NcdReferralPromptDialog {
                             TreatmentSupporterDao.Caregiver caregiver,
                             Map<String, String> facilities, Callbacks callbacks) {
         if (activity == null || activity.isFinishing() || pending == null || callbacks == null) {
-            if (callbacks != null) callbacks.onSkip();
+            if (callbacks != null) {
+                callbacks.onSkip();
+            }
             return;
         }
 
@@ -71,14 +75,17 @@ public final class NcdReferralPromptDialog {
                 ? R.string.ncd_referral_prompt_title_urgent
                 : R.string.ncd_referral_prompt_title_non_emergency;
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_ncd_referral_prompt, null);
+        View view = LayoutInflater.from(activity).inflate(
+                R.layout.dialog_ncd_referral_prompt, null);
 
         TextView reasonsView = view.findViewById(R.id.ncd_referral_reasons);
         reasonsView.setText(buildMessage(activity, pending.reasons));
 
         // Emergency defaults: Yes for red alerts, No for yellow. CHW can override.
         RadioGroup emergencyGroup = view.findViewById(R.id.ncd_referral_emergency_group);
-        emergencyGroup.check(isRed ? R.id.ncd_referral_emergency_yes : R.id.ncd_referral_emergency_no);
+        emergencyGroup.check(isRed
+                ? R.id.ncd_referral_emergency_yes
+                : R.id.ncd_referral_emergency_no);
 
         // Treatment supporter: gate defaults to Yes when a caregiver is on record.
         boolean hasCaregiver = caregiver != null && caregiver.isPresent();
@@ -94,12 +101,20 @@ public final class NcdReferralPromptDialog {
         relationshipView.setAdapter(relationshipAdapter);
 
         if (hasCaregiver) {
-            if (!TextUtils.isEmpty(caregiver.getName())) nameView.setText(caregiver.getName().trim());
-            if (!TextUtils.isEmpty(caregiver.getPhone())) phoneView.setText(caregiver.getPhone().trim());
+            if (!TextUtils.isEmpty(caregiver.getName())) {
+                nameView.setText(caregiver.getName().trim());
+            }
+            if (!TextUtils.isEmpty(caregiver.getPhone())) {
+                phoneView.setText(caregiver.getPhone().trim());
+            }
             int relIndex = relationshipIndex(caregiver.getRelationship());
-            if (relIndex >= 0) relationshipView.setSelection(relIndex);
+            if (relIndex >= 0) {
+                relationshipView.setSelection(relIndex);
+            }
         }
-        supporterGroup.check(hasCaregiver ? R.id.ncd_referral_supporter_yes : R.id.ncd_referral_supporter_no);
+        supporterGroup.check(hasCaregiver
+                ? R.id.ncd_referral_supporter_yes
+                : R.id.ncd_referral_supporter_no);
         supporterDetails.setVisibility(hasCaregiver ? View.VISIBLE : View.GONE);
         supporterGroup.setOnCheckedChangeListener((group, checkedId) ->
                 supporterDetails.setVisibility(
@@ -143,34 +158,43 @@ public final class NcdReferralPromptDialog {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                callbacks.onConfirm(collectInputs(emergencyGroup, supporterGroup, nameView, phoneView,
-                        relationshipView, facilityIds.get(pos), facilityNames.get(pos)));
+                callbacks.onConfirm(collectInputs(emergencyGroup, supporterGroup, nameView,
+                        phoneView, relationshipView, facilityIds.get(pos),
+                        facilityNames.get(pos)));
                 dialog.dismiss();
             });
         });
         dialog.show();
     }
 
-    private static NcdReferralInputs collectInputs(RadioGroup emergencyGroup, RadioGroup supporterGroup,
+    private static NcdReferralInputs collectInputs(RadioGroup emergencyGroup,
+                                                   RadioGroup supporterGroup,
                                                    EditText nameView, EditText phoneView,
                                                    Spinner relationshipView,
                                                    String facilityId, String facilityName) {
-        String isEmergency = emergencyGroup.getCheckedRadioButtonId() == R.id.ncd_referral_emergency_yes
-                ? "Yes" : "No";
-        boolean gateYes = supporterGroup.getCheckedRadioButtonId() == R.id.ncd_referral_supporter_yes;
+        String isEmergency = emergencyGroup.getCheckedRadioButtonId()
+                == R.id.ncd_referral_emergency_yes
+                ? YES : NO;
+        boolean gateYes = supporterGroup.getCheckedRadioButtonId()
+                == R.id.ncd_referral_supporter_yes;
         if (!gateYes) {
-            return new NcdReferralInputs(isEmergency, "No", null, null, null, facilityId, facilityName);
+            return new NcdReferralInputs(isEmergency, NO, null, null, null, facilityId,
+                    facilityName);
         }
         String name = textOf(nameView);
         String phone = textOf(phoneView);
         String relationship = relationshipView.getSelectedItem() != null
                 ? relationshipView.getSelectedItem().toString() : null;
-        return new NcdReferralInputs(isEmergency, "Yes", name, phone, relationship, facilityId, facilityName);
+        return new NcdReferralInputs(isEmergency, YES, name, phone, relationship, facilityId,
+                facilityName);
     }
 
     private static String textOf(EditText editText) {
         String value = editText.getText() != null ? editText.getText().toString().trim() : "";
-        return TextUtils.isEmpty(value) ? null : value;
+        if (TextUtils.isEmpty(value)) {
+            return null;
+        }
+        return value;
     }
 
     private static int relationshipIndex(String relationship) {

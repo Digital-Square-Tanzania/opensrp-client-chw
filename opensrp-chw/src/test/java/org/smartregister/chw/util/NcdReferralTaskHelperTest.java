@@ -16,7 +16,10 @@ public class NcdReferralTaskHelperTest {
     private static String obsValue(Event event, String fieldCode) {
         for (Obs obs : event.getObs()) {
             if (fieldCode.equals(obs.getFieldCode())) {
-                return obs.getValue() == null ? null : String.valueOf(obs.getValue());
+                if (obs.getValue() == null) {
+                    return null;
+                }
+                return String.valueOf(obs.getValue());
             }
         }
         return null;
@@ -46,9 +49,12 @@ public class NcdReferralTaskHelperTest {
 
         Assert.assertEquals("Yes", obsValue(event, Constants.NcdReferral.IS_EMERGENCY_CASE));
         Assert.assertEquals("Yes", obsValue(event, Constants.NcdReferral.HAS_TREATMENT_SUPPORTER));
-        Assert.assertEquals("Chausiku Kibange", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME));
-        Assert.assertEquals("0788994488", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE));
-        Assert.assertEquals("Friend", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_RELATIONSHIP));
+        Assert.assertEquals("Chausiku Kibange",
+                obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME));
+        Assert.assertEquals("0788994488",
+                obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE));
+        Assert.assertEquals("Friend",
+                obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_RELATIONSHIP));
     }
 
     @Test
@@ -82,8 +88,10 @@ public class NcdReferralTaskHelperTest {
         NcdReferralTaskHelper.addReferralInputObs(event,
                 new NcdReferralInputs("Yes", "Yes", "  Jane Doe  ", "  0788  ", "Mother"));
 
-        Assert.assertEquals("Jane Doe", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME));
-        Assert.assertEquals("0788", obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE));
+        Assert.assertEquals("Jane Doe",
+                obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_NAME));
+        Assert.assertEquals("0788",
+                obsValue(event, Constants.NcdReferral.TREATMENT_SUPPORTER_PHONE));
     }
 
     @Test

@@ -35,7 +35,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
 
     private static final String CLOSE_REASON_DECEASED = "deceased";
 
-    private final LinkedHashMap<String, BaseNcdVisitAction> completeActionList = new LinkedHashMap<>();
+    private final LinkedHashMap<String, BaseNcdVisitAction> completeActionList =
+            new LinkedHashMap<>();
     private final AppExecutors appExecutors = new AppExecutors();
     private String pendingMortalityResult;
 
@@ -43,7 +44,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
         Intent intent = new Intent(activity, NcdCaseManagementVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, isEditMode);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.SKELETON_PROFILE);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE,
+                Constants.PROFILE_TYPES.SKELETON_PROFILE);
         activity.startActivity(intent);
     }
 
@@ -96,7 +98,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
             return null;
         }
         for (BaseNcdVisitAction action : actions.values()) {
-            if (org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_STATUS.equals(action.getFormName())) {
+            if (org.smartregister.chw.util.Constants.JsonForm.NCD_FOLLOWUP_STATUS.equals(
+                    action.getFormName())) {
                 return action;
             }
         }
@@ -124,7 +127,7 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
 
         // Resolve the open-referral guard, registered caregiver, and referral facility list off
         // the main thread (these DB reads must not run on the UI thread). When the client already
-        // has an open NCD referral, skip the prompt entirely — createReferralIfNeeded would dedupe
+        // has an open NCD referral, skip the prompt entirely; createReferralIfNeeded would dedupe
         // it anyway, so asking the CHW to fill a form that produces nothing is misleading.
         appExecutors.diskIO().execute(() -> {
             if (NcdCaseManagementDao.hasOpenReferral(pending.baseEntityId)) {
@@ -140,7 +143,7 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
     }
 
     private void skipReferralPrompt(PendingNcdReferral pending, String results) {
-        Timber.i("NCD referral prompt skipped — open referral already exists for %s",
+        Timber.i("NCD referral prompt skipped; open referral already exists for %s",
                 pending.baseEntityId);
         displayToast(getString(org.smartregister.chw.R.string.ncd_referral_already_open));
         clearPendingReferral();
@@ -150,7 +153,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
     private void showReferralPrompt(PendingNcdReferral pending,
                                     TreatmentSupporterDao.Caregiver caregiver,
                                     Map<String, String> facilities, String results) {
-        NcdReferralPromptDialog.show(this, pending, caregiver, facilities, new NcdReferralPromptDialog.Callbacks() {
+        NcdReferralPromptDialog.show(this, pending, caregiver, facilities,
+                new NcdReferralPromptDialog.Callbacks() {
             @Override
             public void onConfirm(NcdReferralInputs inputs) {
                 NcdReferralTaskHelper.createReferralIfNeeded(
@@ -223,7 +227,8 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
                     if (tvSubmit != null) {
                         tvSubmit.setEnabled(true);
                     }
-                    displayToast(getString(org.smartregister.chw.R.string.ncd_death_registration_save_failed));
+                    displayToast(getString(
+                            org.smartregister.chw.R.string.ncd_death_registration_save_failed));
                 });
             }
         });
@@ -246,18 +251,27 @@ public class NcdCaseManagementVisitActivity extends NcdVisitActivity {
 
     private PendingNcdReferral readPendingReferral() {
         NcdCaseManagementInteractor interactor = getCaseManagementInteractor();
-        return interactor != null ? interactor.getPendingReferral() : null;
+        if (interactor != null) {
+            return interactor.getPendingReferral();
+        }
+        return null;
     }
 
     private NcdCaseManagementInteractor getCaseManagementInteractor() {
-        if (!(presenter instanceof NcdCaseManagementVisitPresenter)) return null;
+        if (!(presenter instanceof NcdCaseManagementVisitPresenter)) {
+            return null;
+        }
         return ((NcdCaseManagementVisitPresenter) presenter).getCaseManagementInteractor();
     }
 
     private void clearPendingReferral() {
-        if (!(presenter instanceof NcdCaseManagementVisitPresenter)) return;
+        if (!(presenter instanceof NcdCaseManagementVisitPresenter)) {
+            return;
+        }
         NcdCaseManagementInteractor interactor =
                 ((NcdCaseManagementVisitPresenter) presenter).getCaseManagementInteractor();
-        if (interactor != null) interactor.clearPendingReferral();
+        if (interactor != null) {
+            interactor.clearPendingReferral();
+        }
     }
 }

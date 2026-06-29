@@ -79,7 +79,8 @@ public class Constants extends CoreConstants {
         public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
         public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
         // Coded problem keys used as a fallback when no specific reason was captured,
-        // so the referral event's "problem" obs still carries a key alongside its human-readable value.
+        // so the referral event's "problem" obs still carries a key alongside its
+        // human-readable value.
         public static final String PROBLEM_KEY_DANGER_SIGNS = "ncd_danger_signs";
         public static final String PROBLEM_KEY_CLINICAL_CONCERN = "ncd_clinical_concern";
         // Concept keys for the emergency-case and treatment-supporter obs captured on the
@@ -89,7 +90,8 @@ public class Constants extends CoreConstants {
         public static final String HAS_TREATMENT_SUPPORTER = "has_treatment_supporter";
         public static final String TREATMENT_SUPPORTER_NAME = "treatment_supporter_name";
         public static final String TREATMENT_SUPPORTER_PHONE = "treatment_supporter_phone";
-        public static final String TREATMENT_SUPPORTER_RELATIONSHIP = "treatment_supporter_relationship";
+        public static final String TREATMENT_SUPPORTER_RELATIONSHIP =
+                "treatment_supporter_relationship";
     }
 
     public static class ChildIllnessViewType {

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
  * {@code NcdReferralTaskHelper.createReferralIfNeeded(...)} so they can be emitted as obs on
  * the auto-generated Referral Registration event.
  *
- * <p>The supporter values are edited <em>for this referral only</em> — they are never written
+ * <p>The supporter values are edited <em>for this referral only</em>; they are never written
  * back to the client's registration record. {@link #hasTreatmentSupporter} acts as the gate:
  * when it is not {@code "Yes"}, the name/phone/relationship fields are ignored by the event
  * builder.
@@ -89,7 +89,9 @@ public class NcdReferralInputs {
         return referralFacilityId;
     }
 
-    /** @return the selected referral facility's display name, or {@code null} if none was chosen. */
+    /**
+     * @return the selected referral facility's display name, or {@code null} if none was chosen.
+     */
     @Nullable
     public String getReferralFacilityName() {
         return referralFacilityName;
