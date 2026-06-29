@@ -94,7 +94,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op28, op9, op8));
                         break;
                     default:
-                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op33, op12, op3, op5, op2, op13));
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                            navigationOptions.add(3, op33);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                             navigationOptions.add(op16);
                         }
@@ -148,7 +151,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op33, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                    navigationOptions.add(3, op33);
+                }
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }

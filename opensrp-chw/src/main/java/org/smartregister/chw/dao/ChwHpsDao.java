@@ -18,7 +18,7 @@ public class ChwHpsDao extends AbstractDao {
         DataMap<Boolean> dataMap = cursor -> {
             int systolic = getCursorIntValue(cursor, "systolic", 0);
             int diastolic = getCursorIntValue(cursor, "diastolic", 0);
-            return systolic >= 130 || diastolic >= 80;
+            return systolic >= 140 || diastolic >= 90;
         };
         List<Boolean> res = readData(sql, dataMap);
         return res != null && !res.isEmpty() && Boolean.TRUE.equals(res.get(0));
@@ -34,7 +34,7 @@ public class ChwHpsDao extends AbstractDao {
             String bloodSugarResult = getCursorValue(cursor, "blood_sugar_result");
             if (StringUtils.isBlank(bloodSugarResult)) return false;
             try {
-                return Double.parseDouble(bloodSugarResult.trim()) >= BLOOD_GLUCOSE_THRESHOLD;
+                return Double.parseDouble(bloodSugarResult.trim()) > BLOOD_GLUCOSE_THRESHOLD;
             } catch (NumberFormatException e) {
                 return false;
             }
