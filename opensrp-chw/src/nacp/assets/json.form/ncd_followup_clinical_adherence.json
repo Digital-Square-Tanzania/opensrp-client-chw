@@ -124,6 +124,47 @@
         }
       },
       {
+        "key": "no_adherence_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason",
+        "type": "spinner",
+        "hint": "What was the reason for not using medication?",
+        "values": [
+          "Forgot",
+          "Felt Better",
+          "Facility Stock-out",
+          "Transport Cost",
+          "Other"
+        ],
+        "keys": [
+          "forgot",
+          "felt_better",
+          "stock_out",
+          "transport_cost",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "forgot": "forgot",
+          "felt_better": "felt_better",
+          "side_effects": "side_effects",
+          "stock_out": "stock_out",
+          "transport_cost": "transport_cost",
+          "other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select a reason"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "medication_side_effects",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -149,49 +190,6 @@
         "v_required": {
           "value": "true",
           "err": "Please answer this question"
-        }
-      },
-      {
-        "key": "no_adherence_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "no_adherence_reason",
-        "type": "spinner",
-        "hint": "What was the reason for not using medication?",
-        "values": [
-          "Forgot",
-          "Felt Better",
-          "Side Effects",
-          "Facility Stock-out",
-          "Transport Cost",
-          "Other"
-        ],
-        "keys": [
-          "forgot",
-          "felt_better",
-          "side_effects",
-          "stock_out",
-          "transport_cost",
-          "other"
-        ],
-        "openmrs_choice_ids": {
-          "forgot": "forgot",
-          "felt_better": "felt_better",
-          "side_effects": "side_effects",
-          "stock_out": "stock_out",
-          "transport_cost": "transport_cost",
-          "other": "other"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select a reason"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
-            }
-          }
         }
       },
       {

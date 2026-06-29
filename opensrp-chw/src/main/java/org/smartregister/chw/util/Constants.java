@@ -78,6 +78,20 @@ public class Constants extends CoreConstants {
         public static final String NON_EMERGENCY_REFERRAL_CODE = "ncd_non_emergency_referral";
         public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
         public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
+        // Coded problem keys used as a fallback when no specific reason was captured,
+        // so the referral event's "problem" obs still carries a key alongside its
+        // human-readable value.
+        public static final String PROBLEM_KEY_DANGER_SIGNS = "ncd_danger_signs";
+        public static final String PROBLEM_KEY_CLINICAL_CONCERN = "ncd_clinical_concern";
+        // Concept keys for the emergency-case and treatment-supporter obs captured on the
+        // post-visit referral prompt and emitted on the auto-generated Referral Registration
+        // event (mirrors the fields on ncd_referral_form.json).
+        public static final String IS_EMERGENCY_CASE = "is_emergency_case";
+        public static final String HAS_TREATMENT_SUPPORTER = "has_treatment_supporter";
+        public static final String TREATMENT_SUPPORTER_NAME = "treatment_supporter_name";
+        public static final String TREATMENT_SUPPORTER_PHONE = "treatment_supporter_phone";
+        public static final String TREATMENT_SUPPORTER_RELATIONSHIP =
+                "treatment_supporter_relationship";
     }
 
     public static class ChildIllnessViewType {
