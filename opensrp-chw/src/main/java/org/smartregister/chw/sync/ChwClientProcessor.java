@@ -606,7 +606,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
     @Override
     public void processDeleteEvent(Event event) {
         try {
-            List<String> followupTables = Arrays.asList("ec_cecap_visit");
+            List<String> followupTables = Arrays.asList("ec_cecap_visit","ec_hps_client_services");
             if (event.getDetails().containsKey(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID)) {
                 // delete from vaccine table
                 EventDao.deleteVaccineByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));

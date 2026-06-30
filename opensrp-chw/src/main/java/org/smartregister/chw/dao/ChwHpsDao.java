@@ -13,7 +13,6 @@ public class ChwHpsDao extends AbstractDao {
         if (StringUtils.isBlank(baseEntityId)) return false;
         String sql = "SELECT systolic, diastolic FROM ec_hps_client_services" +
                 " WHERE entity_id = '" + baseEntityId + "'" +
-                " AND systolic IS NOT NULL AND diastolic IS NOT NULL" +
                 " ORDER BY last_interacted_with DESC LIMIT 1";
         DataMap<Boolean> dataMap = cursor -> {
             int systolic = getCursorIntValue(cursor, "systolic", 0);
@@ -28,7 +27,6 @@ public class ChwHpsDao extends AbstractDao {
         if (StringUtils.isBlank(baseEntityId)) return false;
         String sql = "SELECT blood_sugar_result FROM ec_hps_client_services" +
                 " WHERE entity_id = '" + baseEntityId + "'" +
-                " AND blood_sugar_result IS NOT NULL" +
                 " ORDER BY last_interacted_with DESC LIMIT 1";
         DataMap<Boolean> dataMap = cursor -> {
             String bloodSugarResult = getCursorValue(cursor, "blood_sugar_result");
