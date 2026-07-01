@@ -37,6 +37,10 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import timber.log.Timber;
 
 public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivity {
@@ -44,10 +48,16 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String EVENT_MOTHER_MENTOR_ENROLL_PARTNER = "Mother Mentor Enroll Partner";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID = "Mother Mentor Enroll Child Eid";
     private static final String EVENT_MOTHER_MENTOR_MOBILIZATION = "MotherMentor Mobilization Session";
+    private static final String EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT = "mama_kinara_household_enrolment";
     private static final String TABLE_MOTHERMENTOR_ENROLL_IIT = "ec_mothermentor_enroll_it";
     private static final String TABLE_MOTHERMENTOR_ENROLL_PARTNER = "ec_mothermentor_enroll_partner";
     private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID = "ec_mothermentor_enroll_child_eid";
     private static final String TABLE_MOTHERMENTOR_MOBILIZATION = "ec_mothermentor_mobilization";
+    private static final String TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT = "ec_mothermentor_household_enrolment";
+    private static final String FIELD_HOUSEHOLD_ID = "household_id";
+    private static final String FIELD_ENROLLMENT_DATE = "enrollment_date";
+    private static final String FIELD_CONSENT = "consent";
+    private static final String CONSENT_YES = "ndiyo";
     private static final String FIELD_SH_TAREHE = "sh_tarehe";
     private static final String FIELD_SH_AINA = "sh_aina";
     private static final String FIELD_SH_AINA_OTHER = "sh_aina_other";
@@ -74,6 +84,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER, gender);
         intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, age);
         intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME, formName);
+        activity.startActivity(intent);
+    }
+
+    public static void startHouseholdEnrollment(Activity activity, String householdBaseEntityId) {
+        Intent intent = new Intent(activity, MotherMentorRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, householdBaseEntityId);
+        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, householdBaseEntityId);
+        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME, EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
         activity.startActivity(intent);
     }
 
@@ -203,6 +221,17 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
+                if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(form.optString(Constants.ENCOUNTER_TYPE))) {
+                    boolean hasConsent = saveHouseholdEnrollment(form);
+                    displayToast(getString(hasConsent
+                            ? R.string.mama_kinara_household_enrolled
+                            : R.string.mama_kinara_household_no_consent));
+                    startClientProcessing();
+                    if (!hasConsent) {
+                        finish();
+                    }
+                    return;
+                }
                 String tableName = getMotherMentorSecondaryEnrollmentTable(form.optString(Constants.ENCOUNTER_TYPE));
                 if (tableName != null) {
                     saveMotherMentorSecondaryEnrollment(form, tableName);
@@ -220,6 +249,49 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     private boolean isJsonFormRequest(int requestCode) {
         return requestCode == Constants.REQUEST_CODE_GET_JSON || requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON;
+    }
+
+    private boolean saveHouseholdEnrollment(JSONObject form) throws Exception {
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
+        JSONArray fields = org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils.fields(form, Constants.STEP_ONE);
+        String consent = getFieldValue(fields, FIELD_CONSENT);
+        setFieldValue(fields, FIELD_HOUSEHOLD_ID, BASE_ENTITY_ID);
+        setFieldValue(fields, FIELD_ENROLLMENT_DATE, today);
+        form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, BASE_ENTITY_ID);
+
+        org.smartregister.repository.AllSharedPreferences allSharedPreferences =
+                org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance().context().allSharedPreferences();
+        Event event = org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
+                allSharedPreferences,
+                form.toString(),
+                TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
+        org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(allSharedPreferences, event);
+        return CONSENT_YES.equals(consent);
+    }
+
+    private String getFieldValue(JSONArray fields, String key) throws JSONException {
+        JSONObject field = getField(fields, key);
+        return field == null ? "" : field.optString(org.smartregister.util.JsonFormUtils.VALUE);
+    }
+
+    private void setFieldValue(JSONArray fields, String key, String value) throws JSONException {
+        JSONObject field = getField(fields, key);
+        if (field != null) {
+            field.put(org.smartregister.util.JsonFormUtils.VALUE, value);
+        }
+    }
+
+    private JSONObject getField(JSONArray fields, String key) throws JSONException {
+        if (fields == null) {
+            return null;
+        }
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            if (key.equals(field.optString("key"))) {
+                return field;
+            }
+        }
+        return null;
     }
 
     private String getMotherMentorSecondaryEnrollmentTable(String encounterType) {

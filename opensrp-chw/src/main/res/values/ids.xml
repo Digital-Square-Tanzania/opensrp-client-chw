@@ -9,4 +9,5 @@
     <item name="referral_type_form_name" type="id" />
     <item name="action_view_households" type="id" />
     <item name="action_mother_mentor_registration" type="id" />
+    <item name="action_mother_mentor_household_enrollment" type="id" />
 </resources>

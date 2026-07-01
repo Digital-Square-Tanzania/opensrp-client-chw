@@ -5,6 +5,9 @@
 
     <string name="title_family_detail">Family Detail</string>
     <string name="mother_mentor_registration">Mother Mentor Registration</string>
+    <string name="mama_kinara_household_already_enrolled">This household is already linked to Mama Kinara</string>
+    <string name="mama_kinara_household_enrolled">Household linked to Mama Kinara services</string>
+    <string name="mama_kinara_household_no_consent">Household not linked - consent not given</string>
     <string name="not_done">Not done</string>
     <string name="not_provided">Not provided</string>
 
