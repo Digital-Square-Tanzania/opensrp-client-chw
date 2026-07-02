@@ -5234,6 +5234,30 @@
           }
         },
         {
+          "column_name": "hiv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hivStatus"
+          }
+        },
+        {
+          "column_name": "ctc_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctcNumber"
+          }
+        },
+        {
+          "column_name": "hiv_positive",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hivPositive"
+          }
+        },
+        {
           "column_name": "next_visit_date",
           "type": "Event",
           "json_mapping": {

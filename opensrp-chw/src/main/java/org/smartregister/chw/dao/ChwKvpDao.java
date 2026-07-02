@@ -3,6 +3,7 @@ package org.smartregister.chw.dao;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.kvp.dao.KvpDao;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ChwKvpDao extends KvpDao {
@@ -58,22 +59,24 @@ public class ChwKvpDao extends KvpDao {
 
     public static boolean isLatestFollowupHivPositive(String baseEntityId) {
         String latestStatus = getLatestFollowupDetail(baseEntityId, "client_hiv_status");
-        if (StringUtils.isBlank(latestStatus)) {
-            return false;
+        return isPositiveHivStatus(latestStatus);
+    }
+
+    public static boolean isRegistrationHivPositive(String baseEntityId) {
+        String hivPositive = getLatestRegistrationDetail(baseEntityId, "hiv_positive");
+        if (StringUtils.equalsIgnoreCase(sanitizeDetail(hivPositive), "true")) {
+            return true;
         }
 
-        String normalizedStatus = latestStatus
-                .replace("[", "")
-                .replace("]", "")
-                .replace("\"", "")
-                .toLowerCase()
-                .trim();
+        return isPositiveHivStatus(getRegistrationHivStatus(baseEntityId));
+    }
 
-        return normalizedStatus.contains("positive") || normalizedStatus.contains("chanya") || normalizedStatus.contains("ana maambukizi");
+    public static boolean isClientHivPositive(String baseEntityId) {
+        return isRegistrationHivPositive(baseEntityId) || isLatestFollowupHivPositive(baseEntityId);
     }
 
     public static boolean hasCtcNumber(String baseEntityId) {
-        String ctcNumber = getLatestFollowupDetail(baseEntityId, "ctc_number");
+        String ctcNumber = StringUtils.defaultIfBlank(getLatestFollowupDetail(baseEntityId, "ctc_number"), getRegistrationCtcNumber(baseEntityId));
 
         if (StringUtils.isBlank(ctcNumber)) {
             return false;
@@ -93,7 +96,31 @@ public class ChwKvpDao extends KvpDao {
     }
 
     public static String getLatestClientHivStatus(String baseEntityId) {
-        return sanitizeDetail(getLatestFollowupDetail(baseEntityId, "client_hiv_status"));
+        String latestFollowupHivStatus = sanitizeDetail(getLatestFollowupDetail(baseEntityId, "client_hiv_status"));
+        if (StringUtils.isNotBlank(latestFollowupHivStatus)) {
+            return latestFollowupHivStatus;
+        }
+
+        return getRegistrationHivStatus(baseEntityId);
+    }
+
+    public static String getRegistrationHivStatus(String baseEntityId) {
+        return sanitizeDetail(getLatestRegistrationDetail(baseEntityId, "hiv_status"));
+    }
+
+    public static String getRegistrationCtcNumber(String baseEntityId) {
+        return sanitizeDetail(getLatestRegistrationDetail(baseEntityId, "ctc_number"));
+    }
+
+    public static boolean isHivRetestDue(String baseEntityId) {
+        Long latestFollowupDate = getLatestLastInteractedWith("ec_kvp_prep_followup", "entity_id", baseEntityId);
+        if (latestFollowupDate == null) {
+            return true;
+        }
+
+        Calendar threeMonthsAgo = Calendar.getInstance();
+        threeMonthsAgo.add(Calendar.MONTH, -3);
+        return latestFollowupDate <= threeMonthsAgo.getTimeInMillis();
     }
 
     private static String sanitizeDetail(String detail) {
@@ -106,6 +133,53 @@ public class ChwKvpDao extends KvpDao {
                 .replace("]", "")
                 .replace("\"", "")
                 .trim();
+    }
+
+    private static boolean isPositiveHivStatus(String status) {
+        String normalizedStatus = sanitizeDetail(status);
+        if (StringUtils.isBlank(normalizedStatus)) {
+            return false;
+        }
+
+        normalizedStatus = normalizedStatus.toLowerCase();
+        return normalizedStatus.contains("positive") || normalizedStatus.contains("chanya") || normalizedStatus.contains("ana maambukizi");
+    }
+
+    private static Long getLatestLastInteractedWith(String tableName, String idColumn, String baseEntityId) {
+        String sql = "SELECT last_interacted_with FROM " + tableName + " " +
+                "WHERE " + idColumn + " = '" + baseEntityId + "' " +
+                "AND last_interacted_with IS NOT NULL " +
+                "ORDER BY last_interacted_with DESC LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "last_interacted_with");
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && !res.isEmpty()) {
+            try {
+                return Long.parseLong(res.get(0));
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private static String getLatestRegistrationDetail(String baseEntityId, String detailKey) {
+        String sql = "SELECT " + detailKey + " FROM ec_kvp_prep_register " +
+                "WHERE base_entity_id = '" + baseEntityId + "' " +
+                "AND is_closed = 0 " +
+                "AND " + detailKey + " IS NOT NULL " +
+                "ORDER BY last_interacted_with DESC LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, detailKey);
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && !res.isEmpty()) {
+            return res.get(0);
+        }
+
+        return null;
     }
 
     private static String getLatestFollowupDetail(String baseEntityId, String detailKey) {

@@ -332,6 +332,67 @@
             }
           }
         }
+      },
+      {
+        "key": "hivStatus",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hivStatus",
+        "label": "Hali ya Maambukizi ya VVU",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Ana Maambukizi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive"
+          },
+          {
+            "key": "unknown",
+            "text": "Haijulikani",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unknown"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "ctcNumber",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctcNumber",
+        "type": "edit_text",
+        "hint": "Namba ya CTC",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza Namba ya CTC"
+        },
+        "relevance": {
+          "step1:hivStatus": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }
+      },
+      {
+        "key": "hivPositive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hivPositive",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_registration_calculation.yml"
+            }
+          }
+        }
       }
     ]
   }

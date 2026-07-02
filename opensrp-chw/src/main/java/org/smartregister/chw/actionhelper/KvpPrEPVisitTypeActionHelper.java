@@ -26,6 +26,7 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     private boolean hasPreviousVisit;
     private boolean previousHivPositive;
     private boolean hasCtcNumber;
+    private boolean hivRetestDue;
     private final Map<String, String> visitState;
 
     public KvpPrEPVisitTypeActionHelper(String baseEntityId, Map<String, String> visitState) {
@@ -37,8 +38,9 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
         this.jsonPayload = jsonPayload;
         hasPreviousVisit = ChwKvpDao.hasFollowupVisits(baseEntityId);
-        previousHivPositive = ChwKvpDao.isLatestFollowupHivPositive(baseEntityId);
+        previousHivPositive = ChwKvpDao.isClientHivPositive(baseEntityId);
         hasCtcNumber = ChwKvpDao.hasCtcNumber(baseEntityId);
+        hivRetestDue = ChwKvpDao.isHivRetestDue(baseEntityId);
     }
 
     @Override
@@ -68,7 +70,7 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
                 hideField(ctcNumberObject);
             }
 
-            if (hasPreviousVisit && previousHivPositive) {
+            if (previousHivPositive) {
                 hideField(hivTestConducted);
                 hideField(hivTestLocation);
 
@@ -86,12 +88,17 @@ public abstract class KvpPrEPVisitTypeActionHelper implements BaseKvpVisitAction
                 return jsonObject.toString();
             }
 
-            if (hasPreviousVisit) {
+            if (hivRetestDue) {
+                if (hivTestConducted != null) {
+                    hivTestConducted.remove("relevance");
+                }
                 applyYesRelevance(hivTestLocation, "hiv_test_conducted");
                 applyYesRelevance(hivStatusObject, "hiv_test_conducted");
             } else {
                 hideField(hivTestConducted);
                 hideField(hivTestLocation);
+                hideField(hivStatusObject);
+                hideField(ctcNumberObject);
             }
             return jsonObject.toString();
         } catch (JSONException e) {

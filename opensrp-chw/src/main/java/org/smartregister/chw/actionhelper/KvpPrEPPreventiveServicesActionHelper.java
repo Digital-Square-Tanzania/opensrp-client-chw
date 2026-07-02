@@ -7,6 +7,7 @@ import static org.smartregister.util.JsonFormUtils.STEP1;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -18,6 +19,26 @@ import java.util.List;
 import java.util.Map;
 
 public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
+
+    private static final String[] HIV_PREP_SUPPRESSED_FIELDS = {
+            "tested3months",
+            "hivResult_recent",
+            "onPrEP",
+            "prepFacilityA",
+            "linkedToPrEP_recent",
+            "referredForHiv",
+            "testedForHiv",
+            "testingLocation",
+            "facilityName",
+            "testDate",
+            "hivResult",
+            "prepFollowUp",
+            "prepFacilityB",
+            "linkedToPrEP",
+            "received_prep_last_facility",
+            "kits_distributed",
+            "prompt_for_hivst"
+    };
 
     private String condoms_given;
     private String jsonPayload;
@@ -48,6 +69,11 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
                 getFieldJSONObject(fields(jsonObject, STEP1), "protective_items_for_PWID_label").put("type", "hidden");
             }
 
+            boolean clientHivPositive = ChwKvpDao.isClientHivPositive(baseEntityId);
+            if (clientHivPositive) {
+                suppressHivPrepFields(jsonObject);
+            }
+
             JSONObject global = jsonObject.optJSONObject("global");
             if (global != null) {
                 String visitType = StringUtils.defaultIfBlank(visitState.get("visit_type"), ChwKvpDao.getLatestVisitType(baseEntityId));
@@ -56,7 +82,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
                 if (StringUtils.equalsIgnoreCase(visitType, "followup")) {
                     visitNumber = "2";
                 }
-                String hivStatus = StringUtils.defaultIfBlank(visitState.get("client_hiv_status"), ChwKvpDao.getLatestClientHivStatus(baseEntityId));
+                String hivStatus = clientHivPositive ? "positive" : StringUtils.defaultIfBlank(visitState.get("client_hiv_status"), ChwKvpDao.getLatestClientHivStatus(baseEntityId));
 
                 if (StringUtils.isNotBlank(visitType)) {
                     global.put("visit_type", visitType);
@@ -71,6 +97,32 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private void suppressHivPrepFields(JSONObject jsonObject) throws JSONException {
+        JSONArray formFields = fields(jsonObject, STEP1);
+        for (String fieldKey : HIV_PREP_SUPPRESSED_FIELDS) {
+            JSONObject field = getField(formFields, fieldKey);
+            if (field != null) {
+                field.put("type", "hidden");
+                field.remove("relevance");
+            }
+        }
+    }
+
+    private JSONObject getField(JSONArray formFields, String fieldKey) {
+        if (formFields == null || StringUtils.isBlank(fieldKey)) {
+            return null;
+        }
+
+        for (int i = 0; i < formFields.length(); i++) {
+            JSONObject field = formFields.optJSONObject(i);
+            if (field != null && StringUtils.equals(field.optString("key"), fieldKey)) {
+                return field;
+            }
         }
 
         return null;
