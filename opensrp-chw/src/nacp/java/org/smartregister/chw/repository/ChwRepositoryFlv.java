@@ -14,6 +14,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -162,8 +163,19 @@ public class ChwRepositoryFlv {
                     break;
                 case 41:
                     upgradeToVersion41(db);
+                    break;
                 case 42:
                     upgradeToVersion42(db);
+                    break;
+                case 43:
+                    upgradeToVersion43(db);
+                    break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
+                case 45:
+                    upgradeToVersion45(db);
+                    break;
                 default:
                     break;
             }
@@ -945,6 +957,57 @@ public class ChwRepositoryFlv {
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion42");
+        }
+    }
+
+    private static void upgradeToVersion43(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion43-add-caregiver-relationship");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT,
+                            Constants.TABLES.DIABETES_HYPERTENSION_FOLLOWUP,
+                            Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION,
+                            org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP)
+                    ),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion43");
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP,
+                    "medication_side_effects")) {
+                db.execSQL("ALTER TABLE ec_ncd_case_management_followup ADD COLUMN medication_side_effects VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44-add-medication-side-effects");
+        }
+
+        try {
+            db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_IS_EMERGENCY_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44");
+        }
+    }
+
+    /**
+     * Adds the caregiver_relationship column captured at client registration so it
+     * can be pulled to pre-populate referral forms. Idempotent: the ALTER fails
+     * harmlessly if the column was already added on the merging-apks-ncd line
+     * (where it ships as part of upgradeToVersion43).
+     */
+    private static void upgradeToVersion45(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion45-add-caregiver-relationship");
         }
     }
 

@@ -276,6 +276,11 @@ public class HarmReductionSoberHouseProfileActivity extends CoreHarmReductionSob
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+        // no-op
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         applyHarmReductionSoberHouseDeceasedHandling();

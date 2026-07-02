@@ -322,6 +322,11 @@ public class HarmReductionProfileActivity extends CoreHarmReductionProfileActivi
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+        // no-op
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         applyHarmReductionDeceasedHandling();

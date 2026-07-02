@@ -1,0 +1,235 @@
+{
+  "count": "1",
+  "encounter_type": "Record Diabetes Hypertension Vitals",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Record Vitals",
+    "fields": [
+      {
+        "key": "measurement_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Measurement date",
+        "value": "today",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please pick the measurement date"
+        }
+      },
+      {
+        "key": "weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "type": "edit_text",
+        "hint": "Weight (Kg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Weight must be equal or greater than 20 (Kg)"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "Weight must be equal or less than 300 (Kg)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the weight"
+        }
+      },
+      {
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "type": "edit_text",
+        "hint": "Height (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Height must be equal or greater than 50 (cm)"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Height must be equal or less than 250 (cm)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the height"
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "bmi",
+        "type": "edit_text",
+        "hint": "BMI",
+        "read_only": true,
+        "label_info_title": "About BMI",
+        "label_info_text": "What it is: Body Mass Index — a quick way to check whether a client's weight is healthy for their height.\n\nThe machine fills this in for you when you enter weight (kg) and height (cm).\n\nWhat the numbers mean:\nUnderweight: less than 18.5 — talk to the client about eating enough balanced food.\nNormal: 18.5 to 24.9 — encourage them to keep up healthy habits.\nOverweight: 25 to 29.9 — talk about more activity, less sugar and salt, and smaller portions.\nObese: 30 or more — flag the client to follow up at the facility.\n\nBMI is a guide, not a diagnosis. A very muscular person can have a high BMI without being unhealthy. Always look at the whole client.",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_sugar_result",
+        "type": "edit_text",
+        "hint": "Blood sugar (mmol/L)",
+        "min_length": 1,
+        "v_required": {
+          "value": "true",
+          "err": "Enter the blood sugar reading"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Blood sugar must be equal or greater than 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "33",
+          "err": "Blood sugar must be equal or less than 33 (mmol/L)"
+        }
+      },
+      {
+        "key": "blood_pressure_section",
+        "type": "label",
+        "text": "Blood Pressure",
+        "text_style": "bold",
+        "text_color": "#000000",
+        "text_size": "24"
+      },
+      {
+        "key": "blood_pressure_systolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_systolic",
+        "type": "edit_text",
+        "hint": "Systolic (mmHg)",
+        "min_length": 2,
+        "max_length": 3,
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Enter a valid systolic value"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Enter a valid systolic value"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the systolic reading"
+        }
+      },
+      {
+        "key": "blood_pressure_diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_diastolic",
+        "type": "edit_text",
+        "hint": "Diastolic (mmHg)",
+        "min_length": 2,
+        "max_length": 3,
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a number"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Enter a valid diastolic value"
+        },
+        "v_max": {
+          "value": "150",
+          "err": "Enter a valid diastolic value"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:blood_pressure_systolic)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Enter the diastolic reading"
+        }
+      },
+      {
+        "key": "measurement_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ncd_vitals_notes",
+        "type": "edit_text",
+        "hint": "Additional notes (optional)",
+        "value": ""
+      }
+    ]
+  }
+}

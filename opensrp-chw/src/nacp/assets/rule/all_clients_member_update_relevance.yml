@@ -97,6 +97,62 @@ condition: "step1_has_primary_caregiver == 'Yes'"
 actions:
   - "isRelevant = true"
 ---
+name: step1_caregiver_relationship_base
+description: caregiver relationship with always available options only
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && !(step1_marital_status != '' && !step1_marital_status.equals('Single')) && !((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_adult
+description: caregiver relationship with adult-only options
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && !(step1_marital_status != '' && !step1_marital_status.equals('Single')) && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_in_law
+description: caregiver relationship with in-law options
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && (step1_marital_status != '' && !step1_marital_status.equals('Single')) && !((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && !(step1_sex == 'Male' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')) && !(step1_sex == 'Female' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_in_law_adult
+description: caregiver relationship with in-law and adult-only options
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && (step1_marital_status != '' && !step1_marital_status.equals('Single')) && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && !(step1_sex == 'Male' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')) && !(step1_sex == 'Female' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_wife
+description: caregiver relationship with wife option
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && step1_sex == 'Male' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && !((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_wife_adult
+description: caregiver relationship with wife and adult-only options
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && step1_sex == 'Male' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_husband
+description: caregiver relationship with husband option
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && step1_sex == 'Female' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && !((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_caregiver_relationship_husband_adult
+description: caregiver relationship with husband and adult-only options
+priority: 1
+condition: "step1_has_primary_caregiver == 'Yes' && step1_sex == 'Female' && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15) || (step1_age != '' && step1_age >= 15)) && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)) && step1_marital_status != '' && !step1_marital_status.equals('Single') && !step1_marital_status.equals('Divorced') && !step1_marital_status.equals('Widowed')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_marital_status
 description: marital_status relevance
 priority: 1

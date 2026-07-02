@@ -1,0 +1,7 @@
+---
+name: step1_bmi
+description: Compute BMI (kg/m^2) from weight (kg) and height (cm), rounded to 1 decimal
+priority: 1
+condition: "step1_weight != null && step1_weight != '' && step1_height != null && step1_height != '' && Double.parseDouble(step1_height) > 0"
+actions:
+  - "calculation = Math.round((Double.parseDouble(step1_weight) * 10000) / (Double.parseDouble(step1_height) * Double.parseDouble(step1_height)) * 10.0) / 10.0"

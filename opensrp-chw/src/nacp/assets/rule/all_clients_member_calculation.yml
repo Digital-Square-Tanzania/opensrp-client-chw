@@ -13,6 +13,13 @@ condition: "step2_sex == 'Female' && (step2_age_calculated >= 10 && step2_age_ca
 actions:
   - "calculation = 1"
 ---
+name: step2_caregiver_relationship
+description: caregiver relationship selected value
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_caregiver_relationship_base != '' ? step2_caregiver_relationship_base : step2_caregiver_relationship_adult != '' ? step2_caregiver_relationship_adult : step2_caregiver_relationship_in_law != '' ? step2_caregiver_relationship_in_law : step2_caregiver_relationship_in_law_adult != '' ? step2_caregiver_relationship_in_law_adult : step2_caregiver_relationship_wife != '' ? step2_caregiver_relationship_wife : step2_caregiver_relationship_wife_adult != '' ? step2_caregiver_relationship_wife_adult : step2_caregiver_relationship_husband != '' ? step2_caregiver_relationship_husband : step2_caregiver_relationship_husband_adult != '' ? step2_caregiver_relationship_husband_adult : ''"
+---
 name: step2_surname
 description: set surname as the one added in step one
 priority: 1
