@@ -56,12 +56,12 @@ public class KvpPrEPRegisterActivity extends CoreKvpRegisterActivity {
         try {
             JSONObject form = new JSONObject(jsonString);
             JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
-            String hivStatus = getFieldValue(fields, "hivStatus");
+            String hivStatus = getFieldValue(fields, "hiv_status");
             boolean hivPositive = StringUtils.equalsIgnoreCase(hivStatus, "positive");
 
-            setFieldValue(fields, "hivPositive", String.valueOf(hivPositive));
+            setFieldValue(fields, "hiv_positive", String.valueOf(hivPositive));
             if (!hivPositive) {
-                setFieldValue(fields, "ctcNumber", "");
+                setFieldValue(fields, "ctc_number", "");
             }
 
             data.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
