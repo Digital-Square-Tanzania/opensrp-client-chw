@@ -58,8 +58,7 @@ public class ChwKvpDao extends KvpDao {
     }
 
     public static boolean isLatestFollowupHivPositive(String baseEntityId) {
-        String latestStatus = getLatestFollowupDetail(baseEntityId, "client_hiv_status");
-        return isPositiveHivStatus(latestStatus);
+        return hasAnyPositiveFollowupStatus(baseEntityId);
     }
 
     public static boolean isRegistrationHivPositive(String baseEntityId) {
@@ -76,7 +75,13 @@ public class ChwKvpDao extends KvpDao {
     }
 
     public static boolean hasCtcNumber(String baseEntityId) {
-        String ctcNumber = StringUtils.defaultIfBlank(getLatestFollowupDetail(baseEntityId, "ctc_number"), getRegistrationCtcNumber(baseEntityId));
+        String ctcNumber = StringUtils.defaultIfBlank(
+                getLatestFollowupDetail(baseEntityId, "ctc_number"),
+                StringUtils.defaultIfBlank(
+                        getLatestFollowupDetail(baseEntityId, "ctc_number_a"),
+                        StringUtils.defaultIfBlank(getLatestFollowupDetail(baseEntityId, "ctc_number_b"), getRegistrationCtcNumber(baseEntityId))
+                )
+        );
 
         if (StringUtils.isBlank(ctcNumber)) {
             return false;
@@ -96,6 +101,10 @@ public class ChwKvpDao extends KvpDao {
     }
 
     public static String getLatestClientHivStatus(String baseEntityId) {
+        if (isLatestFollowupHivPositive(baseEntityId)) {
+            return "positive";
+        }
+
         String latestFollowupHivStatus = sanitizeDetail(getLatestFollowupDetail(baseEntityId, "client_hiv_status"));
         if (StringUtils.isNotBlank(latestFollowupHivStatus)) {
             return latestFollowupHivStatus;
@@ -165,6 +174,23 @@ public class ChwKvpDao extends KvpDao {
         return null;
     }
 
+    private static boolean hasAnyPositiveFollowupStatus(String baseEntityId) {
+        String sql = "SELECT entity_id FROM ec_kvp_prep_followup " +
+                "WHERE entity_id = '" + baseEntityId + "' " +
+                "AND (" +
+                "LOWER(COALESCE(hiv_positive, '')) = 'true' " +
+                "OR LOWER(COALESCE(client_hiv_status, '')) LIKE '%positive%' " +
+                "OR LOWER(COALESCE(client_hiv_status, '')) LIKE '%chanya%' " +
+                "OR LOWER(COALESCE(client_hiv_status, '')) LIKE '%ana maambukizi%' " +
+                "OR LOWER(COALESCE(hiv_result_recent, '')) = 'positive' " +
+                "OR LOWER(COALESCE(hiv_result, '')) = 'positive'" +
+                ") LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "entity_id");
+        List<String> res = readData(sql, dataMap);
+        return res != null && !res.isEmpty();
+    }
+
     private static String getLatestRegistrationDetail(String baseEntityId, String detailKey) {
         String sql = "SELECT " + detailKey + " FROM ec_kvp_prep_register " +
                 "WHERE base_entity_id = '" + baseEntityId + "' " +
@@ -186,6 +212,7 @@ public class ChwKvpDao extends KvpDao {
         String sql = "SELECT " + detailKey + " FROM ec_kvp_prep_followup " +
                 "WHERE entity_id = '" + baseEntityId + "' " +
                 "AND " + detailKey + " IS NOT NULL " +
+                "AND TRIM(" + detailKey + ") != '' " +
                 "ORDER BY last_interacted_with DESC LIMIT 1";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, detailKey);

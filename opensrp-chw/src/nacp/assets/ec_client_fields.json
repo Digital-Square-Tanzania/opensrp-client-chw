@@ -5238,7 +5238,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "hivStatus"
+            "concept": "hiv_status"
           }
         },
         {
@@ -5246,7 +5246,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "ctcNumber"
+            "concept": "ctc_number"
           }
         },
         {
@@ -5254,7 +5254,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "hivPositive"
+            "concept": "hiv_positive"
           }
         },
         {
@@ -5428,6 +5428,142 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "ctc_number"
+          }
+        },
+        {
+          "column_name": "hiv_positive",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_positive"
+          }
+        },
+        {
+          "column_name": "hiv_tested_within_last_3_months",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_tested_within_last_3_months"
+          }
+        },
+        {
+          "column_name": "hiv_result_recent",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_result_recent"
+          }
+        },
+        {
+          "column_name": "ctc_number_a",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctc_number_a"
+          }
+        },
+        {
+          "column_name": "on_prep",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "on_prep"
+          }
+        },
+        {
+          "column_name": "prep_facility_a",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_facility_a"
+          }
+        },
+        {
+          "column_name": "linked_to_prep_recent",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linked_to_prep_recent"
+          }
+        },
+        {
+          "column_name": "referred_for_hiv_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_for_hiv_test"
+          }
+        },
+        {
+          "column_name": "tested_for_hiv",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tested_for_hiv"
+          }
+        },
+        {
+          "column_name": "testing_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "testing_location"
+          }
+        },
+        {
+          "column_name": "facility_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_name"
+          }
+        },
+        {
+          "column_name": "test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "test_date"
+          }
+        },
+        {
+          "column_name": "hiv_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_result"
+          }
+        },
+        {
+          "column_name": "ctc_number_b",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ctc_number_b"
+          }
+        },
+        {
+          "column_name": "prep_follow_up",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_follow_up"
+          }
+        },
+        {
+          "column_name": "prep_facility_b",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_facility_b"
+          }
+        },
+        {
+          "column_name": "linked_to_prep",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linked_to_prep"
           }
         },
         {

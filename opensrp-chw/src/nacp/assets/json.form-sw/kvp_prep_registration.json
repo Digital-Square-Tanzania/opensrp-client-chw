@@ -334,10 +334,10 @@
         }
       },
       {
-        "key": "hivStatus",
+        "key": "hiv_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "hivStatus",
+        "openmrs_entity_id": "hiv_status",
         "label": "Hali ya Maambukizi ya VVU",
         "text_color": "#000000",
         "type": "native_radio",
@@ -363,28 +363,41 @@
         }
       },
       {
-        "key": "ctcNumber",
+        "key": "ctc_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "ctcNumber",
-        "type": "edit_text",
-        "hint": "Namba ya CTC",
+        "openmrs_entity_id": "ctc_number",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "Kitambulisho cha CTC",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "Namba ya CTC inapaswa kuwa katika mfumo XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
         "v_required": {
-          "value": "true",
-          "err": "Tafadhali ingiza Namba ya CTC"
+          "value": false,
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "relevance": {
-          "step1:hivStatus": {
+          "step1:hiv_status": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }
         }
       },
       {
-        "key": "hivPositive",
+        "key": "hiv_positive",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "hivPositive",
+        "openmrs_entity_id": "hiv_positive",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
