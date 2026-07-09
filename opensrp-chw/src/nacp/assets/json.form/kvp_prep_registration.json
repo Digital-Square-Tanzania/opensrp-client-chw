@@ -344,14 +344,14 @@
         "options": [
           {
             "key": "positive",
-            "text": "Ana Maambukizi",
+            "text": "Positive",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "positive"
           },
           {
             "key": "unknown",
-            "text": "Haijulikani",
+            "text": "Unknown",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "unknown"
