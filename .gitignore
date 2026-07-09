@@ -30,3 +30,15 @@ wrapper
 native/
 /opensrp-chw/libs/
 local-maven/
+android/
+jdks/
+legacy-opensrp-libs/
+notifications/
+.secrets
+./tmp
+
+# Kotlin build output (e.g. .kotlin/errors/*.log)
+.kotlin/
+
+# Local spec-driven dev tracker (not for GitHub)
+TASKS.md

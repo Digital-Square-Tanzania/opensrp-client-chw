@@ -1,0 +1,14 @@
+---
+name: ncd_case_management_close_relevance
+description: Relevance rules for NCD Case Management Close form
+priority: 1
+condition: "true"
+actions:
+  - "isRelevant = false"
+---
+name: transfer_facility
+description: Show transfer facility field when close reason is transferred
+priority: 1
+condition: "close_reason.contains('transferred')"
+actions:
+  - "isRelevant = true"

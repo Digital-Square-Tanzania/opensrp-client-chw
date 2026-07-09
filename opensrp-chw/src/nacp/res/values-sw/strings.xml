@@ -1833,4 +1833,12 @@
     <string name="invalid_first_clinic_visit_date_error">Tarehe Sio Sahihi</string>
     <string name="invalid_first_clinic_visit_date_snackbar_error">Hudhurio la kwanza la ujauzito lazima liwe angalau siku 22 baada ya tarehe ya hedhi ya mwisho.</string>
 
+    <string name="diabetes_and_hypertension_screening_form_title">Uchunguzi wa Kisukari &amp; Shinikizo la Damu</string>
+    <string name="ncd_at_risk_clients">Walio Hatarini</string>
+    <string name="ncd_confirmed_clients">Wagonjwa</string>
+    <string name="nav_menu_ncd">Kisukari &amp; Shinikizo la Damu</string>
+    <string name="record_diabetes_hypertension">Fanya Tembeleo la Kisukari na Shinikizo la Damu</string>
+    <string name="diabetes_risk_assessment">Uchunguzi wa kisukari na shinikizo la damu</string>
+    <string name="ncd_service_visit_in_progress">Huduma ya NCD inaendelea</string>
+    <string name="ncd_procedure_visit_in_progress">Huduma ya NCD inaendelea</string>
 </resources>

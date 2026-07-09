@@ -50,6 +50,25 @@
     "title": "Fomu ya rufaa kituo cha afya",
     "fields": [
       {
+        "key": "is_emergency_case",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_emergency_case",
+        "type": "spinner",
+        "openmrs_data_type": "select one",
+        "hint": "Je, hii ni dharura?",
+        "keys": ["Yes", "No"],
+        "values": ["Ndiyo", "Hapana"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali eleza kama hii ni dharura"
+        }
+      },
+      {
         "key": "service_before_referral",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

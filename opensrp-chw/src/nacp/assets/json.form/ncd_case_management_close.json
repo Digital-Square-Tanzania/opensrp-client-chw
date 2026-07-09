@@ -1,0 +1,120 @@
+{
+  "form": "NCD Case Management Close",
+  "count": "1",
+  "encounter_type": "NCD Case Management Close",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Close NCD Record",
+    "fields": [
+      {
+        "key": "close_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "close_reason",
+        "type": "spinner",
+        "hint": "Reason for closing this record",
+        "values": [
+          "Client deceased",
+          "Client relocated",
+          "Transferred to facility care",
+          "Lost to follow-up (3+ missed visits)",
+          "Data entry error"
+        ],
+        "keys": [
+          "deceased",
+          "relocated",
+          "transferred",
+          "ltfu",
+          "data_error"
+        ],
+        "openmrs_choice_ids": {
+          "deceased": "deceased",
+          "relocated": "relocated",
+          "transferred": "transferred",
+          "ltfu": "ltfu",
+          "data_error": "data_error"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select a reason for closing this record"
+        }
+      },
+      {
+        "key": "transfer_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "transfer_facility",
+        "hint": "Name of receiving facility",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the facility name"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "rule/ncd_case_management_close_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "close_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "close_notes",
+        "hint": "Additional notes (optional)",
+        "type": "edit_text"
+      }
+    ]
+  }
+}

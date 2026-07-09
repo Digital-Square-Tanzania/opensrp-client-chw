@@ -37,6 +37,9 @@ actions:
 name: step1_save_n_refer
 description: Issue Referral for Toddler
 priority: 1
-condition: "step1_toddler_referral_health_facility =='yes' || step1_toddler_visited_health_facility =='no'"
+# Button hidden — kept for future use. Referral is issued on form save via the
+# referral_facility_selection flow, not this button. To restore, set condition back to:
+# "step1_toddler_referral_health_facility =='yes' || step1_toddler_visited_health_facility =='no'"
+condition: "false"
 actions:
   - "isRelevant = true"

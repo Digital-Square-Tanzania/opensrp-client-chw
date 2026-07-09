@@ -1,0 +1,284 @@
+{
+  "count": "1",
+  "encounter_type": "NCD Monthly Follow-Up",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Mtindo wa Maisha",
+    "fields": [
+      {
+        "key": "salt_intake_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "salt_intake_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja anatumia chini ya kijiko 1 cha chumvi kwa siku?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "salt_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kupunguza Chumvi\"</b><br> <span>\u25aa <b>Lengo:</b> chini ya kijiko 1 (gramu 5) kwa siku</span><br><span>\u25aa Chumvi nyingi huongeza shinikizo la damu, huongeza hatari ya magonjwa ya moyo, na hufanya udhibiti wa kisukari kuwa mgumu.</span><br><br><i><font color=\"#0061A4\"> Bonyeza \u24d8 kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kupunguza Matumizi ya Chumvi",
+        "toaster_info_text": "Nini cha kufanya: Punguza matumizi ya chumvi ili kujilinda dhidi ya magonjwa ya moyo na kudhibiti sukari ya damu\n\nKwa nini: Chumvi nyingi huongeza shinikizo la damu, huongeza hatari ya magonjwa ya moyo, na hufanya udhibiti wa kisukari kuwa mgumu\n\nLini: Kila siku, katika kila mlo na vitafunwa\n\nWapi: Nyumbani na unapokula nje ya nyumbani kwako. Zingatia chumvi iliyofichwa kwenye vyakula vya kusindikwa na vinavyopikwa kwenye migahawa\n\nNamna: Tumia chini ya gramu 5 za chumvi (kijiko 1 cha chai) kwa siku, epuka kuongeza chumvi mezani, chagua vyakula vya asili ambavyo havijasindikwa, soma lebo za vyakula vilivyosindikwa ili kujua kiwango cha chumvi, na tumia viungo vya asili kama mbadala wa chumvi",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sugar_intake_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sugar_intake_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja anatumia chini ya vijiko 5 vya sukari kwa siku?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "sugar_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kupunguza Sukari\"</b><br> <span>\u25aa <b>Lengo:</b> chini ya vijiko 5 kwa siku</span><br><span>\u25aa Sukari nyingi huongeza kiwango cha sukari kwenye damu, huongeza hatari ya madhara yatokanayo na kisukari na huathiri afya ya moyo.</span><br><br><i><font color=\"#0061A4\"> Bonyeza \u24d8 kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kupunguza Matumizi ya Sukari",
+        "toaster_info_text": "Nini cha kufanya: Punguza matumizi ya sukari ili kudhibiti sukari ya damu na kulinda afya yako\n\nKwa nini: Sukari nyingi huongeza kiwango cha sukari kwenye damu, huongeza hatari ya madhara yatokanayo na kisukari na huathiri afya ya moyo\n\nLini: Kila siku, katika milo yote na vinywaji\n\nWapi: Nyumbani na unapokula nje ya nyumbani kwako, kwenye vitafunwa, vinywaji na vyakula vya kusindikwa.\n\nNamna: Punguza matumizi ya sukari kadiri iwezekanavyo, epuka vinywaji vyenye sukari na pipi, chagua maji au vinywaji visivyo na sukari, kula vyakula halisi, na soma lebo za vyakula kuangalia sukari iliyofichwa kwenye vinywaji na vyakula vya kusindika.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physical_activity_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physical_activity_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja anafanya mazoezi ya dakika 30+ hadi kutoka jasho?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "activity_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kuongeza Mazoezi\"</b><br> <span>\u25aa <b>Lengo:</b> angalau dakika 30 kwa siku, hadi kutoka jasho</span><br><span>\u25aa Mazoezi husaidia kupunguza shinikizo la damu, kudhibiti sukari ya damu, kuimarisha moyo, na kudumisha uzito unaofaa.</span><br><br><i><font color=\"#0061A4\"> Bonyeza \u24d8 kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kuongeza Mazoezi ya Mwili",
+        "toaster_info_text": "Nini cha kufanya: Fanya mazoezi ya mwili mara kwa mara ili kuboresha afya yako\n\nKwa nini: Mazoezi husaidia kupunguza shinikizo la damu, kudhibiti sukari ya damu, kuimarisha moyo, na kudumisha uzito unaofaa\n\nLini: Angalau dakika 30 siku 5 za wiki\n\nWapi: Nyumbani au sehemu yoyote salama iliyo karibu na wewe\n\nNamna: Anza na mazoezi mepesi kama kutembea, kuendesha baiskeli, au kujinyoosha, ongeza polepole, na kuwa na ratiba ya kudumu",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "alcohol_intake_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "alcohol_intake_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja anajiepusha kabisa na pombe?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "alcohol_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kuacha Pombe Kabisa\"</b><br> <span>▪ <b>Lengo:</b> usinywe pombe yoyote</span><br><span>▪ Pombe huongeza shinikizo la damu, hudhoofisha udhibiti wa kisukari, huharibu ini na moyo, na inaweza kuingiliana na dawa.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kuacha Pombe Kabisa",
+        "toaster_info_text": "Nini cha kufanya: Acha kabisa kutumia pombe ili kulinda moyo, shinikizo la damu, na udhibiti wa sukari ya damu\n\nKwa nini: Pombe huongeza shinikizo la damu, inaweza kushusha sukari ya damu kwa kiwango cha hatari (hasa ukitumia dawa za kisukari), huharibu ini na moyo, huongeza kalori zisizo na faida, na huongeza hatari ya kiharusi na saratani. Kutotumia pombe kabisa ndiyo njia salama zaidi.\n\nLini: Wakati wote; usinywe pombe yoyote\n\nWapi: Nyumbani na kwenye matukio ya kijamii. Jiandae kukataa kwa heshima ikiwa unashinikizwa kunywa.\n\nNamna: Chagua maji au vinywaji visivyo na kilevi, epuka mazingira yanayoweza kukushawishi kunywa, jiandae kukataa kwa heshima, na omba msaada ikiwa kuacha pombe ni vigumu",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tobacco_use_target_met",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tobacco_use_target_met",
+        "type": "native_radio",
+        "label": "Je, mteja hatumii tumbaku (kuvuta sigara wala kutafuna)?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "tobacco_prompt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Kuacha Tumbaku\"</b><br> <span>▪ <b>Lengo:</b> kuacha kabisa — kutovuta sigara wala kutumia tumbaku ya kutafuna</span><br><span>▪ Tumbaku huharibu mishipa ya damu, huongeza shinikizo la damu, huzidisha matatizo ya kisukari, na ni miongoni mwa sababu kuu za magonjwa ya moyo, kiharusi, na saratani.</span><br><br><i><font color=\"#0061A4\"> Bonyeza ⓘ kusoma zaidi</font></i>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kuacha Matumizi ya Tumbaku",
+        "toaster_info_text": "Nini cha kufanya: Acha aina zote za tumbaku — sigara, kiko (pipe), shisha, na tumbaku ya kutafuna au kunusa. Epuka kuvuta moshi wa wengine nyumbani na kazini.\n\nKwa nini: Tumbaku huongeza shinikizo la damu, huharibu mishipa ya damu, huharakisha matatizo ya kisukari (figo, macho, miguu, na moyo), na ni sababu kuu ya magonjwa ya moyo, kiharusi, magonjwa ya mapafu, na saratani nyingi. Hakuna kiwango salama cha matumizi ya tumbaku.\n\nLini: Acha haraka iwezekanavyo — kuacha katika umri wowote huboresha afya ndani ya siku, wiki, na miaka\n\nWapi: Fanya nyumbani na kazini kuwa bila tumbaku; waombe familia na marafiki wasivute sigara karibu na mteja\n\nNamna: Panga tarehe ya kuacha, ondoa bidhaa za tumbaku katika mazingira yako, tambua na epuka vichocheo, kunywa maji au tembea kidogo wakati wa hamu kali ya kuvuta (hamu hupita ndani ya dakika chache), na tafuta msaada kutoka kituo cha afya au huduma za kuachisha — ushauri mfupi kutoka kwa mtoa huduma huongeza nafasi ya kufanikiwa mara mbili",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_lifestyle_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

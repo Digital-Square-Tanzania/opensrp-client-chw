@@ -65,6 +65,33 @@ public class Constants extends CoreConstants {
         public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
         public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
+        public static final String NCD_MONTHLY_FOLLOWUP = "NCD Monthly Follow-Up";
+        public static final String NCD_CASE_MANAGEMENT_CLOSE = "NCD Case Management Close";
+    }
+
+    public static class ScheduleType {
+        public static final String NCD_CASE_MANAGEMENT_VISIT = "NCD_CASE_MANAGEMENT_VISIT";
+    }
+
+    public static class NcdReferral {
+        public static final String URGENT_REFERRAL_CODE = "Referral";
+        public static final String NON_EMERGENCY_REFERRAL_CODE = "ncd_non_emergency_referral";
+        public static final String FOCUS_NCD_DANGER_SIGNS = "NCD Danger Signs";
+        public static final String FOCUS_NCD_CLINICAL_CONCERN = "NCD Clinical Concern";
+        // Coded problem keys used as a fallback when no specific reason was captured,
+        // so the referral event's "problem" obs still carries a key alongside its
+        // human-readable value.
+        public static final String PROBLEM_KEY_DANGER_SIGNS = "ncd_danger_signs";
+        public static final String PROBLEM_KEY_CLINICAL_CONCERN = "ncd_clinical_concern";
+        // Concept keys for the emergency-case and treatment-supporter obs captured on the
+        // post-visit referral prompt and emitted on the auto-generated Referral Registration
+        // event (mirrors the fields on ncd_referral_form.json).
+        public static final String IS_EMERGENCY_CASE = "is_emergency_case";
+        public static final String HAS_TREATMENT_SUPPORTER = "has_treatment_supporter";
+        public static final String TREATMENT_SUPPORTER_NAME = "treatment_supporter_name";
+        public static final String TREATMENT_SUPPORTER_PHONE = "treatment_supporter_phone";
+        public static final String TREATMENT_SUPPORTER_RELATIONSHIP =
+                "treatment_supporter_relationship";
     }
 
     public static class ChildIllnessViewType {
@@ -139,7 +166,19 @@ public class Constants extends CoreConstants {
         private static final String CHILD_HV_COMMUNICATION_ASSESSMENT_COUNSELLING = "child_hv_communication_assessment";
 
         public static final String SKIN_TO_SKIN = "child_skin_to_skin";
+        public static final String DIABETES_SCREENING_FORM = "diabetes_hypertension_screening_form";
         public static final String CHILD_HV_COMP_FEEDING = "child_complementary_feeding";
+
+        public static final String DIABETES_FOLLOWUP_FORM = "diabetes_hypertension_followup_form";
+        public static final String NCD_VITALS_FORM = "record_diabetes_hypertension_vital_form";
+        public static final String NCD_CLIENT_EDUCATION_FORM = "ncd_client_education_form";
+        public static final String NCD_FOLLOWUP_STATUS = "ncd_followup_status";
+        public static final String NCD_FOLLOWUP_CLINICAL_ADHERENCE = "ncd_followup_clinical_adherence";
+        public static final String NCD_FOLLOWUP_DANGER_SIGNS = "ncd_followup_danger_signs";
+        public static final String NCD_FOLLOWUP_LIFESTYLE = "ncd_followup_lifestyle";
+        public static final String NCD_FOLLOWUP_PSYCHOSOCIAL = "ncd_followup_psychosocial";
+        public static final String NCD_REFERRAL_FORM = "ncd_referral_form";
+        public static final String NCD_CASE_MANAGEMENT_CLOSE = "ncd_case_management_close";
 
         public static final String CHILD_SAFETY_FORM = "child_hv_child_safety";
 
@@ -151,6 +190,26 @@ public class Constants extends CoreConstants {
         private static final String CHILD_HV_CCD_CHILD_DISCIPLINE = "child_hv_ccd_child_discipline";
         private static final String ANC_HV_PARTNER_ENGAGEMENT = "anc_hv_partner_engagement";
 
+
+        public static String getNcdReferralForm() {
+            return NCD_REFERRAL_FORM;
+        }
+
+        public static String getDiabetesScreeningForm() {
+            return DIABETES_SCREENING_FORM;
+        }
+
+        public static String getDiabetesFollowupForm() {
+            return DIABETES_FOLLOWUP_FORM;
+        }
+
+        public static String getNcdVitalsForm() {
+            return NCD_VITALS_FORM;
+        }
+
+        public static String getNcdClientEducationForm() {
+            return NCD_CLIENT_EDUCATION_FORM;
+        }
         public static String getCbhsRegistrationForm() {
             return CBHS_REGISTRATION_FORM;
         }
@@ -314,6 +373,7 @@ public class Constants extends CoreConstants {
 
         public static final String CBHS_REGISTER = "ec_cbhs_register";
         public static final String CHILD_NO_MOTHER = "ec_child_no_mother";
+        public static final String NCD_CASE_MANAGEMENT_FOLLOWUP = "ec_ncd_case_management_followup";
     }
 
     public static class DBConstants{
