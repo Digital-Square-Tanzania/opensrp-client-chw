@@ -924,6 +924,568 @@
         }
       },
       {
+        "key": "caregiver_relationship_base",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_adult",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mother Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Mtoto wa Kiume",
+          "Mtoto wa Kike",
+          "Mfanyakazi Mwenza"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Son",
+          "Daughter",
+          "Work Colleague"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_in_law",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_in_law_adult",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mtoto wa Kiume",
+          "Mtoto wa Kike",
+          "Mfanyakazi Mwenza"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law",
+          "Son",
+          "Daughter",
+          "Work Colleague"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_wife",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mke"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law",
+          "Wife"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Wife": "Wife"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_wife_adult",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mtoto wa Kiume",
+          "Mtoto wa Kike",
+          "Mfanyakazi Mwenza",
+          "Mke"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law",
+          "Son",
+          "Daughter",
+          "Work Colleague",
+          "Wife"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague",
+          "Wife": "Wife"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_husband",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mume"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law",
+          "Husband"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Husband": "Husband"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship_husband_adult",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Chagua uhusiano wa mpokea huduma na mlezi",
+        "values": [
+          "Mama",
+          "Baba",
+          "Kaka",
+          "Dada",
+          "Babu",
+          "Bibi",
+          "Rafiki",
+          "Mjomba / Baba Mdogo",
+          "Shangazi / Mama Mdogo",
+          "Polisi",
+          "Mlezi",
+          "Shemeji wa Kiume",
+          "Shemeji wa Kike",
+          "Mtoto wa Kiume",
+          "Mtoto wa Kike",
+          "Mfanyakazi Mwenza",
+          "Mume"
+        ],
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Brother in Law",
+          "Sister in Law",
+          "Son",
+          "Daughter",
+          "Work Colleague",
+          "Husband"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague",
+          "Husband": "Husband"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua uhusiano"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "caregiver_relationship",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_relationship",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "other_phone_number",
         "openmrs_entity_parent": "phone_number",
         "openmrs_entity": "concept",

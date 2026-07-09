@@ -22,6 +22,8 @@ import timber.log.Timber;
 public final class LocationUtils {
     private static final String WARD_TAG = "Ward";
     private static final String HAS_ADDO_TAG = "has_addo";
+    private static final String COUNCIL_TAG = "Council";
+    private static final String HAS_NCD_TAG = "council_has_ncd";
 
     private LocationUtils() {
     }
@@ -45,6 +47,19 @@ public final class LocationUtils {
         }
     }
 
+    public static boolean hasNCD() {
+        try {
+            LocationRepository locationRepository = new LocationRepository();
+            List<Location> locations = locationRepository.getAllLocations();
+            List<LocationTag> locationTags = new LocationTagRepository().getAllLocationTags();
+            TreeNode<String, org.smartregister.domain.jsonmapping.Location> councilNode = getCouncil(locations, locationTags);
+            return hasNCD(councilNode, locationTags);
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
     public static String getWard() {
         try {
             LocationRepository locationRepository = new LocationRepository();
@@ -61,10 +76,20 @@ public final class LocationUtils {
         return wardLocation != null && hasLocationTag(locationTags, wardLocation.getId(), HAS_ADDO_TAG);
     }
 
+    static boolean hasNCD(TreeNode<String, org.smartregister.domain.jsonmapping.Location> councilNode, List<LocationTag> locationTags) {
+        return councilNode != null && hasLocationTreeNodeTag(councilNode, locationTags, HAS_NCD_TAG);
+    }
+
     static String getWard(List<Location> locations, List<LocationTag> locationTags) {
         String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
         return getWard(locations, locationTags, locationId, locationData);
+    }
+
+    static TreeNode<String, org.smartregister.domain.jsonmapping.Location> getCouncil(List<Location> locations, List<LocationTag> locationTags) {
+        String locationId = Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
+        return getCouncil(locations, locationTags, locationId, locationData);
     }
 
     static String getWard(List<Location> locations, List<LocationTag> locationTags, String locationId, String locationData) {
@@ -82,22 +107,133 @@ public final class LocationUtils {
                 return getParentLocationIdWithTags(locations, locationTags, locationId, WARD_TAG);
             }
 
-            TreeNode<String, org.smartregister.domain.jsonmapping.Location> locationNode =
-                    findLocationNode(locationTree.getLocationsHierarchy(), locationId);
-            if (locationNode == null || locationNode.getParent() == null) {
-                return getParentLocationIdWithTags(locations, locationTags, locationId, WARD_TAG);
+            String wardLocationId =
+                    getLocationIdWithTagFromTree(
+                            locationTree.getLocationsHierarchy(), locationTags, locationId, WARD_TAG);
+            if (!isBlank(wardLocationId)) {
+                return wardLocationId;
             }
 
-            String parentLocationId = locationNode.getParent();
-            if (hasLocationTag(locations, locationTags, parentLocationId, WARD_TAG)) {
-                return parentLocationId;
-            }
-
-            return getParentLocationIdWithTags(locations, locationTags, parentLocationId, WARD_TAG);
+            return getParentLocationIdWithTags(locations, locationTags, locationId, WARD_TAG);
         } catch (Exception e) {
             Timber.e(e);
             return getParentLocationIdWithTags(locations, locationTags, locationId, WARD_TAG);
         }
+    }
+
+    static TreeNode<String, org.smartregister.domain.jsonmapping.Location> getCouncil(List<Location> locations, List<LocationTag> locationTags, String locationId, String locationData) {
+        if (isBlank(locationId)) {
+            return null;
+        }
+
+        if (isBlank(locationData)) {
+            return null;
+        }
+
+        try {
+            LocationTree locationTree = AssetHandler.jsonStringToJava(locationData, LocationTree.class);
+            if (locationTree == null || locationTree.getLocationsHierarchy() == null) {
+                return null;
+            }
+
+            return getLocationNodeWithTagFromTree(
+                    locationTree.getLocationsHierarchy(), locationTags, locationId, COUNCIL_TAG);
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    private static TreeNode<String, org.smartregister.domain.jsonmapping.Location> getLocationNodeWithTagFromTree(
+            LinkedHashMap<String, TreeNode<String, org.smartregister.domain.jsonmapping.Location>> locationMap,
+            List<LocationTag> locationTags,
+            String locationId,
+            String tagName) {
+        if (locationMap == null || isBlank(locationId) || isBlank(tagName)) {
+            return null;
+        }
+
+        TreeNode<String, org.smartregister.domain.jsonmapping.Location> locationNode =
+                findLocationNode(locationMap, locationId);
+        Set<String> visitedLocationIds = new HashSet<>();
+
+        while (locationNode != null) {
+            String currentLocationId = locationNode.getId();
+            if (isBlank(currentLocationId) || visitedLocationIds.contains(currentLocationId)) {
+                return null;
+            }
+
+            visitedLocationIds.add(currentLocationId);
+            if (hasLocationTreeNodeTag(locationNode, locationTags, tagName)) {
+                return locationNode;
+            }
+
+            String parentLocationId = locationNode.getParent();
+            if (isBlank(parentLocationId)) {
+                return null;
+            }
+            locationNode = findLocationNode(locationMap, parentLocationId);
+        }
+        return null;
+    }
+
+    private static String getLocationIdWithTagFromTree(
+            LinkedHashMap<String, TreeNode<String, org.smartregister.domain.jsonmapping.Location>> locationMap,
+            List<LocationTag> locationTags,
+            String locationId,
+            String tagName) {
+        if (locationMap == null || isBlank(locationId) || isBlank(tagName)) {
+            return null;
+        }
+
+        TreeNode<String, org.smartregister.domain.jsonmapping.Location> locationNode =
+                findLocationNode(locationMap, locationId);
+        Set<String> visitedLocationIds = new HashSet<>();
+
+        while (locationNode != null) {
+            String currentLocationId = locationNode.getId();
+            if (isBlank(currentLocationId) || visitedLocationIds.contains(currentLocationId)) {
+                return null;
+            }
+
+            visitedLocationIds.add(currentLocationId);
+            if (hasLocationTreeNodeTag(locationNode, locationTags, tagName)) {
+                return currentLocationId;
+            }
+
+            String parentLocationId = locationNode.getParent();
+            if (isBlank(parentLocationId)) {
+                return null;
+            }
+            locationNode = findLocationNode(locationMap, parentLocationId);
+        }
+        return null;
+    }
+
+    private static boolean hasLocationTreeNodeTag(
+            TreeNode<String, org.smartregister.domain.jsonmapping.Location> locationNode,
+            List<LocationTag> locationTags,
+            String tagName) {
+        if (locationNode == null || isBlank(tagName)) {
+            return false;
+        }
+
+        String locationId = locationNode.getId();
+        if (hasLocationTag(locationTags, locationId, tagName)) {
+            return true;
+        }
+
+        org.smartregister.domain.jsonmapping.Location location = locationNode.getNode();
+        if (location == null || location.getTags() == null) {
+            return false;
+        }
+
+        for (String tag : location.getTags()) {
+            if (tagName.equalsIgnoreCase(tag)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static TreeNode<String, org.smartregister.domain.jsonmapping.Location> findLocationNode(

@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.activity.FamilyOtherMemberProfileActivity.convertDateToLong;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
@@ -28,11 +29,19 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -53,6 +62,7 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HpsFloatingMenu;
 import org.smartregister.chw.dao.ChwHpsDao;
 import org.smartregister.chw.dao.FamilyDao;
+import org.smartregister.chw.dao.NcdDao;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.hivst.dao.HivstDao;
@@ -62,13 +72,16 @@ import org.smartregister.chw.hps.domain.MemberObject;
 import org.smartregister.chw.hps.domain.Visit;
 import org.smartregister.chw.hps.util.Constants;
 import org.smartregister.chw.hps.util.VisitUtils;
+import org.smartregister.chw.interactor.IssueReferralInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.MemberProfileUtils;
+import org.smartregister.chw.util.TreatmentSupporterFormUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -80,6 +93,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -174,6 +188,39 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
         }
+
+        if (ChwApplication.getApplicationFlavor().hasNCD()
+                && !NcdDao.isNcdClient(memberObject.getBaseEntityId())) {
+            boolean isBloodPressureAboveThreshold = ChwHpsDao.isBloodPressureAboveThreshold(memberObject.getBaseEntityId());
+            boolean isBloodGlucoseAboveThreshold = ChwHpsDao.isBloodGlucoseAboveThreshold(memberObject.getBaseEntityId());
+            if (isBloodPressureAboveThreshold || isBloodGlucoseAboveThreshold) {
+                textViewRecordHps.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setText(getString(getHpsNcdScreeningMessage(isBloodPressureAboveThreshold, isBloodGlucoseAboveThreshold)));
+                textViewVisitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setText(getHpsNcdScreeningActionText(isBloodPressureAboveThreshold, isBloodGlucoseAboveThreshold));
+                textViewVisitDoneEdit.setOnClickListener(v ->
+                        MemberProfileUtils.startDiabetesRiskAssessment(
+                                HpsMemberProfileActivity.this,
+                                memberObject.getBaseEntityId(),
+                                memberObject.getAge()));
+                imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
+            }
+        }
+    }
+
+    private int getHpsNcdScreeningMessage(boolean isBloodPressureAboveThreshold, boolean isBloodGlucoseAboveThreshold) {
+        if (isBloodPressureAboveThreshold && isBloodGlucoseAboveThreshold) {
+            return R.string.hps_high_bp_and_glucose_detected;
+        }
+        return isBloodGlucoseAboveThreshold ? R.string.hps_high_glucose_detected : R.string.hps_high_bp_detected;
+    }
+
+    private int getHpsNcdScreeningActionText(boolean isBloodPressureAboveThreshold, boolean isBloodGlucoseAboveThreshold) {
+        if (isBloodPressureAboveThreshold && isBloodGlucoseAboveThreshold) {
+            return R.string.hps_screen_for_diabetes_hypertension;
+        }
+        return isBloodGlucoseAboveThreshold ? R.string.hps_screen_for_diabetes : R.string.hps_screen_for_hypertension;
     }
 
     @Override
@@ -351,6 +398,10 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         }
         AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
 
+        if (age >= 30 && ChwApplication.getApplicationFlavor().hasNCD()) {
+            menu.findItem(R.id.action_diabetes_risk).setVisible(true);
+        }
+
         // Add/Update HH chip action (Households HH (N))
         try {
             int hhCount = headedFamilies != null ? headedFamilies.size() : 0;
@@ -457,6 +508,11 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         } else if (i == org.smartregister.chw.R.id.action_view_households) {
             handleViewHouseholdsClick();
             return true;
+        } else if (i == R.id.action_diabetes_risk) {
+            MemberProfileUtils.startDiabetesRiskAssessment(HpsMemberProfileActivity.this,
+                    memberObject.getBaseEntityId(), memberObject.getAge());
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -614,6 +670,169 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            try {
+                String jsonForm = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.JSON);
+                if (jsonForm == null) return;
+                JSONObject jsonObject= org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(new JSONObject(jsonForm)),"db_save_n_refer");
+                if (jsonObject == null) return;
+                if(Boolean.parseBoolean(jsonObject.optString("value"))){
+                    sendNCDReferralToFacility(createReferralForm(data));
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+    }
+    private void sendNCDReferralToFacility(HashMap<String, NFormViewData> data) {
+        try {
+            JSONObject NCDForm = new FormUtils().getFormJsonFromRepositoryOrAssets(HpsMemberProfileActivity.this, "referrals/referral_form");
+            if (NCDForm == null) {
+                return;
+            }
+
+            NCDForm.put("referral_task_focus", "Diabetes and Hypertension Testing");
+
+            BaseIssueReferralContract.InteractorCallBack interactorCallback = new BaseIssueReferralContract.InteractorCallBack() {
+                @Override
+                public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple, @NonNull String entityId) {
+                    // No-op: referral form uses existing entity id
+                }
+
+                @Override
+                public void onNoUniqueId() {
+                    Timber.w("No unique ID fetched while saving NCD referral for %s", baseEntityId);
+                }
+
+                @Override
+                public void onRegistrationSaved(boolean isSaved) {
+                    Timber.i("NCD referral save status: %s", isSaved ? "success" : "failed");
+                }
+
+                @Override
+                public void onRegistrationSaved(boolean isSaved, boolean isAddoLinkage) {
+                    Timber.i("NCD referral save status: %s, isAddoLinkage: %s", isSaved ? "success" : "failed", isAddoLinkage);
+                    if (isSaved) {
+                        Toast.makeText(HpsMemberProfileActivity.this, R.string.referral_submitted, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(HpsMemberProfileActivity.this, R.string.referral_not_submitted, Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+
+            new IssueReferralInteractor().saveRegistration(baseEntityId, data, NCDForm, interactorCallback, false);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+
+
+    private HashMap<String, NFormViewData> createReferralForm(Intent data) {
+        try {
+            HashMap<String, NFormViewData> formData = new HashMap<>();
+            String jsonForm = data.getStringExtra(org.smartregister.family.util.Constants.INTENT_KEY.JSON);
+
+            assert jsonForm != null;
+
+            // Referral problem
+            HashMap<String, NFormViewData> problemValue = new HashMap<>();
+            NFormViewData dbRisk = createFormViewData("Risk for diabetes and hypertension",null,metaData("","risk_for_diabetes_and_hypertension", ""));
+            problemValue.put("risk_for_diabetes_and_hypertension", dbRisk);
+            NFormViewData problemFormViewData = createFormViewData(problemValue, "MultiChoiceCheckBox",metaData("", "concept", "problem"));
+            problemFormViewData.setType("MultiChoiceCheckBox");
+            formData.put("problem", problemFormViewData);
+
+            // Referral facility
+            String facilityValue = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "chw_referral_hf");
+            JSONArray jsonArray = org.smartregister.chw.util.JsonFormUtils.fields(new JSONObject(jsonForm));
+            JSONObject chwReferralHf = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(jsonArray, "chw_referral_hf");
+            assert chwReferralHf != null;
+            JSONArray options = chwReferralHf.getJSONArray("options");
+            String facilityText = "";
+            for (int i=0; i < options.length();i++){
+                JSONObject option = options.getJSONObject(i);
+                if(facilityValue.equals(option.getString("key"))){
+                    facilityText = option.getString("text");
+                }
+            }
+            NFormViewData chwReferralValue = createFormViewData(facilityText, null, metaData("location_uuid",facilityValue,""));
+            formData.put("chw_referral_hf", createFormViewData(chwReferralValue,"SpinnerNFormView", metaData("concept", "chw_referral_hf", "")));
+
+            // Service before referral
+            String serviceBReferralValue = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "service_before_referral");
+            JSONArray serviceBReferralArray = new JSONArray(serviceBReferralValue);
+            HashMap<String, NFormViewData> serviceBReferralNFormValue = new HashMap<>();
+            for(int i=0; i < serviceBReferralArray.length(); i++){
+                String serviceValue = serviceBReferralArray.getString(i);
+                NFormViewData valueItem = createFormViewData( serviceValue, null, metaData("", serviceValue, ""));
+                serviceBReferralNFormValue.put(serviceValue, valueItem);
+            }
+            formData.put("service_before_referral", createFormViewData(serviceBReferralNFormValue, "MultiChoiceCheckBox", metaData("concept", "service_before_referral", "")));
+
+            // Diabetes risk score
+            String dbRiskScore = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diabetes_risk_score_output");
+            formData.put("diabetes_risk_score", createFormViewData(dbRiskScore,"Calculation",metaData("concept", "diabetes_risk_score", "")));
+
+            // Screening measurements (renamed to match server concepts)
+            String familyHistoryDiabetes = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "family_history_diabetes");
+            if (familyHistoryDiabetes != null && !familyHistoryDiabetes.isEmpty()) {
+                formData.put("family_history_of_dm", createFormViewData(familyHistoryDiabetes, null, metaData("concept", "family_history_of_dm", "")));
+            }
+            String waistCircumference = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "waist_circumference");
+            if (waistCircumference != null && !waistCircumference.isEmpty()) {
+                formData.put("waist_circumference", createFormViewData(waistCircumference, null, metaData("concept", "waist_circumference", "")));
+            }
+            String systolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "systolic_bp");
+            if (systolicBp != null && !systolicBp.isEmpty()) {
+                formData.put("systolic", createFormViewData(systolicBp, null, metaData("concept", "systolic", "")));
+            }
+            String diastolicBp = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "diastolic_bp");
+            if (diastolicBp != null && !diastolicBp.isEmpty()) {
+                formData.put("diastolic", createFormViewData(diastolicBp, null, metaData("concept", "diastolic", "")));
+            }
+
+            // Appointment data
+            String appointmentDate = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "referral_appointment_date");
+            formData.put("referral_appointment_date", createFormViewData(String.valueOf(convertDateToLong(appointmentDate)),"Calculation",metaData("concept", "referral_appointment_date", "")));
+
+            formData.put("referral_status", createFormViewData("PENDING", "Calculation", null));
+            String isEmergencyCase = org.smartregister.chw.util.JsonFormUtils.getValue(new JSONObject(jsonForm), "is_emergency_case");
+            if (isEmergencyCase != null && !isEmergencyCase.isEmpty()) {
+                formData.put("is_emergency_case", createFormViewData(isEmergencyCase, null, metaData("concept", "is_emergency_case", "")));
+            }
+            formData.put("chw_referral_service", createFormViewData("Diabetes And Hypertension Screening", null, null));
+            formData.put("referral_date", createFormViewData(System.currentTimeMillis(), "Calculation",null));
+            formData.put("referral_type", createFormViewData("community_to_facility_referral","Calculation",null));
+            formData.put("referral_time", createFormViewData(new SimpleDateFormat("HH:mm:ss.SSS", Locale.ENGLISH).format(System.currentTimeMillis()),"Calculation",null));
+
+            // Treatment supporter / caregiver obs (only when captured)
+            TreatmentSupporterFormUtil.addScreeningReferralObs(new JSONObject(jsonForm), formData);
+            return formData;
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return new HashMap<>();
+    }
+    private NFormViewData createFormViewData(Object value, String type, HashMap<String, Object> metaData) {
+        NFormViewData data = new NFormViewData();
+        data.setValue(value);
+        data.setType(type);
+        data.setVisible(true);
+        data.setMetadata(metaData);
+        return data;
+    }
+    private HashMap<String, Object> metaData(String openmrs_entity,String openmrs_entity_id, String openmrs_entity_parent) {
+        HashMap<String, Object> metadata = new HashMap<>();
+        metadata.put("openmrs_entity", openmrs_entity);
+        metadata.put("openmrs_entity_id", openmrs_entity_id);
+        metadata.put("openmrs_entity_parent", openmrs_entity_parent);
+        return metadata;
     }
 
     private static class HouseholdsAdapter extends BaseAdapter {

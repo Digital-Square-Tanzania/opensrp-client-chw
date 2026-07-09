@@ -1,0 +1,230 @@
+{
+  "count": "1",
+  "encounter_type": "Record Diabetes Hypertension Vitals",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Fomu ya vipimo",
+    "fields": [
+      {
+        "key": "measurement_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Tarehe ya kuchukua vipimo",
+        "value": "today",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza tarehe ya kuchukua vipimo"
+        }
+      },
+      {
+        "key": "weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weight",
+        "type": "edit_text",
+        "hint": "Uzito (Kilo)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza nambari"
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Uzito lazima uwe sawa au mkubwa kuliko kilo 20"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "Uzito lazima uwe sawa au mdogo kuliko kilo 300"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza uzito wa mteja"
+        }
+      },
+      {
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "height",
+        "type": "edit_text",
+        "hint": "Urefu (cm)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza nambari"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Urefu lazima uwe sawa au mkubwa kuliko cm 50"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Urefu lazima uwe sawa au mdogo kuliko cm 250"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza urefu wa mteja"
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "bmi",
+        "type": "edit_text",
+        "hint": "BMI",
+        "read_only": true,
+        "label_info_title": "Kuhusu BMI",
+        "label_info_text": "Maana yake: BMI (Body Mass Index) ni njia rahisi ya kuangalia kama uzito wa mteja unaendana na urefu wake.\n\nKifaa kitajaza nambari hii chenyewe baada ya kuingiza uzito (kilo) na urefu (cm).\n\nMaana ya nambari:\nUzito mdogo: chini ya 18.5 — ongea na mteja kuhusu kula chakula cha kutosha chenye lishe bora.\nKawaida: 18.5 hadi 24.9 — mhimize aendelee na tabia nzuri za kiafya.\nUzito uliozidi kidogo: 25 hadi 29.9 — ongea kuhusu kuongeza mazoezi, kupunguza sukari na chumvi, na sahani ndogo zaidi.\nUnene wa kupita kiasi: 30 au zaidi — mtahadharishe mteja afuatilie kituo cha afya.\n\nBMI ni mwongozo tu, siyo utambuzi wa ugonjwa. Mtu mwenye misuli mingi anaweza kuwa na BMI kubwa bila kuwa na tatizo la afya. Tazama mteja kwa ujumla.",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "record_diabetes_hypertension_vital_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blood_sugar_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_sugar_result",
+        "type": "edit_text",
+        "hint": "Sukari ya damu (mmol/L)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza kiwango cha sukari ya damu"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kikubwa kuliko 0 (mmol/L)"
+        },
+        "v_max": {
+          "value": "33",
+          "err": "Kiwango cha sukari ya damu lazima kiwe sawa au kidogo kuliko 33 (mmol/L)"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza matokeo ya kipimo cha sukari ya damu"
+        }
+      },
+      {
+        "key": "blood_pressure_section",
+        "type": "label",
+        "text": "Shinikizo la Damu",
+        "text_style": "bold",
+        "text_color": "#000000",
+        "text_size": "24"
+      },
+      {
+        "key": "blood_pressure_systolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_systolic",
+        "type": "edit_text",
+        "hint": "Shinikizo la damu (Systolic) (mmHg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza shinikizo la damu (Systolic)"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Kiwango lazima kiwe sawa au kikubwa kuliko 50"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Kiwango lazima kiwe sawa au kidogo kuliko 250"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza shinikizo la damu (Systolic)"
+        }
+      },
+      {
+        "key": "blood_pressure_diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "blood_pressure_diastolic",
+        "type": "edit_text",
+        "hint": "Shinikizo la damu (Diastolic) (mmHg)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza shinikizo la damu (Diastolic)"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Kiwango lazima kiwe sawa au kikubwa kuliko 30"
+        },
+        "v_max": {
+          "value": "150",
+          "err": "Kiwango lazima kiwe sawa au kidogo kuliko 150"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:blood_pressure_systolic)",
+            "err": "Shinikizo la damu (diastolic) linatikiwa liwe dogo kuliko shinikizo la damu (systolic)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza shinikizo la damu (Diastolic)"
+        }
+      },
+      {
+        "key": "ncd_vitals_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ncd_vitals_notes",
+        "type": "edit_text",
+        "hint": "Maelezo ya ziada (hiari)",
+        "value": ""
+      }
+    ]
+  }
+}

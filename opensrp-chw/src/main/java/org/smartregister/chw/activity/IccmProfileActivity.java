@@ -361,6 +361,11 @@ public class IccmProfileActivity extends CoreMalariaProfileActivity implements M
         //TODO notify if it has phone number
     }
 
+    @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
     private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
         ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
     }
