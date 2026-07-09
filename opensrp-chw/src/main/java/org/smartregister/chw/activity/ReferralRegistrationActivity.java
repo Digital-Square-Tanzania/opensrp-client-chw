@@ -15,6 +15,7 @@ import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
 import org.smartregister.chw.referral.model.BaseIssueReferralModel;
 import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.Constants;
+import org.smartregister.chw.util.TreatmentSupporterFormUtil;
 import org.smartregister.family.util.JsonFormUtils;
 
 public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
@@ -23,6 +24,9 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
     public static void startGeneralReferralFormActivityForResults(Activity activity,
                                                                   String baseEntityID, JSONObject formJsonObject, boolean useCustomLayout, boolean isAddoLinkage) {
         BASE_ENTITY_ID = baseEntityID;
+        // Pre-fill the treatment supporter section from registration data (no-op when
+        // the form has no such section, e.g. non-NACP referral forms).
+        TreatmentSupporterFormUtil.prefillFromRegistration(baseEntityID, formJsonObject);
         Intent intent = new Intent(activity, ReferralRegistrationActivity.class);
         intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
