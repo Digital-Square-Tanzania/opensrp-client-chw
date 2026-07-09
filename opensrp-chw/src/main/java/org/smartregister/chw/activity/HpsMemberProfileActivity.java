@@ -7,6 +7,7 @@ import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.getValue;
 
+import android.app.AlertDialog;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

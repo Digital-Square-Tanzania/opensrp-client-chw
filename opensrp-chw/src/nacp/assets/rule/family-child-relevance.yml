@@ -21,7 +21,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_type_of_disability
-descripltion: other physical disabilities
+description: other physical disabilities
 priority: 1
 condition: "step1_disabilities.contains('Yes')"
 actions:
@@ -35,7 +35,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_birth_regist_number
-descripltion: birth registration number
+description: birth registration number
 priority: 1
 condition: "step1_birth_cert_available.contains('Yes')"
 actions:

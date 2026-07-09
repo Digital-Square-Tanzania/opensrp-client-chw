@@ -314,6 +314,9 @@
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AncJsonWizardFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
