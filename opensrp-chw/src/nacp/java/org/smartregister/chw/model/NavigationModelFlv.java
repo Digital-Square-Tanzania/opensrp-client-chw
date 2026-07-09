@@ -67,6 +67,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
             NavigationOption op31 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_harm_reduction, CoreConstants.DrawerMenu.HARM_REDUCTION, 0);
             NavigationOption op32 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.harm_reduction_sober_house, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, 0);
+            NavigationOption op33 = new NavigationOption(R.drawable.ic_ncd, R.drawable.ic_ncd_blue, R.string.nav_menu_ncd, CoreConstants.DrawerMenu.NCD, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -94,6 +95,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                            navigationOptions.add(3, op33);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                             navigationOptions.add(op16);
                         }
@@ -148,6 +152,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                    navigationOptions.add(3, op33);
+                }
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }

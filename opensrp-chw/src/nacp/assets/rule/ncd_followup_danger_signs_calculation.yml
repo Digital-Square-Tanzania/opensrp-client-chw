@@ -1,0 +1,14 @@
+---
+name: step1_is_red_alert
+description: True when any danger sign is present
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_non_healing_wounds == 'yes' || step1_neuropathy == 'yes' || step1_vision_changes == 'yes' || step1_chest_pain == 'yes') ? 'true' : 'false'"
+---
+name: step1_alert_status
+description: RED if any danger sign present, otherwise none (YELLOW determined cross-form in Java)
+priority: 2
+condition: "true"
+actions:
+  - "calculation = (step1_non_healing_wounds == 'yes' || step1_neuropathy == 'yes' || step1_vision_changes == 'yes' || step1_chest_pain == 'yes') ? 'red' : 'none'"
