@@ -1019,6 +1019,12 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion45-add-caregiver-relationship");
         }
+
+        try {
+            db.execSQL("ALTER TABLE ec_referral ADD COLUMN is_emergency_case VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion45-add-is_emergency_case");
+        }
     }
 
 }
