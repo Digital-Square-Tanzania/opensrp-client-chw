@@ -176,6 +176,9 @@ public class ChwRepositoryFlv {
                 case 45:
                     upgradeToVersion45(db);
                     break;
+                case 46:
+                    upgradeToVersion46(db);
+                    break;
                 default:
                     break;
             }
@@ -1014,6 +1017,40 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_referral ADD COLUMN is_emergency_case VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion45-add-is_emergency_case");
+        }
+    }
+
+    private static void upgradeToVersion46(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_status");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "ctc_number");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_positive");
+
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_positive");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_tested_within_last_3_months");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "on_prep");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "referred_for_hiv_test");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "tested_for_hiv");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "testing_location");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "facility_name");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_follow_up");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
+    }
+
+    private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
+        try {
+            if (!columnExists(db, tableName, columnName)) {
+                db.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion46-add-" + tableName + "-" + columnName);
         }
     }
 
