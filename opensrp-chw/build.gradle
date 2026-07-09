@@ -360,6 +360,12 @@ dependencies {
         transitive = false
     }
 
+    // Direct dependency on the NCD library (excluded from chw-core above) so the app builds
+    // against the newer published version without waiting on a chw-core rebuild.
+    implementation('org.smartregister:opensrp-chw-ncd:0.1.1-SNAPSHOT@aar') {
+        transitive = false
+    }
+
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
     // Bring in domain models (Client, Task, Event, LocationTag, etc.) via local jar to avoid pulling heavy FHIR deps
