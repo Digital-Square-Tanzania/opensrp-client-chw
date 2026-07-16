@@ -142,6 +142,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mother_mentor_relevance.yml"
+            }
+          }
         }
       }
     ]

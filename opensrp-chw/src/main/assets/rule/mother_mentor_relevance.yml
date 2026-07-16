@@ -1,0 +1,49 @@
+---
+name: step2_art_start_date
+description: mother mentor relevance
+priority: 1
+condition: "step2_art_status.equalsIgnoreCase('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_art_no_reason
+description: mother mentor relevance
+priority: 1
+condition: "step2_art_status.equalsIgnoreCase('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_child_dob
+description: mother mentor relevance
+priority: 1
+condition: "step3_pregnancy_status.equalsIgnoreCase('not_pregnant')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_follow_up_status
+description: mother mentor relevance
+priority: 1
+condition: "step1_attendance_type.equalsIgnoreCase('repeat')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_topics_being_provided
+description: mother mentor relevance
+priority: 1
+condition: "step1_education_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_way_education_provided
+description: mother mentor relevance
+priority: 1
+condition: "step1_education_provided.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_type_of_referral_given
+description: mother mentor relevance
+priority: 1
+condition: "step1_referral_given.equalsIgnoreCase('yes')"
+actions:
+  - "isRelevant = true"
