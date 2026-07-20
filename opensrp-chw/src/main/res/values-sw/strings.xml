@@ -17,6 +17,10 @@
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000> imefika (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f> inakaribia (%2$s) </font> </b>]]></string>
     <string name="due_today">Zinazopaswa leo</string>
+    <string name="harm_reduction_mat_appointment_due">Miadi imefika</string>
+    <string name="harm_reduction_mat_appointment_missed">Amekosa miadi</string>
+    <string name="harm_reduction_mat_appointment_upcoming">Miadi ijayo</string>
+    <string name="harm_reduction_mat_appointment_status">%1$s\n%2$s</string>
 
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>

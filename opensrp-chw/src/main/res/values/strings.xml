@@ -21,6 +21,10 @@
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>due (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f>upcoming (%2$s)</font></b>]]></string>
     <string name="due_today">Due Today</string>
+    <string name="harm_reduction_mat_appointment_due">Due</string>
+    <string name="harm_reduction_mat_appointment_missed">Missed</string>
+    <string name="harm_reduction_mat_appointment_upcoming">Upcoming</string>
+    <string name="harm_reduction_mat_appointment_status">%1$s\n%2$s</string>
 
     <string name="family_has_service_overdue"><![CDATA[Family has <font color=#FF0000>services overdue</font></b>]]></string>
     <string name="view_upcoming_services">View upcoming services</string>
