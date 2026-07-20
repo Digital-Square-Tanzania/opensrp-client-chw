@@ -2,18 +2,23 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
@@ -52,6 +57,103 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected MemberObject getMemberObject(String baseEntityId) {
+        MemberObject memberObject = super.getMemberObject(baseEntityId);
+        if (memberObject != null) {
+            return memberObject;
+        }
+
+        return getSecondaryEnrollmentMember(baseEntityId);
+    }
+
+    private MemberObject getSecondaryEnrollmentMember(String baseEntityId) {
+        MemberObject memberObject = getSecondaryEnrollmentMember(baseEntityId, Constants.TABLES.MOTHERMENTOR_ENROLL_IIT);
+        if (memberObject != null) {
+            return memberObject;
+        }
+
+        memberObject = getSecondaryEnrollmentMember(baseEntityId, Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER);
+        if (memberObject != null) {
+            return memberObject;
+        }
+
+        return getSecondaryEnrollmentMember(baseEntityId, Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID);
+    }
+
+    private MemberObject getSecondaryEnrollmentMember(String baseEntityId, String tableName) {
+        if (TextUtils.isEmpty(baseEntityId)) {
+            return null;
+        }
+
+        String sql = "select " +
+                "m.base_entity_id, m.unique_id, m.relational_id, m.dob, m.first_name, m.middle_name, " +
+                "m.last_name, m.gender, m.marital_status, m.phone_number, f.base_entity_id as family_base_entity_id, " +
+                "f.first_name as family_name, f.primary_caregiver, f.family_head, f.village_town, " +
+                "fh.first_name as family_head_first_name, fh.middle_name as family_head_middle_name, " +
+                "fh.last_name as family_head_last_name, fh.phone_number as family_head_phone_number, " +
+                "pcg.first_name as pcg_first_name, pcg.middle_name as pcg_middle_name, " +
+                "pcg.last_name as pcg_last_name, pcg.phone_number as pcg_phone_number " +
+                "from ec_family_member m " +
+                "inner join ec_family f on m.relational_id = f.base_entity_id " +
+                "inner join " + tableName + " mr on mr.base_entity_id = m.base_entity_id " +
+                "left join ec_family_member fh on fh.base_entity_id = f.family_head " +
+                "left join ec_family_member pcg on pcg.base_entity_id = f.primary_caregiver " +
+                "where mr.is_closed = 0 AND m.is_closed = 0 AND f.is_closed = 0 " +
+                "AND m.base_entity_id = ? " +
+                "ORDER BY mr.last_interacted_with DESC LIMIT 1";
+
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            try (Cursor cursor = db.rawQuery(sql, new String[]{baseEntityId})) {
+                if (cursor.moveToFirst()) {
+                    return cursorToSecondaryEnrollmentMember(cursor);
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load Mother Mentor secondary enrollment profile from %s", tableName);
+        }
+        return null;
+    }
+
+    private MemberObject cursorToSecondaryEnrollmentMember(Cursor cursor) {
+        MemberObject memberObject = new MemberObject();
+        memberObject.setFirstName(getCursorValue(cursor, "first_name"));
+        memberObject.setMiddleName(getCursorValue(cursor, "middle_name"));
+        memberObject.setLastName(getCursorValue(cursor, "last_name"));
+        memberObject.setAddress(getCursorValue(cursor, "village_town"));
+        memberObject.setGender(getCursorValue(cursor, "gender"));
+        memberObject.setMartialStatus(getCursorValue(cursor, "marital_status"));
+        memberObject.setUniqueId(getCursorValue(cursor, "unique_id"));
+        memberObject.setDob(getCursorValue(cursor, "dob"));
+        memberObject.setFamilyBaseEntityId(getCursorValue(cursor, "family_base_entity_id"));
+        memberObject.setRelationalId(getCursorValue(cursor, "relational_id"));
+        memberObject.setPrimaryCareGiver(getCursorValue(cursor, "primary_caregiver"));
+        memberObject.setFamilyName(getCursorValue(cursor, "family_name"));
+        memberObject.setPhoneNumber(getCursorValue(cursor, "phone_number"));
+        memberObject.setBaseEntityId(getCursorValue(cursor, "base_entity_id"));
+        memberObject.setFamilyHead(getCursorValue(cursor, "family_head"));
+        memberObject.setFamilyHeadPhoneNumber(getCursorValue(cursor, "family_head_phone_number"));
+
+        String familyHeadName = (getCursorValue(cursor, "family_head_first_name") + " "
+                + getCursorValue(cursor, "family_head_middle_name")).trim();
+        memberObject.setFamilyHeadName((familyHeadName + " " + getCursorValue(cursor, "family_head_last_name")).trim());
+
+        String primaryCareGiverName = (getCursorValue(cursor, "pcg_first_name") + " "
+                + getCursorValue(cursor, "pcg_middle_name")).trim();
+        memberObject.setPrimaryCareGiverName((primaryCareGiverName + " " + getCursorValue(cursor, "pcg_last_name")).trim());
+
+        return memberObject;
+    }
+
+    private String getCursorValue(Cursor cursor, String columnName) {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        if (columnIndex == -1 || cursor.isNull(columnIndex)) {
+            return "";
+        }
+        return cursor.getString(columnIndex);
     }
 
     @Override
