@@ -708,6 +708,9 @@
     <string name="harm_reduction_qty_syringes">Number of tools - Needles and syringes</string>
     <string name="harm_reduction_referrals_other_specify">If others, specify</string>
     <string name="harm_reduction_referrals_provided">Referrals provided</string>
+    <string name="harm_reduction_linkage_to_other_services_provided">Linkage services provided</string>
+    <string name="harm_reduction_linkage_to_other_services">Linkage services</string>
+    <string name="harm_reduction_linkage_to_other_services_specify">Other linkage services (Specify)</string>
     <string name="harm_reduction_remarks_comments">Remarks/Comments</string>
     <string name="harm_reduction_reproductive_health">Reproductive health, father, mother, child and adolescents</string>
     <string name="harm_reduction_rights_vulnerable">Rights of vulnerable population</string>

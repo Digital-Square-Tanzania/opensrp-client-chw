@@ -51,10 +51,12 @@ import org.smartregister.util.Utils;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import timber.log.Timber;
 
@@ -70,6 +72,12 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity extend
     private final Flavor flavor = new UsedNeedlesAndSyringesCollectionDetailsActivityFlv();
 
     private ProgressBar progressBar;
+
+    static String formatCollectionVisitTimestamp(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return dateFormat.format(date);
+    }
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity.class);
@@ -220,7 +228,6 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity extend
         }
 
         protected void processVisit(List<LinkedHashMap<String, String>> collectionVisits, Context context, List<Visit> visits) {
-            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
             if (collectionVisits != null && !collectionVisits.isEmpty()) {
                 linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
 
@@ -251,7 +258,7 @@ public class HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity extend
                         }
                     });
 
-                    tvTypeOfService.setText(context.getString(R.string.harm_reduction_used_needles_collection) + " - " + simpleDateFormat.format(visit.getDate()));
+                    tvTypeOfService.setText(context.getString(R.string.harm_reduction_used_needles_collection) + " - " + formatCollectionVisitTimestamp(visit.getDate()));
 
                     for (Map.Entry<String, String> entry : vals.entrySet()) {
                         TextView visitDetailTv = new TextView(context);
