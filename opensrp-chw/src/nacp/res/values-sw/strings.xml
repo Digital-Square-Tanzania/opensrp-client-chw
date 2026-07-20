@@ -1033,6 +1033,8 @@
     <string name="harm_reduction_sober_house_next_appointment_date">Tarehe ya miadi inayofuata</string>
     <string name="harm_reduction_sober_house_aa">Ustiri wa pombe (AA)</string>
     <string name="harm_reduction_sober_house_absconded">Ametoroka</string>
+    <string name="harm_reduction_sober_house_health_reasons">Sababu za kiafya</string>
+    <string name="harm_reduction_sober_house_misconduct">Utovu wa nidhamu</string>
     <string name="harm_reduction_sober_house_angry">Ana Hasira</string>
     <string name="harm_reduction_sober_house_anxious">Ana Wasiwasi</string>
     <string name="harm_reduction_sober_house_blood_pressure">Shinikizo la damu</string>

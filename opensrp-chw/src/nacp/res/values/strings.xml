@@ -789,6 +789,8 @@
     <string name="harm_reduction_sober_house_next_appointment_date">Next Appointment Date</string>
     <string name="harm_reduction_sober_house_aa">Alcoholics Anonymous (AA)</string>
     <string name="harm_reduction_sober_house_absconded">Absconded</string>
+    <string name="harm_reduction_sober_house_health_reasons">Health reasons</string>
+    <string name="harm_reduction_sober_house_misconduct">Misconduct</string>
     <string name="harm_reduction_sober_house_angry">Angry</string>
     <string name="harm_reduction_sober_house_anxious">Anxious</string>
     <string name="harm_reduction_sober_house_blood_pressure">Blood pressure</string>
