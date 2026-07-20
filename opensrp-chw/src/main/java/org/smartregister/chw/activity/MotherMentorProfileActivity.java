@@ -3,10 +3,15 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -23,10 +28,14 @@ import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -41,6 +50,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String REFERRAL_GIVEN = "referral_given";
     private static final String NEXT_APPOINTMENT_DATE = "next_appointment_date";
     private static final String COMMENTS = "comments";
+    private static final int HIGH_RISK_WEEK_THRESHOLD = 8;
+    private static final String HIGH_RISK_LABEL = "HIGH RISK";
+    private static final String LOW_RISK_LABEL = "LOW RISK";
+    private static final String LOW_RISK_COLOR = "#2E7D32";
+    private static final String[] IIT_DATE_FORMATS = new String[]{"dd-MM-yyyy", "yyyy-MM-dd"};
 
     private static final Set<String> REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS = new HashSet<>(Arrays.asList(
             ATTENDANCE_TYPE,
@@ -51,6 +65,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             NEXT_APPOINTMENT_DATE,
             COMMENTS
     ));
+    private TextView iitRiskTag;
+    private LinearLayout iitProfileImageRow;
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
@@ -154,6 +170,166 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return "";
         }
         return cursor.getString(columnIndex);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        updateIitHighRiskTag();
+    }
+
+    private void updateIitHighRiskTag() {
+        if (memberObject == null || isFinishing()) {
+            return;
+        }
+
+        Integer weeksLost = getLatestIitWeeksLost(memberObject.getBaseEntityId());
+        if (weeksLost == null) {
+            hideIitRiskTag();
+        } else if (weeksLost >= HIGH_RISK_WEEK_THRESHOLD) {
+            showIitRiskTag(HIGH_RISK_LABEL, getResources().getColor(org.smartregister.chw.mothermentor.R.color.visit_status_over_due));
+        } else {
+            showIitRiskTag(LOW_RISK_LABEL, Color.parseColor(LOW_RISK_COLOR));
+        }
+    }
+
+    private void hideIitRiskTag() {
+        if (iitRiskTag != null) {
+            iitRiskTag.setVisibility(View.GONE);
+        }
+    }
+
+    private void showIitRiskTag(String label, int backgroundColor) {
+        LinearLayout profileNameLayout = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
+        if (profileNameLayout == null || imageView == null) {
+            return;
+        }
+
+        ensureProfileImageTagRow(profileNameLayout);
+
+        if (iitRiskTag == null) {
+            iitRiskTag = new TextView(this);
+            iitRiskTag.setTextColor(Color.WHITE);
+            iitRiskTag.setTextSize(12);
+            iitRiskTag.setTypeface(Typeface.DEFAULT_BOLD);
+            iitRiskTag.setAllCaps(true);
+            iitRiskTag.setPadding(dpToPx(12), dpToPx(4), dpToPx(12), dpToPx(4));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = dpToPx(8);
+            params.gravity = android.view.Gravity.CENTER_VERTICAL;
+            iitProfileImageRow.addView(iitRiskTag, params);
+        }
+        iitRiskTag.setText(label);
+        iitRiskTag.setBackground(createRiskTagBackground(backgroundColor));
+        iitRiskTag.setVisibility(View.VISIBLE);
+    }
+
+    private GradientDrawable createRiskTagBackground(int backgroundColor) {
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(backgroundColor);
+        background.setCornerRadius(dpToPx(12));
+        return background;
+    }
+
+    private void ensureProfileImageTagRow(LinearLayout profileNameLayout) {
+        if (iitProfileImageRow != null) {
+            return;
+        }
+
+        ViewGroup currentParent = (ViewGroup) imageView.getParent();
+        int imageIndex = currentParent.indexOfChild(imageView);
+        ViewGroup.LayoutParams imageParams = imageView.getLayoutParams();
+        currentParent.removeView(imageView);
+
+        iitProfileImageRow = new LinearLayout(this);
+        iitProfileImageRow.setGravity(android.view.Gravity.CENTER);
+        iitProfileImageRow.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        rowParams.gravity = android.view.Gravity.CENTER_HORIZONTAL;
+
+        currentParent.addView(iitProfileImageRow, imageIndex, rowParams);
+        iitProfileImageRow.addView(imageView, imageParams);
+    }
+
+    private Integer getLatestIitWeeksLost(String baseEntityId) {
+        if (TextUtils.isEmpty(baseEntityId)) {
+            return null;
+        }
+
+        String sql = "SELECT weeks_lost, expected_return_date FROM " + Constants.TABLES.MOTHERMENTOR_ENROLL_IIT + " " +
+                "WHERE is_closed = 0 AND base_entity_id = ? ORDER BY last_interacted_with DESC LIMIT 1";
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            try (Cursor cursor = db.rawQuery(sql, new String[]{baseEntityId})) {
+                if (!cursor.moveToFirst()) {
+                    return null;
+                }
+
+                int weeksLost = parseWeeksLost(getCursorValue(cursor, "weeks_lost"));
+                if (weeksLost > 0) {
+                    return weeksLost;
+                }
+
+                return calculateWeeksLost(getCursorValue(cursor, "expected_return_date"));
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load Mother Mentor IIT weeks lost");
+            return null;
+        }
+    }
+
+    private int parseWeeksLost(String weeksLost) {
+        if (TextUtils.isEmpty(weeksLost)) {
+            return 0;
+        }
+
+        try {
+            return (int) Double.parseDouble(weeksLost);
+        } catch (NumberFormatException e) {
+            Timber.e(e, "Unable to parse Mother Mentor IIT weeks lost: %s", weeksLost);
+            return 0;
+        }
+    }
+
+    private int calculateWeeksLost(String expectedReturnDate) {
+        Date returnDate = parseIitDate(expectedReturnDate);
+        if (returnDate == null) {
+            return 0;
+        }
+
+        long daysLost = TimeUnit.MILLISECONDS.toDays(new Date().getTime() - returnDate.getTime());
+        if (daysLost <= 0) {
+            return 0;
+        }
+        return (int) (daysLost / 7);
+    }
+
+    private Date parseIitDate(String dateValue) {
+        if (TextUtils.isEmpty(dateValue)) {
+            return null;
+        }
+
+        for (String dateFormat : IIT_DATE_FORMATS) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
+                simpleDateFormat.setLenient(false);
+                return simpleDateFormat.parse(dateValue);
+            } catch (ParseException e) {
+                // Try the next supported date format.
+            }
+        }
+        Timber.w("Unable to parse Mother Mentor IIT expected return date: %s", dateValue);
+        return null;
+    }
+
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density + 0.5f);
     }
 
     @Override
