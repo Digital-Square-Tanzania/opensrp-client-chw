@@ -150,10 +150,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "mothermentor_enroll_partner_relevance.yml"
-            }
+          "step2:relationship_to_mother": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       }
@@ -236,23 +235,36 @@
         "type": "native_radio",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes",
+            "key": "negative",
+            "text": "Negative",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
+            "openmrs_entity_id": "negative"
           },
           {
-            "key": "no",
-            "text": "No",
+            "key": "positive",
+            "text": "Positive",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
+            "openmrs_entity_id": "positive"
+          },
+          {
+            "key": "dont_know",
+            "text": "Dont Know",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dont_know"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step4:hiv_tested": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -282,6 +294,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step4:test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
         }
       },
       {
@@ -307,6 +325,12 @@
         "v_required": {
           "value": true,
           "err": "Please enter a valid CTC Number"
+        },
+        "relevance": {
+          "step4:on_ctc": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]
