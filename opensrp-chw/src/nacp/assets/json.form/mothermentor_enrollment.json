@@ -276,7 +276,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_over_18_months",
         "type": "toaster_notes",
-        "text": "Mother not enrolled — child is over 18 months of follow-up",
+        "text": "The child’s age has exceeded the follow-up period; therefore, the mother cannot be enrolled in the Mother mentor services.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {

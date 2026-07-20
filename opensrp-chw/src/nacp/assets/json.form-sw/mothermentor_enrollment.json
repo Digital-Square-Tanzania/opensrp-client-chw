@@ -276,7 +276,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "child_over_18_months",
         "type": "toaster_notes",
-        "text": "Mother not enrolled — child is over 18 months of follow-up",
+        "text": "Umri wa mtoto umepitiliza kipindi cha ufuatiliaji, mama hawezi unganishwa kwenye huduma za Mama Kinara.\n",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
