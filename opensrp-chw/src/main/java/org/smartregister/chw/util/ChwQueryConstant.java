@@ -11,7 +11,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                   as _id,\n" +
             "       ec_family_member.entity_type,\n" +
-            "       'Independent'                         AS register_type,\n" +
+            "       CASE WHEN EXISTS (SELECT 1 FROM ec_mothermentor_enroll_it WHERE ec_mothermentor_enroll_it.is_closed = 0 AND ec_mothermentor_enroll_it.base_entity_id = ec_family_member.base_entity_id) THEN 'Mother Mentor IIT' ELSE 'Independent' END AS register_type,\n" +
             "       ec_family_member.relational_id        as relationalid,\n" +
             "       ec_family.village_town                as home_address,\n" +
             "       NULL                                  AS mother_first_name,\n" +
@@ -991,7 +991,7 @@ public interface ChwQueryConstant {
             "       ec_family_member.dob,\n" +
             "       ec_family_member.base_entity_id,\n" +
             "       ec_family_member.id                   as _id,\n" +
-            "       'Independent'                         AS register_type,\n" +
+            "       CASE WHEN EXISTS (SELECT 1 FROM ec_mothermentor_enroll_it WHERE ec_mothermentor_enroll_it.is_closed = 0 AND ec_mothermentor_enroll_it.base_entity_id = ec_family_member.base_entity_id) THEN 'Mother Mentor IIT' ELSE 'Independent' END AS register_type,\n" +
             "       ec_family_member.relational_id        as relationalid,\n" +
             "       ec_family.village_town                as home_address,\n" +
             "       NULL                                  AS mother_first_name,\n" +
