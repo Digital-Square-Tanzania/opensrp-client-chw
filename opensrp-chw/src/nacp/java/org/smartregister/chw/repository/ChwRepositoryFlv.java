@@ -177,11 +177,13 @@ public class ChwRepositoryFlv {
                     upgradeToVersion45(db);
                     break;
                 case 46:
-                    upgradeToVersion46(db);
+                    upgradeToVersion46(db); 
                     break;
                 case 47:
                     upgradeToVersion47(db);
                     break;
+                case 48:
+                    upgradeToVersion48(db);
                 default:
                     break;
             }
@@ -1046,11 +1048,25 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_b");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
     }
-
+  
+  
     private static void upgradeToVersion47(SQLiteDatabase db) {
         addColumnIfMissing(db, "ec_harm_reduction_risk_assessment", "nickname");
     }
 
+
+    private static void upgradeToVersion48(SQLiteDatabase db) {
+        String tableName = "ec_harm_reduction_sober_house_services";
+        addColumnIfMissing(db, tableName, "screening_tests_done");
+        addColumnIfMissing(db, tableName, "other_conditions_specify");
+        addColumnIfMissing(db, tableName, "mental_health_result");
+        addColumnIfMissing(db, tableName, "mental_health_treatment_after_screening");
+        addColumnIfMissing(db, tableName, "diabetes_result");
+        addColumnIfMissing(db, tableName, "diabetes_treatment_after_screening");
+        addColumnIfMissing(db, tableName, "other_conditions_result");
+        addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
+    }
+  
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
         try {
             if (!columnExists(db, tableName, columnName)) {
