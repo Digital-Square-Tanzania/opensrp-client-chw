@@ -13301,6 +13301,70 @@
           }
         },
         {
+          "column_name": "screening_tests_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "screening_tests_done"
+          }
+        },
+        {
+          "column_name": "other_conditions_specify",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_conditions_specify"
+          }
+        },
+        {
+          "column_name": "mental_health_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mental_health_result"
+          }
+        },
+        {
+          "column_name": "mental_health_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mental_health_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "diabetes_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diabetes_result"
+          }
+        },
+        {
+          "column_name": "diabetes_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "diabetes_treatment_after_screening"
+          }
+        },
+        {
+          "column_name": "other_conditions_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_conditions_result"
+          }
+        },
+        {
+          "column_name": "other_conditions_treatment_after_screening",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_conditions_treatment_after_screening"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

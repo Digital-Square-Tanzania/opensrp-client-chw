@@ -758,6 +758,14 @@
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypertension">Prompt for Management of Hypertension</string>
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypotension">Prompt for Management of Hypotension</string>
     <string name="harm_reduction_sober_house_weight">Weight</string>
+    <string name="harm_reduction_sober_house_screening_tests_done">Disease Screening Performed</string>
+    <string name="harm_reduction_sober_house_other_conditions_specify">Other Diseases (Specify)</string>
+    <string name="harm_reduction_sober_house_mental_health_result">Mental Health Conditions - Results</string>
+    <string name="harm_reduction_sober_house_mental_health_treatment_after_screening">Mental Health Conditions - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_diabetes_result">Diabetes - Results</string>
+    <string name="harm_reduction_sober_house_diabetes_treatment_after_screening">Diabetes - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_other_conditions_result">Other Diseases - Results</string>
+    <string name="harm_reduction_sober_house_other_conditions_treatment_after_screening">Other Diseases - Treatment After Screening</string>
     <string name="harm_reduction_sober_house_client_current_status">Current Client Status</string>
     <string name="harm_reduction_sober_house_attended_recovery_meetings">Attended Recovery Meetings</string>
     <string name="harm_reduction_sober_house_recovery_meeting_types">Recovery Meeting Types</string>
@@ -802,6 +810,9 @@
     <string name="harm_reduction_sober_house_migrant_client">Migrant client</string>
     <string name="harm_reduction_sober_house_na">Narcotics Anonymous (NA)</string>
     <string name="harm_reduction_sober_house_new_client">New client</string>
+    <string name="harm_reduction_sober_house_mental_health_conditions">Mental health conditions</string>
+    <string name="harm_reduction_sober_house_diabetes">Diabetes</string>
+    <string name="harm_reduction_sober_house_other_conditions">Other diseases</string>
     <string name="harm_reduction_sober_house_not_done">Not done</string>
     <string name="harm_reduction_sober_house_problem_solving_decision_making">Problem solving and decision making</string>
     <string name="harm_reduction_sober_house_psychological_support">Psychological support</string>

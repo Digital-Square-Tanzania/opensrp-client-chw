@@ -1002,6 +1002,14 @@
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypertension">Rufaa kwa usimamizi wa presha ya juu</string>
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypotension">Rufaa kwa usimamizi wa presha ya chini</string>
     <string name="harm_reduction_sober_house_weight">Uzito</string>
+    <string name="harm_reduction_sober_house_screening_tests_done">Uchunguzi wa magonjwa umefanyika</string>
+    <string name="harm_reduction_sober_house_other_conditions_specify">Magonjwa mengine (taja)</string>
+    <string name="harm_reduction_sober_house_mental_health_result">Magonjwa ya akili - Matokeo</string>
+    <string name="harm_reduction_sober_house_mental_health_treatment_after_screening">Magonjwa ya akili - Matibabu baada ya uchunguzi</string>
+    <string name="harm_reduction_sober_house_diabetes_result">Kisukari - Matokeo</string>
+    <string name="harm_reduction_sober_house_diabetes_treatment_after_screening">Kisukari - Matibabu baada ya uchunguzi</string>
+    <string name="harm_reduction_sober_house_other_conditions_result">Magonjwa mengine - Matokeo</string>
+    <string name="harm_reduction_sober_house_other_conditions_treatment_after_screening">Magonjwa mengine - Matibabu baada ya uchunguzi</string>
     <string name="harm_reduction_sober_house_client_current_status">Hali ya sasa ya mpokea huduma</string>
     <string name="harm_reduction_sober_house_attended_recovery_meetings">Amehudhuria mikutano ya urejeshaji</string>
     <string name="harm_reduction_sober_house_recovery_meeting_types">Aina za mikutano ya urejeshaji</string>
@@ -1046,6 +1054,9 @@
     <string name="harm_reduction_sober_house_migrant_client">Muhamiaji</string>
     <string name="harm_reduction_sober_house_na">Ustiri wa mihadarati (NA)</string>
     <string name="harm_reduction_sober_house_new_client">Mpya</string>
+    <string name="harm_reduction_sober_house_mental_health_conditions">Magonjwa ya akili</string>
+    <string name="harm_reduction_sober_house_diabetes">Kisukari</string>
+    <string name="harm_reduction_sober_house_other_conditions">Magonjwa mengine</string>
     <string name="harm_reduction_sober_house_not_done">Haijafanyika</string>
     <string name="harm_reduction_sober_house_problem_solving_decision_making">Utatuzi wa matatizo na ufanyaji maamuzi sahihi</string>
     <string name="harm_reduction_sober_house_psychological_support">Msaada wa kisaikolojia</string>
