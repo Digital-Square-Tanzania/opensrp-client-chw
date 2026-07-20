@@ -54,3 +54,10 @@ priority: 1
 condition: "step1_referral_given.equalsIgnoreCase('yes')"
 actions:
   - "isRelevant = true"
+---
+name: step3_last_test_result
+description: mother mentor relevance
+priority: 1
+condition: "step3_last_test.equalsIgnoreCase('at_birth') || step3_last_test.equalsIgnoreCase('dbs_6') || step3_last_test.equalsIgnoreCase('dbs_9')"
+actions:
+  - "isRelevant = true"

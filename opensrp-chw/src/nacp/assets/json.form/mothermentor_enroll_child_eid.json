@@ -111,6 +111,27 @@
         "v_required": {
           "value": true,
           "err": "Please enter a valid CTC Number"
+        },
+        "relevance": {
+          "step1:hei_registered": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "hei_toaster_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hei_toaster_info",
+        "type": "toaster_notes",
+        "text": "Advise the mother/caregiver to take the child to a healthcare facility to be enrolled in HEI services. ",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:hei_registered": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
         }
       }
     ]
@@ -166,6 +187,12 @@
         "v_required": {
           "value": true,
           "err": "Please select Date breastfeeding stopped"
+        },
+        "relevance": {
+          "step2:breastfeeding_status": {
+            "type": "string",
+            "ex": "equalTo(., \"stop_breast_feeding\")"
+          }
         }
       }
     ]
@@ -251,6 +278,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mother_mentor_relevance.yml"
+            }
+          }
         }
       }
     ]
