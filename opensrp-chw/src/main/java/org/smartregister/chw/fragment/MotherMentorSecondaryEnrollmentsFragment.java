@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.MotherMentorRegisterActivity;
 import org.smartregister.chw.adapter.MotherMentorSecondaryEnrollmentPagerAdapter;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -28,6 +29,7 @@ import timber.log.Timber;
 public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
     private MotherMentorSecondaryEnrollmentPagerAdapter adapter;
     private View rootView;
+    private ViewPager viewPager;
 
     @Nullable
     @Override
@@ -37,13 +39,14 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         setupToolbar(view);
         setupSearchBar(view);
 
-        ViewPager viewPager = view.findViewById(R.id.mothermentor_secondary_view_pager);
+        viewPager = view.findViewById(R.id.mothermentor_secondary_view_pager);
         adapter = new MotherMentorSecondaryEnrollmentPagerAdapter(getChildFragmentManager(), requireContext());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = view.findViewById(R.id.mothermentor_secondary_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        applyPendingTabIndex();
 
         return view;
     }
@@ -54,6 +57,7 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         if (rootView != null) {
             setupToolbar(rootView);
         }
+        applyPendingTabIndex();
     }
 
     private void setupToolbar(View view) {
@@ -137,5 +141,29 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         if (searchCancelView != null && searchView != null) {
             searchCancelView.setOnClickListener(v -> searchView.setText(""));
         }
+    }
+
+    private void applyPendingTabIndex() {
+        if (viewPager == null || getActivity() == null || getActivity().getIntent() == null
+                || !getActivity().getIntent().hasExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX)) {
+            return;
+        }
+
+        viewPager.setCurrentItem(getInitialTabIndex(), false);
+        getActivity().getIntent().removeExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX);
+    }
+
+    private int getInitialTabIndex() {
+        if (getActivity() == null || getActivity().getIntent() == null) {
+            return MotherMentorRegisterActivity.TAB_INDEX_IIT;
+        }
+
+        int tabIndex = getActivity().getIntent().getIntExtra(
+                MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX,
+                MotherMentorRegisterActivity.TAB_INDEX_IIT);
+        if (tabIndex < MotherMentorRegisterActivity.TAB_INDEX_IIT || tabIndex > MotherMentorRegisterActivity.TAB_INDEX_CHILD_EID) {
+            return MotherMentorRegisterActivity.TAB_INDEX_IIT;
+        }
+        return tabIndex;
     }
 }

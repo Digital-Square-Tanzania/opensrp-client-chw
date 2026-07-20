@@ -49,6 +49,11 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivity {
+    public static final String EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX = "secondary_enrollment_tab_index";
+    public static final int TAB_INDEX_IIT = 0;
+    public static final int TAB_INDEX_PARTNER = 1;
+    public static final int TAB_INDEX_CHILD_EID = 2;
+
     private static final String EVENT_MOTHER_MENTOR_ENROLLMENT = "Mother Mentor Enrollment";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_IIT = "Mother Mentor Enroll IIT";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_PARTNER = "Mother Mentor Enroll Partner";
@@ -252,6 +257,7 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 if (tableName != null) {
                     saveMotherMentorSecondaryEnrollment(form, tableName);
                     startClientProcessing();
+                    openSecondaryEnrollmentsTab(tableName);
                     return;
                 }
             } catch (Exception e) {
@@ -350,6 +356,31 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             return TABLE_MOTHERMENTOR_MOBILIZATION;
         }
         return null;
+    }
+
+    private void openSecondaryEnrollmentsTab(String tableName) {
+        int tabIndex = getSecondaryEnrollmentTabIndex(tableName);
+        if (tabIndex < 0) {
+            return;
+        }
+
+        getIntent().putExtra(EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX, tabIndex);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(R.id.action_mothermentor_secondary_enrollments);
+        } else {
+            switchToFragment(3);
+        }
+    }
+
+    private int getSecondaryEnrollmentTabIndex(String tableName) {
+        if (TABLE_MOTHERMENTOR_ENROLL_IIT.equals(tableName)) {
+            return TAB_INDEX_IIT;
+        } else if (TABLE_MOTHERMENTOR_ENROLL_PARTNER.equals(tableName)) {
+            return TAB_INDEX_PARTNER;
+        } else if (TABLE_MOTHERMENTOR_ENROLL_CHILD_EID.equals(tableName)) {
+            return TAB_INDEX_CHILD_EID;
+        }
+        return -1;
     }
 
     private void saveMotherMentorSecondaryEnrollment(JSONObject form, String tableName) throws Exception {
