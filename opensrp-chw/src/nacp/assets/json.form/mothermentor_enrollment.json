@@ -269,6 +269,23 @@
             }
           }
         }
+      },
+      {
+        "key": "child_over_18_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_over_18_months",
+        "type": "toaster_notes",
+        "text": "Mother not enrolled — child is over 18 months of follow-up",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mother_mentor_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

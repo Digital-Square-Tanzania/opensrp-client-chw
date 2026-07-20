@@ -17,9 +17,14 @@ import com.vijay.jsonwizard.domain.Form;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.joda.time.LocalDate;
+import org.joda.time.Months;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorRegisterActivity;
@@ -44,6 +49,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivity {
+    private static final String EVENT_MOTHER_MENTOR_ENROLLMENT = "Mother Mentor Enrollment";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_IIT = "Mother Mentor Enroll IIT";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_PARTNER = "Mother Mentor Enroll Partner";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID = "Mother Mentor Enroll Child Eid";
@@ -68,6 +74,12 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String FIELD_ELIM_F = "elim_f";
     private static final String FIELD_ELIM_TOTAL = "elim_total";
     private static final String FIELD_MAONI = "maoni";
+    private static final String FIELD_CHILD_DOB = "child_dob";
+    private static final String CHILD_OVER_18_MONTHS_MESSAGE = "Mother not enrolled — child is over 18 months of follow-up";
+    private static final DateTimeFormatter[] CHILD_DOB_FORMATTERS = new DateTimeFormatter[]{
+            DateTimeFormat.forPattern("dd-MM-yyyy"),
+            DateTimeFormat.forPattern("yyyy-MM-dd")
+    };
 
     public static void startRegistration(Activity activity, String baseEntityId, String gender,int age) {
         startRegistration(activity, baseEntityId, null, gender, age);
@@ -221,6 +233,10 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
+                if (isMotherMentorEnrollment(form) && isChildOver18Months(form)) {
+                    displayToast(CHILD_OVER_18_MONTHS_MESSAGE);
+                    return;
+                }
                 if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(form.optString(Constants.ENCOUNTER_TYPE))) {
                     boolean hasConsent = saveHouseholdEnrollment(form);
                     displayToast(getString(hasConsent
@@ -249,6 +265,35 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     private boolean isJsonFormRequest(int requestCode) {
         return requestCode == Constants.REQUEST_CODE_GET_JSON || requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON;
+    }
+
+    private boolean isMotherMentorEnrollment(JSONObject form) {
+        String encounterType = form.optString(Constants.ENCOUNTER_TYPE);
+        return Constants.FORMS.MOTHER_MENTOR_ENROLLMENT.equals(FORM_NAME)
+                || EVENT_MOTHER_MENTOR_ENROLLMENT.equals(encounterType)
+                || Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(encounterType);
+    }
+
+    private boolean isChildOver18Months(JSONObject form) {
+        String childDob = org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(form, FIELD_CHILD_DOB);
+        if (StringUtils.isBlank(childDob)) {
+            return false;
+        }
+
+        LocalDate childDobDate = parseChildDob(childDob);
+        return childDobDate != null && Months.monthsBetween(childDobDate, LocalDate.now()).getMonths() > 18;
+    }
+
+    private LocalDate parseChildDob(String childDob) {
+        for (DateTimeFormatter formatter : CHILD_DOB_FORMATTERS) {
+            try {
+                return formatter.parseLocalDate(childDob);
+            } catch (IllegalArgumentException e) {
+                // Try the next supported native-form date format.
+            }
+        }
+        Timber.w("Unable to parse Mother Mentor child DOB: %s", childDob);
+        return null;
     }
 
     private boolean saveHouseholdEnrollment(JSONObject form) throws Exception {

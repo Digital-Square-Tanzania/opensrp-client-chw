@@ -20,6 +20,13 @@ condition: "step3_pregnancy_status.equalsIgnoreCase('not_pregnant')"
 actions:
   - "isRelevant = true"
 ---
+name: step3_child_over_18_months
+description: Show child over 18 months toaster
+priority: 1
+condition: "!step3_child_dob.isEmpty() && helper.formatDate(step3_child_dob,'m') > 18"
+actions:
+  - "isRelevant = true"
+---
 name: step1_follow_up_status
 description: mother mentor relevance
 priority: 1
