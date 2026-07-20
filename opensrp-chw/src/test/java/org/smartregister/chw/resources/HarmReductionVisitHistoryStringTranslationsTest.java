@@ -219,6 +219,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_syringes", "Number of tools - Needles and syringes");
         values.put("harm_reduction_referrals_other_specify", "If others, specify");
         values.put("harm_reduction_referrals_provided", "Referrals provided");
+        values.put("harm_reduction_linkage_to_other_services_provided", "Linkage services provided");
+        values.put("harm_reduction_linkage_to_other_services", "Linkage services");
+        values.put("harm_reduction_linkage_to_other_services_specify", "Other linkage services (Specify)");
         values.put("harm_reduction_remarks_comments", "Remarks/Comments");
         values.put("harm_reduction_reproductive_health", "Reproductive health, father, mother, child and adolescents");
         values.put("harm_reduction_rights_vulnerable", "Rights of vulnerable population");
@@ -416,6 +419,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_syringes", "Idadi ya Bomba na sindano");
         values.put("harm_reduction_referrals_other_specify", "Ikiwa ni nyinginezo, taja");
         values.put("harm_reduction_referrals_provided", "Rufaa zilizotolewa");
+        values.put("harm_reduction_linkage_to_other_services_provided", "Huduma za muunganiko zimetolewa");
+        values.put("harm_reduction_linkage_to_other_services", "Huduma za muunganiko");
+        values.put("harm_reduction_linkage_to_other_services_specify", "Huduma nyingine za muunganiko (ainisha)");
         values.put("harm_reduction_remarks_comments", "Maoni");
         values.put("harm_reduction_reproductive_health", "Afya ya uzazi, baba, mama, mtoto na vijana");
         values.put("harm_reduction_rights_vulnerable", "Haki stahiki kwa makundi maalumu");
