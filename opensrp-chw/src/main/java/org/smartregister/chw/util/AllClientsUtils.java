@@ -414,8 +414,8 @@ public class AllClientsUtils {
 
         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
             addMotherMentorSecondaryEnrollmentMenuItems(menu, true);
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, true);
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner, true);
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid, true);
         }
