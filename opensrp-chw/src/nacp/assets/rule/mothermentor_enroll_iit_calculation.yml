@@ -1,0 +1,18 @@
+---
+name: step1_weeks_lost
+description: Weeks lost since expected return date
+priority: 1
+condition: "!step1_expected_return_date.isEmpty()"
+actions:
+  - "def getWeeksLost(expectedReturnDate) {
+        int daysLost = helper.getDifferenceDays(expectedReturnDate);
+        return (int)(daysLost / 7);
+     }"
+  - "calculation = getWeeksLost(step1_expected_return_date)"
+---
+name: step1_weeks_lost_toaster
+description: Weeks lost toaster text value
+priority: 1
+condition: "!step1_expected_return_date.isEmpty()"
+actions:
+  - "calculation = ['weeks_lost':step1_weeks_lost]"

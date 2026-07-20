@@ -76,7 +76,38 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "weeks_lost",
-        "type": "hidden"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mothermentor_enroll_iit_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weeks_lost_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "weeks_lost_toaster",
+        "type": "toaster_notes",
+        "text": "This client has lost {weeks_lost} weeks",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mothermentor_enroll_iit_relevance.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "mothermentor_enroll_iit_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_flag",

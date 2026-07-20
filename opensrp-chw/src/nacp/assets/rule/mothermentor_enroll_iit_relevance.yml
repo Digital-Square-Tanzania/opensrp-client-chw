@@ -1,0 +1,7 @@
+---
+name: step1_weeks_lost_toaster
+description: Show weeks lost toaster after expected return date is selected
+priority: 1
+condition: "!step1_expected_return_date.isEmpty()"
+actions:
+  - "isRelevant = true"
