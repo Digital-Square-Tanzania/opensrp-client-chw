@@ -1047,6 +1047,10 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
     }
 
+    private static void upgradeToVersion47(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_harm_reduction_risk_assessment", "nickname");
+    }
+
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
         try {
             if (!columnExists(db, tableName, columnName)) {

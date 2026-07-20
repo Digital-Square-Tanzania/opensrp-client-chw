@@ -11821,6 +11821,14 @@
           }
         },
         {
+          "column_name": "nickname",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "nickname"
+          }
+        },
+        {
           "column_name": "maskani_name",
           "type": "Event",
           "json_mapping": {
