@@ -156,6 +156,24 @@
         }
       },
       {
+        "key": "other_reasons_art_no_reason",
+        "type": "edit_text",
+        "hint": "Tafadhali taja sababu nyingine",
+        "openmrs_entity_id": "other_reasons_art_no_reason",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please write an answer"
+        },
+        "relevance": {
+          "step2:art_no_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
         "key": "art_start_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -2,11 +2,13 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
@@ -14,6 +16,12 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -21,6 +29,23 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
     private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
     private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
+    private static final String ATTENDANCE_TYPE = "attendance_type";
+    private static final String PSYCHOSOCIAL_GROUP_LINKAGE = "has_been_linked_to_psychosocial_support_group";
+    private static final String IGA_GROUP_LINKAGE = "has_been_linked_to_iga_group";
+    private static final String EDUCATION_PROVIDED = "education_provided";
+    private static final String REFERRAL_GIVEN = "referral_given";
+    private static final String NEXT_APPOINTMENT_DATE = "next_appointment_date";
+    private static final String COMMENTS = "comments";
+
+    private static final Set<String> REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS = new HashSet<>(Arrays.asList(
+            ATTENDANCE_TYPE,
+            PSYCHOSOCIAL_GROUP_LINKAGE,
+            IGA_GROUP_LINKAGE,
+            EDUCATION_PROVIDED,
+            REFERRAL_GIVEN,
+            NEXT_APPOINTMENT_DATE,
+            COMMENTS
+    ));
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
@@ -67,7 +92,84 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (textViewRegisterMotherMentorContact != null) {
             textViewRegisterMotherMentorContact.setVisibility(View.VISIBLE);
         }
+        enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
+    }
+
+    private void enforceProcessVisitVisibility() {
+        Visit latestVisit = getServiceVisit();
+        if (latestVisit == null) {
+            manualProcessVisit.setVisibility(View.GONE);
+            mothermentorServiceInProgress.setVisibility(View.GONE);
+            return;
+        }
+
+        if (isVisitOnProgress(latestVisit)) {
+            textViewRecordMotherMentor.setVisibility(View.GONE);
+            mothermentorServiceInProgress.setVisibility(View.VISIBLE);
+        } else {
+            mothermentorServiceInProgress.setVisibility(View.GONE);
+        }
+
+        boolean shouldShowProcessVisit =
+                !Boolean.TRUE.equals(latestVisit.getProcessed()) &&
+                        hasCompletedMotherMentorServiceSections(latestVisit);
+
+        manualProcessVisit.setVisibility(shouldShowProcessVisit ? View.VISIBLE : View.GONE);
+        if (shouldShowProcessVisit) {
+            manualProcessVisit.setOnClickListener(view -> {
+                try {
+                    MotherMentorVisitsUtil.manualProcessVisit(latestVisit);
+                    displayToast(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted);
+                    setupViews();
+                    refreshMedicalHistory(true);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            });
+        }
+    }
+
+    private boolean hasCompletedMotherMentorServiceSections(Visit visit) {
+        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
+            return false;
+        }
+
+        try {
+            JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
+            return obsArray != null && getCompletedMotherMentorServiceFields(obsArray)
+                    .containsAll(REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS);
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+    private Set<String> getCompletedMotherMentorServiceFields(JSONArray obsArray) {
+        Set<String> completedFields = new HashSet<>();
+        for (int i = 0; i < obsArray.length(); i++) {
+            JSONObject obs = obsArray.optJSONObject(i);
+            if (!hasRequiredFieldValue(obs)) {
+                continue;
+            }
+
+            String fieldCode = obs.optString("fieldCode").toLowerCase(Locale.US);
+            if (REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS.contains(fieldCode)) {
+                completedFields.add(fieldCode);
+            }
+        }
+        return completedFields;
+    }
+
+    private boolean hasRequiredFieldValue(JSONObject obs) {
+        if (obs == null) {
+            return false;
+        }
+
+        JSONArray values = obs.optJSONArray("values");
+        return values != null
+                && values.length() > 0
+                && !TextUtils.isEmpty(values.optString(0));
     }
 
     @Override
@@ -102,13 +204,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-        Visit lastVisit = getLatestMotherMentorVisit();
-        if (lastVisit != null) {
+        if (hasProcessedMotherMentorVisitHistory()) {
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
             ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
                     .setText(getString(R.string.view_visits_history));
+            rlLastVisit.setOnClickListener(view -> openMedicalHistory());
+            ivViewHistoryArrow.setOnClickListener(view -> openMedicalHistory());
         } else {
             rlLastVisit.setVisibility(View.GONE);
             view_last_visit_row.setVisibility(View.GONE);
@@ -118,6 +221,20 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openMedicalHistory() {
         MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+    private boolean hasProcessedMotherMentorVisitHistory() {
+        try {
+            return !MotherMentorLibrary.getInstance().visitRepository()
+                    .getAllVisitsProcessed(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, memberObject.getBaseEntityId())
+                    .isEmpty()
+                    || !MotherMentorLibrary.getInstance().visitRepository()
+                    .getAllVisitsProcessed(Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT, memberObject.getBaseEntityId())
+                    .isEmpty();
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
     }
 
     @Override
